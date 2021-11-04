@@ -1,4 +1,4 @@
-# frontend
+# Basegun Vue.js frontend
 
 ## Project setup
 ```

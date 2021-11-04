@@ -3,7 +3,7 @@
 From this folder
 
 ## Install
-1. Activate pour python environment with Python=3.8 (conda or pyenv)
+1. Activate python environment with Python=3.8 (conda or pyenv)
 2. `pip install -r requirements.txt`
 
 ## Run
