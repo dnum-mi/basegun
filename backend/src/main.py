@@ -26,6 +26,6 @@ def image():
 
 @app.post("/imageupload")
 async def imageupload(image: UploadFile = File(...)):
-    # with open(f'{file.filename}', "wb") as buffer:
-    #     shutil.copyfileobj(file.file, buffer)
+    with open(f'{image.filename}', "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
     return {"file_name": image.filename}

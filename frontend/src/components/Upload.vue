@@ -22,15 +22,7 @@
             onUpload() {
                 const fd = new FormData();
                 fd.append('image', this.selectedFile, this.selectedFile.name)
-                axios.post(
-                    '/imageupload',
-                    fd,
-                    // {onUploadProgress: upLoadEvent => {
-                    //     console.log('Upload Progress: ' + (upLoadEvent.loaded / upLoadEvent.total * 100) + '%')
-                    //     }
-                    // },
-                    // { headers: {'Content-Type': 'multipart/form-data'} }
-                )
+                axios.post('/imageupload', fd)
                     .then(res => {
                         console.log(res)
                     })
