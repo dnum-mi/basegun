@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
+from src.model import image_detect, TEMP
 
 app = FastAPI()
 
@@ -16,4 +17,10 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return "Hello, World!"
+    return "Hello, Patate!"
+
+@app.get("/upload")
+def process():
+    input_path = os.path.join(TEMP, "input.jpg")
+    result_path = image_detect(input_path)
+    return result_path
