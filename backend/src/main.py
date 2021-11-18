@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+import shutil, os
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-import os
+from fastapi.responses import FileResponse
 from src.model import image_detect, TEMP
 
 app = FastAPI()
@@ -19,8 +20,12 @@ app.add_middleware(
 def home():
     return "Hello, World!"
 
-@app.get("/upload")
-def process():
-    input_path = os.path.join(TEMP, "input.jpg")
-    result_path = image_detect(input_path)
-    return result_path
+
+@app.post("/upload")
+async def imageupload(image: UploadFile = File(...)):
+    input_path = os.path.join(TEMP, image.filename)
+    with open(f'{input_path}', "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    result_path, label = image_detect(input_path)
+
+    return {"file_name": result_path}

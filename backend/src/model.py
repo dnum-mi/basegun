@@ -56,26 +56,25 @@ def get_box_dimensions(outputs, height, width):
 def draw_labels(boxes, confs, colors, class_ids, classes, img): 
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
     font = cv2.FONT_HERSHEY_PLAIN
-    labels = []
+    label = ""
     for i in range(len(boxes)):
         if i in indexes:
             x, y, w, h = boxes[i]
-            label = str(classes[class_ids[i]])
-            labels.append(label)
+            label += str(classes[class_ids[i]])
             color = colors[i]
             cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
-            cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
+            # cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
     # img=cv2.resize(img, (800,600))
-    return img, labels
+    return img, label
 
-def image_detect(img_path): 
+def image_detect(img_path):
     model, classes, colors, output_layers = load_yolo()
     print(os.path.abspath(img_path))
     image, height, width, channels = load_image(img_path)
     blob, outputs = detect_objects(image, model, output_layers)
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
-    img, labels = draw_labels(boxes, confs, colors, class_ids, classes, image)
+    img, label = draw_labels(boxes, confs, colors, class_ids, classes, image)
 
-    result_path = os.path.join(TEMP, str(uuid4())+".jpg")
+    result_path = os.path.abspath(os.path.join(TEMP , str(uuid4()) + os.path.splitext(img_path)[1]))
     cv2.imwrite(result_path, img)
-    return result_path
+    return result_path, label
