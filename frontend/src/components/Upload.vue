@@ -22,7 +22,7 @@
             onUpload() {
                 const fd = new FormData();
                 fd.append('image', this.selectedFile, this.selectedFile.name)
-                axios.post('/imageupload', fd)
+                axios.post('/upload', fd)
                     .then(res => {
                         console.log(res)
                     })
