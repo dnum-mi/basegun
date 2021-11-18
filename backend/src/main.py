@@ -17,7 +17,7 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return "Hello, Patate!"
+    return "Hello, World!"
 
 @app.get("/upload")
 def process():
