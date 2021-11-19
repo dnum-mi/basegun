@@ -13,8 +13,6 @@ def load_yolo():
     classes = ["poing", "feu", "épaule"]
 
     layers_names = net.getLayerNames()
-    print(net.getLayerNames())
-    print(net.getUnconnectedOutLayers())
     output_layers = [layers_names[i-1] for i in net.getUnconnectedOutLayers()]
     colors = np.random.uniform(0, 255, size=(len(classes), 3))
     return net, classes, colors, output_layers
@@ -69,7 +67,7 @@ def draw_labels(boxes, confs, colors, class_ids, classes, img):
 
 def image_detect(img_path):
     model, classes, colors, output_layers = load_yolo()
-    print(os.path.abspath(img_path))
+    print("Input image: ", os.path.abspath(img_path))
     image, height, width, channels = load_image(img_path)
     blob, outputs = detect_objects(image, model, output_layers)
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)

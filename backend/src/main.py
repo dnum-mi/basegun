@@ -28,4 +28,4 @@ async def imageupload(image: UploadFile = File(...)):
         shutil.copyfileobj(image.file, buffer)
     result_path, label = image_detect(input_path)
 
-    return {"file_name": result_path}
+    return {"file_name": result_path, "label": label}
