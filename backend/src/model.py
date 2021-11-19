@@ -5,6 +5,7 @@ from uuid import uuid4
 import os, glob
 
 TEMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../temp")
+ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/src/assets/temp")
 
 #Load yolo
 def load_yolo():
@@ -73,6 +74,6 @@ def image_detect(img_path):
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
     img, label = draw_labels(boxes, confs, colors, class_ids, classes, image)
 
-    result_path = os.path.abspath(os.path.join(TEMP , str(uuid4()) + os.path.splitext(img_path)[1]))
+    result_path = os.path.abspath(os.path.join(ASSETS , str(uuid4()) + os.path.splitext(img_path)[1]))
     cv2.imwrite(result_path, img)
     return result_path, label

@@ -5,4 +5,4 @@ env/
 .env
 __pycache__
 *.weights
-temp/
+frontend/src/assets/temp

@@ -2,7 +2,7 @@ import shutil, os
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from src.model import image_detect, TEMP
+from src.model import image_detect, ASSETS
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ def home():
 
 @app.post("/upload")
 async def imageupload(image: UploadFile = File(...)):
-    input_path = os.path.join(TEMP, image.filename)
+    input_path = os.path.join(ASSETS, image.filename)
     with open(f'{input_path}', "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
     result_path, label = image_detect(input_path)
