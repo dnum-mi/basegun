@@ -1,10 +1,19 @@
 <template>
     <div>
-        <input type="file" @change="onFileSelected">
-        <button class="btn btn-primary" @click="onUpload">Upload</button>
+        <img src="../assets/basegun.png" alt="">
+        <div class="file-input" v-if="url == null">
+            <h4>Choisir une image :</h4>
+            <input type="file" @change="onFileSelected">
+            <div v-if="selectedFile" class="upload-btn">
+                <button class="btn btn-primary" @click="onUpload">Lancer l'analyse</button>
+            </div>
+        </div>
         <div v-if="url !== null">
-            <p>{{ label }}</p>
+            <p class="result">Type d'arme : {{ label }}</p>
             <img :src="require(`../assets/temp/` + url)" alt="">
+            <div>
+                <button class="btn btn-primary" @click="reloadPage">Recommencer</button>
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +44,18 @@
                         // console.log(this.url)
                     })
             },
+            reloadPage() {
+                window.location.reload();
+            }
         }
     }
 </script>
+
+<style scoped>
+    /* .file-input {
+        margin: 20px auto;
+    } */
+    .upload-btn {
+        margin: 10px 0;
+    }
+</style>
