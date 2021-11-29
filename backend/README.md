@@ -10,7 +10,7 @@ From this folder
 
 ### With Docker
 1. Create variable HTTP_PROXY in your shell for the Ministry proxy
-2. Build image `docker build -t basegun:back --build-arg https_proxy=%HTTP_PROXY% .`
+2. Build image `docker build -t basegun:back .`
 
 
 ## Run
