@@ -1,6 +1,5 @@
 import cv2
 import numpy as np 
-import argparse
 from uuid import uuid4
 import os, glob
 

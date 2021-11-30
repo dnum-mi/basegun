@@ -9,4 +9,4 @@ RUN npm install
 
 COPY public/ public/
 COPY src/ src/
-CMD npm run serve
+CMD ["npm", "run", "serve"]
