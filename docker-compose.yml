@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build: ./backend
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend/src/assets:/app/frontend/src/assets
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+
