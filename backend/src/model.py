@@ -5,7 +5,7 @@ from uuid import uuid4
 import os, glob
 
 TEMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../temp")
-ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/src/assets/temp")
+ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/public/temp/")
 
 #Load yolo
 def load_yolo():

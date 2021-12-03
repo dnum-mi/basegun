@@ -1,8 +1,8 @@
 .DS_Store
 node_modules/
-/dist/
+dist/
 env/
 .env
 __pycache__
 *.weights
-frontend/src/assets/temp
+temp/
