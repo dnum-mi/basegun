@@ -25,7 +25,7 @@ def load_image(img_path):
     height, width, channels = img.shape
     return img, height, width, channels
 
-def detect_objects(img, net, outputLayers):			
+def detect_objects(img, net, outputLayers):
     blob = cv2.dnn.blobFromImage(img, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
     net.setInput(blob)
     outputs = net.forward(outputLayers)
