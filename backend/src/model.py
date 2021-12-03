@@ -4,7 +4,7 @@ from uuid import uuid4
 import os, glob
 
 TEMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../temp")
-ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/src/assets/temp")
+ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/public/temp/")
 
 #Load yolo
 def load_yolo():
@@ -24,7 +24,7 @@ def load_image(img_path):
     height, width, channels = img.shape
     return img, height, width, channels
 
-def detect_objects(img, net, outputLayers):			
+def detect_objects(img, net, outputLayers):
     blob = cv2.dnn.blobFromImage(img, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
     net.setInput(blob)
     outputs = net.forward(outputLayers)
@@ -51,7 +51,7 @@ def get_box_dimensions(outputs, height, width):
                 class_ids.append(class_id)
     return boxes, confs, class_ids
 
-def draw_labels(boxes, confs, colors, class_ids, classes, img): 
+def draw_labels(boxes, confs, colors, class_ids, classes, img):
     indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
     font = cv2.FONT_HERSHEY_PLAIN
     label = ""
