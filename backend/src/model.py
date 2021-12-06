@@ -3,13 +3,21 @@ import numpy as np
 from uuid import uuid4
 import os, glob
 
-TEMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../temp")
-ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/public/temp/")
+if "PATH_IMGS" in os.environ:
+    PATH_IMGS = os.environ["PATH_IMGS"]
+else:
+    PATH_IMGS = os.path.abspath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../../frontend/public/temp"))
+    print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
 
 #Load yolo
 def load_yolo():
     this = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    net = cv2.dnn.readNet(os.path.join(this,"yolov3.weights"), os.path.join(this,"yolov3.cfg"))
+    net = cv2.dnn.readNet(
+        os.path.join(this,"yolov3.weights"),
+        os.path.join(this,"yolov3.cfg")
+    )
     classes = ["poing", "feu", "épaule"]
 
     layers_names = net.getLayerNames()
@@ -73,6 +81,6 @@ def image_detect(img_path):
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
     img, label = draw_labels(boxes, confs, colors, class_ids, classes, image)
 
-    result_path = os.path.abspath(os.path.join(ASSETS , str(uuid4()) + os.path.splitext(img_path)[1]))
+    result_path = os.path.join(PATH_IMGS , str(uuid4()) + os.path.splitext(img_path)[1])
     cv2.imwrite(result_path, img)
     return result_path, label
