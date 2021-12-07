@@ -16,6 +16,7 @@ services:
       - 5000:5000
     volumes:
       - /tmp/basegun:/app/images
+      - $PWD/backend/src:/app/src
 
   frontend:
     image: basegun-front:${TAG}-dev
