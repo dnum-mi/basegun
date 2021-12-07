@@ -19,9 +19,5 @@ services:
       - 8080:8080
     volumes:
       - /tmp/basegun:/app/public/temp
+      - $PWD/frontend/src:/app/src
       - /app/node_modules
-
-  # nginx:
-  #   image: nginx:1.21.4-alpine
-  #   volumes:
-  #     - ./dist:/usr/share/nginx/html
