@@ -10,23 +10,22 @@ From this folder
 
 ### With Docker
 1. Create variable HTTP_PROXY in your shell for the Ministry proxy
-2. Build image `docker build -t basegun:back .`
+2. Build image `docker build -t basegun-back:dev .`
 
 
 ## Run
 
-**NB:** To run properly the code needs the environment variable "PATH_IMGS", which says where the uploaded images will be, to be set.
-When running with Docker you can use whichever folder, but without Docker you need to set to frontend/src/assets/temp.
+**NB:** To run properly the code needs the environment variable "PATH_IMGS" which decides where the uploaded images will be.
+If not specified it will be set to frontend/src/assets/temp.
 It must be an **absolute** path.
 
 ### Without Docker
 ```bash
-export PATH_IMGS=$PWD/../frontend/src/assets/temp
 uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
 ```
 
 ### With Docker
 ```bash
-docker run --rm -d -p 5000:5000 basegun:back -e PATH_IMGS=/tmp/basegun/
+docker run --rm -d -p 5000:5000 basegun-back:dev -e PATH_IMGS=/tmp/basegun/
 ```
 

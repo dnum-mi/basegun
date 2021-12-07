@@ -14,7 +14,7 @@ npm run lint
 ```
 ### With Docker
 ```bash
-docker build -t basegun:front .
+docker build --target dev -t basegun-front:dev .
 ```
 If you are in a network blocked with proxy, remember to add arg `--build-arg https_proxy=http://username:passwd@proxy-ip:port`
 
@@ -27,7 +27,7 @@ npm run serve
 
 ### With Docker
 ```bash
-docker run --rm -p 8080:8080 -d basegun:front
+docker run --rm -p 8080:8080 -d basegun-front:dev
 ```
 
 

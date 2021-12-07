@@ -67,14 +67,14 @@ def draw_labels(boxes, confs, colors, class_ids, classes, img):
         if i in indexes:
             x, y, w, h = boxes[i]
             label += str(classes[class_ids[i]])
-            color = colors[i]
+            color = colors[class_ids[i]]
             cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
             # cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
     # img=cv2.resize(img, (800,600))
     return img, label
 
+model, classes, colors, output_layers = load_yolo()
 def image_detect(img_path):
-    model, classes, colors, output_layers = load_yolo()
     print("Input image: ", os.path.abspath(img_path))
     image, height, width, channels = load_image(img_path)
     blob, outputs = detect_objects(image, model, output_layers)

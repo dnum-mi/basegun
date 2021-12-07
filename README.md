@@ -6,17 +6,26 @@ Inspirations:
 
 License from https://github.com/etalab/code.etalab.gouv.fr/blob/master/LICENSE
 
-### Build environment
+### Install
+Install make on your environment then
 ```bash
-docker-compose -f docker-compose-dev.yml build
+# install in dev mode
+make build-dev
+
+# install for prod
+make build-prod
 ```
-NB: in an environment with proxy, add at the end `--build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_proxy`
 
-### Run
+### Launch the website
 ```bash
-# start
-docker-compose -f docker-compose-dev.yml up -d
+# run in dev mode
+make up-dev
 
-# stop server
-docker-compose -f docker-compose-dev.yml down
+# run in prod
+make up-prod
+
+# stop in dev
+make down-dev
+# stop in prod
+make down-prod
 ```

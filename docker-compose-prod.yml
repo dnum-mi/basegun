@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   backend:
-    image: basegun-back:${TAG}-dev
+    image: basegun-back:${TAG}-prod
     build:
       context: ./backend
       args:
@@ -18,17 +18,15 @@ services:
       - /tmp/basegun:/app/images
 
   frontend:
-    image: basegun-front:${TAG}-dev
+    image: basegun-front:${TAG}-prod
     build:
       context: ./frontend
-      target: dev
+      target: prod
       args:
         - http_proxy
         - https_proxy
         - no_proxy
     ports:
-      - 8080:8080
+      - 8080:80
     volumes:
-      - /tmp/basegun:/app/public/temp
-      - $PWD/frontend/src:/app/src
-      - /app/node_modules
+      - /tmp/basegun:/usr/share/nginx/html/temp
