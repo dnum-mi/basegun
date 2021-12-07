@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build: ./backend
+    environment:
+      - PATH_IMGS=/app/images
+    ports:
+      - 5000:5000
+    volumes:
+      - /tmp/basegun:/app/images
+
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    ports:
+      - 8080:8080
+    volumes:
+      - /tmp/basegun:/app/public/temp
+      - /app/node_modules
+
+  # nginx:
+  #   image: nginx:1.21.4-alpine
+  #   volumes:
+  #     - ./dist:/usr/share/nginx/html

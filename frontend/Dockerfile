@@ -1,12 +1,28 @@
-FROM node:lts-alpine3.12
+FROM node:15.14.0-alpine3.12 as base
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+# downgrade npm version to avoid chokidar error
+RUN npm install -g npm@7.5.4
 
-COPY package.json .
-RUN npm install
+COPY ./package.json ./package-lock.json ./
 
-COPY public/ public/
-COPY src/ src/
+RUN npm ci
+
+COPY babel.config.js ./
+COPY src ./src
+COPY public ./public
+
+FROM base as dev
+
 CMD ["npm", "run", "serve"]
+
+FROM base as build
+
+# RUN npm ci --production
+
+RUN npm run build
+
+FROM nginx:1.21.4-alpine as prod
+
+COPY --from=build /app/dist /usr/share/nginx/html/
