@@ -6,10 +6,17 @@ from src.model import image_detect, PATH_IMGS
 
 app = FastAPI()
 
+origins = [
+    "http://basegun.fr",
+    "https://basegun.fr",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
 # allow requests from front-end
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost","http://localhost:8080"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -20,13 +20,13 @@ services:
   frontend:
     image: basegun-front:${TAG}-prod
     build:
-      context: ./frontend
-      target: prod
       args:
         - http_proxy
         - https_proxy
         - no_proxy
+      context: ./frontend
+      target: prod
     ports:
-      - 8080:80
+      - 80:80
     volumes:
       - /tmp/basegun:/usr/share/nginx/html/temp

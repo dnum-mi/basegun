@@ -21,12 +21,12 @@ services:
   frontend:
     image: basegun-front:${TAG}-dev
     build:
-      context: ./frontend
-      target: dev
       args:
         - http_proxy
         - https_proxy
         - no_proxy
+      context: ./frontend
+      target: dev
     ports:
       - 8080:8080
     volumes:

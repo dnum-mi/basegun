@@ -44,6 +44,7 @@
                         this.imgName = res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                         // console.log(process.env.BASE_URL + "temp/" + this.imgName)
                     })
+                    .catch((err) => console.log(err));
             },
             reloadPage() {
                 window.location.reload();
