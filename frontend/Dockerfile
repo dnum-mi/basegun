@@ -25,4 +25,6 @@ RUN npm run build
 
 FROM nginx:1.21.4-alpine as prod
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 COPY --from=build /app/dist /usr/share/nginx/html/

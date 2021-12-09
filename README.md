@@ -1,8 +1,8 @@
 # Basegun
 
 Inspirations:
-- https://github.com/testdrivenio/flask-vue-crud
 - https://testdriven.io/blog/developing-a-single-page-app-with-fastapi-and-vuejs/
+- https://medium.com/bb-tutorials-and-thoughts/how-to-serve-vue-js-application-with-nginx-and-docker-d8a872a02ea8
 
 License from https://github.com/etalab/code.etalab.gouv.fr/blob/master/LICENSE
 
