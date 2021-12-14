@@ -9,9 +9,9 @@ COPY ./package.json ./package-lock.json ./
 
 RUN npm ci
 
-COPY babel.config.js ./
 COPY src ./src
 COPY public ./public
+COPY vue.config.js babel.config.js ./
 
 FROM base as dev
 

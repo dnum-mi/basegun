@@ -13,7 +13,7 @@ ifeq ("$(wildcard ${DC})","")
 	@echo "docker-compose not found" ; exit 1
 endif
 
-check-dc-config-%: check-prerequisites ## Check development docker-compose syntax
+check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
 build-%: check-dc-config-%

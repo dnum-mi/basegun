@@ -26,9 +26,11 @@ def load_yolo():
     return net, classes, colors, output_layers
 
 def load_image(img_path):
-    # image loading
     img = cv2.imread(img_path)
-    # img = cv2.resize(img, None, fx=0.4, fy=0.4)
+    # resize if image too large
+    largest_dim = max(img.shape[0], img.shape[1])
+    if largest_dim > 720:
+        img = cv2.resize(img, None, fx=720/largest_dim, fy=720/largest_dim)
     height, width, channels = img.shape
     return img, height, width, channels
 
