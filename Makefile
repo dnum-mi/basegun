@@ -19,6 +19,9 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 build-%: check-dc-config-%
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
+up-preprod: check-dc-config-prod
+	PORT_PROD=8080 TAG=${TAG} ${DC} -f docker-compose-prod.yml up -d
+
 up-%: check-dc-config-%
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 

@@ -30,7 +30,6 @@ def home():
 
 @app.post("/upload")
 async def imageupload(image: UploadFile = File(...)):
-    print("Reveived process request from frontend.")
     input_path = os.path.join(PATH_IMGS, image.filename)
     with open(f'{input_path}', "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)

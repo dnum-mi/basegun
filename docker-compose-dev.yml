@@ -5,11 +5,11 @@ services:
   backend:
     image: basegun-back:${TAG}-dev
     build:
-      context: ./backend
       args:
         - http_proxy
         - https_proxy
         - no_proxy
+      context: ./backend
     environment:
       - PATH_IMGS=/app/images
     ports:

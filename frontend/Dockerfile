@@ -20,7 +20,6 @@ CMD ["npm", "run", "serve"]
 FROM base as build
 
 # RUN npm ci --production
-
 RUN npm run build
 
 FROM nginx:1.21.4-alpine as prod
