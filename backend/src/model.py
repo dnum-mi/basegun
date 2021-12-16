@@ -1,16 +1,23 @@
 import cv2
 import numpy as np 
-import argparse
 from uuid import uuid4
 import os, glob
 
-TEMP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../temp")
-ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../frontend/public/temp/")
+if "PATH_IMGS" in os.environ:
+    PATH_IMGS = os.environ["PATH_IMGS"]
+else:
+    PATH_IMGS = os.path.abspath(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../../frontend/public/temp"))
+    print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
 
 #Load yolo
 def load_yolo():
     this = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    net = cv2.dnn.readNet(os.path.join(this,"yolov3.weights"), os.path.join(this,"yolov3.cfg"))
+    net = cv2.dnn.readNet(
+        os.path.join(this,"yolov3.weights"),
+        os.path.join(this,"yolov3.cfg")
+    )
     classes = ["poing", "feu", "épaule"]
 
     layers_names = net.getLayerNames()
@@ -19,9 +26,11 @@ def load_yolo():
     return net, classes, colors, output_layers
 
 def load_image(img_path):
-    # image loading
     img = cv2.imread(img_path)
-    # img = cv2.resize(img, None, fx=0.4, fy=0.4)
+    # resize if image too large
+    largest_dim = max(img.shape[0], img.shape[1])
+    if largest_dim > 720:
+        img = cv2.resize(img, None, fx=720/largest_dim, fy=720/largest_dim)
     height, width, channels = img.shape
     return img, height, width, channels
 
@@ -60,20 +69,20 @@ def draw_labels(boxes, confs, colors, class_ids, classes, img):
         if i in indexes:
             x, y, w, h = boxes[i]
             label += str(classes[class_ids[i]])
-            color = colors[i]
+            color = colors[class_ids[i]]
             cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
             # cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
     # img=cv2.resize(img, (800,600))
     return img, label
 
+model, classes, colors, output_layers = load_yolo()
 def image_detect(img_path):
-    model, classes, colors, output_layers = load_yolo()
     print("Input image: ", os.path.abspath(img_path))
     image, height, width, channels = load_image(img_path)
     blob, outputs = detect_objects(image, model, output_layers)
     boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
     img, label = draw_labels(boxes, confs, colors, class_ids, classes, image)
 
-    result_path = os.path.abspath(os.path.join(ASSETS , str(uuid4()) + os.path.splitext(img_path)[1]))
+    result_path = os.path.join(PATH_IMGS , str(uuid4()) + os.path.splitext(img_path)[1])
     cv2.imwrite(result_path, img)
     return result_path, label

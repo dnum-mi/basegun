@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  backend:
+    image: basegun-back:${TAG}-dev
+    build:
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+      context: ./backend
+    environment:
+      - PATH_IMGS=/app/images
+    ports:
+      - 5000:5000
+    volumes:
+      - /tmp/basegun:/app/images
+      - $PWD/backend/src:/app/src
+
+  frontend:
+    image: basegun-front:${TAG}-dev
+    build:
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+      context: ./frontend
+      target: dev
+    ports:
+      - 8080:8080
+    volumes:
+      - /tmp/basegun:/app/public/temp
+      - $PWD/frontend/src:/app/src
+      - /app/node_modules

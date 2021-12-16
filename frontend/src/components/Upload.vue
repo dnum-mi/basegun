@@ -7,6 +7,9 @@
             <div v-if="selectedFile" class="btn-margin">
                 <button class="btn btn-primary" @click="onUpload">Lancer l'analyse</button>
             </div>
+            <div v-if="startUpload">
+                <p>Analyse...</p>
+            </div>
         </div>
         <div class="result" v-else>
             <p class="result-text">Type d'arme : {{ label }}</p>
@@ -26,6 +29,7 @@
         data () {
             return {
                 selectedFile: null,
+                startUpload: null,
                 label: null,
                 imgName: null,
                 baseUrl: process.env.BASE_URL
@@ -37,13 +41,17 @@
             },
             onUpload() {
                 const fd = new FormData();
-                fd.append('image', this.selectedFile, this.selectedFile.name)
+                fd.append('image', this.selectedFile, this.selectedFile.name);
+                this.startUpload=true;
+                this.selectedFile = null;
+
                 axios.post('/upload', fd)
                     .then(res => {
                         this.label = res.data.label
                         this.imgName = res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                         // console.log(process.env.BASE_URL + "temp/" + this.imgName)
                     })
+                    .catch((err) => console.log(err));
             },
             reloadPage() {
                 window.location.reload();

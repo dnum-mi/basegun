@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build:
+      context: ./backend
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    container_name: basegun-back
+    environment:
+      - PATH_IMGS=/app/images
+    image: basegun-back:${TAG}-prod
+    ports:
+      - 5000:5000
+    volumes:
+      - /tmp/basegun:/app/images
+
+  frontend:
+    build:
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+      context: ./frontend
+      target: prod
+    container_name: basegun-front
+    image: basegun-front:${TAG}-prod
+    ports:
+      - ${PORT_PROD:-80}:80
+    volumes:
+      - /tmp/basegun:/usr/share/nginx/html/temp
