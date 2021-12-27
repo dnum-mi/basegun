@@ -7,7 +7,13 @@ import router from './router';
 
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:5000/';  // the FastAPI backend
+
+// the FastAPI backend
+if (process.env.NODE_ENV == 'production') {
+  axios.defaults.baseURL = '/api/';
+} else {
+  axios.defaults.baseURL = 'http://localhost:5000/';
+}
 
 Vue.config.productionTip = false;
 

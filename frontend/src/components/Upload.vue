@@ -1,16 +1,19 @@
 <template>
     <div>
         <img src="../assets/basegun.png" alt="">
-        <div class="file-input" v-if="url == null">
+        <div class="file-input" v-if="imgName == null">
             <h4>Choisir une image :</h4>
             <input type="file" @change="onFileSelected">
             <div v-if="selectedFile" class="btn-margin">
                 <button class="btn btn-primary" @click="onUpload">Lancer l'analyse</button>
             </div>
+            <div v-if="startUpload">
+                <p>Analyse...</p>
+            </div>
         </div>
-        <div class="result" v-if="url !== null">
+        <div class="result" v-else>
             <p class="result-text">Type d'arme : {{ label }}</p>
-            <img class="result-img img-fluid" :src="require(`../assets/temp/` + url)" alt="">
+            <img class="result-img img-fluid" :src="baseUrl + 'temp/' + imgName" alt="">
             <div>
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
@@ -26,8 +29,10 @@
         data () {
             return {
                 selectedFile: null,
+                startUpload: null,
                 label: null,
-                url: null
+                imgName: null,
+                baseUrl: process.env.BASE_URL
             }
         },
         methods: {
@@ -36,13 +41,17 @@
             },
             onUpload() {
                 const fd = new FormData();
-                fd.append('image', this.selectedFile, this.selectedFile.name)
+                fd.append('image', this.selectedFile, this.selectedFile.name);
+                this.startUpload=true;
+                this.selectedFile = null;
+
                 axios.post('/upload', fd)
                     .then(res => {
                         this.label = res.data.label
-                        this.url = res.data.file_name.slice(-40)
-                        // console.log(this.url)
+                        this.imgName = res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
+                        // console.log(process.env.BASE_URL + "temp/" + this.imgName)
                     })
+                    .catch((err) => console.log(err));
             },
             reloadPage() {
                 window.location.reload();
