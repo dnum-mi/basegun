@@ -7,11 +7,11 @@ module.exports = {
     },
 
     pwa: {
-        workboxPluginMode: 'InjectManifest',
-        workboxOptions: {
-            // swSrc is required in InjectManifest mode.
-            swSrc: 'dev/sw.js'
-         },
+        // workboxPluginMode: 'InjectManifest',
+        // workboxOptions: {
+        //     // swSrc is required in InjectManifest mode.
+        //     swSrc: 'dev/sw.js'
+        //  },
     }
     
 };
