@@ -1,0 +1,29 @@
+name: Push Docker image to GitHub container
+on:
+  # push:
+  #   branches: [ main ]
+  release:
+    types: [edited, released]
+jobs:
+  push_to_registry:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: TAG=action docker-compose -f docker-compose-prod.yml build
+    - name: Login to GHCR
+        if: success()
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push on GHCR
+      if: success()
+      # ( success() && github.ref == 'refs/heads/main' ) )
+      run: |
+        docker tag basegun-front:action-prod ghcr.io/datalab-mi/basegun/basegun-frontend:latest
+        docker tag basegun-back:action-prod ghcr.io/datalab-mi/basegun/basegun-backend:latest
+        docker push ghcr.io/datalab-mi/basegun/basegun-frontend:latest
+        docker push ghcr.io/datalab-mi/basegun/basegun-backend:latest
