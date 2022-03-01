@@ -9,6 +9,8 @@ autolabeler:
   - label: 'bug'
     branch:
       - '/fix\/.+'
+      - '/hotfix\/.+'
+      - '/bug\/.+'
   - label: 'feature'
     branch:
       - '/feature\/.+/'
