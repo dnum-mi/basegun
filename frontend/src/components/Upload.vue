@@ -32,7 +32,7 @@
                 startUpload: null,
                 label: null,
                 imgName: null,
-                baseUrl: process.env.BASE_URL
+                baseUrl: import.meta.env.BASE_URL
             }
         },
         methods: {
