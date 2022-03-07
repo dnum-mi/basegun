@@ -5,6 +5,9 @@ import App from './App.vue';
 import router from './router';
 import './registerServiceWorker.js'
 
+import VueDsfr from '@laruiss/vue-dsfr'
+import '@laruiss/vue-dsfr/dist/vue-dsfr.css'
+import '@laruiss/vue-dsfr/dist/vue-dsfr-fonts.css'
 
 axios.defaults.withCredentials = true;
 
@@ -16,4 +19,4 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 const app = createApp(App)
-app.use(router).mount('#app')
+app.use(router).use(VueDsfr).mount('#app')

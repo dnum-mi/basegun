@@ -18,6 +18,15 @@
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
         </div>
+        <DsfrButton
+            :label="label"
+            :disabled="disabled"
+            :secondary="secondary"
+            :icon="icon"
+            :icon-only="iconOnly"
+            :icon-right="iconRight"
+            @click="onClick"
+        />
     </div>
 </template>
 
