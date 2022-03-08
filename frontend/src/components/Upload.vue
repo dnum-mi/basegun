@@ -18,6 +18,15 @@
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
         </div>
+        <DsfrButton
+            :label="label"
+            :disabled="disabled"
+            :secondary="secondary"
+            :icon="icon"
+            :icon-only="iconOnly"
+            :icon-right="iconRight"
+            @click="onClick"
+        />
     </div>
 </template>
 
@@ -32,7 +41,7 @@
                 startUpload: null,
                 label: null,
                 imgName: null,
-                baseUrl: process.env.BASE_URL
+                baseUrl: import.meta.env.BASE_URL
             }
         },
         methods: {

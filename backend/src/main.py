@@ -11,6 +11,7 @@ origins = [
     "https://basegun.fr",
     "http://localhost",
     "http://localhost:8080",
+    "http://localhost:3000"
 ]
 
 # allow requests from front-end

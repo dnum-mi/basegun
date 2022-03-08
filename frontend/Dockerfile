@@ -11,11 +11,11 @@ RUN npm ci
 
 COPY src ./src
 COPY public ./public
-COPY vue.config.js babel.config.js ./
+COPY vite.config.js vue.config.js index.html ./
 
 FROM base as dev
 
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "dev"]
 
 FROM base as build
 
