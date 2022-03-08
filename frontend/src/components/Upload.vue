@@ -32,7 +32,7 @@
                 startUpload: null,
                 label: null,
                 imgName: null,
-                baseUrl: process.env.BASE_URL
+                baseUrl: import.meta.BASE_URL
             }
         },
         methods: {
@@ -49,7 +49,7 @@
                     .then(res => {
                         this.label = res.data.label
                         this.imgName = res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
-                        // console.log(process.env.BASE_URL + "temp/" + this.imgName)
+                        // console.log(import.meta.BASE_URL + "temp/" + this.imgName)
                     })
                     .catch((err) => console.log(err));
             },

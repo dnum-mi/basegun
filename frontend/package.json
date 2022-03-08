@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "vite",
     "serve": "vue-cli-service serve --public 127.0.0.1",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -19,6 +20,7 @@
     "vuex-persistedstate": "^4.0.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-pwa": "^4.5.15",
@@ -27,7 +29,8 @@
     "@vue/compiler-sfc": "^3.1.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2"
+    "eslint-plugin-vue": "^6.2.2",
+    "vite": "^2.8.6"
   },
   "eslintConfig": {
     "root": true,

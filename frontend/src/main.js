@@ -9,7 +9,7 @@ import './registerServiceWorker.js'
 axios.defaults.withCredentials = true;
 
 // the FastAPI backend
-if (process.env.NODE_ENV == 'production') {
+if (import.meta.env.PROD) {
   axios.defaults.baseURL = '/api/';
 } else {
   axios.defaults.baseURL = 'http://localhost:5000/';
