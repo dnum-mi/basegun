@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 categories:
   - title: '🚀 Features'
     labels:
@@ -22,26 +21,3 @@ template: |
   ## Changes
 
   $CHANGES
-=======
-categories:
-  - title: '🚀 Features'
-    labels:
-      - 'feature'
-      - 'enhancement'
-  - title: '🐛 Bug Fixes'
-    labels:
-      - 'bug'
-autolabeler:
-  - label: 'bug'
-    branch:
-      - '/fix\/.+'
-  - label: 'feature'
-    branch:
-      - '/feature\/.+/'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
-change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-template: |
-  ## Changes
-
-  $CHANGES
->>>>>>> develop
