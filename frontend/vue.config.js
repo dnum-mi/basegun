@@ -1,4 +1,21 @@
 module.exports = {
+    chainWebpack: (config) => {
+        config.resolve.alias.set('vue', '@vue/compat')
+
+        config.module
+          .rule('vue')
+          .use('vue-loader')
+          .tap((options) => {
+            return {
+              ...options,
+              compilerOptions: {
+                compatConfig: {
+                  MODE: 2
+                }
+              }
+            }
+          })
+    },
 
     devServer: {
         watchOptions: {
@@ -7,11 +24,6 @@ module.exports = {
     },
 
     pwa: {
-        // workboxPluginMode: 'InjectManifest',
-        // workboxOptions: {
-        //     // swSrc is required in InjectManifest mode.
-        //     swSrc: 'dev/sw.js'
-        //  },
     }
     
 };
