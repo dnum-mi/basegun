@@ -28,7 +28,7 @@ services:
       context: ./frontend
       target: dev
     ports:
-      - 8080:8080
+      - 8080:3000
     volumes:
       - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src
