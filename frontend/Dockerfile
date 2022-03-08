@@ -11,7 +11,7 @@ RUN npm ci
 
 COPY src ./src
 COPY public ./public
-COPY vite.config.js vue.config.js ./
+COPY vite.config.js vue.config.js index.html ./
 
 FROM base as dev
 
