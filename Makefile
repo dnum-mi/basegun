@@ -27,3 +27,17 @@ up-%: check-dc-config-%
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
+
+show-current-tag:
+	@while [ -z "$$CONTINUE" ]; do \
+		read -r -p "Current tag is v${TAG}. Continue? [y/N]: " CONTINUE; \
+	done ; \
+	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
+
+tag: show-current-tag
+	git tag -a v${TAG}
+	git push origin v${TAG}
+
+untag: show-current-tag
+	git tag -d v${TAG}
+	git push --delete v${TAG}
