@@ -1,7 +1,53 @@
 <template>
     <div>
-        <img src="../assets/basegun.png" alt="">
         <div class="file-input" v-if="imgName == null">
+            <header role="banner" class="fr-header">
+                <div class="fr-header__body">
+                    <div class="fr-container">
+                        <div class="fr-header__body-row">
+                            <div class="fr-header__brand fr-enlarge-link">
+                                <div class="fr-header__brand-top">
+                                    <div class="fr-header__logo">
+                                        <p class="fr-logo">
+                                            Ministère
+                                            <br>de l'Intérieur
+                                        </p>
+                                    </div>
+                                    <div class="fr-header__navbar">
+                                        <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-833" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
+                                            Menu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fr-header__tools">
+                                <div class="fr-header__tools-links">
+                                    <ul class="fr-links-group">
+                                        <li>
+                                            <a class="fr-link fr-fi-information-line" href="/informations">Informations</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation principale -->
+                <div class="fr-header__menu fr-modal d-lg-none" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
+                    <div class="fr-container">
+                        <button class="fr-link--close fr-link" aria-controls="modal-833">Fermer</button>
+                        <div class="fr-header__menu-links"></div>
+                        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+                            <ul class="fr-nav__list">
+                                <li class="fr-nav__item">
+                                    <a class="fr-nav__link" href="/informations" target="_self">Infomations</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <img src="../assets/basegun.png" alt="">
             <h4>Choisir une image :</h4>
             <input type="file" @change="onFileSelected">
             <div v-if="selectedFile" class="btn-margin">
