@@ -6,3 +6,4 @@ env/
 __pycache__
 *.weights
 temp/
+openrc.sh

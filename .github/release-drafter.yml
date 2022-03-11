@@ -2,7 +2,6 @@ categories:
   - title: '🚀 Features'
     labels:
       - 'feature'
-      - 'enhancement'
   - title: '🐛 Bug Fixes'
     labels:
       - 'bug'
@@ -10,9 +9,12 @@ autolabeler:
   - label: 'bug'
     branch:
       - '/fix\/.+'
+      - '/hotfix\/.+'
+      - '/bug\/.+'
   - label: 'feature'
     branch:
       - '/feature\/.+/'
+      - '/feat\/.+/'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 template: |
