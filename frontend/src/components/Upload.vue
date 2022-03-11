@@ -73,6 +73,9 @@
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
         </div>
+        <div class="warning-bottom">
+            Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+        </div>
     </div>
 </template>
 
@@ -145,5 +148,15 @@
     }
     .accueil-subtitle {
         font-size: 14px;
+    }
+    .warning-bottom {
+        position: fixed;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        padding: 20px 10px;
+        text-align: center;
+        background-color: #f5f5fe;
+        width: 100%;
     }
 </style>
