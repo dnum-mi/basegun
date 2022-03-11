@@ -47,14 +47,23 @@
                     </div>
                 </div>
             </header>
-            <img src="../assets/basegun.png" alt="">
-            <h4>Choisir une image :</h4>
-            <input type="file" @change="onFileSelected">
-            <div v-if="selectedFile" class="btn-margin">
-                <button class="btn btn-primary" @click="onUpload">Lancer l'analyse</button>
-            </div>
-            <div v-if="startUpload">
-                <p>Analyse...</p>
+            <div class="centered text-center">
+                <img src="../assets/basegun.png" alt="">
+                <h1 class="accueil-title">Basegun</h1>
+                <p class="accueil-subtitle">Identification automatique des armes à feu</p>
+                <input 
+                    style="display: none"
+                    type="file"
+                    @change="onFileSelected"
+                    ref="fileInput"
+                >
+                <DsfrButton
+                    :label="labelButton"
+                    @click="$refs.fileInput.click()"
+                />
+                <div v-if="startUpload">
+                    <p>Analyse...</p>
+                </div>
             </div>
         </div>
         <div class="result" v-else>
@@ -64,15 +73,6 @@
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
         </div>
-        <DsfrButton
-            :label="label"
-            :disabled="disabled"
-            :secondary="secondary"
-            :icon="icon"
-            :icon-only="iconOnly"
-            :icon-right="iconRight"
-            @click="onClick"
-        />
     </div>
 </template>
 
@@ -87,12 +87,14 @@
                 startUpload: null,
                 label: null,
                 imgName: null,
-                baseUrl: import.meta.env.BASE_URL
+                baseUrl: import.meta.env.BASE_URL,
+                labelButton: "Démarrer"
             }
         },
         methods: {
             onFileSelected(event) {
-                this.selectedFile = event.target.files[0]
+                this.selectedFile = event.target.files[0];
+                this.onUpload()
             },
             onUpload() {
                 const fd = new FormData();
@@ -129,7 +131,19 @@
         font-size: 24px;
         font-weight: bold;
     }
-    /* .result-img {
-        max-width: 1000px;
-    } */
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%
+    }
+    .accueil-title {
+        font-size: 28px;
+        margin-top: -20px;
+        margin-bottom: 0;
+    }
+    .accueil-subtitle {
+        font-size: 14px;
+    }
 </style>
