@@ -1,14 +1,69 @@
 <template>
     <div>
-        <img src="../assets/basegun.png" alt="">
         <div class="file-input" v-if="imgName == null">
-            <h4>Choisir une image :</h4>
-            <input type="file" @change="onFileSelected">
-            <div v-if="selectedFile" class="btn-margin">
-                <button class="btn btn-primary" @click="onUpload">Lancer l'analyse</button>
-            </div>
-            <div v-if="startUpload">
-                <p>Analyse...</p>
+            <header role="banner" class="fr-header">
+                <div class="fr-header__body">
+                    <div class="fr-container">
+                        <div class="fr-header__body-row">
+                            <div class="fr-header__brand fr-enlarge-link">
+                                <div class="fr-header__brand-top">
+                                    <div class="fr-header__logo">
+                                        <p class="fr-logo">
+                                            Ministère
+                                            <br>de l'Intérieur
+                                        </p>
+                                    </div>
+                                    <div class="fr-header__navbar">
+                                        <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-833" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
+                                            Menu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fr-header__tools">
+                                <div class="fr-header__tools-links">
+                                    <ul class="fr-links-group">
+                                        <li>
+                                            <a class="fr-link fr-fi-information-line" href="/informations">Informations</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation principale -->
+                <div class="fr-header__menu fr-modal d-lg-none" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
+                    <div class="fr-container">
+                        <button class="fr-link--close fr-link" aria-controls="modal-833">Fermer</button>
+                        <div class="fr-header__menu-links"></div>
+                        <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+                            <ul class="fr-nav__list">
+                                <li class="fr-nav__item">
+                                    <a class="fr-nav__link" href="/informations" target="_self">Infomations</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <div class="centered text-center">
+                <img src="../assets/basegun.png" alt="">
+                <h1 class="accueil-title">Basegun</h1>
+                <p class="accueil-subtitle">Identification automatique des armes à feu</p>
+                <input 
+                    style="display: none"
+                    type="file"
+                    @change="onFileSelected"
+                    ref="fileInput"
+                >
+                <DsfrButton
+                    :label="labelButton"
+                    @click="$refs.fileInput.click()"
+                />
+                <div v-if="startUpload">
+                    <p>Analyse...</p>
+                </div>
             </div>
         </div>
         <div class="result" v-else>
@@ -18,15 +73,9 @@
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
         </div>
-        <DsfrButton
-            :label="label"
-            :disabled="disabled"
-            :secondary="secondary"
-            :icon="icon"
-            :icon-only="iconOnly"
-            :icon-right="iconRight"
-            @click="onClick"
-        />
+        <div class="warning-bottom">
+            Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+        </div>
     </div>
 </template>
 
@@ -41,12 +90,14 @@
                 startUpload: null,
                 label: null,
                 imgName: null,
-                baseUrl: import.meta.env.BASE_URL
+                baseUrl: import.meta.env.BASE_URL,
+                labelButton: "Démarrer"
             }
         },
         methods: {
             onFileSelected(event) {
-                this.selectedFile = event.target.files[0]
+                this.selectedFile = event.target.files[0];
+                this.onUpload()
             },
             onUpload() {
                 const fd = new FormData();
@@ -83,7 +134,29 @@
         font-size: 24px;
         font-weight: bold;
     }
-    /* .result-img {
-        max-width: 1000px;
-    } */
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%
+    }
+    .accueil-title {
+        font-size: 28px;
+        margin-top: -20px;
+        margin-bottom: 0;
+    }
+    .accueil-subtitle {
+        font-size: 14px;
+    }
+    .warning-bottom {
+        position: fixed;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        padding: 20px 10px;
+        text-align: center;
+        background-color: #f5f5fe;
+        width: 100%;
+    }
 </style>
