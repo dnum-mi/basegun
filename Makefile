@@ -1,7 +1,7 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 0.3
+TAG		:= 0.4
 
 export
 
