@@ -33,8 +33,10 @@ make down-dev
 # stop in prod
 make down-prod
 ```
+If you have an error "Model missing" when uploading a photo, please refer to [backend README](https://github.com/datalab-mi/Basegun/blob/main/backend/README.md).
 
 # Release an official version of code
 1. Update tag in Makefile
 2. `make tag`
 This will create a draft release in github (to validate) and some docker image packages with this tag.
+> If you made a tagging error, run `make untag`. This will delete the tag locally and in the remote.

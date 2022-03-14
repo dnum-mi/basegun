@@ -17,6 +17,7 @@ services:
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
+      - $PWD/backend/src/weights
 
   frontend:
     image: basegun-front:${TAG}-dev

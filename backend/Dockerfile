@@ -6,7 +6,7 @@ RUN apt update && apt install -y libgl1-mesa-glx libglib2.0-0
 
 # install python libraries
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html
 
 # launch website
 COPY src/ src/
