@@ -81,8 +81,16 @@
                 <p class="fr-callout__title">Type d'arme :</p>
                 <p class="fr-callout__text">{{ label }}</p>
             </div>
-            <div>
-                <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
+            <div class="blank"></div>
+            <div class="footer-background footer-actions">
+                <div class="action-group" @click="reloadPage">
+                    <span class="fr-fi-refresh-line" aria-hidden="true"></span>
+                    <p class="action-group-text">RECOMMENCER</p>
+                </div>
+                <div class="action-group">
+                    <span class="fr-fi-information-line" aria-hidden="true"></span>
+                    <p class="action-group-text">A PROPOS</p>
+                </div>
             </div>
         </div>
     </div>
@@ -150,12 +158,6 @@
     .result-image {
         text-align: center;
     }
-    .result-text {
-        background-color: #ececfe;
-        padding: 20px 0;
-        font-size: 24px;
-        font-weight: bold;
-    }
     .centered {
         position: fixed;
         top: 50%;
@@ -193,6 +195,24 @@
         align-items: center;
     }
     .custom-callout {
-        margin: 15px;
+        margin: 12px;
+    }
+    .footer-actions {
+        display: flex;
+        justify-content: space-around;
+        color: #000091
+    }
+    .action-group {
+        text-align: center;
+        cursor: pointer;
+        margin: 8px 0
+    }
+    .action-group-text {
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0
+    }
+    .blank {
+        height: 80px
     }
 </style>
