@@ -65,16 +65,25 @@
                     <p>Analyse...</p>
                 </div>
             </div>
+            <div class="footer-background footer-text">
+                Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+            </div>
         </div>
         <div class="result" v-else>
-            <p class="result-text">{{ resultText }}</p>
-            <img class="result-img img-fluid" :src="imgName" alt="Image téléversée">
+            <div class="result-image">
+                <img class="img-fluid" :src="imgName" alt="Image téléversée">
+            </div>
+            <div class="fr-callout custom-callout">
+                <div class="callout-head">
+                    <span class="fr-icon-success-line"></span>
+                    <p class="fr-tag fr-tag--sm custom-tag">Indice de fiabilité : {{ Math.floor(confidence) }}%</p>
+                </div>
+                <p class="fr-callout__title">Type d'arme :</p>
+                <p class="fr-callout__text">{{ label }}</p>
+            </div>
             <div>
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
-        </div>
-        <div class="warning-bottom">
-            Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
         </div>
     </div>
 </template>
@@ -91,7 +100,9 @@
                 resultText: null,
                 imgName: null,
                 baseUrl: import.meta.env.BASE_URL,
-                labelButton: "Démarrer"
+                labelButton: "Démarrer",
+                label: null,
+                confidence: null
             }
         },
         methods: {
@@ -107,6 +118,8 @@
 
                 axios.post('/upload', fd)
                     .then(res => {
+                        this.label = res.data.label
+                        this.confidence = res.data.confidence
                         this.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
                         this.imgName = import.meta.env.BASE_URL + "temp/" +
                             res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
@@ -134,6 +147,9 @@
         margin: 0 auto;
         max-width: 1000px;
     }
+    .result-image {
+        text-align: center;
+    }
     .result-text {
         background-color: #ececfe;
         padding: 20px 0;
@@ -155,14 +171,28 @@
     .accueil-subtitle {
         font-size: 14px;
     }
-    .warning-bottom {
+    .footer-background {
         position: fixed;
         top: 100%;
         left: 50%;
         transform: translate(-50%, -100%);
-        padding: 20px 10px;
-        text-align: center;
         background-color: #f5f5fe;
         width: 100%;
+    }
+    .footer-text {
+        padding: 20px 10px;
+        text-align: center;
+    }
+    .custom-tag {
+        color: #297254;
+        background-color: #9ef9be;
+        margin-left: 5px;
+    }
+    .callout-head {
+        display: flex;
+        align-items: center;
+    }
+    .custom-callout {
+        margin: 15px;
     }
 </style>
