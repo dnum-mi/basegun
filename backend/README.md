@@ -4,9 +4,14 @@ From this folder
 
 ## Install
 
+**Download model** EfficientNetB7 from OVH Cloud, put it in src/weights/ :
+```
+ovhai data download GRA basegun-public models/EffB7_2022-03-01_17/EffB7_2022-03-01_17.pth -o src/weights/
+```
+
 ### Without Docker
 1. Activate python environment with Python=3.8 (conda or pyenv)
-2. `pip install -r requirements.txt`
+2. `pip install -r requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html`
 
 ### With Docker
 1. Create variable HTTP_PROXY in your shell for the Ministry proxy

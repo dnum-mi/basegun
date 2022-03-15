@@ -67,8 +67,8 @@
             </div>
         </div>
         <div class="result" v-else>
-            <p class="result-text">Type d'arme : {{ label }}</p>
-            <img class="result-img img-fluid" :src="baseUrl + 'temp/' + imgName" alt="">
+            <p class="result-text">{{ resultText }}</p>
+            <img class="result-img img-fluid" :src="imgName" alt="Image téléversée">
             <div>
                 <button class="btn btn-primary btn-margin" @click="reloadPage">Recommencer</button>
             </div>
@@ -88,7 +88,7 @@
             return {
                 selectedFile: null,
                 startUpload: null,
-                label: null,
+                resultText: null,
                 imgName: null,
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer"
@@ -107,11 +107,17 @@
 
                 axios.post('/upload', fd)
                     .then(res => {
-                        this.label = res.data.label
-                        this.imgName = res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
-                        // console.log(process.env.BASE_URL + "temp/" + this.imgName)
+                        this.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
+                        this.imgName = import.meta.env.BASE_URL + "temp/" +
+                            res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) => {
+                        console.log(err)
+                        if ('response' in err) {
+                            this.resultText = err.response.status + err.response.data
+                            this.imgName = import.meta.env.BASE_URL + "img/icons/basegun-android-chrome-512x512.png"
+                        }
+                    });
             },
             reloadPage() {
                 window.location.reload();
