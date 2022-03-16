@@ -40,7 +40,7 @@
                         <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
                             <ul class="fr-nav__list">
                                 <li class="fr-nav__item">
-                                    <a class="fr-nav__link" href="/informations" target="_self">Infomations</a>
+                                    <a class="fr-nav__link" href="/informations" target="_self">Informations</a>
                                 </li>
                             </ul>
                         </nav>
