@@ -74,7 +74,7 @@
                 <img class="img-fluid" :src="imgName" alt="Image téléversée">
             </div>
             <div class="fr-callout custom-callout">
-                <div v-if="confidence < 35">
+                <div v-if="confidence < 40">
                     <div class="callout-head">
                         <span class="fr-icon-error-line"></span>
                         <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
@@ -91,9 +91,10 @@
                     <div v-else>
                             <span class="fr-icon-warning-line"></span>
                             <p class="fr-tag fr-tag--sm warning-tag">Indice de fiabilité : {{ Math.floor(confidence) }}%</p>
+                            <p class="warning-text">Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.</p>
                     </div>
-                    <p class="fr-callout__title">Type d'arme :</p>
-                    <p class="fr-callout__text">{{ label }}</p>
+                    <p class="fr-callout__title">Catégorie {{ cleanCategory }}</p>
+                    <p class="fr-callout__text">Type d'arme : {{ cleanLabel }}</p>
                 </div>
             </div>
             <div class="blank"></div>
@@ -125,7 +126,57 @@
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer",
                 label: null,
-                confidence: null
+                confidence: null,
+                results: {
+                    revolver: {
+                        displayLabel: "revolver",
+                        category: "B ou D"
+                    },
+                    pistolet_semi_auto_moderne: {
+                        displayLabel: "pistolet semi-automatique moderne",
+                        category: "B"
+                    },
+                    pistolet_a_percussion_silex: {
+                        displayLabel: "pistolet à percussion ou à silex",
+                        category: "D"
+                    },
+                    autre_pistolet: {
+                        displayLabel: "pistolet",
+                        category: "B ou D"
+                    },
+                    epaule_a_percussion_silex: {
+                        displayLabel: "arme d'épaule à percussion ou à silex",
+                        category: "D"
+                    },
+                    epaule_a_un_coup: {
+                        displayLabel: "arme d'épaule à un coup par canon",
+                        category: "C"
+                    },
+                    epaule_a_levier_sous_garde: {
+                        displayLabel: "arme d'épaule à levier de sous-garde",
+                        category: "B ou C"
+                    },
+                    epaule_a_verrou: {
+                        displayLabel: "arme d'épaule à verrou",
+                        category: "B ou C"
+                    },
+                    epaule_a_pompe: {
+                        displayLabel: "arme d'épaule à pompe",
+                        category: "B ou C"
+                    },
+                    autre_epaule: {
+                        displayLabel: "arme d'épaule non manuelle",
+                        category: "A, B ou C"
+                    }
+                }
+            }
+        },
+        computed: {
+            cleanLabel() {
+                return this.results[`${this.label}`].displayLabel
+            },
+            cleanCategory() {
+                return this.results[`${this.label}`].category
             }
         },
         methods: {
@@ -163,9 +214,6 @@
 </script>
 
 <style scoped>
-    .btn-margin {
-        margin: 10px 0;
-    }
     .result {
         margin: 0 auto;
         max-width: 1000px;
@@ -214,6 +262,12 @@
         color: #b34000;
         background-color: #ffe8e5;
         margin-left: 5px;
+    }
+    .warning-text {
+        font-size: 12px;
+        font-style: italic;
+        line-height: 1rem;
+        margin-bottom: 12px;
     }
     .callout-head {
         display: flex;
