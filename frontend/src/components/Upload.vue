@@ -220,6 +220,21 @@
     }
     .result-image {
         text-align: center;
+        margin: 0 auto
+    }
+    @media (min-width: 768px) {
+        .result-image {
+            max-width: 600px;
+        }
+        .custom-callout {
+            max-width: 600px;
+            margin: 12px auto
+        }
+    }
+    @media (max-width: 768px) {
+        .custom-callout {
+            margin: 12px
+        }
     }
     .centered {
         position: fixed;
@@ -272,9 +287,6 @@
     .callout-head {
         display: flex;
         align-items: center;
-    }
-    .custom-callout {
-        margin: 12px;
     }
     .footer-actions {
         display: flex;
