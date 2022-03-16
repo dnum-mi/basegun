@@ -11,7 +11,7 @@
 import Upload from '@/components/Upload.vue'
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
     // HelloWorld,
     Upload

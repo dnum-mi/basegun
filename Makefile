@@ -1,9 +1,15 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 0.3
+TAG		:= 1.0
 
 export
+
+show-current-tag:
+	@while [ -z "$$CONTINUE" ]; do \
+		read -r -p "Current tag is v${TAG}. Continue? [y/N]: " CONTINUE; \
+	done ; \
+	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
 
 check-prerequisites:
 ifeq ("$(wildcard ${DOCKER})","")
@@ -16,14 +22,22 @@ endif
 check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
-build-%: check-dc-config-%
+build-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
-up-preprod: check-dc-config-prod
-	PORT_PROD=8080 TAG=${TAG} ${DC} -f docker-compose-prod.yml up -d
+up-preprod: check-dc-config-prod show-current-tag
+	PORT_PROD=3000 TAG=${TAG} ${DC} -f docker-compose-prod.yml up -d
 
-up-%: check-dc-config-%
+up-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
+
+tag: show-current-tag
+	git tag -a v${TAG}
+	git push origin v${TAG}
+
+untag: show-current-tag
+	git tag -d v${TAG}
+	git push --delete v${TAG}

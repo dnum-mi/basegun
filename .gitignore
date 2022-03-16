@@ -4,5 +4,6 @@ dist/
 env/
 .env
 __pycache__
-*.weights
+weights/
 temp/
+openrc.sh

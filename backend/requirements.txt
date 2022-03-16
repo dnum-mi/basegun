@@ -1,5 +1,5 @@
 fastapi==0.68.0
 uvicorn==0.14.0
-opencv-python>=4.0
-numpy>=1.19
-python-multipart
+torch==1.10.2+cpu
+torchvision==0.11.3+cpu
+python-multipart>=0.0.5

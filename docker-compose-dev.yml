@@ -17,6 +17,7 @@ services:
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
+      - $PWD/backend/src/weights
 
   frontend:
     image: basegun-front:${TAG}-dev
@@ -28,7 +29,7 @@ services:
       context: ./frontend
       target: dev
     ports:
-      - 8080:8080
+      - 3000:3000
     volumes:
       - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src

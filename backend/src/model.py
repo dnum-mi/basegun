@@ -1,88 +1,124 @@
-import cv2
-import numpy as np 
-from uuid import uuid4
-import os, glob
+import os
+from PIL import Image
+from torch import Tensor
+import numpy as np
+import torch
+import torchvision.models as Model
+from torchvision import transforms
 
-if "PATH_IMGS" in os.environ:
-    PATH_IMGS = os.environ["PATH_IMGS"]
-else:
-    PATH_IMGS = os.path.abspath(os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "../../frontend/public/temp"))
-    print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
 
-#Load yolo
-def load_yolo():
-    this = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    net = cv2.dnn.readNet(
-        os.path.join(this,"yolov3.weights"),
-        os.path.join(this,"yolov3.cfg")
-    )
-    classes = ["poing", "feu", "épaule"]
+CLASSES = ['autre_epaule', 'autre_pistolet', 'epaule_a_levier_sous_garde',
+        'epaule_a_percussion_silex', 'epaule_a_pompe', 'epaule_a_un_coup', 'epaule_a_verrou',
+        'pistolet_a_percussion_silex', 'pistolet_semi_auto_moderne', 'revolver']
 
-    layers_names = net.getLayerNames()
-    output_layers = [layers_names[i-1] for i in net.getUnconnectedOutLayers()]
-    colors = np.random.uniform(0, 255, size=(len(classes), 3))
-    return net, classes, colors, output_layers
+MODEL_TORCH = Model.efficientnet_b7
+INPUT_SIZE = 600
+device = torch.device('cpu')
 
-def load_image(img_path):
-    img = cv2.imread(img_path)
-    # resize if image too large
-    largest_dim = max(img.shape[0], img.shape[1])
-    if largest_dim > 720:
-        img = cv2.resize(img, None, fx=720/largest_dim, fy=720/largest_dim)
-    height, width, channels = img.shape
-    return img, height, width, channels
 
-def detect_objects(img, net, outputLayers):
-    blob = cv2.dnn.blobFromImage(img, scalefactor=0.00392, size=(320, 320), mean=(0, 0, 0), swapRB=True, crop=False)
-    net.setInput(blob)
-    outputs = net.forward(outputLayers)
-    return blob, outputs
+class ConvertRgb(object):
+    """Converts an image to RGB
+    """
 
-def get_box_dimensions(outputs, height, width):
-    boxes = []
-    confs = []
-    class_ids = []
-    for output in outputs:
-        for detect in output:
-            scores = detect[5:]
-            class_id = np.argmax(scores)
-            conf = scores[class_id]
-            if conf > 0.3:
-                center_x = int(detect[0] * width)
-                center_y = int(detect[1] * height)
-                w = int(detect[2] * width)
-                h = int(detect[3] * height)
-                x = int(center_x - w/2)
-                y = int(center_y - h / 2)
-                boxes.append([x, y, w, h])
-                confs.append(float(conf))
-                class_ids.append(class_id)
-    return boxes, confs, class_ids
+    def __init__(self):
+        pass
 
-def draw_labels(boxes, confs, colors, class_ids, classes, img):
-    indexes = cv2.dnn.NMSBoxes(boxes, confs, 0.5, 0.4)
-    font = cv2.FONT_HERSHEY_PLAIN
-    label = ""
-    for i in range(len(boxes)):
-        if i in indexes:
-            x, y, w, h = boxes[i]
-            label += str(classes[class_ids[i]])
-            color = colors[class_ids[i]]
-            cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
-            # cv2.putText(img, label, (x, y - 5), font, 1, color, 1)
-    # img=cv2.resize(img, (800,600))
-    return img, label
+    def __call__(self, image):
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+        return image
 
-model, classes, colors, output_layers = load_yolo()
-def image_detect(img_path):
-    print("Input image: ", os.path.abspath(img_path))
-    image, height, width, channels = load_image(img_path)
-    blob, outputs = detect_objects(image, model, output_layers)
-    boxes, confs, class_ids = get_box_dimensions(outputs, height, width)
-    img, label = draw_labels(boxes, confs, colors, class_ids, classes, image)
 
-    result_path = os.path.join(PATH_IMGS , str(uuid4()) + os.path.splitext(img_path)[1])
-    cv2.imwrite(result_path, img)
-    return result_path, label
+class Rescale(object):
+    """Rescale the image in a sample to a given size while keeping ratio
+
+    Args:
+        output_size (int): Desired output size. The largest of image edges is matched
+            to output_size keeping aspect ratio the same.
+    """
+
+    def __init__(self, output_size):
+        assert isinstance(output_size, int)
+        self.output_size = output_size
+
+    def __call__(self, image):
+        w, h = image.size
+        if w > h:
+            new_h, new_w = self.output_size * h / w, self.output_size
+        else:
+            new_h, new_w = self.output_size, self.output_size * w / h
+        new_h, new_w = int(new_h), int(new_w)
+        return transforms.functional.resize(image, (new_h, new_w))
+
+
+class RandomPad(object):
+    """Pad an image to reach a given size
+
+    Args:
+        output_size (int): Desired output size. We pad all edges
+                        symmetrically to reach a size x size image.
+    """
+
+    def __init__(self, output_size):
+        assert isinstance(output_size, int)
+        self.output_size = output_size
+
+    def __call__(self, image):
+        w, h = image.size
+        pads = {'horiz': [self.output_size - w,0,0],
+        'vert': [self.output_size - h,0,0]}
+        if pads['horiz'][0] >= 0 and pads['vert'][0] >= 0:
+            for direction in ['horiz', 'vert'] :
+                pads[direction][1] = pads[direction][0] // 2
+                if pads[direction][0] % 2 == 1: # if the size to pad is odd, add a random +1 on one side
+                    pads[direction][1] += np.random.randint(0,1)
+                pads[direction][2] = pads[direction][0] - pads[direction][1]
+
+            return transforms.functional.pad(image,
+                [pads['horiz'][1], pads['vert'][1], pads['horiz'][2], pads['vert'][2]],
+                fill = int(np.random.choice([0, 255])) # border randomly white or black
+            )
+        else:
+            return image
+
+
+def build_model(model: Model) -> Model:
+    # freeze first layers
+    for param in model.parameters():
+        param.requires_grad = False
+    # Parameters of newly constructed modules have requires_grad=True by default
+    num_ftrs = model.classifier[1].in_features
+    # to try later : add batch normalization and dropout
+    model.classifier[1] = torch.nn.Linear(num_ftrs, len(CLASSES))
+    model = model.to(device)
+    return model
+
+
+def load_model_inference(state_dict_path: str) -> Model:
+    model = build_model(MODEL_TORCH())
+    # Initialize model with the pretrained weights
+    model.load_state_dict(torch.load(state_dict_path, map_location=device)['model_state_dict'])
+    model.to(device)
+    # set the model to inference mode
+    model.eval()
+    return model
+
+
+loader =  transforms.Compose([
+            ConvertRgb(),
+            Rescale(INPUT_SIZE),
+            RandomPad(INPUT_SIZE),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+
+
+def test_image(model, path):
+    im = Image.open(path)
+    image = loader(im).float()
+    image = image.unsqueeze(0).to(device)
+    output = model(image)
+    probs = torch.nn.functional.softmax(output, dim=1).detach().numpy()[0]
+    res = [(CLASSES[i], round(probs[i]*100,2)) for i in range(len(CLASSES))]
+    res.sort(key=lambda x:x[1], reverse=True)
+    return res[0]

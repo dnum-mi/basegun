@@ -22,12 +22,13 @@ If you are in a network blocked with proxy, remember to add arg `--build-arg htt
 ## Run project
 ### Without Docker
 ```bash
-npm run serve
+npm run dev
 ```
+Open localhost:3000
 
 ### With Docker
 ```bash
-docker run --rm -p 8080:8080 -d basegun-front:dev
+docker run --rm -p 3000:3000 -d basegun-front:dev
 ```
 
 
