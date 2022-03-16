@@ -74,12 +74,27 @@
                 <img class="img-fluid" :src="imgName" alt="Image téléversée">
             </div>
             <div class="fr-callout custom-callout">
-                <div class="callout-head">
-                    <span class="fr-icon-success-line"></span>
-                    <p class="fr-tag fr-tag--sm custom-tag">Indice de fiabilité : {{ Math.floor(confidence) }}%</p>
+                <div v-if="confidence < 35">
+                    <div class="callout-head">
+                        <span class="fr-icon-error-line"></span>
+                        <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
+                    </div>
+                    <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
                 </div>
-                <p class="fr-callout__title">Type d'arme :</p>
-                <p class="fr-callout__text">{{ label }}</p>
+                <div v-else>
+                    <div v-if="confidence > 70">
+                        <div class="callout-head">
+                            <span class="fr-icon-success-line"></span>
+                            <p class="fr-tag fr-tag--sm success-tag">Indice de fiabilité : {{ Math.floor(confidence) }}%</p>
+                        </div>
+                    </div>
+                    <div v-else>
+                            <span class="fr-icon-warning-line"></span>
+                            <p class="fr-tag fr-tag--sm warning-tag">Indice de fiabilité : {{ Math.floor(confidence) }}%</p>
+                    </div>
+                    <p class="fr-callout__title">Type d'arme :</p>
+                    <p class="fr-callout__text">{{ label }}</p>
+                </div>
             </div>
             <div class="blank"></div>
             <div class="footer-background footer-actions">
@@ -185,9 +200,19 @@
         padding: 20px 10px;
         text-align: center;
     }
-    .custom-tag {
+    .success-tag {
         color: #297254;
         background-color: #9ef9be;
+        margin-left: 5px;
+    }
+    .error-tag {
+        color: #ce0500;
+        background-color: #ffe9e9;
+        margin-left: 5px;
+    }
+    .warning-tag {
+        color: #b34000;
+        background-color: #ffe8e5;
         margin-left: 5px;
     }
     .callout-head {
