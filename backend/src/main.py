@@ -16,7 +16,7 @@ origins = [
 
 MODEL_PATH = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            "weights/EffB7_2022-03-01_17.pth")
+            "weights/model.pth")
 
 if "PATH_IMGS" in os.environ:
     PATH_IMGS = os.environ["PATH_IMGS"]
