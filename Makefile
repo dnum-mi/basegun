@@ -40,4 +40,4 @@ tag: show-current-tag
 
 untag: show-current-tag
 	git tag -d v${TAG}
-	git push --delete v${TAG}
+	git push --delete origin v${TAG}
