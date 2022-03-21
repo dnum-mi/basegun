@@ -11,11 +11,12 @@ ovhai data download GRA basegun-public models/EffB7_2022-03-01_17/EffB7_2022-03-
 
 ### Without Docker
 1. Activate python environment with Python=3.8 (conda or pyenv)
-2. `pip install -r requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html`
+2. Download model `curl https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/EffB7_2022-03-01_17/EffB7_2022-03-01_17.pth -o src/weights/model.pth`
+3. `pip install -r requirements.txt -f https://download.pytorch.org/whl/cpu/torch_stable.html`
 
 ### With Docker
 1. Create variable HTTP_PROXY in your shell for the Ministry proxy
-2. Build image `docker build -t basegun-back:dev .`
+2. Build image `docker build --build-arg http_proxy https_proxy -t basegun-back:dev .`
 
 
 ## Run

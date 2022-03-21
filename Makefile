@@ -1,7 +1,7 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 1.0
+TAG		:= 1.1
 
 export
 
@@ -40,4 +40,4 @@ tag: show-current-tag
 
 untag: show-current-tag
 	git tag -d v${TAG}
-	git push --delete v${TAG}
+	git push --delete origin v${TAG}
