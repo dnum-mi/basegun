@@ -9,6 +9,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+      target: web
     container_name: basegun-back
     environment:
       - PATH_IMGS=/app/images

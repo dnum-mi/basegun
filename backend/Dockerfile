@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-slim-buster as base
 WORKDIR /app
 
 # librairies necessary for image processing
@@ -18,4 +18,10 @@ RUN pip install --upgrade pip \
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/EffB7_2022-03-01_17/EffB7_2022-03-01_17.pth
 COPY src/ src/
 RUN mv model.pth src/weights/model.pth
+
+FROM base as test
+COPY tests/ tests/
+CMD ["python", "-m", "unittest", "discover", "-v"]
+
+FROM base as web
 CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]

@@ -10,6 +10,7 @@ services:
         - https_proxy
         - no_proxy
       context: ./backend
+      target: web
     environment:
       - PATH_IMGS=/app/images
     ports:

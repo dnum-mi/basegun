@@ -16,7 +16,8 @@ ovhai data download GRA basegun-public models/EffB7_2022-03-01_17/EffB7_2022-03-
 
 ### With Docker
 1. Create variable HTTP_PROXY in your shell for the Ministry proxy
-2. Build image `docker build --build-arg http_proxy https_proxy -t basegun-back:dev .`
+2. Build image `docker build --target web -t basegun-back:dev .`
+If you are in a network blocked with proxy, remember to add arg `--build-arg https_proxy=http://username:passwd@proxy-ip:port`
 
 
 ## Run
