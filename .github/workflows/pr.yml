@@ -28,11 +28,11 @@ jobs:
       id: changed-files
       with:
         base_sha: ${{ github.event.pull_request.base.sha }}
-        files: |
-          backend
-          frontend
-    - name: Echo ref
-      run: echo ${{ github.event.pull_request.base.sha }}
+    - name: Echo files modified
+      run: echo ${{ steps.changed-files.outputs.changed_files }}
+    - name: Echo files modified 2
+      if: ( contains(steps.changed-files.outputs.changed_files, 'backend') )
+      run: echo "backend have been modified"
 
   build-backend-tests-and-test:
     runs-on: ubuntu-latest
@@ -60,4 +60,4 @@ jobs:
     - name: Start container web
       run: docker run --rm --name basegun_back_web -d basegun-back:web
     - name: Check website container is alive
-      run: ./test-container.sh
+      run: .github/test-container.sh
