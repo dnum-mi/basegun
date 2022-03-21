@@ -28,6 +28,9 @@ jobs:
       id: changed-files
       with:
         base_sha: ${{ github.event.pull_request.base.sha }}
+        files: |
+          backend
+          frontend
     - name: Echo ref
       run: echo ${{ github.event.pull_request.base.sha }}
 
