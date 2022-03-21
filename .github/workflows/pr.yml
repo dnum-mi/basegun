@@ -24,10 +24,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Verify Changed files
-      uses: tj-actions/verify-changed-files@v18.4
+      uses: tj-actions/verify-changed-files@v18
       id: verify-changed-files
       with:
-        sha: ${{ github.event.pull_request.base.sha }}
+        base_sha: ${{ github.event.pull_request.base.sha }}
     - name: Echo ref
       run: echo ${{ github.event.pull_request.base.sha }}
 
