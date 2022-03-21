@@ -29,8 +29,7 @@ jobs:
       with:
         sha: ${{ github.event.pull_request.base.sha }}
     - name: Echo ref
-      run: |
-        echo ${{ github.event.pull_request.base }}"
+      run: echo ${{ github.event.pull_request.base.sha }}
 
   build-backend-tests-and-test:
     runs-on: ubuntu-latest
