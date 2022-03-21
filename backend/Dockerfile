@@ -17,7 +17,7 @@ RUN pip install --upgrade pip \
 # launch website
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/EffB7_2022-03-01_17/EffB7_2022-03-01_17.pth
 COPY src/ src/
-RUN mv model.pth src/weights/model.pth
+RUN mkdir -p src/weights && mv model.pth src/weights/model.pth
 
 FROM base as test
 COPY tests/ tests/

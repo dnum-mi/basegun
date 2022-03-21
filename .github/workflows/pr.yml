@@ -39,15 +39,16 @@ jobs:
     needs: check-files-modified
     steps:
     - uses: actions/checkout@v2
-    - name: Build docker image for tests
-      run: docker build --target test -t basegun-back:tests backend/
-    - name: Run backend tests
-      run: docker run --rm basegun-back:tests
     - name: Echo files modified
       run: echo ${{ needs.check-files-modified.outputs.changed_files }}
     - name: Echo files modified 2
       if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend') )
-      run: echo ${{ needs.check-files-modified.outputs.changed_files }}
+      run: echo "backend have been modified"
+    - name: Build docker image for tests
+      run: docker build --target test -t basegun-back:tests backend/
+    - name: Run backend tests
+      run: docker run --rm basegun-back:tests
+
 
   build-backend-web-and-test:
     runs-on: ubuntu-latest
