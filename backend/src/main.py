@@ -2,7 +2,7 @@ import shutil, os
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from src.model import load_model_inference, test_image
+from src.model import load_model_inference, predict_image
 
 app = FastAPI()
 
@@ -51,7 +51,7 @@ async def imageupload(image: UploadFile = File(...)):
         input_path = os.path.join(PATH_IMGS, image.filename)
         with open(f'{input_path}', "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        label, confidence = test_image(model, input_path)
+        label, confidence = predict_image(model, input_path)
         print("Finished processing, result:", input_path, label, confidence)
     else:
         raise HTTPException(status_code=404, detail="Model not found")
