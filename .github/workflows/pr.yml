@@ -20,12 +20,12 @@ jobs:
   check-files-modified:
     runs-on: ubuntu-latest
     outputs:
-      changed_files: ${{ steps.verify-changed-files.outputs.changed_files }}
+      changed_files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
     - uses: actions/checkout@v2
     - name: Verify Changed files
-      uses: tj-actions/verify-changed-files@v18
-      id: verify-changed-files
+      uses: tj-actions/changed-files@v18.4
+      id: changed-files
       with:
         base_sha: ${{ github.event.pull_request.base.sha }}
     - name: Echo ref
