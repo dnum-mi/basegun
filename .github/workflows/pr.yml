@@ -22,9 +22,11 @@ jobs:
     outputs:
       changed_files: ${{ steps.verify-changed-files.outputs.changed_files }}
     steps:
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v9
-        id: verify-changed-files
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Verify Changed files
+      uses: tj-actions/verify-changed-files@v9
+      id: verify-changed-files
 
   build-backend-tests-and-test:
     runs-on: ubuntu-latest
