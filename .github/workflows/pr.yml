@@ -20,7 +20,7 @@ jobs:
   check-files-modified:
     runs-on: ubuntu-latest
     outputs:
-      changed_files: ${{ steps.changed-files.outputs.changed_files }}
+      changed_files: ${{ steps.changed-files.outputs.all_modified_files }}
     steps:
     - uses: actions/checkout@v2
     - name: Verify Changed files
@@ -29,9 +29,9 @@ jobs:
       with:
         base_sha: ${{ github.event.pull_request.base.sha }}
     - name: Echo files modified
-      run: echo ${{ steps.changed-files.outputs.changed_files }}
+      run: echo ${{ steps.changed-files.outputs.all_modified_files }}
     - name: Echo files modified 2
-      if: ( contains(steps.changed-files.outputs.changed_files, 'backend') )
+      if: ( contains(steps.changed-files.outputs.all_modified_files, 'backend') )
       run: echo "backend have been modified"
 
   build-backend-tests-and-test:
@@ -60,4 +60,4 @@ jobs:
     - name: Start container web
       run: docker run --rm --name basegun_back_web -d basegun-back:web
     - name: Check website container is alive
-      run: .github/test-container.sh
+      run: .github/scripts/test-container.sh
