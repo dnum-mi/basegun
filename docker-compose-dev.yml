@@ -17,6 +17,7 @@ services:
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
+      - $PWD/backend/tests:/app/tests
       - /app/src/weights
 
   frontend:
