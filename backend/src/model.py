@@ -91,9 +91,6 @@ def build_model(model: Model) -> Model:
     Returns:
         Model: modified model with classification layer size len(CLASSES)
     """
-    # freeze first layers
-    for param in model.parameters():
-        param.requires_grad = False
     # replace last layer of model for our number of classes
     num_ftrs = model.classifier[1].in_features
     model.classifier[1] = torch.nn.Linear(num_ftrs, len(CLASSES))
@@ -127,6 +124,7 @@ def prepare_input(image: Image) -> torch.Tensor:
 
     Returns:
         torch.Tensor: converted image
+        (shape (1, 3, size, size), normalized on ImageNet)
     """
     loader = transforms.Compose([
         ConvertRgb(),

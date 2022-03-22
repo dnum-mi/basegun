@@ -53,3 +53,5 @@ jobs:
       run: docker run --rm --name basegun_back_web -d basegun-back:web
     - name: Check website container is alive
       run: .github/scripts/test-container.sh
+    - name: Check requests to website work properly
+      run: .github/scripts/test-backend.sh
