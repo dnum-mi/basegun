@@ -38,7 +38,7 @@ jobs:
     - name: Build docker image for tests
       run: docker build --target test -t basegun-back:tests backend/
     - name: Start container
-      run: docker run --rm --name basegun_back_tests -d basegun-back:tests
+      run: docker run --rm --name basegun_back_test -d basegun-back:tests
     - name: Check website container is alive
       run: .github/scripts/test-container.sh
     - name: Run tests
