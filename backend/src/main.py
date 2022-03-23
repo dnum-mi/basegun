@@ -1,5 +1,6 @@
 import shutil, os
 from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from src.model import load_model_inference, predict_image
@@ -25,6 +26,7 @@ else:
             os.path.dirname(os.path.abspath(__file__)),
             "../../frontend/public/temp"))
     print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
+os.makedirs(PATH_IMGS, exist_ok = True)
 
 # allow requests from front-end
 app.add_middleware(
@@ -40,7 +42,7 @@ if os.path.exists(MODEL_PATH):
     model = load_model_inference(MODEL_PATH)
 
 
-@app.get("/")
+@app.get("/", response_class=PlainTextResponse)
 def home():
     return "Basegun backend"
 
