@@ -91,6 +91,9 @@ def build_model(model: Model) -> Model:
     Returns:
         Model: modified model with classification layer size len(CLASSES)
     """
+    # freeze all layers except classification - very important
+    for param in model.parameters():
+        param.requires_grad = False
     # replace last layer of model for our number of classes
     num_ftrs = model.classifier[1].in_features
     model.classifier[1] = torch.nn.Linear(num_ftrs, len(CLASSES))
