@@ -4,12 +4,12 @@ services:
 
   backend:
     build:
-      context: ./backend
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-      target: web
+      context: ./backend
+      target: prod
     container_name: basegun-back
     environment:
       - PATH_IMGS=/app/images
