@@ -1,8 +1,10 @@
-import shutil, os
+import shutil
+import os
+from uuid import uuid4
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from PIL import UnidentifiedImageError
 from src.model import load_model_inference, predict_image
 
 app = FastAPI()
@@ -50,11 +52,21 @@ def home():
 @app.post("/upload")
 async def imageupload(image: UploadFile = File(...)):
     if model:
-        input_path = os.path.join(PATH_IMGS, image.filename)
+        input_path = os.path.join(
+                        PATH_IMGS, # store image in PATH_IMGS folder
+                        # rename with uuid for secure filename but keep original file ext
+                        str(uuid4()) + os.path.splitext(image.filename)[1]
+                    )
         with open(f'{input_path}', "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        label, confidence = predict_image(model, input_path)
-        print("Finished processing, result:", input_path, label, confidence)
+        try:
+            label, confidence = predict_image(model, input_path)
+            print("Finished processing, result:", input_path, label, confidence)
+        except UnidentifiedImageError:
+            raise HTTPException(status_code=400, detail="Corrupted image file")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
     else:
         raise HTTPException(status_code=404, detail="Model not found")
     return {"file_name": input_path, "label": label, "confidence": confidence}
