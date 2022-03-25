@@ -200,10 +200,6 @@
                     })
                     .catch((err) => {
                         console.log(err)
-                        if ('response' in err) {
-                            this.resultText = err.response.status + err.response.data
-                            this.imgName = import.meta.env.BASE_URL + "img/icons/basegun-android-chrome-512x512.png"
-                        }
                     });
             },
             reloadPage() {
