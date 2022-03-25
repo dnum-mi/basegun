@@ -54,6 +54,7 @@
                 <input 
                     style="display: none"
                     type="file"
+                    :accept="handledImageTypes"
                     @change="onFileSelected"
                     ref="fileInput"
                 >
@@ -61,8 +62,8 @@
                     :label="labelButton"
                     @click="$refs.fileInput.click()"
                 />
-                <div v-if="startUpload">
-                    <p>Analyse...</p>
+                <div>
+                    <p> {{ uploadMessage }} </p>
                 </div>
             </div>
             <div class="footer-background footer-text">
@@ -120,11 +121,13 @@
         data () {
             return {
                 selectedFile: null,
-                startUpload: null,
+                uploadMessage: null,
                 resultText: null,
                 imgName: null,
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer",
+                // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
+                handledImageTypes: "image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif",
                 label: null,
                 confidence: null,
                 results: {
@@ -187,7 +190,7 @@
             onUpload() {
                 const fd = new FormData();
                 fd.append('image', this.selectedFile, this.selectedFile.name);
-                this.startUpload=true;
+                this.uploadMessage='Analyse...';
                 this.selectedFile = null;
 
                 axios.post('/upload', fd)
@@ -199,10 +202,15 @@
                             res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                     })
                     .catch((err) => {
-                        console.log(err)
-                        if ('response' in err) {
-                            this.resultText = err.response.status + err.response.data
-                            this.imgName = import.meta.env.BASE_URL + "img/icons/basegun-android-chrome-512x512.png"
+                        if (err.response) {
+                            console.log(err.response.status)
+                            console.log(err.response.data)
+                        } else if (err.request) {
+                            // The request was made but no response was received
+                            console.log(err.request);
+                        } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log('Error', err.message);
                         }
                     });
             },

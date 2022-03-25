@@ -16,7 +16,8 @@ npm run lint
 ```bash
 docker build --target dev -t basegun-front:dev .
 ```
-If you are in a network blocked with proxy, remember to add arg `--build-arg https_proxy=http://username:passwd@proxy-ip:port`
+If you are in a network blocked with proxy, remember to add arg `--build_arg https_proxy` where `https_proxy` is a variable already set in your env.
+
 
 
 ## Run project
