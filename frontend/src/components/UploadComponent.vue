@@ -6,18 +6,19 @@
 </template>
 
 <script>
-    export default {
-        name: 'UploadComponent',
-        data() {
-            return {
-                imgUploaded: false
-            }
-        },
-        methods: {
-            uploadImage() {
-                this.imgUploaded = true
-                console.log(this.imgUploaded)
-            }
+import { store } from '@/store.js'
+export default {
+    name: 'UploadComponent',
+    data() {
+        return {
+            store
+        }
+    },
+    methods: {
+        uploadImage() {
+            store.imgUploaded = true
+            console.log(store.imgUploaded)
         }
     }
+}
 </script>
