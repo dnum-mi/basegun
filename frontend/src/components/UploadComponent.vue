@@ -50,10 +50,6 @@
             }
         },
         methods: {
-            // uploadImage() {
-            //     store.imgUploaded = true
-            //     console.log(store.imgUploaded)
-            // },
             onFileSelected(event) {
                     this.selectedFile = event.target.files[0];
                     this.onUpload()
