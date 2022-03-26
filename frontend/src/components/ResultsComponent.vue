@@ -176,4 +176,12 @@
     .blank {
         height: 80px
     }
+    .footer-background {
+        position: fixed;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        background-color: #f5f5fe;
+        width: 100%;
+    }
 </style>
