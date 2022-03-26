@@ -14,6 +14,7 @@
                     ref="fileInput"
                 >
                 <DsfrButton
+                    v-if="!uploadMessage"
                     :label="labelButton"
                     @click="$refs.fileInput.click()"
                 />
