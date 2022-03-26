@@ -1,5 +1,8 @@
 import { reactive } from 'vue'
 
 export const store = reactive({
-    imgUploaded: false
+    label: null,
+    confidence: null,
+    imgName: null,
+    resultText: null
 })
