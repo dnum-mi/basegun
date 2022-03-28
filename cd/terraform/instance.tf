@@ -19,7 +19,7 @@ resource "openstack_compute_instance_v2" "instance" {
     flavor_name = var.flavor
     key_pair    = data.openstack_compute_keypair_v2.keypair.name
     security_groups = ["default"]
-    user_data   = file("scripts/first-boot.sh")
+    user_data   = data.template_cloudinit_config.config.rendered
 
     block_device {
         uuid                  = data.openstack_images_image_v2.debian.id
