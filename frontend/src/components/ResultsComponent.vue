@@ -64,8 +64,8 @@
                         category: "D"
                     },
                     autre_pistolet: {
-                        displayLabel: "pistolet",
-                        category: "B ou D"
+                        displayLabel: "pistolet divers",
+                        category: "A, B ou D"
                     },
                     epaule_a_percussion_silex: {
                         displayLabel: "arme d'épaule à percussion ou à silex",
