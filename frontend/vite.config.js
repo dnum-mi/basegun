@@ -10,6 +10,8 @@ export default defineConfig({
     vue(),
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],  
+      base: "/",
+      srcDir: "src",
       manifest: {
         name: 'Basegun',
         short_name: 'Basegun',
