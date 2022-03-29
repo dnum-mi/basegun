@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "eslint": "^8.10.0",
-    "eslint-plugin-vue": "^8.5.0"
+    "eslint-plugin-vue": "^8.5.0",
+    "vite-plugin-pwa": "^0.11.13"
   },
   "eslintConfig": {
     "root": true,
