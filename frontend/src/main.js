@@ -3,7 +3,6 @@ import axios from 'axios';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import './registerServiceWorker.js'
 
 import VueDsfr from '@laruiss/vue-dsfr'
 import '@laruiss/vue-dsfr/dist/vue-dsfr.css'
