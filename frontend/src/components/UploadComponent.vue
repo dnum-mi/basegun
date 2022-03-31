@@ -62,6 +62,7 @@
                 }
 
                 this.selectedFile = event.target.files[0];
+                const fileName = this.selectedFile.name
                 console.log(this.selectedFile)
 
                 const reader = new FileReader();
@@ -76,10 +77,11 @@
                         const ctx = canvas.getContext("2d");
                         ctx.drawImage(e.target, 0, 0, 300, 300)
                         const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
-                        const newFile = srcToFile(srcEncoded)
-                        console.log(newFile)
+                        srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
+                            const newFile = res
+                            console.log(newFile)
+                        })
                     }
-
                 }
 
                 this.onUpload()
