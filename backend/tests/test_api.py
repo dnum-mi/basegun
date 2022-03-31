@@ -39,4 +39,4 @@ class TestModel(unittest.TestCase):
         self.assertTrue("label" in res.keys())
         self.assertEqual(res["label"], "revolver")
         self.assertTrue("confidence" in res.keys())
-        self.assertAlmostEqual(res["confidence"], 98.93, places=1)
+        self.assertAlmostEqual(res["confidence"], 99.05, places=1)
