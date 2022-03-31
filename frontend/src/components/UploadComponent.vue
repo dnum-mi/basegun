@@ -51,36 +51,57 @@
             }
         },
         methods: {
-            onFileSelected(event) {
-                    this.selectedFile = event.target.files[0];
-                    this.onUpload()
-                },
-                onUpload() {
-                    const fd = new FormData();
-                    fd.append('image', this.selectedFile, this.selectedFile.name);
-                    this.uploadMessage='Analyse...';
-                    this.selectedFile = null;
 
-                    axios.post('/upload', fd)
-                        .then(res => {
-                            store.label = res.data.label
-                            store.confidence = res.data.confidence
-                            store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
-                            store.imgName = import.meta.env.BASE_URL + "temp/" +
-                                res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
-                        })
-                        .catch((err) => {
-                            if (err.response) {
-                                console.log(err.response.status)
-                                console.log(err.response.data)
-                            } else if (err.request) {
-                                // The request was made but no response was received
-                                console.log(err.request);
-                            } else {
-                                // Something happened in setting up the request that triggered an Error
-                                console.log('Error', err.message);
-                            }
-                        });
+            onFileSelected(event) {
+                this.selectedFile = event.target.files[0];
+                console.log(this.selectedFile)
+
+                const reader = new FileReader();
+                reader.readAsDataURL(this.selectedFile)
+
+                reader.onload = function (event) {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = event.target.result
+
+                    imgElement.onload = function (e) {
+                        const canvas = document.createElement("canvas");
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(e.target, 0, 0, 300, 300)
+                        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
+                        console.log(srcEncoded)
+                    }
+
+                }
+
+                this.onUpload()
+            },
+
+            onUpload() {
+                const fd = new FormData();
+                fd.append('image', this.selectedFile, this.selectedFile.name);
+                this.uploadMessage='Analyse...';
+                this.selectedFile = null;
+
+                axios.post('/upload', fd)
+                    .then(res => {
+                        store.label = res.data.label
+                        store.confidence = res.data.confidence
+                        store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
+                        store.imgName = import.meta.env.BASE_URL + "temp/" +
+                            res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
+                    })
+                    .catch((err) => {
+                        if (err.response) {
+                            console.log(err.response.status)
+                            console.log(err.response.data)
+                        } else if (err.request) {
+                            // The request was made but no response was received
+                            console.log(err.request);
+                        } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log('Error', err.message);
+                        }
+                    });
                 }
         }
     }
