@@ -90,7 +90,6 @@
 
                 store.selectedFile = event.target.files[0];
                 const fileName = store.selectedFile.name
-                console.log(store.selectedFile)
 
                 const reader = new FileReader();
                 reader.readAsDataURL(store.selectedFile)
@@ -101,12 +100,28 @@
 
                     imgElement.onload = function (e) {
                         const canvas = document.createElement("canvas");
+                        const MAX_WIDTH = 600
+                        const MAX_HEIGHT = 600
+                        let width = imgElement.width
+                        let height = imgElement.height
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+                        canvas.width = width
+                        canvas.height = height
                         const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, 300, 300)
+                        ctx.drawImage(e.target, 0, 0, width, height)
                         const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
                         srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
                             const newFile = res
-                            console.log(newFile)
                             onUpload(newFile)
                         })
                     }
