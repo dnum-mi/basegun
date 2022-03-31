@@ -71,7 +71,6 @@
                 }
 
                 store.selectedFile = event.target.files[0];
-                console.log(store.selectedFile.size)
                 const fileName = store.selectedFile.name
 
                 const reader = new FileReader();
@@ -106,7 +105,6 @@
                         srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
                             const newFile = res
                             onUpload(newFile)
-                            console.log(newFile.size)
                         })
                     }
                 }
