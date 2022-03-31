@@ -43,7 +43,6 @@
             return {
                 store,
                 selectedFile: null,
-                uploadMessage: null,
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer",
                 // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
@@ -54,6 +53,34 @@
 
             onFileSelected(event) {
 
+                function onUpload(file) {
+                    const fd = new FormData();
+                    fd.append('image', file, file.name);
+                    store.uploadMessage='Analyse...';
+                    store.selectedFile = null;
+    
+                    axios.post('/upload', fd)
+                        .then(res => {
+                            store.label = res.data.label
+                            store.confidence = res.data.confidence
+                            store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
+                            store.imgName = import.meta.env.BASE_URL + "temp/" +
+                                res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
+                        })
+                        .catch((err) => {
+                            if (err.response) {
+                                console.log(err.response.status)
+                                console.log(err.response.data)
+                            } else if (err.request) {
+                                // The request was made but no response was received
+                                console.log(err.request);
+                            } else {
+                                // Something happened in setting up the request that triggered an Error
+                                console.log('Error', err.message);
+                            }
+                        });
+                    }
+
                 function srcToFile(src, fileName, mimeType){
                     return (fetch(src)
                         .then(function(res){return res.arrayBuffer();})
@@ -61,12 +88,12 @@
                     );
                 }
 
-                this.selectedFile = event.target.files[0];
-                const fileName = this.selectedFile.name
-                console.log(this.selectedFile)
+                store.selectedFile = event.target.files[0];
+                const fileName = store.selectedFile.name
+                console.log(store.selectedFile)
 
                 const reader = new FileReader();
-                reader.readAsDataURL(this.selectedFile)
+                reader.readAsDataURL(store.selectedFile)
 
                 reader.onload = function (event) {
                     const imgElement = document.createElement("img");
@@ -80,40 +107,12 @@
                         srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
                             const newFile = res
                             console.log(newFile)
+                            onUpload(newFile)
                         })
                     }
                 }
-
-                this.onUpload()
             },
 
-            onUpload() {
-                const fd = new FormData();
-                fd.append('image', this.selectedFile, this.selectedFile.name);
-                this.uploadMessage='Analyse...';
-                this.selectedFile = null;
-
-                axios.post('/upload', fd)
-                    .then(res => {
-                        store.label = res.data.label
-                        store.confidence = res.data.confidence
-                        store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
-                        store.imgName = import.meta.env.BASE_URL + "temp/" +
-                            res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
-                    })
-                    .catch((err) => {
-                        if (err.response) {
-                            console.log(err.response.status)
-                            console.log(err.response.data)
-                        } else if (err.request) {
-                            // The request was made but no response was received
-                            console.log(err.request);
-                        } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log('Error', err.message);
-                        }
-                    });
-                }
         }
     }
 </script>
