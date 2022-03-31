@@ -54,13 +54,11 @@
 
             onFileSelected(event) {
 
-                function dataURItoBlob(dataURI) {
-                    var binary = atob(dataURI.split(',')[1]);
-                    var array = [];
-                    for(var i = 0; i < binary.length; i++) {
-                        array.push(binary.charCodeAt(i));
-                    }
-                    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+                function srcToFile(src, fileName, mimeType){
+                    return (fetch(src)
+                        .then(function(res){return res.arrayBuffer();})
+                        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+                    );
                 }
 
                 this.selectedFile = event.target.files[0];
@@ -78,7 +76,7 @@
                         const ctx = canvas.getContext("2d");
                         ctx.drawImage(e.target, 0, 0, 300, 300)
                         const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
-                        const newFile = dataURItoBlob(srcEncoded)
+                        const newFile = srcToFile(srcEncoded)
                         console.log(newFile)
                     }
 
