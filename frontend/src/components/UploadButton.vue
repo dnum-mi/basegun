@@ -71,6 +71,7 @@
                 }
 
                 store.selectedFile = event.target.files[0];
+                console.log(store.selectedFile.size)
                 const fileName = store.selectedFile.name
 
                 const reader = new FileReader();
@@ -101,10 +102,11 @@
                         canvas.height = height
                         const ctx = canvas.getContext("2d");
                         ctx.drawImage(e.target, 0, 0, width, height)
-                        const srcEncoded = ctx.canvas.toDataURL(e.target, "image/jpeg");
+                        const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
                         srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
                             const newFile = res
                             onUpload(newFile)
+                            console.log(newFile.size)
                         })
                     }
                 }
