@@ -7,7 +7,6 @@
             <div class="fr-callout custom-callout">
                 <div v-if="store.confidence < 40">
                     <div class="callout-head">
-                        <span class="fr-icon-error-line"></span>
                         <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
                     </div>
                     <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
@@ -15,12 +14,10 @@
                 <div v-else>
                     <div v-if="store.confidence > 70">
                         <div class="callout-head">
-                            <span class="fr-icon-success-line"></span>
                             <p class="fr-tag fr-tag--sm success-tag">Indice de fiabilité : {{ Math.floor(store.confidence) }}%</p>
                         </div>
                     </div>
                     <div v-else>
-                            <span class="fr-icon-warning-line"></span>
                             <p class="fr-tag fr-tag--sm warning-tag">Indice de fiabilité : {{ Math.floor(store.confidence) }}%</p>
                             <p class="warning-text">Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.</p>
                     </div>
@@ -136,17 +133,17 @@
     .success-tag {
         color: #297254;
         background-color: #9ef9be;
-        margin-left: 5px;
+        margin-left: -4px;
     }
     .error-tag {
         color: #ce0500;
         background-color: #ffe9e9;
-        margin-left: 5px;
+        margin-left: -4px;
     }
     .warning-tag {
         color: #b34000;
         background-color: #ffe8e5;
-        margin-left: 5px;
+        margin-left: -4px;
     }
     .warning-text {
         font-size: 12px;
@@ -161,7 +158,8 @@
     .footer-actions {
         display: flex;
         justify-content: space-around;
-        color: #000091
+        color: #000091;
+        z-index: 1
     }
     .action-group {
         text-align: center;

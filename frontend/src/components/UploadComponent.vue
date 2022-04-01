@@ -6,20 +6,9 @@
                 <img src="../assets/basegun.png" alt="">
                 <h1 class="accueil-title">Basegun</h1>
                 <p class="accueil-subtitle">Identification automatique des armes à feu</p>
-                <input 
-                    style="display: none"
-                    type="file"
-                    :accept="handledImageTypes"
-                    @change="onFileSelected"
-                    ref="fileInput"
-                >
-                <DsfrButton
-                    v-if="!uploadMessage"
-                    :label="labelButton"
-                    @click="$refs.fileInput.click()"
-                />
+                <UploadButton />
                 <div>
-                    <p> {{ uploadMessage }} </p>
+                    <p> {{ store.uploadMessage }} </p>
                 </div>
             </div>
             <div class="footer-background footer-text">
@@ -31,57 +20,19 @@
 
 <script>
     import { store } from '@/store.js';
-    import axios from 'axios';
     import HeaderMain from '@/components/HeaderMain.vue';
+    import UploadButton from '@/components/UploadButton.vue'
 
     export default {
         name: 'UploadComponent',
         components: {
-            HeaderMain
+            HeaderMain,
+            UploadButton
         },
         data() {
             return {
                 store,
-                selectedFile: null,
-                uploadMessage: null,
-                baseUrl: import.meta.env.BASE_URL,
-                labelButton: "Démarrer",
-                // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
-                handledImageTypes: "image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif",
             }
-        },
-        methods: {
-            onFileSelected(event) {
-                    this.selectedFile = event.target.files[0];
-                    this.onUpload()
-                },
-                onUpload() {
-                    const fd = new FormData();
-                    fd.append('image', this.selectedFile, this.selectedFile.name);
-                    this.uploadMessage='Analyse...';
-                    this.selectedFile = null;
-
-                    axios.post('/upload', fd)
-                        .then(res => {
-                            store.label = res.data.label
-                            store.confidence = res.data.confidence
-                            store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
-                            store.imgName = import.meta.env.BASE_URL + "temp/" +
-                                res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
-                        })
-                        .catch((err) => {
-                            if (err.response) {
-                                console.log(err.response.status)
-                                console.log(err.response.data)
-                            } else if (err.request) {
-                                // The request was made but no response was received
-                                console.log(err.request);
-                            } else {
-                                // Something happened in setting up the request that triggered an Error
-                                console.log('Error', err.message);
-                            }
-                        });
-                }
         }
     }
 </script>
