@@ -1,5 +1,5 @@
 data "openstack_compute_keypair_v2" "keypair" {
-  name = "basegun_keypair_tf"
+  name = "basegun-keypair-tf"
 }
 
 data "openstack_networking_network_v2" "network" {

@@ -2,7 +2,7 @@ SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
 TAG		:= 1.1
-NAME    := basegun
+APP_NAME    := basegun
 REG     := ghcr.io
 ORG     := datalab-mi
 
@@ -49,6 +49,6 @@ untag: show-current-tag
 pull: pull-backend pull-frontend
 
 pull-%:
-	docker pull ${REG}/${ORG}/${NAME}/${NAME}-$*:${TAG}
+	docker pull ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG}
 
-deploy: pull up
+deploy: pull up-prod

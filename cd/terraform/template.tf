@@ -11,6 +11,7 @@ data "template_file" "deploy" {
     APP_NAME     = "${var.app}"
     APP_BRANCH   = "${var.branch}"
     ORG          = "${var.org}"
+    VERSION      = "${var.app_version}"
   }
 }
 
