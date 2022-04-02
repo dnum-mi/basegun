@@ -50,5 +50,6 @@ pull: pull-backend pull-frontend
 
 pull-%:
 	docker pull ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG}
+	docker tag ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG} ${APP_NAME}-$*:${TAG}-prod
 
-deploy: pull up-prod
+deploy-prod: pull up-prod
