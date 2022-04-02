@@ -24,6 +24,9 @@ jobs:
   deployment:
     name: Deployment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./cd/terraform
     env:
       OS_AUTH_URL: https://auth.cloud.ovh.net/v3
       OS_REGION_NAME: "GRA7"
@@ -35,9 +38,10 @@ jobs:
       OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
       TF_VAR_fixed_ip: ${{ secrets.server_ip }}
-      TF_VAR_app_version: ${{ inputs.app_version }}
-      TF_VAR_flavor: ${{ inputs.flavor }}
-      TF_VAR_volume_size: ${{ inputs.volume_size }}
+      TF_VAR_app_version: ${{ github.event.inputs.app_version }}
+      TF_VAR_flavor: ${{ github.event.inputs.flavor }}
+      TF_VAR_branch: ${{ github.event.inputs.branch }}
+      TF_VAR_volume_size: ${{ github.event.inputs.volume_size }}
     steps:
     - uses: hashicorp/setup-terraform@v1
       with:
@@ -62,3 +66,4 @@ jobs:
 
 #TODO: run script if server is reachable
 #TODO: select workspace if branch is develop (preprod) or main (prod)
+#TODO: need taint for redeploy

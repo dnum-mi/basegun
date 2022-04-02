@@ -8,6 +8,6 @@ cd /home/$USER && mkdir -p ${APP_NAME} && curl -kLs $APP_URL \
 
 (
   cd ${APP_NAME}
-  make CONTINUE=y TAG=${VERSION} deploy
+  make CONTINUE=y TAG=${VERSION} deploy-prod
 )
 exit $?
