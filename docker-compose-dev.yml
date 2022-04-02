@@ -10,10 +10,10 @@ services:
         - no_proxy
       context: ./backend
       target: dev
-    container_name: basegun-back
+    container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
-    image: basegun-back:${TAG}-dev
+    image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000
     volumes:
@@ -30,8 +30,8 @@ services:
         - no_proxy
       context: ./frontend
       target: dev
-    image: basegun-front:${TAG}-dev
-    container_name: basegun-front
+    image: basegun-frontend:${TAG}-dev
+    container_name: basegun-frontend
     ports:
       - 3000:3000
     volumes:
