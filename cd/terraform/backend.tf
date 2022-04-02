@@ -1,6 +1,6 @@
 terraform {
   backend "swift" {
-      region_name = "GRA"
-      container = "basegun-terraform-state"
+    region_name = "GRA"
+    container   = "basegun-terraform-state"
   }
 }

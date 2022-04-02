@@ -1,4 +1,3 @@
 
 provider "openstack" {
-    alias = "ovh"
 }
