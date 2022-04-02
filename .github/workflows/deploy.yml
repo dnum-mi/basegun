@@ -1,0 +1,64 @@
+on:
+  workflow_call:
+    inputs:
+      app_version:
+        required: false
+        type: string
+        default: "latest"
+      branch:
+        required: false
+        type: string
+        default: "main"
+      volume_size:
+        required: false
+        type: number
+        default: 10
+      flavor:
+        required: false
+        type: string
+        default: "s1-2"
+    secrets:
+      server_ip:
+        required: true
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+    env:
+      OS_AUTH_URL: https://auth.cloud.ovh.net/v3
+      OS_REGION_NAME: "GRA7"
+      OS_INTERFACE: public
+      OS_IDENTITY_API_VERSION: 3
+      OS_USER_DOMAIN_NAME: "Default"
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      TF_VAR_fixed_ip: ${{ secrets.server_ip }}
+      TF_VAR_app_version: ${{ inputs.app_version }}
+      TF_VAR_flavor: ${{ inputs.flavor }}
+      TF_VAR_volume_size: ${{ inputs.volume_size }}
+    steps:
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: "latest"
+    - uses: actions/checkout@v2
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+
+    - name: Terraform apply
+      #if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      run: terraform apply --auto-approve
+
+#TODO: run script if server is reachable
+#TODO: select workspace if branch is develop (preprod) or main (prod)
