@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  preprod:
+      uses: .github/workflows/deploy.yml
+      with:
+        image_version: latest
+        branch: "feature/cd"
+        volume_size: 10
+        flavor: "s1-2"
+        workspace: "preprod"
+      secrets:
+        server_ip: ${{ secrets.preprod_server_ip }}
+
