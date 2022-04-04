@@ -31,10 +31,12 @@
                     <span class="fr-fi-refresh-line" aria-hidden="true"></span>
                     <p class="action-group-text">RECOMMENCER</p>
                 </div>
-                <div class="action-group">
-                    <span class="fr-fi-information-line" aria-hidden="true"></span>
-                    <p class="action-group-text">A PROPOS</p>
-                </div>
+                <a href="/informations">
+                    <div class="action-group">
+                        <span class="fr-fi-information-line" aria-hidden="true"></span>
+                        <p class="action-group-text">A PROPOS</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -164,7 +166,10 @@
     .action-group {
         text-align: center;
         cursor: pointer;
-        margin: 8px 0
+        margin: 8px 0;
+    }
+    .action-group:hover {
+        color: #1212ff;
     }
     .action-group-text {
         font-size: 12px;
