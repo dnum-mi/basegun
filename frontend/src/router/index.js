@@ -15,7 +15,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Informations.vue')
-  }
+  },
+  {
+    path: '/erreur',
+    name: 'Error',
+    component: () => import('../views/Error.vue')
+  },
 ]
 
 const router = createRouter({
