@@ -13,10 +13,6 @@ export default {
   name: 'InformationsPage',
   components: {
     HeaderMain
-  },
-  data() {
-    return {
-    }
   }
 }
 </script>

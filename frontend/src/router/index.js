@@ -1,5 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import Home from '../views/Home.vue'
+import Informations from '../views/Informations.vue'
+import Error from '../views/Error.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 
 
 const routes = [
@@ -11,16 +14,18 @@ const routes = [
   {
     path: '/informations',
     name: 'Informations',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Informations.vue')
+    component: Informations
   },
   {
     path: '/erreur',
     name: 'Error',
-    component: () => import('../views/Error.vue')
+    component: Error
   },
+  {
+    path: '/:pathMach(.*)*',
+    name: 'PageNotFound',
+    component: PageNotFound
+  }
 ]
 
 const router = createRouter({

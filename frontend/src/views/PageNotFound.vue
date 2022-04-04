@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderMain />
-    <h1>Erreur</h1>
+    <h1>Page non trouvée</h1>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import HeaderMain from '@/components/HeaderMain.vue';
 
 export default {
-  name: 'ErrorPage',
+  name: 'PageNotFound',
   components: {
     HeaderMain
   }
