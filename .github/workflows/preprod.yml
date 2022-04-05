@@ -3,7 +3,7 @@ on:
 #  push:
 #    branches:
 #      - "develop"
-
+name: Preprod deployment
 jobs:
   preprod:
       uses: ./.github/workflows/deploy.yml
