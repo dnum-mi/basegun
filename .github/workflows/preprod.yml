@@ -1,12 +1,12 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "develop"
+#  push:
+#    branches:
+#      - "develop"
 
 jobs:
   preprod:
-      uses: .github/workflows/deploy.yml@feature/cd
+      uses: ./.github/workflows/deploy.yml
       with:
         image_version: latest
         branch: "feature/cd"
