@@ -6,7 +6,7 @@ on:
 
 jobs:
   preprod:
-      uses: .github/workflows/deploy.yml
+      uses: .github/workflows/deploy.yml@feature/cd
       with:
         image_version: latest
         branch: "feature/cd"
