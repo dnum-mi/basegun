@@ -9,11 +9,15 @@ This folder is used to create Basegun deployment with Terraform, an open-source 
 
 - `backend.tf` : the remote state (in Swift container), where current state is stored.
 - `instance.tf` : the desirated instance (image, flavor, volume size, network and address, security group)
-- `output.tf` :
-- `provider.tf` : 
-- `template.tf` : 
-- `variable.tf` : 
-- `version.tf` : 
+- `output.tf` : show ips output
+- `provider.tf` : select provider (OVH)
+- `template.tf` : prepare cloud init and deployment script
+- `variable.tf` : availables variables
+- `version.tf` : version for terraform init
+
 ## Scripts
+
+This folder create the cloud-init file for prepare instance (update and install dependencies, add security settings). Then, use the `deploy.sh` script for download github repository archive and lauch the app.
+
 
 
