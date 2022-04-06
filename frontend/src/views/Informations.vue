@@ -2,7 +2,12 @@
   <div>
     <HeaderMain />
     <div class="content">
-        <h3>Cadre et limitations</h3>
+        <div class="d-flex align-items-center">
+            <a href="/" class="small-link small-text"> Accueil</a>
+            <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
+            <p class="small-text">Informations</p>
+        </div>
+        <h3 class="title-space">Cadre et limitations</h3>
         <p>Basegun est un projet d'application par apprentissage automatique capable d'identifier et de classifier
             de manière fiable et rapide une arme à feu.</p>
         <p>Le projet a été initié en 2021 et est en cours de développement par le Data Lab du Ministère de l'Intérieur.</p>
@@ -38,7 +43,7 @@ export default {
 
 <style scoped>
     .content {
-        margin: min(5vw, 10rem)
+        margin: min(5vw, 10rem);
     }
     .title-space {
         margin-top: 20px;
@@ -46,4 +51,15 @@ export default {
     .contact-list {
         margin-left: 2rem;
     }
+    .small-text {
+        font-size: 10pt;
+        margin-bottom: 0;
+    }
+    .small-link {
+        color: #000091;
+    }
+    .small-link:hover {
+        color: #1212ff
+    }
+
 </style>
