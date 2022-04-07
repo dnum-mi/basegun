@@ -31,7 +31,7 @@
                     <span class="fr-fi-refresh-line" aria-hidden="true"></span>
                     <p class="action-group-text">RECOMMENCER</p>
                 </div>
-                <a href="/informations">
+                <a href="/informations" class="no-shadow">
                     <div class="action-group">
                         <span class="fr-fi-information-line" aria-hidden="true"></span>
                         <p class="action-group-text">A PROPOS</p>
@@ -175,6 +175,9 @@
         font-size: 12px;
         font-weight: bold;
         margin: 0
+    }
+    .no-shadow {
+        box-shadow: none;
     }
     .blank {
         height: 80px
