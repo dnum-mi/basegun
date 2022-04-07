@@ -3,24 +3,25 @@ version: '3.8'
 services:
 
   backend:
-    image: basegun-back:${TAG}-dev
     build:
       args:
         - http_proxy
         - https_proxy
         - no_proxy
       context: ./backend
+      target: dev
     environment:
       - PATH_IMGS=/app/images
+    image: basegun-back:${TAG}-dev
     ports:
       - 5000:5000
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
-      - $PWD/backend/src/weights
+      - $PWD/backend/tests:/app/tests
+      - /app/src/weights
 
   frontend:
-    image: basegun-front:${TAG}-dev
     build:
       args:
         - http_proxy
@@ -28,6 +29,7 @@ services:
         - no_proxy
       context: ./frontend
       target: dev
+    image: basegun-front:${TAG}-dev
     ports:
       - 3000:3000
     volumes:

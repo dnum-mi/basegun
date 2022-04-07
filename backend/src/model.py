@@ -1,6 +1,6 @@
 import os
+from typing import Union
 from PIL import Image
-from torch import Tensor
 import numpy as np
 import torch
 import torchvision.models as Model
@@ -83,18 +83,33 @@ class RandomPad(object):
 
 
 def build_model(model: Model) -> Model:
-    # freeze first layers
+    """Create the model structure
+
+    Args:
+        model (Model): raw torchvision model
+
+    Returns:
+        Model: modified model with classification layer size len(CLASSES)
+    """
+    # freeze all layers except classification - very important
     for param in model.parameters():
         param.requires_grad = False
-    # Parameters of newly constructed modules have requires_grad=True by default
+    # replace last layer of model for our number of classes
     num_ftrs = model.classifier[1].in_features
-    # to try later : add batch normalization and dropout
     model.classifier[1] = torch.nn.Linear(num_ftrs, len(CLASSES))
     model = model.to(device)
     return model
 
 
 def load_model_inference(state_dict_path: str) -> Model:
+    """Load model structure and weights
+
+    Args:
+        state_dict_path (str): path to model (.pth file)
+
+    Returns:
+        Model: loaded model ready for prediction
+    """
     model = build_model(MODEL_TORCH())
     # Initialize model with the pretrained weights
     model.load_state_dict(torch.load(state_dict_path, map_location=device)['model_state_dict'])
@@ -104,19 +119,39 @@ def load_model_inference(state_dict_path: str) -> Model:
     return model
 
 
-loader =  transforms.Compose([
-            ConvertRgb(),
-            Rescale(INPUT_SIZE),
-            RandomPad(INPUT_SIZE),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ])
+def prepare_input(image: Image) -> torch.Tensor:
+    """Convert a PIL Image to model-compatible input
+
+    Args:
+        image (Image): input image
+
+    Returns:
+        torch.Tensor: converted image
+        (shape (1, 3, size, size), normalized on ImageNet)
+    """
+    loader = transforms.Compose([
+        ConvertRgb(),
+        Rescale(INPUT_SIZE),
+        RandomPad(INPUT_SIZE),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    image = loader(image).float()
+    return image.unsqueeze(0).to(device)
 
 
-def test_image(model, path):
+def predict_image(model: Model, path: str) -> Union[str, float]:
+    """Run the model prediction on an image
+
+    Args:
+        model (Model): classification model
+        path (str): path to input image
+
+    Returns:
+        Union[str, float]: (label, confidence) of best class predicted
+    """
     im = Image.open(path)
-    image = loader(im).float()
-    image = image.unsqueeze(0).to(device)
+    image = prepare_input(im)
     output = model(image)
     probs = torch.nn.functional.softmax(output, dim=1).detach().numpy()[0]
     res = [(CLASSES[i], round(probs[i]*100,2)) for i in range(len(CLASSES))]
