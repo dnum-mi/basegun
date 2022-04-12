@@ -66,12 +66,15 @@ export default {
   .swiper-content {
     width: 75%;
     margin: 0 auto;
+    text-align: center;
   }
 
   .swiper-ul {
     list-style-position: inside;
     text-indent: -1em;
     padding-left: 1em;
+    display: inline-block;
+    text-align: left;
   }
 
   .swiper-li {
