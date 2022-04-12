@@ -20,11 +20,6 @@
           <li class="swiper-li">Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span></li>
           <li class="swiper-li">Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.</li>          
         </ul>
-        <!-- <DsfrButton
-          class="fr-btn--sm"
-          :label="labelButton"
-          @click="redirectToSearch"
-        /> -->
         <button class="fr-btn fr-btn--sm" id="position-button" @click="redirectToSearch">
           J'ai compris
         </button>
@@ -61,11 +56,6 @@
       return {
         modules: [Navigation, Pagination],
       };
-    },
-    data() {
-      return {
-        labelButton: "J'ai compris",
-      }
     },
     methods: {
       redirectToSearch() {
@@ -143,7 +133,6 @@
   #position-button {
     display: block;
     margin: 0 auto;
-    /* text-align: center; */
   }
 
 </style>
