@@ -13,7 +13,16 @@
         </ul>
       </div>
     </swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>
+      <img src="../assets/basegun_green.png" alt="" class="swiper-logo">
+      <div class="swiper-content">
+        <ul class="swiper-ul fr-text--md">
+          <li class="swiper-li">Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.</li>
+          <li class="swiper-li">A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).</li>
+        </ul>
+      </div>
+    </swiper-slide>
+
   </swiper>
   </div>
 </template>
@@ -98,6 +107,11 @@ export default {
   .swiper-red-highlight {
     font-weight: bold;
     color: #FF0000;
+  }
+
+  .swiper-green-highlight {
+    font-weight: bold;
+    color: #00C7C8;
   }
 
 </style>
