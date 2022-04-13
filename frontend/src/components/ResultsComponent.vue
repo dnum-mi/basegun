@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="result">
-            <div class="result-image">
-                <img class="img-fluid" :src="store.imgName" alt="Image téléversée">
-            </div>
+            <div class="result-image" :style="{backgroundImage:`url(${store.imgName})`}"></div>
             <div class="fr-callout custom-callout">
                 <div v-if="store.confidence < 40">
                     <div class="callout-head">
@@ -112,13 +110,16 @@
 </script>
 
 <style scoped>
+
     .result {
         margin: 0 auto;
         max-width: 1000px;
     }
     .result-image {
-        text-align: center;
-        margin: 0 auto
+        height: 30vh;
+        background-position: center;
+        background-size: cover;
+        margin: 0 auto;
     }
     @media (min-width: 768px) {
         .result-image {
