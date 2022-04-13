@@ -3,7 +3,7 @@
     <HeaderMain />
     <div class="content">
         <div class="d-flex align-items-center">
-            <a href="/" class="small-link small-text"> Accueil</a>
+            <a href="/accueil" class="small-link small-text"> Accueil</a>
             <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
             <p class="small-text">Informations</p>
         </div>

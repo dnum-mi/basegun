@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import Home from '../views/Home.vue'
-import Search from '../views/Search.vue'
+import Start from '../views/Start.vue'
 import Informations from '../views/Informations.vue'
 import Error from '../views/Error.vue'
 import PageNotFound from '../views/PageNotFound.vue'
@@ -13,9 +13,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/recherche',
-    name: 'Search',
-    component: Search
+    path: '/accueil',
+    name: 'Start',
+    component: Start
   },
   {
     path: '/informations',

@@ -12,7 +12,7 @@ import UploadComponent from '@/components/UploadComponent.vue';
 import ResultsComponent from '@/components/ResultsComponent.vue';
 
 export default {
-  name: 'SearchPage',
+  name: 'StartPage',
   components: {
     UploadComponent,
     ResultsComponent

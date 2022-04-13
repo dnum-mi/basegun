@@ -25,18 +25,20 @@
                     <p class="fr-callout__text">Type d'arme : {{ cleanLabel }}</p>
                 </div>
             </div>
+            <div v-if="store.confidence >= 40">
+                <p class="fr-text--sm warning-msg">Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.</p>
+                <div class="feedback">
+                    <p class="feedback-text">Ce résultat a-t-il été utile ?</p>
+                    <img src="../assets/thumbs-up.png" alt="" class="thumbs-img">
+                    <img src="../assets/thumbs-down.png" alt="" class="thumbs-img">
+                </div>
+            </div>
             <div class="blank"></div>
             <div class="footer-background footer-actions">
                 <div class="action-group" @click="reloadPage">
                     <span class="fr-fi-refresh-line" aria-hidden="true"></span>
                     <p class="action-group-text">RECOMMENCER</p>
                 </div>
-                <a href="/informations" class="no-shadow">
-                    <div class="action-group">
-                        <span class="fr-fi-information-line" aria-hidden="true"></span>
-                        <p class="action-group-text">A PROPOS</p>
-                    </div>
-                </a>
             </div>
         </div>
     </div>
@@ -122,13 +124,15 @@
         .result-image {
             max-width: 600px;
         }
-        .custom-callout {
+        .custom-callout,
+        .warning-msg {
             max-width: 600px;
             margin: 12px auto
         }
     }
     @media (max-width: 768px) {
-        .custom-callout {
+        .custom-callout,
+        .warning-msg {
             margin: 12px
         }
     }
@@ -157,6 +161,27 @@
         display: flex;
         align-items: center;
     }
+    .warning-msg {
+        line-height: 1.3rem!important;
+    }
+
+    .feedback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .feedback-text {
+        margin-bottom: 0;
+        margin-right: 4px;
+        font-weight: bold;
+    }
+
+    .thumbs-img {
+        height: 50px;
+        margin: 0 2px;
+    }
+
     .footer-actions {
         display: flex;
         justify-content: space-around;
@@ -175,9 +200,6 @@
         font-size: 12px;
         font-weight: bold;
         margin: 0
-    }
-    .no-shadow {
-        box-shadow: none;
     }
     .blank {
         height: 80px

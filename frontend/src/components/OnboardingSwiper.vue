@@ -20,7 +20,7 @@
           <li class="swiper-li">Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span></li>
           <li class="swiper-li">Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.</li>          
         </ul>
-        <button class="fr-btn fr-btn--sm" id="position-button" @click="redirectToSearch">
+        <button class="fr-btn fr-btn--sm" id="position-button" @click="redirectToStart">
           J'ai compris
         </button>
       </div>
@@ -58,8 +58,8 @@
       };
     },
     methods: {
-      redirectToSearch() {
-          window.location.replace("/recherche")
+      redirectToStart() {
+          window.location.replace("/accueil")
       }
     }
   };
