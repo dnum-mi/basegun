@@ -7,8 +7,7 @@ jobs:
   tag-pr:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out the repo
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Tag PR
       uses: release-drafter/release-drafter@v5
       with:

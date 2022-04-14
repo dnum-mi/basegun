@@ -8,3 +8,4 @@ weights/
 temp/
 openrc.sh
 .terraform*
+.secrets
