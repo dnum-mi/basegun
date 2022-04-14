@@ -31,7 +31,7 @@ jobs:
   build-backend-and-test:
     runs-on: ubuntu-latest
     needs: check-files-modified
-    if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend') )
+    if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend/') )
     steps:
     - uses: actions/checkout@v2
     - name: Build docker image for tests
