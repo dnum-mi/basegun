@@ -53,12 +53,15 @@
                             if (err.response) {
                                 console.log(err.response.status)
                                 console.log(err.response.data)
+                                window.location.replace("/erreur")
                             } else if (err.request) {
                                 // The request was made but no response was received
                                 console.log(err.request);
+                                window.location.replace("/erreur")
                             } else {
                                 // Something happened in setting up the request that triggered an Error
                                 console.log('Error', err.message);
+                                window.location.replace("/erreur")
                             }
                         });
                     }

@@ -6,10 +6,12 @@
                     <div class="fr-header__brand fr-enlarge-link">
                         <div class="fr-header__brand-top">
                             <div class="fr-header__logo">
-                                <p class="fr-logo">
-                                    Ministère
-                                    <br>de l'Intérieur
-                                </p>
+                                <a href="/">
+                                    <p class="fr-logo">
+                                        Ministère
+                                        <br>de l'Intérieur
+                                    </p>
+                                </a>
                             </div>
                             <div class="fr-header__navbar">
                                 <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-833" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
