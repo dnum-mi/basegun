@@ -75,7 +75,7 @@ jobs:
       run: terraform validate -no-color
 
     - name: Terraform Workspace
-      run: terraform workspace select -or-create ${WORKSPACE}
+      run: terraform workspace select ${WORKSPACE} || terraform workspace new ${WORKSPACE}
 
     - name: Terraform Taint if exist
       run: terraform taint openstack_compute_instance_v2.instance -allow-missing
