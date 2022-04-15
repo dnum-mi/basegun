@@ -4,7 +4,7 @@ on:
       - "develop"
 name: Preprod deployment
 jobs:
-  build-push-deploy-preprod:
+  build-push:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -34,19 +34,19 @@ jobs:
     - name: Push on GHCR
       run: |
         ./cd/scripts/docker-push.sh develop
-    - name: Deploy to preprod
-      if: success()
-      uses: ./.github/workflows/deploy.yml
-      with:
-        image_version: latest
-        branch: "feature/cd"
-        volume_size: 10
-        flavor: "s1-2"
-        workspace: "preprod"
-      secrets:
-        SERVER_IP: ${{ secrets.PREPROD_SERVER_IP }}
-        OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-        OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
-        OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-        OS_USERNAME: ${{ secrets.OS_USERNAME }}
+  deploy-preprod:
+    uses: ./.github/workflows/deploy.yml
+    needs: build-push
+    with:
+      image_version: latest
+      branch: "feature/cd"
+      volume_size: 10
+      flavor: "s1-2"
+      workspace: "preprod"
+    secrets:
+      SERVER_IP: ${{ secrets.PREPROD_SERVER_IP }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
+      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
 
