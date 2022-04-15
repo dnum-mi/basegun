@@ -24,16 +24,16 @@ jobs:
       uses: vlaurin/action-ghcr-prune@main
       with:
         token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        organization: datalab-mi/basegun
-        container: basegun-backend
+        organization: datalab-mi
+        container: basegun/basegun-backend
         dry-run: true # Dry-run first, then change to `false`
         untagged: true
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:
         token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        organization: datalab-mi/basegun
-        container: basegun-frontend
+        organization: datalab-mi
+        container: basegun/basegun-frontend
         dry-run: true # Dry-run first, then change to `false`
         untagged: true
   deploy-preprod:
