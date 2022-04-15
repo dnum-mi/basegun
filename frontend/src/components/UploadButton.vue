@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="demarrer" style="display: none">
         <input 
             style="display: none"
             type="file"
