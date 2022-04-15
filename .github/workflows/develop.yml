@@ -44,7 +44,7 @@ jobs:
         flavor: "s1-2"
         workspace: "preprod"
       secrets:
-        server_ip: ${{ secrets.preprod_server_ip }}
+        SERVER_IP: ${{ secrets.PREPROD_SERVER_IP }}
         OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
         OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
         OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}

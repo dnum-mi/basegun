@@ -54,7 +54,7 @@ jobs:
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-      TF_VAR_fixed_ip: ${{ secrets.server_ip }}
+      TF_VAR_fixed_ip: ${{ secrets.SERVER_IP }}
       TF_VAR_app_version: ${{ inputs.image_version }}
       TF_VAR_flavor: ${{ inputs.flavor }}
       TF_VAR_branch: ${{ inputs.branch }}
