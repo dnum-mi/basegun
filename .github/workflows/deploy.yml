@@ -78,7 +78,7 @@ jobs:
       run: terraform workspace select ${WORKSPACE} || terraform workspace new ${WORKSPACE}
 
     - name: Terraform Taint if exist
-      run: terraform taint openstack_compute_instance_v2.instance -allow-missing
+      run: terraform taint -allow-missing openstack_compute_instance_v2.instance 
 
     - name: Terraform Plan
       id: plan
