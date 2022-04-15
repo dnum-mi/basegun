@@ -6,6 +6,9 @@ name: Preprod deployment
 jobs:
   build-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        containers: [basegun-frontend, basegun-backend]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
@@ -20,6 +23,14 @@ jobs:
     - name: Push on GHCR
       run: |
         ./cd/scripts/docker-push.sh develop
+    - name: Delete untagged images
+      uses: vlaurin/action-ghcr-prune@main
+      with:
+        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        organization: datalab-mi/basegun
+        container: ${{ matrix.container }}
+        dry-run: true # Dry-run first, then change to `false`
+        untagged: true
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
     needs: build-push
