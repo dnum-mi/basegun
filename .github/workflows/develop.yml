@@ -17,20 +17,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Delete previous develop image
-      uses: bots-house/ghcr-delete-image-action@v1.0.0
-      with:
-        owner: datalab-mi/basegun
-        name: basegun-frontend
-        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        tag: develop
-    - name: Delete previous develop image
-      uses: bots-house/ghcr-delete-image-action@v1.0.0
-      with:
-        owner: datalab-mi/basegun
-        name: basegun-backend
-        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        tag: develop
     - name: Push on GHCR
       run: |
         ./cd/scripts/docker-push.sh develop
@@ -38,8 +24,8 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     needs: build-push
     with:
-      image_version: latest
-      branch: "feature/cd"
+      image_version: develop
+      branch: "develop"
       volume_size: 10
       flavor: "s1-2"
       workspace: "preprod"
