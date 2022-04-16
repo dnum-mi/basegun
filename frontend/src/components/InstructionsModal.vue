@@ -10,8 +10,13 @@
                                 <button class="fr-btn--close fr-btn" title="Fermer la fenêtre modale" aria-controls="fr-modal-1" @click="closeModalAndLaunchInput">Fermer</button>
                             </div>
                             <div class="fr-modal__content">
-                                <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>Titre de la modale</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.</p>
+                                <h1 id="fr-modal-title-modal-1" class="fr-modal__title"><span class="fr-fi-arrow-right-line fr-fi--lg" aria-hidden="true"></span>Pour optimiser le résultat :</h1>
+                                <ul class="modal-ul">
+                                    <li>Ne photographier qu'une seule arme à la fois</li>
+                                    <li>Placer l'arme en entier et au centre du cadre</li>
+                                    <li>Présenter si possible le profil droit</li>
+                                    <img src="../assets/good-photo-example.jpeg" alt="" class="modal-img">
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -45,5 +50,10 @@
 </script>
 
 <style scoped>
-    
+    .modal-ul {
+        list-style-position: inside;
+    }
+    .modal-img {
+        height: 150px;
+    }
 </style>
