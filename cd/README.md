@@ -5,6 +5,15 @@ This folder is used to create Basegun deployment with Terraform, an open-source 
 
 ![](./img/openstack.png)
 
+## Configuration
+Add the following Github secrets:
+- OS_USERNAME : username of cloud provider
+- OS_PASSWORD : password for this user
+- OS_PROJECT_NAME
+- OS_PROJECT_ID
+- PERSO_ACCESS_TOKEN : github access token for publishing / deleting packages
+- PREPROD_SERVER_IP
+
 ## Terraform
 
 - `backend.tf` : the remote state (in Swift container), where current state is stored.
