@@ -9,10 +9,10 @@ This folder is used to create Basegun deployment with Terraform, an open-source 
 Add the following Github secrets:
 - OS_USERNAME : username of cloud provider
 - OS_PASSWORD : password for this user
-- OS_PROJECT_NAME
-- OS_PROJECT_ID
+- OS_PROJECT_NAME : value from `openrc.sh` (find on horizon platform)
+- OS_PROJECT_ID : value from `openrc.sh` (find on horizon platform)
 - PERSO_ACCESS_TOKEN : github access token for publishing / deleting packages
-- PREPROD_SERVER_IP
+- PREPROD_SERVER_IP : fixed ip for preprod server
 
 ## Terraform
 
