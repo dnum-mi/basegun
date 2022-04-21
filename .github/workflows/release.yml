@@ -38,11 +38,5 @@ jobs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Push on GHCR
       run: |
-        docker tag basegun-front:action-prod ghcr.io/datalab-mi/basegun/basegun-frontend:${{ steps.get_version.outputs.VERSION }}
-        docker tag basegun-back:action-prod ghcr.io/datalab-mi/basegun/basegun-backend:${{ steps.get_version.outputs.VERSION }}
-        docker push ghcr.io/datalab-mi/basegun/basegun-frontend:${{ steps.get_version.outputs.VERSION }}
-        docker push ghcr.io/datalab-mi/basegun/basegun-backend:${{ steps.get_version.outputs.VERSION }}
-        docker tag ghcr.io/datalab-mi/basegun/basegun-frontend:${{ steps.get_version.outputs.VERSION }} ghcr.io/datalab-mi/basegun/basegun-frontend:latest
-        docker tag ghcr.io/datalab-mi/basegun/basegun-backend:${{ steps.get_version.outputs.VERSION }} ghcr.io/datalab-mi/basegun/basegun-backend:latest
-        docker push ghcr.io/datalab-mi/basegun/basegun-frontend:latest
-        docker push ghcr.io/datalab-mi/basegun/basegun-backend:latest
+        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }}
+        ./cd/scripts/docker-push.sh latest
