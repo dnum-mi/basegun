@@ -38,3 +38,13 @@ services:
       - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src
       - /app/node_modules
+
+  filebeat:
+    image: elastic/filebeat:8.1.2
+    user: root
+    environment:
+      - OVH_TOKEN
+    volumes:
+      - $PWD/filebeat.logstash.yml:/usr/share/filebeat/filebeat.yml:ro
+      - $PWD/logs:/var/log/basegun
+    command: ["filebeat", "-e", "--strict.perms=false"]
