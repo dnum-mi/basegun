@@ -28,7 +28,7 @@ export default {
   },
   methods: {
       homeRedirect() {
-          window.location.replace("/")
+          window.location.replace("/accueil")
       }
   }
 }
