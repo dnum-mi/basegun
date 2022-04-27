@@ -2,7 +2,7 @@
     <div>
         <!--Bouton d'ouverture de la modale-->
         <div id="modal">
-            <button class="fr-btn"  data-fr-opened="false" aria-controls="fr-modal-1">
+            <button class="fr-btn" data-fr-opened="false" aria-controls="fr-modal-2">
                 Démarrer
             </button>
         </div>
