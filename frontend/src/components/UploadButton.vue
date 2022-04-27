@@ -19,12 +19,33 @@
     import { store } from '@/store.js';
     import axios from 'axios';
 
+    function randomCoord(num){
+                    const max = 0.1;
+                    const min = -0.1;
+                    return (Math.random() * (max - min) + min) + num;
+    }
+
+    function getHash(str, algo = "SHA-256") {
+        let strBuf = new TextEncoder().encode(str);
+        return crypto.subtle.digest(algo, strBuf)
+            .then(hash => {
+            window.hash = hash;
+            // here hash is an arrayBuffer, 
+            // so we'll connvert it to its hex version
+            let result = '';
+            const view = new DataView(hash);
+            for (let i = 0; i < hash.byteLength; i += 4) {
+                result += ('00000000' + view.getUint32(i).toString(16)).slice(-8);
+            }
+            return result;
+            });
+    }
+
     export default {
         name: 'UploadButton',
         data() {
             return {
                 store,
-                selectedFile: null,
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer",
                 // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
@@ -35,10 +56,34 @@
 
             onFileSelected(event) {
 
+                axios.get('http://ip-api.com/json', { withCredentials: false })
+                    .then(res => {
+                        const latitude = randomCoord(res.data.lat)
+                        const longitude = randomCoord(res.data.lon)
+                        store.geolocation = latitude.toString() + ',' + longitude.toString()
+
+                        getHash(res.data.ip + window.navigator.userAgent + window.navigator.hardwareConcurrency)
+                        .then(hash => {
+                            store.userId = hash;
+                        });
+                    })
+                    .catch((err) => {
+                        // if cannot get ip use only userAgent and hardwareConcurrency for user id
+                        getHash(window.navigator.userAgent + window.navigator.hardwareConcurrency)
+                        .then(hash => {
+                            store.geolocation = null;
+                            store.userId = hash;
+                        });
+                    })
+
+                resizeUploadedImage(event)
+
                 function onUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
-                    fd.append('date', Date.now())
+                    fd.append('date', Date.now());
+                    fd.append('userId', store.userId);
+                    fd.append('geolocation', store.geolocation);
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
     
@@ -74,51 +119,52 @@
                     );
                 }
 
-                store.selectedFile = event.target.files[0];
-                const fileName = store.selectedFile.name
 
-                const reader = new FileReader();
-                console.log('File selected');
-                reader.readAsDataURL(store.selectedFile);
-                console.log('Read data url')
+                function resizeUploadedImage(event) {
+                    store.selectedFile = event.target.files[0];
+                    const fileName = store.selectedFile.name
 
-                reader.onload = function (event) {
-                    console.log('Load reader')
-                    const imgElement = document.createElement("img");
-                    imgElement.src = event.target.result
+                    const reader = new FileReader();
+                    reader.readAsDataURL(store.selectedFile);
 
-                    imgElement.onload = function (e) {
-                        const canvas = document.createElement("canvas");
-                        const MAX_WIDTH = 600
-                        const MAX_HEIGHT = 600
-                        let width = imgElement.width
-                        let height = imgElement.height
-                        if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
+                    reader.onload = function (event) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = event.target.result
+
+                        imgElement.onload = function (e) {
+                            const canvas = document.createElement("canvas");
+                            const MAX_WIDTH = 600
+                            const MAX_HEIGHT = 600
+                            let width = imgElement.width
+                            let height = imgElement.height
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
                             }
-                        } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                            canvas.width = width
+                            canvas.height = height
+                            const ctx = canvas.getContext("2d");
+                            ctx.drawImage(e.target, 0, 0, width, height)
+                            const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
+                            srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
+                                const newFile = res
+                                onUpload(newFile)
+                            })
                         }
-                        canvas.width = width
-                        canvas.height = height
-                        const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, width, height)
-                        const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
-                        srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
-                            const newFile = res
-                            onUpload(newFile)
-                        })
-                    }
 
-                    imgElement.onerror = function() {
-                        alert("Corrupted image file, please try another");
-                    };
+                        imgElement.onerror = function() {
+                            alert("Corrupted image file, please try another");
+                        };
+                    }
                 }
+
             },
 
         }

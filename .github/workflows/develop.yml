@@ -9,6 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
+      env:
+        OVH_TOKEN: ${{ secrets.PERSO_ACCESS_TOKEN }}
       run: TAG=action docker-compose -f docker-compose-prod.yml build
     - name: Login to GHCR
       if: success()

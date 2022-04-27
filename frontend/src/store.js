@@ -5,5 +5,7 @@ export const store = reactive({
     confidence: null,
     imgName: null,
     resultText: null,
-    uploadMessage: null
+    uploadMessage: null,
+    userId: null,
+    geolocation: null,
 })

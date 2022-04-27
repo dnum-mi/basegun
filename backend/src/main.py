@@ -4,11 +4,11 @@ from uuid import uuid4
 import logging
 import time
 import json
-from fastapi import FastAPI, File, Form, UploadFile, HTTPException, Request
+from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
-from PIL import UnidentifiedImageError
+from user_agents import parse
 from src.model import load_model_inference, predict_image
 
 
@@ -72,6 +72,8 @@ MODEL_PATH = os.path.join(
 model = None
 if os.path.exists(MODEL_PATH):
     model = load_model_inference(MODEL_PATH)
+if not model:
+    raise RuntimeError("Model not found")
 
 
 ####################
@@ -102,34 +104,53 @@ def logs(request: Request):
 
 
 @app.post("/upload")
-async def imageupload(image: UploadFile = File(...), date: float = Form(...)):
-    if model:
-        # store image in PATH_IMGS folder
-        input_path = os.path.join(PATH_IMGS,
-                        # rename with uuid for secure filename but keep original file ext
-                        str(uuid4()) + os.path.splitext(image.filename)[1]
-                    )
-        with open(f'{input_path}', "wb") as buffer:
-            shutil.copyfileobj(image.file, buffer)
+async def imageupload(
+    request: Request,
+    image: UploadFile = File(...),
+    date: float = Form(...),
+    userId: str = Form(...),
+    geolocation: str = Form(...) ):
+
+    # store image in PATH_IMGS folder
+    input_path = os.path.join(PATH_IMGS,
+                    # rename with uuid for secure filename but keep original file ext
+                    str(uuid4()) + os.path.splitext(image.filename)[1]
+                )
+    with open(f'{input_path}', "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
 
 
-        extras_logging = {'image_url': input_path, 'upload_time': round(time.time()-date/1000, 2)}
-        try:
-            start = time.time()
-            label, confidence = predict_image(model, input_path)
-            extras_logging['label'] = label
-            extras_logging['confidence'] = confidence
-            extras_logging['processing_time'] = round(time.time()-start, 2)
-            logger.info("Identification request",
-                extra=extras_logging
-            )
-        except Exception as e:
-            extras_logging['error_type'] = e.__class__.__name__
-            logger.exception(e, extra=extras_logging)
-            raise HTTPException(status_code=500, detail=str(e))
-
+    user_agent = parse(request.headers.get('user-agent'))
+    if user_agent.is_mobile:
+        device = 'mobile'
+    elif user_agent.is_pc:
+        device = 'pc'
     else:
-        logger.error("Model not found")
-        raise HTTPException(status_code=404, detail="Model not found")
+        device = 'tablet'
+
+    extras_logging = {
+        'image_url': input_path,
+        'upload_time': round(time.time()-date/1000, 2),
+        'user_id': userId,
+        'geolocation': geolocation,
+        'device': device,
+        'device_family': user_agent.device.family,
+        'device_os': user_agent.os.family,
+        'device_browser': user_agent.browser.family
+    }
+    try:
+        start = time.time()
+        label, confidence = predict_image(model, input_path)
+        extras_logging['label'] = label
+        extras_logging['confidence'] = confidence
+        extras_logging['processing_time'] = round(time.time()-start, 2)
+        logger.info("Identification request",
+            extra=extras_logging
+        )
+    except Exception as e:
+        extras_logging['error_type'] = e.__class__.__name__
+        logger.exception(e, extra=extras_logging)
+        raise HTTPException(status_code=500, detail=str(e))
+
     return {"file_name": input_path, "label": label, "confidence": confidence}
 

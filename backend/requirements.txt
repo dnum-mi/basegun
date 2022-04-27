@@ -4,3 +4,6 @@ torch==1.10.2+cpu
 torchvision==0.11.3+cpu
 python-multipart>=0.0.5
 gelf-formatter==0.2.1
+pyyaml
+ua-parser
+user-agents
