@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-20.04
     defaults:
       run:
-        working-directory: ./cd/terraform
+        working-directory: ./infra/terraform
     env:
       OS_AUTH_URL: https://auth.cloud.ovh.net/v3
       OS_REGION_NAME: "GRA7"

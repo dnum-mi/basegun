@@ -7,6 +7,6 @@ __pycache__
 weights/
 logs/
 temp/
-openrc.sh
+*openrc.sh
 .terraform*
 .secrets

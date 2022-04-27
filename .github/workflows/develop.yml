@@ -19,7 +19,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        ./cd/scripts/docker-push.sh develop
+        ./infra/scripts/docker-push.sh develop
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:

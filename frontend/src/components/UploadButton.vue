@@ -38,6 +38,7 @@
                 function onUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
+                    fd.append('date', Date.now())
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
     
@@ -77,9 +78,12 @@
                 const fileName = store.selectedFile.name
 
                 const reader = new FileReader();
-                reader.readAsDataURL(store.selectedFile)
+                console.log('File selected');
+                reader.readAsDataURL(store.selectedFile);
+                console.log('Read data url')
 
                 reader.onload = function (event) {
+                    console.log('Load reader')
                     const imgElement = document.createElement("img");
                     imgElement.src = event.target.result
 
@@ -110,6 +114,10 @@
                             onUpload(newFile)
                         })
                     }
+
+                    imgElement.onerror = function() {
+                        alert("Corrupted image file, please try another");
+                    };
                 }
             },
 
