@@ -7,7 +7,7 @@
           <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
           <p class="small-text">Contact</p>
       </div>
-      <p class="title-space">Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <span class="dark-blue-highlight">basegun@interieur.gouv.fr</span>.</p>
+      <p class="title-space">Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a href="mailto:basegun@interieur.gouv.fr">basegun@interieur.gouv.fr</a>.</p>
     </div>
   </div>
 </template>
@@ -41,10 +41,6 @@ export default {
   }
   .small-link:hover {
       color: #1212ff
-  }
-  .dark-blue-highlight {
-    font-weight: bold;
-    color: #000091;
   }
 
 </style>
