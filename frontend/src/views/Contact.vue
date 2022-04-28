@@ -32,9 +32,6 @@ export default {
   .title-space {
       margin-top: 20px;
   }
-  .contact-list {
-      margin-left: 2rem;
-  }
   .small-text {
       font-size: 10pt;
       margin-bottom: 0;
@@ -45,7 +42,6 @@ export default {
   .small-link:hover {
       color: #1212ff
   }
-
   .dark-blue-highlight {
     font-weight: bold;
     color: #000091;
