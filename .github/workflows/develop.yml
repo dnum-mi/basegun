@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       env:
-        OVH_TOKEN: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        OVH_TOKEN: ${{ secrets.OVH_TOKEN }}
       run: TAG=action docker-compose -f docker-compose-prod.yml build
     - name: Login to GHCR
       if: success()
@@ -54,4 +54,3 @@ jobs:
       OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}
-
