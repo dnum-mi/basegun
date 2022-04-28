@@ -6,7 +6,7 @@
                     <div class="fr-header__brand fr-enlarge-link">
                         <div class="fr-header__brand-top">
                             <div class="fr-header__logo">
-                                <a href="/">
+                                <a href="/accueil">
                                     <p class="fr-logo">
                                         Ministère
                                         <br>de l'Intérieur
@@ -40,7 +40,13 @@
                 <nav class="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
                     <ul class="fr-nav__list">
                         <li class="fr-nav__item">
-                            <a class="fr-nav__link" href="/informations" target="_self">Informations</a>
+                            <a class="fr-nav__link" href="/a-propos" target="_self">À propos</a>
+                        </li>
+                        <li class="fr-nav__item">
+                            <a class="fr-nav__link" href="/mentions-legales" target="_self">Mentions légales</a>
+                        </li>
+                        <li class="fr-nav__item">
+                            <a class="fr-nav__link" href="/contact" target="_self">Contact</a>
                         </li>
                     </ul>
                 </nav>
