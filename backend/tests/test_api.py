@@ -66,4 +66,4 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["_user_id"], user)
         self.assertEqual(log["_geolocation"], geoloc)
-        self.assertTrue(log["_upload_time"]>0)
+        self.assertTrue(log["_upload_time"]>=0)
