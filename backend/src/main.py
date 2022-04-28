@@ -84,14 +84,6 @@ def home():
     return "Basegun backend"
 
 
-@app.get("/version", response_class=PlainTextResponse)
-def version():
-    if "VERSION" in os.environ:
-        return os.environ["VERSION"]
-    else:
-        return "unknown"
-
-
 @app.get("/logs")
 def logs(request: Request):
     request_url = request.url._url
