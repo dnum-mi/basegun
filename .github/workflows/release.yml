@@ -24,8 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Build the Docker image
-      run: TAG=action docker-compose -f docker-compose-prod.yml build
+      run: TAG=${{ steps.get_version.outputs.VERSION }} docker-compose -f docker-compose-prod.yml build
     - name: Login to GHCR
       if: success()
       uses: docker/login-action@v1
@@ -33,10 +36,7 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Get the version
-      id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: Push on GHCR
       run: |
-        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }}
-        ./cd/scripts/docker-push.sh latest
+        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} ${{ steps.get_version.outputs.VERSION }}
+        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} latest
