@@ -13,6 +13,7 @@ services:
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
+      - PATH_LOGS=/app/logs
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
@@ -33,3 +34,13 @@ services:
       - ${PORT_PROD:-80}:80
     volumes:
       - /tmp/basegun:/usr/share/nginx/html/temp
+
+  filebeat:
+    image: elastic/filebeat:8.1.2
+    user: root
+    environment:
+      - OVH_TOKEN
+    volumes:
+      - $PWD/infra/filebeat.logstash.yml:/usr/share/filebeat/filebeat.yml:ro
+      - $PWD/backend/logs:/var/log/basegun
+    command: ["filebeat", "-e", "--strict.perms=false"]

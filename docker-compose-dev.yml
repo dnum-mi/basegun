@@ -14,14 +14,13 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
-      - VERSION=${TAG}
     image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
-      - $PWD/backend/tests:/app/tests
+      # - $PWD/backend/tests:/app/tests
       - $PWD/backend/logs:/app/logs
       - /app/src/weights
 

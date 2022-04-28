@@ -61,31 +61,33 @@
                         const latitude = randomCoord(res.data.lat)
                         const longitude = randomCoord(res.data.lon)
                         store.geolocation = latitude.toString() + ',' + longitude.toString()
+                        const hash_input = res.data.ip + window.navigator.userAgent + window.navigator.hardwareConcurrency
 
-                        getHash(res.data.ip + window.navigator.userAgent + window.navigator.hardwareConcurrency)
-                        .then(hash => {
-                            store.userId = hash;
-                        });
+                        startUpload(event, hash_input)
                     })
                     .catch((err) => {
                         // if cannot get ip use only userAgent and hardwareConcurrency for user id
-                        getHash(window.navigator.userAgent + window.navigator.hardwareConcurrency)
-                        .then(hash => {
-                            store.geolocation = null;
-                            store.userId = hash;
-                        });
+                        const hash_input = window.navigator.userAgent + window.navigator.hardwareConcurrency
+                        startUpload(event, hash_input)
                     })
 
-                resizeUploadedImage(event)
+                function startUpload(event, hash_input) {
+                    getHash(hash_input)
+                        .then(hash => {
+                            store.userId = hash;
+                            resizeAndUpload(event)
+                        });
+                }
 
-                function onUpload(file) {
+                function submitUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
-                    fd.append('date', Date.now());
+                    fd.append('date', Date.now()/1000); //date.now gives the milliseconds timestamp so we convert to seconds
                     fd.append('userId', store.userId);
                     fd.append('geolocation', store.geolocation);
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
+                    console.log(store.userId, store.geolocation)
     
                     axios.post('/upload', fd)
                         .then(res => {
@@ -119,8 +121,7 @@
                     );
                 }
 
-
-                function resizeUploadedImage(event) {
+                function resizeAndUpload(event) {
                     store.selectedFile = event.target.files[0];
                     const fileName = store.selectedFile.name
 
@@ -155,7 +156,7 @@
                             const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
                             srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
                                 const newFile = res
-                                onUpload(newFile)
+                                submitUpload(newFile)
                             })
                         }
 

@@ -88,7 +88,7 @@ def home():
 def logs(request: Request):
     request_url = request.url._url
     if ("localhost" in request_url or "preprod" in request_url):
-        with open(PATH_LOGS, 'r') as f:
+        with open(PATH_LOGS, "r") as f:
             lines = f.readlines()
             return [json.loads(l) for l in lines]
     else:
@@ -108,39 +108,39 @@ async def imageupload(
                     # rename with uuid for secure filename but keep original file ext
                     str(uuid4()) + os.path.splitext(image.filename)[1]
                 )
-    with open(f'{input_path}', "wb") as buffer:
+    with open(f"{input_path}", "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
 
-
-    user_agent = parse(request.headers.get('user-agent'))
+    user_agent = parse(request.headers.get("user-agent"))
+    device = "other"
     if user_agent.is_mobile:
-        device = 'mobile'
+        device = "mobile"
     elif user_agent.is_pc:
-        device = 'pc'
-    else:
-        device = 'tablet'
+        device = "pc"
+    elif user_agent.is_tablet:
+        device = "tablet"
 
     extras_logging = {
-        'image_url': input_path,
-        'upload_time': round(time.time()-date/1000, 2),
-        'user_id': userId,
-        'geolocation': geolocation,
-        'device': device,
-        'device_family': user_agent.device.family,
-        'device_os': user_agent.os.family,
-        'device_browser': user_agent.browser.family
+        "image_url": input_path,
+        "upload_time": round(time.time()-date, 2),
+        "user_id": userId,
+        "geolocation": geolocation,
+        "device": device,
+        "device_family": user_agent.device.family,
+        "device_os": user_agent.os.family,
+        "device_browser": user_agent.browser.family
     }
     try:
         start = time.time()
         label, confidence = predict_image(model, input_path)
-        extras_logging['label'] = label
-        extras_logging['confidence'] = confidence
-        extras_logging['processing_time'] = round(time.time()-start, 2)
+        extras_logging["label"] = label
+        extras_logging["confidence"] = confidence
+        extras_logging["processing_time"] = round(time.time()-start, 2)
         logger.info("Identification request",
             extra=extras_logging
         )
     except Exception as e:
-        extras_logging['error_type'] = e.__class__.__name__
+        extras_logging["error_type"] = e.__class__.__name__
         logger.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -38,6 +38,7 @@ jobs:
         container: basegun/basegun-frontend
         dry-run: false
         untagged: true
+
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
     needs: build-push
