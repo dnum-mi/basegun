@@ -41,6 +41,7 @@ jobs:
         container: basegun/basegun-frontend
         dry-run: false
         untagged: true
+
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
     needs: build-push
@@ -57,3 +58,14 @@ jobs:
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}
 
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy-preprod
+    steps:
+      - name: Test ip
+        run : |
+          [[ "$(curl ${{ secrets.PREPROD_SERVER_IP }}/api/)" == "Basegun backend" ]]  && echo "Test ip OK"
+      - name: test DNS
+        if: success()
+        run : |
+          [[ "$(curl preprod.basegun.fr/api/)" == "Basegun backend" ]]  && echo "Test DNS OK"
