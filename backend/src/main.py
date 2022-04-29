@@ -1,14 +1,16 @@
 import shutil
 import os
-from uuid import uuid4
 import logging
 import time
 import json
+from uuid import uuid4
+from io import BytesIO
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
 from user_agents import parse
+import swiftclient
 from src.model import load_model_inference, predict_image
 
 
@@ -34,7 +36,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # Image storage
 if "PATH_IMGS" in os.environ:
@@ -76,6 +77,21 @@ if not model:
     raise RuntimeError("Model not found")
 
 
+# Connection to OVH cloud
+conn = swiftclient.Connection(
+    authurl='https://auth.cloud.ovh.net/v3',
+    user=os.environ['OS_USERNAME'],
+    key=os.environ['OS_PASSWORD'],
+    os_options={
+        'project_name': os.environ['OS_PROJECT_NAME'],
+        'region_name': os.environ['OS_REGION_NAME']
+    },
+    auth_version='3'
+)
+conn.get_account()
+print(conn.get_account()[1])
+
+
 ####################
 #     ROUTES       #
 ####################
@@ -103,14 +119,21 @@ async def imageupload(
     userId: str = Form(...),
     geolocation: str = Form(...) ):
 
+
+    # upload image to OVH Cloud
+    image_file = BytesIO(image.file)
+    print(type(image.file), type(image_file))
+    conn.put_object('basegun-public', 'test-basegun.png',
+                                    contents= image_file)
+
     # store image in PATH_IMGS folder
     input_path = os.path.join(PATH_IMGS,
-                    # rename with uuid for secure filename but keep original file ext
                     str(uuid4()) + os.path.splitext(image.filename)[1]
                 )
     with open(f"{input_path}", "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
 
+    # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
     device = "other"
     if user_agent.is_mobile:
@@ -119,7 +142,6 @@ async def imageupload(
         device = "pc"
     elif user_agent.is_tablet:
         device = "tablet"
-
     extras_logging = {
         "image_url": input_path,
         "upload_time": round(time.time()-date, 2),
@@ -130,19 +152,21 @@ async def imageupload(
         "device_os": user_agent.os.family,
         "device_browser": user_agent.browser.family
     }
-    try:
-        start = time.time()
-        label, confidence = predict_image(model, input_path)
-        extras_logging["label"] = label
-        extras_logging["confidence"] = confidence
-        extras_logging["processing_time"] = round(time.time()-start, 2)
-        logger.info("Identification request",
-            extra=extras_logging
-        )
-    except Exception as e:
-        extras_logging["error_type"] = e.__class__.__name__
-        logger.exception(e, extra=extras_logging)
-        raise HTTPException(status_code=500, detail=str(e))
 
-    return {"file_name": input_path, "label": label, "confidence": confidence}
+    # # send image to model for prediction
+    # try:
+    #     start = time.time()
+    #     label, confidence = predict_image(model, input_path)
+    #     extras_logging["label"] = label
+    #     extras_logging["confidence"] = confidence
+    #     extras_logging["processing_time"] = round(time.time()-start, 2)
+    #     logger.info("Identification request",
+    #         extra=extras_logging
+    #     )
+    # except Exception as e:
+    #     extras_logging["error_type"] = e.__class__.__name__
+    #     logger.exception(e, extra=extras_logging)
+    #     raise HTTPException(status_code=500, detail=str(e))
+
+    # return {"file_name": input_path, "label": label, "confidence": confidence}
 
