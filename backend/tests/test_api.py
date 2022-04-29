@@ -16,6 +16,13 @@ class TestModel(unittest.TestCase):
         r = requests.get(self.url)
         self.assertEqual(r.text, "Basegun backend")
 
+    def test_version(self):
+        """Checks that the route /version sends a version"""
+        self.assertTrue("VERSION" in os.environ)
+        r = requests.get(self.url + '/version')
+        self.assertEqual(r.text, os.environ["VERSION"])
+        self.assertEqual(len(r.text.split('.')), 2) # checks version has format X.Y
+
     def test_upload(self):
         """Checks that the file upload works properly"""
         path = os.path.join(

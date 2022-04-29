@@ -49,6 +49,14 @@ def home():
     return "Basegun backend"
 
 
+@app.get("/version", response_class=PlainTextResponse)
+def version():
+    if "VERSION" in os.environ:
+        return os.environ["VERSION"]
+    else:
+        return "-1.0"
+
+
 @app.post("/upload")
 async def imageupload(image: UploadFile = File(...)):
     if model:
