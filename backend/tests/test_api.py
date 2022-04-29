@@ -19,7 +19,7 @@ class TestModel(unittest.TestCase):
     def test_version(self):
         """Checks that the route /version sends a version"""
         self.assertTrue("VERSION" in os.environ)
-        r = requests.get(self.url)
+        r = requests.get(self.url + '/version')
         self.assertEqual(r.text, os.environ["VERSION"])
         self.assertEqual(len(r.text.split('.')), 2) # checks version has format X.Y
 
