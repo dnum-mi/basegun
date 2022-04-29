@@ -54,7 +54,7 @@ def version():
     if "VERSION" in os.environ:
         return os.environ["VERSION"]
     else:
-        return "unknown"
+        return "-1.0"
 
 
 @app.post("/upload")

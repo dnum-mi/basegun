@@ -37,6 +37,8 @@ jobs:
     - name: Build docker image for tests
       run: docker build --target test -t basegun-back:tests backend/
     - name: Start container
-      run: docker run --rm --name basegun_back_test -d basegun-back:tests
+      run: |
+        $(cat Makefile | grep $'^TAG\t\+:= ' | sed 's/TAG\t\+:= //')
+        docker run --rm -e VERSION --name basegun_back_test -d basegun-back:tests
     - name: Run tests
       run: docker exec basegun_back_test python -m unittest discover -v
