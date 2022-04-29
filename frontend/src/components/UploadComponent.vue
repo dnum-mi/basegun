@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <HeaderMain />
+            <HeaderMain v-if="isMobile()"/>
             <div class="centered text-center">
                 <img src="../assets/basegun.png" alt="">
                 <h1 class="accueil-title">Basegun</h1>
@@ -32,7 +32,25 @@
         data() {
             return {
                 store,
+                windowWidth: window.innerWidth
             }
+        },
+        methods: {
+            isMobile() {
+                if (this.windowWidth < 992) {
+                    console.log('isMobile')
+                    return true
+                }
+            },
+            myEventHandler(e) {
+                this.windowWidth = e.target.innerWidth
+              }
+        },
+        created() {
+          window.addEventListener("resize", this.myEventHandler);
+        },
+        destroyed() {
+          window.removeEventListener("resize", this.myEventHandler);
         }
     }
 </script>
