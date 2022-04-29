@@ -8,4 +8,5 @@ export const store = reactive({
     uploadMessage: null,
     userId: null,
     geolocation: null,
+    instructionsRead: false
 })

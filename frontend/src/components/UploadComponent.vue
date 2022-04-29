@@ -1,18 +1,24 @@
 <template>
     <div>
         <div>
-            <HeaderMain />
-            <div class="centered text-center">
-                <img src="../assets/basegun.png" alt="">
-                <h1 class="accueil-title">Basegun</h1>
-                <p class="accueil-subtitle">Identification automatique des armes à feu</p>
-                <UploadButton />
-                <div>
-                    <p> {{ store.uploadMessage }} </p>
+            <div>
+                <HeaderMain />
+                <div class="centered text-center">
+                    <img src="../assets/basegun.png" alt="">
+                    <h1 class="accueil-title">Basegun</h1>
+                    <p class="accueil-subtitle">Identification automatique des armes à feu</p>
+                    <UploadButton />
+                    <InstructionsButton />
+                    <div>
+                        <p> {{ store.uploadMessage }} </p>
+                    </div>
+                </div>
+                <div class="footer-background footer-text">
+                    Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
                 </div>
             </div>
-            <div class="footer-background footer-text">
-                Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+            <div>
+                <InstructionsModal />
             </div>
         </div>
     </div>
@@ -21,13 +27,17 @@
 <script>
     import { store } from '@/store.js';
     import HeaderMain from '@/components/HeaderMain.vue';
-    import UploadButton from '@/components/UploadButton.vue'
+    import UploadButton from '@/components/UploadButton.vue';
+    import InstructionsButton from '@/components/InstructionsButton.vue'
+    import InstructionsModal from '@/components/InstructionsModal.vue'
 
     export default {
         name: 'UploadComponent',
         components: {
             HeaderMain,
-            UploadButton
+            UploadButton,
+            InstructionsButton,
+            InstructionsModal
         },
         data() {
             return {

@@ -83,6 +83,12 @@ if not model:
 def home():
     return "Basegun backend"
 
+@app.get("/version", response_class=PlainTextResponse)
+def version():
+    if "VERSION" in os.environ:
+        return os.environ["VERSION"]
+    else:
+        return "-1.0"
 
 @app.get("/logs")
 def logs(request: Request):
@@ -93,7 +99,6 @@ def logs(request: Request):
             return [json.loads(l) for l in lines]
     else:
         return PlainTextResponse("Forbidden")
-
 
 @app.post("/upload")
 async def imageupload(
