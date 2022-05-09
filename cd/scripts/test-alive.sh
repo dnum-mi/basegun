@@ -17,5 +17,5 @@ done
 if [ "$test_result" -gt "0" ] ; then
         ret=$test_result
         echo "ERROR: url does not respond"
-        exit 0
+        exit 1
 fi
