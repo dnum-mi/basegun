@@ -64,8 +64,8 @@ jobs:
     steps:
       - name: Test ip
         run : |
-          [[ "$(curl ${{ secrets.PREPROD_SERVER_IP }}/api/)" == "Basegun backend" ]]  && echo "Test ip OK"
-      - name: test DNS
+          ./cd/scripts/test-alive.sh ${{ secrets.PREPROD_SERVER_IP }}
+      - name: Test DNS
         if: success()
         run : |
-          [[ "$(curl preprod.basegun.fr/api/)" == "Basegun backend" ]]  && echo "Test DNS OK"
+          ./cd/scripts/test-alive.sh preprod.basegun.fr
