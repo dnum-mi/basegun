@@ -6,7 +6,7 @@ elapse=10;
 test_result=1
 
 until [ "$timeout" -le 0 -o "$test_result" -eq "0" ] ; do
-        [[ "$(curl $1/api/)" == "Basegun backend" ]]
+        [[ "$(curl -s $1/api/)" == "Basegun backend" ]]
         test_result=$?
         if [ "$test_result" -gt "0" ] ; then
             echo "Wait $elapse seconds";
