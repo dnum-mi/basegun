@@ -1,17 +1,18 @@
 #!/bin/bash
 echo "# Test preprod is up"
 set +e
-timeout=120;
-elapse=10;
+timeout=300;
+elapse=0;
+range=10;
 test_result=1
 
-until [ "$timeout" -le 0 -o "$test_result" -eq "0" ] ; do
+until [ "$elapse" -ge "$timeout" -o "$test_result" -eq "0" ] ; do
         [[ "$(curl -s $1/api/)" == "Basegun backend" ]]
         test_result=$?
         if [ "$test_result" -gt "0" ] ; then
-            echo "Wait $elapse seconds";
-            ((timeout=timeout-$elapse))
-            sleep $elapse
+            echo "Waited $elapse seconds";
+            ((elapse=elapse+$range))
+            sleep $range
         fi
 done
 if [ "$test_result" -gt "0" ] ; then
