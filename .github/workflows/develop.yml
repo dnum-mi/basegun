@@ -4,16 +4,23 @@ on:
       - "develop"
 name: Preprod deployment
 jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.VERSION }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get app version
+      id: get_version
+      run: |
+        echo ::set-output name=VERSION::$(cat Makefile | grep $'^TAG\t\+:= ' | sed 's/TAG\t\+:= //')
+
   build-push:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Get the version
-      id: get_version
-      run: |
-        echo ::set-output name=VERSION::$(cat Makefile | grep $'^TAG\t\+:= ' | sed 's/TAG\t\+:= //')
     - name: Build the Docker image
-      run: TAG=${{ steps.get_version.outputs.VERSION }} docker-compose -f docker-compose-prod.yml build
+      run: TAG=${{ needs.get-version.outputs.version }} docker-compose -f docker-compose-prod.yml build
     - name: Login to GHCR
       if: success()
       uses: docker/login-action@v1
@@ -23,8 +30,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} ${{ steps.get_version.outputs.VERSION }}
-        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} develop
+        ./cd/scripts/docker-push.sh v${{ needs.get-version.outputs.version }} v${{ needs.get-version.outputs.version }}
+        ./cd/scripts/docker-push.sh v${{ needs.get-version.outputs.version }} develop
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:
@@ -44,9 +51,9 @@ jobs:
 
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
-    needs: build-push
+    needs: [get-version, build-push]
     with:
-      image_version: develop
+      image_version: v${{ needs.get-version.outputs.version }}
       branch: "develop"
       volume_size: 10
       flavor: "s1-2"
