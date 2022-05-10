@@ -93,7 +93,7 @@ filebeat.config.modules:
 # output.
 fields_under_root: true
 fields:
-  X-OVH-TOKEN: ${OVH_TOKEN}
+  X-OVH-TOKEN: '${X_OVH_TOKEN}'
 
 #================================ Outputs =====================================
 
@@ -107,23 +107,23 @@ processors:
   - add_host_metadata: ~
   - add_cloud_metadata: ~
 
-#----------------------------- Logstash output --------------------------------
-output.logstash:
-  # Boolean flag to enable or disable the output module.
-  enabled: true
+#==================== Elasticsearch template setting ==========================
 
-  # The Logstash hosts
-  hosts: ["gra1.logs.ovh.com:5044"]
+setup.template.enabled: false
+setup.ilm.enabled: false
 
-  # Set gzip compression level.
-  compression_level: 3
+#-------------------------- Elasticsearch output ------------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["gra1.logs.ovh.com:9200"]
 
-  # Enable SSL support. SSL is automatically enabled if any SSL setting is set.
-  ssl.enabled: true
+  # Protocol - either `http` (default) or `https`.
+  protocol: "https"
 
-  # Optional SSL configuration options. SSL is off by default.
-  # List of root certificates for HTTPS server verifications
-  # ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+  # Authentication credentials using API key
+  username: "${API_OVH_TOKEN}"
+  password: "token"
+  index: "ldp-logs"
 
 #================================ Logging =====================================
 

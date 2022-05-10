@@ -43,11 +43,13 @@ services:
       - /app/node_modules
 
   filebeat:
-    image: elastic/filebeat:8.1.2
+    image: elastic/filebeat:6.5.4
     user: root
     environment:
-      - OVH_TOKEN=$OVH_TOKEN
+      - http_proxy
+      - https_proxy
+      - X_OVH_TOKEN
+      - API_OVH_TOKEN
     volumes:
-      - $PWD/infra/filebeat.logstash.yml:/usr/share/filebeat/filebeat.yml:ro
-      - $PWD/backend/logs:/var/log/basegun
+      - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
     command: ["filebeat", "-e", "--strict.perms=false"]
