@@ -3,14 +3,14 @@
         <div class="result">
             <div class="result-image" :style="{backgroundImage:`url(${store.imgName})`}"></div>
             <div class="fr-callout custom-callout">
-                <div v-if="store.confidence < 40">
+                <div v-if="store.confidence < 45">
                     <div class="callout-head">
                         <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
                     </div>
                     <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
                 </div>
                 <div v-else>
-                    <div v-if="store.confidence > 70">
+                    <div v-if="store.confidence > 75">
                         <div class="callout-head">
                             <p class="fr-tag fr-tag--sm success-tag">Indice de fiabilité : {{ Math.floor(store.confidence) }}%</p>
                         </div>
