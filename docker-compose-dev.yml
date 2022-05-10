@@ -52,4 +52,5 @@ services:
       - API_OVH_TOKEN
     volumes:
       - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
+      - $PWD/backend/logs:/var/log/basegun
     command: ["filebeat", "-e", "--strict.perms=false"]
