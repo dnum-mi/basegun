@@ -2,6 +2,7 @@ import shutil
 import os
 from uuid import uuid4
 import logging
+from datetime import datetime
 import time
 import json
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
@@ -126,26 +127,27 @@ async def imageupload(
         device = "tablet"
 
     extras_logging = {
-        "image_url": input_path,
-        "upload_time": round(time.time()-date, 2),
-        "user_id": userId,
-        "geolocation": geolocation,
-        "device": device,
-        "device_family": user_agent.device.family,
-        "device_os": user_agent.os.family,
-        "device_browser": user_agent.browser.family
+        "bg_date": datetime.now().isoformat(),
+        "bg_image_url": input_path,
+        "bg_upload_time": round(time.time()-date, 2),
+        "bg_user_id": userId,
+        "bg_geolocation": geolocation,
+        "bg_device": device,
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family
     }
     try:
         start = time.time()
         label, confidence = predict_image(model, input_path)
-        extras_logging["label"] = label
-        extras_logging["confidence"] = confidence
-        extras_logging["processing_time"] = round(time.time()-start, 2)
+        extras_logging["bg_label"] = label
+        extras_logging["bg_confidence"] = confidence
+        extras_logging["bg_processing_time"] = round(time.time()-start, 2)
         logger.info("Identification request",
             extra=extras_logging
         )
     except Exception as e:
-        extras_logging["error_type"] = e.__class__.__name__
+        extras_logging["bg_error_type"] = e.__class__.__name__
         logger.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 
