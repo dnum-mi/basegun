@@ -17,18 +17,13 @@ jobs:
 
   build-push:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      env:
-        OVH_TOKEN: ${{ secrets.OVH_TOKEN }}
-=======
     needs: get-version
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
->>>>>>> develop
+      env:
+          X_OVH_TOKEN: ${{ secrets.X_OVH_TOKEN }}
+          API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
       run: TAG=${{ needs.get-version.outputs.version }} docker-compose -f docker-compose-prod.yml build
     - name: Login to GHCR
       if: success()
@@ -39,13 +34,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-<<<<<<< HEAD
-        ./infra/scripts/docker-push.sh v${{ needs.get-version.outputs.version }} v${{ needs.get-version.outputs.version }}
-        ./infra/scripts/docker-push.sh v${{ needs.get-version.outputs.version }} develop
-=======
-        ./cd/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} v${{ needs.get-version.outputs.version }}
-        ./cd/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} develop
->>>>>>> develop
+        ./infra/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} v${{ needs.get-version.outputs.version }}
+        ./infra/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} develop
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:
@@ -86,12 +76,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Test ip
         run : |
-          ./cd/scripts/test-alive.sh ${{ secrets.PREPROD_SERVER_IP }}
+          ./infra/scripts/test-alive.sh ${{ secrets.PREPROD_SERVER_IP }}
       - name: Test DNS
         if: success()
         run : |
-<<<<<<< HEAD
-          [[ "$(curl preprod.basegun.fr/api/)" == "Basegun backend" ]]  && echo "Test DNS OK"
-=======
-          ./cd/scripts/test-alive.sh preprod.basegun.fr
->>>>>>> develop
+          ./infra/scripts/test-alive.sh preprod.basegun.fr
