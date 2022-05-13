@@ -47,4 +47,4 @@ services:
     volumes:
       - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
       - $PWD/backend/logs:/var/log/basegun
-    command: ["sleep", "30", "&&", "filebeat", "-e", "--strict.perms=false"]
+    command: bash -c "sleep 30 && filebeat -e --strict.perms=false"

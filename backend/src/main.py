@@ -151,12 +151,21 @@ async def imageupload(
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_processing_time"] = round(time.time()-start, 2)
-        logger.info("Identification request",
-            extra=extras_logging
-        )
+        logger.info("Identification request", extra=extras_logging)
     except Exception as e:
         extras_logging["bg_error_type"] = e.__class__.__name__
         logger.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 
     return {"file_name": input_path, "label": label, "confidence": confidence}
+
+
+@app.post("/feedback")
+async def log_feedback(request: Request):
+    res = await request.json()
+    extras_logging = {
+        "bg_image_url": res["image_url"],
+        "bg_feedback": res["feedback"]
+    }
+    logger.info("Identification feedback", extra=extras_logging)
+    return

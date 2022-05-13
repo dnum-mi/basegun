@@ -27,8 +27,8 @@
                 <p class="fr-text--sm warning-msg">Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.</p>
                 <div class="feedback">
                     <p class="feedback-text">Ce résultat a-t-il été utile ?</p>
-                    <img src="../assets/thumbs-up.png" alt="" class="thumbs-img">
-                    <img src="../assets/thumbs-down.png" alt="" class="thumbs-img">
+                    <label class="feedback-click" @click="sendFeedback(true, $event)">👍</label>
+                    <label class="feedback-click" @click="sendFeedback(false, $event)">👎</label>
                 </div>
             </div>
             <div class="blank"></div>
@@ -44,6 +44,8 @@
 
 <script>
     import { store } from '@/store.js'
+    import axios from 'axios';
+
     export default {
         name: 'ResultsComponent',
         data() {
@@ -104,6 +106,16 @@
         methods: {
             reloadPage() {
                 window.location.reload();
+            },
+            sendFeedback(bool, event) {
+                const json = {"image_url": store.imgName, "feedback": bool}
+                axios.post('/feedback', json)
+                    .then(res => {
+                        event.target.parentElement.setAttribute('aria-disabled', 'true');
+                    })
+                    .catch((err) => {
+                        alert("Une erreur a eu lieu en enregistrant votre vote.")
+                    });
             }
         }
     }
@@ -171,16 +183,26 @@
         align-items: center;
         justify-content: center;
     }
-    
+
     .feedback-text {
         margin-bottom: 0;
         margin-right: 4px;
         font-weight: bold;
     }
 
-    .thumbs-img {
-        height: 50px;
-        margin: 0 2px;
+    .feedback-click {
+        color: transparent;
+        font-size: 30px;
+        text-shadow: 0 0 0 #00c8c8;
+    }
+    .feedback-click:hover {
+        cursor: pointer;
+        text-shadow: 0 0 0 #1212ff;
+
+    }
+    [aria-disabled="true"] .feedback-click{
+        cursor: not-allowed;
+        text-shadow: 0 0 0 grey;
     }
 
     .footer-actions {
