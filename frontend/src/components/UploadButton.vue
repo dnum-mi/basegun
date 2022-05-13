@@ -87,7 +87,6 @@
                     fd.append('geolocation', store.geolocation);
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
-                    console.log(store.userId, store.geolocation)
 
                     axios.post('/upload', fd)
                         .then(res => {
