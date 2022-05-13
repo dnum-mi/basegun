@@ -13,6 +13,37 @@ from user_agents import parse
 from src.model import load_model_inference, predict_image
 
 
+def init_variable(var_name, path):
+    if var_name in os.environ:
+        VAR = os.environ[var_name]
+    else:
+        VAR = os.path.abspath(os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                path))
+        print("WARNING: The variable "+var_name+" is not set. Using", VAR)
+    os.makedirs(VAR, exist_ok = True)
+    return VAR
+
+
+def setup_logs(log_dir):
+    # clear previous logs
+    for f in os.listdir(log_dir):
+        os.remove(os.path.join(log_dir, f))
+    # configure new logs
+    formatter = GelfFormatter()
+    logger = logging.getLogger("Basegun")
+    # new log file at midnight
+    handler = logging.handlers.TimedRotatingFileHandler(
+        os.path.join(log_dir, "log.json"),
+        when="midnight",
+        interval=1,
+        backupCount=7)
+    logger.setLevel(logging.INFO)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
+
+
 ####################
 #      SETUP       #
 ####################
@@ -36,35 +67,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # Image storage
-if "PATH_IMGS" in os.environ:
-    PATH_IMGS = os.environ["PATH_IMGS"]
-else:
-    PATH_IMGS = os.path.abspath(os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "../../frontend/public/temp"))
-    print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
-os.makedirs(PATH_IMGS, exist_ok = True)
-
+PATH_IMGS = init_variable("PATH_IMGS", "../../frontend/public/temp")
 
 # Logs
-if "PATH_LOGS" in os.environ:
-    PATH_LOGS = os.environ["PATH_LOGS"]
-else:
-    PATH_LOGS = os.path.abspath(os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "../logs"))
-    print("WARNING: The variable PATH_LOGS is not set. Using", PATH_LOGS)
-os.makedirs(PATH_LOGS, exist_ok = True)
-PATH_LOGS = os.path.join(PATH_LOGS, "log.json")
-formatter = GelfFormatter()
-logger = logging.getLogger("Basegun")
-handler = logging.FileHandler(PATH_LOGS) # TODO: replace by TimedRotatingFileHandler
-logger.setLevel(logging.INFO)
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-
+PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+logger = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
@@ -152,4 +160,3 @@ async def imageupload(
         raise HTTPException(status_code=500, detail=str(e))
 
     return {"file_name": input_path, "label": label, "confidence": confidence}
-
