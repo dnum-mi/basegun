@@ -123,9 +123,12 @@ def version():
 def logs(request: Request):
     request_url = request.url._url
     if ("localhost" in request_url or "preprod" in request_url):
+        print(PATH_LOGS)
         with open(PATH_LOGS, "r") as f:
             lines = f.readlines()
-            return [json.loads(l) for l in lines]
+            res = [json.loads(l) for l in lines]
+            res.reverse()
+            return res
     else:
         return PlainTextResponse("Forbidden")
 

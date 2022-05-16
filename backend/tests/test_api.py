@@ -66,8 +66,9 @@ class TestModel(unittest.TestCase):
         log = r.json()[-1]
         self.assertEqual(
             set(log.keys()),
-            {'host', '_processing_time', '_image_url', 'timestamp', '_upload_time', '_device_os', '_device_browser',
-            'short_message', '_geolocation', '_confidence', '_device_family', '_user_id', 'version', '_device', '_label', 'level'}
+            {'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
+            'short_message', '_bg_confidence', '_bg_upload_time', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
+            'level', '_bg_geolocation', '_bg_device_browser'}
         )
         self.assertEqual(log["version"], "1.1")
         self.assertEqual(log["level"], 6)
