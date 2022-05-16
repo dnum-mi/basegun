@@ -17,6 +17,7 @@ This folder stores various contents related to Basegun deployment.
 
 ### Explanation
 Basegun website backend writes logs in a log file hosted locally on the server where the website runs.
+The log file rotates every day : the current log file is `log.json` while the previous logs are stored in the same folder with the date as suffix in the filename. The log files are stored locally for 7 days.
 
 We use OVH Log Data Platform as endpoint for these logs. We use 3 separate "Data streams" destinations which correspond to 3 different ElasticSearch aliases/indexes: one for dev, one for preprod, one for prod, so that we don't mix the logs issues from these 3 phases. We set the variable `X_OVH_TOKEN` accordingly to the data stream we want to use.
 

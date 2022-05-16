@@ -6,6 +6,7 @@ from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 import time
 import json
+from typing import Union
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,7 +15,16 @@ from user_agents import parse
 from src.model import load_model_inference, predict_image
 
 
-def init_variable(var_name, path):
+def init_variable(var_name: str, path: str) -> str:
+    """Inits global variable for folder path
+
+    Args:
+        var_name (str): variable name in environ
+        path (str): folder path
+
+    Returns:
+        str: final variable value
+    """
     if var_name in os.environ:
         VAR = os.environ[var_name]
     else:
@@ -26,7 +36,15 @@ def init_variable(var_name, path):
     return VAR
 
 
-def setup_logs(log_dir):
+def setup_logs(log_dir: str) -> Union[logging.Logger, str]:
+    """Setup environment for logs
+
+    Args:
+        log_dir (str): folder for log storage
+
+        logging.Logger: logger object
+        str: path to log file
+    """
     # clear previous logs
     for f in os.listdir(log_dir):
         os.remove(os.path.join(log_dir, f))
@@ -34,15 +52,16 @@ def setup_logs(log_dir):
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
     # new log file at midnight
+    log_file = os.path.join(log_dir, "log.json")
     handler = TimedRotatingFileHandler(
-        os.path.join(log_dir, "log.json"),
+        log_file,
         when="midnight",
         interval=1,
         backupCount=7)
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    return logger
+    return logger, log_file
 
 
 ####################
@@ -73,7 +92,7 @@ PATH_IMGS = init_variable("PATH_IMGS", "../../frontend/public/temp")
 
 # Logs
 PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger = setup_logs(PATH_LOGS)
+logger, PATH_LOGS = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
