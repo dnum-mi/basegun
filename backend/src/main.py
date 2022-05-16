@@ -117,13 +117,10 @@ async def imageupload(
     userId: str = Form(...),
     geolocation: str = Form(...) ):
 
-    # store image in PATH_IMGS folder
     input_path = os.path.join(PATH_IMGS,
                     # rename with uuid for secure filename but keep original file ext
                     str(uuid4()) + os.path.splitext(image.filename)[1]
                 )
-    with open(f"{input_path}", "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
 
     user_agent = parse(request.headers.get("user-agent"))
     device = "other"
@@ -145,12 +142,17 @@ async def imageupload(
         "bg_device_os": user_agent.os.family,
         "bg_device_browser": user_agent.browser.family
     }
+
+    # write image locally
+    with open(f"{input_path}", "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+
     try:
         start = time.time()
         label, confidence = predict_image(model, input_path)
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
-        extras_logging["bg_processing_time"] = round(time.time()-start, 2)
+        extras_logging["bg_model_time"] = round(time.time()-start, 2)
         logger.info("Identification request", extra=extras_logging)
     except Exception as e:
         extras_logging["bg_error_type"] = e.__class__.__name__
