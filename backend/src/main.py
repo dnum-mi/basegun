@@ -2,6 +2,7 @@ import shutil
 import os
 from uuid import uuid4
 import logging
+from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 import time
 import json
@@ -33,7 +34,7 @@ def setup_logs(log_dir):
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
     # new log file at midnight
-    handler = logging.handlers.TimedRotatingFileHandler(
+    handler = TimedRotatingFileHandler(
         os.path.join(log_dir, "log.json"),
         when="midnight",
         interval=1,
