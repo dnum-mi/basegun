@@ -164,6 +164,7 @@ async def imageupload(
 async def log_feedback(request: Request):
     res = await request.json()
     extras_logging = {
+        "bg_date": datetime.now().isoformat(),
         "bg_image_url": res["image_url"],
         "bg_feedback": res["feedback"]
     }

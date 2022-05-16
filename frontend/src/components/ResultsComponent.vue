@@ -114,7 +114,8 @@
                         event.target.parentElement.setAttribute('aria-disabled', 'true');
                     })
                     .catch((err) => {
-                        alert("Une erreur a eu lieu en enregistrant votre vote.")
+                        console.log(err);
+                        alert("Une erreur a eu lieu en enregistrant votre vote.");
                     });
             }
         }
@@ -195,12 +196,14 @@
         font-size: 30px;
         text-shadow: 0 0 0 #00c8c8;
     }
+
     .feedback-click:hover {
         cursor: pointer;
         text-shadow: 0 0 0 #1212ff;
-
     }
+
     [aria-disabled="true"] .feedback-click{
+        pointer-events: none;
         cursor: not-allowed;
         text-shadow: 0 0 0 grey;
     }
