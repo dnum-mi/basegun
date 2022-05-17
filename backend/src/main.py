@@ -156,16 +156,17 @@ async def imageupload(
     geolocation: str = Form(...) ):
 
 
-    # upload image to OVH Cloud
-    image_file = BytesIO(image.file)
-    print(type(image.file), type(image_file))
-    conn.put_object('basegun-public', 'test-basegun.png',
-                                    contents= image_file)
-
     # store image in PATH_IMGS folder
-    input_path = os.path.join(PATH_IMGS,
-                    str(uuid4()) + os.path.splitext(image.filename)[1]
-                )
+    img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
+    local_path = os.path.join(PATH_IMGS, img_name)
+    with open(local_path, "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+
+    # upload image to OVH Cloud
+    CLOUD_PATH = "https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/uploaded-images/dev/"
+    with open(local_path, "rb") as content:
+        conn.put_object("basegun-public", f"/uploaded-images/dev/{img_name}",
+                                    contents=content)
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -178,7 +179,7 @@ async def imageupload(
         device = "tablet"
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
-        "bg_image_url": input_path,
+        "bg_image_url": os.path.join(CLOUD_PATH, img_name),
         "bg_upload_time": round(time.time()-date, 2),
         "bg_user_id": userId,
         "bg_geolocation": geolocation,
@@ -188,22 +189,20 @@ async def imageupload(
         "bg_device_browser": user_agent.browser.family
     }
 
-    # # send image to model for prediction
-    # try:
-    #     start = time.time()
-    #     label, confidence = predict_image(model, input_path)
-    #     extras_logging["label"] = label
-    #     extras_logging["confidence"] = confidence
-    #     extras_logging["processing_time"] = round(time.time()-start, 2)
-    #     logger.info("Identification request",
-    #         extra=extras_logging
-    #     )
-    # except Exception as e:
-    #     extras_logging["error_type"] = e.__class__.__name__
-    #     logger.exception(e, extra=extras_logging)
-    #     raise HTTPException(status_code=500, detail=str(e))
+    # send image to model for prediction
+    try:
+        start = time.time()
+        label, confidence = predict_image(model, local_path)
+        extras_logging["bg_label"] = label
+        extras_logging["bg_confidence"] = confidence
+        extras_logging["bg_processing_time"] = round(time.time()-start, 2)
+        logger.info("Identification request", extra=extras_logging)
+    except Exception as e:
+        extras_logging["bg_error_type"] = e.__class__.__name__
+        logger.exception(e, extra=extras_logging)
+        raise HTTPException(status_code=500, detail=str(e))
 
-    # return {"file_name": input_path, "label": label, "confidence": confidence}
+    return {"file_name": os.path.join(CLOUD_PATH, img_name), "label": label, "confidence": confidence}
 
 
 @app.post("/feedback")
