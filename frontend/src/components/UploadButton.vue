@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="demarrer" style="display: none">
         <input 
             style="display: none"
             type="file"
@@ -87,8 +87,7 @@
                     fd.append('geolocation', store.geolocation);
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
-                    console.log(store.userId, store.geolocation)
-    
+
                     axios.post('/upload', fd)
                         .then(res => {
                             store.label = res.data.label
@@ -98,19 +97,8 @@
                                 res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                         })
                         .catch((err) => {
-                            if (err.response) {
-                                console.log(err.response.status)
-                                console.log(err.response.data)
-                                window.location.replace("/erreur")
-                            } else if (err.request) {
-                                // The request was made but no response was received
-                                console.log(err.request);
-                                window.location.replace("/erreur")
-                            } else {
-                                // Something happened in setting up the request that triggered an Error
-                                console.log('Error', err.message);
-                                window.location.replace("/erreur")
-                            }
+                            console.log(err)
+                            window.location.replace("/erreur")
                         });
                     }
 

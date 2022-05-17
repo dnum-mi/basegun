@@ -14,6 +14,7 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
+      - VERSION=${TAG}
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
@@ -36,11 +37,14 @@ services:
       - /tmp/basegun:/usr/share/nginx/html/temp
 
   filebeat:
-    image: elastic/filebeat:8.1.2
+    image: elastic/filebeat:6.5.4
     user: root
     environment:
-      - OVH_TOKEN
+      - http_proxy
+      - https_proxy
+      - X_OVH_TOKEN
+      - API_OVH_TOKEN
     volumes:
-      - $PWD/infra/filebeat.logstash.yml:/usr/share/filebeat/filebeat.yml:ro
+      - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
       - $PWD/backend/logs:/var/log/basegun
-    command: ["filebeat", "-e", "--strict.perms=false"]
+    command: bash -c "sleep 30 && filebeat -e --strict.perms=false"

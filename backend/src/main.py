@@ -1,6 +1,8 @@
 import shutil
 import os
 import logging
+from logging.handlers import TimedRotatingFileHandler
+from datetime import datetime
 import time
 import json
 from uuid import uuid4
@@ -12,6 +14,55 @@ from gelfformatter import GelfFormatter
 from user_agents import parse
 import swiftclient
 from src.model import load_model_inference, predict_image
+
+
+def init_variable(var_name: str, path: str) -> str:
+    """Inits global variable for folder path
+
+    Args:
+        var_name (str): variable name in environ
+        path (str): folder path
+
+    Returns:
+        str: final variable value
+    """
+    if var_name in os.environ:
+        VAR = os.environ[var_name]
+    else:
+        VAR = os.path.abspath(os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                path))
+        print("WARNING: The variable "+var_name+" is not set. Using", VAR)
+    os.makedirs(VAR, exist_ok = True)
+    return VAR
+
+
+def setup_logs(log_dir: str) -> logging.Logger:
+    """Setup environment for logs
+
+    Args:
+        log_dir (str): folder for log storage
+
+        logging.Logger: logger object
+    """
+    print(">>> Reload logs config")
+    # clear previous logs
+    for f in os.listdir(log_dir):
+        os.remove(os.path.join(log_dir, f))
+    # configure new logs
+    formatter = GelfFormatter()
+    logger = logging.getLogger("Basegun")
+    # new log file at midnight
+    log_file = os.path.join(log_dir, "log.json")
+    handler = TimedRotatingFileHandler(
+        log_file,
+        when="midnight",
+        interval=1,
+        backupCount=7)
+    logger.setLevel(logging.INFO)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
 
 
 ####################
@@ -38,33 +89,11 @@ app.add_middleware(
 )
 
 # Image storage
-if "PATH_IMGS" in os.environ:
-    PATH_IMGS = os.environ["PATH_IMGS"]
-else:
-    PATH_IMGS = os.path.abspath(os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "../../frontend/public/temp"))
-    print("WARNING: The variable PATH_IMGS is not set. Using", PATH_IMGS)
-os.makedirs(PATH_IMGS, exist_ok = True)
-
+PATH_IMGS = init_variable("PATH_IMGS", "../../frontend/public/temp")
 
 # Logs
-if "PATH_LOGS" in os.environ:
-    PATH_LOGS = os.environ["PATH_LOGS"]
-else:
-    PATH_LOGS = os.path.abspath(os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "../logs"))
-    print("WARNING: The variable PATH_LOGS is not set. Using", PATH_LOGS)
-os.makedirs(PATH_LOGS, exist_ok = True)
-PATH_LOGS = os.path.join(PATH_LOGS, "log.json")
-formatter = GelfFormatter()
-logger = logging.getLogger("Basegun")
-handler = logging.FileHandler(PATH_LOGS) # TODO: replace by TimedRotatingFileHandler
-logger.setLevel(logging.INFO)
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-
+PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+logger = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
@@ -99,17 +128,24 @@ print(conn.get_account()[1])
 def home():
     return "Basegun backend"
 
+@app.get("/version", response_class=PlainTextResponse)
+def version():
+    if "VERSION" in os.environ:
+        return os.environ["VERSION"]
+    else:
+        return "-1.0"
 
 @app.get("/logs")
 def logs(request: Request):
     request_url = request.url._url
     if ("localhost" in request_url or "preprod" in request_url):
-        with open(PATH_LOGS, "r") as f:
+        with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()
-            return [json.loads(l) for l in lines]
+            res = [json.loads(l) for l in lines]
+            res.reverse()
+            return res
     else:
         return PlainTextResponse("Forbidden")
-
 
 @app.post("/upload")
 async def imageupload(
@@ -130,8 +166,6 @@ async def imageupload(
     input_path = os.path.join(PATH_IMGS,
                     str(uuid4()) + os.path.splitext(image.filename)[1]
                 )
-    with open(f"{input_path}", "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -143,14 +177,15 @@ async def imageupload(
     elif user_agent.is_tablet:
         device = "tablet"
     extras_logging = {
-        "image_url": input_path,
-        "upload_time": round(time.time()-date, 2),
-        "user_id": userId,
-        "geolocation": geolocation,
-        "device": device,
-        "device_family": user_agent.device.family,
-        "device_os": user_agent.os.family,
-        "device_browser": user_agent.browser.family
+        "bg_date": datetime.now().isoformat(),
+        "bg_image_url": input_path,
+        "bg_upload_time": round(time.time()-date, 2),
+        "bg_user_id": userId,
+        "bg_geolocation": geolocation,
+        "bg_device": device,
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family
     }
 
     # # send image to model for prediction
@@ -170,3 +205,14 @@ async def imageupload(
 
     # return {"file_name": input_path, "label": label, "confidence": confidence}
 
+
+@app.post("/feedback")
+async def log_feedback(request: Request):
+    res = await request.json()
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_image_url": res["image_url"],
+        "bg_feedback": res["feedback"]
+    }
+    logger.info("Identification feedback", extra=extras_logging)
+    return
