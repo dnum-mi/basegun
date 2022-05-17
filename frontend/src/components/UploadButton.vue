@@ -19,12 +19,33 @@
     import { store } from '@/store.js';
     import axios from 'axios';
 
+    function randomCoord(num){
+                    const max = 0.1;
+                    const min = -0.1;
+                    return (Math.random() * (max - min) + min) + num;
+    }
+
+    function getHash(str, algo = "SHA-256") {
+        let strBuf = new TextEncoder().encode(str);
+        return crypto.subtle.digest(algo, strBuf)
+            .then(hash => {
+            window.hash = hash;
+            // here hash is an arrayBuffer, 
+            // so we'll connvert it to its hex version
+            let result = '';
+            const view = new DataView(hash);
+            for (let i = 0; i < hash.byteLength; i += 4) {
+                result += ('00000000' + view.getUint32(i).toString(16)).slice(-8);
+            }
+            return result;
+            });
+    }
+
     export default {
         name: 'UploadButton',
         data() {
             return {
                 store,
-                selectedFile: null,
                 baseUrl: import.meta.env.BASE_URL,
                 labelButton: "Démarrer",
                 // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
@@ -35,12 +56,38 @@
 
             onFileSelected(event) {
 
-                function onUpload(file) {
+                axios.get('http://ip-api.com/json', { withCredentials: false })
+                    .then(res => {
+                        const latitude = randomCoord(res.data.lat)
+                        const longitude = randomCoord(res.data.lon)
+                        store.geolocation = latitude.toString() + ',' + longitude.toString()
+                        const hash_input = res.data.ip + window.navigator.userAgent + window.navigator.hardwareConcurrency
+
+                        startUpload(event, hash_input)
+                    })
+                    .catch((err) => {
+                        // if cannot get ip use only userAgent and hardwareConcurrency for user id
+                        const hash_input = window.navigator.userAgent + window.navigator.hardwareConcurrency
+                        startUpload(event, hash_input)
+                    })
+
+                function startUpload(event, hash_input) {
+                    getHash(hash_input)
+                        .then(hash => {
+                            store.userId = hash;
+                            resizeAndUpload(event)
+                        });
+                }
+
+                function submitUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
+                    fd.append('date', Date.now()/1000); //date.now gives the milliseconds timestamp so we convert to seconds
+                    fd.append('userId', store.userId);
+                    fd.append('geolocation', store.geolocation);
                     store.uploadMessage='Analyse...';
                     store.selectedFile = null;
-    
+
                     axios.post('/upload', fd)
                         .then(res => {
                             store.label = res.data.label
@@ -50,19 +97,8 @@
                                 res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
                         })
                         .catch((err) => {
-                            if (err.response) {
-                                console.log(err.response.status)
-                                console.log(err.response.data)
-                                window.location.replace("/erreur")
-                            } else if (err.request) {
-                                // The request was made but no response was received
-                                console.log(err.request);
-                                window.location.replace("/erreur")
-                            } else {
-                                // Something happened in setting up the request that triggered an Error
-                                console.log('Error', err.message);
-                                window.location.replace("/erreur")
-                            }
+                            console.log(err)
+                            window.location.replace("/erreur")
                         });
                     }
 
@@ -73,44 +109,51 @@
                     );
                 }
 
-                store.selectedFile = event.target.files[0];
-                const fileName = store.selectedFile.name
+                function resizeAndUpload(event) {
+                    store.selectedFile = event.target.files[0];
+                    const fileName = store.selectedFile.name
 
-                const reader = new FileReader();
-                reader.readAsDataURL(store.selectedFile)
+                    const reader = new FileReader();
+                    reader.readAsDataURL(store.selectedFile);
 
-                reader.onload = function (event) {
-                    const imgElement = document.createElement("img");
-                    imgElement.src = event.target.result
+                    reader.onload = function (event) {
+                        const imgElement = document.createElement("img");
+                        imgElement.src = event.target.result
 
-                    imgElement.onload = function (e) {
-                        const canvas = document.createElement("canvas");
-                        const MAX_WIDTH = 600
-                        const MAX_HEIGHT = 600
-                        let width = imgElement.width
-                        let height = imgElement.height
-                        if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
+                        imgElement.onload = function (e) {
+                            const canvas = document.createElement("canvas");
+                            const MAX_WIDTH = 600
+                            const MAX_HEIGHT = 600
+                            let width = imgElement.width
+                            let height = imgElement.height
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
                             }
-                        } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                            canvas.width = width
+                            canvas.height = height
+                            const ctx = canvas.getContext("2d");
+                            ctx.drawImage(e.target, 0, 0, width, height)
+                            const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
+                            srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
+                                const newFile = res
+                                submitUpload(newFile)
+                            })
                         }
-                        canvas.width = width
-                        canvas.height = height
-                        const ctx = canvas.getContext("2d");
-                        ctx.drawImage(e.target, 0, 0, width, height)
-                        const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
-                        srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
-                            const newFile = res
-                            onUpload(newFile)
-                        })
+
+                        imgElement.onerror = function() {
+                            alert("Corrupted image file, please try another");
+                        };
                     }
                 }
+
             },
 
         }

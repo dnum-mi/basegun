@@ -13,6 +13,7 @@ services:
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
+      - PATH_LOGS=/app/logs
       - VERSION=${TAG}
     image: basegun-backend:${TAG}-dev
     ports:
@@ -20,7 +21,8 @@ services:
     volumes:
       - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
-      - $PWD/backend/tests:/app/tests
+      # - $PWD/backend/tests:/app/tests
+      - $PWD/backend/logs:/app/logs
       - /app/src/weights
 
   frontend:
@@ -39,3 +41,16 @@ services:
       - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src
       - /app/node_modules
+
+  filebeat:
+    image: elastic/filebeat:6.5.4
+    user: root
+    environment:
+      - http_proxy
+      - https_proxy
+      - X_OVH_TOKEN
+      - API_OVH_TOKEN
+    volumes:
+      - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
+      - $PWD/backend/logs:/var/log/basegun
+    command: bash -c "sleep 10 && filebeat -e --strict.perms=false"

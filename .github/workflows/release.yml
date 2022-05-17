@@ -38,5 +38,5 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} ${{ steps.get_version.outputs.VERSION }}
-        ./cd/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} latest
+        ./infra/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} ${{ steps.get_version.outputs.VERSION }}
+        ./infra/scripts/docker-push.sh ${{ steps.get_version.outputs.VERSION }} latest
