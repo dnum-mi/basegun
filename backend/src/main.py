@@ -6,7 +6,6 @@ from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 import time
 import json
-from typing import Union
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -36,15 +35,15 @@ def init_variable(var_name: str, path: str) -> str:
     return VAR
 
 
-def setup_logs(log_dir: str) -> Union[logging.Logger, str]:
+def setup_logs(log_dir: str) -> logging.Logger:
     """Setup environment for logs
 
     Args:
         log_dir (str): folder for log storage
 
         logging.Logger: logger object
-        str: path to log file
     """
+    print(">>> Reload logs config")
     # clear previous logs
     for f in os.listdir(log_dir):
         os.remove(os.path.join(log_dir, f))
@@ -61,7 +60,7 @@ def setup_logs(log_dir: str) -> Union[logging.Logger, str]:
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    return logger, log_file
+    return logger
 
 
 ####################
@@ -92,7 +91,7 @@ PATH_IMGS = init_variable("PATH_IMGS", "../../frontend/public/temp")
 
 # Logs
 PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger, PATH_LOGS = setup_logs(PATH_LOGS)
+logger = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
@@ -123,8 +122,7 @@ def version():
 def logs(request: Request):
     request_url = request.url._url
     if ("localhost" in request_url or "preprod" in request_url):
-        print(PATH_LOGS)
-        with open(PATH_LOGS, "r") as f:
+        with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()
             res = [json.loads(l) for l in lines]
             res.reverse()
