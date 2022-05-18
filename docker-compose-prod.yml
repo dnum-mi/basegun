@@ -22,8 +22,6 @@ services:
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
-    volumes:
-      - /tmp/basegun:/app/images
 
   frontend:
     build:
@@ -37,8 +35,6 @@ services:
     image: basegun-frontend:${TAG}-prod
     ports:
       - ${PORT_PROD:-80}:80
-    volumes:
-      - /tmp/basegun:/usr/share/nginx/html/temp
 
   filebeat:
     image: elastic/filebeat:6.5.4

@@ -89,7 +89,7 @@ app.add_middleware(
 )
 
 # Image storage
-PATH_IMGS = init_variable("PATH_IMGS", "../../frontend/public/temp")
+PATH_IMGS = init_variable("PATH_IMGS", "../images")
 
 # Logs
 PATH_LOGS = init_variable("PATH_LOGS", "../logs")
@@ -118,7 +118,6 @@ conn = swiftclient.Connection(
     auth_version='3'
 )
 conn.get_account()
-print(conn.get_account()[1])
 
 
 ####################
@@ -165,7 +164,7 @@ async def imageupload(
     # upload image to OVH Cloud
     CLOUD_PATH = "https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/uploaded-images/dev/"
     with open(local_path, "rb") as content:
-        conn.put_object("basegun-public", f"/uploaded-images/dev/{img_name}",
+        conn.put_object("basegun-public", f"uploaded-images/dev/{img_name}",
                                     contents=content)
 
     # prepare content logs
