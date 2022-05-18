@@ -52,7 +52,7 @@ pull-%:
 	docker pull ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG}
 	docker tag ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG} ${APP_NAME}-$*:${TAG}-prod
 
-push-tag: push-${TAG}
+push: push-${TAG}
 
 push-%:
 	docker tag basegun-frontend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-frontend:$*
