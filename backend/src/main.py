@@ -124,7 +124,6 @@ def version():
 @app.get("/logs")
 def logs(request: Request):
     request_url = request.headers.get('Host')
-    print(request_url)
     if ("localhost" in request_url or "preprod" in request_url):
         with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()
