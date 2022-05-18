@@ -8,6 +8,7 @@ cd /home/$USER && mkdir -p ${APP_NAME} && curl -kLs $APP_URL \
 
 (
   cd ${APP_NAME}
-  make CONTINUE=y TAG=${VERSION} deploy-prod
+  make up-https
+  make CONTINUE=y TAG=${VERSION} PROD_PORT=8080 X_OVH_TOKEN=${X_OVH_TOKEN} API_OVH_TOKEN=${API_OVH_TOKEN} deploy-prod
 )
 exit $?

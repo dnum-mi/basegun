@@ -29,8 +29,8 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 build-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
-up-preprod: check-dc-config-prod show-current-tag
-	PORT_PROD=3000 TAG=${TAG} ${DC} -f docker-compose-prod.yml up -d
+up-https: check-dc-config-prod show-current-tag
+	${DC} -f infra/traefik/docker-compose.yml up -d
 
 up-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d

@@ -20,6 +20,7 @@ services:
       - 5000:5000
     volumes:
       - /tmp/basegun:/app/images
+      - /var/log/basegun:/app/logs
 
   frontend:
     build:
@@ -40,11 +41,9 @@ services:
     image: elastic/filebeat:6.5.4
     user: root
     environment:
-      - http_proxy
-      - https_proxy
       - X_OVH_TOKEN
       - API_OVH_TOKEN
     volumes:
       - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
-      - $PWD/backend/logs:/var/log/basegun
+      - /var/log/basegun:/var/log/basegun
     command: bash -c "sleep 30 && filebeat -e --strict.perms=false"
