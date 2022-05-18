@@ -35,5 +35,5 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        make push-tag
+        make push
         make push-latest

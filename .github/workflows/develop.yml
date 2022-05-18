@@ -19,7 +19,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        make push-tag
+        make push
         make push-develop
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
