@@ -29,9 +29,6 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 build-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
-up-https: check-dc-config-prod show-current-tag
-	${DC} -f infra/traefik/docker-compose.yml up -d
-
 up-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 
@@ -61,3 +58,6 @@ push-%:
 	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod
+
+start-https:
+	${DC} -f infra/traefik/docker-compose.yml up -d
