@@ -4,27 +4,12 @@ on:
       - "develop"
 name: Preprod deployment
 jobs:
-  get-version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.get_version.outputs.VERSION }}
-    steps:
-    - uses: actions/checkout@v2
-    - name: Get app version
-      id: get_version
-      run: |
-        echo ::set-output name=VERSION::$(cat Makefile | grep $'^TAG\t\+:= ' | sed 's/TAG\t\+:= //')
-
   build-push:
     runs-on: ubuntu-latest
-    needs: get-version
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      env:
-          X_OVH_TOKEN: ${{ secrets.X_OVH_TOKEN }}
-          API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      run: TAG=${{ needs.get-version.outputs.version }} docker-compose -f docker-compose-prod.yml build
+      run: make CONTINUE=y build-prod
     - name: Login to GHCR
       if: success()
       uses: docker/login-action@v1
@@ -34,8 +19,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
       run: |
-        ./infra/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} v${{ needs.get-version.outputs.version }}
-        ./infra/scripts/docker-push.sh ${{ needs.get-version.outputs.version }} develop
+        make push-tag
+        make push-develop
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:
@@ -55,19 +40,20 @@ jobs:
 
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
-    needs: [get-version, build-push]
     with:
-      image_version: v${{ needs.get-version.outputs.version }}
+      image_version: "develop"
       branch: "develop"
       volume_size: 10
-      flavor: "s1-2"
+      flavor: "s1-4"
       workspace: "preprod"
     secrets:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
       SERVER_IP: ${{ secrets.PREPROD_SERVER_IP }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
       OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
 
   test:
     runs-on: ubuntu-latest

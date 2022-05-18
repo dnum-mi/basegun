@@ -8,6 +8,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+        - VERSION=${TAG}
       context: ./backend
       target: prod
     container_name: basegun-backend
@@ -40,6 +41,7 @@ services:
   filebeat:
     image: elastic/filebeat:6.5.4
     user: root
+    container_name: filebeat
     environment:
       - X_OVH_TOKEN
       - API_OVH_TOKEN

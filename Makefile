@@ -11,7 +11,7 @@ export
 
 show-current-tag:
 	@while [ -z "$$CONTINUE" ]; do \
-		read -r -p "Current tag is v${TAG}. Continue? [y/N]: " CONTINUE; \
+		read -r -p "Current tag is ${TAG}. Continue? [y/N]: " CONTINUE; \
 	done ; \
 	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
 
@@ -51,5 +51,14 @@ pull: pull-backend pull-frontend
 pull-%:
 	docker pull ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG}
 	docker tag ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG} ${APP_NAME}-$*:${TAG}-prod
+
+push-tag:
+	push-${TAG}
+
+push-%:
+	docker tag basegun-frontend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-frontend:$*
+	docker tag basegun-backend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-backend:$*
+	docker push ghcr.io/datalab-mi/basegun/basegun-frontend:$*
+	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod

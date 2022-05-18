@@ -37,6 +37,10 @@ on:
         required: true
       OS_USERNAME:
         required: true
+      X_OVH_TOKEN:
+        required: true
+      API_OVH_TOKEN:
+        required: true
 jobs:
   deployment:
     name: Deployment
@@ -45,6 +49,7 @@ jobs:
       run:
         working-directory: ./infra/terraform
     env:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
       OS_AUTH_URL: https://auth.cloud.ovh.net/v3
       OS_REGION_NAME: "GRA7"
       OS_INTERFACE: public
@@ -60,6 +65,7 @@ jobs:
       TF_VAR_branch: ${{ inputs.branch }}
       TF_VAR_volume_size: ${{ inputs.volume_size }}
       WORKSPACE: ${{ inputs.workspace }}
+      X_OVH_TOKEN: ${{ secrets.X_OVH_TOKEN }}
     steps:
     - uses: hashicorp/setup-terraform@v1
       with:
