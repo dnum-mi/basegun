@@ -12,6 +12,7 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
+      - ENV
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME

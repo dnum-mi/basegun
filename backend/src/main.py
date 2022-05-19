@@ -118,6 +118,9 @@ conn = swiftclient.Connection(
     },
     auth_version='3'
 )
+CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/\
+AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/uploaded-images/{os.environ["ENV"]}/'
+
 conn.get_account()
 
 
@@ -165,9 +168,8 @@ async def imageupload(
         shutil.copyfileobj(image.file, buffer)
 
     # upload image to OVH Cloud
-    CLOUD_PATH = "https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/uploaded-images/dev/"
     with open(local_path, "rb") as content:
-        conn.put_object("basegun-public", f"uploaded-images/dev/{img_name}",
+        conn.put_object("basegun-public", f'uploaded-images/{os.environ["ENV"]}/{img_name}',
                                     contents=content)
 
     # prepare content logs
