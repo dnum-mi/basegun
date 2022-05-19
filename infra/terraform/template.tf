@@ -7,13 +7,8 @@ data "template_file" "init" {
 data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
 
-  vars = {
-    APP_NAME   = "${var.app}"
-    APP_BRANCH = "${var.branch}"
-    ORG        = "${var.org}"
-    VERSION    = "${var.app_version}"
-    X_OVH_TOKEN = "${var.x_ovh_token}"
-    API_OVH_TOKEN = "${var.api_ovh_token}"
+  vars {
+      ENVIRONMENT = "$var.env"
   }
 }
 
