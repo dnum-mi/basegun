@@ -14,6 +14,7 @@ data "template_file" "deploy" {
     VERSION    = "${var.app_version}"
     X_OVH_TOKEN = "${var.x_ovh_token}"
     API_OVH_TOKEN = "${var.api_ovh_token}"
+    WORKSPACE = "${var.workspace}"
   }
 }
 

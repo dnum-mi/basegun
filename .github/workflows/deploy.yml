@@ -65,7 +65,7 @@ jobs:
       TF_VAR_volume_size: ${{ inputs.volume_size }}
       TF_VAR_api_ovh_token: ${{ secrets.API_OVH_TOKEN }}
       TF_VAR_x_ovh_token: ${{ secrets.X_OVH_TOKEN }}
-      WORKSPACE: ${{ inputs.workspace }}
+      TF_VAR_workspace: ${{ inputs.workspace }}
     steps:
     - uses: hashicorp/setup-terraform@v1
       with:
@@ -81,7 +81,7 @@ jobs:
       run: terraform validate -no-color
 
     - name: Terraform Workspace
-      run: terraform workspace select ${WORKSPACE} || terraform workspace new ${WORKSPACE}
+      run: terraform workspace select ${TF_VAR_workspace} || terraform workspace new ${TF_VAR_workspace}
 
     - name: Terraform Taint if exist
       run: terraform taint -allow-missing openstack_compute_instance_v2.instance 
