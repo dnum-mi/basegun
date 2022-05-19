@@ -61,9 +61,6 @@ jobs:
     needs: deploy-preprod
     steps:
       - uses: actions/checkout@v2
-      - name: Test ip
-        run : |
-          ./infra/scripts/test-alive.sh ${{ secrets.PREPROD_SERVER_IP }}
       - name: Test DNS
         if: success()
         run : |

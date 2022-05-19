@@ -6,10 +6,9 @@ services:
     container_name: traefik
     restart: unless-stopped
     volumes:
-      - ./conf/:/etc/traefik/conf/
+      - $PWD/conf/:/etc/traefik/conf/
       - /var/log/traefik:/logs
-      - ./users.conf:/etc/traefik/users.conf:ro
-      - ./acme.json:/acme.json
+      - $PWD/acme.json:/acme.json
     # ports:
     #   - 80:80
     #   - 443:443

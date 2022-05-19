@@ -7,8 +7,6 @@ http:
       rule: Host(`{{ env "HOST" }}`)
       service: web
     https-web:
-      middlewares:
-        - auth-user
       rule: Host(`{{ env "HOST" }}`)
       service: web
       tls:
