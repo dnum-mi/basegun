@@ -38,6 +38,6 @@ jobs:
       run: docker build --target test -t basegun-back:tests backend/
     - name: Start container
       run: |
-        docker run --rm -e --name basegun_back_test -d basegun-back:tests
+        docker run --rm -e --name basegun_back_test basegun-back:tests -d
     - name: Run tests
       run: docker exec basegun_back_test python -m unittest discover -v

@@ -109,12 +109,12 @@ if not model:
 
 # Connection to OVH cloud
 conn = swiftclient.Connection(
-    authurl='https://auth.cloud.ovh.net/v3',
-    user=os.environ['OS_USERNAME'],
-    key=os.environ['OS_PASSWORD'],
+    authurl="https://auth.cloud.ovh.net/v3",
+    user=os.environ["OS_USERNAME"],
+    key=os.environ["OS_PASSWORD"],
     os_options={
-        'project_name': os.environ['OS_PROJECT_NAME'],
-        'region_name': os.environ['OS_REGION_NAME']
+        "project_name": os.environ["OS_PROJECT_NAME"],
+        "region_name": "GRA"
     },
     auth_version='3'
 )

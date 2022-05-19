@@ -15,7 +15,6 @@ services:
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
-      - OS_REGION_NAME
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
