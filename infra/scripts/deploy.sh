@@ -7,7 +7,6 @@ export ${name_var}=${value_var}
 export APP_NAME="basegun"
 export APP_URL="https://github.com/datalab-mi/${APP_NAME}/archive/refs/heads/${APP_BRANCH}.tar.gz"
 export USER=$(lsb_release -si | tr [:upper:] [:lower:])
-export WORKSPACE=${WORKSPACE}
 
 su debian
 cd /home/$USER && mkdir -p ${APP_NAME} && curl -kLs $APP_URL \
