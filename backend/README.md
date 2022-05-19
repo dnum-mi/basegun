@@ -1,5 +1,11 @@
 # Basegun FastAPI backend
 
+## Requirements
+3 env variables for uploading images to OVH swift:
+- OS_USERNAME: your OVH username
+- OS_PASSWORD: your OVH password
+- OS_PROJECT_NAME
+
 From this folder
 
 ## Install
