@@ -60,4 +60,6 @@ push-%:
 deploy-prod: pull up-prod
 
 start-https:
+	touch infra/traefik/acme.json
+	sudo chmod 600 infra/traefik/acme.json
 	${DC} -f infra/traefik/docker-compose.yml up -d
