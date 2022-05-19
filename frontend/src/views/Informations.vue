@@ -19,15 +19,13 @@
             </li>
         </ul>
         <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
-          <AboutTextContent />
+            <AboutTextContent />
         </div>
         <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0">
-            <!-- données de test -->
-            <p>Contenu 2</p>
+            <LegalTextContent />
         </div>
         <div id="tabpanel-406-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-406" tabindex="0">
-            <!-- données de test -->
-            <p>Contenu 3</p>
+            <ContactTextContent />
         </div>
     </div>
   </div>
@@ -37,12 +35,16 @@
 // @ is an alias to /src
 import HeaderMain from '@/components/HeaderMain.vue';
 import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
+import LegalTextContent from "@/views/text_content/LegalTextContent.vue";
+import ContactTextContent from "@/views/text_content/ContactTextContent.vue"
 
 export default {
   name: 'InformationsPage',
   components: {
     HeaderMain,
-    AboutTextContent
+    AboutTextContent,
+    LegalTextContent,
+    ContactTextContent
   }
 }
 </script>

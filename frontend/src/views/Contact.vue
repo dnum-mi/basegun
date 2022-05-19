@@ -7,7 +7,7 @@
           <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
           <p class="small-text">Contact</p>
       </div>
-      <p class="title-space">Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a href="mailto:basegun@interieur.gouv.fr">basegun@interieur.gouv.fr</a>.</p>
+      <ContactTextContent />
     </div>
   </div>
 </template>
@@ -15,11 +15,13 @@
 <script>
 // @ is an alias to /src
 import HeaderMain from '@/components/HeaderMain.vue';
+import ContactTextContent from "@/views/text_content/ContactTextContent.vue";
 
 export default {
   name: 'ContactPage',
   components: {
-    HeaderMain
+    HeaderMain,
+    ContactTextContent
   }
 }
 </script>
