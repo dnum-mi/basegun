@@ -49,5 +49,17 @@ variable "app" {
 variable "app_version" {
   type        = string
   default     = "latest"
-  description = "Desirated version to deploy"
+  description = "Version to deploy"
+}
+
+variable "x_ovh_token" {
+  type        = string
+  default     = "uuid"
+  description = "Token for using a specific stream of OVH Data Log Platform"
+}
+
+variable "api_ovh_token" {
+  type        = string
+  default     = "somestringofcharacters"
+  description = "Authentication token for Data Log Platform"
 }
