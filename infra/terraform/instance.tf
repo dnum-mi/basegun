@@ -12,7 +12,7 @@ data "openstack_images_image_v2" "debian" {
 }
 
 resource "openstack_compute_instance_v2" "instance" {
-  name            = "${var.project_prefix}-instance"
+  name            = "basegun-instance"
   image_name      = var.image
   flavor_name     = var.flavor
   key_pair        = data.openstack_compute_keypair_v2.keypair.name

@@ -1,10 +1,4 @@
 
-variable "project_prefix" {
-  type        = string
-  default     = "basegun"
-  description = "Name of project to prefix all instances"
-}
-
 variable "image" {
   type        = string
   default     = "Debian 10 - Docker"
