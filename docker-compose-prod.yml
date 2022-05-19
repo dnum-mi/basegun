@@ -5,16 +5,13 @@ services:
   backend:
     build:
       args:
-        - http_proxy
-        - https_proxy
-        - no_proxy
+        - VERSION=${TAG}
       context: ./backend
       target: prod
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
-      - VERSION=${TAG}
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
@@ -22,13 +19,11 @@ services:
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
+    volumes:
+      - /var/log/basegun:/app/logs
 
   frontend:
     build:
-      args:
-        - http_proxy
-        - https_proxy
-        - no_proxy
       context: ./frontend
       target: prod
     container_name: basegun-frontend
@@ -39,12 +34,11 @@ services:
   filebeat:
     image: elastic/filebeat:6.5.4
     user: root
+    container_name: filebeat
     environment:
-      - http_proxy
-      - https_proxy
       - X_OVH_TOKEN
       - API_OVH_TOKEN
     volumes:
       - $PWD/infra/filebeat.elastic.yml:/usr/share/filebeat/filebeat.yml:ro
-      - $PWD/backend/logs:/var/log/basegun
+      - /var/log/basegun:/var/log/basegun
     command: bash -c "sleep 30 && filebeat -e --strict.perms=false"

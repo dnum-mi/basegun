@@ -1,5 +1,6 @@
 FROM python:3.9-slim-buster as base
 WORKDIR /app
+ARG VERSION
 
 # librairies necessary for image processing
 RUN apt update && apt install -y \
@@ -17,7 +18,7 @@ RUN pip install --upgrade pip \
 # launch website
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/EffB7_2022-03-30_08/EffB7_2022-03-30_08.pth
 COPY src/ src/
-RUN mkdir -p src/weights && mv model.pth src/weights/model.pth
+RUN mkdir -p src/weights && mv model.pth src/weights/model.pth && echo ${VERSION} > version.txt
 
 FROM base as dev
 CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]

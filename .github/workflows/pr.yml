@@ -38,7 +38,6 @@ jobs:
       run: docker build --target test -t basegun-back:tests backend/
     - name: Start container
       run: |
-        VERSION=$(cat Makefile | grep $'^TAG\t\+:= ' | sed 's/TAG\t\+:= //')
-        docker run --rm -e VERSION=$VERSION --name basegun_back_test -d basegun-back:tests
+        docker run --rm -e --name basegun_back_test -d basegun-back:tests
     - name: Run tests
       run: docker exec basegun_back_test python -m unittest discover -v

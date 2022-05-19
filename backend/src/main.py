@@ -15,6 +15,7 @@ from user_agents import parse
 import swiftclient
 from src.model import load_model_inference, predict_image
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def init_variable(var_name: str, path: str) -> str:
     """Inits global variable for folder path
@@ -30,7 +31,7 @@ def init_variable(var_name: str, path: str) -> str:
         VAR = os.environ[var_name]
     else:
         VAR = os.path.abspath(os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
+                CURRENT_DIR,
                 path))
         print("WARNING: The variable "+var_name+" is not set. Using", VAR)
     os.makedirs(VAR, exist_ok = True)
@@ -97,7 +98,7 @@ logger = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
+            CURRENT_DIR,
             "weights/model.pth")
 model = None
 if os.path.exists(MODEL_PATH):
@@ -129,14 +130,16 @@ def home():
 
 @app.get("/version", response_class=PlainTextResponse)
 def version():
-    if "VERSION" in os.environ:
-        return os.environ["VERSION"]
+    if "version.txt" in os.listdir(os.path.dirname(CURRENT_DIR)):
+        with open("version.txt", "r") as f:
+            version = f.readline()
+        return version
     else:
-        return "-1.0"
+        return "-1"
 
 @app.get("/logs")
 def logs(request: Request):
-    request_url = request.url._url
+    request_url = request.headers.get('Host')
     if ("localhost" in request_url or "preprod" in request_url):
         with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()

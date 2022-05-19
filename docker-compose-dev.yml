@@ -8,13 +8,13 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+        - VERSION=${TAG}
       context: ./backend
       target: dev
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
-      - VERSION=${TAG}
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
@@ -51,6 +51,7 @@ services:
   filebeat:
     image: elastic/filebeat:6.5.4
     user: root
+    container_name: filebeat
     environment:
       - http_proxy
       - https_proxy

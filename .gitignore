@@ -10,3 +10,4 @@ temp/
 *openrc.sh
 .terraform*
 .secrets
+version.txt
