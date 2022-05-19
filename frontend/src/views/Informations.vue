@@ -28,6 +28,12 @@
             <ContactTextContent />
         </div>
     </div>
+    <div class="text-center margin-button">
+        <DsfrButton
+            :label="labelButton"
+            @click="homeRedirect"
+        />
+    </div>
   </div>
 </template>
 
@@ -45,12 +51,28 @@ export default {
     AboutTextContent,
     LegalTextContent,
     ContactTextContent
+  },
+  data() {
+    return {
+        labelButton: "Retour"
+    }
+  },
+  methods: {
+    homeRedirect() {
+        window.location.replace("/accueil")
+    }
   }
 }
+
+
 </script>
 
 <style scoped>
   .content {
       margin: min(5vw, 10rem);
+  }
+  .margin-button {
+      margin-top: -2rem;
+      margin-bottom: 2rem;
   }
 </style>
