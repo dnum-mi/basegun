@@ -8,7 +8,7 @@ data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
 
   vars = {
-      ENVIRONMENT = "${var.env}"
+      ENVIRONMENT = "${var.deploy_env}"
   }
 }
 
