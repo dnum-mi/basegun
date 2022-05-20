@@ -5,7 +5,7 @@ set -e -o pipefail
 export ${name_var}=${value_var}
 %{ endfor ~}
 export APP_NAME="basegun"
-export APP_URL="https://github.com/datalab-mi/$APP_NAME/archive/refs/heads/${APP_BRANCH}.tar.gz"
+export APP_URL="https://github.com/datalab-mi/$APP_NAME/archive/refs/heads/$APP_BRANCH.tar.gz"
 export USER=$(lsb_release -si | tr [:upper:] [:lower:])
 
 su $USER
@@ -15,6 +15,6 @@ cd /home/$USER && mkdir -p $APP_NAME && curl -kLs $APP_URL \
 (
   cd $APP_NAME
   make start-https
-  make CONTINUE=y TAG=${APP_VERSION} deploy-prod
+  make CONTINUE=y TAG=$APP_VERSION deploy-prod
 )
 exit $?

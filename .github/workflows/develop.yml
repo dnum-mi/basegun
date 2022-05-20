@@ -6,7 +6,6 @@ name: Preprod deployment
 jobs:
   build-push:
     runs-on: ubuntu-latest
-    if: false
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
@@ -42,7 +41,7 @@ jobs:
 
   deploy-preprod:
     uses: ./.github/workflows/deploy.yml
-    # needs: build-push
+    needs: build-push
     with:
       image_version: "develop"
       branch: "develop"
