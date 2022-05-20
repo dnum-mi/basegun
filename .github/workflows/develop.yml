@@ -6,7 +6,6 @@ name: Preprod deployment
 jobs:
   build-push:
     runs-on: ubuntu-latest
-    needs: check-files-modified
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
