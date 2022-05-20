@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e -o pipefail
 
-source /tmp/set-env.sh
+%{ for name_var, value_var in ENVIRONMENT }
+export ${name_var}=${value_var}
+%{ endfor ~}
 export APP_NAME="basegun"
 export APP_URL="https://github.com/datalab-mi/${APP_NAME}/archive/refs/heads/${APP_BRANCH}.tar.gz"
 export USER=$(lsb_release -si | tr [:upper:] [:lower:])

@@ -5,6 +5,10 @@ data "template_file" "init" {
 
 data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
+
+  vars {
+    ENVIRONMENT = jsonencode("${var.deploy_env}")
+  }
 }
 
 data "template_cloudinit_config" "config" {
@@ -14,11 +18,6 @@ data "template_cloudinit_config" "config" {
   part {
     content_type = "text/cloud-config"
     content      = data.template_file.init.rendered
-  }
-
-  part {
-    content_type = "text/plain"
-    content      = templatefile("${path.module}/env.tftpl", { env=${var.deploy_env} })
   }
 
   part {
