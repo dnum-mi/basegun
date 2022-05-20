@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -o pipefail
 
-%{ for name_var, value_var in ENVIRONMENT }
+%{ for name_var, value_var in jsondecode(ENVIRONMENT) }
 export ${name_var}=${value_var}
 %{ endfor ~}
 export APP_NAME="basegun"
