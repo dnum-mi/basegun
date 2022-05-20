@@ -15,6 +15,6 @@ cd /home/$USER && mkdir -p $APP_NAME && curl -kLs $APP_URL \
 (
   cd $APP_NAME
   make start-https
-  make CONTINUE=y TAG=$APP_VERSION deploy-prod
+  make CONTINUE=y TAG=${APP_VERSION} deploy-prod
 )
 exit $?

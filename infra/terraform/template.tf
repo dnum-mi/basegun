@@ -8,6 +8,7 @@ data "template_file" "deploy" {
 
   vars = {
     ENVIRONMENT = jsonencode("${var.deploy_env}")
+    APP_VERSION = "${var.deploy_env.APP_VERSION}"
   }
 }
 
