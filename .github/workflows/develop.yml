@@ -18,14 +18,14 @@ jobs:
 
   build-push:
     runs-on: ubuntu-latest
-    needs: check-files-modified
+  needs: check-files-modified
+    if: |
+      contains(needs.check-files-modified.outputs.changed_files, 'backend/') ||
+      contains(needs.check-files-modified.outputs.changed_files, 'frontend/') ||
+      contains(needs.check-files-modified.outputs.changed_files, 'docker-compose')
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      if: |
-        contains(needs.check-files-modified.outputs.changed_files, 'backend/') ||
-        contains(needs.check-files-modified.outputs.changed_files, 'frontend/') ||
-        contains(needs.check-files-modified.outputs.changed_files, 'docker-compose')
       run: make CONTINUE=y build-prod
     - name: Login to GHCR
       if: success()
