@@ -4,11 +4,25 @@ on:
       - "develop"
 name: Preprod deployment
 jobs:
+  check-files-modified:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_files: ${{ steps.changed-files.outputs.all_modified_files }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Verify Changed files
+      uses: tj-actions/changed-files@v18.4
+      id: changed-files
+      with:
+        base_sha: ${{ github.event.push.base.sha }}
+
   build-push:
     runs-on: ubuntu-latest
+    needs: check-files-modified
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
+      if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend/') || contains(needs.check-files-modified.outputs.changed_files, 'frontend/') )
       run: make CONTINUE=y build-prod
     - name: Login to GHCR
       if: success()

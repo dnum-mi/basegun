@@ -6,7 +6,7 @@ data "template_file" "init" {
 data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
 
-  vars {
+  vars = {
     ENVIRONMENT = jsonencode("${var.deploy_env}")
   }
 }
