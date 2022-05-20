@@ -23,6 +23,6 @@ variable "fixed_ip" {
 }
 
 variable "deploy_env" {
-    type = map
+    type        = map
     description = "All variables necessary for running deploy script"
 }

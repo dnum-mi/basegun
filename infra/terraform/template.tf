@@ -3,14 +3,10 @@ data "template_file" "init" {
   template = file("${path.module}/../scripts/init.yaml")
 }
 
-
 data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
-
-  vars = {
-      ENVIRONMENT = "${var.deploy_env}"
-  }
 }
+
 
 data "template_cloudinit_config" "config" {
   gzip          = false
@@ -23,7 +19,11 @@ data "template_cloudinit_config" "config" {
 
   part {
     content_type = "text/plain"
-    content      = data.template_file.deploy.rendered
+    content      = templatefile("${path.module}/env.tftpl", { env=${var.deploy_env} })
   }
 
+  part {
+    content_type = "text/plain"
+    content      = data.template_file.deploy.rendered
+  }
 }
