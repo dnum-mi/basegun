@@ -7,7 +7,6 @@ data "template_file" "deploy" {
   template = file("${path.module}/../scripts/deploy.sh")
 }
 
-
 data "template_cloudinit_config" "config" {
   gzip          = false
   base64_encode = false
