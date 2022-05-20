@@ -49,29 +49,30 @@ jobs:
       run:
         working-directory: ./infra/terraform
     env:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
+      APP_BRANCH: ${{ inputs.branch }}
+      APP_VERSION: ${{ inputs.image_version }}
       OS_AUTH_URL: https://auth.cloud.ovh.net/v3
-      OS_REGION_NAME: "GRA7"
-      OS_INTERFACE: public
       OS_IDENTITY_API_VERSION: 3
-      OS_USER_DOMAIN_NAME: "Default"
-      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      OS_INTERFACE: public
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
-      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_REGION_NAME: "GRA7"
+      OS_USER_DOMAIN_NAME: "Default"
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
       TF_VAR_fixed_ip: ${{ secrets.SERVER_IP }}
-      TF_VAR_app_version: ${{ inputs.image_version }}
       TF_VAR_flavor: ${{ inputs.flavor }}
-      TF_VAR_branch: ${{ inputs.branch }}
       TF_VAR_volume_size: ${{ inputs.volume_size }}
-      TF_VAR_api_ovh_token: ${{ secrets.API_OVH_TOKEN }}
-      TF_VAR_x_ovh_token: ${{ secrets.X_OVH_TOKEN }}
       WORKSPACE: ${{ inputs.workspace }}
+      X_OVH_TOKEN: ${{ secrets.X_OVH_TOKEN }}
+
     steps:
     - uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.1.8
-    - uses: actions/checkout@v2
 
+    - uses: actions/checkout@v2
     - name: Terraform Init
       id: init
       run: terraform init
@@ -87,7 +88,9 @@ jobs:
       run: terraform taint -allow-missing openstack_compute_instance_v2.instance 
 
     - name: Terraform apply
-      run: terraform apply --auto-approve
+      run: |
+        envsubst < env.json > env.tfvars.json
+        terraform apply --auto-approve -var-file="env.tfvars.json"
 
 #TODO:
 #use if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
