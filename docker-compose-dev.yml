@@ -15,6 +15,7 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
+      - WORKSPACE=dev
     image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000

@@ -122,10 +122,8 @@ def version():
         return "-1"
 
 @app.get("/logs")
-def logs(request: Request):
-    request_url = request.headers.get('Host')
-    print(request_url, "preprod" in request_url)
-    if ("localhost" in request_url or "preprod" in request_url):
+def logs():
+    if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
         with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()
             res = [json.loads(l) for l in lines]
