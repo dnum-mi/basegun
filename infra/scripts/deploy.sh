@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e -o pipefail
 
-export ENV = ${jsondecode(ENVIRONMENT)}
-export TEST = ENV.APP_BRANCH
-%{ for name_var, value_var in ENV }
+%{ for name_var, value_var in jsondecode(ENVIRONMENT) }
 export ${name_var}=${value_var}
 %{ endfor ~}
 export APP_NAME="basegun"
