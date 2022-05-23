@@ -10,19 +10,24 @@ services:
         - no_proxy
         - VERSION=${TAG}
       context: ./backend
-      target: dev
+      target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
+      - OS_USERNAME
+      - OS_PASSWORD
+      - OS_PROJECT_NAME
+      - http_proxy
+      - https_proxy
       - WORKSPACE=dev
     image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000
     volumes:
-      - /tmp/basegun:/app/images
+      # - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
-      # - $PWD/backend/tests:/app/tests
+      - $PWD/backend/tests:/app/tests
       - $PWD/backend/logs:/app/logs
       - /app/src/weights
 
@@ -39,7 +44,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /tmp/basegun:/app/public/temp
+      # - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src
       - /app/node_modules
 

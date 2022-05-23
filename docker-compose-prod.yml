@@ -5,9 +5,6 @@ services:
   backend:
     build:
       args:
-        - http_proxy
-        - https_proxy
-        - no_proxy
         - VERSION=${TAG}
       context: ./backend
       target: prod
@@ -15,28 +12,24 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
+      - OS_USERNAME
+      - OS_PASSWORD
+      - OS_PROJECT_NAME
       - WORKSPACE
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
     volumes:
-      - /tmp/basegun:/app/images
       - /var/log/basegun:/app/logs
 
   frontend:
     build:
-      args:
-        - http_proxy
-        - https_proxy
-        - no_proxy
       context: ./frontend
       target: prod
     container_name: basegun-frontend
     image: basegun-frontend:${TAG}-prod
     ports:
       - ${PORT_PROD:-80}:80
-    volumes:
-      - /tmp/basegun:/usr/share/nginx/html/temp
 
   filebeat:
     image: elastic/filebeat:6.5.4

@@ -1,7 +1,7 @@
 import unittest
 import os
 import time
-import json
+from io import BytesIO
 import requests
 from PIL import Image, ImageChops
 
@@ -35,29 +35,28 @@ class TestModel(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         res = r.json()
 
-        # checks that the input file has been written
-        self.assertTrue("file_name" in res.keys())
-        self.assertTrue(os.path.exists(res["file_name"]))
+        # checks that the json result is as expected
+        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "file"}))
+        self.assertEqual(res["label"], "revolver")
+        self.assertAlmostEqual(res["confidence"], 99.05, places=1)
+        self.assertTrue(res["confidence_level"], "high")
         # checks that written file is exactly the same as input file
+        self.assertTrue("ovh" in res["file"])
+        response = requests.get(res["file"])
         with Image.open(path) as image_one:
-            with Image.open(res["file_name"]) as image_two:
+            with Image.open(BytesIO(response.content)) as image_two:
                 self.assertEqual(image_one.size, image_two.size)
                 diff = ImageChops.difference(image_one, image_two)
                 self.assertFalse(diff.getbbox())
-        # checks that the json result is as expected
-        self.assertTrue("label" in res.keys())
-        self.assertEqual(res["label"], "revolver")
-        self.assertTrue("confidence" in res.keys())
-        self.assertAlmostEqual(res["confidence"], 99.05, places=1)
         # checks that the result is written in logs
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
         log = r.json()[0]
         self.assertEqual(
             set(log.keys()),
-            {'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
-            'short_message', '_bg_confidence', '_bg_upload_time', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
-            'level', '_bg_geolocation', '_bg_device_browser'}
+            set({'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
+            'short_message', '_bg_confidence', '_bg_confidence_level', '_bg_upload_time', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
+            'level', '_bg_geolocation', '_bg_device_browser', '_bg_version', '_bg_model'})
         )
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["short_message"], "Identification request")
@@ -77,4 +76,4 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["short_message"], "Identification feedback")
         self.assertEqual(log["_bg_image_url"], "test")
-        self.assertFalse(log["_bg_feedback"])
+        self.assertFalse(log["_bg_feedback_bool"])

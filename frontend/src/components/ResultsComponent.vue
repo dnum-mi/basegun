@@ -3,14 +3,14 @@
         <div class="result">
             <div class="result-image" :style="{backgroundImage:`url(${store.imgName})`}"></div>
             <div class="fr-callout custom-callout">
-                <div v-if="store.confidence < 45">
+                <div v-if="store.confidence_level == 'low'">
                     <div class="callout-head">
                         <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
                     </div>
                     <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
                 </div>
                 <div v-else>
-                    <div v-if="store.confidence > 75">
+                    <div v-if="store.confidence_level == 'high'">
                         <div class="callout-head">
                             <p class="fr-tag fr-tag--sm success-tag">Indice de fiabilité : {{ Math.floor(store.confidence) }}%</p>
                         </div>
@@ -23,7 +23,7 @@
                     <p class="fr-callout__text">Type d'arme : {{ cleanLabel }}</p>
                 </div>
             </div>
-            <div v-if="store.confidence >= 40">
+            <div v-if="store.confidence_level != 'low'">
                 <p class="fr-text--sm warning-msg">Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.</p>
                 <div class="feedback">
                     <p class="feedback-text">Ce résultat a-t-il été utile ?</p>
