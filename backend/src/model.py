@@ -1,4 +1,4 @@
-import os
+from io import BytesIO
 from typing import Union
 from PIL import Image
 import numpy as np
@@ -140,17 +140,17 @@ def prepare_input(image: Image) -> torch.Tensor:
     return image.unsqueeze(0).to(device)
 
 
-def predict_image(model: Model, path: str) -> Union[str, float]:
+async def predict_image(model: Model, img: bytes) -> Union[str, float]:
     """Run the model prediction on an image
 
     Args:
         model (Model): classification model
-        path (str): path to input image
+        img (bytes): input image in bytes
 
     Returns:
         Union[str, float]: (label, confidence) of best class predicted
     """
-    im = Image.open(path)
+    im = Image.open(BytesIO(img))
     image = prepare_input(im)
     output = model(image)
     probs = torch.nn.functional.softmax(output, dim=1).detach().numpy()[0]

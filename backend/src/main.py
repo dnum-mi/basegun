@@ -5,6 +5,7 @@ from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 import time
 import json
+import asyncio
 from uuid import uuid4
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
@@ -133,6 +134,19 @@ uploaded-images/{os.environ["WORKSPACE"]}/'
 
 conn.get_account()
 
+async def upload_image_ovh(content, img_name):
+    """ Uploads an image to owh swift container basegun-public
+        path uploaded-images/WORKSPACE/img_name
+        where WORKSPACE is dev, preprod or prod
+
+    Args:
+        content (bytes): file content
+        img_name (str): name we want to give on ovh
+    """
+    conn.put_object("basegun-public",
+                    f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
+                    contents=content)
+
 
 ####################
 #     ROUTES       #
@@ -164,18 +178,11 @@ async def imageupload(
     userId: str = Form(...),
     geolocation: str = Form(...) ):
 
-
-    # store image in PATH_IMGS folder
     img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
-    local_path = os.path.join(PATH_IMGS, img_name)
-    with open(local_path, "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
+    img_bytes = image.file.read()
 
     # upload image to OVH Cloud
-    with open(local_path, "rb") as content:
-        conn.put_object("basegun-public",
-                        f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
-                        contents=content)
+    upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -202,8 +209,8 @@ async def imageupload(
 
     # send image to model for prediction
     try:
-        start = time.time()
-        label, confidence = predict_image(model, local_path)
+        prediction = asyncio.create_task(predict_image(model, img_bytes))
+        label, confidence = await prediction
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time()-start, 2)
@@ -214,6 +221,8 @@ async def imageupload(
         else:
             extras_logging["bg_confidence_level"] = "high"
         logger.info("Identification request", extra=extras_logging)
+
+        await upload
 
         return {
             "file": os.path.join(CLOUD_PATH, img_name),
