@@ -15,12 +15,12 @@ services:
     environment:
       - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
-      - ENV=dev
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
       - http_proxy
       - https_proxy
+      - WORKSPACE=dev
     image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000

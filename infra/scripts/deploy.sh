@@ -1,15 +1,20 @@
 #!/bin/bash
 set -e -o pipefail
-export APP_URL="https://github.com/${ORG}/${APP_NAME}/archive/refs/heads/${APP_BRANCH}.tar.gz"
+
+%{ for name_var, value_var in jsondecode(ENVIRONMENT) }
+export ${name_var}=${value_var}
+%{ endfor ~}
+export APP_NAME="basegun"
+export APP_URL="https://github.com/datalab-mi/$APP_NAME/archive/refs/heads/$APP_BRANCH.tar.gz"
 export USER=$(lsb_release -si | tr [:upper:] [:lower:])
 
-su debian
-cd /home/$USER && mkdir -p ${APP_NAME} && curl -kLs $APP_URL \
-| tar -zxvf - --strip-components=1 -C ${APP_NAME}
+su $USER
+cd /home/$USER && mkdir -p $APP_NAME && curl -kLs $APP_URL \
+| tar -zxvf - --strip-components=1 -C $APP_NAME
 
 (
-  cd ${APP_NAME}
+  cd $APP_NAME
   make start-https
-  make CONTINUE=y TAG=${VERSION} PORT_PROD=8080 X_OVH_TOKEN=${X_OVH_TOKEN} API_OVH_TOKEN=${API_OVH_TOKEN} deploy-prod
+  make CONTINUE=y TAG=${APP_VERSION} deploy-prod
 )
 exit $?

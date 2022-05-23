@@ -141,9 +141,8 @@ def version():
         return "-1"
 
 @app.get("/logs")
-def logs(request: Request):
-    request_url = request.headers.get('Host')
-    if ("localhost" in request_url or "preprod" in request_url):
+def logs():
+    if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
         with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
             lines = f.readlines()
             res = [json.loads(l) for l in lines]
@@ -215,7 +214,7 @@ async def log_feedback(request: Request):
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_image_url": res["image_url"],
-        "bg_feedback": res["feedback"]
+        "bg_feedback_bool": res["feedback"]
     }
     logger.info("Identification feedback", extra=extras_logging)
     return

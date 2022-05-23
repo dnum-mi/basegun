@@ -18,6 +18,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
+      if: success()
       run: |
         make push
         make push-develop
