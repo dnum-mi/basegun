@@ -212,6 +212,7 @@ async def imageupload(
 
     # send image to model for prediction
     try:
+        start = time.time()
         prediction = asyncio.create_task(predict_image(model, img_bytes))
         label, confidence = await prediction
         extras_logging["bg_label"] = label
