@@ -35,4 +35,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run backend tests
-      run: make test-backend
+      run: OS_USERNAME=${{ secrets.OS_USERNAME }} OS_PASSWORD=${{ secrets.OS_PASSWORD }} OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} make test-backend

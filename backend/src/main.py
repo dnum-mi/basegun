@@ -155,9 +155,11 @@ async def upload_image_ovh(content, img_name):
 def home():
     return "Basegun backend"
 
+
 @app.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
+
 
 @app.get("/logs")
 def logs():
@@ -169,6 +171,7 @@ def logs():
             return res
     else:
         return PlainTextResponse("Forbidden")
+
 
 @app.post("/upload")
 async def imageupload(
@@ -235,6 +238,7 @@ async def imageupload(
         extras_logging["bg_error_type"] = e.__class__.__name__
         logger.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/feedback")
 async def log_feedback(request: Request):
