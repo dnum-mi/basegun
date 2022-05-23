@@ -119,7 +119,8 @@ conn = swiftclient.Connection(
     auth_version='3'
 )
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/\
-AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/uploaded-images/{os.environ["ENV"]}/'
+AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/\
+uploaded-images/{os.environ["WORKSPACE"]}/'
 
 conn.get_account()
 
@@ -168,8 +169,9 @@ async def imageupload(
 
     # upload image to OVH Cloud
     with open(local_path, "rb") as content:
-        conn.put_object("basegun-public", f'uploaded-images/{os.environ["ENV"]}/{img_name}',
-                                    contents=content)
+        conn.put_object("basegun-public",
+                        f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
+                        contents=content)
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -198,15 +200,26 @@ async def imageupload(
         label, confidence = predict_image(model, local_path)
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
-        extras_logging["bg_processing_time"] = round(time.time()-start, 2)
+        extras_logging["bg_model_time"] = round(time.time()-start, 2)
+        if confidence < 45:
+            extras_logging["bg_confidence_level"] = "low"
+        elif confidence < 75:
+            extras_logging["bg_confidence_level"] = "medium"
+        else:
+            extras_logging["bg_confidence_level"] = "high"
         logger.info("Identification request", extra=extras_logging)
+
+        return {
+            "file": os.path.join(CLOUD_PATH, img_name),
+            "label": label,
+            "confidence": confidence,
+            "confidence_level": extras_logging["bg_confidence_level"]
+        }
+
     except Exception as e:
         extras_logging["bg_error_type"] = e.__class__.__name__
         logger.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
-
-    return {"file_name": os.path.join(CLOUD_PATH, img_name), "label": label, "confidence": confidence}
-
 
 @app.post("/feedback")
 async def log_feedback(request: Request):

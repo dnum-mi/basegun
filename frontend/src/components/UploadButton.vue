@@ -101,9 +101,10 @@
                         .then(res => {
                             store.label = res.data.label
                             store.confidence = res.data.confidence
+                            store.confidence_level = res.data.confidence_level
                             store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
-                            store.imgName = res.data.file_name
-                            // store.imgName = import.meta.env.BASE_URL + "temp/" + res.data.file_name.substring(res.data.file_name.lastIndexOf("/")+1)
+                            store.imgName = res.data.file
+                            // store.imgName = import.meta.env.BASE_URL + "temp/" + res.data.file.substring(res.data.file.lastIndexOf("/")+1)
                         })
                         .catch((err) => {
                             console.log(err)

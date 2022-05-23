@@ -10,7 +10,7 @@ services:
         - no_proxy
         - VERSION=${TAG}
       context: ./backend
-      target: dev
+      target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
     environment:
       - PATH_IMGS=/app/images
@@ -27,7 +27,7 @@ services:
     volumes:
       # - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
-      # - $PWD/backend/tests:/app/tests
+      - $PWD/backend/tests:/app/tests
       - $PWD/backend/logs:/app/logs
       - /app/src/weights
 
