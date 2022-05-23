@@ -56,7 +56,7 @@ class TestModel(unittest.TestCase):
             set(log.keys()),
             set({'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
             'short_message', '_bg_confidence', '_bg_confidence_level', '_bg_upload_time', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
-            'level', '_bg_geolocation', '_bg_device_browser'})
+            'level', '_bg_geolocation', '_bg_device_browser', '_bg_version', '_bg_model'})
         )
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["short_message"], "Identification request")

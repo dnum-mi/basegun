@@ -6,7 +6,6 @@ from datetime import datetime
 import time
 import json
 from uuid import uuid4
-from io import BytesIO
 from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -106,6 +105,16 @@ if os.path.exists(MODEL_PATH):
 if not model:
     raise RuntimeError("Model not found")
 
+# Versions
+if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
+    with open("versions.json", "r") as f:
+        versions = json.load(f)
+        APP_VERSION = versions["app"]
+        MODEL_VERSION = versions["model"]
+else:
+    print("WARNING: file versions.json not found")
+    APP_VERSION = "-1"
+    MODEL_VERSION = "-1"
 
 # Connection to OVH cloud
 conn = swiftclient.Connection(
@@ -134,12 +143,7 @@ def home():
 
 @app.get("/version", response_class=PlainTextResponse)
 def version():
-    if "version.txt" in os.listdir(os.path.dirname(CURRENT_DIR)):
-        with open("version.txt", "r") as f:
-            version = f.readline()
-        return version
-    else:
-        return "-1"
+    return APP_VERSION
 
 @app.get("/logs")
 def logs():
@@ -191,7 +195,9 @@ async def imageupload(
         "bg_device": device,
         "bg_device_family": user_agent.device.family,
         "bg_device_os": user_agent.os.family,
-        "bg_device_browser": user_agent.browser.family
+        "bg_device_browser": user_agent.browser.family,
+        "bg_version": APP_VERSION,
+        "bg_model": MODEL_VERSION,
     }
 
     # send image to model for prediction
