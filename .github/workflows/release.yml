@@ -20,7 +20,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build_and_push:
+  build-push:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -34,6 +34,41 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push on GHCR
+      if: success()
       run: |
         make push
         make push-latest
+    - name: Delete untagged images
+      uses: vlaurin/action-ghcr-prune@main
+      with:
+        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        organization: datalab-mi
+        container: basegun/basegun-backend
+        dry-run: false
+        untagged: true
+    - name: Delete untagged images
+      uses: vlaurin/action-ghcr-prune@main
+      with:
+        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        organization: datalab-mi
+        container: basegun/basegun-frontend
+        dry-run: false
+        untagged: true
+
+  deploy-prod:
+    uses: ./.github/workflows/deploy.yml
+    needs: build-push
+    with:
+      image_version: "latest"
+      branch: "main"
+      volume_size: 10
+      flavor: "s1-4"
+      workspace: "prod"
+    secrets:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
+      SERVER_IP: ${{ secrets.PROD_SERVER_IP }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
+      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      X_OVH_TOKEN: ${{ secrets.PROD_OVH_TOKEN }}
