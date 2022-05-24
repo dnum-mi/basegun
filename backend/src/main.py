@@ -247,7 +247,10 @@ async def log_feedback(request: Request):
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_image_url": res["image_url"],
-        "bg_feedback_bool": res["feedback"]
+        "bg_feedback_bool": res["feedback"],
+        "bg_confidence": res["confidence"],
+        "bg_label": res["label"],
+        "bg_confidence_level": res["confidence_level"]
     }
     logger.info("Identification feedback", extra=extras_logging)
     return

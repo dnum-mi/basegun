@@ -108,7 +108,13 @@
                 window.location.reload();
             },
             sendFeedback(bool, event) {
-                const json = {"image_url": store.imgName, "feedback": bool}
+                const json = {
+                    "image_url": store.imgName,
+                    "feedback": bool,
+                    "confidence": store.confidence,
+                    "label": store.label,
+                    "confidence_level": store.confidence_level
+                }
                 axios.post('/feedback', json)
                     .then(res => {
                         event.target.parentElement.setAttribute('aria-disabled', 'true');
