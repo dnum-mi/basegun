@@ -181,46 +181,46 @@ async def imageupload(
     userId: str = Form(...),
     geolocation: str = Form(...) ):
 
-    img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
-    img_bytes = image.file.read()
-
-    # upload image to OVH Cloud
-    upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
-
-    # prepare content logs
-    user_agent = parse(request.headers.get("user-agent"))
-    device = "other"
-    if user_agent.is_mobile:
-        device = "mobile"
-    elif user_agent.is_pc:
-        device = "pc"
-    elif user_agent.is_tablet:
-        device = "tablet"
-    extras_logging = {
-        "bg_date": datetime.now().isoformat(),
-        "bg_image_url": os.path.join(CLOUD_PATH, img_name),
-        "bg_upload_time": round(time.time()-date, 2),
-        "bg_user_id": userId,
-        "bg_geolocation": geolocation,
-        "bg_device": device,
-        "bg_device_family": user_agent.device.family,
-        "bg_device_os": user_agent.os.family,
-        "bg_device_browser": user_agent.browser.family,
-        "bg_version": APP_VERSION,
-        "bg_model": MODEL_VERSION,
-    }
-
-    # send image to model for prediction
     try:
+        img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
+        img_bytes = image.file.read()
+
+        # upload image to OVH Cloud
+        upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
+
+        # prepare content logs
+        user_agent = parse(request.headers.get("user-agent"))
+        device = "other"
+        if user_agent.is_mobile:
+            device = "mobile"
+        elif user_agent.is_pc:
+            device = "pc"
+        elif user_agent.is_tablet:
+            device = "tablet"
+        extras_logging = {
+            "bg_date": datetime.now().isoformat(),
+            "bg_image_url": os.path.join(CLOUD_PATH, img_name),
+            "bg_upload_time": round(time.time()-date, 2),
+            "bg_user_id": userId,
+            "bg_geolocation": geolocation,
+            "bg_device": device,
+            "bg_device_family": user_agent.device.family,
+            "bg_device_os": user_agent.os.family,
+            "bg_device_browser": user_agent.browser.family,
+            "bg_version": APP_VERSION,
+            "bg_model": MODEL_VERSION,
+        }
+
+        # send image to model for prediction
         start = time.time()
         prediction = asyncio.create_task(predict_image(model, img_bytes))
         label, confidence = await prediction
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time()-start, 2)
-        if confidence < 45:
+        if confidence < 37:
             extras_logging["bg_confidence_level"] = "low"
-        elif confidence < 75:
+        elif confidence < 65:
             extras_logging["bg_confidence_level"] = "medium"
         else:
             extras_logging["bg_confidence_level"] = "high"

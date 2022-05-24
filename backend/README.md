@@ -6,9 +6,8 @@
 - OS_PASSWORD: your OVH password
 - OS_PROJECT_NAME
 
-From this folder
-
 ## Install
+From this folder
 
 ### Without Docker
 1. Activate python environment with Python=3.8 (conda or pyenv)

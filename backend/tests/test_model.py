@@ -52,4 +52,4 @@ class TestModel(unittest.TestCase):
         with open(path, 'rb') as f:
             res = asyncio.run(predict_image(self.model, f.read()))
         self.assertEqual(res[0], "revolver")
-        self.assertAlmostEqual(res[1], 99.05, places=1)
+        self.assertAlmostEqual(res[1], 99.53, places=1)
