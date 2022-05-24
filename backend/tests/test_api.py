@@ -66,8 +66,11 @@ class TestModel(unittest.TestCase):
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
+        confidence = 90
+        label = "revolver"
+        confidence_level = "high"
         r = requests.post(self.url + "/feedback",
-                json={"image_url": "test", "feedback": False})
+                json={"image_url": "test", "feedback": False, "confidence": confidence, "label": label, "confidence_level": confidence_level})
         self.assertEqual(r.status_code, 200)
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
@@ -77,3 +80,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["short_message"], "Identification feedback")
         self.assertEqual(log["_bg_image_url"], "test")
         self.assertFalse(log["_bg_feedback_bool"])
+        self.assertEqual(log["_bg_confidence"], confidence)
+        self.assertEqual(log["_bg_label"], label)
+        self.assertEqual(log["_bg_confidence_level"], confidence_level)
