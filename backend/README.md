@@ -1,8 +1,13 @@
 # Basegun FastAPI backend
 
-From this folder
+## Requirements
+3 env variables for uploading images to OVH swift:
+- OS_USERNAME: your OVH username
+- OS_PASSWORD: your OVH password
+- OS_PROJECT_NAME
 
 ## Install
+From this folder
 
 ### Without Docker
 1. Activate python environment with Python=3.8 (conda or pyenv)
@@ -30,7 +35,7 @@ uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
 
 ### With Docker
 ```bash
-docker run --rm -d -p 5000:5000 --name basegun_back basegun-back:dev -e PATH_IMGS=/tmp/basegun/
+docker run --rm -d -p 5000:5000 --name basegun_back -e VERSION=1.2 basegun-back:dev
 ```
 Remember afterwards to stop container `docker stop basegun_back`
 

@@ -1,30 +1,38 @@
 <template>
   <div>
     <HeaderMain />
-    <div class="content">
-        <div class="d-flex align-items-center">
-            <a href="/" class="small-link small-text"> Accueil</a>
-            <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-            <p class="small-text">Informations</p>
+    <!-- <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" href="/a-propos">À propos</a>
+    <br>
+    <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" href="/mentions-legales">Mentions légales</a>
+    <br>
+    <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" href="/contact">Contact</a> -->
+    <div class="fr-tabs content">
+        <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+            <li role="presentation">
+                <button id="tabpanel-404" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-404-panel">À propos</button>
+            </li>
+            <li role="presentation">
+                <button id="tabpanel-405" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-405-panel">Mentions légales</button>
+            </li>
+            <li role="presentation">
+                <button id="tabpanel-406" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-406-panel">Contact</button>
+            </li>
+        </ul>
+        <div id="tabpanel-404-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-404" tabindex="0">
+            <AboutTextContent />
         </div>
-        <h3 class="title-space">Cadre et limitations</h3>
-        <p>Basegun est un projet d'application par apprentissage automatique capable d'identifier et de classifier
-            de manière fiable et rapide une arme à feu.</p>
-        <p>Le projet a été initié en 2021 et est en cours de développement par le Data Lab du Ministère de l'Intérieur.</p>
-        <p>A ce jour, Basegun permet de prendre en photo une arme à feu et d'obtenir un
-            résultat parmi 10 typologies possibles. Ce résultat donne une indication sur la ou les catégories légales
-            à laquelle l'arme appartient.</p>
-        <p class="fr-callout"><span class="fr-fi-alert-fill" aria-hidden="true"></span> Basegun ne prend pas encore en compte l'identification des armes non létales (factices,
-            à air comprimé, à blanc ou neutralisées).</p>
-        <h3 class="title-space">Equipe et contacts</h3>
-        <p>Deux personnes travaillent actuellement à temps plein sur ce projet:
-            <ul class="contact-list">
-                <li>Sarah Gross, data scientist (sarah.gross@interieur.gouv.fr)</li>
-                <li>Beryl Koller, développeuse web (beryl.koller@interieur.gouv.fr)</li>
-            </ul>
-        </p>
-        <h3 class="title-space">Code source</h3>
-        <p>Le code source du projet est disponible publiquement à l'adresse <a href="https://github.com/datalab-mi/Basegun" target="blank">https://github.com/datalab-mi/Basegun</a></p>
+        <div id="tabpanel-405-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-405" tabindex="0">
+            <LegalTextContent />
+        </div>
+        <div id="tabpanel-406-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-406" tabindex="0">
+            <ContactTextContent />
+        </div>
+    </div>
+    <div class="text-center margin-button">
+        <DsfrButton
+            :label="labelButton"
+            @click="homeRedirect"
+        />
     </div>
   </div>
 </template>
@@ -32,34 +40,39 @@
 <script>
 // @ is an alias to /src
 import HeaderMain from '@/components/HeaderMain.vue';
+import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
+import LegalTextContent from "@/views/text_content/LegalTextContent.vue";
+import ContactTextContent from "@/views/text_content/ContactTextContent.vue"
 
 export default {
   name: 'InformationsPage',
   components: {
-    HeaderMain
+    HeaderMain,
+    AboutTextContent,
+    LegalTextContent,
+    ContactTextContent
+  },
+  data() {
+    return {
+        labelButton: "Retour"
+    }
+  },
+  methods: {
+    homeRedirect() {
+        window.location.replace("/accueil")
+    }
   }
 }
+
+
 </script>
 
 <style scoped>
-    .content {
-        margin: min(5vw, 10rem);
-    }
-    .title-space {
-        margin-top: 20px;
-    }
-    .contact-list {
-        margin-left: 2rem;
-    }
-    .small-text {
-        font-size: 10pt;
-        margin-bottom: 0;
-    }
-    .small-link {
-        color: #000091;
-    }
-    .small-link:hover {
-        color: #1212ff
-    }
-
+  .content {
+      margin: min(5vw, 10rem);
+  }
+  .margin-button {
+      margin-top: -2rem;
+      margin-bottom: 2rem;
+  }
 </style>

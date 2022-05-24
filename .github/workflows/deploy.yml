@@ -1,0 +1,98 @@
+on:
+  workflow_call:
+    inputs:
+      image_version:
+        required: false
+        type: string
+        description: "Docker image version to pull for deployment"
+        default: "latest"
+      branch:
+        required: false
+        description: "Branch to pull in instance deployment"
+        type: string
+        default: "main"
+      volume_size:
+        required: false
+        description: "Size in GB of instance"
+        type: number
+        default: 10
+      flavor:
+        required: false
+        type: string
+        description: "Flavor of instance"
+        default: "s1-2"
+      workspace:
+        required: true
+        type: string
+        description: "Workspace used for deployment: prod or preprod"
+        default: "prod"
+    secrets:
+      API_OVH_TOKEN:
+        required: true
+      SERVER_IP:
+        required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_ID:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      X_OVH_TOKEN:
+        required: true
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: ./infra/terraform
+    env:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
+      APP_BRANCH: ${{ inputs.branch }}
+      APP_VERSION: ${{ inputs.image_version }}
+      OS_AUTH_URL: https://auth.cloud.ovh.net/v3
+      OS_IDENTITY_API_VERSION: 3
+      OS_INTERFACE: public
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
+      OS_REGION_NAME: "GRA7"
+      OS_USER_DOMAIN_NAME: "Default"
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      TF_VAR_fixed_ip: ${{ secrets.SERVER_IP }}
+      TF_VAR_flavor: ${{ inputs.flavor }}
+      TF_VAR_volume_size: ${{ inputs.volume_size }}
+      WORKSPACE: ${{ inputs.workspace }}
+      X_OVH_TOKEN: ${{ secrets.X_OVH_TOKEN }}
+
+    steps:
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.1.8
+
+    - uses: actions/checkout@v2
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Workspace
+      run: terraform workspace select ${WORKSPACE} || terraform workspace new ${WORKSPACE}
+
+    - name: Terraform Taint if exist
+      run: terraform taint -allow-missing openstack_compute_instance_v2.instance 
+
+    - name: Terraform apply
+      run: |
+        envsubst < env.tfvars > deployenv.tfvars
+        terraform apply --auto-approve -var-file="deployenv.tfvars"
+
+#TODO:
+#use if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+#or on: push
+#TODO: run script if server is reachable

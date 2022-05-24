@@ -1,13 +1,17 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 1.1
+TAG		:= 1.2
+APP_NAME	:= basegun
+REG		:= ghcr.io
+ORG		:= datalab-mi
+
 
 export
 
 show-current-tag:
 	@while [ -z "$$CONTINUE" ]; do \
-		read -r -p "Current tag is v${TAG}. Continue? [y/N]: " CONTINUE; \
+		read -r -p "Current tag is ${TAG}. Continue? [y/N]: " CONTINUE; \
 	done ; \
 	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
 
@@ -25,11 +29,20 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 build-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
-up-preprod: check-dc-config-prod show-current-tag
-	PORT_PROD=3000 TAG=${TAG} ${DC} -f docker-compose-prod.yml up -d
-
 up-%: check-dc-config-% show-current-tag
+ifeq ("$(WORKSPACE)","preprod")
+	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-$*.yml up -d
+else
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
+endif
+
+test-backend:
+	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build backend
+	${DC} -f docker-compose-dev.yml up -d backend
+	sleep 5
+	docker exec basegun-backend python -m unittest discover -v
+
+test: test-backend
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
@@ -41,3 +54,24 @@ tag: show-current-tag
 untag: show-current-tag
 	git tag -d v${TAG}
 	git push --delete origin v${TAG}
+
+pull: pull-backend pull-frontend
+
+pull-%:
+	docker pull ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG}
+	docker tag ${REG}/${ORG}/${APP_NAME}/${APP_NAME}-$*:${TAG} ${APP_NAME}-$*:${TAG}-prod
+
+push: push-${TAG}
+
+push-%:
+	docker tag basegun-frontend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-frontend:$*
+	docker tag basegun-backend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-backend:$*
+	docker push ghcr.io/datalab-mi/basegun/basegun-frontend:$*
+	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
+
+deploy-prod: pull up-prod
+
+start-https:
+	touch infra/traefik/acme.json
+	sudo chmod 600 infra/traefik/acme.json
+	${DC} -f infra/traefik/docker-compose.yml up -d

@@ -1,18 +1,16 @@
 <template>
     <div>
         <div class="result">
-            <div class="result-image">
-                <img class="img-fluid" :src="store.imgName" alt="Image téléversée">
-            </div>
+            <div class="result-image" :style="{backgroundImage:`url(${store.imgName})`}"></div>
             <div class="fr-callout custom-callout">
-                <div v-if="store.confidence < 40">
+                <div v-if="store.confidence_level == 'low'">
                     <div class="callout-head">
                         <p class="fr-tag fr-tag--sm error-tag">Indice de fiabilité insuffisant</p>
                     </div>
                     <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
                 </div>
                 <div v-else>
-                    <div v-if="store.confidence > 70">
+                    <div v-if="store.confidence_level == 'high'">
                         <div class="callout-head">
                             <p class="fr-tag fr-tag--sm success-tag">Indice de fiabilité : {{ Math.floor(store.confidence) }}%</p>
                         </div>
@@ -25,18 +23,20 @@
                     <p class="fr-callout__text">Type d'arme : {{ cleanLabel }}</p>
                 </div>
             </div>
+            <div v-if="store.confidence_level != 'low'">
+                <p class="fr-text--sm warning-msg">Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.</p>
+                <div class="feedback">
+                    <p class="feedback-text">Ce résultat a-t-il été utile ?</p>
+                    <label class="feedback-click" @click="sendFeedback(true, $event)">👍</label>
+                    <label class="feedback-click" @click="sendFeedback(false, $event)">👎</label>
+                </div>
+            </div>
             <div class="blank"></div>
             <div class="footer-background footer-actions">
                 <div class="action-group" @click="reloadPage">
                     <span class="fr-fi-refresh-line" aria-hidden="true"></span>
                     <p class="action-group-text">RECOMMENCER</p>
                 </div>
-                <a href="/informations" class="no-shadow">
-                    <div class="action-group">
-                        <span class="fr-fi-information-line" aria-hidden="true"></span>
-                        <p class="action-group-text">A PROPOS</p>
-                    </div>
-                </a>
             </div>
         </div>
     </div>
@@ -44,6 +44,8 @@
 
 <script>
     import { store } from '@/store.js'
+    import axios from 'axios';
+
     export default {
         name: 'ResultsComponent',
         data() {
@@ -104,31 +106,53 @@
         methods: {
             reloadPage() {
                 window.location.reload();
+            },
+            sendFeedback(bool, event) {
+                const json = {
+                    "image_url": store.imgName,
+                    "feedback": bool,
+                    "confidence": store.confidence,
+                    "label": store.label,
+                    "confidence_level": store.confidence_level
+                }
+                axios.post('/feedback', json)
+                    .then(res => {
+                        event.target.parentElement.setAttribute('aria-disabled', 'true');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert("Une erreur a eu lieu en enregistrant votre vote.");
+                    });
             }
         }
     }
 </script>
 
 <style scoped>
+
     .result {
         margin: 0 auto;
         max-width: 1000px;
     }
     .result-image {
-        text-align: center;
-        margin: 0 auto
+        height: 30vh;
+        background-position: center;
+        background-size: cover;
+        margin: 0 auto;
     }
     @media (min-width: 768px) {
         .result-image {
             max-width: 600px;
         }
-        .custom-callout {
+        .custom-callout,
+        .warning-msg {
             max-width: 600px;
             margin: 12px auto
         }
     }
     @media (max-width: 768px) {
-        .custom-callout {
+        .custom-callout,
+        .warning-msg {
             margin: 12px
         }
     }
@@ -157,6 +181,39 @@
         display: flex;
         align-items: center;
     }
+    .warning-msg {
+        line-height: 1.3rem!important;
+    }
+
+    .feedback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .feedback-text {
+        margin-bottom: 0;
+        margin-right: 4px;
+        font-weight: bold;
+    }
+
+    .feedback-click {
+        color: transparent;
+        font-size: 30px;
+        text-shadow: 0 0 0 #00c8c8;
+    }
+
+    .feedback-click:hover {
+        cursor: pointer;
+        text-shadow: 0 0 0 #1212ff;
+    }
+
+    [aria-disabled="true"] .feedback-click{
+        pointer-events: none;
+        cursor: not-allowed;
+        text-shadow: 0 0 0 grey;
+    }
+
     .footer-actions {
         display: flex;
         justify-content: space-around;
@@ -175,9 +232,6 @@
         font-size: 12px;
         font-weight: bold;
         margin: 0
-    }
-    .no-shadow {
-        box-shadow: none;
     }
     .blank {
         height: 80px
