@@ -38,7 +38,7 @@ class TestModel(unittest.TestCase):
         # checks that the json result is as expected
         self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "file"}))
         self.assertEqual(res["label"], "revolver")
-        self.assertAlmostEqual(res["confidence"], 99.05, places=1)
+        self.assertAlmostEqual(res["confidence"], 99.53, places=1)
         self.assertTrue(res["confidence_level"], "high")
         # checks that written file is exactly the same as input file
         self.assertTrue("ovh" in res["file"])

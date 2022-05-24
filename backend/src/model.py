@@ -5,14 +5,14 @@ import numpy as np
 import torch
 import torchvision.models as Model
 from torchvision import transforms
-
+import time
 
 CLASSES = ['autre_epaule', 'autre_pistolet', 'epaule_a_levier_sous_garde',
         'epaule_a_percussion_silex', 'epaule_a_pompe', 'epaule_a_un_coup', 'epaule_a_verrou',
         'pistolet_a_percussion_silex', 'pistolet_semi_auto_moderne', 'revolver']
 
-MODEL_TORCH = Model.efficientnet_b7
-INPUT_SIZE = 600
+MODEL_TORCH = Model.efficientnet_b4
+INPUT_SIZE = 380
 device = torch.device('cpu')
 
 
@@ -150,6 +150,7 @@ async def predict_image(model: Model, img: bytes) -> Union[str, float]:
     Returns:
         Union[str, float]: (label, confidence) of best class predicted
     """
+    t = time.time()
     im = Image.open(BytesIO(img))
     image = prepare_input(im)
     output = model(image)
