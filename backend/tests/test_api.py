@@ -74,7 +74,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
-        res = r.json()
         log = r.json()[0]
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["short_message"], "Identification feedback")
