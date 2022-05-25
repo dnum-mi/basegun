@@ -55,36 +55,37 @@
         methods: {
 
             onFileSelected(event) {
-
+                store.uploadMessage='Analyse...';
                 // get user ip (not stored)
                 axios.get('https://api.ipify.org/?format=json', { withCredentials: false })
                     .then(res => {
-                        const ip = res.data.ip
-                        const hash_input = ip + window.navigator.userAgent + window.navigator.hardwareConcurrency
+                        const uploadedFile = event.target.files[0];
+                        const ip = res.data.ip;
+                        const hash_input = ip + window.navigator.userAgent + window.navigator.hardwareConcurrency;
 
                         // get user APPROXIMATIVE geoloc coordinates
                         axios.get('https://ipapi.co/'+ip+'/json/', { withCredentials: false })
                         .then(res => {
-                                const latitude = randomCoord(res.data.latitude)
-                                const longitude = randomCoord(res.data.longitude)
-                                store.geolocation = latitude.toString() + ',' + longitude.toString()
-                                startUpload(event, hash_input)
+                                const latitude = randomCoord(res.data.latitude);
+                                const longitude = randomCoord(res.data.longitude);
+                                store.geolocation = latitude.toString() + ',' + longitude.toString();
+                                startUpload(uploadedFile, hash_input)
                             })
                         .catch((err) => {
-                            startUpload(event, hash_input)
+                            startUpload(uploadedFile, hash_input)
                         })
                     })
                     .catch((err) => {
                         // if cannot get ip use only userAgent and hardwareConcurrency for user id
-                        const hash_input = window.navigator.userAgent + window.navigator.hardwareConcurrency
-                        startUpload(event, hash_input)
+                        const hash_input = window.navigator.userAgent + window.navigator.hardwareConcurrency;
+                        startUpload(uploadedFile, hash_input)
                     })
 
-                function startUpload(event, hash_input) {
+                function startUpload(uploadedFile, hash_input) {
                     getHash(hash_input)
                         .then(hash => {
                             store.userId = hash;
-                            resizeAndUpload(event)
+                            resizeAndUpload(uploadedFile)
                         });
                 }
 
@@ -94,8 +95,6 @@
                     fd.append('date', Date.now()/1000); //date.now gives the milliseconds timestamp so we convert to seconds
                     fd.append('userId', store.userId);
                     fd.append('geolocation', store.geolocation);
-                    store.uploadMessage='Analyse...';
-                    store.selectedFile = null;
 
                     axios.post('/upload', fd)
                         .then(res => {
@@ -119,12 +118,11 @@
                     );
                 }
 
-                function resizeAndUpload(event) {
-                    store.selectedFile = event.target.files[0];
-                    const fileName = store.selectedFile.name
+                function resizeAndUpload(uploadedFile) {
+                    const fileName = uploadedFile.name
 
                     const reader = new FileReader();
-                    reader.readAsDataURL(store.selectedFile);
+                    reader.readAsDataURL(uploadedFile);
 
                     reader.onload = function (event) {
                         const imgElement = document.createElement("img");
