@@ -26,7 +26,7 @@
             <div v-if="store.confidence_level != 'low'">
                 <p class="fr-text--sm warning-msg">Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.</p>
                 <div class="feedback">
-                    <p class="feedback-text">Ce résultat a-t-il été utile ?</p>
+                    <p class="feedback-text">Ce résultat vous semble-t-il correct ?</p>
                     <label class="feedback-click" @click="sendFeedback(true, $event)">👍</label>
                     <label class="feedback-click" @click="sendFeedback(false, $event)">👎</label>
                 </div>
