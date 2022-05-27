@@ -1,7 +1,7 @@
 <template>
   <div>
   <HeaderNoMenu />
-  <swiper :navigation="true" :pagination="true" :modules="modules" class="mySwiper">
+  <swiper :navigation="true" :modules="modules" class="mySwiper">
     <swiper-slide>
       <img src="../assets/basegun_green.png" alt="" class="swiper-logo">
       <div class="swiper-content">
@@ -38,10 +38,9 @@
   // Import Swiper styles
   import "swiper/css";
   import "swiper/css/navigation";
-  import "swiper/css/pagination";
 
   // import Swiper required modules
-  import { Navigation, Pagination } from "swiper";
+  import { Navigation } from "swiper";
 
   import HeaderNoMenu from '@/components/HeaderNoMenu.vue';
 
@@ -54,7 +53,7 @@
     },
     setup() {
       return {
-        modules: [Navigation, Pagination],
+        modules: [Navigation],
       };
     },
     methods: {
@@ -114,10 +113,6 @@
 
   .swiper-button-disabled {
     display: none;
-  }
-
-  .swiper-pagination-bullet-active {
-    background: #000091;
   }
 
   .swiper-red-highlight {

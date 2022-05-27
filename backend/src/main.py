@@ -218,7 +218,7 @@ async def imageupload(
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time()-start, 2)
-        if confidence < 37:
+        if confidence < 41:
             extras_logging["bg_confidence_level"] = "low"
         elif confidence < 65:
             extras_logging["bg_confidence_level"] = "medium"
