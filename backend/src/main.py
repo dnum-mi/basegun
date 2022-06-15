@@ -16,6 +16,7 @@ from src.model import load_model_inference, predict_image
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+WORKSPACE = os.environ.get("WORKSPACE")
 
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
     'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
@@ -97,11 +98,11 @@ origins = [ # allow requests from front-end
     "https://preprod.basegun.fr",
     "http://localhost",
     "http://localhost:8080",
-    "http://localhost:3000"
+    "http://localhost:3000",
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

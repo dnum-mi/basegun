@@ -5,7 +5,7 @@ TAG		:= 2.0
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
-
+UVICORN_LOG_LEVEL :=  # info, debug, trace
 
 export
 
