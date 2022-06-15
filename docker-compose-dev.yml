@@ -20,7 +20,8 @@ services:
       - OS_PROJECT_NAME
       - http_proxy
       - https_proxy
-      - no_proxy
+      - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
+      - LOG_LEVEL=${UVICORN_LOG_LEVEL}
       - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
     image: basegun-backend:${TAG}-dev
