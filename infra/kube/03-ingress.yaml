@@ -1,0 +1,54 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: ingress
+  namespace: basegun
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: basegun-frontend
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+
+
+# example using https://docs.ovh.com/au/en/kubernetes/installing-nginx-ingress/
+#
+#   apiVersion: networking.k8s.io/v1
+#   kind: Ingress
+#   metadata:
+#     name: ingress-basegun
+#     namespace: basegun
+#   spec:
+#     ingressClassName: nginx
+#     rules:
+#       - host: basegun.fr
+#         http:
+#           paths:
+#             - backend:
+#                 service:
+#                   name: basegun-frontend
+#                   port:
+#                     number: 80
+#               path: /
+#     # This section is only required if TLS is to be enabled for the Ingress
+#     tls:
+#       - hosts:
+#         - basegun.fr
+#         secretName: tls-basegun
+#---
+#   apiVersion: v1
+#   kind: Secret
+#   metadata:
+#     name: tls-basegun
+#     namespace: basegun
+#   data:
+#     tls.crt:
+#     tls.key:
+#   type: kubernetes.io/tls
