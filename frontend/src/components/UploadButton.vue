@@ -56,24 +56,16 @@
 
             onFileSelected(event) {
                 store.uploadMessage='Analyse...';
+                const uploadedFile = event.target.files[0];
                 // get user ip (not stored)
-                axios.get('https://api.ipify.org/?format=json', { withCredentials: false })
+                axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
                     .then(res => {
-                        const uploadedFile = event.target.files[0];
                         const ip = res.data.ip;
                         const hash_input = ip + window.navigator.userAgent + window.navigator.hardwareConcurrency;
-
-                        // get user APPROXIMATIVE geoloc coordinates
-                        axios.get('https://ipapi.co/'+ip+'/json/', { withCredentials: false })
-                        .then(res => {
-                                const latitude = randomCoord(res.data.latitude);
-                                const longitude = randomCoord(res.data.longitude);
-                                store.geolocation = latitude.toString() + ',' + longitude.toString();
-                                startUpload(uploadedFile, hash_input)
-                            })
-                        .catch((err) => {
-                            startUpload(uploadedFile, hash_input)
-                        })
+                        const latitude = randomCoord(res.data.latitude);
+                        const longitude = randomCoord(res.data.longitude);
+                        store.geolocation = latitude.toString() + ',' + longitude.toString();
+                        startUpload(uploadedFile, hash_input)
                     })
                     .catch((err) => {
                         // if cannot get ip use only userAgent and hardwareConcurrency for user id
