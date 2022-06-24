@@ -84,7 +84,7 @@
                 function submitUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
-                    fd.append('date', Date.now()/1000); //date.now gives the milliseconds timestamp so we convert to seconds
+                    fd.append('date', Date.now()/1000); //date.now gives in milliseconds, convert to seconds
                     fd.append('userId', store.userId);
                     fd.append('geolocation', store.geolocation);
 
@@ -95,7 +95,6 @@
                             store.confidence_level = res.data.confidence_level
                             store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
                             store.imgName = res.data.file
-                            // store.imgName = import.meta.env.BASE_URL + "temp/" + res.data.file.substring(res.data.file.lastIndexOf("/")+1)
                         })
                         .catch((err) => {
                             console.log(err)
