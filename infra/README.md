@@ -2,6 +2,8 @@
 
 This folder stores various contents related to Basegun deployment.
 
+## General schema
+
 ## Scripts
 
 * `init.yaml` : file to prepare instance for terraform (update and install dependencies, add security settings)
