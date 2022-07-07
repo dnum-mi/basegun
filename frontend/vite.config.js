@@ -39,7 +39,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       devOptions: {
         enabled: true
-      }
+      },
     })
   ],
   resolve: {
@@ -49,5 +49,5 @@ export default defineConfig({
   },
   server: {
     host: true
-  },
+  }
 })
