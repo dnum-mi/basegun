@@ -3,7 +3,6 @@ import os
 import time
 from io import BytesIO
 import requests
-from urllib.request import urlopen
 from PIL import Image, ImageChops
 
 class TestModel(unittest.TestCase):
@@ -44,8 +43,9 @@ class TestModel(unittest.TestCase):
         self.assertTrue(res["confidence_level"], "high")
         # checks that written file is exactly the same as input file
         self.assertTrue("ovh" in res["file"])
+        response = requests.get(res["file"])
         with Image.open(path) as image_one:
-            with Image.open(urlopen(res["file"])) as image_two:
+            with Image.open(BytesIO(response.content)) as image_two:
                 self.assertEqual(image_one.size, image_two.size)
                 diff = ImageChops.difference(image_one, image_two)
                 self.assertFalse(diff.getbbox())

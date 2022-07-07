@@ -130,9 +130,9 @@ if "OS_USERNAME" in os.environ:
         },
         auth_version='3'
     )
-    CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/\
-    AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/\
-    uploaded-images/{os.environ["WORKSPACE"]}/'
+    CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
+    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
+    f'uploaded-images/{os.environ["WORKSPACE"]}/'
     conn.get_account()
 
 async def upload_image_ovh(content, img_name):
