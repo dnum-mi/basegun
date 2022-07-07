@@ -28,6 +28,7 @@ class TestModel(unittest.TestCase):
             "revolver.jpg")
         user, geoloc = ("2ea26", "12.666,7.666")
 
+        self.assertTrue("OS_USERNAME" in os.environ)
         with open(path, 'rb') as f:
             r = requests.post(self.url + "/upload",
                 files={"image": f},

@@ -29,7 +29,7 @@ In OVH Log Data Platform, we use Kibana to visualize the logs and make queries t
 
 Terraform is an open-source infrastructure as code (IaC) on Openstack project.
 
-![](./img/openstack.png)
+![](https://github.com/datalab-mi/Basegun/blob/develop/.github/img/openstack.png)
 
 ### Configuration
 Add the following Github secrets:
