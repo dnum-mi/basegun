@@ -214,8 +214,7 @@ async def imageupload(
             image_path = os.path.join(CLOUD_PATH, img_name)
         else:
             # save locally
-            logger.warn('Storing uploaded images locally, remember to match' +
-            'backend and frontend volumes in docker-compose-dev !')
+            logger.warn('Storing uploaded images locally in /tmp/basegun')
             with open(os.path.join("/app/images/", img_name), "wb") as f:
                 f.write(img_bytes)
             image_path = 'http://localhost:3000/temp/' + img_name
