@@ -28,6 +28,7 @@ class TestModel(unittest.TestCase):
             "revolver.jpg")
         user, geoloc = ("2ea26", "12.666,7.666")
 
+        self.assertTrue("OS_USERNAME" in os.environ)
         with open(path, 'rb') as f:
             r = requests.post(self.url + "/upload",
                 files={"image": f},
@@ -42,7 +43,7 @@ class TestModel(unittest.TestCase):
         self.assertTrue(res["confidence_level"], "high")
         # checks that written file is exactly the same as input file
         self.assertTrue("ovh" in res["file"])
-        response = requests.get(res["file"])
+        response = requests.get(res["file"], stream=True)
         with Image.open(path) as image_one:
             with Image.open(BytesIO(response.content)) as image_two:
                 self.assertEqual(image_one.size, image_two.size)
