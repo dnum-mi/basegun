@@ -2,6 +2,7 @@ name: CI for pr
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+  workflow_dispatch:
 
 jobs:
   tag-pr:
