@@ -46,7 +46,7 @@ jobs:
       image_version: "develop"
       branch: "develop"
       volume_size: 10
-      flavor: "s1-4"
+      flavor: "s1-2"
       workspace: "preprod"
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}

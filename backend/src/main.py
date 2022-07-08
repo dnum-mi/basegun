@@ -7,7 +7,8 @@ import time
 import json
 import asyncio
 from uuid import uuid4
-from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
+from typing import Union
+from fastapi import Request, Response, FastAPI, File, Form, UploadFile, HTTPException, Cookie
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
@@ -177,10 +178,11 @@ def logs():
 @app.post("/upload")
 async def imageupload(
     request: Request,
+    response: Response,
     image: UploadFile = File(...),
     date: float = Form(...),
-    userId: str = Form(...),
-    geolocation: str = Form(...) ):
+    geolocation: str = Form(...),
+    user_id: Union[str, None] = Cookie(None) ):
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -194,7 +196,6 @@ async def imageupload(
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_upload_time": round(time.time()-date, 2),
-        "bg_user_id": userId,
         "bg_geolocation": geolocation,
         "bg_device": device,
         "bg_device_family": user_agent.device.family,
@@ -208,6 +209,7 @@ async def imageupload(
         img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
         img_bytes = image.file.read()
 
+        # save input image
         if "OS_USERNAME" in os.environ:
             # upload image to OVH Cloud
             upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
@@ -220,6 +222,12 @@ async def imageupload(
             image_path = 'http://localhost:3000/temp/' + img_name
 
         extras_logging["bg_image_url"] = image_path
+
+        # set user id
+        if not user_id:
+            user_id = uuid4()
+            response.set_cookie(key="user_id", value=user_id)
+        extras_logging["bg_user_id"] = user_id
 
         # send image to model for prediction
         start = time.time()

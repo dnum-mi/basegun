@@ -76,5 +76,4 @@
         padding: 20px 10px;
         text-align: center;
     }
-
 </style>
