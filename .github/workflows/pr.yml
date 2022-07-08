@@ -2,6 +2,7 @@ name: CI for pr
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+  workflow_dispatch:
 
 jobs:
   tag-pr:
@@ -35,4 +36,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run backend tests
-      run: OS_USERNAME=${{ secrets.OS_USERNAME }} OS_PASSWORD=${{ secrets.OS_PASSWORD }} OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} make test-backend
+      run: make test-backend
+      env:
+        OS_USERNAME: ${{ secrets.OS_USERNAME }}
+        OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+        OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}

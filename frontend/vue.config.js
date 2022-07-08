@@ -22,5 +22,4 @@ module.exports = {
             ignored: ['node_modules', /public/],
         },
     }
-    
 };

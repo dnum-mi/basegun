@@ -1,11 +1,5 @@
 # Basegun FastAPI backend
 
-## Requirements
-3 env variables for uploading images to OVH swift:
-- OS_USERNAME: your OVH username
-- OS_PASSWORD: your OVH password
-- OS_PROJECT_NAME
-
 ## Install
 From this folder
 
@@ -23,10 +17,6 @@ If you are in a network blocked with proxy, remember to add arg `--build_arg htt
 
 
 ## Run
-
-**NB:** To run properly the code needs the environment variable "PATH_IMGS" which decides where the uploaded images will be.
-If not specified it will be set to frontend/src/assets/temp.
-It must be an **absolute** path.
 
 ### Without Docker
 ```bash

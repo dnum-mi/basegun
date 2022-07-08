@@ -7,7 +7,8 @@ import time
 import json
 import asyncio
 from uuid import uuid4
-from fastapi import Request, FastAPI, File, Form, UploadFile, HTTPException
+from typing import Union
+from fastapi import Request, Response, FastAPI, File, Form, UploadFile, HTTPException, Cookie
 from fastapi.responses import PlainTextResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
@@ -113,26 +114,27 @@ if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
         APP_VERSION = versions["app"]
         MODEL_VERSION = versions["model"]
 else:
-    print("WARNING: file versions.json not found")
+    logger.warn("File versions.json not found")
     APP_VERSION = "-1"
     MODEL_VERSION = "-1"
 
-# Connection to OVH cloud
-conn = swiftclient.Connection(
-    authurl="https://auth.cloud.ovh.net/v3",
-    user=os.environ["OS_USERNAME"],
-    key=os.environ["OS_PASSWORD"],
-    os_options={
-        "project_name": os.environ["OS_PROJECT_NAME"],
-        "region_name": "GRA"
-    },
-    auth_version='3'
-)
-CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/\
-AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/\
-uploaded-images/{os.environ["WORKSPACE"]}/'
 
-conn.get_account()
+if "OS_USERNAME" in os.environ:
+    # Connection to OVH cloud
+    conn = swiftclient.Connection(
+        authurl="https://auth.cloud.ovh.net/v3",
+        user=os.environ["OS_USERNAME"],
+        key=os.environ["OS_PASSWORD"],
+        os_options={
+            "project_name": os.environ["OS_PROJECT_NAME"],
+            "region_name": "GRA"
+        },
+        auth_version='3'
+    )
+    CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
+    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
+    f'uploaded-images/{os.environ["WORKSPACE"]}/'
+    conn.get_account()
 
 async def upload_image_ovh(content, img_name):
     """ Uploads an image to owh swift container basegun-public
@@ -176,40 +178,56 @@ def logs():
 @app.post("/upload")
 async def imageupload(
     request: Request,
+    response: Response,
     image: UploadFile = File(...),
     date: float = Form(...),
-    userId: str = Form(...),
-    geolocation: str = Form(...) ):
+    geolocation: str = Form(...),
+    user_id: Union[str, None] = Cookie(None) ):
+
+    # prepare content logs
+    user_agent = parse(request.headers.get("user-agent"))
+    device = "other"
+    if user_agent.is_mobile:
+        device = "mobile"
+    elif user_agent.is_pc:
+        device = "pc"
+    elif user_agent.is_tablet:
+        device = "tablet"
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_upload_time": round(time.time()-date, 2),
+        "bg_geolocation": geolocation,
+        "bg_device": device,
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family,
+        "bg_version": APP_VERSION,
+        "bg_model": MODEL_VERSION,
+    }
 
     try:
         img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
         img_bytes = image.file.read()
 
-        # upload image to OVH Cloud
-        upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
+        # save input image
+        if "OS_USERNAME" in os.environ:
+            # upload image to OVH Cloud
+            upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
+            image_path = os.path.join(CLOUD_PATH, img_name)
+        else:
+            # save locally
+            logger.warn('Storing uploaded images locally in /tmp/basegun')
+            with open(os.path.join("/app/images/", img_name), "wb") as f:
+                f.write(img_bytes)
+            image_path = 'http://localhost:3000/temp/' + img_name
 
-        # prepare content logs
-        user_agent = parse(request.headers.get("user-agent"))
-        device = "other"
-        if user_agent.is_mobile:
-            device = "mobile"
-        elif user_agent.is_pc:
-            device = "pc"
-        elif user_agent.is_tablet:
-            device = "tablet"
-        extras_logging = {
-            "bg_date": datetime.now().isoformat(),
-            "bg_image_url": os.path.join(CLOUD_PATH, img_name),
-            "bg_upload_time": round(time.time()-date, 2),
-            "bg_user_id": userId,
-            "bg_geolocation": geolocation,
-            "bg_device": device,
-            "bg_device_family": user_agent.device.family,
-            "bg_device_os": user_agent.os.family,
-            "bg_device_browser": user_agent.browser.family,
-            "bg_version": APP_VERSION,
-            "bg_model": MODEL_VERSION,
-        }
+        extras_logging["bg_image_url"] = image_path
+
+        # set user id
+        if not user_id:
+            user_id = uuid4()
+            response.set_cookie(key="user_id", value=user_id)
+        extras_logging["bg_user_id"] = user_id
 
         # send image to model for prediction
         start = time.time()
@@ -226,10 +244,11 @@ async def imageupload(
             extras_logging["bg_confidence_level"] = "high"
         logger.info("Identification request", extra=extras_logging)
 
-        await upload
+        if "OS_USERNAME" in os.environ:
+            await upload
 
         return {
-            "file": os.path.join(CLOUD_PATH, img_name),
+            "file": image_path,
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"]

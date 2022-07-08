@@ -25,22 +25,6 @@
                     return (Math.random() * (max - min) + min) + num;
     }
 
-    function getHash(str, algo = "SHA-256") {
-        let strBuf = new TextEncoder().encode(str);
-        return crypto.subtle.digest(algo, strBuf)
-            .then(hash => {
-            window.hash = hash;
-            // here hash is an arrayBuffer, 
-            // so we'll connvert it to its hex version
-            let result = '';
-            const view = new DataView(hash);
-            for (let i = 0; i < hash.byteLength; i += 4) {
-                result += ('00000000' + view.getUint32(i).toString(16)).slice(-8);
-            }
-            return result;
-            });
-    }
-
     export default {
         name: 'UploadButton',
         data() {
@@ -57,35 +41,26 @@
             onFileSelected(event) {
                 store.uploadMessage='Analyse...';
                 const uploadedFile = event.target.files[0];
-                // get user ip (not stored)
+                // get user geolocation
                 axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
                     .then(res => {
-                        const ip = res.data.ip;
-                        const hash_input = ip + window.navigator.userAgent + window.navigator.hardwareConcurrency;
                         const latitude = randomCoord(res.data.latitude);
                         const longitude = randomCoord(res.data.longitude);
                         store.geolocation = latitude.toString() + ',' + longitude.toString();
-                        startUpload(uploadedFile, hash_input)
+                        startUpload(uploadedFile)
                     })
                     .catch((err) => {
-                        // if cannot get ip use only userAgent and hardwareConcurrency for user id
-                        const hash_input = window.navigator.userAgent + window.navigator.hardwareConcurrency;
-                        startUpload(uploadedFile, hash_input)
+                        startUpload(uploadedFile)
                     })
 
-                function startUpload(uploadedFile, hash_input) {
-                    getHash(hash_input)
-                        .then(hash => {
-                            store.userId = hash;
-                            resizeAndUpload(uploadedFile)
-                        });
+                function startUpload(uploadedFile) {
+                    resizeAndUpload(uploadedFile)
                 }
 
                 function submitUpload(file) {
                     const fd = new FormData();
                     fd.append('image', file, file.name);
-                    fd.append('date', Date.now()/1000); //date.now gives the milliseconds timestamp so we convert to seconds
-                    fd.append('userId', store.userId);
+                    fd.append('date', Date.now()/1000); //date.now gives in milliseconds, convert to seconds
                     fd.append('geolocation', store.geolocation);
 
                     axios.post('/upload', fd)
@@ -95,7 +70,6 @@
                             store.confidence_level = res.data.confidence_level
                             store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
                             store.imgName = res.data.file
-                            // store.imgName = import.meta.env.BASE_URL + "temp/" + res.data.file.substring(res.data.file.lastIndexOf("/")+1)
                         })
                         .catch((err) => {
                             console.log(err)

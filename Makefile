@@ -1,7 +1,7 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 1.2
+TAG		:= 1.3
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
@@ -39,7 +39,7 @@ endif
 test-backend:
 	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build backend
 	${DC} -f docker-compose-dev.yml up -d backend
-	sleep 5
+	sleep 10
 	docker exec basegun-backend python -m unittest discover -v
 
 test: test-backend

@@ -13,7 +13,7 @@ export default defineConfig({
       base: "/",
       srcDir: "src",
       manifest: {
-        name: 'Basegun',
+        name: 'Basegun - beta',
         short_name: 'Basegun',
         description: 'Identification des armes à feu',
         theme_color: '#000091',
@@ -39,7 +39,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       devOptions: {
         enabled: true
-      }
+      },
     })
   ],
   resolve: {
@@ -49,5 +49,5 @@ export default defineConfig({
   },
   server: {
     host: true
-  },
+  }
 })

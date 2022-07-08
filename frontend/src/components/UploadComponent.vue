@@ -5,7 +5,8 @@
                 <HeaderMain />
                 <div class="centered text-center">
                     <img src="../assets/basegun.png" alt="">
-                    <h1 class="accueil-title">Basegun</h1>
+
+                    <h1 class="accueil-title">Basegun <label class="fr-tag fr-tag--sm">beta</label></h1>
                     <p class="accueil-subtitle">Identification automatique des armes à feu</p>
                     <UploadButton />
                     <InstructionsButton />

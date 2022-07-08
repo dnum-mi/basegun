@@ -25,7 +25,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      # - /tmp/basegun:/app/images
+      - /tmp/basegun:/app/images
       - $PWD/backend/src:/app/src
       - $PWD/backend/tests:/app/tests
       - $PWD/backend/logs:/app/logs
@@ -44,7 +44,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      # - /tmp/basegun:/app/public/temp
+      - /tmp/basegun:/app/public/temp
       - $PWD/frontend/src:/app/src
       - /app/node_modules
 
