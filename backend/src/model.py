@@ -150,7 +150,6 @@ async def predict_image(model: Model, img: bytes) -> Union[str, float]:
     Returns:
         Union[str, float]: (label, confidence) of best class predicted
     """
-    t = time.time()
     im = Image.open(BytesIO(img))
     image = prepare_input(im)
     output = model(image)

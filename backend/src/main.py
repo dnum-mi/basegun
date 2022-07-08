@@ -224,11 +224,10 @@ async def imageupload(
         extras_logging["bg_image_url"] = image_path
 
         # set user id
-        if user_id:
-            extras_logging["user_id"] = user_id
-        else:
+        if not user_id:
             user_id = uuid4()
             response.set_cookie(key="user_id", value=user_id)
+        extras_logging["bg_user_id"] = user_id
 
         # send image to model for prediction
         start = time.time()

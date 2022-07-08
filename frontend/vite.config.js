@@ -14,7 +14,7 @@ export default defineConfig({
       srcDir: "src",
       manifest: {
         name: 'Basegun - beta',
-        short_name: 'Basegun - beta',
+        short_name: 'Basegun',
         description: 'Identification des armes à feu',
         theme_color: '#000091',
         icons: [
