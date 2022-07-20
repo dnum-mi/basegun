@@ -7,7 +7,6 @@ export const store = reactive({
     imgName: null,
     resultText: null,
     uploadMessage: null,
-    userId: null,
     geolocation: null,
     instructionsRead: false
 })

@@ -26,12 +26,13 @@ class TestModel(unittest.TestCase):
         path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             "revolver.jpg")
-        user, geoloc = ("2ea26", "12.666,7.666")
+        geoloc = "12.666,7.666"
 
+        self.assertTrue("OS_USERNAME" in os.environ)
         with open(path, 'rb') as f:
             r = requests.post(self.url + "/upload",
                 files={"image": f},
-                data={"date": time.time(), "userId": user, "geolocation": geoloc})
+                data={"date": time.time(), "geolocation": geoloc})
         self.assertEqual(r.status_code, 200)
         res = r.json()
 
@@ -60,7 +61,7 @@ class TestModel(unittest.TestCase):
         )
         self.assertEqual(log["level"], 6)
         self.assertEqual(log["short_message"], "Identification request")
-        self.assertEqual(log["_bg_user_id"], user)
+        self.assertTrue("-" in log["_bg_user_id"])
         self.assertEqual(log["_bg_geolocation"], geoloc)
         self.assertTrue(log["_bg_upload_time"]>=0)
 
