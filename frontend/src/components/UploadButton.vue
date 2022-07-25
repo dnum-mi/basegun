@@ -20,9 +20,10 @@
     import axios from 'axios';
 
     function randomCoord(num){
-                    const max = 0.1;
-                    const min = -0.1;
-                    return (Math.random() * (max - min) + min) + num;
+        num = parseFloat(num)
+        const max = 0.1;
+        const min = -0.1;
+        return (Math.random() * (max - min) + min) + num;
     }
 
     export default {
@@ -50,6 +51,7 @@
                         startUpload(uploadedFile)
                     })
                     .catch((err) => {
+                        // if geolocation is unavalable or incorrect format
                         startUpload(uploadedFile)
                     })
 
