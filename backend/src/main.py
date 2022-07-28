@@ -242,10 +242,11 @@ async def imageupload(
             extras_logging["bg_confidence_level"] = "medium"
         else:
             extras_logging["bg_confidence_level"] = "high"
-        logger.info("Identification request", extra=extras_logging)
 
         if "OS_USERNAME" in os.environ:
             await upload
+
+        logger.info("Identification request", extra=extras_logging)
 
         return {
             "file": image_path,

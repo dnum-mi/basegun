@@ -83,3 +83,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["_bg_confidence"], confidence)
         self.assertEqual(log["_bg_label"], label)
         self.assertEqual(log["_bg_confidence_level"], confidence_level)
+
+    def test_geoloc_api(self):
+        """Checks that the geolocation api works properly"""
+        r = requests.get("https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1")
+        res = r.json()
+        self.assertTrue("latitude" in res.keys())
+        self.assertTrue("longitude" in res.keys())
+        lat = float(res["latitude"])
+        self.assertTrue(abs(lat) < 90)
+        lon = float(res["longitude"])
+        self.assertTrue(abs(lon) < 180)
