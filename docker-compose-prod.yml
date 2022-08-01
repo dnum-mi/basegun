@@ -10,7 +10,6 @@ services:
       target: prod
     container_name: basegun-backend
     environment:
-      - PATH_IMGS=/app/images
       - PATH_LOGS=/app/logs
       - OS_USERNAME
       - OS_PASSWORD

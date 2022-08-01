@@ -2,7 +2,6 @@ import sys
 import unittest
 import os
 import numpy as np
-import asyncio
 from PIL import Image
 from torch import Tensor
 from src.model import load_model_inference, prepare_input, \
@@ -50,6 +49,6 @@ class TestModel(unittest.TestCase):
             os.path.dirname(os.path.abspath(__file__)),
             "revolver.jpg")
         with open(path, 'rb') as f:
-            res = asyncio.run(predict_image(self.model, f.read()))
+            res = predict_image(self.model, f.read())
         self.assertEqual(res[0], "revolver")
         self.assertAlmostEqual(res[1], 99.53, places=1)

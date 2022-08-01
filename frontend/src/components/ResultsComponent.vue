@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="result">
-            <div class="result-image" :style="{backgroundImage:`url(${store.imgName})`}"></div>
+            <div class="result-image" :style="{backgroundImage:`url(${store.img})`}"></div>
             <div class="fr-callout custom-callout">
                 <div v-if="store.confidence_level == 'low'">
                     <div class="callout-head">
@@ -109,7 +109,7 @@
             },
             sendFeedback(bool, event) {
                 const json = {
-                    "image_url": store.imgName,
+                    "image_url": store.imgUrl,
                     "feedback": bool,
                     "confidence": store.confidence,
                     "label": store.label,

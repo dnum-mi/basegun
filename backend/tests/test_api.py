@@ -37,13 +37,14 @@ class TestModel(unittest.TestCase):
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "file"}))
+        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "path"}))
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 99.53, places=1)
         self.assertTrue(res["confidence_level"], "high")
+        self.assertTrue("ovh" in res["path"])
         # checks that written file is exactly the same as input file
-        self.assertTrue("ovh" in res["file"])
-        response = requests.get(res["file"])
+        time.sleep(30)
+        response = requests.get(res["path"])
         with Image.open(path) as image_one:
             with Image.open(BytesIO(response.content)) as image_two:
                 self.assertEqual(image_one.size, image_two.size)
@@ -52,7 +53,11 @@ class TestModel(unittest.TestCase):
         # checks that the result is written in logs
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
-        log = r.json()[0]
+        # checks the latest log "Upload to OVH"
+        self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
+        self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
+        # checks the previous log "Identification request"
+        log = r.json()[1]
         self.assertEqual(
             set(log.keys()),
             set({'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
@@ -83,3 +88,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["_bg_confidence"], confidence)
         self.assertEqual(log["_bg_label"], label)
         self.assertEqual(log["_bg_confidence_level"], confidence_level)
+
+    def test_geoloc_api(self):
+        """Checks that the geolocation api works properly"""
+        r = requests.get("https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1")
+        res = r.json()
+        self.assertTrue("latitude" in res.keys())
+        self.assertTrue("longitude" in res.keys())
+        lat = float(res["latitude"])
+        self.assertTrue(abs(lat) < 90)
+        lon = float(res["longitude"])
+        self.assertTrue(abs(lon) < 180)

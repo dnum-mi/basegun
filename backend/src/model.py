@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torchvision.models as Model
 from torchvision import transforms
-import time
+
 
 CLASSES = ['autre_epaule', 'autre_pistolet', 'epaule_a_levier_sous_garde',
         'epaule_a_percussion_silex', 'epaule_a_pompe', 'epaule_a_un_coup', 'epaule_a_verrou',
@@ -140,7 +140,7 @@ def prepare_input(image: Image) -> torch.Tensor:
     return image.unsqueeze(0).to(device)
 
 
-async def predict_image(model: Model, img: bytes) -> Union[str, float]:
+def predict_image(model: Model, img: bytes) -> Union[str, float]:
     """Run the model prediction on an image
 
     Args:
