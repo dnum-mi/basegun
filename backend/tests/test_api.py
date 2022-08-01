@@ -37,13 +37,14 @@ class TestModel(unittest.TestCase):
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "file"}))
+        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "path"}))
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 99.53, places=1)
         self.assertTrue(res["confidence_level"], "high")
+        self.assertTrue("ovh" in res["path"])
         # checks that written file is exactly the same as input file
-        self.assertTrue("ovh" in res["file"])
-        response = requests.get(res["file"])
+        time.sleep(30)
+        response = requests.get(res["path"])
         with Image.open(path) as image_one:
             with Image.open(BytesIO(response.content)) as image_two:
                 self.assertEqual(image_one.size, image_two.size)
@@ -52,7 +53,11 @@ class TestModel(unittest.TestCase):
         # checks that the result is written in logs
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
-        log = r.json()[0]
+        # checks the latest log "Upload to OVH"
+        self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
+        self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
+        # checks the previous log "Identification request"
+        log = r.json()[1]
         self.assertEqual(
             set(log.keys()),
             set({'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',

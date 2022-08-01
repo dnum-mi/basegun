@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ResultsComponent v-if="store.imgName" />
+    <ResultsComponent v-if="store.img" />
     <UploadComponent v-else />
   </div>
 </template>

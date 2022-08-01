@@ -38,7 +38,6 @@
             }
         },
         methods: {
-
             onFileSelected(event) {
                 store.uploadMessage='Analyse...';
                 const uploadedFile = event.target.files[0];
@@ -52,44 +51,12 @@
                     })
                     .catch((err) => {
                         // if geolocation is unavalable or incorrect format
-                        startUpload(uploadedFile)
+                        resizeAndUpload(uploadedFile)
                     })
 
-                function startUpload(uploadedFile) {
-                    resizeAndUpload(uploadedFile)
-                }
-
-                function submitUpload(file) {
-                    const fd = new FormData();
-                    fd.append('image', file, file.name);
-                    fd.append('date', Date.now()/1000); //date.now gives in milliseconds, convert to seconds
-                    fd.append('geolocation', store.geolocation);
-
-                    axios.post('/upload', fd)
-                        .then(res => {
-                            store.label = res.data.label
-                            store.confidence = res.data.confidence
-                            store.confidence_level = res.data.confidence_level
-                            store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%"
-                            store.imgName = res.data.file
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            window.location.replace("/erreur")
-                        });
-                    }
-
-                function srcToFile(src, fileName, mimeType){
-                    return (fetch(src)
-                        .then(function(res){return res.arrayBuffer();})
-                        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
-                    );
-                }
-
                 function resizeAndUpload(uploadedFile) {
-                    const fileName = uploadedFile.name
-
                     const reader = new FileReader();
+                    // convert File object to base64 data
                     reader.readAsDataURL(uploadedFile);
 
                     reader.onload = function (event) {
@@ -118,10 +85,7 @@
                             const ctx = canvas.getContext("2d");
                             ctx.drawImage(e.target, 0, 0, width, height)
                             const srcEncoded = ctx.canvas.toDataURL("image/jpeg");
-                            srcToFile(srcEncoded, fileName, "image/jpeg").then(res => { 
-                                const newFile = res
-                                submitUpload(newFile)
-                            })
+                            submitUpload(srcEncoded, uploadedFile.name)
                         }
 
                         imgElement.onerror = function() {
@@ -130,7 +94,37 @@
                     }
                 }
 
-            },
+                function srcToFile(src, fileName, mimeType){
+                    return (fetch(src)
+                        .then(function(res){return res.arrayBuffer();})
+                        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+                    );
+                }
+
+
+                function submitUpload(base64, fileName) {
+                    srcToFile(base64, fileName, "image/jpeg").then(file => { 
+                        const fd = new FormData();
+                        fd.append('image', file, file.name);
+                        fd.append('date', Date.now()/1000); //date.now gives in milliseconds, convert to seconds
+                        fd.append('geolocation', store.geolocation);
+
+                        axios.post('/upload', fd)
+                            .then(res => {
+                                store.label = res.data.label;
+                                store.confidence = res.data.confidence;
+                                store.confidence_level = res.data.confidence_level;
+                                store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%";
+                                store.img = base64;
+                                store.imgUrl = res.data.path;
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                window.location.replace("/erreur")
+                            });
+                    })
+                }
+            }
 
         }
     }

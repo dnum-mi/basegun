@@ -3,7 +3,7 @@ echo "# Test preprod is up"
 
 sudo apt install -y ca-certificates
 set +e
-timeout=300;
+timeout=600;
 elapse=0;
 range=10;
 test_result=1
