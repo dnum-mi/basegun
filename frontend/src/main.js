@@ -14,11 +14,7 @@ import { registerSW } from 'virtual:pwa-register'
 axios.defaults.withCredentials = true;
 
 // the FastAPI backend
-if (process.env.NODE_ENV == 'production') {
-  axios.defaults.baseURL = '/api/';
-} else {
-  axios.defaults.baseURL = 'http://localhost:5000/';
-}
+axios.defaults.baseURL = '/api/';
 
 registerSW({ immediate: true })
 
