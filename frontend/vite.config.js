@@ -48,6 +48,13 @@ export default defineConfig({
     },
   },
   server: {
-    host: true
+    host: true,
+    proxy: {
+      '/api': {
+        target: 'http://basegun-backend:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

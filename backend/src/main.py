@@ -1,22 +1,26 @@
-import shutil
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 import time
 import json
-import asyncio
 from uuid import uuid4
 from typing import Union
-from fastapi import Request, Response, FastAPI, File, Form, UploadFile, HTTPException, Cookie
-from fastapi.responses import PlainTextResponse, FileResponse
+from fastapi import BackgroundTasks, Cookie, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
+from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
 from user_agents import parse
 import swiftclient
 from src.model import load_model_inference, predict_image
 
+
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
+    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
+    f'uploaded-images/{os.environ["WORKSPACE"]}/'
+
 
 def init_variable(var_name: str, path: str) -> str:
     """Inits global variable for folder path
@@ -90,9 +94,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Image storage
-PATH_IMGS = init_variable("PATH_IMGS", "../images")
-
 # Logs
 PATH_LOGS = init_variable("PATH_LOGS", "../logs")
 logger = setup_logs(PATH_LOGS)
@@ -119,6 +120,7 @@ else:
     MODEL_VERSION = "-1"
 
 
+conn = None
 if "OS_USERNAME" in os.environ:
     # Connection to OVH cloud
     conn = swiftclient.Connection(
@@ -131,12 +133,12 @@ if "OS_USERNAME" in os.environ:
         },
         auth_version='3'
     )
-    CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
-    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
-    f'uploaded-images/{os.environ["WORKSPACE"]}/'
     conn.get_account()
+else:
+    logger.warn('Variables necessary for OVH connection not set !')
 
-async def upload_image_ovh(content, img_name):
+
+def upload_image_ovh(content: bytes, img_name: str):
     """ Uploads an image to owh swift container basegun-public
         path uploaded-images/WORKSPACE/img_name
         where WORKSPACE is dev, preprod or prod
@@ -145,9 +147,39 @@ async def upload_image_ovh(content, img_name):
         content (bytes): file content
         img_name (str): name we want to give on ovh
     """
-    conn.put_object("basegun-public",
-                    f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
-                    contents=content)
+    num_tries = 0
+    LIMIT_TRIES = 5
+    image_path = os.path.join(CLOUD_PATH, img_name)
+    start = time.time()
+
+    if not conn:
+        logger.exception("Variables not set for using OVH swift.", extra={
+            "bg_error_type": "NameError"
+        })
+        return
+
+    while num_tries <= LIMIT_TRIES:
+        num_tries += 1
+        extras_logging = {
+            "bg_date": datetime.now().isoformat(),
+            "bg_upload_time": time.time()-start,
+            "bg_image_url": image_path
+        }
+        try:
+            conn.put_object("basegun-public",
+                            f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
+                            contents=content)
+            # if success, get out of the loop
+            logger.info("Upload to OVH successful", extra=extras_logging)
+            break
+        except Exception as e:
+            if (num_tries <= LIMIT_TRIES and e.__class__.__name__ == "ClientException"):
+                # we try uploading another time
+                time.sleep(30)
+                continue
+            else:
+                extras_logging["bg_error_type"] = e.__class__.__name__
+                logger.exception(e, extra=extras_logging)
 
 
 ####################
@@ -179,6 +211,7 @@ def logs():
 async def imageupload(
     request: Request,
     response: Response,
+    background_tasks: BackgroundTasks,
     image: UploadFile = File(...),
     date: float = Form(...),
     geolocation: str = Form(...),
@@ -209,18 +242,9 @@ async def imageupload(
         img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
         img_bytes = image.file.read()
 
-        # save input image
-        if "OS_USERNAME" in os.environ:
-            # upload image to OVH Cloud
-            upload = asyncio.create_task(upload_image_ovh(img_bytes, img_name))
-            image_path = os.path.join(CLOUD_PATH, img_name)
-        else:
-            # save locally
-            logger.warn('Storing uploaded images locally in /tmp/basegun')
-            with open(os.path.join("/app/images/", img_name), "wb") as f:
-                f.write(img_bytes)
-            image_path = 'http://localhost:3000/temp/' + img_name
-
+        # upload image to OVH Cloud
+        background_tasks.add_task(upload_image_ovh, img_bytes, img_name)
+        image_path = os.path.join(CLOUD_PATH, img_name)
         extras_logging["bg_image_url"] = image_path
 
         # set user id
@@ -231,8 +255,7 @@ async def imageupload(
 
         # send image to model for prediction
         start = time.time()
-        prediction = asyncio.create_task(predict_image(model, img_bytes))
-        label, confidence = await prediction
+        label, confidence = predict_image(model, img_bytes)
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time()-start, 2)
@@ -243,13 +266,10 @@ async def imageupload(
         else:
             extras_logging["bg_confidence_level"] = "high"
 
-        if "OS_USERNAME" in os.environ:
-            await upload
-
         logger.info("Identification request", extra=extras_logging)
 
         return {
-            "file": image_path,
+            "path": image_path,
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"]
