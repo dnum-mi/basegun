@@ -1,5 +1,5 @@
 on: workflow_dispatch
-name: Preprod deployment
+name: CI for preprod
 jobs:
   build-push:
     runs-on: ubuntu-latest
