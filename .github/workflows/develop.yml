@@ -1,7 +1,4 @@
-on:
-  push:
-    branches:
-      - "develop"
+on: workflow_dispatch
 name: Preprod deployment
 jobs:
   build-push:
