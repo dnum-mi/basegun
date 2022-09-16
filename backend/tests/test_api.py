@@ -83,7 +83,7 @@ class TestModel(unittest.TestCase):
         log = r.json()[0]
         self.assertEqual(
             set(log.keys()),
-            set({'timestamp', '_bg_device', 'host', 'version', '_bg_device_os', '_bg_device_family',
+            set({'timestamp', '_bg_device', 'host', '_bg_feedback_bool', 'version', '_bg_device_os', '_bg_device_family',
             'short_message', '_bg_confidence', '_bg_confidence_level', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
             'level', '_bg_device_browser', '_bg_version'})
         )
