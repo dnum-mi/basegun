@@ -21,6 +21,7 @@
                     </div>
                     <p class="fr-callout__title">Catégorie {{ cleanCategory }}</p>
                     <p class="fr-callout__text">Type d'arme : {{ cleanLabel }}</p>
+                    <p class="callout-mention">{{ cleanMention }}</p>
                 </div>
             </div>
             <div v-if="store.confidence_level != 'low'">
@@ -54,43 +55,53 @@
                 results: {
                     revolver: {
                         displayLabel: "revolver",
-                        category: "B ou D"
+                        category: "B ou D",
+                        mention: "Législation dépendant de la catégorie"
                     },
                     pistolet_semi_auto_moderne: {
                         displayLabel: "pistolet semi-automatique moderne",
-                        category: "B"
+                        category: "B",
+                        mention: "Soumise à autorisation"
                     },
                     pistolet_a_percussion_silex: {
-                        displayLabel: "pistolet à percussion ou à silex",
-                        category: "D"
+                        displayLabel: "pistolet à mécanisme ancien",
+                        category: "D",
+                        mention: "Libre d'acquisition et de détention"
                     },
                     autre_pistolet: {
                         displayLabel: "pistolet divers",
-                        category: "A, B ou D"
+                        category: "A, B ou D",
+                        mention: "Législation dépendant de la catégorie"
                     },
                     epaule_a_percussion_silex: {
-                        displayLabel: "arme d'épaule à percussion ou à silex",
-                        category: "D"
+                        displayLabel: "arme d'épaule à mécanisme ancien",
+                        category: "D",
+                        mention: "Libre d'acquisition et de détention"
                     },
                     epaule_a_un_coup: {
                         displayLabel: "arme d'épaule à un coup par canon",
-                        category: "C"
+                        category: "C",
+                        mention: "Soumise à déclaration"
                     },
                     epaule_a_levier_sous_garde: {
                         displayLabel: "arme d'épaule à levier de sous-garde",
-                        category: "B ou C"
+                        category: "B ou C",
+                        mention: "Législation dépendant de la catégorie"
                     },
                     epaule_a_verrou: {
                         displayLabel: "arme d'épaule à verrou",
-                        category: "B ou C"
+                        category: "B ou C",
+                        mention: "Législation dépendant de la catégorie"
                     },
                     epaule_a_pompe: {
                         displayLabel: "arme d'épaule à pompe",
-                        category: "B ou C"
+                        category: "B ou C",
+                        mention: "Législation dépendant de la catégorie"
                     },
                     autre_epaule: {
                         displayLabel: "arme d'épaule non manuelle",
-                        category: "A, B ou C"
+                        category: "A, B ou C",
+                        mention: "Législation dépendant de la catégorie"
                     }
                 }
             }
@@ -101,6 +112,9 @@
             },
             cleanCategory() {
                 return this.results[`${store.label}`].category
+            },
+            cleanMention() {
+                return this.results[`${store.label}`].mention
             }
         },
         methods: {
@@ -129,7 +143,6 @@
 </script>
 
 <style scoped>
-
     .result {
         margin: 0 auto;
         max-width: 1000px;
@@ -172,7 +185,7 @@
         margin-left: -4px;
     }
     .warning-text {
-        font-size: 12px;
+        font-size: 0.7rem;
         font-style: italic;
         line-height: 1rem;
         margin-bottom: 12px;
@@ -183,6 +196,11 @@
     }
     .warning-msg {
         line-height: 1.3rem!important;
+    }
+    .callout-mention {
+        margin-top: 10px;
+        font-style: italic;
+        font-size: 0.9rem;
     }
 
     .feedback {
