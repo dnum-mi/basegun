@@ -2,9 +2,17 @@
     <div>
         <p class="title-space">Basegun est un projet d'application par apprentissage automatique capable 
             d'identifier et de classifier de manière fiable et rapide une arme à feu.</p>
-        <p>Le projet a été initié en 2021 dans le contexte du programme Entrepreneurs d’Intérêt Général, 
-            et est en cours de développement par le Laboratoire de la Donnée du Ministère de l'Intérieur,
-            en collaboration avec le SCAE , la police nationale et la gendarmerie.</p>
+        <p>Le projet a été initié en 2021 dans le contexte du programme 
+        <a target="_blank" href="https://eig.etalab.gouv.fr/defis/basegun/" >Entrepreneurs d’Intérêt Général</a>.
+        </p>
+        <p>
+        Il continue actuellement sous la collaboration de 4 entités du Ministère de l'Intérieur:
+        </p>
+        <div>
+        <ul v-for="list in lists" :key="list.id"  >
+        <li class="list"> {{ list.item }}</li>
+        </ul>
+        </div>
         <p>A ce jour, Basegun permet de prendre en photo une arme à feu et d'obtenir un
             résultat parmi 10 typologies possibles. Ce résultat donne une indication sur la ou les catégories légales
             à laquelle l'arme appartient.</p>
@@ -34,6 +42,17 @@ export default {
 
     data () {
         return {
+            lists: [
+                {
+                    item: "Le Datalab de la Direction du Numérique, pour le pilotage du projet et le développement de l'application ;"
+                },
+                {
+                    item: "Le Service Central des Armes et Explosifs, pour un contrôle régulier via la connaissance métier des armes à feu ;"
+                },
+                {
+                    item: "La Police et la Gendarmerie, pour des tests et suivis ponctuels de l'application."
+                }
+            ],
             imgs: [
                 {
                 alt: "Logo Ministère de l'interieur",
@@ -69,6 +88,7 @@ export default {
         display: flex;
         justify-content: center;
         flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .img {
@@ -77,5 +97,10 @@ export default {
         width: 6em;
         height: auto;
 
+    }
+
+    .list {
+        margin-left: 2em;
+        list-style:square;
     }
 </style>
