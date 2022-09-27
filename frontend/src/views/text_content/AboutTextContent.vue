@@ -89,11 +89,11 @@ export default {
         justify-content: center;
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
     }
 
     .img {
         margin: 2em;
-        display: flex;
         width: 6em;
         height: auto;
 
