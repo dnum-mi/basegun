@@ -71,6 +71,19 @@ def setup_logs(log_dir: str) -> logging.Logger:
     return logger
 
 
+def get_device(user_agent) -> str:
+    """Explicitly give the device of a user-agent object
+    """
+    if user_agent.is_mobile:
+        return "mobile"
+    elif user_agent.is_pc:
+        return "pc"
+    elif user_agent.is_tablet:
+        return "tablet"
+    else:
+        return "other"
+
+
 ####################
 #      SETUP       #
 ####################
@@ -219,18 +232,11 @@ async def imageupload(
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
-    device = "other"
-    if user_agent.is_mobile:
-        device = "mobile"
-    elif user_agent.is_pc:
-        device = "pc"
-    elif user_agent.is_tablet:
-        device = "tablet"
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_upload_time": round(time.time()-date, 2),
         "bg_geolocation": geolocation,
-        "bg_device": device,
+        "bg_device": get_device(user_agent),
         "bg_device_family": user_agent.device.family,
         "bg_device_os": user_agent.os.family,
         "bg_device_browser": user_agent.browser.family,
@@ -282,15 +288,23 @@ async def imageupload(
 
 
 @app.post("/feedback")
-async def log_feedback(request: Request):
+async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
+    user_agent = parse(request.headers.get("user-agent"))
+
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_image_url": res["image_url"],
         "bg_feedback_bool": res["feedback"],
-        "bg_confidence": res["confidence"],
         "bg_label": res["label"],
-        "bg_confidence_level": res["confidence_level"]
+        "bg_confidence": res["confidence"],
+        "bg_confidence_level": res["confidence_level"],
+        "bg_user_id": user_id,
+        "bg_device": get_device(user_agent),
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family,
+        "bg_version": APP_VERSION,
     }
     logger.info("Identification feedback", extra=extras_logging)
     return
