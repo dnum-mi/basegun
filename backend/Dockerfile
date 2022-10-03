@@ -17,11 +17,11 @@ RUN pip install --upgrade pip \
 # launch website
 ARG VERSION
 ARG MODEL="EffB4_2022-03-02_08"
-RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth \
-    && echo '{"app": "'${VERSION}'", "model": "'${MODEL}'"}' > versions.json
+RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth
 COPY src/ src/
 RUN mkdir -p src/weights \
-    && mv model.pth src/weights/model.pth
+    && mv model.pth src/weights/model.pth \
+    && echo '{"app": "'${VERSION}'", "model": "'${MODEL}'"}' > versions.json
 
 FROM base as dev
 CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]

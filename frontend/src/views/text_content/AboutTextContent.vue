@@ -6,12 +6,11 @@
         <a target="_blank" href="https://eig.etalab.gouv.fr/defis/basegun/" >Entrepreneurs d’Intérêt Général</a>.
         </p>
         <p>
-        Il continue actuellement sous la collaboration de 4 entités du Ministère de l'Intérieur:
+        Il est actuellement piloté par le Datalab de la Direction du Numérique du Ministère de l'Intérieur,
+        en partenariat avec le Service Central des Armes et Explosifs. La Direction Générale de la Police Nationale
+        et la Direction Générale de la Gendarmerie Nationale sont associées pour les tests et le suivi de l'application.
         </p>
         <div>
-        <ul v-for="list in lists" :key="list.id"  >
-        <li class="list"> {{ list.item }}</li>
-        </ul>
         </div>
         <p>A ce jour, Basegun permet de prendre en photo une arme à feu et d'obtenir un
             résultat parmi 10 typologies possibles. Ce résultat donne une indication sur la ou les catégories légales
@@ -42,17 +41,6 @@ export default {
 
     data () {
         return {
-            lists: [
-                {
-                    item: "Le Datalab de la Direction du Numérique, pour le pilotage du projet et le développement de l'application ;"
-                },
-                {
-                    item: "Le Service Central des Armes et Explosifs, pour un contrôle régulier via la connaissance métier des armes à feu ;"
-                },
-                {
-                    item: "La Police et la Gendarmerie, pour des tests et suivis ponctuels de l'application."
-                }
-            ],
             imgs: [
                 {
                 alt: "Logo Ministère de l'interieur",
