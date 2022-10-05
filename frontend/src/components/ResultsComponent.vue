@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import { store } from '@/store.js'
+    import { store } from '@/store/store.js'
     import axios from 'axios';
 
     export default {

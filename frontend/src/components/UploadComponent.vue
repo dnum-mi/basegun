@@ -8,43 +8,40 @@
 
                     <h1 class="accueil-title">Basegun <label class="fr-tag fr-tag--sm">beta</label></h1>
                     <p class="accueil-subtitle">Identification automatique des armes à feu</p>
-                    <UploadButton />
-                    <InstructionsButton />
-                    <div>
-                        <p> {{ store.uploadMessage }} </p>
-                    </div>
+                    <UploadButton/>
+                    <InstructionsModal/>
                 </div>
                 <div class="footer-background footer-text">
                     Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
                 </div>
             </div>
             <div>
-                <InstructionsModal />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { store } from '@/store.js';
+     import { store } from '@/store/store.js';
     import HeaderMain from '@/components/HeaderMain.vue';
     import UploadButton from '@/components/UploadButton.vue';
-    import InstructionsButton from '@/components/InstructionsButton.vue'
-    import InstructionsModal from '@/components/InstructionsModal.vue'
+   import InstructionsModal from '@/components/InstructionsModal.vue'
 
     export default {
         name: 'UploadComponent',
         components: {
-            HeaderMain,
-            UploadButton,
-            InstructionsButton,
-            InstructionsModal
-        },
+    HeaderMain,
+    UploadButton,
+    InstructionsModal
+},
+
+       
+
         data() {
             return {
-                store
+                store,
             }
-        }
+        },
     }
 </script>
 

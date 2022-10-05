@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import { store } from '@/store.js'
+import { store } from '@/store/store.js'
 import UploadComponent from '@/components/UploadComponent.vue';
 import ResultsComponent from '@/components/ResultsComponent.vue';
 

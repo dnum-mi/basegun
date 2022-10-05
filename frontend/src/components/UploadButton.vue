@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { store } from '@/store.js';
+    import { store } from '@/store/store.js';
     import axios from 'axios';
 
     function randomCoord(num){
@@ -39,6 +39,7 @@
         },
         methods: {
             onFileSelected(event) {
+                console.log('testOnfileSelected')
                 store.uploadMessage='Analyse...';
                 const uploadedFile = event.target.files[0];
                 // get user geolocation

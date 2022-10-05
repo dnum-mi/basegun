@@ -4,9 +4,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
-import VueDsfr from '@laruiss/vue-dsfr'
-import '@laruiss/vue-dsfr/dist/vue-dsfr.css'
-import '@laruiss/vue-dsfr/dist/vue-dsfr-fonts.css'
+import '@gouvminint/vue-dsfr/dist/vue-dsfr.css' // Import des styles globaux
+import VueDsfr from '@gouvminint/vue-dsfr'      // Import (par défaut) de la bibliothèque
 import { registerSW } from 'virtual:pwa-register'
 
 
@@ -18,4 +17,6 @@ axios.defaults.baseURL = '/api/';
 registerSW({ immediate: true })
 
 const app = createApp(App)
-app.use(router).use(VueDsfr).mount('#app')
+app.use(router)
+.use(VueDsfr)
+.mount('#app')
