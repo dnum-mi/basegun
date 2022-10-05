@@ -1,4 +1,4 @@
-FROM node:15.14.0-alpine3.12 as base
+FROM node:lts-bullseye-slim
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
 # downgrade npm version to avoid chokidar error
-RUN npm install -g npm@7.5.4
+RUN npm install -g npm@latest
 
 COPY ./package.json ./package-lock.json ./
 RUN npm ci
