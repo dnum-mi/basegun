@@ -1,24 +1,30 @@
 <template>
+  <div>
     <div>
-        <div>
-            <div>
-                <HeaderMain />
-                <div class="centered text-center">
-                    <img src="../assets/basegun.png" alt="">
+      <div>
+        <HeaderMain />
+        <div class="centered text-center">
+          <img
+            src="../assets/basegun.png"
+            alt=""
+          >
 
-                    <h1 class="accueil-title">Basegun <label class="fr-tag fr-tag--sm">beta</label></h1>
-                    <p class="accueil-subtitle">Identification automatique des armes à feu</p>
-                    <UploadButton/>
-                    <InstructionsModal/>
-                </div>
-                <div class="footer-background footer-text">
-                    Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
-                </div>
-            </div>
-            <div>
-            </div>
+          <h1 class="accueil-title">
+            Basegun <label class="fr-tag fr-tag--sm">beta</label>
+          </h1>
+          <p class="accueil-subtitle">
+            Identification automatique des armes à feu
+          </p>
+          <UploadButton />
+          <InstructionsModal />
         </div>
+        <div class="footer-background footer-text">
+          Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+        </div>
+      </div>
+      <div />
     </div>
+  </div>
 </template>
 
 <script>
@@ -32,7 +38,7 @@
         components: {
     HeaderMain,
     UploadButton,
-    InstructionsModal
+    InstructionsModal,
 },
 
        

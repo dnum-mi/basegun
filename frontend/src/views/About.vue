@@ -2,12 +2,20 @@
   <div>
     <HeaderMain />
     <div class="content">
-        <div class="d-flex align-items-center">
-            <a href="/accueil" class="small-link small-text"> Accueil</a>
-            <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-            <p class="small-text">À propos</p>
-        </div>
-        <AboutTextContent />
+      <div class="d-flex align-items-center">
+        <a
+          href="/accueil"
+          class="small-link small-text"
+        > Accueil</a>
+        <span
+          class="fr-fi-arrow-right-s-line"
+          aria-hidden="true"
+        />
+        <p class="small-text">
+          À propos
+        </p>
+      </div>
+      <AboutTextContent />
     </div>
   </div>
 </template>
@@ -22,8 +30,8 @@ export default {
   name: 'AboutPage',
   components: {
     HeaderMain,
-    AboutTextContent
-  }
+    AboutTextContent,
+  },
 }
 </script>
 

@@ -2,46 +2,45 @@
   <div>
     <HeaderMain />
     <div class="content">
-    
       <DsfrTabs
-      tab-list-name="liste d'onglets"
-      :tab-titles="tabTitles"
-      :initial-selected-index="initialSelectedIndex"
-      @select-tab="selectTab"
-    >
-      <DsfrTabContent
-        panel-id="tab-content-0"
-        tab-id="tab-0"
-        :selected="selectedTabIndex === 0"
-        :asc="asc"
+        tab-list-name="liste d'onglets"
+        :tab-titles="tabTitles"
+        :initial-selected-index="initialSelectedIndex"
+        @select-tab="selectTab"
       >
-        <div>
-        <AboutTextContent/>
-        </div>
-      </DsfrTabContent>
+        <DsfrTabContent
+          panel-id="tab-content-0"
+          tab-id="tab-0"
+          :selected="selectedTabIndex === 0"
+          :asc="asc"
+        >
+          <div>
+            <AboutTextContent />
+          </div>
+        </DsfrTabContent>
 
-      <DsfrTabContent
-        panel-id="tab-content-1"
-        tab-id="tab-1"
-        :selected="selectedTabIndex === 1"
-        :asc="asc"
-      >
-        <div>
-          <LegalTextContent/>
-        </div>
-      </DsfrTabContent>
+        <DsfrTabContent
+          panel-id="tab-content-1"
+          tab-id="tab-1"
+          :selected="selectedTabIndex === 1"
+          :asc="asc"
+        >
+          <div>
+            <LegalTextContent />
+          </div>
+        </DsfrTabContent>
 
-      <DsfrTabContent
-        panel-id="tab-content-2"
-        tab-id="tab-2"
-        :selected="selectedTabIndex === 2"
-        :asc="asc"
-      >
-         <div>
-         <ContactTextContent/>
-        </div>
-      </DsfrTabContent>
-    </DsfrTabs>
+        <DsfrTabContent
+          panel-id="tab-content-2"
+          tab-id="tab-2"
+          :selected="selectedTabIndex === 2"
+          :asc="asc"
+        >
+          <div>
+            <ContactTextContent />
+          </div>
+        </DsfrTabContent>
+      </DsfrTabs>
     </div>
   </div>
 </template>

@@ -1,32 +1,59 @@
 <template>
   <div>
-  <HeaderNoMenu />
-  <swiper :navigation="true" :modules="modules" class="mySwiper">
-    <swiper-slide>
-      <img src="../assets/basegun_green.png" alt="" class="swiper-logo">
-      <div class="swiper-content">
-        <ul class="swiper-ul fr-text--md">
-          <li class="swiper-li">Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.</li>
-          <li class="swiper-li">A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).</li>
-        </ul>
-      </div>
-    </swiper-slide>
-    <swiper-slide>
-      <img src="../assets/basegun_red.png" alt="" class="swiper-logo">
-      <div class="swiper-content">
-        <ul class="swiper-ul fr-text--md">
-          <li class="swiper-li">Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.</li>
-          <li class="swiper-li">Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.</li>
-          <li class="swiper-li">Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span></li>
-          <li class="swiper-li">Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.</li>          
-        </ul>
-        <button class="fr-btn fr-btn--sm" id="position-button" @click="redirectToStart">
-          J'ai compris
-        </button>
-      </div>
-    </swiper-slide>
-
-  </swiper>
+    <HeaderNoMenu />
+    <swiper
+      :navigation="true"
+      :modules="modules"
+      class="mySwiper"
+    >
+      <swiper-slide>
+        <img
+          src="../assets/basegun_green.png"
+          alt=""
+          class="swiper-logo"
+        >
+        <div class="swiper-content">
+          <ul class="swiper-ul fr-text--md">
+            <li class="swiper-li">
+              Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.
+            </li>
+            <li class="swiper-li">
+              A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
+            </li>
+          </ul>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <img
+          src="../assets/basegun_red.png"
+          alt=""
+          class="swiper-logo"
+        >
+        <div class="swiper-content">
+          <ul class="swiper-ul fr-text--md">
+            <li class="swiper-li">
+              Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
+            </li>
+            <li class="swiper-li">
+              Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
+            </li>
+            <li class="swiper-li">
+              Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
+            </li>
+            <li class="swiper-li">
+              Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
+            </li>          
+          </ul>
+          <button
+            id="position-button"
+            class="fr-btn fr-btn--sm"
+            @click="redirectToStart"
+          >
+            J'ai compris
+          </button>
+        </div>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
@@ -49,7 +76,7 @@
     components: {
       Swiper,
       SwiperSlide,
-      HeaderNoMenu
+      HeaderNoMenu,
     },
     setup() {
       return {
@@ -59,8 +86,8 @@
     methods: {
       redirectToStart() {
           window.location.replace("/accueil")
-      }
-    }
+      },
+    },
   };
 </script>
 

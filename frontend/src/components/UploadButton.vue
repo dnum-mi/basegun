@@ -1,18 +1,21 @@
 <template>
-    <div id="demarrer" style="display: none">
-        <input 
-            style="display: none"
-            type="file"
-            :accept="handledImageTypes"
-            @change="onFileSelected"
-            ref="fileInput"
-        >
-        <DsfrButton
-            v-if="!store.uploadMessage"
-            :label="labelButton"
-            @click="$refs.fileInput.click()"
-        />
-    </div>
+  <div
+    id="demarrer"
+    style="display: none"
+  >
+    <input 
+      ref="fileInput"
+      style="display: none"
+      type="file"
+      :accept="handledImageTypes"
+      @change="onFileSelected"
+    >
+    <DsfrButton
+      v-if="!store.uploadMessage"
+      :label="labelButton"
+      @click="$refs.fileInput.click()"
+    />
+  </div>
 </template>
 
 <script>
@@ -125,9 +128,9 @@
                             });
                     })
                 }
-            }
+            },
 
-        }
+        },
     }
 </script>
 

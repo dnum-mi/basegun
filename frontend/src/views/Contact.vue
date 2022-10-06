@@ -3,9 +3,17 @@
     <HeaderMain />
     <div class="content">
       <div class="d-flex align-items-center">
-          <a href="/accueil" class="small-link small-text"> Accueil</a>
-          <span class="fr-fi-arrow-right-s-line" aria-hidden="true"></span>
-          <p class="small-text">Contact</p>
+        <a
+          href="/accueil"
+          class="small-link small-text"
+        > Accueil</a>
+        <span
+          class="fr-fi-arrow-right-s-line"
+          aria-hidden="true"
+        />
+        <p class="small-text">
+          Contact
+        </p>
       </div>
       <ContactTextContent />
     </div>
@@ -21,8 +29,8 @@ export default {
   name: 'ContactPage',
   components: {
     HeaderMain,
-    ContactTextContent
-  }
+    ContactTextContent,
+  },
 }
 </script>
 
