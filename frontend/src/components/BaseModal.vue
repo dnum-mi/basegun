@@ -4,7 +4,6 @@
       <DsfrModal
         :opened="isOpened"
         :title="title"
-        :actions="actions"
         :origin="$refs.modalOrigin"
         @close="cancelAction()"
       >
