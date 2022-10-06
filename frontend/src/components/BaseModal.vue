@@ -4,6 +4,7 @@
       <DsfrModal
         :opened="isOpened"
         :title="title"
+        :actions="actions"
         :origin="$refs.modalOrigin"
         @close="cancelAction()"
       >
@@ -94,14 +95,6 @@ props.actionCancel
 : []
 const actions = [
 ...actionValidate,
-...(
-  props.extraActionText
-    ? [{
-        label: props.extraActionText,
-        onClick: extraAction,
-      }]
-    : []
-),
 ...actionCancel,
 ]
 </script>
