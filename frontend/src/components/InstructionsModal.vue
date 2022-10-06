@@ -6,7 +6,7 @@
     />
     <BaseModal
       :is-opened="showPopin"
-      title="Pour un résultat optimale:"
+      title="Pour un résultat optimal:"
       @cancel="cancelAction()"
     >
       <template #content>

@@ -42,7 +42,7 @@ services:
     image: basegun-frontend:${TAG}-dev
     container_name: basegun-frontend
     ports:
-      - 3000:3000
+      - 3000:5173
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules

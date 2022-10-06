@@ -11,7 +11,7 @@
               <div class="fr-header__logo">
                 <a
                   href="/"
-                  title="Accueil - [À MODIFIER | nom de l’entité (ministère , secrétariat d‘état, gouvernement)]"
+                  title="Accueil - Ministère de l'intérieur"
                 >
                   <p class="fr-logo">
                     Ministère
