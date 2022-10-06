@@ -87,26 +87,26 @@ export default {
 </script>
 
 <style scoped>
-    .title-space {
-        margin-top: 20px;
-    }
-    .container-img {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-    }
+  .title-space {
+    margin-top: 20px;
+  }
 
-    .img {
-        margin: 2em;
-        width: 6em;
-        height: auto;
+  .container-img {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 
-    }
+  .img {
+    margin: 2em;
+    width: 6em;
+    height: auto;
+  }
 
-    .list {
-        margin-left: 2em;
-        list-style:square;
-    }
+  .list {
+    margin-left: 2em;
+    list-style: square;
+  }
 </style>

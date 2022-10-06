@@ -19,7 +19,3 @@
         name: 'InstructionsButton',
     }
 </script>
-
-<style scoped>
-   
-</style>

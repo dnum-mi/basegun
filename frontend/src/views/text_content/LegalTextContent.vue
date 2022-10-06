@@ -55,10 +55,11 @@
 
 <style scoped>
     .title-space {
-        margin-top: 20px;
+      margin-top: 20px;
     }
+
     .list-margin {
-          margin-left: 2rem;
-          margin-bottom: 2rem;
+      margin-left: 2rem;
+      margin-bottom: 2rem;
     }
 </style>

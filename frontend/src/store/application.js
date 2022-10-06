@@ -9,7 +9,7 @@ export default {
     resultText: null,
     uploadMessage: null,
     geolocation: null,
-    instructionsRead: false
+    instructionsRead: false,
   },
 
   mutations: {

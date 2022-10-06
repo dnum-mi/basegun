@@ -9,5 +9,5 @@ export const store = reactive({
     resultText: null,
     uploadMessage: null,
     geolocation: null,
-    instructionsRead: false
+    instructionsRead: false,
 })

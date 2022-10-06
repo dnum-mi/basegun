@@ -6,7 +6,10 @@
     "serve": "vite preview",
     "build": "vite build",
     "dev": "vite",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+    "lint": "eslint src",
+    "format": "eslint src --fix",
+    "format:css": "stylelint --fix src/**/*.{css,vue}",
+    "pretest:unit": "npm run lint"
   },
   "dependencies": {
     "@gouvminint/vue-dsfr": "~1.4.0",

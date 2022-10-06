@@ -60,20 +60,23 @@
 </script>
 
 <style scoped>
-    .modal-ul {
-        list-style-position: inside;
-    }
-    .modal-img {
-        height: 150px;
-        text-align: center;
-        margin: 0 auto;
-        display: flex;
-    }
-    .modal-img-text {
-        text-align: center;
-        font-style: italic;
-    }
-    .bold-highlight {
-        font-weight: bold;
-    }
+  .modal-ul {
+    list-style-position: inside;
+  }
+
+  .modal-img {
+    height: 150px;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .modal-img-text {
+    text-align: center;
+    font-style: italic;
+  }
+
+  .bold-highlight {
+    font-weight: bold;
+  }
 </style>

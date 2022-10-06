@@ -86,7 +86,7 @@ methods: {
 }
 </script>
 <style>
-    .content {
-      margin: min(5vw, 10rem);
+  .content {
+    margin: min(5vw, 10rem);
   }
 </style>

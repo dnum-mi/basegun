@@ -35,19 +35,21 @@ export default {
 </script>
 
 <style scoped>
-
   .content {
-      margin: min(5vw, 10rem);
+    margin: min(5vw, 10rem);
   }
+
   .small-text {
-      font-size: 10pt;
-      margin-bottom: 0;
+    font-size: 10pt;
+    margin-bottom: 0;
   }
+
   .small-link {
-      color: #000091;
+    color: #000091;
   }
+
   .small-link:hover {
-      color: #1212ff
+    color: #1212ff
   }
 
 </style>

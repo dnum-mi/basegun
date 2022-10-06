@@ -92,7 +92,6 @@
 </script>
 
 <style>
-
   .swiper {
     width: 100%;
     height: 100%;
@@ -144,12 +143,12 @@
 
   .swiper-red-highlight {
     font-weight: bold;
-    color: #FF0000;
+    color: #f00;
   }
 
   .swiper-green-highlight {
     font-weight: bold;
-    color: #00C7C8;
+    color: #00c7c8;
   }
 
   #position-button {

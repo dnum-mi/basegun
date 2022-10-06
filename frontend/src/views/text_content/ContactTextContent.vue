@@ -13,7 +13,7 @@
 </script>
 
 <style scoped>
-    .title-space {
-        margin-top: 20px;
-    }
+  .title-space {
+    margin-top: 20px;
+  }
 </style>
