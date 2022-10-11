@@ -99,10 +99,12 @@ origins = [ # allow requests from front-end
     "http://localhost",
     "http://localhost:8080",
     "http://localhost:3000",
+    "http://basegun-frontend:8080",
+    "https://basegun-frontend:8080"
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
