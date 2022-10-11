@@ -28,7 +28,7 @@ services:
     container_name: basegun-frontend
     image: basegun-frontend:${TAG}-prod
     ports:
-      - ${PORT_PROD:-80}:80
+      - ${PORT_PROD:-80}:8080
 
   filebeat:
     image: elastic/filebeat:6.5.4
