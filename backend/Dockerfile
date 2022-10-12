@@ -1,6 +1,8 @@
 FROM python:3.9-slim-buster as base
 WORKDIR /app
 
+ARG CACERT_LOCATION
+
 # librairies necessary for image processing
 RUN apt update && apt install -y \
     libgl1-mesa-glx \
@@ -9,7 +11,9 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries
-COPY requirements.txt .
+COPY ./cert/. /etc/ssl/certs/
+COPY requirements.txt ./
+ENV PIP_CERT=$CACERT_LOCATION
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir -f https://download.pytorch.org/whl/cpu/torch_stable.html -r requirements.txt \
     && rm -r /root/.cache
@@ -17,6 +21,7 @@ RUN pip install --upgrade pip \
 # launch website
 ARG VERSION
 ARG MODEL="EffB4_2022-03-02_08"
+ENV SSL_CERT_FILE=$CACERT_LOCATION
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth
 COPY src/ src/
 RUN mkdir -p src/weights \
