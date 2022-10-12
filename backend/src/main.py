@@ -20,8 +20,7 @@ WORKSPACE = os.environ.get("WORKSPACE")
 
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
     'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
-    f'uploaded-images/{os.environ["WORKSPACE"]}/'
-
+    f'uploaded-images/{WORKSPACE}/'
 
 def init_variable(var_name: str, path: str) -> str:
     """Inits global variable for folder path
