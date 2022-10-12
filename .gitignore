@@ -11,3 +11,5 @@ temp/
 .terraform*
 .secrets
 version.txt
+*.crt
+*.pem
