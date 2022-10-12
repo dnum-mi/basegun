@@ -2,12 +2,14 @@ FROM node:15.14.0-alpine3.12 as base
 
 WORKDIR /app
 
+# certificates config
 ARG NODE_EXTRA_CA_CERTS
+COPY ./cert/. /etc/ssl/certs/
+
 # downgrade npm version to avoid chokidar error
 RUN npm install -g npm@7.5.4
 
 COPY ./package.json ./package-lock.json ./
-
 RUN npm ci
 
 COPY src ./src

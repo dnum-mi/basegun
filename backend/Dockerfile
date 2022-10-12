@@ -1,7 +1,9 @@
 FROM python:3.9-slim-buster as base
 WORKDIR /app
 
+# certificates config
 ARG CACERT_LOCATION
+COPY ./cert/. /etc/ssl/certs/
 
 # librairies necessary for image processing
 RUN apt update && apt install -y \
@@ -12,7 +14,6 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries
-COPY ./cert/. /etc/ssl/certs/
 COPY requirements.txt ./
 ENV PIP_CERT=$CACERT_LOCATION
 RUN pip install --upgrade pip \
