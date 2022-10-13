@@ -1,6 +1,6 @@
 <template>
-  <div class="centered text-center">
-    <h2>
+  <div class="read-instruction-wrapper  centered text-center">
+    <h2 class="title">
       Pour un résultat optimal
     </h2>
     <ul class="modal-ul">
@@ -22,7 +22,7 @@
       </div>
       <div>
         <img
-          src="../assets/good-photo-example.jpeg"
+          src="../assets/good-photo-example.jpg"
           alt=""
           class="modal-img"
         >
@@ -33,6 +33,7 @@
     </div>
 
     <DsfrButton
+      class="button-read-instruction"
       label="prendre la photo"
       icon="ri-camera-fill"
       @click="readInstruction"
@@ -76,6 +77,29 @@
     list-style: none;
     list-style-position: inside;
   }
+
+  
+
+  @media (min-width: 960px) {
+    .read-instruction-wrapper { 
+   margin-top: 1em ;
+  }
+}
+
+  @media (max-width: 650px) {
+    .read-instruction-wrapper {
+    margin-top: 8em;
+  }
+}
+  
+
+
+
+  .title {
+    margin: 2em;
+  }
+
+
 
   .modal-img {
     margin: 1em;

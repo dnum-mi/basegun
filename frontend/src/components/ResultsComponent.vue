@@ -223,7 +223,7 @@
   }
 
   .result-image {
-    height: 30vh;
+    height: 20em;
     background-position: center;
     background-size: cover;
     margin: 0 auto;

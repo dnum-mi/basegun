@@ -1,7 +1,7 @@
 <template>
   <header
     role="banner"
-    class="fr-header"
+    class="fr-header header-main"
   >
     <div class="fr-header__body">
       <div class="fr-container">
@@ -132,3 +132,10 @@ import store from '@/store';
     
   }
 </script>
+
+<style>
+
+.header-main {
+  z-index: 1;
+}
+</style>
