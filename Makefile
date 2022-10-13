@@ -42,7 +42,13 @@ test-backend:
 	sleep 10
 	docker exec basegun-backend python -m unittest discover -v
 
-test: test-backend
+test-frontend:
+	TAG=${TAG} ${DC} -f docker-compose-prod.yml build frontend
+	${DC} -f docker-compose-prod.yml up -d frontend
+	sleep 10
+	curl -o /dev/null localhost:3000
+
+test: test-backend test-frontend
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
