@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeaderNoMenu />
     <swiper
       :navigation="true"
       :modules="modules"
@@ -21,6 +20,7 @@
               A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
             </li>
           </ul>
+          <span class="swiper-slide-number">1/2</span>
         </div>
       </swiper-slide>
       <swiper-slide>
@@ -51,6 +51,7 @@
           >
             J'ai compris
           </button>
+          <span class="swiper-slide-number">2/2</span>
         </div>
       </swiper-slide>
     </swiper>
@@ -68,24 +69,31 @@
 
   // import Swiper required modules
   import { Navigation } from "swiper";
+import store from '@/store';
 
-  import HeaderNoMenu from '@/components/HeaderNoMenu.vue';
 
   export default {
     name: 'OnboardingSwiper',
     components: {
       Swiper,
       SwiperSlide,
-      HeaderNoMenu,
     },
+
     setup() {
       return {
         modules: [Navigation],
       };
     },
+
+    data() {
+      return {
+        store,
+      }
+    },
+
     methods: {
       redirectToStart() {
-          window.location.replace("/accueil")
+        this.$router.push({ name: 'Start' }).catch(() => {})
       },
     },
   };
@@ -100,6 +108,12 @@
 
   .swiper-slide {
     background: #fff;
+  }
+
+  .swiper-slide-number {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
   }
 
   .swiper-logo {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeaderMain />
     <div class="content">
       <DsfrTabs
         tab-list-name="liste d'onglets"
@@ -46,7 +45,6 @@
 </template>
 
 <script>
-import HeaderMain from '../components/HeaderMain.vue';
 import AboutTextContent from './text_content/AboutTextContent.vue';
 import LegalTextContent from './text_content/LegalTextContent.vue';
 import ContactTextContent from './text_content/ContactTextContent.vue';
@@ -54,7 +52,6 @@ import ContactTextContent from './text_content/ContactTextContent.vue';
 
  export default {
    components: {
-    HeaderMain,
     AboutTextContent,
     LegalTextContent,
     ContactTextContent,

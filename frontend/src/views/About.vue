@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeaderMain />
     <div class="content">
       <div class="d-flex align-items-center">
         <a
@@ -22,14 +21,12 @@
 
 <script>
 // @ is an alias to /src
-import HeaderMain from '@/components/HeaderMain.vue';
 import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
 
 
 export default {
   name: 'AboutPage',
   components: {
-    HeaderMain,
     AboutTextContent,
   },
 }

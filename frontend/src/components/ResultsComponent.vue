@@ -43,22 +43,48 @@
         </div>
       </div>
       <div v-if="store.confidence_level != 'low'">
-        <div class="feedback">
+        <p class="fr-text--sm warning-msg">
+          le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
+        </p>
+        <div
+          :aria-disabled="isClickOnThumb"
+          class="feedback"
+        >
           <p class="feedback-text">
             Ce résultat vous semble-t-il correct ?
           </p>
           <label
             class="feedback-click"
             @click="sendFeedback(true, $event)"
-          >👍</label>
+          >
+            
+            <VIcon 
+              v-if="isUp"
+              name="ri-thumb-up-fill"
+              class="feedback-click"
+            />
+            <VIcon 
+              v-else
+              name="ri-thumb-up-line"
+              class="feedback-click"
+            />
+          </label>
           <label
             class="feedback-click"
             @click="sendFeedback(false, $event)"
-          >👎</label>
+          >
+            <VIcon 
+              v-if="isDown"
+              name="ri-thumb-down-fill"
+              class="feedback-click"
+            />
+            <VIcon 
+              v-else
+              name="ri-thumb-down-line"
+              class="feedback-click"
+            />
+          </label>
         </div>
-        <p class="fr-text--sm warning-msg">
-          Cet avis n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
-        </p>
       </div>
       <div class="blank" />
       <div class="footer-background footer-actions">
@@ -71,7 +97,7 @@
             aria-hidden="true"
           />
           <p class="action-group-text">
-            RECOMMENCER
+            Retour à l'accueil
           </p>
         </div>
       </div>
@@ -88,6 +114,9 @@
         data() {
             return {
                 store,
+                isUp: undefined,
+                isDown:undefined,
+                isClickOnThumb:undefined,
                 results: {
                     revolver: {
                         displayLabel: "revolver",
@@ -157,21 +186,30 @@
             reloadPage() {
                 window.location.reload();
             },
-            sendFeedback(bool, event) {
+
+          sendFeedback(bool) {
                 const json = {
                     "image_url": store.imgUrl,
                     "feedback": bool,
                     "confidence": store.confidence,
                     "label": store.label,
                     "confidence_level": store.confidence_level,
+                } 
+                this.isClickOnThumb= true
+              if (bool === true) {
+                  this.isUp=true
+                }
+                if (bool === false) {
+                  this.isDown=true
                 }
                 axios.post('/feedback', json)
-                    .then(res => {
-                        event.target.parentElement.setAttribute('aria-disabled', 'true');
+                    .then(async res => {
+                        console.log(res)
+                        await this.$store.dispatch('setMessage', { type: 'success', message: 'Votre vote a été pris en compte' })
                     })
-                    .catch((err) => {
+                    .catch(async (err) => {
                         console.log(err);
-                        alert("Une erreur a eu lieu en enregistrant votre vote.");
+                        await this.$store.dispatch('setMessage', { type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
                     });
             },
         },
@@ -265,8 +303,9 @@
   }
 
   .feedback-click {
-    color: transparent;
-    font-size: 30px;
+    color: #000091;
+    font-size: 35px;
+    margin: 0.08em;
     text-shadow: 0 0 0 #00c8c8;
   }
 
@@ -299,7 +338,7 @@
   }
 
   .action-group-text {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     margin: 0
   }

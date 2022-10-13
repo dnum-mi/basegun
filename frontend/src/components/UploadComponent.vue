@@ -2,13 +2,14 @@
   <div>
     <div>
       <div>
-        <HeaderMain />
-        <div class="centered text-center">
+        <div
+          v-show="!isInstruction"
+          class="centered text-center"
+        >
           <img
             src="../assets/basegun.png"
             alt=""
           >
-
           <h1 class="accueil-title">
             Basegun <label class="fr-tag fr-tag--sm">beta</label>
           </h1>
@@ -16,8 +17,14 @@
             Identification automatique des armes à feu
           </p>
           <UploadButton />
-          <InstructionsModal />
+          <DsfrButton
+            label="Demarrer"
+            @click="showInstruction"
+          />
         </div>
+        
+        <InstructionsModal v-show="isInstruction" />
+        
         <div class="footer-background footer-text">
           Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
         </div>
@@ -29,14 +36,12 @@
 
 <script>
      import { store } from '@/store/store.js';
-    import HeaderMain from '@/components/HeaderMain.vue';
     import UploadButton from '@/components/UploadButton.vue';
    import InstructionsModal from '@/components/InstructionsModal.vue'
 
     export default {
         name: 'UploadComponent',
         components: {
-    HeaderMain,
     UploadButton,
     InstructionsModal,
 },
@@ -46,7 +51,20 @@
         data() {
             return {
                 store,
+                isInstruction:false,
             }
+        },
+        methods: {
+          showInstruction () {
+            this.isInstruction = true
+            
+            },
+            InstructionRead () {
+                this.isInstruction = false
+                store.instructionsRead = true
+                const demarrer = document.getElementById('demarrer')
+                demarrer.firstChild.click()
+            },
         },
     }
 </script>

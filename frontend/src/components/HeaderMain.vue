@@ -16,7 +16,9 @@
                   </p>
                 </a>
               </div>
-              <div class="fr-header__navbar">
+              <div 
+                class="fr-header__navbar"
+              >
                 <button
                   id="fr-btn-menu-mobile"
                   class="fr-btn--menu fr-btn"
@@ -30,7 +32,10 @@
               </div>
             </div>
           </div>
-          <div class="fr-header__tools">
+          <div
+            v-if="!store.swiper"
+            class="fr-header__tools"
+          >
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">
                 <li>
@@ -110,7 +115,20 @@
 </template>
 
 <script>
+import store from '@/store';
+
     export default {
         name: 'HeaderMain',
-    }
+        
+        data() {
+          return {
+           store,
+          }
+        },
+
+      mounted () {
+        console.log(this.isSwiper, this.isNoSwiper);
+      },
+    
+  }
 </script>

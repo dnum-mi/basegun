@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HeaderMain />
     <div class="text-center m-4">
       <h1>Erreur</h1>
       <p>Une erreur est survenue dans le traitement de votre requête.</p>
@@ -15,12 +14,10 @@
 
 <script>
 // @ is an alias to /src
-import HeaderMain from '@/components/HeaderMain.vue';
 
 export default {
   name: 'ErrorPage',
   components: {
-    HeaderMain,
   },
   data() {
       return {
