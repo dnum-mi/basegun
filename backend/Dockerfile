@@ -17,7 +17,8 @@ RUN apt update && apt install -y \
 COPY requirements.txt ./
 ENV PIP_CERT=$CACERT_LOCATION
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -f https://download.pytorch.org/whl/cpu/torch_stable.html -r requirements.txt \
+    && pip --default-timeout=300 install --no-cache-dir -f \
+    https://download.pytorch.org/whl/cpu/torch_stable.html -r requirements.txt \
     && rm -r /root/.cache
 
 # launch website
