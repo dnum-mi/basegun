@@ -52,6 +52,12 @@ make down-prod
 ```
 ## Debugging
 
+### There is an error to connect to the internet at build
+If your network uses a proxy, you must have set variables `http_proxy`, `https_proxy`and `no_proxy` in your environment.
+If your network imposes you to use a custom certicifate (error "SSL" at build), then:
+1. copy your certificate `my-cert.pem` in each `cert/` folder in frontend and backend.
+2. set a variable `CACERT_LOCATION=/etc/ssl/certs/my-cert.pem` in your env
+
 ### The website sends an error
 Try to find error log
 * In terminal, run `docker logs basegun-backend`
