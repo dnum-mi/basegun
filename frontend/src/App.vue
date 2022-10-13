@@ -21,12 +21,12 @@ const updateSW = registerSW({
     <header-main />
     <router-view />
     <div v-show="needRefresh">
-      ici des boutons sssss
-      <button
+      <DsfrButton
+
         @click="updateSW()"
       >
-        Rafraîchir la page
-      </button>
+        mise à jour
+      </DsfrButton>
     </div>
     <div class="wrapper-snackbar">
       <snackbar-alert />
