@@ -43,10 +43,10 @@ test-backend:
 	docker exec basegun-backend python -m unittest discover -v
 
 test-frontend:
-	TAG=${TAG} ${DC} -f docker-compose-prod.yml build frontend
+	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-prod.yml build frontend
 	${DC} -f docker-compose-prod.yml up -d frontend
 	sleep 10
-	curl -o /dev/null localhost:3000
+	curl -o /dev/null localhost:8080
 
 test: test-backend test-frontend
 
