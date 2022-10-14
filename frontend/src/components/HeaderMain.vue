@@ -9,7 +9,7 @@
                                 <a href="/accueil">
                                     <p class="fr-logo">
                                         Ministère
-                                        <br>de l'Intérieur
+                                        <br>de l'Intérieur et de l'Outre-mer
                                     </p>
                                 </a>
                             </div>

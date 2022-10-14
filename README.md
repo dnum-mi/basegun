@@ -39,8 +39,8 @@ make build-prod
 # run in dev mode
 make up-dev
 
-# run in pre-prod (test prod mode on localhost)
-make up-preprod
+# run prod mode on localhost
+WORKSPACE=preprod make up-prod
 
 # run in prod
 make up-prod
