@@ -36,19 +36,16 @@ else
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 endif
 
-test-backend:
-	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build backend
-	${DC} -f docker-compose-dev.yml up -d backend
+test-workflow-%:
+	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build $*
+	${DC} -f docker-compose-dev.yml up -d $*
 	sleep 10
+
+test-backend: test-workflow-backend
 	docker exec basegun-backend python -m unittest discover -v
 
-test-frontend:
-	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-prod.yml build frontend
-	${DC} -f docker-compose-prod.yml up -d frontend
-	sleep 10
-	curl -o /dev/null localhost:8080
-
-test: test-backend test-frontend
+test-frontend: test-workflow-frontend
+	curl -s -o /dev/null localhost:3000
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
