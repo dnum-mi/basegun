@@ -3,7 +3,7 @@
     <div>
       <div>
         <div
-          v-show="!isInstruction"
+          v-show="!store.isInstruction"
           class="centered text-center"
         >
           <img
@@ -23,9 +23,12 @@
           />
         </div>
         
-        <InstructionsModal v-show="isInstruction" />
+        <InstructionsModal v-show="store.isInstruction" />
         
-        <div class="footer-background footer-text">
+        <div
+          v-show="!store.isInstruction"
+          class="footer-background footer-text"
+        >
           Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
         </div>
       </div>
@@ -51,17 +54,19 @@
         data() {
             return {
                 store,
-                isInstruction:false,
             }
         },
         methods: {
           showInstruction () {
-            this.isInstruction = true
+            store.isDisplay = false
+            store.isInstruction = true
+            console.log(store.isDisplay)
             
             },
             InstructionRead () {
-                this.isInstruction = false
+                store.isInstruction = false
                 store.instructionsRead = true
+                store.isDisplay = false
                 const demarrer = document.getElementById('demarrer')
                 demarrer.firstChild.click()
             },

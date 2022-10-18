@@ -36,7 +36,7 @@ export default defineConfig({
           }
         ]
       },
-//       registerType: 'autoUpdate',
+      // registerType: 'autoUpdate',
       devOptions: {
         enabled: true
       },

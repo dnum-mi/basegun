@@ -3,6 +3,7 @@ import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
 import SnackbarAlert from './components/SnackbarAlert.vue';
 import HeaderMain from './components/HeaderMain.vue';
+import {store} from './store/store.js'
 
 const needRefresh = ref(false)
 
@@ -18,7 +19,7 @@ const updateSW = registerSW({
 
 <template>
   <div id="app">
-    <header-main />
+    <HeaderMain v-show="store.isDisplay" />
     <router-view />
     <div v-show="needRefresh">
       <DsfrButton
