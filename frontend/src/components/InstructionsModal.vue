@@ -60,19 +60,18 @@
                 store,
                 instructions: [
                   {
-                    step: "Étape 1",
+                    step: "Etape 1",
                     description: "Ne photographier qu'une seule arme à la fois",
                     
                   },
                   {
-                    step: "Étape 2",
+                    step: "Etape 2",
                     description: "Placer l'arme en entier et au centre du cadre",
                     
                   },
                   {
-                    step: "Étape 3",
-                    description: "Ne photographier qu'une seule arme à la fois",
-                    
+                    step: "Etape 3",
+                    description: "Présenter le canon vers la droite",
                   },
                 ],
               
