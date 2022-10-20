@@ -10,7 +10,6 @@ const needRefresh = ref(false)
 const updateSW = registerSW({
   // immediate: true,
   onNeedRefresh() {
-    console.log('onNeedRefresh')
     needRefresh.value = true
   },
   onOfflineReady() {},

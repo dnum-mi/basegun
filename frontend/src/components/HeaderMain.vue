@@ -9,21 +9,9 @@ export default {
       isActive:undefined,
     }
   },
-  
-  mounted() {
-    this.checkDevice()
-  },
 
 
   methods: {
-
-    checkDevice() {
-      if (window.innerWidth >= 450) {
-        return this.isMobile = false
-      } else {
-        return this.isMobile= true
-      }
-    },
   
     openInformations () {
       this.$router.push({ name: 'Informations' }).catch(() => {})
@@ -53,9 +41,10 @@ export default {
     class="nav-container"
   >
     <a href="/accueil">
-      <h1 class="fr-logo">
+      <h1 class="fr-logo ">
         Ministère
-        <br>de l'Intérieur et de l'Outre-mer
+        <br>de l'Intérieur 
+        <br>et de l'Outre-mer
       </h1>
     </a>
 

@@ -23,7 +23,11 @@
           />
         </div>
         
-        <InstructionsModal v-show="store.isInstruction" />
+        <div class="">
+          <InstructionsModal
+            v-show="store.isInstruction"
+          />
+        </div>
         
         <div
           v-show="!store.isInstruction"
@@ -59,9 +63,7 @@
         methods: {
           showInstruction () {
             store.isDisplay = false
-            store.isInstruction = true
-            console.log(store.isDisplay)
-            
+            store.isInstruction = true            
             },
             InstructionRead () {
                 store.isInstruction = false

@@ -1,19 +1,17 @@
 <template>
-  <div class="text-center">
-    <h2 class="title text-center">
-      Pour un résultat optimal
-    </h2>
-    <div class="read-instruction-wrapper">
-      <DsfrCallout
+  <div class="container-alert">
+    <div class="fr-alert fr-alert--info">
+      <h3 class="fr-alert__title">
+        Pour un résultat optimal
+      </h3>
+      <span 
         v-for="instruction in instructions"
         :key="instruction.id"
-        :title="instruction.step"
-        :content="instruction.description"
+        class="read-instruction-wrapper"
+        v-html="instruction"
       />
-    <!-- <span>1 - Ne photographier qu'<span class="bold-highlight">une seule</span> arme à la fois</span>
-      <span>2 - Placer l'arme <span class="bold-highlight">en entier</span> et <span class="bold-highlight">au centre</span> du cadre</span>
-      <span>3 - Présenter le canon <span class="bold-highlight">vers la droite</span></span> -->
     </div>
+     
     <div class="container-img">
       <div>
         <img
@@ -35,14 +33,13 @@
           Exemple d'une mauvaise photo
         </p>
       </div>
+      <DsfrButton
+        class="button-read-instruction"
+        label="prendre la photo"
+        icon="ri-camera-fill"
+        @click="readInstruction"
+      />
     </div>
-
-    <DsfrButton
-      class="button-read-instruction"
-      label="prendre la photo"
-      icon="ri-camera-fill"
-      @click="readInstruction"
-    />
   </div>
 </template>
 
@@ -59,22 +56,10 @@
             return {
                 store,
                 instructions: [
-                  {
-                    step: "Etape 1",
-                    description: "Ne photographier qu'une seule arme à la fois",
-                    
-                  },
-                  {
-                    step: "Etape 2",
-                    description: "Placer l'arme en entier et au centre du cadre",
-                    
-                  },
-                  {
-                    step: "Etape 3",
-                    description: "Présenter le canon vers la droite",
-                  },
+                "1 - Présenter le canon <b>&nbsp;vers la droite </b>",
+                "2 - Ne photographier qu'une <b>&nbsp;seule &nbsp;</b> arme à la fois<br>",
+                "3 - Placer l'arme <b>&nbsp;en entier&nbsp;</b> et au <b>&nbsp;centre&nbsp;</b> du cadre<br> ",
                 ],
-              
             }
         },
         methods: {
@@ -91,26 +76,17 @@
 
 <style scoped>
 
-.read-instruction-wrapper {
-  margin: 0 20em 0 20em;
+.container-alert {
+  margin: auto;
+  width: 52%;
 }
 
-  :deep(.fr-callout) {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-
-  :deep(.fr-callout__text) {
-    font-size: 1rem;
-  }
-
-  :deep(.fr-callout__title) {
-    font-size:1rem;
-  }
-
+.fr-alert {
+  margin-top: 9em;
+}
+.read-instruction-wrapper {
+  display: flex;
+}
 
   .title {
     margin: 1em;
@@ -124,9 +100,7 @@
     height: 160px;
     text-align: center;
   }
-  .read-instruction-wrapper {
-  margin: 0 20% 0 20%;
-}
+
 }
 
 
@@ -142,9 +116,8 @@
     height: 100px;
     text-align: center;
   }
-  .read-instruction-wrapper {
-  margin: 5%
-}
+
+
 
 }
 
@@ -153,9 +126,6 @@
     height: 7em;
     text-align: center;
   }
-  .read-instruction-wrapper {
-  margin: 2%;
-}
 }
 
 

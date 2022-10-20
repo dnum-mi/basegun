@@ -5,7 +5,7 @@
       :modules="modules"
       class="mySwiper"
     >
-      <swiper-slide>
+      <swiper-slide class="flex justify-content-center">
         <img
           src="../assets/basegun_green.png"
           alt=""
@@ -20,7 +20,9 @@
               A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
             </li>
           </ul>
-          <span class="swiper-slide-number">1/2</span>
+        </div>
+        <div class="swiper-slide-number">
+          <span>1/2</span>
         </div>
       </swiper-slide>
       <swiper-slide>
@@ -51,7 +53,9 @@
           >
             J'ai compris
           </button>
-          <span class="swiper-slide-number">2/2</span>
+        </div>
+        <div class="swiper-slide-number-2">
+          <span class="">2/2</span>
         </div>
       </swiper-slide>
     </swiper>
@@ -111,9 +115,15 @@ import store from '@/store';
   }
 
   .swiper-slide-number {
+    margin-top: 5.5em;
     display: flex;
     justify-content: center;
-    margin: 1em;
+  }
+
+  .swiper-slide-number-2 {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
   }
 
   .swiper-logo {
@@ -122,7 +132,7 @@ import store from '@/store';
   }
 
   .swiper-content {
-    width: 75%;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
   }

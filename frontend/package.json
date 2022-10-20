@@ -12,8 +12,7 @@
     "pretest:unit": "npm run lint"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "^1.7.2",
-    "@gouvminint/vue-dsfr": "1.6.0",
+    "@gouvminint/vue-dsfr": "~1.4.0",
     "@vue/compat": "^3.2.40",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.2",
