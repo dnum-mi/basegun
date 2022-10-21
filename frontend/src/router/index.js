@@ -9,6 +9,7 @@ import PageNotFound from '../views/PageNotFound.vue'
 import About from '../views/About.vue'
 import Legal from '../views/Legal.vue'
 import Contact from '../views/Contact.vue'
+import DetectingWeapon from '@/views/DetectingWeapon.vue '
 
 const routes = [
   {
