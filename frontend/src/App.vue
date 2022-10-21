@@ -20,16 +20,19 @@ const updateSW = registerSW({
   <div id="app">
     <HeaderMain v-show="store.isDisplay" />
     <router-view />
-    <div v-show="needRefresh">
+    <DsfrCallout
+      v-show="needRefresh"
+      title="Une mise à jour est disponible"
+    >
       <DsfrButton
-
+        secondary
         @click="updateSW()"
       >
-        mise à jour
+        Mettre à jour 
       </DsfrButton>
-    </div>
-    <div class="wrapper-snackbar">
-      <snackbar-alert />
+    </DsfrCallout>
+    <div class="snackbar">
+      <snackbar-alert class="text-center" />
     </div>
   </div>
 </template>
@@ -57,9 +60,10 @@ const updateSW = registerSW({
   color: #42b983;
 }
 
-.wrapper-snackbar {
+.snackbar {
   display: flex;
   justify-content: center;
+  z-index: 1000;
 }
 
 </style>

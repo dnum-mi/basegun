@@ -115,12 +115,14 @@ import store from '@/store';
   }
 
   .swiper-slide-number {
+    color: gray;
     margin-top: 5.5em;
     display: flex;
     justify-content: center;
   }
 
   .swiper-slide-number-2 {
+    color: gray;
     margin-top: 2em;
     display: flex;
     justify-content: center;

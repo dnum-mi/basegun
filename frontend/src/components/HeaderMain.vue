@@ -5,7 +5,6 @@ export default {
   data() {
     return {
       showModal:false,
-      isMobile: undefined,
       isActive:undefined,
     }
   },
@@ -41,14 +40,14 @@ export default {
     class="nav-container"
   >
     <a href="/accueil">
-      <h1 class="fr-logo ">
+      <h1 class="fr-logo">
         Ministère
         <br>de l'Intérieur 
         <br>et de l'Outre-mer
       </h1>
     </a>
 
-    <div class="">
+    <div>
       <div class="fr-header__tools-links">
         <DsfrButton
           class="btn-menu-information  d-none  d-lg-block"

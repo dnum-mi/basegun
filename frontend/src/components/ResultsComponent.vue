@@ -44,7 +44,7 @@
       </div>
       <div v-if="store.confidence_level != 'low'">
         <p class="fr-text--sm warning-msg">
-          le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
+          Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
         <div
           :aria-disabled="isClickOnThumb"
@@ -218,12 +218,12 @@
 
 <style scoped>
   .result {
-    margin: 0 auto;
+    margin: auto;
     max-width: 1000px;
   }
 
   .result-image {
-    height: 20em;
+    height: 15em;
     background-position: center;
     background-size: cover;
     margin: 0 auto;
@@ -293,7 +293,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
   }
 
   .feedback-text {
@@ -343,9 +342,6 @@
     margin: 0
   }
 
-  .blank {
-    height: 80px
-  }
 
   .footer-background {
     position: fixed;

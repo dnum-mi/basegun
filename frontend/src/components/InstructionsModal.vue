@@ -86,6 +86,7 @@
 }
 .read-instruction-wrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
   .title {
@@ -126,6 +127,21 @@
     height: 7em;
     text-align: center;
   }
+
+  .read-instruction-wrapper {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container-alert {
+  width: 100%;
+}
+
+:deep(.fr-alert) {
+  margin: 1em 1em 1em 1em;
+}
+
 }
 
 

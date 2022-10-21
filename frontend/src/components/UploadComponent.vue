@@ -18,7 +18,7 @@
           </p>
           <UploadButton />
           <DsfrButton
-            label="Demarrer"
+            label="Démarrer"
             @click="showInstruction"
           />
         </div>

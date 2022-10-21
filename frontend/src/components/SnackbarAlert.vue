@@ -49,6 +49,8 @@ export default {
 <style scoped>
 
 .snackbar {
+  margin-bottom: 2em;
+  background-color: white;
   width: 20em;
   align-items: center;
 }

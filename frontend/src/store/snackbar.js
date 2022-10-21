@@ -1,4 +1,4 @@
-const defaultTimeout = 6000
+const defaultTimeout = 100000
 
 export default {
   state: {
