@@ -134,7 +134,7 @@ import store from '@/store';
   }
 
   .swiper-content {
-    width: 100%;
+    width: 75%;
     margin: 0 auto;
     text-align: center;
   }

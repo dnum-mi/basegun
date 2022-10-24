@@ -19,9 +19,10 @@ const updateSW = registerSW({
 <template>
   <div id="app">
     <HeaderMain v-show="store.isDisplay" />
-    <router-view />
     <DsfrCallout
       v-show="needRefresh"
+      class="col-lg-6 mx-auto"
+      content=""
       title="Une mise à jour est disponible"
     >
       <DsfrButton
@@ -31,6 +32,7 @@ const updateSW = registerSW({
         Mettre à jour 
       </DsfrButton>
     </DsfrCallout>
+    <router-view />
     <div class="snackbar">
       <snackbar-alert class="text-center" />
     </div>
@@ -64,6 +66,10 @@ const updateSW = registerSW({
   display: flex;
   justify-content: center;
   z-index: 1000;
+}
+
+:deep(.fr-callout) {
+  padding: 1rem 2rem;
 }
 
 </style>

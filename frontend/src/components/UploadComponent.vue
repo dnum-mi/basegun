@@ -1,43 +1,39 @@
 <template>
-  <div>
+  <div
+    v-show="!store.isInstruction"
+    class="centered text-center"
+  >
+    <img
+      src="../assets/basegun.png"
+      alt=""
+    >
+    <h1 class="accueil-title">
+      Basegun <label class="fr-tag fr-tag--sm">beta</label>
+    </h1>
+    <p class="accueil-subtitle">
+      Identification automatique des armes à feu
+    </p>
+    <UploadButton />
     <div>
-      <div>
-        <div
-          v-show="!store.isInstruction"
-          class="centered text-center"
-        >
-          <img
-            src="../assets/basegun.png"
-            alt=""
-          >
-          <h1 class="accueil-title">
-            Basegun <label class="fr-tag fr-tag--sm">beta</label>
-          </h1>
-          <p class="accueil-subtitle">
-            Identification automatique des armes à feu
-          </p>
-          <UploadButton />
-          <DsfrButton
-            label="Démarrer"
-            @click="showInstruction"
-          />
-        </div>
-        
-        <div class="">
-          <InstructionsModal
-            v-show="store.isInstruction"
-          />
-        </div>
-        
-        <div
-          v-show="!store.isInstruction"
-          class="footer-background footer-text"
-        >
-          Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
-        </div>
-      </div>
-      <div />
+      <p> {{ store.uploadMessage }} </p>
     </div>
+    <DsfrButton
+      label="Démarrer"
+      @click="showInstruction"
+    />
+  </div>
+        
+  <div class="centered">
+    <InstructionsModal
+      v-show="store.isInstruction"
+    />
+  </div>
+        
+  <div
+    v-show="!store.isInstruction"
+    class="footer-background footer-text"
+  >
+    Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
   </div>
 </template>
 
