@@ -13,3 +13,5 @@ temp/
 version.txt
 *.crt
 *.pem
+# vite preview
+dev-dist/

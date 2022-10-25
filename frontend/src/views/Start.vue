@@ -15,12 +15,12 @@ export default {
   name: 'StartPage',
   components: {
     UploadComponent,
-    ResultsComponent
+    ResultsComponent,
   },
   data() {
     return {
-      store
+      store,
     }
-  }
+  },
 }
 </script>

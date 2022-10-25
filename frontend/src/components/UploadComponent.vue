@@ -14,9 +14,6 @@
       Identification automatique des armes à feu
     </p>
     <UploadButton />
-    <div>
-      <p> {{ store.uploadMessage }} </p>
-    </div>
     <DsfrButton
       label="Démarrer"
       @click="showInstruction"
@@ -24,7 +21,7 @@
   </div>
         
   <div class="centered">
-    <InstructionsModal
+    <InstructionsView
       v-show="store.isInstruction"
     />
   </div>
@@ -38,38 +35,29 @@
 </template>
 
 <script>
-     import { store } from '@/store/store.js';
-    import UploadButton from '@/components/UploadButton.vue';
-   import InstructionsModal from '@/components/InstructionsModal.vue'
+import { store } from '@/store/store.js';
+import UploadButton from '@/components/UploadButton.vue';
+import InstructionsView from '@/components/InstructionsView.vue'
 
-    export default {
-        name: 'UploadComponent',
-        components: {
-    UploadButton,
-    InstructionsModal,
+export default {
+    name: 'UploadComponent',
+    components: {
+UploadButton,
+InstructionsView,
 },
 
-       
-
-        data() {
-            return {
-                store,
-            }
-        },
-        methods: {
-          showInstruction () {
-            store.isDisplay = false
-            store.isInstruction = true            
-            },
-            InstructionRead () {
-                store.isInstruction = false
-                store.instructionsRead = true
-                store.isDisplay = false
-                const demarrer = document.getElementById('demarrer')
-                demarrer.firstChild.click()
-            },
-        },
+data() {
+    return {
+        store,
     }
+},
+methods: {
+  showInstruction () {
+    store.isDisplay = false
+    store.isInstruction = true            
+    },
+  },
+}
 </script>
 
 <style scoped>

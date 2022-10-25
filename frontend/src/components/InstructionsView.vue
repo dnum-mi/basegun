@@ -11,7 +11,9 @@
         v-html="instruction"
       />
     </div>
-     
+    <div class="text-center">
+      <p>{{ store.uploadMessage }}</p>
+    </div>
     <div class="container-img  d-lg-flex">
       <div>
         <img
@@ -51,9 +53,8 @@
 <script>
     import { store } from '@/store/store.js';
 
-
     export default {
-        name: 'InstructionsModal',
+        name: 'InstructionsView',
         components: {
 
         },
@@ -69,8 +70,6 @@
         },
         methods: {
           readInstruction () {
-            console.log(store)
-            this.showPopin = false
             store.instructionsRead = true
             const demarrer = document.getElementById('demarrer')
             demarrer.firstChild.click()
@@ -94,7 +93,14 @@
   margin: 1em 1em 1em 1em;
 }
 
-
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
 
 
   .container-img {
@@ -107,7 +113,6 @@
   }
 
   .modal-img-text {
-    /* text-align: center; */
     font-style: italic;
   }
 

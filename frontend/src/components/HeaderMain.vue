@@ -1,37 +1,3 @@
-<script>
-
-export default {
-  
-  data() {
-    return {
-      showModal:false,
-      isActive:undefined,
-    }
-  },
-
-
-  methods: {
-  
-    openInformations () {
-      this.$router.push({ name: 'Informations' }).catch(() => {})
-    },
-    openModal () {
-      this.showModal = true
-    },
-
-    clickOnLink () {
-      this.showModal = false
-    },
-
-    onClose () {
-      this.showModal = false
-    },
-    
-  },
-}
-
-</script>
-
 <template>
   <header
     role="banner"
@@ -69,9 +35,9 @@ export default {
           </div>
           <div class="fr-header__navbar">
             <DsfrButton
-              ref="modalOrigin"
-              class="btn-open-modal  d-lg-none  fr-btn--menu  fr-btn"
-              icon="ri-menu-fill"
+              ref="modalOrigin" 
+              title="Menu"
+              class="btn-open-modal d-lg-none fr-btn--menu"
               icon-right="true"
               @click="openModal()"
             />
@@ -114,6 +80,38 @@ export default {
     </DsfrModal>
   </header>
 </template>
+
+<script>
+export default {
+  
+  data() {
+    return {
+      showModal:false,
+      isActive:undefined,
+    }
+  },
+
+  methods: {
+  
+    openInformations () {
+      this.$router.push({ name: 'Informations' }).catch(() => {})
+    },
+    openModal () {
+      this.showModal = true
+    },
+
+    clickOnLink () {
+      this.showModal = false
+    },
+
+    onClose () {
+      this.showModal = false
+    },
+    
+  },
+}
+
+</script>
 
 <style scoped>
 

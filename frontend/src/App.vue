@@ -34,7 +34,7 @@ const updateSW = registerSW({
     </DsfrCallout>
     <router-view />
     <div class="snackbar">
-      <snackbar-alert class="text-center" />
+      <SnackbarAlert class="text-center" />
     </div>
   </div>
 </template>
