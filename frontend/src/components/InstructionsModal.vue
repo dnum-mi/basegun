@@ -12,14 +12,11 @@
       />
     </div>
      
-    <div class="container-img  d-lg-flex">
+    <div class="container-img">
       <div>
         <img
           src="../assets/good-photo-example.jpg"
-          alt=""
-          width="250px"
-          height="140px"
-          class="mx-2"
+          alt="photo d'une arme tournée vers la droite et centrée"
         >
         <p class="modal-img-text fr-text--xs">
           Exemple d'une bonne photo
@@ -27,11 +24,8 @@
       </div>
       <div>
         <img
-          src="../assets/bad-photo-exemple.jpeg"
-          alt=""
-          width="250px"
-          height="140px"
-          class="mx-2"
+          src="../assets/bad-photo-example.jpg"
+          alt="photo d'une arme tournée vers la gauche et partiellement coupée"
         >
         <p class="modal-img-text fr-text--xs">
           Exemple d'une mauvaise photo
@@ -61,9 +55,9 @@
             return {
                 store,
                 instructions: [
-                "1 - Présenter le canon <b>&nbsp;vers la droite </b><br>",
-                "2 - Ne photographier qu'une <b>&nbsp;seule &nbsp;</b> arme à la fois<br>",
-                "3 - Placer l'arme <b>&nbsp;en entier&nbsp;</b> et au <b>&nbsp;centre&nbsp;</b> du cadre<br> ",
+                "1 - Présenter le<b>&nbsp;canon vers la droite</b><br>",
+                "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+                "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
                 ],
             }
         },
@@ -100,10 +94,12 @@
   .container-img {
     justify-content: center;
     text-align: center;
+    padding: 0 1rem;
   }
 
-  .img {
-    margin: 1em;
+  img {
+    max-width: 100%;
+    max-height: 250px;
   }
 
   .modal-img-text {

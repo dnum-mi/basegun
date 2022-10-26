@@ -1,6 +1,5 @@
 export {
   RiCameraFill,
-  RiInformationLine,
   RiMenuFill,
   RiThumbDownLine,
   RiThumbUpLine,
