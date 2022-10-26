@@ -107,9 +107,9 @@
 
 
 :deep(.fr-alert) {
-margin: 1em 1em 1em 1em;
+margin: 1em;
 }
-
+/* 
 .container-img {
   justify-content: center;
   text-align: center;
