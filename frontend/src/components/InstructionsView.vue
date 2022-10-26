@@ -1,5 +1,5 @@
 <template>
-  <div class="container-alert  col-lg-6  col-xs-9  mx-auto">
+  <div class="container-alert col-lg-6 col-md-8 col-xs-9 mx-auto">
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">
         Pour un résultat optimal
@@ -14,7 +14,7 @@
     <div class="text-center">
       <p>{{ store.uploadMessage }}</p>
     </div>
-    <div class="container-img  d-lg-flex">
+    <div class="container-img  d-md-flex">
       <div>
         <img
           src="../assets/good-photo-example.jpg"
@@ -100,12 +100,13 @@
   .container-img {
     justify-content: center;
     text-align: center;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
 
   img {
     max-width: 100%;
-    max-height: 250px;
+    max-height: 200px;
+    padding: 0 0.5rem;
   }
 
   .modal-img-text {
