@@ -37,10 +37,15 @@
             <DsfrButton
               ref="modalOrigin" 
               title="Menu"
-              class="btn-open-modal d-lg-none fr-btn--menu"
+              class="btn-open-modal"
               icon-right="true"
               @click="openModal()"
-            />
+            >
+              <VIcon
+                name="ri-menu-fill"
+                scale="1.25"
+              />
+            </DsfrButton>
           </div>
         </nav>
       </div>

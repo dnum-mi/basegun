@@ -1,64 +1,68 @@
 <template>
   <div>
-    <swiper
-      :navigation="true"
-      :modules="modules"
-      class="mySwiper"
+    <div 
+      :class="!isMobile ? 'centered' : ''"
     >
-      <swiper-slide class="flex justify-content-center">
-        <img
-          src="../assets/basegun_green.png"
-          alt=""
-          class="swiper-logo"
-        >
-        <div class="swiper-content">
-          <ul class="swiper-ul fr-text--md">
-            <li class="swiper-li">
-              Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.
-            </li>
-            <li class="swiper-li">
-              A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
-            </li>
-          </ul>
-        </div>
-        <div class="swiper-slide-number">
-          <span>1/2</span>
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <img
-          src="../assets/basegun_red.png"
-          alt=""
-          class="swiper-logo"
-        >
-        <div class="swiper-content">
-          <ul class="swiper-ul fr-text--md">
-            <li class="swiper-li">
-              Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
-            </li>
-            <li class="swiper-li">
-              Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
-            </li>
-            <li class="swiper-li">
-              Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
-            </li>
-            <li class="swiper-li">
-              Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
-            </li>          
-          </ul>
-          <button
-            id="position-button"
-            class="fr-btn fr-btn--sm"
-            @click="redirectToStart"
+      <swiper
+        :navigation="true"
+        :modules="modules"
+        class="mySwiper"
+      >
+        <swiper-slide class="flex justify-content-center">
+          <img
+            src="../assets/basegun_green.png"
+            alt=""
+            class="swiper-logo"
           >
-            J'ai compris
-          </button>
-        </div>
-        <div class="swiper-slide-number-2">
-          <span class="">2/2</span>
-        </div>
-      </swiper-slide>
-    </swiper>
+          <div class="swiper-content">
+            <ul class="swiper-ul fr-text--md">
+              <li class="swiper-li">
+                Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.
+              </li>
+              <li class="swiper-li">
+                A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
+              </li>
+            </ul>
+          </div>
+          <div class="swiper-slide-number">
+            <span>1/2</span>
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="../assets/basegun_red.png"
+            alt=""
+            class="swiper-logo"
+          >
+          <div class="swiper-content">
+            <ul class="swiper-ul fr-text--md">
+              <li class="swiper-li">
+                Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
+              </li>
+              <li class="swiper-li">
+                Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
+              </li>
+              <li class="swiper-li">
+                Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
+              </li>
+              <li class="swiper-li">
+                Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
+              </li>          
+            </ul>
+            <button
+              id="position-button"
+              class="fr-btn fr-btn--sm"
+              @click="redirectToStart"
+            >
+              J'ai compris
+            </button>
+          </div>
+          <div class="swiper-slide-number-2">
+            <span class="">2/2</span>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
 </template>
 
@@ -95,6 +99,12 @@ import store from '@/store';
       }
     },
 
+    computed: {
+      isMobile() {
+        return screen.width <= 760 
+      },
+    },
+
     methods: {
       redirectToStart() {
         this.$router.push({ name: 'Start' }).catch(() => {})
@@ -104,6 +114,14 @@ import store from '@/store';
 </script>
 
 <style>
+.centered {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%
+}
+
   .swiper {
     width: 100%;
     height: 100%;
@@ -116,14 +134,14 @@ import store from '@/store';
 
   .swiper-slide-number {
     color: gray;
-    margin-top: 5.5em;
+    margin-top: 4.5em;
     display: flex;
     justify-content: center;
   }
 
   .swiper-slide-number-2 {
     color: gray;
-    margin-top: 2em;
+    margin-top: 1em;
     display: flex;
     justify-content: center;
   }
@@ -156,6 +174,7 @@ import store from '@/store';
   .swiper-button-prev,
   .swiper-button-next {
     color: #000091;
+    top:60%;
   }
 
   .swiper-button-prev::after,

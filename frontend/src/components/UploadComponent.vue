@@ -20,7 +20,7 @@
     />
   </div>
         
-  <div class="centered">
+  <div :class="!isMobile ? 'centered' : ''">
     <InstructionsView
       v-show="store.isInstruction"
     />
@@ -51,9 +51,14 @@ data() {
         store,
     }
 },
+computed: {
+          isMobile() {
+            return screen.width <= 760 
+          },
+        },
 methods: {
   showInstruction () {
-    store.isDisplay = false
+    store.isDisplay = true
     store.isInstruction = true            
     },
   },
@@ -61,13 +66,13 @@ methods: {
 </script>
 
 <style scoped>
-  .centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%
-  }
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%
+}
 
   .accueil-title {
     font-size: 28px;

@@ -1,10 +1,9 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
-import SnackbarAlert from './components/SnackbarAlert.vue';
 import HeaderMain from './components/HeaderMain.vue';
-import {store} from './store/store.js'
 
+import {store} from './store/store.js'
 const needRefresh = ref(false)
 
 const updateSW = registerSW({
@@ -33,9 +32,6 @@ const updateSW = registerSW({
       </DsfrButton>
     </DsfrCallout>
     <router-view />
-    <div class="snackbar">
-      <SnackbarAlert class="text-center" />
-    </div>
   </div>
 </template>
 

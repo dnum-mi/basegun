@@ -2,6 +2,7 @@
 .vscode
 node_modules/
 dist/
+dev-dist/
 env/
 .env
 __pycache__
@@ -14,5 +15,3 @@ temp/
 version.txt
 *.crt
 *.pem
-# vite preview
-dev-dist/

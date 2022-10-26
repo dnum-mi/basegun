@@ -1,5 +1,26 @@
 <template>
-  <div class="container-alert col-lg-6 col-md-8 col-xs-9 mx-auto">
+  <div
+    v-if="store.instructionsRead"
+    class="text-center centered"
+  >
+    <img
+      src="../assets/basegun.png"
+      alt=""
+    >
+    <h1 class="accueil-title">
+      Basegun <label class="fr-tag fr-tag--sm">beta</label>
+    </h1>
+    <p class="accueil-subtitle">
+      Identification automatique des armes à feu
+    </p>
+    <div class="text-center">
+      <p>{{ store.uploadMessage }}</p>
+    </div>
+  </div>
+  <div
+    v-else
+    class="container-alert  col-lg-6  col-xs-9  mx-auto"
+  >
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">
         Pour un résultat optimal
@@ -11,10 +32,8 @@
         v-html="instruction"
       />
     </div>
-    <div class="text-center">
-      <p>{{ store.uploadMessage }}</p>
-    </div>
-    <div class="container-img  d-md-flex">
+  
+    <div class="container-img  d-lg-flex">
       <div>
         <img
           src="../assets/good-photo-example.jpg"
@@ -67,9 +86,13 @@
             store.instructionsRead = true
             const demarrer = document.getElementById('demarrer')
             demarrer.firstChild.click()
+            this.redirectToResults()
           },
-        },
-    }
+          redirectToResults() {
+            this.$router.push({ name: 'Results' }).catch(() => {})
+          },
+    },
+  }
 </script>
 
 <style scoped>
@@ -78,24 +101,23 @@
   margin-top: 9em;
 }
 
-  .title {
-    margin: 1em;
-  }
+.title {
+  margin: 1em;
+}
 
 
 :deep(.fr-alert) {
-  margin: 1em 1em 1em 1em;
+margin: 1em 1em 1em 1em;
 }
 
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+.container-img {
+  justify-content: center;
+  text-align: center;
 }
 
+.img {
+  margin: 1em;
+} */
 
   .container-img {
     justify-content: center;
@@ -113,7 +135,7 @@
     font-style: italic;
   }
 
-  .bold-highlight {
-    font-weight: bold;
-  }
+.bold-highlight {
+  font-weight: bold;
+}
 </style>
