@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="result">
+    <div class="result col-11 col-lg-6">
       <div
         class="result-image"
         :style="{backgroundImage:`url(${store.img})`}"
@@ -53,40 +53,45 @@
           <p class="feedback-text">
             Ce résultat vous semble-t-il correct ?
           </p>
-          <label
-            class="feedback-click"
-            @click="sendFeedback(true, $event)"
-          >
+          <div class="feedback-thumb">
+            <label
+              class="feedback-click"
+              @click="sendFeedback(true, $event)"
+            >
             
-            <VIcon 
-              v-if="isUp"
-              name="ri-thumb-up-fill"
+              <VIcon 
+                v-if="isUp"
+                name="ri-thumb-up-fill"
+                class="feedback-click"
+              />
+              <VIcon 
+                v-else
+                name="ri-thumb-up-line"
+                class="feedback-click"
+              />
+            </label>
+            <label
               class="feedback-click"
-            />
-            <VIcon 
-              v-else
-              name="ri-thumb-up-line"
-              class="feedback-click"
-            />
-          </label>
-          <label
-            class="feedback-click"
-            @click="sendFeedback(false, $event)"
-          >
-            <VIcon 
-              v-if="isDown"
-              name="ri-thumb-down-fill"
-              class="feedback-click"
-            />
-            <VIcon 
-              v-else
-              name="ri-thumb-down-line"
-              class="feedback-click"
-            />
-          </label>
+              @click="sendFeedback(false, $event)"
+            >
+              <VIcon 
+                v-if="isDown"
+                name="ri-thumb-down-fill"
+                class="feedback-click"
+              />
+              <VIcon 
+                v-else
+                name="ri-thumb-down-line"
+                class="feedback-click"
+              />
+            </label>
+          </div>
         </div>
       </div>
-      <div class="blank" />
+      <div
+        v-show="!isClickOnThumb"
+        class="blank"
+      />
       <div class="footer-background footer-actions">
         <div
           class="action-group"
@@ -94,6 +99,9 @@
         >
           <span
             class="fr-fi-refresh-line"
+            title="Recommencer" 
+            role="img" 
+            aria-label="recommencer"
             aria-hidden="true"
           />
           <p class="action-group-text">
@@ -217,138 +225,120 @@
 </script>
 
 <style scoped>
-  .result {
-    margin: auto;
-    max-width: 1000px;
-  }
+.result {
+  margin: 0 auto;
+  max-width: 1000px;
+}
 
-  .result-image {
-    height: 15em;
-    background-position: center;
-    background-size: cover;
-    margin: 0 auto;
-  }
+.result-image {
+  height: 30vh;
+  background-position: center;
+  background-size: cover;
+  margin: 0 auto;
+}
 
-  @media (min-width: 768px) {
-    .result-image {
-      max-width: 600px;
-    }
+.success-tag {
+  color: #297254;
+  background-color: #9ef9be;
+  margin-left: -4px;
+}
 
-    .custom-callout,
-    .warning-msg {
-      max-width: 600px;
-      margin: 12px auto
-    }
-  }
+.error-tag {
+  color: #ce0500;
+  background-color: #ffe9e9;
+  margin-left: -4px;
+}
+.warning-tag {
+  color: #b34000;
+  background-color: #ffe8e5;
+  margin-left: -4px;
+}
 
-  @media (max-width: 768px) {
-    .custom-callout,
-    .warning-msg {
-      margin: 12px
-    }
-  }
+.warning-text {
+  font-size: 0.7rem;
+  font-style: italic;
+  line-height: 1rem;
+  margin-bottom: 12px;
+}
 
-  .success-tag {
-    color: #297254;
-    background-color: #9ef9be;
-    margin-left: -4px;
-  }
+.warning-msg {
+  line-height: 1.3rem !important;
+  margin-bottom: 1rem;
+}
 
-  .error-tag {
-    color: #ce0500;
-    background-color: #ffe9e9;
-    margin-left: -4px;
-  }
+.callout-head {
+  display: flex;
+  align-items: center;
+}
 
-  .warning-tag {
-    color: #b34000;
-    background-color: #ffe8e5;
-    margin-left: -4px;
-  }
+.callout-mention {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+}
+.feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .warning-text {
-    font-size: 0.7rem;
-    font-style: italic;
-    line-height: 1rem;
-    margin-bottom: 12px;
-  }
+.feedback-text {
+  margin-bottom: 0;
+  margin-right: 4px;
+  font-weight: bold;
+}
 
-  .callout-head {
-    display: flex;
-    align-items: center;
-  }
+.feedback-click {
+  color: #000091;
+  font-size: 35px;
+  margin: 0.1em 0.05em;
+  text-shadow: 0 0 0 #00c8c8;
+}
 
-  .warning-msg {
-    line-height: 1.3rem !important;
-  }
+.feedback-click:hover {
+  cursor: pointer;
+  text-shadow: 0 0 0 #1212ff;
+}
 
-  .callout-mention {
-    margin-top: 10px;
-    font-style: italic;
-    font-size: 0.9rem;
-    line-height: 1.3rem;
-  }
+[aria-disabled="true"] .feedback-click {
+  pointer-events: none;
+  cursor: not-allowed;
+  text-shadow: 0 0 0 grey;
+}
 
-  .feedback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.footer-actions {
+  display: flex;
+  justify-content: space-around;
+  color: #000091;
+  z-index: 1
+}
 
-  .feedback-text {
-    margin-bottom: 0;
-    margin-right: 4px;
-    font-weight: bold;
-  }
+.action-group {
+  text-align: center;
+  cursor: pointer;
+  margin: 8px 0;
+}
 
-  .feedback-click {
-    color: #000091;
-    font-size: 35px;
-    margin: 0.08em;
-    text-shadow: 0 0 0 #00c8c8;
-  }
+.action-group:hover {
+  color: #1212ff;
+}
 
-  .feedback-click:hover {
-    cursor: pointer;
-    text-shadow: 0 0 0 #1212ff;
-  }
+.action-group-text {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0
+}
+.blank {
+  height: 80px
+}
 
-  [aria-disabled="true"] .feedback-click {
-    pointer-events: none;
-    cursor: not-allowed;
-    text-shadow: 0 0 0 grey;
-  }
-
-  .footer-actions {
-    display: flex;
-    justify-content: space-around;
-    color: #000091;
-    z-index: 1
-  }
-
-  .action-group {
-    text-align: center;
-    cursor: pointer;
-    margin: 8px 0;
-  }
-
-  .action-group:hover {
-    color: #1212ff;
-  }
-
-  .action-group-text {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0
-  }
-
-
-  .footer-background {
-    position: fixed;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    background-color: #f5f5fe;
-    width: 100%;
-  }
+.footer-background {
+  position: fixed;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background-color: #f5f5fe;
+  width: 100%;
+}
 </style>
