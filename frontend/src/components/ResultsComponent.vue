@@ -111,7 +111,7 @@
             aria-hidden="true"
           />
           <p class="action-group-text">
-            Retour à l'accueil
+            RECOMMENCER
           </p>
         </div>
       </div>

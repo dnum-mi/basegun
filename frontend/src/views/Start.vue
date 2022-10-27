@@ -2,6 +2,9 @@
   <div>
     <UploadComponent />
   </div>
+  <div v-if="isWorkspacePreprod">
+    TEST
+  </div>
 </template>
 
 <script>

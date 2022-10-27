@@ -10,6 +10,8 @@ import App from './App.vue';
 import router from './router/index.js';
 import store from './store/index.js';
 
+window.isWorkspacePreprod = import.meta.env.VITE_APP_WORKSPACE === 'prod'
+
 axios.defaults.withCredentials = true;
 
 // the FastAPI backend
