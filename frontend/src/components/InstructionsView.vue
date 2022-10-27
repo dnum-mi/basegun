@@ -105,35 +105,25 @@
   margin: 1em;
 }
 
-
 :deep(.fr-alert) {
 margin: 1em;
 }
-/* 
+
 .container-img {
   justify-content: center;
   text-align: center;
+  padding: 0 0.5rem;
 }
 
-.img {
-  margin: 1em;
-} */
+img {
+  max-width: 100%;
+  max-height: 200px;
+  padding: 0 0.5rem;
+}
 
-  .container-img {
-    justify-content: center;
-    text-align: center;
-    padding: 0 0.5rem;
-  }
-
-  img {
-    max-width: 100%;
-    max-height: 200px;
-    padding: 0 0.5rem;
-  }
-
-  .modal-img-text {
-    font-style: italic;
-  }
+.modal-img-text {
+  font-style: italic;
+}
 
 .bold-highlight {
   font-weight: bold;
