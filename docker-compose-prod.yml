@@ -29,8 +29,6 @@ services:
     image: basegun-frontend:${TAG}-prod
     ports:
       - ${PORT_PROD:-80}:80
-    environment:
-      - VITE_APP_WORKSPACE==${VITE_APP_WORKSPACE:-prod}
 
   filebeat:
     image: elastic/filebeat:6.5.4
