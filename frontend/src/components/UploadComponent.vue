@@ -3,6 +3,12 @@
     v-show="!store.isInstruction"
     class="centered text-center"
   >
+    <p v-if="isPreprod">
+      Preprod
+    </p>
+    <p v-else>
+      Not preprod
+    </p>
     <img
       src="../assets/basegun.png"
       alt=""
@@ -35,31 +41,35 @@
 </template>
 
 <script>
-import { store } from '@/store/store.js';
-import UploadButton from '@/components/UploadButton.vue';
+import { isPreprod } from '@/config.js'
+import { store } from '@/store/store.js'
+import UploadButton from '@/components/UploadButton.vue'
 import InstructionsView from '@/components/InstructionsView.vue'
 
-export default {
-    name: 'UploadComponent',
-    components: {
-UploadButton,
-InstructionsView,
-},
+console.info({isPreprod})
 
-data() {
+export default {
+  name: 'UploadComponent',
+  components: {
+      UploadButton,
+      InstructionsView,
+    },
+
+  data() {
     return {
+        isPreprod,
         store,
     }
-},
-computed: {
-          isMobile() {
-            return screen.width <= 760 
-          },
-        },
-methods: {
-  showInstruction () {
-    store.isDisplay = true
-    store.isInstruction = true            
+  },
+  computed: {
+    isMobile() {
+      return screen.width <= 760 
+    },
+  },
+  methods: {
+    showInstruction () {
+      store.isDisplay = true
+      store.isInstruction = true            
     },
   },
 }
