@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import { store } from '@/store/store.js';
-import axios from 'axios';
+    import { store } from '@/store.js';
+    import axios from 'axios';
 
 function randomCoord(num){
     num = parseFloat(num)

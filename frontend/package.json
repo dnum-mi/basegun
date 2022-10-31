@@ -12,10 +12,11 @@
     "pretest:unit": "npm run lint"
   },
   "dependencies": {
-    "@gouvminint/vue-dsfr": "~1.4.0",
+    "@gouvminint/vue-dsfr": "~1.6.0",
     "@vue/compat": "^3.2.40",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.2",
+    "pinia": "^2.0.23",
     "stylelint-config-recommended-vue": "^1.4.0",
     "swiper": "^8.4.2",
     "vite": "^3.1.4",

@@ -18,36 +18,25 @@
   </transition>
 </template>
 
-<script>
-import { mapState } from 'vuex'
-export default {
-  name: 'SnackbarAlert',
-  computed: {
-    ...mapState({
-      messages: state => state.snackbar.messages,
-      message: state => state.snackbar.message,
-      show: state => state.snackbar.show,
-      type: state => state.snackbar.type || 'info',
-    }),
-  },
-  watch: {
-    // ferme la snackbar d'erreur au changement de route
-    $route (to, from) {
-      this.closeSnackbar()
-    },
-  },
-  methods: {
-    closeSnackbar () {
-      if (this.type === 'error') {
-        return this.$store.dispatch('hideMessage')
-      }
-    },
-  },
-}
+<script setup>
+import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { useSnackbarStore } from '../stores/snackbar.js'
+
+const route = useRoute()
+const snackbarStore = useSnackbarStore()
+
+const message = computed(() => snackbarStore.message)
+const show = computed(() => snackbarStore.show)
+const type = computed(() => snackbarStore.type)
+
+const closeSnackbar = () =>   snackbarStore.hideMessage()
+
+watch(route, closeSnackbar)
 </script>
 
 <style scoped>
-
 .snackbar {
   display: flex;
   justify-content: center;

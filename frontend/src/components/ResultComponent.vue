@@ -36,10 +36,27 @@
           <p class="fr-callout__text">
             Type d'arme : {{ cleanLabel }}
           </p>
-          <p
+          
+          <div
             class="callout-mention"
-            v-html="cleanMention"
-          />
+          >
+            <p
+              v-html="cleanMention"
+            />
+
+            <RouterLink
+              v-slot="{ href, navigate }"
+              to="/consignes-de-securite"
+              custom
+            >
+              <DsfrButton
+                :href="href"
+                class="m-1  flex justify-content-center"
+                label="Verifier si l'arme est factice"
+                @click="$event => { storeState(); navigate($event)}"
+              />
+            </RouterLink>
+          </div>
         </div>
       </div>
       <div v-if="store.confidenceLevel != 'low'">
@@ -47,7 +64,7 @@
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
         <div
-          :aria-disabled="isClickOnThumb"
+          :aria-disabled="isFeedbackDone"
           class="feedback"
         >
           <p class="feedback-text">
@@ -56,9 +73,8 @@
           <div class="feedback-thumb">
             <label
               class="feedback-click"
-              @click="sendFeedback(true, $event)"
-            >
-            
+              @click="sendFeedback(true)"
+            >            
               <VIcon 
                 v-if="isUp"
                 name="ri-thumb-up-fill"
@@ -72,7 +88,7 @@
             </label>
             <label
               class="feedback-click"
-              @click="sendFeedback(false, $event)"
+              @click="sendFeedback(false)"
             >
               <VIcon 
                 v-if="isDown"
@@ -89,7 +105,7 @@
         </div>
       </div>
       <div
-        v-if="isClickOnThumb"
+        v-if="isFeedbackDone"
         class="snackbar"
       >
         <SnackbarAlert class="text-center" />
@@ -98,10 +114,10 @@
         v-else
         class="blank"
       />
-      <div class="footer-background footer-actions">
+      <div class="footer-background  footer-actions">
         <div
           class="action-group"
-          @click="reloadPage"
+          @click="resetSearch()"
         >
           <span
             class="fr-fi-refresh-line"
@@ -120,9 +136,14 @@
 </template>
 
 <script>
-    import { store } from '@/store/store.js'
+    import store from '../store.js'
     import axios from 'axios';
     import SnackbarAlert from '@/components/SnackbarAlert.vue';
+    import { results } from '@/utils/result-utils';
+
+    import { useSnackbarStore } from '@/stores/snackbar.js'
+
+    const { setMessage } = useSnackbarStore() 
 
     export default {
       name: 'ResultComponent',
@@ -136,61 +157,10 @@
           isDisplayHeader:store.isDisplayHeader=false,
           isUp: undefined,
           isDown:undefined,
-          isClickOnThumb:undefined,
-          results: {
-              revolver: {
-                  displayLabel: "revolver",
-                  category: "B ou D",
-                  mention: "B - Soumise à autorisation<br \>D - Libre d'acquisition et de détention",
-              },
-              pistolet_semi_auto_moderne: {
-                  displayLabel: "pistolet semi-automatique moderne",
-                  category: "B",
-                  mention: "Soumise à autorisation",
-              },
-              pistolet_a_percussion_silex: {
-                  displayLabel: "pistolet à mécanisme ancien",
-                  category: "D",
-                  mention: "Libre d'acquisition et de détention",
-              },
-              autre_pistolet: {
-                  displayLabel: "pistolet divers",
-                  category: "A, B ou D",
-                  mention: "A - Interdite<br \>B - Soumise à autorisation<br \>D - Libre d'acquisition et de détention",
-              },
-              epaule_a_percussion_silex: {
-                  displayLabel: "arme d'épaule à mécanisme ancien",
-                  category: "D",
-                  mention: "Libre d'acquisition et de détention",
-              },
-              epaule_a_un_coup: {
-                  displayLabel: "arme d'épaule à un coup par canon",
-                  category: "C",
-                  mention: "Soumise à déclaration",
-              },
-              epaule_a_levier_sous_garde: {
-                  displayLabel: "arme d'épaule à levier de sous-garde",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              epaule_a_verrou: {
-                  displayLabel: "arme d'épaule à verrou",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              epaule_a_pompe: {
-                  displayLabel: "arme d'épaule à pompe",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              autre_epaule: {
-                  displayLabel: "arme d'épaule non manuelle",
-                  category: "A, B ou C",
-                  mention: "A - Interdite<br \>B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-            },
-          }
-        },
+          isFeedbackDone:undefined,
+          results: results,
+        }
+      },
       computed: {
           cleanLabel() {
               return this.results[`${store.label}`].displayLabel
@@ -204,35 +174,40 @@
       },
         
         methods: {
-            reloadPage() {
+
+            resetSearch() {
+              // TODO: Réinitialiser les données de la recherche
               window.location.replace('/accueil');
             },
 
 
-            sendFeedback(bool) {
-                const json = {
-                    "image_url": store.imgUrl,
-                    "feedback": bool,
-                    "confidence": store.confidence,
-                    "label": store.label,
-                    "confidence_level": store.confidenceLevel,
-                } 
-                this.isClickOnThumb= true
-              if (bool === true) {
-                  this.isUp=true
-                }
-                if (bool === false) {
-                  this.isDown=true
-                }
-                axios.post('/feedback', json)
-                    .then(async res => {
-                        console.log(res)
-                        await this.$store.dispatch('setMessage', { type: 'success', message: 'Votre vote a été pris en compte' })
-                    })
-                    .catch(async (err) => {
-                        console.log(err);
-                        await this.$store.dispatch('setMessage', { type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
-                    });
+            storeState() {
+              this.$router.push({name:'SafetyRecommendation'}).catch(() => {})
+            },
+
+            sendFeedback(isCorrect) {
+              const json = {
+                  "image_url": store.imgUrl,
+                  "feedback": isCorrect,
+                  "confidence": store.confidence,
+                  "label": store.label,
+                  "confidence_level": store.confidenceLevel,
+              } 
+              this.isFeedbackDone= true
+              if (isCorrect) {
+                this.isUp = true
+              } else {
+                this.isDown = true
+              }
+              axios.post('/feedback', json)
+                  .then(async res => {
+                      console.log(res)
+                      setMessage({type: 'success', message: 'Votre vote a été pris en compte'})
+                  })
+                  .catch(async (err) => {
+                      console.log(err);
+                      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.'})
+                  });
             },
         },
       }

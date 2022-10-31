@@ -1,15 +1,22 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import Home from '../views/Home.vue'
-import Start from '../views/Start.vue'
-import Instructions from '../views/Instructions.vue'
-import Informations from '../views/Informations.vue'
-import Result from '../views/Result.vue'
-import Error from '../views/Error.vue'
-import PageNotFound from '../views/PageNotFound.vue'
-import About from '../views/About.vue'
-import Legal from '../views/Legal.vue'
-import Contact from '../views/Contact.vue'
-import DetectingWeapon from '@/views/DetectingWeapon.vue '
+
+const Home = () => import('../views/Home.vue')
+const Start = () => import('../views/Start.vue')
+const Informations = () => import('../views/Informations.vue')
+const Instructions = () => import('../views/Instructions.vue')
+const Results = () => import( '../views/Results.vue')
+const Error = () => import('../views/Error.vue')
+const PageNotFound = () => import('../views/PageNotFound.vue')
+const About = () => import('../views/About.vue')
+const Legal = () => import('../views/Legal.vue')
+const Contact = () => import('../views/Contact.vue')
+
+const GuideFactice = () => import('@/views/GuideFactice.vue')
+const SafetyRecommendation = () => import('@/views/GuideFactice/SafetyRecommendation.vue')
+const WeaponType = () => import('@/views/GuideFactice/WeaponType.vue')
+const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
+const AmmoType = () => import('@/views/GuideFactice/AmmoType.vue')
+const FinalResult = () => import('@/views/GuideFactice/FinalResult.vue')
 
 const routes = [
   {
@@ -26,6 +33,38 @@ const routes = [
     path: '/instructions',
     name: 'Instructions',
     component: Instructions,
+  },
+  {
+    path: '/guide-factice',
+    name: 'GuideFactice',
+    component: GuideFactice,
+    children: [
+      {
+        path: 'consignes-de-securite',
+        name: 'SafetyRecommendation',
+        component: SafetyRecommendation,
+      },
+      {
+        path: 'type-arme',
+        name: 'WeaponType',
+        component: WeaponType,
+      },
+      {
+        path: 'extract-mag',
+        name: 'ExtracMag',
+        component: ExtractMag,
+      },
+      {
+        path: 'ammo-type',
+        name: 'AmmoType',
+        component: AmmoType,
+      },
+      {
+        path: 'final-result',
+        name: 'FinalResult',
+        component: FinalResult,
+      },
+    ],
   },
   {
     path: '/informations',
