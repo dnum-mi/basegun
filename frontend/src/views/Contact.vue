@@ -20,7 +20,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import ContactTextContent from "@/views/text_content/ContactTextContent.vue";
 
 export default {

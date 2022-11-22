@@ -38,7 +38,7 @@
               ref="modalOrigin" 
               title="Menu"
               class="btn-open-modal"
-              icon-right="true"
+              :icon-right="true"
               @click="openModal()"
             >
               <VIcon
@@ -52,6 +52,7 @@
     </div>
     <DsfrModal
       ref="modal"
+      title=""
       class="fr-header__menu d-lg-none d-md-none"
       :opened="showModal"
       :origin="$refs.modalOrigin"

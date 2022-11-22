@@ -19,13 +19,6 @@
       @click="showInstruction"
     />
   </div>
-        
-  <div :class="!isMobile ? 'centered' : ''">
-    <InstructionsView
-      v-show="store.isInstruction"
-    />
-  </div>
-        
   <div
     v-show="!store.isInstruction"
     class="footer-background footer-text"
@@ -37,13 +30,18 @@
 <script>
 import { store } from '@/store/store.js';
 import UploadButton from '@/components/UploadButton.vue';
-import InstructionsView from '@/components/InstructionsView.vue'
 
 export default {
     name: 'UploadComponent',
     components: {
-UploadButton,
-InstructionsView,
+        UploadButton,
+    },
+
+beforeRouteLeave() {
+  store.uploadMessage = null 
+  store.instructionsRead = null
+  store.isInstruction = null
+  store.isDisplayHeader = true
 },
 
 data() {
@@ -51,15 +49,10 @@ data() {
         store,
     }
 },
-computed: {
-          isMobile() {
-            return screen.width <= 760 
-          },
-        },
+
 methods: {
-  showInstruction () {
-    store.isDisplay = true
-    store.isInstruction = true            
+    showInstruction () {
+      this.$router.push({name: 'Instructions'}).catch(() => {})          
     },
   },
 }

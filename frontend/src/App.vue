@@ -17,7 +17,7 @@ const updateSW = registerSW({
 
 <template>
   <div id="app">
-    <HeaderMain v-show="store.isDisplay" />
+    <HeaderMain v-show="store.isDisplayHeader" />
     <DsfrCallout
       v-show="needRefresh"
       class="col-lg-6 mx-auto"

@@ -1,24 +1,5 @@
 <template>
   <div
-    v-if="store.instructionsRead"
-    class="text-center centered"
-  >
-    <img
-      src="../assets/basegun.png"
-      alt=""
-    >
-    <h1 class="accueil-title">
-      Basegun <label class="fr-tag fr-tag--sm">beta</label>
-    </h1>
-    <p class="accueil-subtitle">
-      Identification automatique des armes à feu
-    </p>
-    <div class="text-center">
-      <p>{{ store.uploadMessage }}</p>
-    </div>
-  </div>
-  <div
-    v-else
     class="container-alert  col-lg-6  col-xs-9  mx-auto"
   >
     <div class="fr-alert fr-alert--info">
@@ -53,46 +34,54 @@
         </p>
       </div>
     </div>
-    <div class="btn-read-instruction text-center">
+    <div 
+      v-if="!store.uploadMessage" 
+      class="btn-read-instruction text-center"
+    >
+      <UploadButton />
       <DsfrButton
         label="prendre la photo"
         icon="ri-camera-fill"
         @click="readInstruction"
       />
     </div>
+    <div 
+      v-else 
+      class="text-center"
+    >
+      <p>{{ store.uploadMessage }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-    import { store } from '@/store/store.js';
+import { store } from '@/store/store.js';
+import UploadButton from '@/components/UploadButton.vue';
 
-    export default {
-        name: 'InstructionsView',
-        components: {
-
-        },
-        data() {
-            return {
-                store,
-                instructions: [
-                "1 - Présenter le<b>&nbsp;canon vers la droite</b><br>",
-                "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-                "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-                ],
-            }
-        },
-        methods: {
-          readInstruction () {
-            store.instructionsRead = true
-            const demarrer = document.getElementById('demarrer')
-            demarrer.firstChild.click()
-            this.redirectToResults()
-          },
-          redirectToResults() {
-            this.$router.push({ name: 'Results' }).catch(() => {})
-          },
+export default {
+    name: 'InstructionsComponent',
+    components : {
+      UploadButton,
     },
-  }
+    data() {
+        return {
+            store,
+            instructions: [
+            "1 - Présenter le<b>&nbsp;canon vers la droite</b><br>",
+            "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+            "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
+            ],
+        }
+    },
+
+    methods: {
+      readInstruction () {
+        store.instructionsRead = true
+        const demarrer = document.getElementById('demarrer')
+        demarrer.firstChild.click()
+      },
+  },
+}
 </script>
 
 <style scoped>

@@ -1,26 +1,34 @@
 <template>
   <div>
     <ResultsComponent v-if="store.img" />
-    <UploadComponent v-else />
+    <Instructions v-else />
   </div>
 </template>
   
   <script>
-  // @ is an alias to /src
   import { store } from '@/store/store.js'
   import ResultsComponent from '@/components/ResultsComponent.vue';
-  import UploadComponent from '@/components/UploadComponent.vue';
+  import Instructions from '@/views/Instructions.vue';
 
   export default {
     name: 'ResultsPage',
     components: {
-      ResultsComponent,
-      UploadComponent,   
+    ResultsComponent,
+    Instructions,
+  },
+
+    beforeRouteLeave(){
+        store.uploadMessage = null 
+        store.instructionsRead = null
+        store.isInstruction = null
+        store.isDisplayHeader = true
     },
+
     data() {
       return {
         store,
       }
     },
+    
   }
   </script>

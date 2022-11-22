@@ -6,7 +6,7 @@
         :style="{backgroundImage:`url(${store.img})`}"
       />
       <div class="fr-callout custom-callout">
-        <div v-if="store.confidence_level == 'low'">
+        <div v-if="store.confidenceLevel == 'low'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm error-tag">
               Indice de fiabilité insuffisant
@@ -15,7 +15,7 @@
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
-          <div v-if="store.confidence_level == 'high'">
+          <div v-if="store.confidenceLevel == 'high'">
             <div class="callout-head">
               <p class="fr-tag fr-tag--sm success-tag">
                 Indice de fiabilité : {{ Math.floor(store.confidence) }}%
@@ -42,7 +42,7 @@
           />
         </div>
       </div>
-      <div v-if="store.confidence_level != 'low'">
+      <div v-if="store.confidenceLevel != 'low'">
         <p class="fr-text--sm warning-msg">
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
@@ -129,10 +129,11 @@
       components: {
         SnackbarAlert,
       },
+
       data() {
         return {
           store,
-          isDisplay:store.isDisplay=false,
+          isDisplayHeader:store.isDisplayHeader=false,
           isUp: undefined,
           isDown:undefined,
           isClickOnThumb:undefined,
@@ -207,9 +208,6 @@
               window.location.replace('/accueil');
             },
 
-            redirectToStart() {
-              this.$router.push({ name: 'Start' }).catch(() => {})
-            },
 
             sendFeedback(bool) {
                 const json = {
@@ -217,7 +215,7 @@
                     "feedback": bool,
                     "confidence": store.confidence,
                     "label": store.label,
-                    "confidence_level": store.confidence_level,
+                    "confidence_level": store.confidenceLevel,
                 } 
                 this.isClickOnThumb= true
               if (bool === true) {
@@ -237,7 +235,7 @@
                     });
             },
         },
-    }
+      }
 </script>
 
 <style scoped>

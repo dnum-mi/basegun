@@ -20,7 +20,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import LegalTextContent from "@/views/text_content/LegalTextContent.vue";
 
 export default {

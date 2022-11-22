@@ -20,9 +20,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
 
+import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
 
 export default {
   name: 'AboutPage',

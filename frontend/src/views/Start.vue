@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { store } from '@/store/store.js'
 import UploadComponent from '@/components/UploadComponent.vue';
 
@@ -14,6 +13,14 @@ export default {
   components: {
     UploadComponent,
   },
+
+  beforeRouteLeave() {
+    store.uploadMessage = null 
+    store.instructionsRead = null
+    store.isInstruction = null
+    store.isDisplayHeader = true
+  },
+
   data() {
     return {
       store,
