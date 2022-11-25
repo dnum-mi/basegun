@@ -1,13 +1,15 @@
 import { reactive } from 'vue'
 
 export const store = reactive({
-    label: null,
     confidence: null,
-    confidence_level: null,
+    confidenceLevel: null,
+    isDisplayHeader:true,
+    geolocation: null,
     img: null,
     imgUrl: null,
+    instructionsRead: false,
+    isInstruction:false,
+    label: null,
     resultText: null,
     uploadMessage: null,
-    geolocation: null,
-    instructionsRead: false
 })

@@ -1,6 +1,8 @@
 .DS_Store
+.vscode
 node_modules/
 dist/
+dev-dist/
 env/
 .env
 __pycache__

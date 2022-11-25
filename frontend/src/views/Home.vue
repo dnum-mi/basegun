@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import OnboardingSwiper from '@/components/OnboardingSwiper.vue';
 
 export default {
