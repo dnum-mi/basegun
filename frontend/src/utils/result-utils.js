@@ -62,25 +62,26 @@ export const GuideFactice= [{
 }]
 
 // const WEAPON_TYPE = 'WEAPON_TYPE' // Type d’armes : pistolet semi-automatique, autre pistolet, épaule à verrou, autre épaule
-const SAFETY_RECOMMENDATION = 'SAFETY_RECOMMENDATION' // Ne pas pointer l’arme vers quelqu’un
-const WEAPON_TYPE = 'WEAPON_TYPE' // Levier ou bouton
-const EXTRACT_MAG = 'EXTRACT_MAG' // Extraire le chargeur
-const AMMO_TYPE = 'AMMO_TYPE' // Type de munitions : billes ou cartouches
-const FINAL_RESULT = 'FINAL_RESULT' // Résultat
 
-export const stepNames = {
-  [SAFETY_RECOMMENDATION]: '',
-  [WEAPON_TYPE]: '',
-  [EXTRACT_MAG]: '',
-  [AMMO_TYPE]: '',
-  [FINAL_RESULT]: '',
-}
+const firearmDirection = 'FirearmDirection,'
+const selectOption = 'SelectOption,'
+const extractMag = 'ExtractMag,'
+const ammoType = ' AmmoType,'
 
-export const semiAutoSteps = [
-  SAFETY_RECOMMENDATION,
-  WEAPON_TYPE,
-  EXTRACT_MAG,
-  AMMO_TYPE,
+
+export const guideSteps = [
+    firearmDirection,
+    selectOption,
+    extractMag,
+    ammoType,
+]
+
+export const routePath = [
+    'consigne-arme',
+    'option-arme',
+    'extract-mag',
+    'munition',
+
 ]
 
 

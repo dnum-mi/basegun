@@ -17,7 +17,7 @@
       Veiller à la préservation des traces et indices éventuels lors des manipulations."
     />
 
-    <RouterLink
+    <!-- <RouterLink
       v-slot="{ href, navigate }"
       to="/guide-factice"
       custom
@@ -28,7 +28,7 @@
         label="Commencer"
         @click="navigate"
       />
-    </RouterLink>
+    </RouterLink> -->
 
     <RouterLink
       v-slot="{ href, navigate }"
@@ -43,5 +43,28 @@
         @click="navigate"
       />
     </RouterLink>
+    <RouterLink
+      v-slot="{ href }"
+      to="/consignes-arme"
+      custom
+    >
+      <DsfrButton
+        :href="href"
+        class="m-1  flex justify-content-center"
+        label="Commencer"
+        @click="$event => { storeState()}"
+      />
+    </RouterLink>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+
+storeState() {
+  this.$router.push({name:'FirearmDirection'}).catch(() => {})
+},
+},
+}
+</script>

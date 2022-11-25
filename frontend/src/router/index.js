@@ -12,11 +12,11 @@ const Legal = () => import('../views/Legal.vue')
 const Contact = () => import('../views/Contact.vue')
 
 const GuideFactice = () => import('@/views/GuideFactice.vue')
-const SafetyRecommendation = () => import('@/views/GuideFactice/SafetyRecommendation.vue')
+const FirearmDirection = () => import ('@/views/GuideFactice/FirearmDirection.vue')
+const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
 const WeaponType = () => import('@/views/GuideFactice/WeaponType.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const AmmoType = () => import('@/views/GuideFactice/AmmoType.vue')
-const FinalResult = () => import('@/views/GuideFactice/FinalResult.vue')
 
 const routes = [
   {
@@ -35,18 +35,23 @@ const routes = [
     component: Instructions,
   },
   {
+    path: '/consignes-de-securite',
+    name: 'SafetyRecommendation',
+    component: SafetyRecommendation,
+  },
+  {
     path: '/guide-factice',
     name: 'GuideFactice',
     component: GuideFactice,
     children: [
       {
-        path: 'consignes-de-securite',
-        name: 'SafetyRecommendation',
-        component: SafetyRecommendation,
+        path:'consignes-arme',
+        name:'FirearmDirection',
+        component:FirearmDirection,
       },
       {
-        path: 'type-arme',
-        name: 'WeaponType',
+        path: 'option-arme',
+        name: 'WeaponType', //renommer SelectOption
         component: WeaponType,
       },
       {
@@ -55,14 +60,9 @@ const routes = [
         component: ExtractMag,
       },
       {
-        path: 'ammo-type',
+        path: 'munition',
         name: 'AmmoType',
         component: AmmoType,
-      },
-      {
-        path: 'final-result',
-        name: 'FinalResult',
-        component: FinalResult,
       },
     ],
   },

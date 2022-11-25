@@ -45,15 +45,15 @@
             />
 
             <RouterLink
-              v-slot="{ href, navigate }"
+              v-slot="{ href }"
               to="/consignes-de-securite"
               custom
             >
               <DsfrButton
                 :href="href"
                 class="m-1  flex justify-content-center"
-                label="Verifier si l'arme est factice"
-                @click="$event => { storeState(); navigate($event)}"
+                label="Vérifier si l'arme est factice"
+                @click="$event => { storeState()}"
               />
             </RouterLink>
           </div>
@@ -175,15 +175,18 @@
         
         methods: {
 
+
+          storeState() {
+              this.$router.push({name:'SafetyRecommendation'}).catch(() => {})
+            },
+
             resetSearch() {
               // TODO: Réinitialiser les données de la recherche
               window.location.replace('/accueil');
             },
 
 
-            storeState() {
-              this.$router.push({name:'SafetyRecommendation'}).catch(() => {})
-            },
+        
 
             sendFeedback(isCorrect) {
               const json = {

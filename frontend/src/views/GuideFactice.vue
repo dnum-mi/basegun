@@ -2,18 +2,21 @@
 import { ref } from 'vue'
 // import InfoAndSecurity from './Guide-Factice/InfoAndSecurity.vue'
 import StepsGuide from '../views/GuideFactice/StepsGuide.vue'
-import { semiAutoSteps, stepNames } from '@/utils/result-utils';
+import { routePath } from '@/utils/result-utils';
 
 
 
 // const showWarning = ref(false)
 
+
 const currentStep = ref(1)
-const steps = semiAutoSteps.map(name => stepNames[name])
+//const steps = guideSteps.map(name => stepNames[name])
+const steps = ["", "", "", ""]
 
 const goToPreviousStep = () => (currentStep.value = currentStep.value > 1 ? currentStep.value - 1 : 1)
 
-const goToNextStep = () => (currentStep.value = currentStep.value < steps.length ? currentStep.value + 1 : steps.length)
+const goToNextStep = () => (currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length)
+
 const validate = () => {/* TODO: valider le résultat */}
 </script>
 
@@ -31,52 +34,33 @@ const validate = () => {/* TODO: valider le résultat */}
     <div
       class=" bg-transparent fixed-bottom"
     >
-      <div class="wrapper-btn">
-        <DsfrButton
-          class="m-1  flex justify-content-center"
-          label="Reprendre une photo"
-        />
-        <DsfrButton
-          class="m-1  flex justify-content-center"
-          label="Commencer"
-        />
-        <DsfrButton
-          class="m-1  flex justify-content-center"
-          label="Refaire le tutoriel"
-          secondary
-        />
-
-        <DsfrButton
-          class="m-1  flex justify-content-center"
-          label="Précédent"
-          :disabled="currentStep === 1"
-          @click="goToPreviousStep()"
-        />
+      <DsfrButton
+        class="m-1  flex justify-content-center"
+        label="Précédent"
+        :disabled="currentStep === 1"
+        @click="goToPreviousStep()"
+      />
+      
+      <RouterLink
+        v-slot="{ href }"
+        :to="routePath[currentStep + 1]"
+        custom
+      >
         <DsfrButton
           v-show="currentStep < steps.length"
+          :href="href"
           class="m-1  flex justify-content-center"
           label="Suivant"
-          @click="goToNextStep()"
+          @click="goToNextStep(); test()"
         />
-        <DsfrButton
-          v-show="currentStep >= steps.length"
-          class="m-1  flex justify-content-center"
-          label="Valider"
-          @click="validate()"
-        />
-
-        <DsfrButton
-          class="m-1  flex  justify-content-center"
-          label="Retourner au résultat"
-          secondary
-        />
-        <DsfrButton
-          class="m-1  flex  justify-content-center"
-          label="Retourner à l'étape précédente"
-          secondary
-        />
-      </div>
-    </div> 
+      </RouterLink>
+      <DsfrButton
+        v-show="currentStep >= steps.length"
+        class="m-1  flex justify-content-center"
+        label="Valider"
+        @click="validate()"
+      />
+    </div>
   </div>
 </template>
 
