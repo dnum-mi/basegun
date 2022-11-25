@@ -136,7 +136,7 @@
 </template>
 
 <script>
-    import store from '../store.js'
+    import { store } from '@/store.js'
     import axios from 'axios';
     import SnackbarAlert from '@/components/SnackbarAlert.vue';
     import { results } from '@/utils/result-utils';
@@ -159,7 +159,7 @@
           isDown:undefined,
           isFeedbackDone:undefined,
           results: results,
-        }
+        } 
       },
       computed: {
           cleanLabel() {

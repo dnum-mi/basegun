@@ -1,5 +1,7 @@
 import { reactive } from 'vue'
 
+
+//Attention ceci n'est pas un store simplement un fonction reactive de vue
 export const store = reactive({
   confidence: null,
   confidenceLevel: null,
