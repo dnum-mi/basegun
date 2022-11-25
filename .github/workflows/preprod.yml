@@ -9,9 +9,7 @@ jobs:
       run: make CONTINUE=y build-prod
     - name: Test running the docker containers
       run: |
-        make up-prod
-        ./infra/scripts/test-alive.sh localhost
-        make down-prod
+        ./infra/scripts/test-alive.sh localhost:8080
     - name: Login to GHCR
       if: success()
       uses: docker/login-action@v1
