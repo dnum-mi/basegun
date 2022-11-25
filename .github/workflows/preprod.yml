@@ -9,7 +9,7 @@ jobs:
       run: make CONTINUE=y build-prod
     - name: Test running the docker containers
       run: |
-        WORKSPACE=prod make up-prod
+        make up-prod
         ./infra/scripts/test-alive.sh localhost
         make down-prod
     - name: Login to GHCR
