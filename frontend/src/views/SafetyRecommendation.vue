@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="centerd m-5">
     <h2>
       Vérifier si une arme est factice
     </h2>
@@ -61,10 +61,9 @@
 <script>
 export default {
   methods: {
-
-storeState() {
-  this.$router.push({name:'FirearmDirection'}).catch(() => {})
-},
+    storeState() {
+      this.$router.push({name:'FirearmDirection'}).catch(() => {})
+  },
 },
 }
 </script>

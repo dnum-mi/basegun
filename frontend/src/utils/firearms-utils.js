@@ -63,10 +63,10 @@ export const GuideFactice= [{
 
 // const WEAPON_TYPE = 'WEAPON_TYPE' // Type d’armes : pistolet semi-automatique, autre pistolet, épaule à verrou, autre épaule
 
-const firearmDirection = 'FirearmDirection,'
-const selectOption = 'SelectOption,'
-const extractMag = 'ExtractMag,'
-const ammoType = ' AmmoType,'
+const firearmDirection = 'FirearmDirection'
+const selectOption = 'SelectOption'
+const extractMag = 'ExtractMag'
+const ammoType = 'AmmoType'
 
 
 export const guideSteps = [
@@ -80,7 +80,7 @@ export const routePath = [
     'consigne-arme',
     'option-arme',
     'extract-mag',
-    'munition',
+    'munition-type',
 
 ]
 

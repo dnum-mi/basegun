@@ -13,7 +13,7 @@
     <p>Basegun est un projet récent, actuellement en phase de test auprès de potentiels utilisateurs. En collectant les données citées ci-dessous, nous pourrons mieux comprendre comment et dans quels contextes le service est utilisé, et avoir les informations nécessaires pour résoudre d’éventuels problèmes.</p>
     <h6>Cadre</h6>
     <p>Nous collectons uniquement les informations relatives à des requêtes pertinentes et correspondant à l’objectif de Basegun: identifier des armes à feu. C’est pourquoi nous demandons à nos utilisateurs de ne soumettre que des requêtes en lien avec cet objectif et de respecter les conditions de l’application.</p>
-    <p>Nous ne souhaitons en aucun cas traiter des informations personnelles (par exemplen aucune photo où le visage d'une personne est visible ne doit être déposée sur l'application).</p>
+    <p>Nous ne souhaitons en aucun cas traiter des informations personnelles (par exemple aucune photo où le visage d'une personne est visible ne doit être déposée sur l'application).</p>
     <h6>Liste des données</h6>
     <p>Pour chaque requête effectuée sur basegun.fr, nous collectons les données suivantes :</p>
     <ul class="list-margin">
@@ -49,7 +49,7 @@
 
 <script>
     export default {
-        name: "LegalTextContent",
+        name: "LegalInformationTabs",
     };
 </script>
 

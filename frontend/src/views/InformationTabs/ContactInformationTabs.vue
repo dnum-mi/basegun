@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: "ContactTextContent",
+        name: "ContactInformationTabs",
     };
 </script>
 

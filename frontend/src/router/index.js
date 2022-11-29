@@ -14,7 +14,7 @@ const Contact = () => import('../views/Contact.vue')
 const GuideFactice = () => import('@/views/GuideFactice.vue')
 const FirearmDirection = () => import ('@/views/GuideFactice/FirearmDirection.vue')
 const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
-const WeaponType = () => import('@/views/GuideFactice/WeaponType.vue')
+const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const AmmoType = () => import('@/views/GuideFactice/AmmoType.vue')
 
@@ -47,20 +47,20 @@ const routes = [
       {
         path:'consignes-arme',
         name:'FirearmDirection',
-        component:FirearmDirection,
+        component: FirearmDirection,
       },
       {
         path: 'option-arme',
-        name: 'WeaponType', //renommer SelectOption
-        component: WeaponType,
+        name: 'SelectOption', //renommer SelectOption
+        component: SelectOption,
       },
       {
         path: 'extract-mag',
-        name: 'ExtracMag',
+        name: 'ExtractMag',
         component: ExtractMag,
       },
       {
-        path: 'munition',
+        path: 'munition-type',
         name: 'AmmoType',
         component: AmmoType,
       },

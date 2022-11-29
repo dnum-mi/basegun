@@ -55,7 +55,7 @@ import logoGendarmerie from'@/assets/logo_gendarmerie.png'
 
 
 export default {
-    name: "AboutTextContent",
+    name: "AboutInformationTabs",
 
     data () {
         return {

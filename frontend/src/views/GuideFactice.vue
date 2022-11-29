@@ -1,23 +1,33 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 // import InfoAndSecurity from './Guide-Factice/InfoAndSecurity.vue'
 import StepsGuide from '../views/GuideFactice/StepsGuide.vue'
-import { routePath } from '@/utils/result-utils';
+import { routePath, guideSteps } from '@/utils/firearms-utils';
 
-
+const router = useRouter()
 
 // const showWarning = ref(false)
-
-
 const currentStep = ref(1)
-//const steps = guideSteps.map(name => stepNames[name])
+// const steps = guideSteps.map(name => name)
 const steps = ["", "", "", ""]
 
-const goToPreviousStep = () => (currentStep.value = currentStep.value > 1 ? currentStep.value - 1 : 1)
+onMounted(() => {
 
-const goToNextStep = () => (currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length)
+})
 
-const validate = () => {/* TODO: valider le résultat */}
+const goToNewRoute = () => (
+  currentStep.value === 0 ? router.push({ name: 'SafetyRecommendation' }) : router.push({ name: `${guideSteps[currentStep.value - 1]}` })
+)
+const goToPreviousStep = () => (
+  currentStep.value = currentStep.value - 1
+)
+const goToNextStep = () => (
+  currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length
+)
+
+const validate = () => {/* TODO: valider le résultat */ }
+
 </script>
 
 <template>
@@ -37,26 +47,17 @@ const validate = () => {/* TODO: valider le résultat */}
       <DsfrButton
         class="m-1  flex justify-content-center"
         label="Précédent"
-        :disabled="currentStep === 1"
-        @click="goToPreviousStep()"
-      />
-      
-      <RouterLink
-        v-slot="{ href }"
-        :to="routePath[currentStep + 1]"
-        custom
-      >
-        <DsfrButton
-          v-show="currentStep < steps.length"
-          :href="href"
-          class="m-1  flex justify-content-center"
-          label="Suivant"
-          @click="goToNextStep(); test()"
+        @click="$event => { goToPreviousStep(); goToNewRoute() }"
         />
-      </RouterLink>
       <DsfrButton
-        v-show="currentStep >= steps.length"
-        class="m-1  flex justify-content-center"
+        v-show="currentStep < steps.length"
+        class="m-1 flex justify-content-center"
+        label="Suivant"
+        @click="$event => { goToNextStep(); goToNewRoute() }"
+      />
+      <DsfrButton
+        v-show="currentStep === steps.length"
+        class="m-1 flex justify-content-center"
         label="Valider"
         @click="validate()"
       />

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="centered  m-5">
     fireArm
   </div>
 </template>

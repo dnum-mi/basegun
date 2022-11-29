@@ -53,7 +53,7 @@
                 :href="href"
                 class="m-1  flex justify-content-center"
                 label="Vérifier si l'arme est factice"
-                @click="$event => { storeState()}"
+                @click="$event => {storeState()}"
               />
             </RouterLink>
           </div>
@@ -139,7 +139,7 @@
     import { store } from '@/store.js'
     import axios from 'axios';
     import SnackbarAlert from '@/components/SnackbarAlert.vue';
-    import { results } from '@/utils/result-utils';
+    import { results } from '@/utils/firearms-utils';
 
     import { useSnackbarStore } from '@/stores/snackbar.js'
 

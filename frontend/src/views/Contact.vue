@@ -14,19 +14,19 @@
           Contact
         </p>
       </div>
-      <ContactTextContent />
+      <ContactInformationTabs />
     </div>
   </div>
 </template>
 
 <script>
 
-import ContactTextContent from "@/views/text_content/ContactTextContent.vue";
+import ContactInformationTabs from "@/views/InformationTabs/ContactInformationTabs.vue";
 
 export default {
   name: 'ContactPage',
   components: {
-    ContactTextContent,
+    ContactInformationTabs,
   },
 }
 </script>

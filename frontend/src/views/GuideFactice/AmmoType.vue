@@ -1,9 +1,5 @@
 <template>
   <div class="centered  m-5">
-    ExtractMag
+    Ammo Type
   </div>
 </template>
-
-<script>
-
-</script>

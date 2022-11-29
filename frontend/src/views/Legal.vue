@@ -14,19 +14,19 @@
           Mentions légales
         </p>
       </div>
-      <LegalTextContent />
+      <LegalInformationTabs />
     </div>
   </div>
 </template>
 
 <script>
 
-import LegalTextContent from "@/views/text_content/LegalTextContent.vue";
+import LegalInformationTabs from "@/views/InformationTabs/LegalInformationTabs.vue";
 
 export default {
   name: 'LegalPage',
   components: {
-    LegalTextContent,
+    LegalInformationTabs,
   },
 }
 </script>
