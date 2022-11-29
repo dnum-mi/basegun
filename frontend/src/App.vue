@@ -17,13 +17,16 @@ const updateSW = registerSW({
 </script>
 
 <template>
-  <div id="app">
-    <HeaderMain v-show="store.isDisplayHeader" />
-    <DsfrCallout
-      v-show="needRefresh"
-      class="col-lg-6 mx-auto"
-      content=""
-      title="Une mise à jour est disponible"
+  <HeaderMain v-show="store.isDisplayHeader" />
+  <DsfrCallout
+    v-show="needRefresh"
+    class="col-lg-6  mx-auto"
+    content=""
+    title="Une mise à jour est disponible"
+  >
+    <DsfrButton
+      secondary
+      @click="updateSW()"
     >
       <DsfrButton
         secondary
@@ -31,9 +34,9 @@ const updateSW = registerSW({
       >
         Mettre à jour
       </DsfrButton>
-    </DsfrCallout>
-    <router-view />
-  </div>
+    </dsfrbutton>
+  </DsfrCallout>
+  <router-view />
 </template>
 
 <style scoped>

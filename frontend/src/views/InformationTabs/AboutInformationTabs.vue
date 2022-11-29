@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-container">
     <p class="title-space">
       Basegun est un projet d'application par apprentissage automatique capable 
       d'identifier et de classifier de manière fiable et rapide une arme à feu.

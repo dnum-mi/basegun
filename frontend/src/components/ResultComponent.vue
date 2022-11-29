@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="fr-container">
     <div class="result col-11 col-lg-6">
       <div
         class="result-image"
         :style="{backgroundImage:`url(${store.img})`}"
       />
       <div class="fr-callout custom-callout">
-        <div v-if="store.confidenceLevel == 'low'">
+        <div v-if="store.confidenceLevel === 'low'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm error-tag">
               Indice de fiabilité insuffisant
@@ -15,7 +15,7 @@
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
-          <div v-if="store.confidenceLevel == 'high'">
+          <div v-if="store.confidenceLevel === 'high'">
             <div class="callout-head">
               <p class="fr-tag fr-tag--sm success-tag">
                 Indice de fiabilité : {{ Math.floor(store.confidence) }}%
@@ -32,34 +32,29 @@
           </div>
           <p class="fr-callout__title">
             Catégorie {{ cleanCategory }}
-          </p>
-          <p class="fr-callout__text">
-            Type d'arme : {{ cleanLabel }}
-          </p>
-          
+          </p>          
           <div
             class="callout-mention"
           >
             <p
               v-html="cleanMention"
             />
-
-            <RouterLink
-              v-slot="{ href }"
-              to="/consignes-de-securite"
-              custom
-            >
-              <DsfrButton
-                :href="href"
-                class="m-1  flex justify-content-center"
-                label="Vérifier si l'arme est factice"
-                @click="$event => {storeState()}"
-              />
-            </RouterLink>
           </div>
+          <div v-if="store.isFactice" class="mt-3">
+            <p>Sauf si l'arme est factice:</p>
+            <p class="fr-callout__title">Non Classé</p>
+            <DsfrButton
+              class="mb-3 mb-5 flex justify-content-center"
+              label="Vérifier si l'arme est factice"
+              @click="$event => {goToTutorial()}"
+            />
+          </div>
+          <p class="fr-callout__text">
+            Type d'arme : {{ cleanLabel }}
+          </p>
         </div>
       </div>
-      <div v-if="store.confidenceLevel != 'low'">
+      <div v-if="store.confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
@@ -174,16 +169,14 @@
       },
         
         methods: {
-
-
-          storeState() {
+          goToTutorial() {
               this.$router.push({name:'SafetyRecommendation'}).catch(() => {})
             },
 
-            resetSearch() {
-              // TODO: Réinitialiser les données de la recherche
-              window.location.replace('/accueil');
-            },
+          resetSearch() {
+            // TODO: Réinitialiser les données de la recherche
+            window.location.replace('/accueil');
+          },
 
 
         

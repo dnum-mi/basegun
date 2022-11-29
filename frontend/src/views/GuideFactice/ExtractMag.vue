@@ -1,5 +1,5 @@
 <template>
-  <div class="centered  m-5">
+  <div>
     ExtractMag
   </div>
 </template>

@@ -104,55 +104,52 @@ export default {
 }
 </script>
 
-<style scoped>
-  .swiper {
-    width: 100%;
-    height: 100%;
-    position: static;
-  }
+<style>
 
-  .swiper-slide {
-    background: #fff;
-  }
+.swiper {
+  width: 100%;
+  height: 100%;
+  position: static;
+}
 
-  .swiper-slide-number {
-    color: gray;
-    margin-top: 4.5em;
-    display: flex;
-    justify-content: center;
-  }
+.swiper-slide {
+  background: #fff;
+}
 
-  .swiper-slide-number-2 {
-    color: gray;
-    margin-top: 1em;
-    display: flex;
-    justify-content: center;
-  }
+.swiper-slide-number {
+  color: gray;
+  margin-top: 4.5em;
+  display: flex;
+  justify-content: center;
+}
 
-  .swiper-logo {
-    display: block;
-    margin: 0 auto;
-  }
+.swiper-slide-number-2 {
+  color: gray;
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
 
-  .swiper-content {
-    width: 75%;
-    margin: 0 auto;
-    text-align: center;
-  }
+.swiper-logo {
+  display: block;
+  margin: 0 auto;
+}
 
-  .swiper-ul {
-    list-style-position: inside;
-    text-indent: -1em;
-    padding-left: 1em;
-    display: inline-block;
-    text-align: left;
-    max-width: 700px;
-    margin-bottom: 12px !important;
-  }
+.swiper-content {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .swiper-li {
-    margin-bottom: 4px;
-  }
+.swiper-ul {
+  list-style-position: inside;
+  text-indent: -1em;
+  padding-left: 1em;
+  display: inline-block;
+  text-align: left;
+  max-width: 700px;
+  margin-bottom: 12px !important;
+}
 
   :deep(.swiper-button-prev) {
     color: #000091 !important;
@@ -172,19 +169,23 @@ export default {
     display: none;
   }
 
-  .swiper-red-highlight {
-    font-weight: bold;
-    color: #f00;
-  }
+.swiper-button-disabled {
+  display: none;
+}
 
-  .swiper-green-highlight {
-    font-weight: bold;
-    color: #00c7c8;
-  }
+.swiper-red-highlight {
+  font-weight: bold;
+  color: #f00;
+}
 
-  #position-button {
-    display: block;
-    margin: 0 auto;
-  }
+.swiper-green-highlight {
+  font-weight: bold;
+  color: #00c7c8;
+}
+
+#position-button {
+  display: block;
+  margin: 0 auto;
+}
 
 </style>

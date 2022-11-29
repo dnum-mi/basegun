@@ -11,7 +11,7 @@ const About = () => import('../views/About.vue')
 const Legal = () => import('../views/Legal.vue')
 const Contact = () => import('../views/Contact.vue')
 
-const GuideFactice = () => import('@/views/GuideFactice.vue')
+const GuideFactice = () => import('@/views/GuideFactice/GuideFactice.vue')
 const FirearmDirection = () => import ('@/views/GuideFactice/FirearmDirection.vue')
 const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
 const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')

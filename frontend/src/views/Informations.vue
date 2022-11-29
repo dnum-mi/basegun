@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-container">
     <div class="content">
       <DsfrTabs
         tab-list-name="liste d'onglets"

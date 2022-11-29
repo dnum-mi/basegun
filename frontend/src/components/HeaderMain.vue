@@ -121,8 +121,9 @@ export default {
 
 <style scoped>
 
-header {
-    -webkit-box-shadow: none;
+header.fr-header {
+  -webkit-box-shadow: none;
+  -webkit-filter: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
@@ -155,8 +156,8 @@ header {
 }
 
 :deep(.fr-header__navbar) {
-    padding: 0 !important;
-    margin-right: -10px;
+  padding: 0 !important;
+  margin-right: -10px;
 }
 
 :deep(.fr-modal__body) {

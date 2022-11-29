@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fr-container">
     <div class="flex justify-content-center">
       <!-- TODO Deplacer <resultComponent v-if"UploadImg"/> -->
       <!-- TODO Créer  un composant Info et consigne de sécurité v-if"SeeToTutorial"/> -->
@@ -46,9 +46,9 @@
   visibility: hidden;
 }
 
-.fr-container {
+/* .fr-container {
   box-shadow: -1px -2px 10px 0px rgba(0,0,0,0.75);
-}
+} */
 
 .wrapper-btn {
   margin: 0.8em;

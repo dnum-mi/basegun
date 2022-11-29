@@ -1,5 +1,5 @@
 <template>
-  <div class="centerd m-5">
+  <div class="fr-container">
     <h2>
       Vérifier si une arme est factice
     </h2>
