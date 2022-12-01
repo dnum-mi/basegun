@@ -1,21 +1,30 @@
 <template>
   <div>
-    <ResultsComponent v-if="store.img" />
-    <Instructions v-else />
+    <ResultComponent v-if="store.img" />
   </div>
 </template>
   
   <script>
   import { store } from '@/store/store.js'
-  import ResultsComponent from '@/components/ResultsComponent.vue';
+  import ResultComponent from '@/components/ResultComponent.vue';
   import Instructions from '@/views/Instructions.vue';
 
   export default {
-    name: 'ResultsPage',
+    name: 'ResultPage',
     components: {
-    ResultsComponent,
+    ResultComponent,
     Instructions,
   },
+
+    beforeRouteEnter (to, from, next) {
+      // redirect to start page if one goes to result route
+      // without having gone through the upload process
+      next(vm => {
+        if (store.img === null) {
+          vm.$router.push({ name: 'Start' }).catch(() => { })
+        }
+      })
+    },
 
     beforeRouteLeave(){
         store.uploadMessage = null 
