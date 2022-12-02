@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="centered">
     <StartComponent />
   </div>
 </template>
 
 <script>
 import { store } from '@/store/store.js'
-import StartComponent from '@/components/StartComponent.vue';
+import StartComponent from '@/components/StartComponent.vue'
 
 export default {
   name: 'StartPage',
@@ -14,14 +14,14 @@ export default {
     StartComponent,
   },
 
-  beforeRouteLeave() {
-    store.uploadMessage = null 
+  beforeRouteLeave () {
+    store.uploadMessage = null
     store.instructionsRead = null
     store.isInstruction = null
     store.isDisplayHeader = true
   },
 
-  data() {
+  data () {
     return {
       store,
     }

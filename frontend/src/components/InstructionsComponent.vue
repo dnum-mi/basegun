@@ -1,19 +1,19 @@
 <template>
   <div
-    class="container-alert  col-lg-6  col-xs-9  mx-auto"
+    class="info container-alert  col-lg-6  col-xs-9  mx-auto"
   >
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">
         Pour un résultat optimal
       </h3>
-      <span 
+      <span
         v-for="instruction in instructions"
         :key="instruction.id"
         class="m-auto-lg d-lg-flex flex-wrap"
         v-html="instruction"
       />
     </div>
-  
+
     <div class="container-img  d-lg-flex">
       <div>
         <img
@@ -34,8 +34,8 @@
         </p>
       </div>
     </div>
-    <div 
-      v-if="!store.uploadMessage" 
+    <div
+      v-if="!store.uploadMessage"
       class="btn-read-instruction text-center"
     >
       <UploadButton />
@@ -45,8 +45,8 @@
         @click="readInstruction"
       />
     </div>
-    <div 
-      v-else 
+    <div
+      v-else
       class="text-center"
     >
       <p>{{ store.uploadMessage }}</p>
@@ -55,37 +55,36 @@
 </template>
 
 <script>
-import { store } from '@/store/store.js';
-import UploadButton from '@/components/UploadButton.vue';
+import { store } from '@/store/store.js'
+import UploadButton from '@/components/UploadButton.vue'
 
 export default {
-    name: 'InstructionsComponent',
-    components : {
-      UploadButton,
-    },
-    data() {
-        return {
-            store,
-            instructions: [
-            "1 - Présenter le<b>&nbsp;canon vers la droite</b><br>",
-            "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-            "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-            ],
-        }
-    },
+  name: 'InstructionsComponent',
+  components: {
+    UploadButton,
+  },
+  data () {
+    return {
+      store,
+      instructions: [
+        '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
+        "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+        "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
+      ],
+    }
+  },
 
-    methods: {
-      readInstruction () {
-        store.instructionsRead = true
-        const demarrer = document.getElementById('demarrer')
-        demarrer.firstChild.click()
-      },
+  methods: {
+    readInstruction () {
+      store.instructionsRead = true
+      const demarrer = document.getElementById('demarrer')
+      demarrer.firstChild.click()
+    },
   },
 }
 </script>
 
 <style scoped>
-
 .fr-alert {
   margin-top: 9em;
 }
@@ -117,4 +116,5 @@ img {
 .bold-highlight {
   font-weight: bold;
 }
+
 </style>

@@ -45,7 +45,7 @@
               </li>
               <li class="swiper-li">
                 Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
-              </li>          
+              </li>
             </ul>
             <button
               id="position-button"
@@ -66,43 +66,42 @@
 
 <script>
 
-  // Import Swiper Vue.js components
-  import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
 
-  // Import Swiper styles
-  import "swiper/css";
-  import "swiper/css/navigation";
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
 
-  // import Swiper required modules
-  import { Navigation } from "swiper";
-import store from '@/store';
+// import Swiper required modules
+import { Navigation } from 'swiper'
+import store from '@/store'
 
+export default {
+  name: 'OnboardingSwiper',
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
 
-  export default {
-    name: 'OnboardingSwiper',
-    components: {
-      Swiper,
-      SwiperSlide,
+  setup () {
+    return {
+      modules: [Navigation],
+    }
+  },
+
+  data () {
+    return {
+      store,
+    }
+  },
+
+  methods: {
+    redirectToStart () {
+      this.$router.push({ name: 'Start' }).catch(() => {})
     },
-
-    setup() {
-      return {
-        modules: [Navigation],
-      };
-    },
-
-    data() {
-      return {
-        store,
-      }
-    },
-
-    methods: {
-      redirectToStart() {
-        this.$router.push({ name: 'Start' }).catch(() => {})
-      },
-    },
-  };
+  },
+}
 </script>
 
 <style scoped>
@@ -157,7 +156,7 @@ import store from '@/store';
 
   .swiper-button-prev,
   .swiper-button-next {
-    color: #000091;
+    color: #000091 !important;
     top:60%;
   }
 
