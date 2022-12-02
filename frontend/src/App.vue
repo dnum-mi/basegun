@@ -1,9 +1,10 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
+
+import { store } from './store/store.js'
 import HeaderMain from './components/HeaderMain.vue';
 
-import {store} from './store/store.js'
 const needRefresh = ref(false)
 
 const updateSW = registerSW({
@@ -35,7 +36,7 @@ const updateSW = registerSW({
   </div>
 </template>
 
-<style>
+<style scoped>
 #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
@@ -56,12 +57,6 @@ const updateSW = registerSW({
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-
-.snackbar {
-  display: flex;
-  justify-content: center;
-  z-index: 1000;
 }
 
 :deep(.fr-callout) {

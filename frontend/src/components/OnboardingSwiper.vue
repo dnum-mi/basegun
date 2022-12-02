@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div 
-      :class="!isMobile ? 'centered' : ''"
-    >
+    <div>
       <swiper
         :navigation="true"
         :modules="modules"
@@ -99,12 +97,6 @@ import store from '@/store';
       }
     },
 
-    computed: {
-      isMobile() {
-        return screen.width <= 760 
-      },
-    },
-
     methods: {
       redirectToStart() {
         this.$router.push({ name: 'Start' }).catch(() => {})
@@ -113,15 +105,7 @@ import store from '@/store';
   };
 </script>
 
-<style>
-.centered {
-  position: fixed;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%
-}
-
+<style scoped>
   .swiper {
     width: 100%;
     height: 100%;

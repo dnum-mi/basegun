@@ -3,13 +3,12 @@ import Home from '../views/Home.vue'
 import Start from '../views/Start.vue'
 import Instructions from '../views/Instructions.vue'
 import Informations from '../views/Informations.vue'
-import Result  from '../views/Result.vue'
+import Result from '../views/Result.vue'
 import Error from '../views/Error.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import About from '../views/About.vue'
 import Legal from '../views/Legal.vue'
 import Contact from '../views/Contact.vue'
-
 
 const routes = [
   {
@@ -70,6 +69,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-});
+})
 
-export default router;
+export default router
