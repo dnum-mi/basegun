@@ -1,9 +1,30 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { ref } from 'vue'
-
-import { store } from './store/store.js'
+import { onUpdated, watch, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import HeaderMain from './components/HeaderMain.vue'
+import FooterMain from './components/FooterMain.vue'
+
+import { store } from './store.js'
+
+const route = useRoute()
+watch(route, () => {
+  store.confidence = null,
+  store.confidenceLevel = null,
+  store.isHome = null,
+  // store.isDisplayHeader = true,
+  store.isDisplayFooter = false,
+  store.isFactice = true,
+  store.isSemiAuto = null,
+  store.geolocation = null,
+  store.img = null,
+  store.imgUrl = null,
+  store.instructionsRead = false,
+  store.isInstruction = false,
+  store.label = null,
+  store.resultText = null,
+  store.uploadMessage = null
+})
 
 const needRefresh = ref(false)
 
@@ -37,6 +58,7 @@ const updateSW = registerSW({
     </dsfrbutton>
   </DsfrCallout>
   <router-view />
+  <FooterMain v-show="store.isDisplayFooter" />
 </template>
 
 <style scoped>

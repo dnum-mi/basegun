@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-container">
+  <div>
     <h3 class="title-space">
       Editeur
     </h3>

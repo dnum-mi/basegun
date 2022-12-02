@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-container">
+  <div>
     <div class="result col-11 col-lg-6">
       <div
         class="result-image"
@@ -32,7 +32,7 @@
           </div>
           <p class="fr-callout__title">
             Catégorie {{ cleanCategory }}
-          </p>          
+          </p>
           <div
             class="callout-mention"
           >
@@ -40,13 +40,18 @@
               v-html="cleanMention"
             />
           </div>
-          <div v-if="store.isFactice" class="mt-3">
+          <div
+            v-if="store.isFactice"
+            class="mt-3"
+          >
             <p>Sauf si l'arme est factice:</p>
-            <p class="fr-callout__title">Non Classé</p>
+            <p class="fr-callout__title">
+              Non Classé
+            </p>
             <DsfrButton
               class="mb-3 mb-5 flex justify-content-center"
               label="Vérifier si l'arme est factice"
-              @click="$event => {goToTutorial()}"
+              @click="goToSafetyRecommendation()"
             />
           </div>
           <p class="fr-callout__text">
@@ -69,13 +74,13 @@
             <label
               class="feedback-click"
               @click="sendFeedback(true)"
-            >            
-              <VIcon 
+            >
+              <VIcon
                 v-if="isUp"
                 name="ri-thumb-up-fill"
                 class="feedback-click"
               />
-              <VIcon 
+              <VIcon
                 v-else
                 name="ri-thumb-up-line"
                 class="feedback-click"
@@ -85,12 +90,12 @@
               class="feedback-click"
               @click="sendFeedback(false)"
             >
-              <VIcon 
+              <VIcon
                 v-if="isDown"
                 name="ri-thumb-down-fill"
                 class="feedback-click"
               />
-              <VIcon 
+              <VIcon
                 v-else
                 name="ri-thumb-down-line"
                 class="feedback-click"
@@ -109,104 +114,85 @@
         v-else
         class="blank"
       />
-      <div class="footer-background  footer-actions">
-        <div
-          class="action-group"
-          @click="resetSearch()"
-        >
-          <span
-            class="fr-fi-refresh-line"
-            title="Recommencer" 
-            role="img" 
-            aria-label="recommencer"
-            aria-hidden="true"
-          />
-          <p class="action-group-text">
-            RECOMMENCER
-          </p>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-    import { store } from '@/store.js'
-    import axios from 'axios';
-    import SnackbarAlert from '@/components/SnackbarAlert.vue';
-    import { results } from '@/utils/firearms-utils';
+import { store } from '@/store.js'
+import axios from 'axios'
+import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { results } from '@/utils/firearms-utils'
 
-    import { useSnackbarStore } from '@/stores/snackbar.js'
+import { useSnackbarStore } from '@/stores/snackbar.js'
 
-    const { setMessage } = useSnackbarStore() 
+const { setMessage } = useSnackbarStore()
 
-    export default {
-      name: 'ResultComponent',
-      components: {
-        SnackbarAlert,
-      },
+export default {
+  name: 'ResultsComponent',
+  components: {
+    SnackbarAlert,
+  },
 
-      data() {
-        return {
-          store,
-          isDisplayHeader:store.isDisplayHeader=false,
-          isUp: undefined,
-          isDown:undefined,
-          isFeedbackDone:undefined,
-          results: results,
-        } 
-      },
-      computed: {
-          cleanLabel() {
-              return this.results[`${store.label}`].displayLabel
-          },
-          cleanCategory() {
-              return this.results[`${store.label}`].category
-          },
-          cleanMention() {
-              return this.results[`${store.label}`].mention
-          },
-      },
-        
-        methods: {
-          goToTutorial() {
-              this.$router.push({name:'SafetyRecommendation'}).catch(() => {})
-            },
+  data () {
+    return {
+      store,
+      isDisplayHeader: store.isDisplayHeader = false,
+      isDisplayFooter: store.isDisplayFooter = true,
+      isUp: undefined,
+      isDown: undefined,
+      isFeedbackDone: undefined,
+      results,
+    }
+  },
+  computed: {
+    cleanLabel () {
+      return this.results[`${store.label}`].displayLabel
+    },
+    cleanCategory () {
+      return this.results[`${store.label}`].category
+    },
+    cleanMention () {
+      return this.results[`${store.label}`].mention
+    },
+  },
 
-          resetSearch() {
-            // TODO: Réinitialiser les données de la recherche
-            window.location.replace('/accueil');
-          },
+  methods: {
+    goToSafetyRecommendation () {
+      this.$router.push({ name: 'SafetyRecommendation' }).catch(() => {})
+    },
 
+    resetSearch () {
+      // TODO: Réinitialiser les données de la recherche
+      window.location.replace('/accueil')
+    },
 
-        
-
-            sendFeedback(isCorrect) {
-              const json = {
-                  "image_url": store.imgUrl,
-                  "feedback": isCorrect,
-                  "confidence": store.confidence,
-                  "label": store.label,
-                  "confidence_level": store.confidenceLevel,
-              } 
-              this.isFeedbackDone= true
-              if (isCorrect) {
-                this.isUp = true
-              } else {
-                this.isDown = true
-              }
-              axios.post('/feedback', json)
-                  .then(async res => {
-                      console.log(res)
-                      setMessage({type: 'success', message: 'Votre vote a été pris en compte'})
-                  })
-                  .catch(async (err) => {
-                      console.log(err);
-                      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.'})
-                  });
-            },
-        },
+    sendFeedback (isCorrect) {
+      const json = {
+        image_url: store.imgUrl,
+        feedback: isCorrect,
+        confidence: store.confidence,
+        label: store.label,
+        confidence_level: store.confidenceLevel,
       }
+      this.isFeedbackDone = true
+      if (isCorrect) {
+        this.isUp = true
+      } else {
+        this.isDown = true
+      }
+      axios.post('/feedback', json)
+        .then(async res => {
+          console.log(res)
+          setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
+        })
+        .catch(async (err) => {
+          console.log(err)
+          setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
+        })
+    },
+  },
+}
 </script>
 
 <style scoped>
@@ -297,22 +283,6 @@
   justify-content: space-around;
   color: #000091;
   z-index: 1
-}
-
-.action-group {
-  text-align: center;
-  cursor: pointer;
-  margin: 8px 0;
-}
-
-.action-group:hover {
-  color: #1212ff;
-}
-
-.action-group-text {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0
 }
 .blank {
   height: 80px

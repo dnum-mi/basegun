@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-container">
+  <div>
     <p class="title-space">
       Basegun est un projet d'application par apprentissage automatique capable 
       d'identifier et de classifier de manière fiable et rapide une arme à feu.
@@ -23,10 +23,10 @@
       à laquelle l'arme appartient.
     </p>
     <p class="fr-callout">
-      <span
+      <VIcon
         class="fr-fi-alert-fill"
-        aria-hidden="true"
-      /> Basegun ne prend pas encore en compte l'identification des armes non létales (factices,
+        name="ri-alert-fill"
+      />Basegun ne prend pas encore en compte l'identification des armes non létales (factices,
       à air comprimé, à blanc ou neutralisées).
     </p>
 
@@ -108,5 +108,9 @@ export default {
   .list {
     margin-left: 2em;
     list-style: square;
+  }
+
+  :deep(.fr-fi-alert-fill) {
+    padding-right: .1em;
   }
 </style>

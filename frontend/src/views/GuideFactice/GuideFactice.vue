@@ -1,8 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { ref} from 'vue'
 import { useRouter } from 'vue-router'
+import { routePath, guideSteps } from '@/utils/firearms-utils'
+import { store } from '@/store.js'
+
 import StepsGuide from './StepsGuide.vue'
-import { routePath, guideSteps } from '@/utils/firearms-utils';
+
+store.isDisplayHeader = false
 
 const router = useRouter()
 
@@ -10,7 +14,9 @@ const currentStep = ref(1)
 const steps = ["", "", "", ""]
 
 const goToNewRoute = () => (
-  currentStep.value === 0 ? router.push({ name: 'SafetyRecommendation' }) : router.push({ name: `${guideSteps[currentStep.value - 1]}` })
+  currentStep.value === 0 ?
+    router.push({ name: 'SafetyRecommendation' }) :
+    router.push({ name: `${guideSteps[currentStep.value - 1]}` })
 )
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
@@ -24,8 +30,8 @@ const validate = () => {/* TODO: valider le résultat */ }
 </script>
 
 <template>
-  <div class="fr-container">
-    <div class="flex  justify-content-center">
+  <div class="result col-11 col-lg-6">
+    <div>
       <StepsGuide
         class="steps-guide"
         :steps="steps"
@@ -34,34 +40,43 @@ const validate = () => {/* TODO: valider le résultat */ }
 
       <RouterView />
     </div>
-    <div
-      class="fr-container bg-transparent fixed-bottom"
-    >
-      <DsfrButton
-        class="m-1  flex justify-content-center"
-        label="Précédent"
-        @click="goToPreviousStep(); goToNewRoute()"
-      />
-      <DsfrButton
-        v-show="currentStep < steps.length"
-        class="m-1 flex justify-content-center"
-        label="Suivant"
-        @click="goToNextStep(); goToNewRoute()"
-      />
-      <DsfrButton
-        v-show="currentStep === steps.length"
-        class="m-1 flex justify-content-center"
-        label="Valider"
-        @click="validate()"
-      />
+    <div class="footer-background">  
+      <div class="footer-actions">
+        <DsfrButton
+          class="m-1 flex justify-content-center"
+          icon="ri-arrow-left-line"
+          :secondary="true"
+          label="Précédent"
+          @click="goToPreviousStep(); goToNewRoute()"
+        />
+        <DsfrButton
+          v-show="currentStep < steps.length"
+          class="m-1 flex justify-content-center"
+          icon="ri-arrow-right-line"
+          label="Suivant"
+          :iconRight="true"
+          @click="goToNextStep(); goToNewRoute()"
+        />
+        <DsfrButton
+          v-show="currentStep === steps.length"
+          class="m-1 flex justify-content-center"
+          label="Valider"
+          @click="validate()"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <style>
 .steps-guide {
-  width: 30em;
+  /* width: 30em; */
   margin: 2em auto;
+}
+
+.result {
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .fr-link--close {
@@ -75,4 +90,5 @@ const validate = () => {/* TODO: valider le résultat */ }
   justify-content: center;
   flex-direction: column;
 }
+
 </style>

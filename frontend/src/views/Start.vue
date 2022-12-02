@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { store } from '@/store/store.js'
+import StartComponent from '@/components/StartComponent.vue'
+import { store } from '@/store.js'
 
 export default {
   name: 'StartPage',
@@ -38,6 +39,8 @@ export default {
   data () {
     return {
       store,
+      isDisplayFooter: store.isDisplayFooter = true,
+      isHome: store.isHome = true,
     }
   },
 
