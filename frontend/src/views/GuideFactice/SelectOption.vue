@@ -7,6 +7,11 @@
     <div class="col-sm-6 col-lg-12">
       <img src="@/assets/pistol-1_0.jpg" alt="" class="img-deco">
     </div>
-    <a href="#">Je n'arrive pas à réaliser cette étape</a>
+    <a href="#">
+      Je n'arrive pas à réaliser cette étape
+      <VIcon
+        name="ri-information-line"
+      />
+    </a>
   </div>
 </template>

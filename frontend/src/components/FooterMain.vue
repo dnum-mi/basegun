@@ -21,7 +21,7 @@
     </div>
     <div 
       v-else 
-      class="footer-actions"
+      class="col-11 col-lg-6 footer-actions"
     >
       <DsfrButton
         class="m-1 flex justify-content-center"

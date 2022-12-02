@@ -41,7 +41,7 @@ const validate = () => {/* TODO: valider le résultat */ }
       <RouterView />
     </div>
     <div class="footer-background">  
-      <div class="footer-actions">
+      <div class="col-11 col-lg-6 footer-actions">
         <DsfrButton
           class="m-1 flex justify-content-center"
           icon="ri-arrow-left-line"
@@ -54,7 +54,7 @@ const validate = () => {/* TODO: valider le résultat */ }
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
-          :iconRight="true"
+          :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton

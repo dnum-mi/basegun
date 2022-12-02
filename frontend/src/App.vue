@@ -1,6 +1,6 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { onUpdated, watch, ref } from 'vue'
+import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import HeaderMain from './components/HeaderMain.vue'
 import FooterMain from './components/FooterMain.vue'
