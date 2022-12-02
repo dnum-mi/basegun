@@ -45,36 +45,35 @@
 </template>
 
 <script>
-import AboutTextContent from './text_content/AboutTextContent.vue';
-import LegalTextContent from './text_content/LegalTextContent.vue';
-import ContactTextContent from './text_content/ContactTextContent.vue';
+import AboutTextContent from './text_content/AboutTextContent.vue'
+import LegalTextContent from './text_content/LegalTextContent.vue'
+import ContactTextContent from './text_content/ContactTextContent.vue'
 
-
- export default {
-   components: {
+export default {
+  components: {
     AboutTextContent,
     LegalTextContent,
     ContactTextContent,
-},
-   data () {
-     return {
+  },
+  data () {
+    return {
       initialSelectedIndex: 0,
-      selectedTabIndex:0,
-      asc:undefined,
+      selectedTabIndex: 0,
+      asc: undefined,
       tabTitles: [
-      {
-        "title": "A propos",
-      },
-      {
-        "title": "Mentions légales",
-      },
-      {
-        "title": "Contact",
-      },
-],
-}
-},
-methods: {
+        {
+          title: 'A propos',
+        },
+        {
+          title: 'Mentions légales',
+        },
+        {
+          title: 'Contact',
+        },
+      ],
+    }
+  },
+  methods: {
     selectTab (idx) {
       this.asc = this.selectedTabIndex < idx
       this.selectedTabIndex = idx
@@ -82,7 +81,8 @@ methods: {
   },
 }
 </script>
-<style>
+
+<style scoped>
   .content {
     margin: min(5vw, 10rem);
   }

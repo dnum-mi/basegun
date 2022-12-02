@@ -49,10 +49,13 @@ export default {
 <style scoped>
 
 .snackbar {
+  display: flex;
+  justify-content: center;
   margin-bottom: 2em;
   background-color: white;
   width: 20em;
   align-items: center;
+  z-index: 1000;
 }
 
 .bounce-enter-active,

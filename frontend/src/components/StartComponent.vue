@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="!store.isInstruction"
-    class="centered text-center"
+    class="text-center"
   >
     <img
       src="../assets/basegun.png"
@@ -59,14 +59,6 @@ methods: {
 </script>
 
 <style scoped>
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%
-}
-
   .accueil-title {
     font-size: 28px;
     margin-top: -20px;
