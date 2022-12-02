@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Start from '../views/Start.vue'
 import Instructions from '../views/Instructions.vue'
 import Informations from '../views/Informations.vue'
-import Results  from '../views/Results.vue'
+import Result  from '../views/Result.vue'
 import Error from '../views/Error.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import About from '../views/About.vue'
@@ -33,12 +33,12 @@ const routes = [
     component: Informations,
   },
   {
-    path: '/resultats',
-    name: 'Results',
+    path: '/resultat',
+    name: 'Result',
     meta: {
       reload: true,
     },
-    component: Results,
+    component: Result,
   },
   {
     path: '/a-propos',

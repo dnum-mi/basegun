@@ -1,17 +1,17 @@
 <template>
   <div>
-    <UploadComponent />
+    <StartComponent />
   </div>
 </template>
 
 <script>
 import { store } from '@/store/store.js'
-import UploadComponent from '@/components/UploadComponent.vue';
+import StartComponent from '@/components/StartComponent.vue';
 
 export default {
   name: 'StartPage',
   components: {
-    UploadComponent,
+    StartComponent,
   },
 
   beforeRouteLeave() {

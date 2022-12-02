@@ -44,6 +44,7 @@ export default {
         onFileSelected(event) {
             store.uploadMessage='Analyse...';
             const uploadedFile = event.target.files[0];
+            const vm = this; // store this to be able to do router redirection later
             
             // get user geolocation
             axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
@@ -121,6 +122,7 @@ export default {
                             store.resultText = "Type d'arme : " + res.data.label + " " + res.data.confidence + "%";
                             store.img = base64;
                             store.imgUrl = res.data.path;
+                            vm.$router.push({ name: 'Result' }).catch(() => { })
                         })
                         .catch((err) => {
                             console.log(err);
@@ -128,7 +130,6 @@ export default {
                         });
                     })
                 }
-                this.$router.push({ name: 'Results' }).catch(() => { })
         },
     },
 }

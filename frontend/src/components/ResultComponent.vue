@@ -125,7 +125,7 @@
     import SnackbarAlert from '@/components/SnackbarAlert.vue';
 
     export default {
-      name: 'ResultsComponent',
+      name: 'ResultComponent',
       components: {
         SnackbarAlert,
       },
