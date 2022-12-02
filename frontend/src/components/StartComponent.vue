@@ -28,31 +28,31 @@
 </template>
 
 <script>
-import { store } from '@/store/store.js';
-import UploadButton from '@/components/UploadButton.vue';
+import { store } from '@/store/store.js'
+import UploadButton from '@/components/UploadButton.vue'
 
 export default {
-    name: 'UploadComponent',
-    components: {
-        UploadButton,
-    },
+  name: 'UploadComponent',
+  components: {
+    UploadButton,
+  },
 
-beforeRouteLeave() {
-  store.uploadMessage = null 
-  store.instructionsRead = null
-  store.isInstruction = null
-  store.isDisplayHeader = true
-},
+  beforeRouteLeave () {
+    store.uploadMessage = null
+    store.instructionsRead = null
+    store.isInstruction = null
+    store.isDisplayHeader = true
+  },
 
-data() {
+  data () {
     return {
-        store,
+      store,
     }
-},
+  },
 
-methods: {
+  methods: {
     showInstruction () {
-      this.$router.push({name: 'Instructions'}).catch(() => {})          
+      this.$router.push({ name: 'Instructions' }).catch(() => {})
     },
   },
 }

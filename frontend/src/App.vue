@@ -3,16 +3,16 @@ import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
 
 import { store } from './store/store.js'
-import HeaderMain from './components/HeaderMain.vue';
+import HeaderMain from './components/HeaderMain.vue'
 
 const needRefresh = ref(false)
 
 const updateSW = registerSW({
   // immediate: true,
-  onNeedRefresh() {
+  onNeedRefresh () {
     needRefresh.value = true
   },
-  onOfflineReady() {},
+  onOfflineReady () {},
 })
 </script>
 
@@ -29,7 +29,7 @@ const updateSW = registerSW({
         secondary
         @click="updateSW()"
       >
-        Mettre à jour 
+        Mettre à jour
       </DsfrButton>
     </DsfrCallout>
     <router-view />
@@ -61,6 +61,7 @@ const updateSW = registerSW({
 
 :deep(.fr-callout) {
   padding: 1rem 2rem;
+  z-index: 999;
 }
 
 </style>

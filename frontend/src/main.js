@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import '@/main.css'
 import axios from 'axios'
 import { createApp } from 'vue'
 

@@ -1,0 +1,19 @@
+.centered {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media (min-width: 740px) { 
+  .info {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+
