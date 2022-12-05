@@ -27,9 +27,7 @@
     },
 
     beforeRouteLeave(){
-        store.uploadMessage = null 
-        store.instructionsRead = null
-        store.isInstruction = null
+        store.uploadMessage = null
         store.isDisplayHeader = true
     },
 

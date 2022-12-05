@@ -1,23 +1,37 @@
 <template>
   <div class="centered">
-    <StartComponent />
+    <div class="text-center">
+      <img
+        src="../assets/basegun.png"
+        alt=""
+      >
+      <h1 class="accueil-title">
+        Basegun <label class="fr-tag fr-tag--sm">beta</label>
+      </h1>
+      <p class="accueil-subtitle">
+        Identification automatique des armes à feu
+      </p>
+      <DsfrButton
+        label="Démarrer"
+        @click="showInstruction"
+      />
+    </div>
+    <div class="footer-background footer-text">
+      Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
+    </div>
   </div>
 </template>
 
 <script>
 import { store } from '@/store/store.js'
-import StartComponent from '@/components/StartComponent.vue'
 
 export default {
   name: 'StartPage',
   components: {
-    StartComponent,
   },
 
   beforeRouteLeave () {
     store.uploadMessage = null
-    store.instructionsRead = null
-    store.isInstruction = null
     store.isDisplayHeader = true
   },
 
@@ -26,5 +40,37 @@ export default {
       store,
     }
   },
+
+  methods: {
+    showInstruction () {
+      this.$router.push({ name: 'Instructions' }).catch(() => {})
+    },
+  },
 }
 </script>
+
+<style scoped>
+  .accueil-title {
+    font-size: 28px;
+    margin-top: -20px;
+    margin-bottom: 0;
+  }
+
+  .accueil-subtitle {
+    font-size: 14px;
+  }
+
+  .footer-background {
+    position: fixed;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background-color: #f5f5fe;
+    width: 100%;
+  }
+
+  .footer-text {
+    padding: 20px 10px;
+    text-align: center;
+  }
+</style>

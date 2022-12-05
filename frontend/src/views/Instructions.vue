@@ -59,7 +59,7 @@ import { store } from '@/store/store.js'
 import UploadButton from '@/components/UploadButton.vue'
 
 export default {
-  name: 'InstructionsComponent',
+  name: 'InstructionsPage',
   components: {
     UploadButton,
   },
@@ -76,7 +76,6 @@ export default {
 
   methods: {
     readInstruction () {
-      store.instructionsRead = true
       const demarrer = document.getElementById('demarrer')
       demarrer.firstChild.click()
     },
