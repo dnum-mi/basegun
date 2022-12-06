@@ -21,7 +21,7 @@
 
 <script>
 
-import AboutInformationTabs from "@/views/InformationTabs/AboutInformationTabs.vue";
+import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.vue'
 
 export default {
   name: 'AboutPage',

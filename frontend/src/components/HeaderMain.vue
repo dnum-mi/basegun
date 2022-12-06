@@ -15,7 +15,7 @@
             <a href="/accueil">
               <p class="fr-logo">
                 Ministère
-                <br>de l'Intérieur 
+                <br>de l'Intérieur
                 <br>et de l'Outre-mer
               </p>
             </a>
@@ -35,7 +35,7 @@
           </div>
           <div class="fr-header__navbar">
             <DsfrButton
-              ref="modalOrigin" 
+              ref="modalOrigin"
               title="Menu"
               class="btn-open-modal"
               :icon-right="true"
@@ -89,16 +89,16 @@
 
 <script>
 export default {
-  
-  data() {
+
+  data () {
     return {
-      showModal:false,
-      isActive:undefined,
+      showModal: false,
+      isActive: undefined,
     }
   },
 
   methods: {
-  
+
     openInformations () {
       this.$router.push({ name: 'Informations' }).catch(() => {})
     },
@@ -113,7 +113,7 @@ export default {
     onClose () {
       this.showModal = false
     },
-    
+
   },
 }
 
@@ -136,11 +136,6 @@ header.fr-header {
 
 :deep(.fr-header__logo) {
     padding: .75rem 0 !important;
-}
-
-.fr-container {
-  width: 100%;
-  height: 100%;
 }
 
 .container-link  {

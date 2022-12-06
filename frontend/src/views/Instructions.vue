@@ -66,7 +66,7 @@ import UploadButton from '@/components/UploadButton.vue'
 import { store } from '@/store.js'
 
 export default {
-  name: 'InstructionsPage',
+  name: 'Instructions',
   components: {
     UploadButton,
   },

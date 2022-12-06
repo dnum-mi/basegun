@@ -9,21 +9,12 @@ import { store } from './store.js'
 
 const route = useRoute()
 watch(route, () => {
-  store.confidence = null,
-  store.confidenceLevel = null,
   store.isHome = null,
-  // store.isDisplayHeader = true,
-  store.isDisplayFooter = false,
-  store.isFactice = true,
-  store.isSemiAuto = null,
-  store.geolocation = null,
-  store.img = null,
-  store.imgUrl = null,
-  store.instructionsRead = false,
-  store.isInstruction = false,
-  store.label = null,
-  store.resultText = null,
-  store.uploadMessage = null
+  store.isDisplayFooter = false
+  // store.uploadMessage = null
+  // store.instructionsRead = null
+  // store.isInstruction = null
+  // store.isDisplayHeader = true
 })
 
 const needRefresh = ref(false)

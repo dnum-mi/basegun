@@ -20,7 +20,7 @@
         <h1 class="fr-alert__title">
           ATTENTION
         </h1>
-        <span 
+        <span
           v-for="instruction in instructions"
           :key="instruction.id"
           class="m-auto-lg d-lg-flex flex-wrap"
@@ -28,31 +28,61 @@
         />
       </div>
     </div>
+    <div class="blank" />
   </div>
+  <footer class="footer-background">
+    <div
+      class="col-11 col-lg-6 footer-actions"
+    >
+      <DsfrButton
+        class="m-1 flex justify-content-center"
+        label="Retour au resultat"
+        secondary
+        @click="goToResults()"
+      />
+
+      <DsfrButton
+        class="m-1  flex justify-content-center"
+        label="Commencer"
+        @click="goToTutorial()"
+      />
+    </div>
+  </footer>
 </template>
 
 <script>
-import { store } from '@/store';
+import { store } from '@/store.js'
 
 export default {
-  data() {
+  beforeRouteEnter () {
+    store.isDisplayHeader = false
+    store.isDisplayFooter = true
+  },
+
+  data () {
     return {
-    store,
-      isDisplayHeader: store.isDisplayHeader = false,
-      isDisplayFooter: store.isDisplayFooter = true,
+      store,
+      // isDisplayHeader: store.isDisplayHeader = false,
+      // isDisplayFooter: store.isDisplayFooter = true,
       instructions: [
-        "<ul>",
+        '<ul>',
         "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
         "<li>En cas de doute, <span class='text-orange'>s’arrêter et faire appel à un expert.</span></li>",
         "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='text-orange'>mise en sécurité.</span></li>",
         "<li>Veiller à la préservation des <span class='text-orange'>traces et indices </span> éventuels lors des manipulations.</li>",
-        "</ul>",
+        '</ul>',
       ],
     }
   },
 
   methods: {
-
+    goToTutorial () {
+      this.$router.push({ name: 'FirearmDirection' }).catch(() => { })
+    },
+    goToResults () {
+      store.isDisplayHeader = true
+      this.$router.push({ name: 'Results' }).catch(() => { })
+    },
   },
 }
 </script>

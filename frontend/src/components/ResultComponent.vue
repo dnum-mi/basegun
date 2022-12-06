@@ -284,9 +284,6 @@ export default {
   color: #000091;
   z-index: 1
 }
-.blank {
-  height: 80px
-}
 
 .footer-background {
   position: fixed;

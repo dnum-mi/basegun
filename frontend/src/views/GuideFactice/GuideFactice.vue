@@ -1,5 +1,5 @@
 <script setup>
-import { ref} from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { routePath, guideSteps } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
@@ -11,12 +11,12 @@ store.isDisplayHeader = false
 const router = useRouter()
 
 const currentStep = ref(1)
-const steps = ["", "", "", ""]
+const steps = ['', '', '', '']
 
 const goToNewRoute = () => (
-  currentStep.value === 0 ?
-    router.push({ name: 'SafetyRecommendation' }) :
-    router.push({ name: `${guideSteps[currentStep.value - 1]}` })
+  currentStep.value === 0
+    ? router.push({ name: 'SafetyRecommendation' })
+    : router.push({ name: `${guideSteps[currentStep.value - 1]}` })
 )
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
@@ -25,7 +25,7 @@ const goToNextStep = () => (
   currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length
 )
 
-const validate = () => {/* TODO: valider le résultat */ }
+const validate = () => { /* TODO: valider le résultat */ }
 
 </script>
 
@@ -40,7 +40,7 @@ const validate = () => {/* TODO: valider le résultat */ }
 
       <RouterView />
     </div>
-    <div class="footer-background">  
+    <div class="footer-background">
       <div class="col-11 col-lg-6 footer-actions">
         <DsfrButton
           class="m-1 flex justify-content-center"
@@ -70,7 +70,6 @@ const validate = () => {/* TODO: valider le résultat */ }
 
 <style>
 .steps-guide {
-  /* width: 30em; */
   margin: 2em auto;
 }
 

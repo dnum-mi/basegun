@@ -7,27 +7,26 @@
       <DsfrButton
         :label="labelButton"
         @click="homeRedirect"
-      />  
+      />
     </div>
   </div>
 </template>
 
 <script>
 
-
 export default {
   name: 'ErrorPage',
   components: {
   },
-  data() {
-      return {
-          labelButton: "Retour",
-      }
+  data () {
+    return {
+      labelButton: 'Retour',
+    }
   },
   methods: {
-      homeRedirect() {
-          window.location.replace("/accueil")
-      },
+    homeRedirect () {
+      window.location.replace('/accueil')
+    },
   },
 }
 </script>

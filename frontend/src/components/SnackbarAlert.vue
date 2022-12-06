@@ -31,7 +31,7 @@ const message = computed(() => snackbarStore.message)
 const show = computed(() => snackbarStore.show)
 const type = computed(() => snackbarStore.type)
 
-const closeSnackbar = () =>   snackbarStore.hideMessage()
+const closeSnackbar = () => snackbarStore.hideMessage()
 
 watch(route, closeSnackbar)
 </script>

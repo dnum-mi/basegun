@@ -21,7 +21,7 @@
 
 <script>
 
-import ContactInformationTabs from "@/views/InformationTabs/ContactInformationTabs.vue";
+import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
 
 export default {
   name: 'ContactPage',

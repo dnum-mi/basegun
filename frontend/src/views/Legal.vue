@@ -21,7 +21,7 @@
 
 <script>
 
-import LegalInformationTabs from "@/views/InformationTabs/LegalInformationTabs.vue";
+import LegalInformationTabs from '@/views/InformationTabs/LegalInformationTabs.vue'
 
 export default {
   name: 'LegalPage',

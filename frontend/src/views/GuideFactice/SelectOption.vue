@@ -1,17 +1,111 @@
+<script setup>
+import { watch, onMounted, ref, reactive } from 'vue'
+
+const titleOptions = reactive([
+  {
+    label: 'levier',
+    value: 'levier',
+  }, {
+    label: 'bouton',
+    value: 'bouton',
+  },
+])
+const selectedOption = ref('')
+
+// this.modes.map((mode) => {
+//   if (mode.name !== 'sans-effraction') {
+//     mode.disabled = 'disabled'
+//   }
+//   return mode
+// })
+
+const updateSelection = () => {
+  // selectedOption.value = titleOptions.forEach(a => find(a.value))
+  console.log(selectedOption.value)
+  saveSelectionToLocalStorage()
+}
+
+const saveSelectionToLocalStorage = () => {
+  localStorage.setItem(selectedOption, selectedOption.value)
+}
+
+watch(selectedOption.value, updateSelection)
+
+onMounted(() => {
+  localStorage.getItem(selectedOption)
+})
+</script>
+
 <template>
   <div>
-    <p class="text-tutorial mt-3">
-      <span class="bold">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold">
-      extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.
+    <p>
+      Sélectionner ce que vous voyez sur votre arme :
+      bouton à proximité <span class="bold">du pontet du côté gauche de la poignée</span>,
+      ou <span class="bold">bouton sur le talon</span> de la crosse.
     </p>
-    <div class="col-sm-6 col-lg-12">
-      <img src="@/assets/pistol-1_0.jpg" alt="" class="img-deco">
-    </div>
-    <a href="#">
-      Je n'arrive pas à réaliser cette étape
-      <VIcon
-        name="ri-information-line"
-      />
-    </a>
   </div>
+  <div class="two-columns">
+    <DsfrRadioButtonSet
+      :model-value="selectedOption"
+      name="selectedOption"
+      required
+      class="col-4 img-spacing"
+      :options="titleOptions"
+      @update:model-value="$event => (updateSelection(), $event)"
+    />
+    <div class="col-8 ">
+      <img
+        src="@/assets/pistol-1_0_fleche.png"
+        alt=""
+        class="img-deco"
+      >
+      <img
+        src="@/assets/pistol-2_0_fleche.png"
+        alt=""
+        class="img-deco"
+      >
+    </div>
+  </div>
+  <a href="#">
+    Je n'arrive pas à réaliser cette étape
+    <VIcon
+      name="ri-information-line"
+    />
+  </a>
+  <div class="blank" />
 </template>
+
+<style scoped>
+.two-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+:deep(.fr-radio-group):first-child {
+  margin-top: 4rem;
+  margin-bottom: 10rem;
+}
+
+:deep(.fr-radio-group) {
+  margin-right: 2rem;
+}
+
+.img-deco {
+  height: auto;
+}
+
+:deep(.fr-fieldset__content) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (min-width: 740px) {
+  :deep(.fr-radio-group):first-child {
+    margin-top: 6rem;
+    margin-bottom: 14rem;
+  }
+}
+
+</style>
