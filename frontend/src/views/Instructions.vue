@@ -37,14 +37,7 @@
     <div
       v-if="!store.uploadMessage"
       class="btn-read-instruction text-center"
-    >
-      <UploadButton />
-      <DsfrButton
-        label="prendre la photo"
-        icon="ri-camera-fill"
-        @click="readInstruction"
-      />
-    </div>
+    />
     <div
       v-else
       class="text-center"
@@ -52,6 +45,18 @@
       <p>{{ store.uploadMessage }}</p>
     </div>
   </div>
+  <div class="blank" />
+  <footer class="footer-background text-center">
+    <div
+      class="col-11 col-lg-6 footer-actions"
+    />
+    <UploadButton />
+    <DsfrButton
+      label="prendre la photo"
+      icon="ri-camera-fill"
+      @click="readInstruction"
+    />
+  </footer>
 </template>
 
 <script>
