@@ -47,3 +47,7 @@
 .blank {
   height: 120px;
 }
+
+.bold {
+  font-weight: 700;
+}
