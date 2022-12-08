@@ -1,5 +1,6 @@
 <script setup>
-import { watch, onMounted, ref, reactive } from 'vue'
+import { store } from '@/store.js'
+import { ref, reactive, onMounted } from 'vue'
 
 const titleOptions = reactive([
   {
@@ -10,29 +11,22 @@ const titleOptions = reactive([
     value: 'bouton',
   },
 ])
+
 const selectedOption = ref('')
 
-// this.modes.map((mode) => {
-//   if (mode.name !== 'sans-effraction') {
-//     mode.disabled = 'disabled'
-//   }
-//   return mode
-// })
-
-const updateSelection = () => {
-  // selectedOption.value = titleOptions.forEach(a => find(a.value))
-  console.log(selectedOption.value)
+const updateSelection = (value) => {
+  selectedOption.value = value
+  store.isLever = selectedOption.value === 'levier'
+  store.isButton = selectedOption.value === 'bouton'
   saveSelectionToLocalStorage()
 }
 
 const saveSelectionToLocalStorage = () => {
-  localStorage.setItem(selectedOption, selectedOption.value)
+  localStorage.setItem('selectedOption', JSON.stringify(selectedOption.value))
 }
 
-watch(selectedOption.value, updateSelection)
-
 onMounted(() => {
-  localStorage.getItem(selectedOption)
+  selectedOption.value = JSON.parse(localStorage.getItem('selectedOption'))
 })
 </script>
 
@@ -51,7 +45,7 @@ onMounted(() => {
       required
       class="col-4 img-spacing"
       :options="titleOptions"
-      @update:model-value="$event => (updateSelection(), $event)"
+      @update:model-value="updateSelection"
     />
     <div class="col-8 ">
       <img

@@ -1,5 +1,6 @@
 <script setup>
-import { watch, onMounted, computed, ref, reactive } from 'vue'
+import { store } from '@/store.js'
+import { ref, reactive, onMounted } from 'vue'
 
 const titleOptions = reactive([
   {
@@ -14,22 +15,21 @@ const titleOptions = reactive([
 
 const selectedOption = ref('')
 
-const updateSelection = () => {
-  selectedOption.value = titleOptions.find(option => option.value).value
-  console.log(selectedOption.value)
-  // saveSelectionToLocalStorage()
+const updateSelection = (value) => {
+  selectedOption.value = value
+  store.isCartridges = selectedOption.value === 'cartouches'
+  store.isBalls = selectedOption.value === 'billes'
+  store.isFactice = !!store.isBalls
+  saveSelectionToLocalStorage()
 }
 
-// const saveSelectionToLocalStorage = () => {
-//   localStorage.setItem(selectedOption, selectedOption.value)
-// }
+const saveSelectionToLocalStorage = () => {
+  localStorage.setItem('selectedOption', JSON.stringify(selectedOption.value))
+}
 
-// watch(selectedOption.value, updateSelection)
-
-// onMounted(() => {
-//   localStorage.getItem(selectedOption)
-// })
-
+onMounted(() => {
+  selectedOption.value = JSON.parse(localStorage.getItem('selectedOption'))
+})
 </script>
 
 <template>
@@ -40,11 +40,10 @@ const updateSelection = () => {
     <DsfrRadioButtonSet
       :model-value="selectedOption"
       name="selectedOption"
-      :value="titleOptions"
       required
       inline
       :options="titleOptions"
-      @update:model-value="$event => (updateSelection(), $event)"
+      @update:model-value="updateSelection"
     />
   </div>
   <div class="col-12 two-columns">

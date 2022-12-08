@@ -39,8 +39,6 @@ export default {
   data () {
     return {
       store,
-      isDisplayFooter: store.isDisplayFooter = true,
-      isHome: store.isHome = true,
     }
   },
 

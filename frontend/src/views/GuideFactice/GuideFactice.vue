@@ -25,7 +25,10 @@ const goToNextStep = () => (
   currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length
 )
 
-const validate = () => { /* TODO: valider le résultat */ }
+const validate = () => {
+  router.push({ name: 'Result' })
+  store.isFactice = !!store.isBalls
+}
 
 </script>
 

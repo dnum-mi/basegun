@@ -5,7 +5,28 @@
         class="result-image"
         :style="{backgroundImage:`url(${store.img})`}"
       />
-      <div class="fr-callout custom-callout">
+      <div
+        v-if="store.isFactice === true"
+        class="fr-callout custom-callout"
+      >
+        <p class="fr-callout__title">
+          Non Classé
+        </p>
+        <p class="fr-callout__text">
+          Typologie : objet, arme factice
+        </p>
+        <div
+          class="callout-mention mt-5"
+        >
+          <p>
+            Libre d'acquisition et de détention
+          </p>
+        </div>
+      </div>
+      <div
+        v-else
+        class="fr-callout custom-callout"
+      >
         <div v-if="store.confidenceLevel === 'low'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm error-tag">
@@ -30,18 +51,24 @@
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
             </p>
           </div>
+
           <p class="fr-callout__title">
             Catégorie {{ cleanCategory }}
           </p>
           <div
             class="callout-mention"
           >
-            <p
-              v-html="cleanMention"
-            />
+            <p v-html="cleanMention" />
           </div>
+
+          <!-- Si l'arme est de type :
+            pistolet semi-auto,
+            autre pistolet,
+            autre epaule,
+            epaule à verrou
+          -->
           <div
-            v-if="store.isFactice"
+            v-if="store.isFactice === null"
             class="mt-3"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -54,8 +81,12 @@
               @click="goToSafetyRecommendation()"
             />
           </div>
-          <p class="fr-callout__text">
-            Type d'arme : {{ cleanLabel }}
+
+          <p
+            class="fr-callout__text"
+            :class="{ 'mt-3' : store.isFactice === false }"
+          >
+            Typologie : {{ cleanLabel }}
           </p>
         </div>
       </div>
@@ -115,6 +146,19 @@
         class="blank"
       />
     </div>
+    <div class="footer-background">
+      <div
+        v-show="store.img"
+        class="footer-actions"
+      >
+        <DsfrButton
+          class="m-1 flex justify-content-center"
+          icon="ri-camera-fill"
+          label="Reprendre une photo"
+          @click="resetSearch()"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -129,7 +173,7 @@ import { useSnackbarStore } from '@/stores/snackbar.js'
 const { setMessage } = useSnackbarStore()
 
 export default {
-  name: 'ResultsComponent',
+  name: 'ResultComponent',
   components: {
     SnackbarAlert,
   },
@@ -138,7 +182,6 @@ export default {
     return {
       store,
       isDisplayHeader: store.isDisplayHeader = false,
-      isDisplayFooter: store.isDisplayFooter = true,
       isUp: undefined,
       isDown: undefined,
       isFeedbackDone: undefined,
@@ -163,7 +206,6 @@ export default {
     },
 
     resetSearch () {
-      // TODO: Réinitialiser les données de la recherche
       window.location.replace('/accueil')
     },
 

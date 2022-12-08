@@ -30,12 +30,12 @@
     </div>
     <div class="blank" />
   </div>
-  <footer class="footer-background">
+  <div class="footer-background">
     <div
       class="col-11 col-lg-6 footer-actions"
     >
       <DsfrButton
-        class="m-1 flex justify-content-center"
+        class="m-1 flex justify-content-center text-nowrap"
         label="Retour au resultat"
         secondary
         @click="goToResults()"
@@ -47,7 +47,7 @@
         @click="goToTutorial()"
       />
     </div>
-  </footer>
+  </div>
 </template>
 
 <script>
@@ -56,14 +56,11 @@ import { store } from '@/store.js'
 export default {
   beforeRouteEnter () {
     store.isDisplayHeader = false
-    store.isDisplayFooter = true
   },
 
   data () {
     return {
       store,
-      // isDisplayHeader: store.isDisplayHeader = false,
-      // isDisplayFooter: store.isDisplayFooter = true,
       instructions: [
         '<ul>',
         "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -81,7 +78,7 @@ export default {
     },
     goToResults () {
       store.isDisplayHeader = true
-      this.$router.push({ name: 'Results' }).catch(() => { })
+      this.$router.push({ name: 'Result' }).catch(() => { })
     },
   },
 }
