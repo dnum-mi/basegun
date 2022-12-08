@@ -154,18 +154,21 @@ export default {
     margin-bottom: 4px;
   }
 
-  .swiper-button-prev,
-  .swiper-button-next {
+  :deep(.swiper-button-prev) {
     color: #000091 !important;
-    top:60%;
+  }
+  :deep(.swiper-button-next) {
+    color: #000091 !important;
   }
 
-  .swiper-button-prev::after,
-  .swiper-button-next::after {
+  :deep(.swiper-button-prev)::after {
+    font-size: 28px;
+  }
+  :deep(.swiper-button-next)::after {
     font-size: 28px;
   }
 
-  .swiper-button-disabled {
+  :deep(.swiper-button-disabled) {
     display: none;
   }
 
