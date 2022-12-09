@@ -1,7 +1,7 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 1.4
+TAG		:= 1.5
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
@@ -36,13 +36,16 @@ else
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 endif
 
-test-backend:
-	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build backend
-	${DC} -f docker-compose-dev.yml up -d backend
+test-workflow-%:
+	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build $*
+	${DC} -f docker-compose-dev.yml up -d $*
 	sleep 10
+
+test-backend: test-workflow-backend
 	docker exec basegun-backend python -m unittest discover -v
 
-test: test-backend
+test-frontend: test-workflow-frontend
+	curl -s -o /dev/null localhost:3000
 
 down-%:
 	${DC} -f docker-compose-$*.yml down

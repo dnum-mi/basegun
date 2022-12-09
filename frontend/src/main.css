@@ -1,0 +1,57 @@
+.centered {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.home {
+  top: 15%;
+}
+
+.fr-container {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 740px) {
+  .info {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.footer-background {
+  position: fixed;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background-color: #f5f5fe;
+  padding: 5px;
+  width: 100%;
+}
+
+.footer-text {
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: space-around;
+  color: #000091;
+  z-index: 1;
+  margin: auto;
+}
+
+.blank {
+  height: 120px;
+}
+
+.bold {
+  font-weight: 700;
+}

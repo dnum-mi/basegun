@@ -9,6 +9,7 @@ services:
         - https_proxy
         - no_proxy
         - VERSION=${TAG}
+        - CACERT_LOCATION
       context: ./backend
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
@@ -35,12 +36,13 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+        - NODE_EXTRA_CA_CERTS=$CACERT_LOCATION
       context: ./frontend
       target: dev
     image: basegun-frontend:${TAG}-dev
     container_name: basegun-frontend
     ports:
-      - 3000:3000
+      - 3000:5173
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules

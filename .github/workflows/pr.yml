@@ -41,3 +41,12 @@ jobs:
         OS_USERNAME: ${{ secrets.OS_USERNAME }}
         OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
         OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+
+  build-frontend-and-test:
+    runs-on: ubuntu-latest
+    needs: check-files-modified
+    if: ( contains(needs.check-files-modified.outputs.changed_files, 'frontend/') )
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run frontend tests
+      run: make test-frontend
