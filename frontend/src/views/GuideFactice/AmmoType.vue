@@ -19,6 +19,7 @@ const selectedOption = useStorage('selectedOption', '')
 watch(selectedOption, (newValue) => {
   store.isCartridges = selectedOption.value === 'cartouches'
   store.isBalls = selectedOption.value === 'billes'
+  store.isDisabledValidate = newValue === true
   store.isFactice = !!store.isBalls
 })
 

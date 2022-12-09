@@ -17,7 +17,7 @@ import { store } from '@/store.js'
           autoplay
           loop
           muted
-          src="/src/assets/pistol_test_1.mp4"
+          src="/src/assets/videos-sm/pistol-1_sm.mp4"
         />
       </div>
     </div>
@@ -36,7 +36,7 @@ import { store } from '@/store.js'
           autoplay
           loop
           muted
-          src="/src/assets/pistol_test_2.mp4"
+          src="/src/assets/videos-sm/pistol-2_sm.mp4"
         />
       </div>
     </div>

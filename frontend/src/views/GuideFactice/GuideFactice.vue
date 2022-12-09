@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { routePath, guideSteps } from '@/utils/firearms-utils'
@@ -7,6 +7,8 @@ import { store } from '@/store.js'
 import StepsGuide from './StepsGuide.vue'
 
 store.isDisplayHeader = false
+
+onMounted(() => { console.table(store) })
 
 const router = useRouter()
 
@@ -62,13 +64,14 @@ watch(selectedOption, (newValue) => {
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
-          :disabled="currentStep === 2 && selectedOption === ''"
+          :disabled="store.isDisabledNextStep === null && currentStep === 2"
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton
           v-show="currentStep === steps.length"
           class="m-1 flex justify-content-center"
+          :disabled="store.isDisabledValidate === null && currentStep === 4"
           label="Valider"
           @click="validate()"
         />

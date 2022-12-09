@@ -19,6 +19,8 @@ export const store = reactive({
   isButton: null,
   isCartridges: null,
   isBalls: null,
+  isDisabledNextStep: null,
+  isDisabledValidate: null,
 })
 
 // export const store = useStorage('basegun-store', {

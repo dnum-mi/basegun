@@ -18,6 +18,7 @@ const selectedOption = useStorage('selectedOption', '')
 watch(selectedOption, (newValue) => {
   store.isLever = newValue === 'levier'
   store.isButton = newValue === 'bouton'
+  store.isDisabledNextStep = newValue === true
 })
 </script>
 
