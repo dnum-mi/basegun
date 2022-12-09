@@ -11,12 +11,6 @@
       @change="onFileSelected"
     >
   </div>
-  <DsfrButton
-    v-if="!store.uploadMessage"
-    icon="ri-camera-fill"
-    label="Prendre la photo"
-    @click="$refs.fileInput.click()"
-  />
 </template>
 
 <script>

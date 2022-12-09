@@ -158,6 +158,24 @@
           @click="resetSearch()"
         />
       </div>
+      <div style="display: none;">
+        <DsfrButton
+          class="m-1  flex justify-content-center"
+          label="Refaire le tutoriel"
+          secondary
+        />
+
+        <DsfrButton
+          class="m-1  flex  justify-content-center"
+          label="Retourner au résultat"
+          secondary
+        />
+        <DsfrButton
+          class="m-1  flex  justify-content-center"
+          label="Retourner à l'étape précédente"
+          secondary
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -202,6 +220,7 @@ export default {
 
   methods: {
     goToSafetyRecommendation () {
+      localStorage.clear()
       this.$router.push({ name: 'SafetyRecommendation' }).catch(() => {})
     },
 
@@ -327,12 +346,4 @@ export default {
   z-index: 1
 }
 
-.footer-background {
-  position: fixed;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  background-color: #f5f5fe;
-  width: 100%;
-}
 </style>

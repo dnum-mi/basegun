@@ -1,14 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { routePath, guideSteps } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
-
 import StepsGuide from './StepsGuide.vue'
 
 store.isDisplayHeader = false
 
 const router = useRouter()
+
+const selectedOption = useStorage('selectedOption', '')
 
 const currentStep = ref(1)
 const steps = ['', '', '', '']
@@ -30,6 +32,10 @@ const validate = () => {
   store.isFactice = !!store.isBalls
 }
 
+watch(selectedOption, (newValue) => {
+  selectedOption.value = newValue
+  currentStep.value = newValue
+})
 </script>
 
 <template>
@@ -40,7 +46,6 @@ const validate = () => {
         :steps="steps"
         :current-step="currentStep"
       />
-
       <RouterView />
     </div>
     <div class="footer-background">
@@ -57,6 +62,7 @@ const validate = () => {
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
+          :disabled="currentStep === 2 && selectedOption === ''"
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
@@ -71,7 +77,7 @@ const validate = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .steps-guide {
   margin: 2em auto;
 }
@@ -91,6 +97,11 @@ const validate = () => {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.footer-background {
+  background-color: #fff;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
 
 </style>

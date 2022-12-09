@@ -5,28 +5,21 @@ import { store } from '@/store.js'
 <template>
   <div v-if="store.isLever">
     <p class="text-tutorial mt-3">
-      <span class="bold">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold">
+      <span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight">
         extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.
     </p>
     <div class="col-sm-6 col-lg-12">
-      <img
-        src="@/assets/pistol-1_0.jpg"
-        alt=""
-        class="img-deco"
-      >
-      <!-- <video
-        width="320"
-        height="240"
-        type="video/mp4"
-        autoplay
-        loop
-        muted
-        src="@/assets/verrou-sm_originale.mp4"
-      /> -->
-      <!-- <DsfrVideo
-        type="video/mp4"
-        src="@/assets/verrou-sm_originale.mp4"
-      /> -->
+      <div class="fr-content-media">
+        <video
+          width="320"
+          height="240"
+          type="video/mp4"
+          autoplay
+          loop
+          muted
+          src="/src/assets/pistol_test_1.mp4"
+        />
+      </div>
     </div>
   </div>
   <div v-if="store.isButton">
@@ -35,27 +28,23 @@ import { store } from '@/store.js'
       puis extraire le chargeur de la même main en le tirant ou en le laissant glisser.
     </p>
     <div class="col-sm-6 col-lg-12">
-      <img
-        src="@/assets/pistol-2_0.jpg"
-        alt=""
-        class="img-deco"
-      >
-      <!-- <video
-        width="320"
-        height="240"
-        type="video/mp4"
-        autoplay
-        loop
-        muted
-        src="@/assets/verrou-sm_originale.mp4"
-      /> -->
-      <!-- <DsfrVideo
-        type="video/mp4"
-        src="@/assets/verrou-sm_originale.mp4"
-      /> -->
+      <div class="fr-content-media">
+        <video
+          width="320"
+          height="240"
+          type="video/mp4"
+          autoplay
+          loop
+          muted
+          src="/src/assets/pistol_test_2.mp4"
+        />
+      </div>
     </div>
   </div>
-  <a href="#">
+  <a
+    class="help"
+    href="#"
+  >
     Je n'arrive pas à réaliser cette étape
     <VIcon
       name="ri-information-line"
@@ -63,3 +52,10 @@ import { store } from '@/store.js'
   </a>
   <div class="blank" />
 </template>
+
+<style scoped>
+:deep(.fr-content-media__caption) {
+  display:none !important;
+  visibility: hidden;
+}
+</style>

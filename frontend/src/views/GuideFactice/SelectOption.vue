@@ -1,7 +1,8 @@
 <script setup>
-import { store } from '@/store.js'
-import { ref, reactive, onMounted } from 'vue'
+import { useStorage } from '@vueuse/core'
+import { watch, reactive } from 'vue'
 
+import { store } from '@/store.js'
 const titleOptions = reactive([
   {
     label: 'levier',
@@ -12,21 +13,11 @@ const titleOptions = reactive([
   },
 ])
 
-const selectedOption = ref('')
+const selectedOption = useStorage('selectedOption', '')
 
-const updateSelection = (value) => {
-  selectedOption.value = value
-  store.isLever = selectedOption.value === 'levier'
-  store.isButton = selectedOption.value === 'bouton'
-  saveSelectionToLocalStorage()
-}
-
-const saveSelectionToLocalStorage = () => {
-  localStorage.setItem('selectedOption', JSON.stringify(selectedOption.value))
-}
-
-onMounted(() => {
-  selectedOption.value = JSON.parse(localStorage.getItem('selectedOption'))
+watch(selectedOption, (newValue) => {
+  store.isLever = newValue === 'levier'
+  store.isButton = newValue === 'bouton'
 })
 </script>
 
@@ -34,20 +25,20 @@ onMounted(() => {
   <div>
     <p>
       Sélectionner ce que vous voyez sur votre arme :
-      bouton à proximité <span class="bold">du pontet du côté gauche de la poignée</span>,
-      ou <span class="bold">bouton sur le talon</span> de la crosse.
+      bouton à proximité <span class="bold-highlight">du pontet du côté gauche de la poignée</span>,
+      ou <span class="bold-highlight">bouton sur le talon</span> de la crosse.
     </p>
   </div>
   <div class="two-columns">
     <DsfrRadioButtonSet
-      :model-value="selectedOption"
-      name="selectedOption"
-      required
-      class="col-4 img-spacing"
+      v-model="selectedOption"
       :options="titleOptions"
-      @update:model-value="updateSelection"
+      class="col-4 img-spacing"
+      required
+      name="selectedOption"
     />
-    <div class="col-8 ">
+
+    <div class="col-8">
       <img
         src="@/assets/pistol-1_0_fleche.png"
         alt=""
@@ -60,7 +51,10 @@ onMounted(() => {
       >
     </div>
   </div>
-  <a href="#">
+  <a
+    class="help"
+    href="#"
+  >
     Je n'arrive pas à réaliser cette étape
     <VIcon
       name="ri-information-line"

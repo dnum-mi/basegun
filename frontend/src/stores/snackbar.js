@@ -21,7 +21,7 @@ export const useSnackbarStore = defineStore('snackbar', () => {
       clearTimeout(timeoutId.value)
     }
     currentMessage.value = message
-    
+
     currentType.value = type
     show.value = true
 

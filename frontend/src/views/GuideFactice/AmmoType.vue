@@ -1,7 +1,8 @@
 <script setup>
-import { store } from '@/store.js'
-import { ref, reactive, onMounted } from 'vue'
+import { useStorage } from '@vueuse/core'
+import { watch, reactive } from 'vue'
 
+import { store } from '@/store.js'
 const titleOptions = reactive([
   {
     label: 'cartouches',
@@ -13,23 +14,14 @@ const titleOptions = reactive([
   },
 ])
 
-const selectedOption = ref('')
+const selectedOption = useStorage('selectedOption', '')
 
-const updateSelection = (value) => {
-  selectedOption.value = value
+watch(selectedOption, (newValue) => {
   store.isCartridges = selectedOption.value === 'cartouches'
   store.isBalls = selectedOption.value === 'billes'
   store.isFactice = !!store.isBalls
-  saveSelectionToLocalStorage()
-}
-
-const saveSelectionToLocalStorage = () => {
-  localStorage.setItem('selectedOption', JSON.stringify(selectedOption.value))
-}
-
-onMounted(() => {
-  selectedOption.value = JSON.parse(localStorage.getItem('selectedOption'))
 })
+
 </script>
 
 <template>
@@ -38,15 +30,14 @@ onMounted(() => {
       Sélectionner le type de munition du chargeur
     </p>
     <DsfrRadioButtonSet
-      :model-value="selectedOption"
-      name="selectedOption"
+      v-model="selectedOption"
+      :options="titleOptions"
       required
       inline
-      :options="titleOptions"
-      @update:model-value="updateSelection"
+      name="selectedOption"
     />
   </div>
-  <div class="col-12 two-columns">
+  <div class="col-sm-12 col-lg-6 two-columns">
     <img
       src="@/assets/ammunition-cartridge .jpg"
       alt=""
@@ -61,7 +52,10 @@ onMounted(() => {
   <p>
     <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
   </p>
-  <a href="#">
+  <a
+    class="help"
+    href="#"
+  >
     Je n'arrive pas à réaliser cette étape
     <VIcon
       name="ri-information-line"

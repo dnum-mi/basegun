@@ -23,11 +23,10 @@
 </template>
 
 <script>
-import StartComponent from '@/components/StartComponent.vue'
 import { store } from '@/store.js'
 
 export default {
-  name: 'StartPage',
+  name: 'Start',
   components: {
   },
 
@@ -61,17 +60,7 @@ export default {
     font-size: 14px;
   }
 
-  .footer-background {
-    position: fixed;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    background-color: #f5f5fe;
-    width: 100%;
-  }
-
   .footer-text {
-    padding: 20px 10px;
-    text-align: center;
+    box-shadow: none;
   }
 </style>

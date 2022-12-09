@@ -36,25 +36,25 @@
     </div>
   </div>
   <div class="blank" />
-  <div class="footer-background footer-actions">
+  <div class="footer-background">
     <div
       v-if="!store.uploadMessage"
       class="btn-read-instruction text-center"
     >
       <div
         class="col-11 col-lg-6 footer-actions"
-      />
-      <UploadButton />
-      <DsfrButton
-        class="my-2"
-        label="prendre la photo"
-        icon="ri-camera-fill"
-        @click="readInstruction"
-      />
+      >
+        <UploadButton />
+        <DsfrButton
+          label="Prendre la photo"
+          icon="ri-camera-fill"
+          @click="readInstruction"
+        />
+      </div>
     </div>
     <div
       v-else
-      class="text-center mt-2 bold"
+      class="text-center bold"
     >
       <p>{{ store.uploadMessage }}</p>
     </div>
@@ -64,7 +64,6 @@
 <script>
 import UploadButton from '@/components/UploadButton.vue'
 import { store } from '@/store.js'
-
 export default {
   name: 'Instructions',
   components: {
@@ -117,10 +116,6 @@ img {
 
 .modal-img-text {
   font-style: italic;
-}
-
-.bold-highlight {
-  font-weight: bold;
 }
 
 </style>

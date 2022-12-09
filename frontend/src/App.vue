@@ -28,13 +28,8 @@ const updateSW = registerSW({
       secondary
       @click="updateSW()"
     >
-      <DsfrButton
-        secondary
-        @click="updateSW()"
-      >
-        Mettre à jour
-      </DsfrButton>
-    </dsfrbutton>
+      Mettre à jour
+    </DsfrButton>
   </DsfrCallout>
   <router-view />
 </template>
@@ -62,7 +57,7 @@ const updateSW = registerSW({
   color: #42b983;
 }
 
-:deep(.fr-callout) {
+:deep(#app .fr-callout) {
   padding: 1rem 2rem;
   z-index: 999;
 }
