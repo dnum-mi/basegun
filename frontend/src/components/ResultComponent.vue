@@ -60,15 +60,8 @@
           >
             <p v-html="cleanMention" />
           </div>
-
-          <!-- Si l'arme est de type :
-            pistolet semi-auto,
-            autre pistolet,
-            autre epaule,
-            epaule à verrou
-          -->
           <div
-            v-if="store.isFactice === null"
+            v-if="isFacticeTypology && store.isCartridges !== true"
             class="mt-3"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -203,9 +196,16 @@ export default {
       isUp: undefined,
       isDown: undefined,
       isFeedbackDone: undefined,
+      isFacticeTypology: [
+        'pistolet_semi_auto_moderne',
+        'autre_pistolet',
+        'autre_epaule',
+        'epaule_a_verrou']
+        .includes(store.label),
       results,
     }
   },
+
   computed: {
     cleanLabel () {
       return this.results[`${store.label}`].displayLabel
