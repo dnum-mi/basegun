@@ -41,12 +41,13 @@
 </template>
 
 <script>
+
 import { isPreprod } from '@/config.js'
 import { store } from '@/store/store.js'
 import UploadButton from '@/components/UploadButton.vue'
 import InstructionsView from '@/components/InstructionsView.vue'
 
-console.info({isPreprod})
+console.info('upload:', {isPreprod})
 
 export default {
   name: 'UploadComponent',

@@ -1,2 +1,1 @@
-export const workspace = import.meta.env.VITE_WORKSPACE
-export const isPreprod = workspace === 'preprod'
+export const isPreprod = import.meta.env.VITE_WORKSPACE === 'preprod'

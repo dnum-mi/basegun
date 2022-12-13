@@ -22,7 +22,8 @@ CMD ["npm", "run", "dev"]
 
 FROM base as build
 
-# RUN npm ci --production
+ARG WORKSPACE
+RUN echo "VITE_WORKSPACE='$WORKSPACE'" > .env
 RUN npm run build
 
 FROM nginx:1.21.4-alpine as prod

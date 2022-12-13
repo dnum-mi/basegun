@@ -17,6 +17,8 @@ const pinia = createPinia()
 
 axios.defaults.withCredentials = true
 
+console.log('main :', import.meta.env.VITE_WORKSPACE)
+
 // the FastAPI backend
 axios.defaults.baseURL = '/api/'
 

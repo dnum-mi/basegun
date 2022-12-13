@@ -23,11 +23,13 @@ services:
 
   frontend:
     build:
+      args: 
+        - VITE_WORKSPACE=$WORKSPACE
       context: ./frontend
       target: prod
     container_name: basegun-frontend
-    environment:
-      - VITE_WORKSPACE=${WORKSPACE:-prod}
+    # environment:
+    #   - VITE_WORKSPACE=${WORKSPACE:-prod}
     image: basegun-frontend:${TAG}-prod
     ports:
       - ${PORT_PROD:-80}:80
