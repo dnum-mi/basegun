@@ -1,17 +1,9 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { watch, reactive } from 'vue'
+import { watch } from 'vue'
+import { results, titleOptionsSemiAuto } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
-const titleOptions = reactive([
-  {
-    label: 'levier',
-    value: 'levier',
-  }, {
-    label: 'bouton',
-    value: 'bouton',
-  },
-])
 
 const selectedOption = useStorage('selectedOption', '')
 
@@ -33,7 +25,7 @@ watch(selectedOption, (newValue) => {
   <div class="two-columns">
     <DsfrRadioButtonSet
       v-model="selectedOption"
-      :options="titleOptions"
+      :options="titleOptionsSemiAuto"
       class="col-4 img-spacing"
       required
       name="selectedOption"

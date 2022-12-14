@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
-import { routePath, guideSteps } from '@/utils/firearms-utils'
+import { routePath, guideSteps, results } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
 import StepsGuide from './StepsGuide.vue'
 
@@ -15,13 +15,24 @@ const router = useRouter()
 const selectedOption = useStorage('selectedOption', '')
 
 const currentStep = ref(1)
-const steps = ['', '', '', '']
+// const currentStep = useStorage('currentStep', 1)
+
+const steps = []
+steps.length = results[store.label].stepsNumber
+steps.fill(' ')
+
+const guideStepsWithoutOptions = guideSteps.filter(str => { return str.includes(PATTERN) })
+// filtered = myArray.filter(function (str) { return str.includes(PATTERN); });
+
+console.log('guideSteps :', guideSteps)
+console.log('guideStepsWithoutOptions :', guideStepsWithoutOptions)
 
 const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' })
     : router.push({ name: `${guideSteps[currentStep.value - 1]}` })
 )
+
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
 )
@@ -36,7 +47,7 @@ const validate = () => {
 
 watch(selectedOption, (newValue) => {
   selectedOption.value = newValue
-  currentStep.value = newValue
+  // currentStep.value = newValue
 })
 </script>
 
@@ -64,14 +75,14 @@ watch(selectedOption, (newValue) => {
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
-          :disabled="store.isDisabledNextStep === null && currentStep === 2"
+          :disabled="store.isDisabledNextStep === null && currentStep === 2 && selectedOption !== true"
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton
           v-show="currentStep === steps.length"
           class="m-1 flex justify-content-center"
-          :disabled="store.isDisabledValidate === null && currentStep === 4"
+          :disabled="store.isDisabledValidate === null && currentStep === 4 && selectedOption !== true"
           label="Valider"
           @click="validate()"
         />

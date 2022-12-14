@@ -9,18 +9,26 @@
         v-if="store.isFactice === true"
         class="fr-callout custom-callout"
       >
+        <div v-if="store.confidenceLevel === 'high'">
+          <div class="callout-head">
+            <p class="fr-tag fr-tag--sm success-tag">
+              Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+            </p>
+          </div>
+        </div>
         <p class="fr-callout__title">
           Non Classé
         </p>
         <p class="fr-callout__text">
-          Typologie : objet, arme factice
+          Objet, arme factice
+        </p>
+        <p class="fr-callout__text">
+          <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
         </p>
         <div
-          class="callout-mention mt-5"
+          class="callout-mention mt-4"
         >
-          <p>
-            Libre d'acquisition et de détention
-          </p>
+          <p v-html="cleanMention" />
         </div>
       </div>
       <div
@@ -61,7 +69,7 @@
             <p v-html="cleanMention" />
           </div>
           <div
-            v-if="isFacticeTypology && store.isCartridges !== true"
+            v-if="cleanTypology === true && store.isCartridges !== true"
             class="mt-3"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -196,12 +204,13 @@ export default {
       isUp: undefined,
       isDown: undefined,
       isFeedbackDone: undefined,
-      isFacticeTypology: [
-        'pistolet_semi_auto_moderne',
-        'autre_pistolet',
-        'autre_epaule',
-        'epaule_a_verrou']
-        .includes(store.label),
+      mentionIfIsFactice: "Libre d'acquisition et de détention",
+      // isFacticeTypology: [
+      //   'pistolet_semi_auto_moderne',
+      //   'autre_pistolet',
+      //   'autre_epaule',
+      //   'epaule_a_verrou']
+      //   .includes(store.label),
       results,
     }
   },
@@ -214,17 +223,22 @@ export default {
       return this.results[`${store.label}`].category
     },
     cleanMention () {
-      return this.results[`${store.label}`].mention
+      return this.results[`${store.label}`].isFacticeTypology === true && store.isBalls === true
+        ? this.mentionIfIsFactice
+        : this.results[`${store.label}`].mention
+    },
+    cleanTypology () {
+      return this.results[`${store.label}`].isFacticeTypology
     },
   },
 
   methods: {
     goToSafetyRecommendation () {
-      localStorage.clear()
       this.$router.push({ name: 'SafetyRecommendation' }).catch(() => {})
     },
 
     resetSearch () {
+      localStorage.clear()
       window.location.replace('/accueil')
     },
 
