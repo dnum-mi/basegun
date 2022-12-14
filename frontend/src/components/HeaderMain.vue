@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { isPreprod } from '@/config.js'
 
 const router = useRouter()
 
@@ -70,5 +71,16 @@ function onClickOnInfo (event) {
     top: 12%;
     right: 12%;
   }
+.banner {
+  padding: .5rem 1rem;
+  position: relative;
+  left: 5%;
+  /* transform: rotate(-20deg); */
+}
+
+.nav-container {
+  margin: 0.2em auto;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
