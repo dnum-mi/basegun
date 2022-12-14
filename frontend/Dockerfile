@@ -23,7 +23,7 @@ CMD ["npm", "run", "dev"]
 FROM base as build
 
 ARG WORKSPACE
-RUN echo "VITE_WORKSPACE='$WORKSPACE'" > .env
+ARG VITE_WORKSPACE=${WORKSPACE}
 RUN npm run build
 
 FROM nginx:1.21.4-alpine as prod

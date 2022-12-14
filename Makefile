@@ -27,7 +27,7 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
 build-%: check-dc-config-% show-current-tag
-	WORKSPACE=${WORKSPACE} TAG=${TAG} ${DC} -f docker-compose-$*.yml build
+	TAG=${TAG} ${DC} -f docker-compose-$*.yml --env-file ./frontend/.env build 
 
 up-%: check-dc-config-% show-current-tag
 ifeq ("$(WORKSPACE)","preprod")
