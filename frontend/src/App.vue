@@ -20,7 +20,7 @@ const updateSW = registerSW({
   <HeaderMain v-show="store.isDisplayHeader" />
   <DsfrCallout
     v-show="needRefresh"
-    class="col-lg-6  mx-auto"
+    class="col-lg-6  mx-auto  refresh"
     content=""
     title="Une mise à jour est disponible"
   >
@@ -57,9 +57,8 @@ const updateSW = registerSW({
   color: #42b983;
 }
 
-:deep(#app .fr-callout) {
-  padding: 1rem 2rem;
-  z-index: 999;
+.refresh {
+  z-index: 999 !important;
 }
 
 </style>

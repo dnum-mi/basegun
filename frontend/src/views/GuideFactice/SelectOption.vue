@@ -1,11 +1,17 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { watch } from 'vue'
-import { results, titleOptionsSemiAuto } from '@/utils/firearms-utils'
+import { watch, ref } from 'vue'
+import { results, titleOptionsSemiAuto, titleOptionsAutreEpaule } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
 
 const selectedOption = useStorage('selectedOption', '')
+
+console.table(results[store.label].displayLabel)
+
+const titleOptions = ref([])
+
+titleOptions.value = results[store.label].displayLabel === 'pistolet semi-automatique moderne' ? titleOptionsSemiAuto : titleOptionsAutreEpaule
 
 watch(selectedOption, (newValue) => {
   store.isLever = newValue === 'levier'
@@ -25,7 +31,7 @@ watch(selectedOption, (newValue) => {
   <div class="two-columns">
     <DsfrRadioButtonSet
       v-model="selectedOption"
-      :options="titleOptionsSemiAuto"
+      :options="titleOptions"
       class="col-4 img-spacing"
       required
       name="selectedOption"

@@ -1,7 +1,7 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useStorage } from '@vueuse/core'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { routePath, guideSteps, results } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
 import StepsGuide from './StepsGuide.vue'
@@ -10,27 +10,26 @@ store.isDisplayHeader = false
 
 onMounted(() => { console.table(store) })
 
+const route = useRoute()
 const router = useRouter()
 
 const selectedOption = useStorage('selectedOption', '')
 
 const currentStep = ref(1)
-// const currentStep = useStorage('currentStep', 1)
+// currentStep.value = useStorage('currentStep', currentStep.value + 1)
 
 const steps = []
 steps.length = results[store.label].stepsNumber
 steps.fill(' ')
 
-const guideStepsWithoutOptions = guideSteps.filter(str => { return str.includes(PATTERN) })
-// filtered = myArray.filter(function (str) { return str.includes(PATTERN); });
-
-console.log('guideSteps :', guideSteps)
-console.log('guideStepsWithoutOptions :', guideStepsWithoutOptions)
+guideSteps.value = results[store.label].stepsNumber === 4
+  ? [...guideSteps]
+  : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
 const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' })
-    : router.push({ name: `${guideSteps[currentStep.value - 1]}` })
+    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` })
 )
 
 const goToPreviousStep = () => (
@@ -44,6 +43,13 @@ const validate = () => {
   router.push({ name: 'Result' })
   store.isFactice = !!store.isBalls
 }
+
+const disabledNextStep = computed(() =>
+  route.name === 'SelectOption' &&
+  (store.isDisabledNextStep === null && selectedOption !== true))
+const disabledValidation = computed(() =>
+  route.name === 'AmmoType' &&
+  (store.isDisabledValidate === null && selectedOption !== true))
 
 watch(selectedOption, (newValue) => {
   selectedOption.value = newValue
@@ -75,15 +81,15 @@ watch(selectedOption, (newValue) => {
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
-          :disabled="store.isDisabledNextStep === null && currentStep === 2 && selectedOption !== true"
+          :disabled="disabledNextStep"
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton
           v-show="currentStep === steps.length"
           class="m-1 flex justify-content-center"
-          :disabled="store.isDisabledValidate === null && currentStep === 4 && selectedOption !== true"
           label="Valider"
+          :disabled="disabledValidation"
           @click="validate()"
         />
       </div>
