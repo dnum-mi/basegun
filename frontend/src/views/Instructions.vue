@@ -84,6 +84,7 @@ export default {
     readInstruction () {
       const demarrer = document.getElementById('demarrer')
       demarrer.firstChild.click()
+      localStorage.clear()
     },
   },
 }

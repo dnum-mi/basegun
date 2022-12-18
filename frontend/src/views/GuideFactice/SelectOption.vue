@@ -1,19 +1,18 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
 import { watch, ref } from 'vue'
-import { results, titleOptionsSemiAuto, titleOptionsAutreEpaule } from '@/utils/firearms-utils'
+import { titleOptionsSemiAuto, titleOptionsAutreEpaule, results } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
 
-const selectedOption = useStorage('selectedOption', '')
-
-console.table(results[store.label].displayLabel)
+const label = useStorage('label')
+const selectedMechanism = useStorage('selectedMechanism', '')
 
 const titleOptions = ref([])
 
-titleOptions.value = results[store.label].displayLabel === 'pistolet semi-automatique moderne' ? titleOptionsSemiAuto : titleOptionsAutreEpaule
+titleOptions.value = results[label.value].displayLabel === 'pistolet semi-automatique moderne' ? titleOptionsSemiAuto : titleOptionsAutreEpaule
 
-watch(selectedOption, (newValue) => {
+watch(selectedMechanism, (newValue) => {
   store.isLever = newValue === 'levier'
   store.isButton = newValue === 'bouton'
   store.isDisabledNextStep = newValue === true
@@ -30,11 +29,11 @@ watch(selectedOption, (newValue) => {
   </div>
   <div class="two-columns">
     <DsfrRadioButtonSet
-      v-model="selectedOption"
+      v-model="selectedMechanism"
       :options="titleOptions"
-      class="col-4 img-spacing"
+      class="col-4"
       required
-      name="selectedOption"
+      name="selectedMechanism"
     />
 
     <div class="col-8">
@@ -66,6 +65,7 @@ watch(selectedOption, (newValue) => {
 .two-columns {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 :deep(.fr-radio-group):first-child {
@@ -84,7 +84,6 @@ watch(selectedOption, (newValue) => {
 :deep(.fr-fieldset__content) {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-direction: column;
 }
 

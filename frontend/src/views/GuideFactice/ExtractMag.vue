@@ -3,7 +3,7 @@ import { store } from '@/store.js'
 import { useStorage } from '@vueuse/core'
 import { results } from '@/utils/firearms-utils'
 
-const typology = useStorage('typology', results[store.label].displayLabel)
+
 
 </script>
 

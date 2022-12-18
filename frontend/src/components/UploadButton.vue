@@ -16,6 +16,7 @@
 <script>
 import { store } from '@/store.js'
 import axios from 'axios'
+import { useStorage } from '@vueuse/core'
 
 function randomCoord (num) {
   num = parseFloat(num)
@@ -110,12 +111,12 @@ export default {
 
           axios.post('/upload', fd)
             .then(res => {
-              store.label = res.data.label
-              store.confidence = res.data.confidence
-              store.confidenceLevel = res.data.confidence_level
+              store.label = useStorage('label', res.data.label)
+              store.confidence = useStorage('confidence', res.data.confidence)
+              store.confidenceLevel = useStorage('confidenceLevel', res.data.confidence_level)
               store.resultText = "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%'
               store.img = base64
-              store.imgUrl = res.data.path
+              store.imgUrl = useStorage('imgUrl', res.data.path)
               vm.$router.push({ name: 'Result' }).catch(() => { })
             })
             .catch((err) => {

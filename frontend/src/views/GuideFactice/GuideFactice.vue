@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue'
+import { watch, computed } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
 import { routePath, guideSteps, results } from '@/utils/firearms-utils'
@@ -8,21 +8,20 @@ import StepsGuide from './StepsGuide.vue'
 
 store.isDisplayHeader = false
 
-onMounted(() => { console.table(store) })
-
 const route = useRoute()
 const router = useRouter()
 
-const selectedOption = useStorage('selectedOption', '')
+const label = useStorage('label')
+const selectedMechanism = useStorage('selectedMechanism', '')
+const selectedAmmunition = useStorage('selectedAmmunition', '')
 
-const currentStep = ref(1)
-// currentStep.value = useStorage('currentStep', currentStep.value + 1)
+const currentStep = useStorage('currentStep', 1)
 
 const steps = []
-steps.length = results[store.label].stepsNumber
+steps.length = results[label.value].stepsNumber
 steps.fill(' ')
 
-guideSteps.value = results[store.label].stepsNumber === 4
+guideSteps.value = results[label.value].stepsNumber === 4
   ? [...guideSteps]
   : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
@@ -46,14 +45,15 @@ const validate = () => {
 
 const disabledNextStep = computed(() =>
   route.name === 'SelectOption' &&
-  (store.isDisabledNextStep === null && selectedOption !== true))
+  (store.isDisabledNextStep === null && selectedMechanism !== undefined))
 const disabledValidation = computed(() =>
   route.name === 'AmmoType' &&
-  (store.isDisabledValidate === null && selectedOption !== true))
+  (store.isDisabledValidate === null && selectedAmmunition !== undefined))
 
-watch(selectedOption, (newValue) => {
-  selectedOption.value = newValue
-  // currentStep.value = newValue
+watch([selectedMechanism, selectedAmmunition], (newValue) => {
+  selectedMechanism.value = newValue
+  selectedAmmunition.value = newValue
+  currentStep.value = newValue
 })
 </script>
 

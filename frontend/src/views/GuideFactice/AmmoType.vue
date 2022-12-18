@@ -14,11 +14,11 @@ const titleOptions = reactive([
   },
 ])
 
-const selectedOption = useStorage('selectedOption', '')
+const selectedAmmunition = useStorage('selectedAmmunition', '')
 
-watch(selectedOption, (newValue) => {
-  store.isCartridges = selectedOption.value === 'cartouches'
-  store.isBalls = selectedOption.value === 'billes'
+watch(selectedAmmunition, (newValue) => {
+  store.isCartridges = selectedAmmunition.value === 'cartouches'
+  store.isBalls = selectedAmmunition.value === 'billes'
   store.isDisabledValidate = newValue === true
   store.isFactice = !!store.isBalls
 })
@@ -31,11 +31,11 @@ watch(selectedOption, (newValue) => {
       Sélectionner le type de munition du chargeur
     </p>
     <DsfrRadioButtonSet
-      v-model="selectedOption"
+      v-model="selectedAmmunition"
       :options="titleOptions"
       required
       inline
-      name="selectedOption"
+      name="selectedAmmunition"
     />
   </div>
   <div class="col-sm-12 col-lg-6 two-columns">

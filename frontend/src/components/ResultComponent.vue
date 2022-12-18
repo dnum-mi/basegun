@@ -205,30 +205,24 @@ export default {
       isDown: undefined,
       isFeedbackDone: undefined,
       mentionIfIsFactice: "Libre d'acquisition et de détention",
-      // isFacticeTypology: [
-      //   'pistolet_semi_auto_moderne',
-      //   'autre_pistolet',
-      //   'autre_epaule',
-      //   'epaule_a_verrou']
-      //   .includes(store.label),
       results,
     }
   },
 
   computed: {
     cleanLabel () {
-      return this.results[`${store.label}`].displayLabel
+      return this.results[store.label].displayLabel
     },
     cleanCategory () {
-      return this.results[`${store.label}`].category
+      return this.results[store.label].category
     },
     cleanMention () {
-      return this.results[`${store.label}`].isFacticeTypology === true && store.isBalls === true
+      return this.results[store.label].isFacticeTypology === true && store.isBalls === true
         ? this.mentionIfIsFactice
-        : this.results[`${store.label}`].mention
+        : this.results[store.label].mention
     },
     cleanTypology () {
-      return this.results[`${store.label}`].isFacticeTypology
+      return this.results[store.label].isFacticeTypology
     },
   },
 
