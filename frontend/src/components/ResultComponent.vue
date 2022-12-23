@@ -6,7 +6,7 @@
         :style="{backgroundImage:`url(${store.img})`}"
       />
       <div
-        v-if="store.isFactice === true"
+        v-if="selectedAmmo === 'billes'"
         class="fr-callout custom-callout"
       >
         <div v-if="store.confidenceLevel === 'high'">
@@ -69,7 +69,7 @@
             <p v-html="cleanMention" />
           </div>
           <div
-            v-if="cleanTypology === true && store.isCartridges !== true"
+            v-if="cleanTypology === true && selectedAmmo === undefined"
             class="mt-3"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -85,7 +85,7 @@
 
           <p
             class="fr-callout__text"
-            :class="{ 'mt-3' : store.isFactice === false }"
+            :class="{ 'mt-3' : isFactice === false }"
           >
             Typologie : {{ cleanLabel }}
           </p>
@@ -183,6 +183,7 @@
 
 <script>
 import { store } from '@/store.js'
+import { useStorage } from '@vueuse/core'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { results } from '@/utils/firearms-utils'
@@ -201,6 +202,8 @@ export default {
     return {
       store,
       isDisplayHeader: store.isDisplayHeader = false,
+      isFactice: useStorage('isFactice'),
+      selectedAmmo: useStorage('selectedAmmo'),
       isUp: undefined,
       isDown: undefined,
       isFeedbackDone: undefined,
@@ -217,13 +220,17 @@ export default {
       return this.results[store.label].category
     },
     cleanMention () {
-      return this.results[store.label].isFacticeTypology === true && store.isBalls === true
+      return this.results[store.label].isFacticeTypology === true && this.selectedAmmo === 'billes'
         ? this.mentionIfIsFactice
         : this.results[store.label].mention
     },
     cleanTypology () {
       return this.results[store.label].isFacticeTypology
     },
+  },
+
+  mounted () {
+    console.log(this.isFactice)
   },
 
   methods: {

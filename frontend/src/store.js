@@ -12,9 +12,6 @@ export const store = reactive({
   resultText: null,
   uploadMessage: null,
   // guide factice
-  isFactice: null,
-  isCartridges: null,
-  isBalls: null,
   isDisabledNextStep: null,
   isDisabledValidate: null,
 })

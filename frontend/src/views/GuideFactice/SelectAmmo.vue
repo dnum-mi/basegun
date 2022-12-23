@@ -1,26 +1,23 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { watch, reactive } from 'vue'
+import { ref, watch } from 'vue'
+import { guideFacticeAmmoType } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
-const options = reactive([
-  {
-    label: 'cartouches',
-    value: 'cartouches',
-  },
-  {
-    label: 'billes',
-    value: 'billes',
-  },
-])
 
+const typology = useStorage('typology')
+const isFactice = useStorage('isFactice')
 const selectedAmmo = useStorage('selectedAmmo', '')
 
+const zoom = ref('')
+
+const zoomOn = (imgValue) => {
+  zoom.value = imgValue
+}
+
 watch(selectedAmmo, (newValue) => {
-  store.isCartridges = selectedAmmo.value === 'cartouches'
-  store.isBalls = selectedAmmo.value === 'billes'
   store.isDisabledValidate = newValue === true
-  store.isFactice = !!store.isBalls
+  isFactice.value = newValue === 'billes'
 })
 
 </script>
@@ -30,61 +27,88 @@ watch(selectedAmmo, (newValue) => {
     <p>
       Sélectionner le type de munition du chargeur
     </p>
-    <DsfrRadioButtonSet
-      v-model="selectedAmmo"
-      :options="options"
-      required
-      inline
-      name="selectedAmmo"
-    />
-  </div>
-  <div class="col-sm-12 col-lg-6 two-columns">
-    <img
-      src="@/assets/ammunition-cartridge .jpg"
-      alt=""
-      class="img-deco"
+    <div>
+      <template
+        v-for="option of guideFacticeAmmoType[typology]"
+        :key="option.value"
+      >
+        <div class="item">
+          <DsfrRadioButton
+            v-model="selectedAmmo"
+            v-bind="option"
+            :img="`/src/assets/${option.img_ammo}`"
+            required
+            name="selectedAmmo"
+          />
+          <VIcon
+            class="zoom"
+            name="ri-zoom-in-line"
+            scale="1.25"
+            @click="zoomOn(option.value)"
+          />
+          <Teleport to="body">
+            <DsfrModal
+              :opened="zoom === option.value"
+              @close="zoom = ''"
+            >
+              <img
+                v-if="zoom === option.value"
+                :src="`/src/assets/${option.img_ammo}`"
+                :style="{'max-width': '100%'}"
+              >
+            </DsfrModal>
+          </Teleport>
+        </div>
+      </template>
+    </div>
+    <p>
+      <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
+    </p>
+    <a
+      class="help"
+      href="#"
     >
-    <img
-      src="@/assets/ammunition-balls.jpg"
-      alt=""
-      class="img-deco"
-    >
+      Je n'arrive pas à réaliser cette étape
+      <VIcon
+        name="ri-information-line"
+      />
+    </a>
+    <div class="blank" />
   </div>
-  <p>
-    <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
-  </p>
-  <a
-    class="help"
-    href="#"
-  >
-    Je n'arrive pas à réaliser cette étape
-    <VIcon
-      name="ri-information-line"
-    />
-  </a>
-  <div class="blank" />
 </template>
 
 <style scoped>
-.img-deco {
-  padding: 1rem;
-  margin-top: 0rem;
+
+.item {
+  position: relative;
+  padding-bottom: 2em;
 }
 
-.two-columns {
-  display: flex;
+.zoom {
+  position: absolute;
+  top: 0.125em;
+  right: 0.125em;
+  background-color: #eee9;
+  cursor: zoom-in;
 }
 
-:deep(.fr-form-group){
-  margin-top: 2rem;
-  margin-bottom: 0rem;
+:deep(.fr-container) {
+  height: 70%;
 }
 
-:deep(.fr-radio-group):first-child {
-  margin-left: 1rem;
+:deep(.fr-radio-rich__img){
+  width: 8.25rem;
 }
 
-:deep(.fr-radio-group){
-  margin-left: 3rem;
+:deep(.fr-radio-rich__img img){
+  width: 8rem;
+  max-width: unset;
+}
+
+:deep(.fr-radio-rich input[type="radio"] + label){
+  white-space: pre-wrap;
+}
+.instructions {
+  padding-bottom: 2em;
 }
 </style>

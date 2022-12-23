@@ -1,6 +1,6 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 import { guideFactice } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
@@ -8,98 +8,104 @@ import { store } from '@/store.js'
 const typology = useStorage('typology')
 const selectedOption = useStorage('selectedOption', '')
 
+const zoom = ref('')
+
+const zoomOn = (imgValue) => {
+  zoom.value = imgValue
+}
+
 watch(selectedOption, (newValue) => {
   store.isDisabledNextStep = newValue === true
 })
 </script>
 
 <template>
-  <div>
+  <div class="instructions">
     <p>
       Sélectionner ce que vous voyez sur votre arme :
       bouton à proximité <span class="bold-highlight">du pontet du côté gauche de la poignée</span>,
       ou <span class="bold-highlight">bouton sur le talon</span> de la crosse.
     </p>
   </div>
-  <div class="rows">
-    <div class="columns col-5">
-      <DsfrRadioButtonSet
-        v-model="selectedOption"
-        :options="guideFactice[typology]"
-        required
-        name="selectedOption"
-      />
-    </div>
-    <div class="columns">
-      <div
-        v-for="item in guideFactice[typology]"
-        :key="item"
-      >
+  <div>
+    <template
+      v-for="option of guideFactice[typology]"
+      :key="option.value"
+    >
+      <div class="item">
+        <DsfrRadioButton
+          v-model="selectedOption"
+          v-bind="option"
+          :img="`/src/assets/${option.img}`"
+          required
+          name="selectedOption"
+        />
         <VIcon
           class="zoom"
           name="ri-zoom-in-line"
           scale="1.25"
+          @click="zoomOn(option.value)"
         />
-        <img
-          :src="`/src/assets/${item.img}`"
-          alt=""
-          class="img-deco"
-        >
+        <Teleport to="body">
+          <DsfrModal
+            :opened="zoom === option.value"
+            @close="zoom = ''"
+          >
+            <img
+              v-if="zoom === option.value"
+              :src="`/src/assets/${option.img}`"
+              :style="{'max-width': '100%'}"
+            >
+          </DsfrModal>
+        </Teleport>
       </div>
-    </div>
+    </template>
   </div>
-  <a
-    class="help"
-    href="#"
-  >
-    Je n'arrive pas à réaliser cette étape
-    <VIcon
-      name="ri-information-line"
-    />
-  </a>
+  <div>
+    <a
+      class="help"
+      href="#"
+    >
+      Je n'arrive pas à réaliser cette étape
+      <VIcon
+        name="ri-information-line"
+      />
+    </a>
+  </div>
   <div class="blank" />
 </template>
 
 <style scoped>
-.rows {
-  display: flex;
-}
-
-.columns {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-}
-
 .item {
   position: relative;
+  padding-bottom: 2em;
 }
 
 .zoom {
   position: absolute;
+  top: 0.125em;
+  right: 0.125em;
+  background-color: #eee9;
+  cursor: zoom-in;
 }
 
-:deep(.fr-radio-group):first-child {
-  /* margin-top: 4rem;
-  margin-bottom: 10rem; */
+:deep(.fr-container) {
+  height: 70%;
 }
 
-:deep(.fr-radio-group) {
-  /* margin-right: 2rem; */
+:deep(.fr-radio-rich__img){
+  width: 8.25rem;
 }
 
-:deep(.fr-fieldset__content) {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+:deep(.fr-radio-rich__img img){
+  width: 8rem;
+  max-width: unset;
 }
 
-@media (min-width: 740px) {
-  /* :deep(.fr-radio-group):first-child {
-    margin-top: 6rem;
-    margin-bottom: 14rem;
-  } */
+:deep(.fr-radio-rich input[type="radio"] + label){
+  white-space: pre-wrap;
 }
-
+.instructions {
+  padding-bottom: 2em;
+}
 </style>
