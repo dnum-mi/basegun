@@ -11,17 +11,17 @@ store.isDisplayHeader = false
 const route = useRoute()
 const router = useRouter()
 
-const label = useStorage('label')
-const selectedMechanism = useStorage('selectedMechanism', '')
-const selectedAmmunition = useStorage('selectedAmmunition', '')
+const typology = useStorage('typology')
+const selectedOption = useStorage('selectedOption', '')
+const selectedAmmo = useStorage('selectedAmmo', '')
 
 const currentStep = useStorage('currentStep', 1)
 
 const steps = []
-steps.length = results[label.value].stepsNumber
+steps.length = results[typology.value].stepsNumber
 steps.fill(' ')
 
-guideSteps.value = results[label.value].stepsNumber === 4
+guideSteps.value = results[typology.value].stepsNumber === 4
   ? [...guideSteps]
   : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
@@ -45,14 +45,14 @@ const validate = () => {
 
 const disabledNextStep = computed(() =>
   route.name === 'SelectOption' &&
-  (store.isDisabledNextStep === null && selectedMechanism !== undefined))
+  (store.isDisabledNextStep === null && selectedOption !== undefined))
 const disabledValidation = computed(() =>
-  route.name === 'AmmoType' &&
-  (store.isDisabledValidate === null && selectedAmmunition !== undefined))
+  route.name === 'SelectedAmmo' &&
+  (store.isDisabledValidate === null && selectedAmmo !== undefined))
 
-watch([selectedMechanism, selectedAmmunition], (newValue) => {
-  selectedMechanism.value = newValue
-  selectedAmmunition.value = newValue
+watch([selectedOption, selectedAmmo], (newValue) => {
+  selectedOption.value = newValue
+  selectedAmmo.value = newValue
   currentStep.value = newValue
 })
 </script>

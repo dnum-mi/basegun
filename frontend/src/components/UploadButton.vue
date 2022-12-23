@@ -111,7 +111,7 @@ export default {
 
           axios.post('/upload', fd)
             .then(res => {
-              store.label = useStorage('label', res.data.label)
+              store.label = useStorage('typology', res.data.label)
               store.confidence = useStorage('confidence', res.data.confidence)
               store.confidenceLevel = useStorage('confidenceLevel', res.data.confidence_level)
               store.resultText = "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%'

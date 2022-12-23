@@ -3,7 +3,7 @@ import { useStorage } from '@vueuse/core'
 import { watch, reactive } from 'vue'
 
 import { store } from '@/store.js'
-const titleOptions = reactive([
+const options = reactive([
   {
     label: 'cartouches',
     value: 'cartouches',
@@ -14,11 +14,11 @@ const titleOptions = reactive([
   },
 ])
 
-const selectedAmmunition = useStorage('selectedAmmunition', '')
+const selectedAmmo = useStorage('selectedAmmo', '')
 
-watch(selectedAmmunition, (newValue) => {
-  store.isCartridges = selectedAmmunition.value === 'cartouches'
-  store.isBalls = selectedAmmunition.value === 'billes'
+watch(selectedAmmo, (newValue) => {
+  store.isCartridges = selectedAmmo.value === 'cartouches'
+  store.isBalls = selectedAmmo.value === 'billes'
   store.isDisabledValidate = newValue === true
   store.isFactice = !!store.isBalls
 })
@@ -31,11 +31,11 @@ watch(selectedAmmunition, (newValue) => {
       Sélectionner le type de munition du chargeur
     </p>
     <DsfrRadioButtonSet
-      v-model="selectedAmmunition"
-      :options="titleOptions"
+      v-model="selectedAmmo"
+      :options="options"
       required
       inline
-      name="selectedAmmunition"
+      name="selectedAmmo"
     />
   </div>
   <div class="col-sm-12 col-lg-6 two-columns">

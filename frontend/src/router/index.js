@@ -16,7 +16,7 @@ const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue
 const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
 const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
-const AmmoType = () => import('@/views/GuideFactice/AmmoType.vue')
+const AmmoType = () => import('@/views/GuideFactice/SelectAmmo.vue')
 
 const routes = [
   {

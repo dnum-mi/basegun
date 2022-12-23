@@ -1,20 +1,14 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { watch, ref } from 'vue'
-import { titleOptionsSemiAuto, titleOptionsAutreEpaule, results } from '@/utils/firearms-utils'
+import { watch } from 'vue'
+import { guideFactice } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
 
-const label = useStorage('label')
-const selectedMechanism = useStorage('selectedMechanism', '')
+const typology = useStorage('typology')
+const selectedOption = useStorage('selectedOption', '')
 
-const titleOptions = ref([])
-
-titleOptions.value = results[label.value].displayLabel === 'pistolet semi-automatique moderne' ? titleOptionsSemiAuto : titleOptionsAutreEpaule
-
-watch(selectedMechanism, (newValue) => {
-  store.isLever = newValue === 'levier'
-  store.isButton = newValue === 'bouton'
+watch(selectedOption, (newValue) => {
   store.isDisabledNextStep = newValue === true
 })
 </script>
@@ -27,26 +21,31 @@ watch(selectedMechanism, (newValue) => {
       ou <span class="bold-highlight">bouton sur le talon</span> de la crosse.
     </p>
   </div>
-  <div class="two-columns">
-    <DsfrRadioButtonSet
-      v-model="selectedMechanism"
-      :options="titleOptions"
-      class="col-4"
-      required
-      name="selectedMechanism"
-    />
-
-    <div class="col-8">
-      <img
-        src="@/assets/pistol-1_0_fleche.png"
-        alt=""
-        class="img-deco"
+  <div class="rows">
+    <div class="columns col-5">
+      <DsfrRadioButtonSet
+        v-model="selectedOption"
+        :options="guideFactice[typology]"
+        required
+        name="selectedOption"
+      />
+    </div>
+    <div class="columns">
+      <div
+        v-for="item in guideFactice[typology]"
+        :key="item"
       >
-      <img
-        src="@/assets/pistol-2_0_fleche.png"
-        alt=""
-        class="img-deco"
-      >
+        <VIcon
+          class="zoom"
+          name="ri-zoom-in-line"
+          scale="1.25"
+        />
+        <img
+          :src="`/src/assets/${item.img}`"
+          alt=""
+          class="img-deco"
+        >
+      </div>
     </div>
   </div>
   <a
@@ -62,23 +61,32 @@ watch(selectedMechanism, (newValue) => {
 </template>
 
 <style scoped>
-.two-columns {
+.rows {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+}
+
+.columns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.item {
+  position: relative;
+}
+
+.zoom {
+  position: absolute;
 }
 
 :deep(.fr-radio-group):first-child {
-  margin-top: 4rem;
-  margin-bottom: 10rem;
+  /* margin-top: 4rem;
+  margin-bottom: 10rem; */
 }
 
 :deep(.fr-radio-group) {
-  margin-right: 2rem;
-}
-
-.img-deco {
-  height: auto;
+  /* margin-right: 2rem; */
 }
 
 :deep(.fr-fieldset__content) {
@@ -88,10 +96,10 @@ watch(selectedMechanism, (newValue) => {
 }
 
 @media (min-width: 740px) {
-  :deep(.fr-radio-group):first-child {
+  /* :deep(.fr-radio-group):first-child {
     margin-top: 6rem;
     margin-bottom: 14rem;
-  }
+  } */
 }
 
 </style>
