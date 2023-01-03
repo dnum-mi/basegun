@@ -1,13 +1,13 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
 import { ref, watch } from 'vue'
-import { guideFacticeAmmoType } from '@/utils/firearms-utils'
+import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 
 import { store } from '@/store.js'
 
 const typology = useStorage('typology')
 const isFactice = useStorage('isFactice')
-const selectedAmmo = useStorage('selectedAmmo', '')
+const selectedAmmo = useStorage('selectedAmmo')
 
 const zoom = ref('')
 
@@ -29,12 +29,13 @@ watch(selectedAmmo, (newValue) => {
     </p>
     <div>
       <template
-        v-for="option of guideFacticeAmmoType[typology]"
+        v-for="option of guideFacticeSelectAmmo[typology]"
         :key="option.value"
       >
         <div class="item">
           <DsfrRadioButton
             v-model="selectedAmmo"
+            class="radio"
             v-bind="option"
             :img="`/src/assets/${option.img_ammo}`"
             required
@@ -48,6 +49,7 @@ watch(selectedAmmo, (newValue) => {
           />
           <Teleport to="body">
             <DsfrModal
+              title=""
               :opened="zoom === option.value"
               @close="zoom = ''"
             >
@@ -92,15 +94,16 @@ watch(selectedAmmo, (newValue) => {
   cursor: zoom-in;
 }
 
-:deep(.fr-container) {
-  height: 70%;
+:deep(.fr-radio-rich input[type="radio"] + label) {
+  height: 13rem;
 }
 
-:deep(.fr-radio-rich__img){
+:deep(.radio > .fr-radio-rich__img){
+  height: 12.5rem;
   width: 8.25rem;
 }
 
-:deep(.fr-radio-rich__img img){
+:deep(.radio > .fr-radio-rich__img img){
   width: 8rem;
   max-width: unset;
 }

@@ -183,11 +183,10 @@
 
 <script>
 import { store } from '@/store.js'
-import { useStorage } from '@vueuse/core'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { results } from '@/utils/firearms-utils'
-
+import { useStorage } from '@vueuse/core'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 
 const { setMessage } = useSnackbarStore()
@@ -202,7 +201,7 @@ export default {
     return {
       store,
       isDisplayHeader: store.isDisplayHeader = false,
-      isFactice: useStorage('isFactice'),
+      isFactice: undefined,
       selectedAmmo: useStorage('selectedAmmo'),
       isUp: undefined,
       isDown: undefined,
@@ -229,9 +228,6 @@ export default {
     },
   },
 
-  mounted () {
-    console.log(this.isFactice)
-  },
 
   methods: {
     goToSafetyRecommendation () {

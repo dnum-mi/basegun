@@ -138,7 +138,7 @@ export const guideFactice = {
     },
 }
 
-export const guideFacticeAmmoType = {
+export const guideFacticeSelectAmmo = {
   pistolet_semi_auto_moderne: {
     cartouche: {
       label: 'cartouche',
@@ -155,12 +155,12 @@ export const guideFacticeAmmoType = {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'ammunition-cartridge.jpg',
+      img_ammo: 'autre-epaule-cartridge.png',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'ammunition-balls.jpg',
+      img_ammo: 'autre-epaule-balls.png',
     },
   },
   autre_pistolet: {
@@ -192,13 +192,13 @@ export const guideFacticeAmmoType = {
 const firearmDirection = 'FirearmDirection'
 const selectOption = 'SelectOption'
 const extractMag = 'ExtractMag'
-const ammoType = 'AmmoType'
+const selectAmmo = 'SelectAmmo'
 
 export const guideSteps = [
   firearmDirection,
   selectOption,
   extractMag,
-  ammoType,
+  selectAmmo,
 ]
 
 export const routePath = [

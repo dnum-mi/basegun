@@ -44,11 +44,10 @@ const validate = () => {
 }
 
 const disabledNextStep = computed(() =>
-  route.name === 'SelectOption' &&
-  (store.isDisabledNextStep === null && selectedOption !== undefined))
+  route.name === 'SelectOption' && store.isDisabledNextStep === null)
+
 const disabledValidation = computed(() =>
-  route.name === 'SelectedAmmo' &&
-  (store.isDisabledValidate === null && selectedAmmo !== undefined))
+  route.name === 'SelectAmmo' && store.isDisabledValidate === null)
 
 watch([selectedOption, selectedAmmo], (newValue) => {
   currentStep.value = newValue

@@ -52,6 +52,7 @@
 
 <script>
 import { store } from '@/store.js'
+import { useStorage } from '@vueuse/core'
 export default {
   beforeRouteEnter () {
     store.isDisplayHeader = false
@@ -60,6 +61,7 @@ export default {
   data () {
     return {
       store,
+      currentStep: useStorage('currentStep', 0),
       instructions: [
         '<ul>',
         "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -73,6 +75,7 @@ export default {
 
   methods: {
     goToTutorial () {
+      this.currentStep = this.currentStep + 1
       this.$router.push({ name: 'FirearmDirection' }).catch(() => { })
     },
     goToResults () {

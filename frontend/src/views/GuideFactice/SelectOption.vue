@@ -6,7 +6,7 @@ import { guideFactice } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
 
 const typology = useStorage('typology')
-const selectedOption = useStorage('selectedOption', '')
+const selectedOption = useStorage('selectedOption')
 
 const zoom = ref('')
 
@@ -48,6 +48,7 @@ watch(selectedOption, (newValue) => {
         />
         <Teleport to="body">
           <DsfrModal
+            title=""
             :opened="zoom === option.value"
             @close="zoom = ''"
           >
@@ -91,6 +92,10 @@ watch(selectedOption, (newValue) => {
 
 :deep(.fr-container) {
   height: 70%;
+}
+
+ :deep(.fr-modal__content) {
+  padding-left: 1rem;
 }
 
 :deep(.fr-radio-rich__img){
