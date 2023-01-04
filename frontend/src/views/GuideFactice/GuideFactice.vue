@@ -12,7 +12,6 @@ const route = useRoute()
 const router = useRouter()
 
 const typology = useStorage('typology')
-const isFactice = useStorage('isFactice', '')
 const selectedOption = useStorage('selectedOption', '')
 const selectedAmmo = useStorage('selectedAmmo', '')
 
@@ -49,12 +48,11 @@ const disabledNextStep = computed(() =>
 const disabledValidation = computed(() =>
   route.name === 'SelectAmmo' && store.isDisabledValidate === null)
 
-watch([selectedOption, selectedAmmo], (newValue) => {
-  currentStep.value = newValue
-  selectedOption.value = newValue
-  selectedAmmo.value = newValue
-  isFactice.value = newValue
-})
+// watch([selectedOption, selectedAmmo], (newValue) => {
+//   currentStep.value = newValue
+//   selectedOption.value = newValue
+//   selectedAmmo.value = newValue
+// })
 </script>
 
 <template>

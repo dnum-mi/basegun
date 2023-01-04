@@ -6,8 +6,8 @@ import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
 
 const typology = useStorage('typology')
-const isFactice = useStorage('isFactice')
 const selectedAmmo = useStorage('selectedAmmo')
+const isFactice = useStorage('isFactice')
 
 const zoom = ref('')
 

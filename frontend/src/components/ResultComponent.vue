@@ -1,3 +1,69 @@
+<script setup>
+import { store } from '@/store.js'
+import { ref, computed, onBeforeMount } from 'vue'
+import axios from 'axios'
+import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { results } from '@/utils/firearms-utils'
+import { useStorage } from '@vueuse/core'
+import { useRouter } from 'vue-router'
+import { useSnackbarStore } from '@/stores/snackbar.js'
+
+const { setMessage } = useSnackbarStore()
+const router = useRouter()
+
+const result = ref(results)
+
+onBeforeMount(() => { store.isDisplayHeader = false })
+
+const typology = useStorage('typology')
+const selectedAmmo = useStorage('selectedAmmo')
+const isFactice = useStorage('isFactice', '')
+const isUp = ref(undefined)
+const isDown = ref(undefined)
+const isFeedbackDone = ref(undefined)
+const mentionIfIsFactice = ref("Libre d'acquisition et de détention")
+
+const cleanLabel = computed(() => result.value[typology.value].displayLabel)
+const cleanCategory = computed(() => result.value[typology.value].category)
+const cleanMention = computed(() => result.value[typology.value].isFacticeTypology === true && selectedAmmo.value === 'billes'
+  ? mentionIfIsFactice.value
+  : result.value[typology.value].mention)
+const cleanTypology = computed(() => result.value[typology.value].isFacticeTypology)
+
+function goToSafetyRecommendation () {
+  router.push({ name: 'SafetyRecommendation' }).catch(() => {})
+}
+
+function resetSearch () {
+  localStorage.clear()
+  window.location.replace('/accueil')
+}
+
+function sendFeedback (isCorrect) {
+  const json = {
+    image_url: store.imgUrl,
+    feedback: isCorrect,
+    confidence: store.confidence,
+    label: typology.value,
+    confidence_level: store.confidenceLevel,
+  }
+  isFeedbackDone.value = true
+  if (isCorrect) {
+    isUp.value = true
+  } else {
+    isDown.value = true
+  }
+  axios.post('/feedback', json)
+    .then(async res => {
+      console.log(res)
+      setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
+    })
+    .catch(async (err) => {
+      console.log(err)
+      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
+    })
+}
+</script>
 <template>
   <div>
     <div class="result col-11 col-lg-6">
@@ -16,13 +82,21 @@
             </p>
           </div>
         </div>
+        <div v-else>
+          <p class="fr-tag fr-tag--sm warning-tag">
+            Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+          </p>
+          <p class="warning-text">
+            Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+          </p>
+        </div>
         <p class="fr-callout__title">
           Non Classé
         </p>
         <p class="fr-callout__text">
           Objet, arme factice
         </p>
-        <p class="fr-callout__text">
+        <p class="mt-2 fr-callout__text">
           <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
         </p>
         <div
@@ -69,7 +143,7 @@
             <p v-html="cleanMention" />
           </div>
           <div
-            v-if="cleanTypology === true && selectedAmmo === undefined"
+            v-if="cleanTypology === true && isFactice === ''"
             class="mt-3"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -84,8 +158,7 @@
           </div>
 
           <p
-            class="fr-callout__text"
-            :class="{ 'mt-3' : isFactice === false }"
+            class="mt-2 fr-callout__text"
           >
             Typologie : {{ cleanLabel }}
           </p>
@@ -180,92 +253,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import { store } from '@/store.js'
-import axios from 'axios'
-import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { results } from '@/utils/firearms-utils'
-import { useStorage } from '@vueuse/core'
-import { useSnackbarStore } from '@/stores/snackbar.js'
-
-const { setMessage } = useSnackbarStore()
-
-export default {
-  name: 'ResultComponent',
-  components: {
-    SnackbarAlert,
-  },
-
-  data () {
-    return {
-      store,
-      isDisplayHeader: store.isDisplayHeader = false,
-      isFactice: undefined,
-      selectedAmmo: useStorage('selectedAmmo'),
-      isUp: undefined,
-      isDown: undefined,
-      isFeedbackDone: undefined,
-      mentionIfIsFactice: "Libre d'acquisition et de détention",
-      results,
-    }
-  },
-
-  computed: {
-    cleanLabel () {
-      return this.results[store.label].displayLabel
-    },
-    cleanCategory () {
-      return this.results[store.label].category
-    },
-    cleanMention () {
-      return this.results[store.label].isFacticeTypology === true && this.selectedAmmo === 'billes'
-        ? this.mentionIfIsFactice
-        : this.results[store.label].mention
-    },
-    cleanTypology () {
-      return this.results[store.label].isFacticeTypology
-    },
-  },
-
-
-  methods: {
-    goToSafetyRecommendation () {
-      this.$router.push({ name: 'SafetyRecommendation' }).catch(() => {})
-    },
-
-    resetSearch () {
-      localStorage.clear()
-      window.location.replace('/accueil')
-    },
-
-    sendFeedback (isCorrect) {
-      const json = {
-        image_url: store.imgUrl,
-        feedback: isCorrect,
-        confidence: store.confidence,
-        label: store.label,
-        confidence_level: store.confidenceLevel,
-      }
-      this.isFeedbackDone = true
-      if (isCorrect) {
-        this.isUp = true
-      } else {
-        this.isDown = true
-      }
-      axios.post('/feedback', json)
-        .then(async res => {
-          console.log(res)
-          setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
-        })
-        .catch(async (err) => {
-          console.log(err)
-          setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
-        })
-    },
-  },
-}
-</script>
 
 <style scoped>
 .result {
