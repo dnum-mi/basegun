@@ -143,12 +143,12 @@ export const guideFacticeSelectAmmo = {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'ammunition-cartridge.jpg',
+      img_ammo: 'pistolet-semi-auto-moderne-cartridge.jpg',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'ammunition-balls.jpg',
+      img_ammo: 'pistolet-semi-auto-moderne-balls.jpg',
     },
   },
   autre_epaule: {
@@ -167,24 +167,24 @@ export const guideFacticeSelectAmmo = {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'ammunition-cartridge.jpg',
+      img_ammo: 'autre-pistolet-cartridge.png',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'ammunition-balls.jpg',
+      img_ammo: 'autre-pistolet-balls.png',
     },
   },
   epaule_a_verrou: {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'ammunition-cartridge.jpg',
+      img_ammo: 'epaule-a-verrou-cartridge.png',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'ammunition-balls.jpg',
+      img_ammo: 'epaule-a-verrou-balls.png',
     },
   },
 }
