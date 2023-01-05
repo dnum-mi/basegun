@@ -144,7 +144,7 @@ function sendFeedback (isCorrect) {
           </div>
           <div
             v-if="cleanTypology === true && isFactice === ''"
-            class="mt-3"
+            class="mt-2"
           >
             <p>Sauf si l'arme est factice:</p>
             <p class="fr-callout__title">

@@ -1,7 +1,7 @@
 <script setup>
 // import { store } from '@/store.js'
 import { useStorage } from '@vueuse/core'
-import { guideFactice } from '@/utils/firearms-utils'
+import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 
 const selectedOption = useStorage('selectedOption')
 const typology = useStorage('typology')
@@ -12,7 +12,7 @@ const typology = useStorage('typology')
   <div v-if="selectedOption === ''">
     <p
       class="text-tutorial mt-3"
-      v-html="`${guideFactice[typology].text}`"
+      v-html="`${guideFacticeSelectOption[typology].text}`"
     />
     <div class="col-sm-6 col-lg-12">
       <div class="fr-content-media">
@@ -23,7 +23,7 @@ const typology = useStorage('typology')
           autoplay
           loop
           muted
-          :src="`/src/assets/videos-sm/${guideFactice[typology].video}`"
+          :src="`/src/assets/videos-sm/${guideFacticeSelectOption[typology].video}`"
         />
       </div>
     </div>
@@ -31,7 +31,7 @@ const typology = useStorage('typology')
   <div v-else>
     <p
       class="text-tutorial mt-3"
-      v-html="`${guideFactice[typology][selectedOption].text}`"
+      v-html="`${guideFacticeSelectOption[typology][selectedOption].text}`"
     />
     <div class="col-sm-6 col-lg-12">
       <div class="fr-content-media">
@@ -42,7 +42,7 @@ const typology = useStorage('typology')
           autoplay
           loop
           muted
-          :src="`/src/assets/videos-sm/${guideFactice[typology][selectedOption].video}`"
+          :src="`/src/assets/videos-sm/${guideFacticeSelectOption[typology][selectedOption].video}`"
         />
       </div>
     </div>

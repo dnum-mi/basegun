@@ -1,8 +1,7 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
 import { ref, watch } from 'vue'
-import { guideFactice } from '@/utils/firearms-utils'
-
+import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
 
 const typology = useStorage('typology')
@@ -29,7 +28,7 @@ watch(selectedOption, (newValue) => {
   </div>
   <div>
     <template
-      v-for="option of guideFactice[typology]"
+      v-for="option of guideFacticeSelectOption[typology]"
       :key="option.value"
     >
       <div class="item">

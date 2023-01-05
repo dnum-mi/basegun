@@ -65,7 +65,7 @@ export const results = {
   },
 }
 
-export const guideFactice = {
+export const guideFacticeSelectOption = {
   pistolet_semi_auto_moderne: {
     levier: {
       label: 'levier',
@@ -89,7 +89,6 @@ export const guideFactice = {
       text: 'Avec la main qui ne tient pas l’arme, soulever du pouce le levier au-dessus du pontet, et extraire le chargeur avec la même main en le faisant glisser vers le bas.',
       img: 'bullpup_0.jpg',
       video: 'bullpup_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
     chargeur_dessus: {
       label: 'chargeur au-dessus \n de la poignée',
@@ -97,7 +96,6 @@ export const guideFactice = {
       text: 'De la main qui ne tient pas l’arme, appuyer avec le pouce sur le bouton situé à l’arrière du chargeur. En même temps, tirer avec cette même main le chargeur vers le bas pour l’extraire.',
       img: 'p90_0.jpg',
       video: 'p90_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
     levier_derriere: {
       label: 'levier derrière \n chargeur',
@@ -105,7 +103,6 @@ export const guideFactice = {
       text: 'A l’aide de la main qui ne tient pas l’arme, appuyer avec le pouce sur le levier en maintenant le chargeur. Faire pivoter le chargeur en le poussant légèrement vers l’avant pour l’extraire de la carcasse. Puis relâcher le levier.',
       img: 'ak_0.jpg',
       video: 'ak_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
     bouton_dessus: {
       label: 'bouton au-dessus \n chargeur',
@@ -113,7 +110,6 @@ export const guideFactice = {
       text: 'Tenir l’arme de la main droite. Avec l’index de cette main, appuyer sur le bouton. Avec l’autre main, tirer le chargeur vers le bas pour l’extraire de la carcasse.',
       img: 'ar_0.jpg',
       video: 'ar_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
     levier_dessus: {
       label: 'levier au-dessus \n pontet',
@@ -121,20 +117,17 @@ export const guideFactice = {
       text: 'De la main qui ne tient pas l’arme, pousser simultanément sur les deux boutons de part et d’autre du chargeur vers l’arrière. Puis tirer sur le chargeur vers le haut pour l’extraire de la carcasse.',
       img: 'thompson_0.jpg',
       video: 'thompson_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
   },
   autre_pistolet:
     {
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       video: 'pistolet_mitrailleur_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
   epaule_a_verrou:
     {
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       video: 'verrou_sm.mp4',
-      img_ammo: 'ammunition-balls.jpg',
     },
 }
 
