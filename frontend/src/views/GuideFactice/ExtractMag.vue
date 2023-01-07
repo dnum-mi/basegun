@@ -1,5 +1,5 @@
 <script setup>
-// import { store } from '@/store.js'
+import AskingExpert from './AskingExpert.vue'
 import { useStorage } from '@vueuse/core'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 
@@ -47,15 +47,7 @@ const typology = useStorage('typology')
       </div>
     </div>
   </div>
-  <a
-    class="help"
-    href="#"
-  >
-    Je n'arrive pas à réaliser cette étape
-    <VIcon
-      name="ri-information-line"
-    />
-  </a>
+  <AskingExpert />
   <div class="blank" />
 </template>
 

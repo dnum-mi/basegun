@@ -3,6 +3,7 @@ import { useStorage } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import { store } from '@/store.js'
+import AskingExpert from './AskingExpert.vue'
 
 const typology = useStorage('typology')
 const selectedOption = useStorage('selectedOption')
@@ -62,15 +63,7 @@ watch(selectedOption, (newValue) => {
     </template>
   </div>
   <div>
-    <a
-      class="help"
-      href="#"
-    >
-      Je n'arrive pas à réaliser cette étape
-      <VIcon
-        name="ri-information-line"
-      />
-    </a>
+    <AskingExpert />
   </div>
   <div class="blank" />
 </template>

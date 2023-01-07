@@ -39,6 +39,16 @@ function resetSearch () {
   window.location.replace('/accueil')
 }
 
+function redoTutorial () {
+  const currentStep = useStorage('currentStep')
+  goToSafetyRecommendation()
+  currentStep.value = 0
+}
+
+function goToLastStep () {
+  router.push({ name: 'ExtractMag' }).catch(() => {})
+}
+
 function sendFeedback (isCorrect) {
   const json = {
     image_url: store.imgUrl,
@@ -57,6 +67,7 @@ function sendFeedback (isCorrect) {
     .then(async res => {
       console.log(res)
       setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
+      console.log(setMessage.value)
     })
     .catch(async (err) => {
       console.log(err)
@@ -223,32 +234,34 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="store.img"
-        class="footer-actions"
+        class="mx-auto text-center"
+        :class="{ 'footer-actions': selectedAmmo === undefined }"
       >
         <DsfrButton
-          class="m-1 flex justify-content-center"
-          icon="ri-camera-fill"
+          class="mx-4 my-1 flex justify-content-center"
           label="Reprendre une photo"
+          icon="ri-camera-line"
+          :icon-right="true"
           @click="resetSearch()"
         />
-      </div>
-      <div style="display: none;">
-        <DsfrButton
-          class="m-1  flex justify-content-center"
-          label="Refaire le tutoriel"
-          secondary
-        />
-
-        <DsfrButton
-          class="m-1  flex  justify-content-center"
-          label="Retourner au résultat"
-          secondary
-        />
-        <DsfrButton
-          class="m-1  flex  justify-content-center"
-          label="Retourner à l'étape précédente"
-          secondary
-        />
+        <div v-if="selectedAmmo !== undefined">
+          <DsfrButton
+            class="mx-4 my-1 flex justify-content-center"
+            label="Refaire le tutoriel"
+            icon="ri-list-ordered"
+            :icon-right="true"
+            secondary
+            @click="redoTutorial()"
+          />
+          <DsfrButton
+            class="mx-4 my-1 flex  justify-content-center"
+            label="Retourner à l'étape précédente"
+            icon="ri-arrow-go-back-fill"
+            :icon-right="true"
+            secondary
+            @click="goToLastStep()"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -342,6 +355,11 @@ function sendFeedback (isCorrect) {
   justify-content: space-around;
   color: #000091;
   z-index: 1
+}
+
+:deep(.fr-btn) {
+  white-space: nowrap;
+  width: 80%;
 }
 
 </style>

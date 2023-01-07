@@ -52,18 +52,16 @@ function goToResults () {
     <div class="blank" />
   </div>
   <div class="footer-background">
-    <div
-      class="col-11 col-lg-6 footer-actions"
-    >
+    <div>
       <DsfrButton
-        class="m-1 flex justify-content-center text-nowrap"
+        class="m-1 text-nowrap"
         label="Retour au resultat"
         secondary
         @click="goToResults()"
       />
 
       <DsfrButton
-        class="m-1  flex justify-content-center"
+        class="m-1"
         label="Commencer"
         @click="goToTutorial()"
       />
@@ -84,5 +82,10 @@ function goToResults () {
 .text-orange {
   font-weight: 700;
   color: rgba(179, 64, 0, 1)
+}
+
+:deep(.fr-btn) {
+  white-space: nowrap;
+  width: 80%;
 }
 </style>

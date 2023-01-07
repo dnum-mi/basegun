@@ -52,6 +52,7 @@ watch(selectedOption, (newValue) => {
   currentStep.value = newValue
   selectedOption.value = newValue
   selectedAmmo.value = newValue
+  // disabledNextStep.value = newValue === true
 })
 </script>
 

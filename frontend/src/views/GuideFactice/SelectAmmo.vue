@@ -2,6 +2,7 @@
 import { useStorage } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
+import AskingExpert from './AskingExpert.vue'
 
 import { store } from '@/store.js'
 
@@ -66,15 +67,7 @@ watch(selectedAmmo, (newValue) => {
     <p>
       <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
     </p>
-    <a
-      class="help"
-      href="#"
-    >
-      Je n'arrive pas à réaliser cette étape
-      <VIcon
-        name="ri-information-line"
-      />
-    </a>
+    <AskingExpert />
     <div class="blank" />
   </div>
 </template>

@@ -9,6 +9,7 @@ export const store = reactive({
   img: null,
   imgUrl: null,
   label: null,
+  issue: null,
   resultText: null,
   uploadMessage: null,
   // guide factice
