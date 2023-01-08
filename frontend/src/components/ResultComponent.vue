@@ -3,7 +3,7 @@ import { store } from '@/store.js'
 import { ref, computed, onBeforeMount } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { results } from '@/utils/firearms-utils'
+import { results, guideSteps } from '@/utils/firearms-utils'
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { useSnackbarStore } from '@/stores/snackbar.js'
@@ -46,7 +46,9 @@ function redoTutorial () {
 }
 
 function goToLastStep () {
-  router.push({ name: 'SelectAmmo' }).catch(() => {})
+  const currentStep = useStorage('currentStep')
+  router.push({ name: 'SelectAmmo' }).catch(() => { })
+  currentStep.value = guideSteps.value.length
 }
 
 function sendFeedback (isCorrect) {

@@ -52,7 +52,6 @@ watch(selectedOption, (newValue) => {
   currentStep.value = newValue
   selectedOption.value = newValue
   selectedAmmo.value = newValue
-  // disabledNextStep.value = newValue === true
 })
 </script>
 
@@ -125,6 +124,5 @@ watch(selectedOption, (newValue) => {
 .footer-background button {
   width: 50%;
 }
-
 
 </style>
