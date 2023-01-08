@@ -56,7 +56,9 @@
       v-else
       class="text-center bold"
     >
-      <p>{{ store.uploadMessage }}</p>
+      <p class="bold-highlight">
+        {{ store.uploadMessage }}
+      </p>
     </div>
   </div>
 </template>

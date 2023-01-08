@@ -122,5 +122,9 @@ watch(selectedOption, (newValue) => {
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
+.footer-background button {
+  width: 50%;
+}
+
 
 </style>

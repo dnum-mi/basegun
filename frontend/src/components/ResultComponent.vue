@@ -46,7 +46,7 @@ function redoTutorial () {
 }
 
 function goToLastStep () {
-  router.push({ name: 'ExtractMag' }).catch(() => {})
+  router.push({ name: 'SelectAmmo' }).catch(() => {})
 }
 
 function sendFeedback (isCorrect) {
@@ -244,7 +244,7 @@ function sendFeedback (isCorrect) {
           :icon-right="true"
           @click="resetSearch()"
         />
-        <div v-if="selectedAmmo !== undefined">
+        <div v-if="selectedAmmo !== undefined && isFactice !== ''">
           <DsfrButton
             class="mx-4 my-1 flex justify-content-center"
             label="Refaire le tutoriel"
@@ -254,7 +254,7 @@ function sendFeedback (isCorrect) {
             @click="redoTutorial()"
           />
           <DsfrButton
-            class="mx-4 my-1 flex  justify-content-center"
+            class="mx-4 my-1 flex justify-content-center"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
             :icon-right="true"
@@ -359,7 +359,7 @@ function sendFeedback (isCorrect) {
 
 :deep(.fr-btn) {
   white-space: nowrap;
-  width: 80%;
+  width: 90%;
 }
 
 </style>

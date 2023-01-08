@@ -80,6 +80,7 @@ async function sendIssue () {
           v-model="issueText"
           label="Décrivez votre problème"
           label-visible
+          is-textarea
         />
       </div>
 

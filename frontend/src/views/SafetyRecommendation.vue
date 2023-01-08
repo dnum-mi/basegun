@@ -54,16 +54,19 @@ function goToResults () {
   <div class="footer-background">
     <div>
       <DsfrButton
-        class="m-1 text-nowrap"
+        class="mx-4 my-1 flex justify-content-center"
+        label="Commencer"
+        icon="ri-arrow-right-line"
+        :icon-right="true"
+        @click="goToTutorial()"
+      />
+      <DsfrButton
+        class="mx-4 my-1 flex justify-content-center"
         label="Retour au resultat"
+        icon="ri-arrow-go-back-fill"
+        :icon-right="true"
         secondary
         @click="goToResults()"
-      />
-
-      <DsfrButton
-        class="m-1"
-        label="Commencer"
-        @click="goToTutorial()"
       />
     </div>
   </div>
@@ -84,7 +87,11 @@ function goToResults () {
   color: rgba(179, 64, 0, 1)
 }
 
-:deep(.fr-btn) {
+.footer-background {
+  text-align: center;
+}
+
+.footer-background button {
   white-space: nowrap;
   width: 80%;
 }
