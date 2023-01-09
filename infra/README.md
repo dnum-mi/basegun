@@ -76,6 +76,6 @@ The logs are sent from the server to the endpoint using Filebeat. A Filebeat Doc
 
 In OVH Log Data Platform, we use Kibana to visualize the logs and make queries to extract valuable information from them.
 
+## Kubernetes deployment
 
-
-
+It is possible to deploy basegun in a kubernetes cluster with list of manifest or 

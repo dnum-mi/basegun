@@ -4,8 +4,6 @@ metadata:
   name: basegun-config
 data:
   WORKSPACE: preprod
-  UVICORN_LOG_LEVEL: info
-  LOG_LEVEL: info
   PATH_IMGS: /app/images
 ---
 apiVersion: v1
