@@ -1,5 +1,5 @@
 <script setup>
-import { watch, computed } from 'vue'
+import { watch } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
 import { routePath, guideSteps, results } from '@/utils/firearms-utils'
@@ -12,14 +12,30 @@ const route = useRoute()
 const router = useRouter()
 
 const typology = useStorage('typology')
-const selectedOption = useStorage('selectedOption', '')
-const selectedAmmo = useStorage('selectedAmmo', '')
+const selectedOption = useStorage('selectedOption')
+const selectedAmmo = useStorage('selectedAmmo')
+const disabledNextStep = useStorage('disabledNextStep', false)
+const disabledValidation = useStorage('disabledValidation', true)
 
 const currentStep = useStorage('currentStep', 1)
 
 const steps = []
 steps.length = results[typology.value].stepsNumber
 steps.fill(' ')
+
+watch(() => route.name, () => {
+  route.name === 'SelectOption' && selectedOption.value === undefined
+    ? disabledNextStep.value = true
+    : disabledNextStep.value = false
+  window.addEventListener('selected-option', (event) => {
+    selectedOption.value = useStorage('selectedOption').value
+    disabledNextStep.value = false
+  })
+  window.addEventListener('selected-ammo', (event) => {
+    selectedAmmo.value = useStorage('selectedAmmo').value
+    disabledValidation.value = false
+  })
+})
 
 guideSteps.value = results[typology.value].stepsNumber === 4
   ? [...guideSteps]
@@ -42,17 +58,6 @@ const validate = () => {
   router.push({ name: 'Result' })
 }
 
-const disabledNextStep = computed(() =>
-  route.name === 'SelectOption' && store.isDisabledNextStep === null)
-
-const disabledValidation = computed(() =>
-  route.name === 'SelectAmmo' && store.isDisabledValidate === null)
-
-watch(selectedOption, (newValue) => {
-  currentStep.value = newValue
-  selectedOption.value = newValue
-  selectedAmmo.value = newValue
-})
 </script>
 
 <template>

@@ -4,10 +4,8 @@ import { ref, watch } from 'vue'
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
 
-import { store } from '@/store.js'
-
 const typology = useStorage('typology')
-const selectedAmmo = useStorage('selectedAmmo')
+const selectedAmmo = useStorage('selectedAmmo', undefined)
 const isFactice = useStorage('isFactice')
 
 const zoom = ref('')
@@ -17,7 +15,10 @@ const zoomOn = (imgValue) => {
 }
 
 watch(selectedAmmo, (newValue) => {
-  store.isDisabledValidate = newValue === true
+  selectedAmmo.value = newValue
+  window.dispatchEvent(new CustomEvent('selected-ammo', {
+    selectedAmmo: newValue,
+  }))
   isFactice.value = newValue === 'billes'
 })
 

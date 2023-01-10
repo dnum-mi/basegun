@@ -2,11 +2,11 @@
 import { useStorage } from '@vueuse/core'
 import { ref, watch } from 'vue'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
-import { store } from '@/store.js'
+// import { store } from '@/store.js'
 import AskingExpert from './AskingExpert.vue'
 
 const typology = useStorage('typology')
-const selectedOption = useStorage('selectedOption')
+const selectedOption = useStorage('selectedOption', undefined)
 
 const zoom = ref('')
 
@@ -15,7 +15,10 @@ const zoomOn = (imgValue) => {
 }
 
 watch(selectedOption, (newValue) => {
-  store.isDisabledNextStep = newValue === true
+  selectedOption.value = newValue
+  window.dispatchEvent(new CustomEvent('selected-option', {
+    selectedOption: newValue,
+  }))
 })
 </script>
 

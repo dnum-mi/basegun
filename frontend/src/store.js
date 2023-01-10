@@ -12,7 +12,4 @@ export const store = reactive({
   issue: null,
   resultText: null,
   uploadMessage: null,
-  // guide factice
-  isDisabledNextStep: null,
-  isDisabledValidate: null,
 })

@@ -9,7 +9,7 @@ const typology = useStorage('typology')
 </script>
 
 <template>
-  <div v-if="selectedOption === ''">
+  <div v-if="selectedOption === 'undefined'">
     <p
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology].text}`"

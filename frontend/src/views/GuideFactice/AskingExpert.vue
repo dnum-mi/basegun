@@ -37,8 +37,6 @@ async function sendIssue () {
     .catch(async (err) => {
       console.log(err)
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
-      console.log('issueText', issueText.value)
-      console.log('json', json)
     })
     .finally(setTimeout(() => {
       currentStep.value = undefined
