@@ -31,7 +31,7 @@ print_help() {
 }
 
 # Parse options
-while getopts :hg:k:s:i: flag
+while getopts ":g:a:i:k:s:" flag
 do
   case "${flag}" in
     g)
@@ -51,7 +51,7 @@ do
 done
 
 
-if [ -z ${GITLAB_TRIGGER_TOKEN} ] || [ -z ${CONSUMER_SECRET} ] || [ -z ${GITLAB_PROJECT_ID} ] ; then
+if [ -z ${GITLAB_TRIGGER_TOKEN} ] || [ -z ${CONSUMER_SECRET} ] || [ -z ${CONSUMER_KEY} ] || [ -z ${GITLAB_PROJECT_ID} ] ; then
   echo "\nArgument(s) missing, you don't specify consumer key, consumer secret and gitlab trigger token."
   print_help
   exit 0
