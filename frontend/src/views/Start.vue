@@ -32,7 +32,7 @@ export default {
 
   beforeRouteLeave () {
     store.uploadMessage = null
-    store.isDisplayHeader = true
+    store.displayHeader = true
   },
 
   data () {
@@ -43,6 +43,7 @@ export default {
 
   methods: {
     showInstruction () {
+      localStorage.clear()
       this.$router.push({ name: 'Instructions' }).catch(() => {})
     },
   },

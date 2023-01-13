@@ -1,12 +1,16 @@
 <script setup>
-import { watch } from 'vue'
+import { store } from '@/store.js'
+import { watch, onMounted } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { useRouter, useRoute } from 'vue-router'
 import { routePath, guideSteps, results } from '@/utils/firearms-utils'
-import { store } from '@/store.js'
 import StepsGuide from './StepsGuide.vue'
 
-store.isDisplayHeader = false
+store.displayHeader = false
+
+onMounted(() => {
+  console.log('guide-factice', route.name === 'SelectOption' && selectedOption.value === undefined)
+})
 
 const route = useRoute()
 const router = useRouter()
@@ -24,13 +28,13 @@ steps.length = results[typology.value].stepsNumber
 steps.fill(' ')
 
 watch(() => route.name, () => {
-  route.name === 'SelectOption' && selectedOption.value === undefined
-    ? disabledNextStep.value = true
-    : disabledNextStep.value = false
+  disabledNextStep.value = !!(route.name === 'SelectOption' && selectedOption.value === undefined)
   window.addEventListener('selected-option', (event) => {
     selectedOption.value = useStorage('selectedOption').value
     disabledNextStep.value = false
-  })
+  },
+  // , { flush: 'pre', immediate: true, deep: true },
+  )
   window.addEventListener('selected-ammo', (event) => {
     selectedAmmo.value = useStorage('selectedAmmo').value
     disabledValidation.value = false
@@ -54,6 +58,16 @@ const goToNextStep = () => (
   currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length
 )
 
+function goToResult () {
+  store.displayHeader = true
+  router.push({ name: 'Result' }).catch(() => { })
+  currentStep.value = 0
+}
+
+function homeRedirect () {
+  window.location.replace('/')
+}
+
 const validate = () => {
   router.push({ name: 'Result' })
 }
@@ -61,6 +75,34 @@ const validate = () => {
 </script>
 
 <template>
+  <div class="d-flex justify-content-between">
+    <div class="p-3">
+      <a
+        class="go-result"
+        href="#"
+        @click="goToResult()"
+      >
+        <VIcon
+
+          name="ri-arrow-left-line"
+          scale="0.8"
+        />
+        <span class="px-2">Retour au resulat</span>
+      </a>
+    </div>
+    <div class="p-2">
+      <a
+        href="#"
+        @click="homeRedirect()"
+      >
+        <img
+          class="go-home"
+          src="@/assets/basegun.png"
+          alt="logo-basegun"
+        >
+      </a>
+    </div>
+  </div>
   <div class="result col-11 col-lg-6">
     <div>
       <StepsGuide
@@ -102,12 +144,23 @@ const validate = () => {
 
 <style scoped>
 .steps-guide {
-  margin: 2em auto;
+  margin: auto;
 }
 
 .result {
   margin: 0 auto;
   max-width: 1000px;
+}
+
+.go-home {
+  width: 3em;
+  height: 3em;
+}
+
+.go-result {
+  font-size: 0.9em;
+  color: #080894;
+  background-image: none;
 }
 
 .fr-link--close {

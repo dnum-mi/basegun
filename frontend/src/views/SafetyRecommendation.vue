@@ -4,7 +4,9 @@ import { useStorage } from '@vueuse/core'
 import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 
-onBeforeMount(() => { store.isDisplayHeader = false })
+onBeforeMount(() => {
+  store.displayHeader = false
+})
 
 const router = useRouter()
 const currentStep = useStorage('currentStep', 0)
@@ -22,7 +24,7 @@ function goToTutorial () {
   router.push({ name: 'FirearmDirection' }).catch(() => { })
 }
 function goToResults () {
-  store.isDisplayHeader = true
+  store.displayHeader = true
   router.push({ name: 'Result' }).catch(() => { })
 }
 </script>

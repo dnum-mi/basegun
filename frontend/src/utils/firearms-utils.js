@@ -22,8 +22,8 @@ export const results = {
     displayLabel: 'pistolet divers',
     category: 'A, B ou D',
     mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
-    isFacticeTypology: true,
-    stepsNumber: 3,
+    isFacticeTypology: false,
+    // stepsNumber: 3,
   },
   epaule_a_percussion_silex: {
     displayLabel: "arme d'épaule à mécanisme ancien",
@@ -119,11 +119,11 @@ export const guideFacticeSelectOption = {
       video: 'thompson_sm.mp4',
     },
   },
-  autre_pistolet:
-    {
-      text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
-      video: 'pistolet_mitrailleur_sm.mp4',
-    },
+  // autre_pistolet:
+  //   {
+  //     text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+  //     video: 'pistolet_mitrailleur_sm.mp4',
+  //   },
   epaule_a_verrou:
     {
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',

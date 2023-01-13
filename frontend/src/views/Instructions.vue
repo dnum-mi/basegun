@@ -46,9 +46,10 @@
       >
         <UploadButton />
         <DsfrButton
+          class="flex justify-content-center"
           label="Prendre la photo"
           icon="ri-camera-fill"
-          @click="readInstruction"
+          @click="readInstruction()"
         />
       </div>
     </div>
@@ -66,6 +67,7 @@
 <script>
 import UploadButton from '@/components/UploadButton.vue'
 import { store } from '@/store.js'
+
 export default {
   name: 'Instructions',
   components: {

@@ -1,12 +1,19 @@
 <script setup>
 import { useStorage } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
-// import { store } from '@/store.js'
 import AskingExpert from './AskingExpert.vue'
+
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
+onMounted(() => {
+  console.log('select-option', route.name === 'SelectOption' && selectedOption.value === undefined)
+})
 
 const typology = useStorage('typology')
 const selectedOption = useStorage('selectedOption', undefined)
+// const disabledNextStep = useStorage('disabledNextStep')
 
 const zoom = ref('')
 

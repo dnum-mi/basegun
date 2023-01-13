@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import { store } from '@/store.js'
 import { useStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { useSnackbarStore } from '@/stores/snackbar.js'
@@ -12,6 +11,10 @@ const typology = useStorage('typology')
 const router = useRouter()
 
 const currentStep = useStorage('currentStep')
+const confidence = useStorage('confidence')
+const confidenceLevel = useStorage('confidenceLevel')
+const issue = useStorage('issue')
+const imgUrl = useStorage('imgUrl')
 
 const showModal = ref(false)
 const issueText = ref('')
@@ -22,16 +25,16 @@ function onClose () {
 
 async function sendIssue () {
   const json = {
-    image_url: store.imgUrl,
+    image_url: imgUrl.value,
     issue: issueText.value,
-    confidence: store.confidence,
+    confidence: confidence.value,
     label: typology.value,
-    confidence_level: store.confidenceLevel,
+    confidence_level: confidenceLevel.value,
   }
   await axios.post('/issue', json)
     .then(async res => {
       console.log(res)
-      store.issue = json.issue
+      issue.value = json.issue
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
     .catch(async (err) => {

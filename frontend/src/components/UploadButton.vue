@@ -14,9 +14,17 @@
 </template>
 
 <script>
-import { store } from '@/store.js'
 import axios from 'axios'
 import { useStorage } from '@vueuse/core'
+import { store } from '@/store.js'
+
+const label = useStorage('typology')
+const confidence = useStorage('confidence')
+const confidenceLevel = useStorage('confidenceLevel')
+const img = useStorage('img')
+const imgUrl = useStorage('imgUrl')
+const geolocation = useStorage('geolocation')
+const resultText = useStorage('resultText')
 
 function randomCoord (num) {
   num = parseFloat(num)
@@ -47,7 +55,7 @@ export default {
         .then(res => {
           const latitude = randomCoord(res.data.latitude)
           const longitude = randomCoord(res.data.longitude)
-          store.geolocation = latitude.toString() + ',' + longitude.toString()
+          geolocation.value = latitude.toString() + ',' + longitude.toString()
           startUpload(uploadedFile)
         })
         .catch((err) => {
@@ -107,16 +115,16 @@ export default {
           const fd = new FormData()
           fd.append('image', file, file.name)
           fd.append('date', Date.now() / 1000) // date.now gives in milliseconds, convert to seconds
-          fd.append('geolocation', store.geolocation)
+          fd.append('geolocation', geolocation.value)
 
           axios.post('/upload', fd)
             .then(res => {
-              store.label = useStorage('typology', res.data.label)
-              store.confidence = useStorage('confidence', res.data.confidence)
-              store.confidenceLevel = useStorage('confidenceLevel', res.data.confidence_level)
-              store.resultText = "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%'
-              store.img = base64
-              store.imgUrl = useStorage('imgUrl', res.data.path)
+              label.value = res.data.label
+              confidence.value = res.data.confidence
+              confidenceLevel.value = res.data.confidence_level
+              resultText.value = "Type d'arme : " + label.value + ' ' + confidence.value + '%'
+              img.value = base64
+              imgUrl.value = res.data.path
               vm.$router.push({ name: 'Result' }).catch(() => { })
             })
             .catch((err) => {

@@ -12,8 +12,12 @@ const { setMessage } = useSnackbarStore()
 const router = useRouter()
 
 const result = ref(results)
+onBeforeMount(() => { store.displayHeader = false })
 
-onBeforeMount(() => { store.isDisplayHeader = false })
+const confidence = useStorage('confidence')
+const confidenceLevel = useStorage('confidenceLevel')
+const img = useStorage('img')
+const imgUrl = useStorage('imgUrl')
 
 const typology = useStorage('typology')
 const selectedAmmo = useStorage('selectedAmmo')
@@ -30,20 +34,22 @@ const cleanMention = computed(() => result.value[typology.value].isFacticeTypolo
   : result.value[typology.value].mention)
 const cleanTypology = computed(() => result.value[typology.value].isFacticeTypology)
 
+console.log(cleanTypology.value)
+
 function goToSafetyRecommendation () {
   router.push({ name: 'SafetyRecommendation' }).catch(() => {})
 }
 
 function resetSearch () {
   localStorage.clear()
-  window.location.replace('/accueil')
+  router.push({ name: 'Instructions' }).catch(() => {})
 }
 
-function redoTutorial () {
-  const currentStep = useStorage('currentStep')
-  goToSafetyRecommendation()
-  currentStep.value = 0
-}
+// function redoTutorial () {
+//   const currentStep = useStorage('currentStep')
+//   goToSafetyRecommendation()
+//   currentStep.value = 0
+// }
 
 function goToLastStep () {
   const currentStep = useStorage('currentStep')
@@ -53,11 +59,11 @@ function goToLastStep () {
 
 function sendFeedback (isCorrect) {
   const json = {
-    image_url: store.imgUrl,
+    image_url: imgUrl.value,
     feedback: isCorrect,
-    confidence: store.confidence,
+    confidence: confidence.value,
     label: typology.value,
-    confidence_level: store.confidenceLevel,
+    confidence_level: confidenceLevel.value,
   }
   isFeedbackDone.value = true
   if (isCorrect) {
@@ -82,22 +88,22 @@ function sendFeedback (isCorrect) {
     <div class="result col-11 col-lg-6">
       <div
         class="result-image"
-        :style="{backgroundImage:`url(${store.img})`}"
+        :style="{backgroundImage:`url(${img})`}"
       />
       <div
         v-if="selectedAmmo === 'billes'"
         class="fr-callout custom-callout"
       >
-        <div v-if="store.confidenceLevel === 'high'">
+        <div v-if="confidenceLevel === 'high'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm success-tag">
-              Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+              Indice de fiabilité : {{ Math.floor(confidence) }}%
             </p>
           </div>
         </div>
         <div v-else>
           <p class="fr-tag fr-tag--sm warning-tag">
-            Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+            Indice de fiabilité : {{ Math.floor(confidence) }}%
           </p>
           <p class="warning-text">
             Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
@@ -122,7 +128,7 @@ function sendFeedback (isCorrect) {
         v-else
         class="fr-callout custom-callout"
       >
-        <div v-if="store.confidenceLevel === 'low'">
+        <div v-if="confidenceLevel === 'low'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm error-tag">
               Indice de fiabilité insuffisant
@@ -131,16 +137,16 @@ function sendFeedback (isCorrect) {
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
-          <div v-if="store.confidenceLevel === 'high'">
+          <div v-if="confidenceLevel === 'high'">
             <div class="callout-head">
               <p class="fr-tag fr-tag--sm success-tag">
-                Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+                Indice de fiabilité : {{ Math.floor(confidence) }}%
               </p>
             </div>
           </div>
           <div v-else>
             <p class="fr-tag fr-tag--sm warning-tag">
-              Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+              Indice de fiabilité : {{ Math.floor(confidence) }}%
             </p>
             <p class="warning-text">
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
@@ -164,12 +170,25 @@ function sendFeedback (isCorrect) {
               Non Classé
             </p>
             <DsfrButton
-              class="mb-3 mb-5 flex justify-content-center"
+              class="my-4 flex justify-content-center"
               label="Vérifier si l'arme est factice"
               @click="goToSafetyRecommendation()"
             />
           </div>
-
+          <div
+            v-if="cleanTypology === false && isFactice === ''"
+            class="mt-2"
+          >
+            <p>Sauf si l'arme est factice:</p>
+            <p class="fr-callout__title">
+              Non Classé
+            </p>
+            <DsfrButton
+              class="my-4 flex justify-content-center"
+              label="Pas de guide de vérification"
+              disabled
+            />
+          </div>
           <p
             class="mt-2 fr-callout__text"
           >
@@ -177,7 +196,7 @@ function sendFeedback (isCorrect) {
           </p>
         </div>
       </div>
-      <div v-if="store.confidenceLevel !== 'low'">
+      <div v-if="confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
@@ -235,7 +254,7 @@ function sendFeedback (isCorrect) {
     </div>
     <div class="footer-background">
       <div
-        v-show="store.img"
+        v-show="img"
         class="mx-auto text-center"
         :class="{ 'footer-actions': selectedAmmo === undefined }"
       >
@@ -247,14 +266,14 @@ function sendFeedback (isCorrect) {
           @click="resetSearch()"
         />
         <div v-if="selectedAmmo !== undefined && isFactice !== ''">
-          <DsfrButton
+          <!-- <DsfrButton
             class="mx-4 my-1 flex justify-content-center"
             label="Refaire le tutoriel"
             icon="ri-list-ordered"
             :icon-right="true"
             secondary
             @click="redoTutorial()"
-          />
+          /> -->
           <DsfrButton
             class="mx-4 my-1 flex justify-content-center"
             label="Retourner à l'étape précédente"

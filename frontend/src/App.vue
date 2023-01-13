@@ -1,9 +1,8 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
+import { store } from './store.js'
 import { ref } from 'vue'
 import HeaderMain from './components/HeaderMain.vue'
-
-import { store } from './store.js'
 
 const needRefresh = ref(false)
 
@@ -17,7 +16,7 @@ const updateSW = registerSW({
 </script>
 
 <template>
-  <HeaderMain v-show="store.isDisplayHeader" />
+  <HeaderMain v-show="store.displayHeader" />
   <DsfrCallout
     v-show="needRefresh"
     class="col-lg-6  mx-auto  refresh"

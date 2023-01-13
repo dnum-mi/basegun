@@ -1,12 +1,15 @@
 <template>
   <div>
-    <ResultComponent v-if="store.img" />
+    <ResultComponent v-if="img" />
   </div>
 </template>
 
 <script>
+import { useStorage } from '@vueuse/core'
 import { store } from '@/store.js'
 import ResultComponent from '@/components/ResultComponent.vue'
+
+const img = useStorage('img')
 
 export default {
   name: 'ResultPage',
@@ -18,7 +21,7 @@ export default {
     // redirect to start page if one goes to result route
     // without having gone through the upload process
     next(vm => {
-      if (store.img === null) {
+      if (img.value === null) {
         vm.$router.push({ name: 'Start' }).catch(() => { })
       }
     })
@@ -26,11 +29,12 @@ export default {
 
   beforeRouteLeave () {
     store.uploadMessage = null
-    store.isDisplayHeader = true
+    store.displayHeader = true
   },
 
   data () {
     return {
+      img,
       store,
     }
   },
