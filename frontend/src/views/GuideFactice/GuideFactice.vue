@@ -1,55 +1,37 @@
 <script setup>
 import { store } from '@/store.js'
-import { watch, onMounted } from 'vue'
-import { useStorage } from '@vueuse/core'
+import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { routePath, guideSteps, results } from '@/utils/firearms-utils'
+
+import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
+
 import StepsGuide from './StepsGuide.vue'
+import { useStepsStore } from '@/stores/steps.js'
+
+const stepsStore = useStepsStore()
 
 store.displayHeader = false
-
-onMounted(() => {
-  console.log('mount guide-factice', !!(route.name === 'SelectOption' && selectedOption.value === undefined))
-})
 
 const route = useRoute()
 const router = useRouter()
 
-const typology = useStorage('typology')
-const selectedOption = useStorage('selectedOption')
-const selectedAmmo = useStorage('selectedAmmo')
-const disabledNextStep = useStorage('disabledNextStep', false)
-const disabledValidation = useStorage('disabledValidation', true)
+const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
+const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
 
-const currentStep = useStorage('currentStep', 1)
+const currentStep = computed({
+  get () {
+    return stepsStore.currentStep
+  },
+  set (value) {
+    stepsStore.setCurrentStep(value)
+  },
+})
 
 const steps = []
-steps.length = results[typology.value].stepsNumber
+steps.length = results[stepsStore.typology].stepsNumber
 steps.fill(' ')
 
-watch(() => route.name, (newValue) => {
-  disabledNextStep.value = !!(newValue === 'SelectOption' && selectedOption.value === undefined)
-  console.log('watch :', disabledNextStep.value)
-  // if (route.name === 'SelectOption') {
-  //   if (selectedOption.value === undefined) {
-  //     disabledNextStep.value = true
-  //   } else { disabledNextStep.value = false }
-  // } else { disabledNextStep.value = false }
-  // console.table('oldValue :', oldValue, 'newValue :', newValue)
-
-  window.addEventListener('selected-option', (event) => {
-    selectedOption.value = useStorage('selectedOption').value
-    disabledNextStep.value = false
-  })
-  window.addEventListener('selected-ammo', (event) => {
-    selectedAmmo.value = useStorage('selectedAmmo').value
-    disabledValidation.value = false
-  })
-},
-{ deep: true },
-)
-
-guideSteps.value = results[typology.value].stepsNumber === 4
+guideSteps.value = results[stepsStore.typology].stepsNumber === 4
   ? [...guideSteps]
   : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
@@ -63,18 +45,17 @@ const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
 )
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < routePath.length ? currentStep.value + 1 : routePath.length
+  currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
 )
 
 function goToResult () {
-  window.location.replace('/resultat')
-  // router.push({ name: 'Result' }).catch(() => { })
-  disabledNextStep.value = false
-  currentStep.value = 0
+  router.push({ name: 'Result' }).catch(() => { })
+  // currentStep.value = 0
 }
 
 function homeRedirect () {
   localStorage.clear()
+  // router.push({ name: 'Start' }).catch(() => {})
   window.location.replace('/')
 }
 
@@ -97,7 +78,7 @@ const validate = () => {
           name="ri-arrow-left-line"
           scale="0.8"
         />
-        <span class="px-2">Retour au resulat</span>
+        <span class="px-2">Retour au résultat</span>
       </a>
     </div>
     <div class="p-2">
@@ -132,7 +113,7 @@ const validate = () => {
           @click="goToPreviousStep(); goToNewRoute()"
         />
         <DsfrButton
-          v-show="currentStep < steps.length"
+          v-if="currentStep < steps.length"
           class="m-1 flex justify-content-center"
           icon="ri-arrow-right-line"
           label="Suivant"
@@ -141,7 +122,7 @@ const validate = () => {
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton
-          v-show="currentStep === steps.length"
+          v-if="currentStep === steps.length"
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"

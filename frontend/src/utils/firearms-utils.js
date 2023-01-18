@@ -195,7 +195,7 @@ export const guideSteps = [
   selectAmmo,
 ]
 
-export const routePath = [
+export const routePaths = [
   'consigne-arme',
   'option-arme',
   'extract-mag',

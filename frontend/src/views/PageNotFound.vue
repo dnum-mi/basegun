@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     homeRedirect () {
+      // router.push({ name: 'Start' }).catch(() => {})
       window.location.replace('/accueil')
     },
   },

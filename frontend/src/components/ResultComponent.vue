@@ -4,26 +4,29 @@ import { ref, computed, onBeforeMount } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { results, guideSteps } from '@/utils/firearms-utils'
-import { useStorage } from '@vueuse/core'
+import { useLocalStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { useSnackbarStore } from '@/stores/snackbar.js'
+import { useStepsStore } from '@/stores/steps.js'
 
 const { setMessage } = useSnackbarStore()
 const router = useRouter()
+const stepsStore = useStepsStore()
 
 // const result = ref(results)
 onBeforeMount(() => {
   store.displayHeader = false
 })
 
-const confidence = useStorage('confidence')
-const confidenceLevel = useStorage('confidenceLevel')
-const img = useStorage('img')
-const imgUrl = useStorage('imgUrl')
+const confidence = useLocalStorage('confidence')
+const confidenceLevel = useLocalStorage('confidenceLevel')
+const img = useLocalStorage('img')
+const imgUrl = useLocalStorage('imgUrl')
 
-const typology = useStorage('typology')
-const selectedAmmo = useStorage('selectedAmmo')
-const isFactice = useStorage('isFactice', '')
+const typology = computed(() => stepsStore.typology)
+const selectedAmmo = computed(() => stepsStore.selectedAmmo)
+const isFactice = computed(() => stepsStore.isFactice)
+
 const isUp = ref(undefined)
 const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
@@ -42,15 +45,14 @@ function goToSafetyRecommendation () {
 
 function resetSearch () {
   localStorage.clear()
-  // router.push({ name: 'Start' }).catch(() => {})
   window.location.replace('/instructions')
+  // router.push({ name: 'Start' }).catch(() => {})
   // router.push({ name: 'Instructions' }).catch(() => {})
 }
 
 function goToLastStep () {
-  const currentStep = useStorage('currentStep')
   router.push({ name: 'SelectAmmo' }).catch(() => { })
-  currentStep.value = guideSteps.value.length
+  stepsStore.setCurrentStep(guideSteps.value.length)
 }
 
 function sendFeedback (isCorrect) {
@@ -158,7 +160,7 @@ function sendFeedback (isCorrect) {
             <p v-html="cleanMention" />
           </div>
           <div
-            v-if="cleanTypology === true && isFactice === ''"
+            v-if="cleanTypology === true && !stepsStore.selectedAmmo"
             class="mt-2"
           >
             <p>Sauf si l'arme est factice:</p>
@@ -173,7 +175,7 @@ function sendFeedback (isCorrect) {
           </div>
           <div v-else>
             <div
-              v-if="cleanTypology === false && isFactice === ''"
+              v-if="cleanTypology === false && !isFactice"
               class="mt-2"
             >
               <p>Sauf si l'arme est factice:</p>

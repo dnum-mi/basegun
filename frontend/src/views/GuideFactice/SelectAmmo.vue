@@ -1,27 +1,28 @@
 <script setup>
-import { useStorage } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
+
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
 
-const typology = useStorage('typology')
-const selectedAmmo = useStorage('selectedAmmo', undefined)
-const isFactice = useStorage('isFactice')
+import { useStepsStore } from '@/stores/steps.js'
+
+const stepsStore = useStepsStore()
+
+const typology = computed(() => stepsStore.typology)
+const selectedAmmo = computed({
+  get  () {
+    return stepsStore.selectedAmmo
+  },
+  set (ammo) {
+    stepsStore.setAmmo(ammo)
+  },
+})
 
 const zoom = ref('')
 
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
-
-watch(() => selectedAmmo.value, (newValue) => {
-  selectedAmmo.value = newValue
-  window.dispatchEvent(new CustomEvent('selected-ammo', {
-    selectedAmmo: newValue,
-  }))
-  isFactice.value = newValue === 'billes'
-})
-
 </script>
 
 <template>
