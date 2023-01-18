@@ -9,7 +9,7 @@ import StepsGuide from './StepsGuide.vue'
 store.displayHeader = false
 
 onMounted(() => {
-  console.log('guide-factice', route.name === 'SelectOption' && selectedOption.value === undefined)
+  console.log('mount guide-factice', !!(route.name === 'SelectOption' && selectedOption.value === undefined))
 })
 
 const route = useRoute()
@@ -27,19 +27,27 @@ const steps = []
 steps.length = results[typology.value].stepsNumber
 steps.fill(' ')
 
-watch(() => route.name, () => {
-  disabledNextStep.value = !!(route.name === 'SelectOption' && selectedOption.value === undefined)
+watch(() => route.name, (newValue) => {
+  disabledNextStep.value = !!(newValue === 'SelectOption' && selectedOption.value === undefined)
+  console.log('watch :', disabledNextStep.value)
+  // if (route.name === 'SelectOption') {
+  //   if (selectedOption.value === undefined) {
+  //     disabledNextStep.value = true
+  //   } else { disabledNextStep.value = false }
+  // } else { disabledNextStep.value = false }
+  // console.table('oldValue :', oldValue, 'newValue :', newValue)
+
   window.addEventListener('selected-option', (event) => {
     selectedOption.value = useStorage('selectedOption').value
     disabledNextStep.value = false
-  },
-  // , { flush: 'pre', immediate: true, deep: true },
-  )
+  })
   window.addEventListener('selected-ammo', (event) => {
     selectedAmmo.value = useStorage('selectedAmmo').value
     disabledValidation.value = false
   })
-})
+},
+{ deep: true },
+)
 
 guideSteps.value = results[typology.value].stepsNumber === 4
   ? [...guideSteps]
@@ -59,12 +67,14 @@ const goToNextStep = () => (
 )
 
 function goToResult () {
-  store.displayHeader = true
-  router.push({ name: 'Result' }).catch(() => { })
+  window.location.replace('/resultat')
+  // router.push({ name: 'Result' }).catch(() => { })
+  disabledNextStep.value = false
   currentStep.value = 0
 }
 
 function homeRedirect () {
+  localStorage.clear()
   window.location.replace('/')
 }
 

@@ -1,3 +1,27 @@
+<script setup>
+import UploadButton from '@/components/UploadButton.vue'
+import { store } from '@/store.js'
+import {
+  // onMounted,
+  onBeforeMount,
+} from 'vue'
+
+const instructions = [
+  '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
+  "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+  "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
+]
+
+onBeforeMount(() => {
+  localStorage.clear()
+})
+
+function readInstruction () {
+  const demarrer = document.getElementById('demarrer')
+  demarrer.firstChild.click()
+}
+</script>
+
 <template>
   <div
     class="info container-alert  col-lg-6  col-xs-9  mx-auto"
@@ -63,36 +87,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import UploadButton from '@/components/UploadButton.vue'
-import { store } from '@/store.js'
-
-export default {
-  name: 'Instructions',
-  components: {
-    UploadButton,
-  },
-  data () {
-    return {
-      store,
-      instructions: [
-        '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-        "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-        "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-      ],
-    }
-  },
-
-  methods: {
-    readInstruction () {
-      const demarrer = document.getElementById('demarrer')
-      demarrer.firstChild.click()
-      localStorage.clear()
-    },
-  },
-}
-</script>
 
 <style scoped>
 .fr-alert {

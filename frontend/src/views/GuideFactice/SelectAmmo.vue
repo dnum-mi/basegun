@@ -14,7 +14,7 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
-watch(selectedAmmo, (newValue) => {
+watch(() => selectedAmmo.value, (newValue) => {
   selectedAmmo.value = newValue
   window.dispatchEvent(new CustomEvent('selected-ammo', {
     selectedAmmo: newValue,

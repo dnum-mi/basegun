@@ -1,15 +1,4 @@
 <script setup>
-import { useStorage } from '@vueuse/core'
-
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
-const route = useRoute()
-
-onMounted(() => {
-  console.log('select-option', route.name === 'SelectOption' && selectedOption.value === undefined)
-})
-
-const selectedOption = useStorage('selectedOption', undefined)
 
 </script>
 <template>

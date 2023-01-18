@@ -17,6 +17,9 @@
 import axios from 'axios'
 import { useStorage } from '@vueuse/core'
 import { store } from '@/store.js'
+// import { useRouter } from 'vue-router'
+
+// const router = useRouter()
 
 const label = useStorage('typology')
 const confidence = useStorage('confidence')
@@ -129,6 +132,7 @@ export default {
             })
             .catch((err) => {
               console.log(err)
+              // router.push({ name: 'Error' }).catch(() => {})
               window.location.replace('/erreur')
             })
         })

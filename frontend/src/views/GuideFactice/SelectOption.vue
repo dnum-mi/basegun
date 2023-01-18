@@ -3,17 +3,16 @@ import { useStorage } from '@vueuse/core'
 import { ref, watch, onMounted } from 'vue'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
-
 import { useRoute } from 'vue-router'
-const route = useRoute()
 
 onMounted(() => {
-  console.log('select-option', route.name === 'SelectOption' && selectedOption.value === undefined)
+  console.log('mount select-option', !!(route.name === 'SelectOption' && selectedOption.value === undefined))
 })
+
+const route = useRoute()
 
 const typology = useStorage('typology')
 const selectedOption = useStorage('selectedOption', undefined)
-// const disabledNextStep = useStorage('disabledNextStep')
 
 const zoom = ref('')
 
@@ -21,7 +20,7 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
-watch(selectedOption, (newValue) => {
+watch(() => selectedOption.value, (newValue) => {
   selectedOption.value = newValue
   window.dispatchEvent(new CustomEvent('selected-option', {
     selectedOption: newValue,

@@ -11,8 +11,10 @@ import { useSnackbarStore } from '@/stores/snackbar.js'
 const { setMessage } = useSnackbarStore()
 const router = useRouter()
 
-const result = ref(results)
-onBeforeMount(() => { store.displayHeader = false })
+// const result = ref(results)
+onBeforeMount(() => {
+  store.displayHeader = false
+})
 
 const confidence = useStorage('confidence')
 const confidenceLevel = useStorage('confidenceLevel')
@@ -27,14 +29,12 @@ const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
 const mentionIfIsFactice = ref("Libre d'acquisition et de détention")
 
-const cleanLabel = computed(() => result.value[typology.value].displayLabel)
-const cleanCategory = computed(() => result.value[typology.value].category)
-const cleanMention = computed(() => result.value[typology.value].isFacticeTypology === true && selectedAmmo.value === 'billes'
+const cleanLabel = computed(() => results[typology.value].displayLabel)
+const cleanCategory = computed(() => results[typology.value].category)
+const cleanMention = computed(() => results[typology.value].isFacticeTypology === true && selectedAmmo.value === 'billes'
   ? mentionIfIsFactice.value
-  : result.value[typology.value].mention)
-const cleanTypology = computed(() => result.value[typology.value].isFacticeTypology)
-
-console.log(cleanTypology.value)
+  : results[typology.value].mention)
+const cleanTypology = computed(() => results[typology.value].isFacticeTypology === true)
 
 function goToSafetyRecommendation () {
   router.push({ name: 'SafetyRecommendation' }).catch(() => {})
@@ -42,14 +42,10 @@ function goToSafetyRecommendation () {
 
 function resetSearch () {
   localStorage.clear()
-  router.push({ name: 'Instructions' }).catch(() => {})
+  // router.push({ name: 'Start' }).catch(() => {})
+  window.location.replace('/instructions')
+  // router.push({ name: 'Instructions' }).catch(() => {})
 }
-
-// function redoTutorial () {
-//   const currentStep = useStorage('currentStep')
-//   goToSafetyRecommendation()
-//   currentStep.value = 0
-// }
 
 function goToLastStep () {
   const currentStep = useStorage('currentStep')
@@ -175,19 +171,21 @@ function sendFeedback (isCorrect) {
               @click="goToSafetyRecommendation()"
             />
           </div>
-          <div
-            v-if="cleanTypology === false && isFactice === ''"
-            class="mt-2"
-          >
-            <p>Sauf si l'arme est factice:</p>
-            <p class="fr-callout__title">
-              Non Classé
-            </p>
-            <DsfrButton
-              class="my-4 flex justify-content-center"
-              label="Pas de guide de vérification"
-              disabled
-            />
+          <div v-else>
+            <div
+              v-if="cleanTypology === false && isFactice === ''"
+              class="mt-2"
+            >
+              <p>Sauf si l'arme est factice:</p>
+              <p class="fr-callout__title">
+                Non Classé
+              </p>
+              <DsfrButton
+                class="my-4 flex justify-content-center"
+                label="Pas de guide de vérification"
+                disabled
+              />
+            </div>
           </div>
           <p
             class="mt-2 fr-callout__text"
@@ -266,14 +264,6 @@ function sendFeedback (isCorrect) {
           @click="resetSearch()"
         />
         <div v-if="selectedAmmo !== undefined && isFactice !== ''">
-          <!-- <DsfrButton
-            class="mx-4 my-1 flex justify-content-center"
-            label="Refaire le tutoriel"
-            icon="ri-list-ordered"
-            :icon-right="true"
-            secondary
-            @click="redoTutorial()"
-          /> -->
           <DsfrButton
             class="mx-4 my-1 flex justify-content-center"
             label="Retourner à l'étape précédente"
