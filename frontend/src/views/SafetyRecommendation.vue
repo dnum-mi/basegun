@@ -1,15 +1,19 @@
 <script setup>
-import { store } from '@/store.js'
-import { useStorage } from '@vueuse/core'
-import { ref, onBeforeMount } from 'vue'
+import {
+  ref, onBeforeMount, computed,
+} from 'vue'
 import { useRouter } from 'vue-router'
+import { store } from '@/store.js'
+
+import { useStepsStore } from '@/stores/steps.js'
+
+const stepsStore = useStepsStore()
 
 onBeforeMount(() => {
   store.displayHeader = false
 })
 
 const router = useRouter()
-const currentStep = useStorage('currentStep', 0)
 const instructions = ref([
   '<ul>',
   "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -20,7 +24,7 @@ const instructions = ref([
 ])
 
 function goToTutorial () {
-  currentStep.value = currentStep.value + 1
+  stepsStore.setCurrentStep(1)
   router.push({ name: 'FirearmDirection' }).catch(() => { })
 }
 function goToResults () {

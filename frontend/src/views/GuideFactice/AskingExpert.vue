@@ -1,20 +1,22 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
-import { useStorage } from '@vueuse/core'
+import { useLocalStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
+
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { useStepsStore } from '@/stores/steps.js'
 
+const stepsStore = useStepsStore()
 const { setMessage } = useSnackbarStore()
-const typology = useStorage('typology')
+const typology = computed(() => stepsStore.typology)
 const router = useRouter()
 
-const currentStep = useStorage('currentStep')
-const confidence = useStorage('confidence')
-const confidenceLevel = useStorage('confidenceLevel')
-const issue = useStorage('issue')
-const imgUrl = useStorage('imgUrl')
+const confidence = useLocalStorage('confidence')
+const confidenceLevel = useLocalStorage('confidenceLevel')
+const issue = useLocalStorage('issue')
+const imgUrl = useLocalStorage('imgUrl')
 
 const showModal = ref(false)
 const issueText = ref('')
@@ -42,7 +44,7 @@ async function sendIssue () {
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
     })
     .finally(setTimeout(() => {
-      currentStep.value = undefined
+      stepsStore.setCurrentStep(undefined)
       router.push({ name: 'Result' }).catch(() => { })
     }, 3000))
 }

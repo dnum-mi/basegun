@@ -1,31 +1,28 @@
 <script setup>
-import { useStorage } from '@vueuse/core'
-import { ref, watch, onMounted } from 'vue'
+import { computed, ref } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
+
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
-import { useRoute } from 'vue-router'
+import { useStepsStore } from '@/stores/steps.js'
 
-onMounted(() => {
-  console.log('mount select-option', !!(route.name === 'SelectOption' && selectedOption.value === undefined))
+const stepsStore = useStepsStore()
+
+const typology = useLocalStorage('typology')
+const selectedOption = computed({
+  get () {
+    return stepsStore.selectedOption
+  },
+  set (option) {
+    stepsStore.setOption(option)
+  },
 })
-
-const route = useRoute()
-
-const typology = useStorage('typology')
-const selectedOption = useStorage('selectedOption', undefined)
 
 const zoom = ref('')
 
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
-
-watch(() => selectedOption.value, (newValue) => {
-  selectedOption.value = newValue
-  window.dispatchEvent(new CustomEvent('selected-option', {
-    selectedOption: newValue,
-  }))
-})
 </script>
 
 <template>

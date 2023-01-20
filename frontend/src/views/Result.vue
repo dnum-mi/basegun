@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import { useStorage } from '@vueuse/core'
+import { useLocalStorage } from '@vueuse/core'
 import { store } from '@/store.js'
 import ResultComponent from '@/components/ResultComponent.vue'
 
-const img = useStorage('img')
+const img = useLocalStorage('img')
 
 export default {
   name: 'ResultPage',

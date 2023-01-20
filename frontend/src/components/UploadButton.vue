@@ -15,19 +15,19 @@
 
 <script>
 import axios from 'axios'
-import { useStorage } from '@vueuse/core'
+import { useLocalStorage } from '@vueuse/core'
 import { store } from '@/store.js'
 // import { useRouter } from 'vue-router'
 
 // const router = useRouter()
 
-const label = useStorage('typology')
-const confidence = useStorage('confidence')
-const confidenceLevel = useStorage('confidenceLevel')
-const img = useStorage('img')
-const imgUrl = useStorage('imgUrl')
-const geolocation = useStorage('geolocation')
-const resultText = useStorage('resultText')
+const label = useLocalStorage('typology')
+const confidence = useLocalStorage('confidence')
+const confidenceLevel = useLocalStorage('confidenceLevel')
+const img = useLocalStorage('img')
+const imgUrl = useLocalStorage('imgUrl')
+const geolocation = useLocalStorage('geolocation')
+const resultText = useLocalStorage('resultText')
 
 function randomCoord (num) {
   num = parseFloat(num)

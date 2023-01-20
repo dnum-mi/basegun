@@ -1,15 +1,19 @@
 <script setup>
-import AskingExpert from './AskingExpert.vue'
-import { useStorage } from '@vueuse/core'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
+import { computed } from 'vue'
+import AskingExpert from './AskingExpert.vue'
 
-const selectedOption = useStorage('selectedOption')
-const typology = useStorage('typology')
+import { useStepsStore } from '@/stores/steps.js'
+
+const stepsStore = useStepsStore()
+
+const selectedOption = computed(() => stepsStore.selectedOption)
+const typology = computed(() => stepsStore.typology)
 
 </script>
 
 <template>
-  <div v-if="selectedOption === 'undefined'">
+  <div v-if="selectedOption === undefined">
     <p
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology].text}`"
