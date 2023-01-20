@@ -9,6 +9,7 @@ import { useStepsStore } from '@/stores/steps.js'
 const stepsStore = useStepsStore()
 
 const typology = computed(() => stepsStore.typology)
+
 const selectedAmmo = computed({
   get  () {
     return stepsStore.selectedAmmo
@@ -30,6 +31,7 @@ const zoomOn = (imgValue) => {
     <p>
       Sélectionner le type de munition du chargeur
     </p>
+
     <div>
       <template
         v-for="option of guideFacticeSelectAmmo[typology]"
@@ -39,8 +41,9 @@ const zoomOn = (imgValue) => {
           <DsfrRadioButton
             v-model="selectedAmmo"
             class="radio"
+            :class="{ 'wide': typology === 'epaule_a_verrou' }"
             v-bind="option"
-            :img="`/src/assets/${option.img_ammo}`"
+            :img="`/src/assets/${typology}/${option.img_ammo}`"
             required
             name="selectedAmmo"
           />
@@ -101,6 +104,14 @@ const zoomOn = (imgValue) => {
 :deep(.radio > .fr-radio-rich__img img){
   width: 8rem;
   max-width: unset;
+}
+
+:deep(.wide > .fr-radio-rich__img){
+  width: 13.25rem !important;
+}
+
+:deep(.wide > .fr-radio-rich__img img){
+  width: 13rem;
 }
 
 :deep(.fr-radio-rich input[type="radio"] + label){

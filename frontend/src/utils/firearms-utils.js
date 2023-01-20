@@ -72,14 +72,14 @@ export const guideFacticeSelectOption = {
       label: 'levier',
       value: 'levier',
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight">extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
-      img: 'pistol-1_0_fleche.png',
+      img: 'pistolet-semi-auto-moderne-1_arrow1.jpg',
       video: 'pistol-1_sm.mp4',
     },
     bouton: {
       label: 'bouton',
       value: 'bouton',
       text: 'Pousser le  bouton vers l’arrière  avec le pouce de l’autre main, puis extraire le chargeur de la même main en le tirant ou en le laissant glisser.',
-      img: 'pistol-2_0_fleche.png',
+      img: 'pistolet-semi-auto-moderne-2_arrow1.jpg',
       video: 'pistol-2_sm.mp4',
     },
   },
@@ -88,35 +88,35 @@ export const guideFacticeSelectOption = {
       label: 'chargeur derrière \n la poignée',
       value: 'chargeur_derriere',
       text: 'Avec la main qui ne tient pas l’arme, soulever du pouce le levier au-dessus du pontet, et extraire le chargeur avec la même main en le faisant glisser vers le bas.',
-      img: 'bullpup_0.jpg',
+      img: 'autre-epaule-bullpup_arrow2.jpg',
       video: 'bullpup_sm.mp4',
     },
     chargeur_dessus: {
       label: 'chargeur au-dessus \n de la poignée',
       value: 'chargeur_dessus',
       text: 'De la main qui ne tient pas l’arme, appuyer avec le pouce sur le bouton situé à l’arrière du chargeur. En même temps, tirer avec cette même main le chargeur vers le bas pour l’extraire.',
-      img: 'p90_0.jpg',
+      img: 'autre-epaule-p90_arrow2.jpg',
       video: 'p90_sm.mp4',
     },
     levier_derriere: {
       label: 'levier derrière \n chargeur',
       value: 'levier_derriere',
       text: 'A l’aide de la main qui ne tient pas l’arme, appuyer avec le pouce sur le levier en maintenant le chargeur. Faire pivoter le chargeur en le poussant légèrement vers l’avant pour l’extraire de la carcasse. Puis relâcher le levier.',
-      img: 'ak_0.jpg',
+      img: 'autre-epaule-ak_arrow2.jpg',
       video: 'ak_sm.mp4',
     },
     bouton_dessus: {
       label: 'bouton au-dessus \n chargeur',
       value: 'bouton_dessus',
       text: 'Tenir l’arme de la main droite. Avec l’index de cette main, appuyer sur le bouton. Avec l’autre main, tirer le chargeur vers le bas pour l’extraire de la carcasse.',
-      img: 'ar_0.jpg',
+      img: 'autre-epaule-ar_arrow2.jpg',
       video: 'ar_sm.mp4',
     },
     levier_dessus: {
       label: 'levier au-dessus \n pontet',
       value: 'levier_dessus',
       text: 'De la main qui ne tient pas l’arme, pousser simultanément sur les deux boutons de part et d’autre du chargeur vers l’arrière. Puis tirer sur le chargeur vers le haut pour l’extraire de la carcasse.',
-      img: 'thompson_0.jpg',
+      img: 'autre-epaule-thompson_arrow2.jpg',
       video: 'thompson_sm.mp4',
     },
   },
@@ -149,36 +149,36 @@ export const guideFacticeSelectAmmo = {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'autre-epaule-cartridge.png',
+      img_ammo: 'autre-epaule-cartridge.jpg',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'autre-epaule-balls.png',
+      img_ammo: 'autre-epaule-balls.jpg',
     },
   },
   autre_pistolet: {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'autre-pistolet-cartridge.png',
+      img_ammo: 'autre-pistolet-cartridge.jpg',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'autre-pistolet-balls.png',
+      img_ammo: 'autre-pistolet-balls.jpg',
     },
   },
   epaule_a_verrou: {
     cartouche: {
       label: 'cartouche',
       value: 'cartouche',
-      img_ammo: 'epaule-a-verrou-cartridge.png',
+      img_ammo: 'epaule-a-verrou-cartridge.jpg',
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: 'epaule-a-verrou-balls.png',
+      img_ammo: 'epaule-a-verrou-balls.jpg',
     },
   },
 }
@@ -202,6 +202,3 @@ export const routePaths = [
   'munition-type',
 ]
 
-export const displayGuideContentOptions = [
-  //
-]

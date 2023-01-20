@@ -132,8 +132,7 @@ export default {
             })
             .catch((err) => {
               console.log(err)
-              // router.push({ name: 'Error' }).catch(() => {})
-              window.location.replace('/erreur')
+              this.$router.push({ name: 'Error' }).catch(() => {})
             })
         })
       }

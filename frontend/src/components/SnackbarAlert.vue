@@ -1,8 +1,8 @@
 <template>
-  <transition name="bounce">
+  <transition name="fade">
     <div
       v-show="show"
-      class="snackbar"
+      class="mx-auto snackbar"
     >
       <DsfrAlert
         class="shadow-md  m-0"
@@ -47,13 +47,13 @@ watch(route, closeSnackbar)
   z-index: 1000;
 }
 
-.bounce-enter-active,
-.snackbar-leave-active {
-  transition: all 0.2s ease-in-out;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
-.bounce-enter,
-.bounce-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transition: all 0.3s ease-in-out;
 }
 </style>
