@@ -50,16 +50,18 @@ async function sendIssue () {
 }
 </script>
 <template>
-  <a
-    class="help"
-    href="#"
-    @click="showModal = true"
-  >
-    Je n'arrive pas à réaliser cette étape
-    <VIcon
-      name="ri-information-line"
-    />
-  </a>
+  <div class="text-center">
+    <a
+      class="help"
+      href="#"
+      @click="showModal = true"
+    >
+      Je n'arrive pas à réaliser cette étape
+      <VIcon
+        name="ri-information-line"
+      />
+    </a>
+  </div>
   <Teleport to="body">
     <DsfrModal
       title=""
@@ -76,8 +78,12 @@ async function sendIssue () {
           Je n'arrive pas à compléter une étape
         </h2>
         <p>
-          Il ne vous est pas possible de réaliser une instruction donnée dans le tutoriel ?
-          Arrêtez-vous dans la manipulation et contactez un expert pour finir l’identification.
+          Si vous rencontrez une difficulté pour poursuivre ce tutoriel, merci de nous l'indiquer
+          ci-dessous. Votre réponse nous pemettra d'améliorer le fonctionnement de Basegun pour l'ensemble
+          des utilisateurs.<br>
+          En attendant, nous vous conseillons de faire appel à un expert.
+          <!-- Il ne vous est pas possible de réaliser une instruction donnée dans le tutoriel ?
+          Arrêtez-vous dans la manipulation et contactez un expert pour finir l’identification. -->
         </p>
         <DsfrInput
           v-model="issueText"
@@ -96,6 +102,7 @@ async function sendIssue () {
       <div class="footer-background">
         <DsfrButton
           label="Valider et retour au résultat"
+          :disabled="!issueText"
           @click="sendIssue()"
         />
       </div>

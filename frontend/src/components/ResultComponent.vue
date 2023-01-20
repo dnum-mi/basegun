@@ -13,7 +13,6 @@ const { setMessage } = useSnackbarStore()
 const router = useRouter()
 const stepsStore = useStepsStore()
 
-// const result = ref(results)
 onBeforeMount(() => {
   store.displayHeader = false
 })
@@ -46,7 +45,6 @@ function goToSafetyRecommendation () {
 function resetSearch () {
   localStorage.clear()
   window.location.replace('/instructions')
-  // router.push({ name: 'Start' }).catch(() => {})
   // router.push({ name: 'Instructions' }).catch(() => {})
 }
 
@@ -243,7 +241,7 @@ function sendFeedback (isCorrect) {
       </div>
       <div
         v-if="isFeedbackDone"
-        class="snackbar"
+        class="snackbar text-center"
       >
         <SnackbarAlert class="text-center" />
       </div>

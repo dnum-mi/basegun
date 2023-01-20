@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
 
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -8,7 +7,7 @@ import { useStepsStore } from '@/stores/steps.js'
 
 const stepsStore = useStepsStore()
 
-const typology = useLocalStorage('typology')
+const typology = computed(() => stepsStore.typology)
 const selectedOption = computed({
   get () {
     return stepsStore.selectedOption
@@ -42,7 +41,7 @@ const zoomOn = (imgValue) => {
         <DsfrRadioButton
           v-model="selectedOption"
           v-bind="option"
-          :img="`/src/assets/${option.img}`"
+          :img="`/src/assets/${typology}/${option.img}`"
           required
           name="selectedOption"
         />
@@ -60,7 +59,7 @@ const zoomOn = (imgValue) => {
           >
             <img
               v-if="zoom === option.value"
-              :src="`/src/assets/${option.img}`"
+              :src="`/src/assets/${typology}/${option.img}`"
               :style="{'max-width': '100%'}"
             >
           </DsfrModal>
