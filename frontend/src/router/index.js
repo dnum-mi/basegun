@@ -1,14 +1,22 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import Home from '../views/Home.vue'
-import Start from '../views/Start.vue'
-import Instructions from '../views/Instructions.vue'
-import Informations from '../views/Informations.vue'
-import Result from '../views/Result.vue'
-import Error from '../views/Error.vue'
-import PageNotFound from '../views/PageNotFound.vue'
-import About from '../views/About.vue'
-import Legal from '../views/Legal.vue'
-import Contact from '../views/Contact.vue'
+
+const Home = () => import('@/views/Home.vue')
+const Start = () => import('@/views/Start.vue')
+const Informations = () => import('@/views/Informations.vue')
+const Instructions = () => import('@/views/Instructions.vue')
+const Result = () => import('@/views/Result.vue')
+const Error = () => import('@/views/Error.vue')
+const PageNotFound = () => import('@/views/PageNotFound.vue')
+const About = () => import('@/views/About.vue')
+const Legal = () => import('@/views/Legal.vue')
+const Contact = () => import('@/views/Contact.vue')
+
+const GuideFactice = () => import('@/views/GuideFactice/GuideFactice.vue')
+const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue')
+const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
+const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
+const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
+const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 
 const routes = [
   {
@@ -25,6 +33,38 @@ const routes = [
     path: '/instructions',
     name: 'Instructions',
     component: Instructions,
+  },
+  {
+    path: '/consignes-de-securite',
+    name: 'SafetyRecommendation',
+    component: SafetyRecommendation,
+  },
+  {
+    path: '/guide-factice',
+    name: 'GuideFactice',
+    component: GuideFactice,
+    children: [
+      {
+        path: 'consignes-arme',
+        name: 'FirearmDirection',
+        component: FirearmDirection,
+      },
+      {
+        path: 'option-arme',
+        name: 'SelectOption', // renommer SelectOption
+        component: SelectOption,
+      },
+      {
+        path: 'extract-mag',
+        name: 'ExtractMag',
+        component: ExtractMag,
+      },
+      {
+        path: 'munition-type',
+        name: 'SelectAmmo',
+        component: SelectAmmo,
+      },
+    ],
   },
   {
     path: '/informations',

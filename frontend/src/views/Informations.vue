@@ -14,7 +14,7 @@
           :asc="asc"
         >
           <div>
-            <AboutTextContent />
+            <AboutInformationTabs />
           </div>
         </DsfrTabContent>
 
@@ -25,7 +25,7 @@
           :asc="asc"
         >
           <div>
-            <LegalTextContent />
+            <LegalInformationTabs />
           </div>
         </DsfrTabContent>
 
@@ -36,7 +36,7 @@
           :asc="asc"
         >
           <div>
-            <ContactTextContent />
+            <ContactInformationTabs />
           </div>
         </DsfrTabContent>
       </DsfrTabs>
@@ -45,15 +45,15 @@
 </template>
 
 <script>
-import AboutTextContent from './text_content/AboutTextContent.vue'
-import LegalTextContent from './text_content/LegalTextContent.vue'
-import ContactTextContent from './text_content/ContactTextContent.vue'
+import AboutInformationTabs from './InformationTabs/AboutInformationTabs.vue'
+import LegalInformationTabs from './InformationTabs/LegalInformationTabs.vue'
+import ContactInformationTabs from './InformationTabs/ContactInformationTabs.vue'
 
 export default {
   components: {
-    AboutTextContent,
-    LegalTextContent,
-    ContactTextContent,
+    AboutInformationTabs,
+    LegalInformationTabs,
+    ContactInformationTabs,
   },
   data () {
     return {

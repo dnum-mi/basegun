@@ -15,7 +15,7 @@
             <a href="/accueil">
               <p class="fr-logo">
                 Ministère
-                <br>de l'Intérieur 
+                <br>de l'Intérieur
                 <br>et de l'Outre-mer
               </p>
             </a>
@@ -35,7 +35,7 @@
           </div>
           <div class="fr-header__navbar">
             <DsfrButton
-              ref="modalOrigin" 
+              ref="modalOrigin"
               title="Menu"
               class="btn-open-modal"
               :icon-right="true"
@@ -89,16 +89,16 @@
 
 <script>
 export default {
-  
-  data() {
+
+  data () {
     return {
-      showModal:false,
-      isActive:undefined,
+      showModal: false,
+      isActive: undefined,
     }
   },
 
   methods: {
-  
+
     openInformations () {
       this.$router.push({ name: 'Informations' }).catch(() => {})
     },
@@ -113,7 +113,7 @@ export default {
     onClose () {
       this.showModal = false
     },
-    
+
   },
 }
 
@@ -121,8 +121,9 @@ export default {
 
 <style scoped>
 
-header {
-    -webkit-box-shadow: none;
+header.fr-header {
+  -webkit-box-shadow: none;
+  -webkit-filter: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
@@ -135,11 +136,6 @@ header {
 
 :deep(.fr-header__logo) {
     padding: .75rem 0 !important;
-}
-
-.fr-container {
-  width: 100%;
-  height: 100%;
 }
 
 .container-link  {
@@ -155,8 +151,8 @@ header {
 }
 
 :deep(.fr-header__navbar) {
-    padding: 0 !important;
-    margin-right: -10px;
+  padding: 0 !important;
+  margin-right: -10px;
 }
 
 :deep(.fr-modal__body) {
@@ -171,10 +167,12 @@ header {
 }
 
 .btn-open-modal {
+  outline: none;
   background-color: white;
 }
 
 .btn-menu-information {
+  outline: none;
   border-radius: 1rem;
   margin-top: 2.5em !important;
 }

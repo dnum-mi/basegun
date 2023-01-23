@@ -14,19 +14,19 @@
           À propos
         </p>
       </div>
-      <AboutTextContent />
+      <AboutInformationTabs />
     </div>
   </div>
 </template>
 
 <script>
 
-import AboutTextContent from "@/views/text_content/AboutTextContent.vue";
+import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.vue'
 
 export default {
   name: 'AboutPage',
   components: {
-    AboutTextContent,
+    AboutInformationTabs,
   },
 }
 </script>

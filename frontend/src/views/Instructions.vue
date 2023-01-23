@@ -1,3 +1,24 @@
+<script setup>
+import UploadButton from '@/components/UploadButton.vue'
+import { store } from '@/store.js'
+import { onBeforeMount } from 'vue'
+
+const instructions = [
+  '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
+  "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+  "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
+]
+
+onBeforeMount(() => {
+  localStorage.clear()
+})
+
+function readInstruction () {
+  const demarrer = document.getElementById('demarrer')
+  demarrer.firstChild.click()
+}
+</script>
+
 <template>
   <div
     class="info container-alert  col-lg-6  col-xs-9  mx-auto"
@@ -36,59 +57,34 @@
     </div>
   </div>
   <div class="blank" />
-  <div class="footer-background footer-actions">
+  <div class="footer-background">
     <div
       v-if="!store.uploadMessage"
       class="btn-read-instruction text-center"
     >
       <div
         class="col-11 col-lg-6 footer-actions"
-      />
-      <UploadButton />
-      <DsfrButton
-        class="my-2"
-        label="prendre la photo"
-        icon="ri-camera-fill"
-        @click="readInstruction"
-      />
+      >
+        <UploadButton />
+        <DsfrButton
+          class="flex justify-content-center"
+          label="Prendre la photo"
+          icon="ri-camera-fill"
+          :icon-right="true"
+          @click="readInstruction()"
+        />
+      </div>
     </div>
     <div
       v-else
-      class="text-center mt-2 bold"
+      class="text-center bold"
     >
-      <p>{{ store.uploadMessage }}</p>
+      <p class="bold-highlight">
+        {{ store.uploadMessage }}
+      </p>
     </div>
   </div>
 </template>
-
-<script>
-import { store } from '@/store/store.js'
-import UploadButton from '@/components/UploadButton.vue'
-
-export default {
-  name: 'InstructionsPage',
-  components: {
-    UploadButton,
-  },
-  data () {
-    return {
-      store,
-      instructions: [
-        '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-        "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-        "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-      ],
-    }
-  },
-
-  methods: {
-    readInstruction () {
-      const demarrer = document.getElementById('demarrer')
-      demarrer.firstChild.click()
-    },
-  },
-}
-</script>
 
 <style scoped>
 .fr-alert {
@@ -117,10 +113,6 @@ img {
 
 .modal-img-text {
   font-style: italic;
-}
-
-.bold-highlight {
-  font-weight: bold;
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <transition name="bounce">
+  <transition name="fade">
     <div
       v-show="show"
-      class="snackbar"
+      class="mx-auto snackbar"
     >
       <DsfrAlert
         class="shadow-md  m-0"
@@ -18,36 +18,25 @@
   </transition>
 </template>
 
-<script>
-import { mapState } from 'vuex'
-export default {
-  name: 'SnackbarAlert',
-  computed: {
-    ...mapState({
-      messages: state => state.snackbar.messages,
-      message: state => state.snackbar.message,
-      show: state => state.snackbar.show,
-      type: state => state.snackbar.type || 'info',
-    }),
-  },
-  watch: {
-    // ferme la snackbar d'erreur au changement de route
-    $route (to, from) {
-      this.closeSnackbar()
-    },
-  },
-  methods: {
-    closeSnackbar () {
-      if (this.type === 'error') {
-        return this.$store.dispatch('hideMessage')
-      }
-    },
-  },
-}
+<script setup>
+import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { useSnackbarStore } from '../stores/snackbar.js'
+
+const route = useRoute()
+const snackbarStore = useSnackbarStore()
+
+const message = computed(() => snackbarStore.message)
+const show = computed(() => snackbarStore.show)
+const type = computed(() => snackbarStore.type)
+
+const closeSnackbar = () => snackbarStore.hideMessage()
+
+watch(route, closeSnackbar)
 </script>
 
 <style scoped>
-
 .snackbar {
   display: flex;
   justify-content: center;
@@ -58,13 +47,13 @@ export default {
   z-index: 1000;
 }
 
-.bounce-enter-active,
-.snackbar-leave-active {
-  transition: all 0.2s ease-in-out;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
-.bounce-enter,
-.bounce-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transition: all 0.3s ease-in-out;
 }
 </style>

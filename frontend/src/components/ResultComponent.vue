@@ -1,12 +1,130 @@
+<script setup>
+import { store } from '@/store.js'
+import { ref, computed, onBeforeMount } from 'vue'
+import axios from 'axios'
+import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { results, guideSteps } from '@/utils/firearms-utils'
+import { useLocalStorage } from '@vueuse/core'
+import { useRouter } from 'vue-router'
+import { useSnackbarStore } from '@/stores/snackbar.js'
+import { useStepsStore } from '@/stores/steps.js'
+
+const { setMessage } = useSnackbarStore()
+const router = useRouter()
+const stepsStore = useStepsStore()
+
+onBeforeMount(() => {
+  store.displayHeader = false
+})
+
+const confidence = useLocalStorage('confidence')
+const confidenceLevel = useLocalStorage('confidenceLevel')
+const img = useLocalStorage('img')
+const imgUrl = useLocalStorage('imgUrl')
+
+const typology = computed(() => stepsStore.typology)
+const selectedAmmo = computed(() => stepsStore.selectedAmmo)
+const isFactice = computed(() => stepsStore.isFactice)
+
+const isUp = ref(undefined)
+const isDown = ref(undefined)
+const isFeedbackDone = ref(undefined)
+const mentionIfIsFactice = ref("Libre d'acquisition et de détention")
+
+const cleanLabel = computed(() => results[typology.value].displayLabel)
+const cleanCategory = computed(() => results[typology.value].category)
+const cleanMention = computed(() => results[typology.value].isFacticeTypology === true && selectedAmmo.value === 'billes'
+  ? mentionIfIsFactice.value
+  : results[typology.value].mention)
+const cleanTypology = computed(() => results[typology.value].isFacticeTypology === true)
+
+function goToSafetyRecommendation () {
+  router.push({ name: 'SafetyRecommendation' }).catch(() => {})
+}
+
+function resetSearch () {
+  localStorage.clear()
+  window.location.replace('/instructions')
+  // router.push({ name: 'Instructions' }).catch(() => {})
+}
+
+function goToLastStep () {
+  router.push({ name: 'SelectAmmo' }).catch(() => { })
+  stepsStore.setCurrentStep(guideSteps.value.length)
+}
+
+function sendFeedback (isCorrect) {
+  const json = {
+    image_url: imgUrl.value,
+    feedback: isCorrect,
+    confidence: confidence.value,
+    label: typology.value,
+    confidence_level: confidenceLevel.value,
+  }
+  isFeedbackDone.value = true
+  if (isCorrect) {
+    isUp.value = true
+  } else {
+    isDown.value = true
+  }
+  axios.post('/feedback', json)
+    .then(async res => {
+      console.log(res)
+      setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
+      console.log(setMessage.value)
+    })
+    .catch(async (err) => {
+      console.log(err)
+      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
+    })
+}
+</script>
 <template>
   <div>
     <div class="result col-11 col-lg-6">
       <div
         class="result-image"
-        :style="{backgroundImage:`url(${store.img})`}"
+        :style="{backgroundImage:`url(${img})`}"
       />
-      <div class="fr-callout custom-callout">
-        <div v-if="store.confidenceLevel == 'low'">
+      <div
+        v-if="selectedAmmo === 'billes'"
+        class="fr-callout custom-callout"
+      >
+        <div v-if="confidenceLevel === 'high'">
+          <div class="callout-head">
+            <p class="fr-tag fr-tag--sm success-tag">
+              Indice de fiabilité : {{ Math.floor(confidence) }}%
+            </p>
+          </div>
+        </div>
+        <div v-else>
+          <p class="fr-tag fr-tag--sm warning-tag">
+            Indice de fiabilité : {{ Math.floor(confidence) }}%
+          </p>
+          <p class="warning-text">
+            Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+          </p>
+        </div>
+        <p class="fr-callout__title">
+          Non Classé
+        </p>
+        <p class="fr-callout__text">
+          Objet, arme factice
+        </p>
+        <p class="mt-2 fr-callout__text">
+          <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
+        </p>
+        <div
+          class="callout-mention mt-4"
+        >
+          <p v-html="cleanMention" />
+        </div>
+      </div>
+      <div
+        v-else
+        class="fr-callout custom-callout"
+      >
+        <div v-if="confidenceLevel === 'low'">
           <div class="callout-head">
             <p class="fr-tag fr-tag--sm error-tag">
               Indice de fiabilité insuffisant
@@ -15,39 +133,73 @@
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
-          <div v-if="store.confidenceLevel == 'high'">
+          <div v-if="confidenceLevel === 'high'">
             <div class="callout-head">
               <p class="fr-tag fr-tag--sm success-tag">
-                Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+                Indice de fiabilité : {{ Math.floor(confidence) }}%
               </p>
             </div>
           </div>
           <div v-else>
             <p class="fr-tag fr-tag--sm warning-tag">
-              Indice de fiabilité : {{ Math.floor(store.confidence) }}%
+              Indice de fiabilité : {{ Math.floor(confidence) }}%
             </p>
             <p class="warning-text">
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
             </p>
           </div>
+
           <p class="fr-callout__title">
             Catégorie {{ cleanCategory }}
           </p>
-          <p class="fr-callout__text">
-            Type d'arme : {{ cleanLabel }}
-          </p>
-          <p
+          <div
             class="callout-mention"
-            v-html="cleanMention"
-          />
+          >
+            <p v-html="cleanMention" />
+          </div>
+          <div
+            v-if="cleanTypology === true && !stepsStore.selectedAmmo"
+            class="mt-2"
+          >
+            <p>Sauf si l'arme est factice:</p>
+            <p class="fr-callout__title">
+              Non Classé
+            </p>
+            <DsfrButton
+              class="my-4 flex justify-content-center"
+              label="Vérifier si l'arme est factice"
+              @click="goToSafetyRecommendation()"
+            />
+          </div>
+          <div v-else>
+            <div
+              v-if="cleanTypology === false && !isFactice"
+              class="mt-2"
+            >
+              <p>Sauf si l'arme est factice:</p>
+              <p class="fr-callout__title">
+                Non Classé
+              </p>
+              <DsfrButton
+                class="my-4 flex justify-content-center"
+                label="Pas de guide de vérification"
+                disabled
+              />
+            </div>
+          </div>
+          <p
+            class="mt-2 fr-callout__text"
+          >
+            Typologie : {{ cleanLabel }}
+          </p>
         </div>
       </div>
-      <div v-if="store.confidenceLevel != 'low'">
+      <div v-if="confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
         <div
-          :aria-disabled="isClickOnThumb"
+          :aria-disabled="isFeedbackDone"
           class="feedback"
         >
           <p class="feedback-text">
@@ -56,15 +208,14 @@
           <div class="feedback-thumb">
             <label
               class="feedback-click"
-              @click="sendFeedback(true, $event)"
+              @click="sendFeedback(true)"
             >
-            
-              <VIcon 
+              <VIcon
                 v-if="isUp"
                 name="ri-thumb-up-fill"
                 class="feedback-click"
               />
-              <VIcon 
+              <VIcon
                 v-else
                 name="ri-thumb-up-line"
                 class="feedback-click"
@@ -72,14 +223,14 @@
             </label>
             <label
               class="feedback-click"
-              @click="sendFeedback(false, $event)"
+              @click="sendFeedback(false)"
             >
-              <VIcon 
+              <VIcon
                 v-if="isDown"
                 name="ri-thumb-down-fill"
                 class="feedback-click"
               />
-              <VIcon 
+              <VIcon
                 v-else
                 name="ri-thumb-down-line"
                 class="feedback-click"
@@ -89,8 +240,8 @@
         </div>
       </div>
       <div
-        v-if="isClickOnThumb"
-        class="snackbar"
+        v-if="isFeedbackDone"
+        class="snackbar text-center"
       >
         <SnackbarAlert class="text-center" />
       </div>
@@ -98,145 +249,34 @@
         v-else
         class="blank"
       />
-      <div class="footer-background footer-actions">
-        <div
-          class="action-group"
-          @click="reloadPage"
-        >
-          <span
-            class="fr-fi-refresh-line"
-            title="Recommencer" 
-            role="img" 
-            aria-label="recommencer"
-            aria-hidden="true"
+    </div>
+    <div class="footer-background">
+      <div
+        v-show="img"
+        class="col-11 col-lg-6 mx-auto text-center"
+        :class="{ 'footer-actions': selectedAmmo === undefined }"
+      >
+        <DsfrButton
+          class="mx-4 my-1 flex justify-content-center"
+          label="Reprendre une photo"
+          icon="ri-camera-fill"
+          :icon-right="true"
+          @click="resetSearch()"
+        />
+        <div v-if="selectedAmmo !== undefined && isFactice !== ''">
+          <DsfrButton
+            class="mx-4 my-1 flex justify-content-center"
+            label="Retourner à l'étape précédente"
+            icon="ri-arrow-go-back-fill"
+            :icon-right="true"
+            secondary
+            @click="goToLastStep()"
           />
-          <p class="action-group-text">
-            RECOMMENCER
-          </p>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-    import { store } from '@/store/store.js'
-    import axios from 'axios';
-    import SnackbarAlert from '@/components/SnackbarAlert.vue';
-
-    export default {
-      name: 'ResultComponent',
-      components: {
-        SnackbarAlert,
-      },
-
-      data() {
-        return {
-          store,
-          isDisplayHeader:store.isDisplayHeader=false,
-          isUp: undefined,
-          isDown:undefined,
-          isClickOnThumb:undefined,
-          results: {
-              revolver: {
-                  displayLabel: "revolver",
-                  category: "B ou D",
-                  mention: "B - Soumise à autorisation<br \>D - Libre d'acquisition et de détention",
-              },
-              pistolet_semi_auto_moderne: {
-                  displayLabel: "pistolet semi-automatique moderne",
-                  category: "B",
-                  mention: "Soumise à autorisation",
-              },
-              pistolet_a_percussion_silex: {
-                  displayLabel: "pistolet à mécanisme ancien",
-                  category: "D",
-                  mention: "Libre d'acquisition et de détention",
-              },
-              autre_pistolet: {
-                  displayLabel: "pistolet divers",
-                  category: "A, B ou D",
-                  mention: "A - Interdite<br \>B - Soumise à autorisation<br \>D - Libre d'acquisition et de détention",
-              },
-              epaule_a_percussion_silex: {
-                  displayLabel: "arme d'épaule à mécanisme ancien",
-                  category: "D",
-                  mention: "Libre d'acquisition et de détention",
-              },
-              epaule_a_un_coup: {
-                  displayLabel: "arme d'épaule à un coup par canon",
-                  category: "C",
-                  mention: "Soumise à déclaration",
-              },
-              epaule_a_levier_sous_garde: {
-                  displayLabel: "arme d'épaule à levier de sous-garde",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              epaule_a_verrou: {
-                  displayLabel: "arme d'épaule à verrou",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              epaule_a_pompe: {
-                  displayLabel: "arme d'épaule à pompe",
-                  category: "B ou C",
-                  mention: "B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-              autre_epaule: {
-                  displayLabel: "arme d'épaule non manuelle",
-                  category: "A, B ou C",
-                  mention: "A - Interdite<br \>B - Soumise à autorisation<br \>C - Soumise à déclaration",
-              },
-            },
-          }
-        },
-      computed: {
-          cleanLabel() {
-              return this.results[`${store.label}`].displayLabel
-          },
-          cleanCategory() {
-              return this.results[`${store.label}`].category
-          },
-          cleanMention() {
-              return this.results[`${store.label}`].mention
-          },
-      },
-        
-        methods: {
-            reloadPage() {
-              window.location.replace('/accueil');
-            },
-
-
-            sendFeedback(bool) {
-                const json = {
-                    "image_url": store.imgUrl,
-                    "feedback": bool,
-                    "confidence": store.confidence,
-                    "label": store.label,
-                    "confidence_level": store.confidenceLevel,
-                } 
-                this.isClickOnThumb= true
-              if (bool === true) {
-                  this.isUp=true
-                }
-                if (bool === false) {
-                  this.isDown=true
-                }
-                axios.post('/feedback', json)
-                    .then(async res => {
-                        console.log(res)
-                        await this.$store.dispatch('setMessage', { type: 'success', message: 'Votre vote a été pris en compte' })
-                    })
-                    .catch(async (err) => {
-                        console.log(err);
-                        await this.$store.dispatch('setMessage', { type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
-                    });
-            },
-        },
-      }
-</script>
 
 <style scoped>
 .result {
@@ -328,31 +368,9 @@
   z-index: 1
 }
 
-.action-group {
-  text-align: center;
-  cursor: pointer;
-  margin: 8px 0;
+:deep(.fr-btn) {
+  white-space: nowrap;
+  width: 90%;
 }
 
-.action-group:hover {
-  color: #1212ff;
-}
-
-.action-group-text {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0
-}
-.blank {
-  height: 80px
-}
-
-.footer-background {
-  position: fixed;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  background-color: #f5f5fe;
-  width: 100%;
-}
 </style>
