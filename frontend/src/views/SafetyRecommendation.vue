@@ -58,7 +58,7 @@ function goToResults () {
     <div class="blank" />
   </div>
   <div class="footer-background">
-    <div>
+    <div class="mx-auto col-11 col-lg-6">
       <DsfrButton
         class="mx-4 my-1 flex justify-content-center"
         label="Commencer"

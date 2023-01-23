@@ -253,7 +253,7 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="img"
-        class="mx-auto text-center"
+        class="col-11 col-lg-6 mx-auto text-center"
         :class="{ 'footer-actions': selectedAmmo === undefined }"
       >
         <DsfrButton

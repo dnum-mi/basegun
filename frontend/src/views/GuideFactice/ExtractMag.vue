@@ -23,8 +23,8 @@ const typology = computed(() => stepsStore.typology)
         <video
           width="320"
           height="240"
-          type="video/mp4"
           autoplay
+          playsinline
           loop
           muted
           :src="`/src/assets/videos-sm/${guideFacticeSelectOption[typology].video}`"
@@ -44,6 +44,7 @@ const typology = computed(() => stepsStore.typology)
           height="240"
           type="video/mp4"
           autoplay
+          playsinline
           loop
           muted
           :src="`/src/assets/videos-sm/${guideFacticeSelectOption[typology][selectedOption].video}`"

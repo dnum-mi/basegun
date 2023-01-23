@@ -17,9 +17,6 @@
 import axios from 'axios'
 import { useLocalStorage } from '@vueuse/core'
 import { store } from '@/store.js'
-// import { useRouter } from 'vue-router'
-
-// const router = useRouter()
 
 const label = useLocalStorage('typology')
 const confidence = useLocalStorage('confidence')

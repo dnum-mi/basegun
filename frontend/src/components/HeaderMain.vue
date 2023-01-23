@@ -167,10 +167,12 @@ header.fr-header {
 }
 
 .btn-open-modal {
+  outline: none;
   background-color: white;
 }
 
 .btn-menu-information {
+  outline: none;
   border-radius: 1rem;
   margin-top: 2.5em !important;
 }

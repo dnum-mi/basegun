@@ -4,12 +4,4 @@ import { reactive } from 'vue'
 export const store = reactive({
   displayHeader: true,
   uploadMessage: null,
-  // issue: null,
-  // confidence: null,
-  // confidenceLevel: null,
-  // geolocation: null,
-  // img: null,
-  // imgUrl: null,
-  // label: null,
-  // resultText: null,
 })

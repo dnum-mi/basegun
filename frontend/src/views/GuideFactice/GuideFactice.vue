@@ -66,8 +66,8 @@ const validate = () => {
 </script>
 
 <template>
-  <div class="d-flex justify-content-between">
-    <div class="p-3">
+  <div class="mx-auto col-11 col-lg-6 d-flex justify-content-between">
+    <div class="p-3 ps-0">
       <a
         class="go-result"
         href="#"

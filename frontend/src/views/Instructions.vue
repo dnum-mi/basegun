@@ -1,10 +1,7 @@
 <script setup>
 import UploadButton from '@/components/UploadButton.vue'
 import { store } from '@/store.js'
-import {
-  // onMounted,
-  onBeforeMount,
-} from 'vue'
+import { onBeforeMount } from 'vue'
 
 const instructions = [
   '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
