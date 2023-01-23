@@ -50,13 +50,12 @@ const goToNextStep = () => (
 
 function goToResult () {
   router.push({ name: 'Result' }).catch(() => { })
-  // currentStep.value = 0
 }
 
 function homeRedirect () {
   localStorage.clear()
-  // router.push({ name: 'Home' }).catch(() => {})
   window.location.replace('/')
+  // router.push({ name: 'Home' }).catch(() => {})
 }
 
 const validate = () => {
@@ -84,6 +83,7 @@ const validate = () => {
     <div class="p-2">
       <a
         href="#"
+        title="Retour à l'accueil"
         @click="homeRedirect()"
       >
         <img

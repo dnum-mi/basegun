@@ -88,7 +88,9 @@ const zoomOn = (imgValue) => {
 }
 
 :deep(.fr-container) {
-  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
  :deep(.fr-modal__content) {

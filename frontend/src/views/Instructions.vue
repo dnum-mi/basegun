@@ -70,6 +70,7 @@ function readInstruction () {
           class="flex justify-content-center"
           label="Prendre la photo"
           icon="ri-camera-fill"
+          :icon-right="true"
           @click="readInstruction()"
         />
       </div>

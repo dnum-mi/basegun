@@ -259,7 +259,7 @@ function sendFeedback (isCorrect) {
         <DsfrButton
           class="mx-4 my-1 flex justify-content-center"
           label="Reprendre une photo"
-          icon="ri-camera-line"
+          icon="ri-camera-fill"
           :icon-right="true"
           @click="resetSearch()"
         />

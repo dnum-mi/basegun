@@ -56,12 +56,13 @@ const zoomOn = (imgValue) => {
           <Teleport to="body">
             <DsfrModal
               title=""
+              class="test"
               :opened="zoom === option.value"
               @close="zoom = ''"
             >
               <img
                 v-if="zoom === option.value"
-                :src="`/src/assets/${option.img_ammo}`"
+                :src="`/src/assets/${typology}/${option.img_ammo}`"
                 :style="{'max-width': '100%'}"
               >
             </DsfrModal>
@@ -90,6 +91,12 @@ const zoomOn = (imgValue) => {
   right: 0.125em;
   background-color: #eee9;
   cursor: zoom-in;
+}
+
+:deep(.fr-container) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 :deep(.fr-radio-rich input[type="radio"] + label) {

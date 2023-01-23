@@ -18,7 +18,7 @@
                 Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.
               </li>
               <li class="swiper-li">
-                A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des <span class="swiper-green-highlight">armes non létales</span> (factices, à air comprimé, à blanc ou neutralisées).
+                A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des armes à air comprimé > 2 joules, à blanc ou neutralisées.
               </li>
             </ul>
           </div>
