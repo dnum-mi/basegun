@@ -51,7 +51,8 @@ spec:
               path: /
               port: api
         - name: filebeat
-          image: elastic/filebeat:6.5.4
+          imagePullPolicy: {{ .Values.backend.logs.pullPolicy }}
+          image: "{{ .Values.backend.logs.repository }}:{{ .Values.backend.logs.tag }}"
           command: ["/bin/bash"]
           args: ["-c", "filebeat -e --path.config /tmp/filebeat/ --strict.perms=false"]
           resources: {}

@@ -44,7 +44,6 @@ backend:
   podAnnotations: {}
   podSecurityContext: {}
     # fsGroup: 2000
-
   securityContext: {}
     # capabilities:
     #   drop:
@@ -52,7 +51,10 @@ backend:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
-
+  logs:
+    repository: elastic/filebeat
+    tag: 6.5.4
+    pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 5000
