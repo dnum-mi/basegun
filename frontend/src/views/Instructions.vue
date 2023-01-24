@@ -79,7 +79,7 @@ function readInstruction () {
       v-else
       class="text-center bold"
     >
-      <p class="bold-highlight">
+      <p class="loading bold-highlight">
         {{ store.uploadMessage }}
       </p>
     </div>
@@ -115,4 +115,28 @@ img {
   font-style: italic;
 }
 
+/* loading dots */
+.loading:after {
+  content: ' .';
+  animation: dots 1s steps(5, end) infinite;}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: black;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 black;}}
 </style>
