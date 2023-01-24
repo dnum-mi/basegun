@@ -310,18 +310,20 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
     return
 
 
-@app.post("/issue")
-async def log_issue(request: Request, user_id: Union[str, None] = Cookie(None)):
+@app.post("/tutorial-feedback")
+async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
     user_agent = parse(request.headers.get("user-agent"))
 
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_image_url": res["image_url"],
-        "bg_issue": res["issue"],
+        "bg_tutorial_feedback": res["tutorial_feedback"],
         "bg_label": res["label"],
         "bg_confidence": res["confidence"],
         "bg_confidence_level": res["confidence_level"],
+        "bg_current_step": res["current_step"],
+        "bg_route_name": res["route_name"],
         "bg_user_id": user_id,
         "bg_device": get_device(user_agent),
         "bg_device_family": user_agent.device.family,
@@ -329,5 +331,5 @@ async def log_issue(request: Request, user_id: Union[str, None] = Cookie(None)):
         "bg_device_browser": user_agent.browser.family,
         "bg_version": APP_VERSION,
     }
-    logger.info("Issue", extra=extras_logging)
+    logger.info("Tutorial feedback", extra=extras_logging)
     return

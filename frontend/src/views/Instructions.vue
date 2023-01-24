@@ -38,7 +38,7 @@ function readInstruction () {
     <div class="container-img  d-lg-flex">
       <div>
         <img
-          src="../assets/good-photo-example.jpg"
+          src="@/assets/good-photo-example.jpg"
           alt="photo d'une arme tournée vers la droite et centrée"
         >
         <p class="modal-img-text fr-text--xs">
@@ -47,8 +47,8 @@ function readInstruction () {
       </div>
       <div>
         <img
-          src="../assets/bad-photo-example.jpg"
-          alt="photo d'une arme tournée vers la gauche et partiellement coupée"
+          src="@/assets/bad-photo-example.jpg"
+          alt="photo d\'une arme tournée vers la gauche et partiellement coupée"
         >
         <p class="modal-img-text fr-text--xs">
           Exemple d'une mauvaise photo
