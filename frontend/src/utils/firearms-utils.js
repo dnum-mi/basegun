@@ -4,6 +4,8 @@ export const results = {
     category: 'B ou D',
     mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     isFacticeTypology: false,
+    // isFacticeTypology: true,
+    // stepsNumber: 3,
   },
   pistolet_semi_auto_moderne: {
     displayLabel: 'pistolet semi-automatique moderne',
@@ -67,36 +69,31 @@ export const results = {
 }
 
 export const guideFacticeSelectOption = {
+  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : <br> bouton à proximité <span class='bold-highlight'>du pontet du côté gauche de la poignée</span>,ou <span class='bold-highlight'>bouton sur le talon</span> de la crosse.",
   pistolet_semi_auto_moderne: {
-    levier: {
-      label: 'levier',
-      value: 'levier',
+    pontet: {
+      label: 'bouton pontet',
+      value: 'pontet',
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight">extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: 'pistolet-semi-auto-moderne-1_arrow1.jpg',
       video: 'pistol-1_sm.mp4',
     },
-    bouton: {
-      label: 'bouton',
-      value: 'bouton',
+    talon: {
+      label: 'bouton talon',
+      value: 'talon',
       text: 'Pousser le  bouton vers l’arrière  avec le pouce de l’autre main, puis extraire le chargeur de la même main en le tirant ou en le laissant glisser.',
       img: 'pistolet-semi-auto-moderne-2_arrow1.jpg',
       video: 'pistol-2_sm.mp4',
     },
   },
+  autre_epaule_text_option: 'Sélectionner ce que vous voyez sur votre arme',
   autre_epaule: {
-    chargeur_derriere: {
-      label: 'chargeur derrière \n la poignée',
-      value: 'chargeur_derriere',
-      text: 'Avec la main qui ne tient pas l’arme, soulever du pouce le levier au-dessus du pontet, et extraire le chargeur avec la même main en le faisant glisser vers le bas.',
-      img: 'autre-epaule-bullpup_arrow2.jpg',
-      video: 'bullpup_sm.mp4',
-    },
-    chargeur_dessus: {
-      label: 'chargeur au-dessus \n de la poignée',
-      value: 'chargeur_dessus',
-      text: 'De la main qui ne tient pas l’arme, appuyer avec le pouce sur le bouton situé à l’arrière du chargeur. En même temps, tirer avec cette même main le chargeur vers le bas pour l’extraire.',
-      img: 'autre-epaule-p90_arrow2.jpg',
-      video: 'p90_sm.mp4',
+    bouton_dessus: {
+      label: 'bouton au-dessus \n chargeur',
+      value: 'bouton_dessus',
+      text: 'Tenir l’arme de la main droite. Avec l’index de cette main, appuyer sur le bouton. Avec l’autre main, tirer le chargeur vers le bas pour l’extraire de la carcasse.',
+      img: 'autre-epaule-ar_arrow2.jpg',
+      video: 'ar_sm.mp4',
     },
     levier_derriere: {
       label: 'levier derrière \n chargeur',
@@ -105,12 +102,12 @@ export const guideFacticeSelectOption = {
       img: 'autre-epaule-ak_arrow2.jpg',
       video: 'ak_sm.mp4',
     },
-    bouton_dessus: {
-      label: 'bouton au-dessus \n chargeur',
-      value: 'bouton_dessus',
-      text: 'Tenir l’arme de la main droite. Avec l’index de cette main, appuyer sur le bouton. Avec l’autre main, tirer le chargeur vers le bas pour l’extraire de la carcasse.',
-      img: 'autre-epaule-ar_arrow2.jpg',
-      video: 'ar_sm.mp4',
+    chargeur_derriere: {
+      label: 'chargeur derrière \n la poignée',
+      value: 'chargeur_derriere',
+      text: 'Avec la main qui ne tient pas l’arme, soulever du pouce le levier au-dessus du pontet, et extraire le chargeur avec la même main en le faisant glisser vers le bas.',
+      img: 'autre-epaule-bullpup_arrow2.jpg',
+      video: 'bullpup_sm.mp4',
     },
     levier_dessus: {
       label: 'levier au-dessus \n pontet',
@@ -118,6 +115,13 @@ export const guideFacticeSelectOption = {
       text: 'De la main qui ne tient pas l’arme, pousser simultanément sur les deux boutons de part et d’autre du chargeur vers l’arrière. Puis tirer sur le chargeur vers le haut pour l’extraire de la carcasse.',
       img: 'autre-epaule-thompson_arrow2.jpg',
       video: 'thompson_sm.mp4',
+    },
+    chargeur_dessus: {
+      label: 'chargeur au-dessus \n de l\'arme',
+      value: 'chargeur_dessus',
+      text: 'De la main qui ne tient pas l’arme, appuyer avec le pouce sur le bouton situé à l’arrière du chargeur. En même temps, tirer avec cette même main le chargeur vers le bas pour l’extraire.',
+      img: 'autre-epaule-p90_arrow2.jpg',
+      video: 'p90_sm.mp4',
     },
   },
   autre_pistolet:
@@ -201,4 +205,3 @@ export const routePaths = [
   'extract-mag',
   'munition-type',
 ]
-

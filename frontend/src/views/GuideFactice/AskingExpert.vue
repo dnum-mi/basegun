@@ -86,7 +86,7 @@ async function sendTutorialFeedback () {
         </h2>
         <p>
           Si vous rencontrez une difficulté pour poursuivre ce tutoriel, nous vous conseillons de faire appel à un expert. <br>
-          En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
+          <br>En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
         </p>
         <DsfrInput
           v-model="tutorialFeedback"
