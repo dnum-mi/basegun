@@ -8,7 +8,7 @@
       >
         <swiper-slide class="flex justify-content-center">
           <img
-            src="../assets/basegun_green.png"
+            src="@/assets/basegun_green.png"
             alt=""
             class="swiper-logo"
           >
@@ -28,7 +28,7 @@
         </swiper-slide>
         <swiper-slide>
           <img
-            src="../assets/basegun_red.png"
+            src="@/assets/basegun_red.png"
             alt=""
             class="swiper-logo"
           >

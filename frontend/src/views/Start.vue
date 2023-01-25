@@ -2,7 +2,7 @@
   <div class="centered">
     <div class="text-center">
       <img
-        src="../assets/basegun.png"
+        src="@/assets/basegun.png"
         alt=""
       >
       <h1 class="accueil-title">

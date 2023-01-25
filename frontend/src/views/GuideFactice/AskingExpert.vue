@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import axios from 'axios'
 import { useLocalStorage } from '@vueuse/core'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
@@ -11,32 +11,37 @@ import { useStepsStore } from '@/stores/steps.js'
 const stepsStore = useStepsStore()
 const { setMessage } = useSnackbarStore()
 const typology = computed(() => stepsStore.typology)
+
 const router = useRouter()
+const route = useRoute()
 
 const confidence = useLocalStorage('confidence')
 const confidenceLevel = useLocalStorage('confidenceLevel')
-const issue = useLocalStorage('issue')
+const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 const imgUrl = useLocalStorage('imgUrl')
 
 const showModal = ref(false)
-const issueText = ref('')
 
 function onClose () {
+  tutorialFeedback.value = ''
   showModal.value = false
 }
 
-async function sendIssue () {
+async function sendTutorialFeedback () {
   const json = {
     image_url: imgUrl.value,
-    issue: issueText.value,
-    confidence: confidence.value,
+    tutorial_feedback: tutorialFeedback.value,
     label: typology.value,
+    current_step: stepsStore.currentStep,
+    route_name: route.name,
+    confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   }
-  await axios.post('/issue', json)
+  await axios.post('/tutorial-feedback', json)
     .then(async res => {
       console.log(res)
-      issue.value = json.issue
+      tutorialFeedback.value = json.tutorial_feedback
+      console.log(json)
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
     .catch(async (err) => {
@@ -45,6 +50,8 @@ async function sendIssue () {
     })
     .finally(setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
+      tutorialFeedback.value = ''
+      console.log(json)
       router.push({ name: 'Result' }).catch(() => { })
     }, 3000))
 }
@@ -82,7 +89,7 @@ async function sendIssue () {
           En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
         </p>
         <DsfrInput
-          v-model="issueText"
+          v-model="tutorialFeedback"
           label="Décrivez votre problème"
           label-visible
           is-textarea
@@ -98,8 +105,8 @@ async function sendIssue () {
       <div class="footer-background">
         <DsfrButton
           label="Valider et retour au résultat"
-          :disabled="!issueText"
-          @click="sendIssue()"
+          :disabled="!tutorialFeedback"
+          @click="sendTutorialFeedback()"
         />
       </div>
     </DsfrModal>

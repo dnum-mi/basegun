@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     onFileSelected (event) {
-      store.uploadMessage = 'Analyse...'
+      store.uploadMessage = 'Analyse'
       const uploadedFile = event.target.files[0]
       const vm = this // store this to be able to do router redirection later
 

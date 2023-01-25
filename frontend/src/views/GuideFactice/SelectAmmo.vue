@@ -43,7 +43,7 @@ const zoomOn = (imgValue) => {
             class="radio"
             :class="{ 'wide': typology === 'epaule_a_verrou' }"
             v-bind="option"
-            :img="`/src/assets/${typology}/${option.img_ammo}`"
+            :img="`/guide-factice/images/${typology}/${option.img_ammo}`"
             required
             name="selectedAmmo"
           />
@@ -62,7 +62,7 @@ const zoomOn = (imgValue) => {
             >
               <img
                 v-if="zoom === option.value"
-                :src="`/src/assets/${typology}/${option.img_ammo}`"
+                :src="`/guide-factice/images/${typology}/${option.img_ammo}`"
                 :style="{'max-width': '100%'}"
               >
             </DsfrModal>

@@ -41,7 +41,7 @@ const zoomOn = (imgValue) => {
         <DsfrRadioButton
           v-model="selectedOption"
           v-bind="option"
-          :img="`/src/assets/${typology}/${option.img}`"
+          :img="`/guide-factice/images/${typology}/${option.img}`"
           required
           name="selectedOption"
         />
@@ -59,7 +59,7 @@ const zoomOn = (imgValue) => {
           >
             <img
               v-if="zoom === option.value"
-              :src="`/src/assets/${typology}/${option.img}`"
+              :src="`/guide-factice/images/${typology}/${option.img}`"
               :style="{'max-width': '100%'}"
             >
           </DsfrModal>

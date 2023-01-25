@@ -38,7 +38,7 @@ function readInstruction () {
     <div class="container-img  d-lg-flex">
       <div>
         <img
-          src="../assets/good-photo-example.jpg"
+          src="@/assets/good-photo-example.jpg"
           alt="photo d'une arme tournée vers la droite et centrée"
         >
         <p class="modal-img-text fr-text--xs">
@@ -47,8 +47,8 @@ function readInstruction () {
       </div>
       <div>
         <img
-          src="../assets/bad-photo-example.jpg"
-          alt="photo d'une arme tournée vers la gauche et partiellement coupée"
+          src="@/assets/bad-photo-example.jpg"
+          alt="photo d\'une arme tournée vers la gauche et partiellement coupée"
         >
         <p class="modal-img-text fr-text--xs">
           Exemple d'une mauvaise photo
@@ -79,7 +79,7 @@ function readInstruction () {
       v-else
       class="text-center bold"
     >
-      <p class="bold-highlight">
+      <p class="loading bold-highlight">
         {{ store.uploadMessage }}
       </p>
     </div>
@@ -115,4 +115,28 @@ img {
   font-style: italic;
 }
 
+/* loading dots */
+.loading:after {
+  content: ' .';
+  animation: dots 1s steps(5, end) infinite;}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: black;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 black;}}
 </style>
