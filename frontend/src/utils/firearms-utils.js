@@ -3,9 +3,9 @@ export const results = {
     displayLabel: 'revolver',
     category: 'B ou D',
     mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
-    isFacticeTypology: false,
-    // isFacticeTypology: true,
-    // stepsNumber: 3,
+    // isFacticeTypology: false,
+    isFacticeTypology: true,
+    stepsNumber: 3,
   },
   pistolet_semi_auto_moderne: {
     displayLabel: 'pistolet semi-automatique moderne',
@@ -134,6 +134,11 @@ export const guideFacticeSelectOption = {
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       video: 'verrou_sm.mp4',
     },
+  revolver:
+    {
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, tirer vers l’arrière le bouton situé entre le chien et le barillet. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      video: 'revolver_sm.mp4',
+    },
 }
 
 export const guideFacticeSelectAmmo = {
@@ -183,6 +188,18 @@ export const guideFacticeSelectAmmo = {
       label: 'billes',
       value: 'billes',
       img_ammo: 'epaule-a-verrou-balls.jpg',
+    },
+  },
+  revolver: {
+    cartouche: {
+      label: 'la cartouche \n possède ou peut \n posséder une ogive',
+      value: 'cartouche',
+      img_ammo: 'revolver-cartridge.jpg',
+    },
+    billes: {
+      label: 'la cartouche \n contient ou peut \n contenir des billes',
+      value: 'billes',
+      img_ammo: 'revolver-balls.jpg',
     },
   },
 }

@@ -28,7 +28,10 @@ const zoomOn = (imgValue) => {
 
 <template>
   <div>
-    <p>
+    <p v-if="typology === 'revolver'">
+      Sélectionner ce que vous voyez en haut des projectiles
+    </p>
+    <p v-else>
       Sélectionner le type de munition du chargeur
     </p>
 
@@ -70,7 +73,7 @@ const zoomOn = (imgValue) => {
         </div>
       </template>
     </div>
-    <p>
+    <p v-if="typology !== 'revolver'">
       <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
     </p>
     <AskingExpert />
