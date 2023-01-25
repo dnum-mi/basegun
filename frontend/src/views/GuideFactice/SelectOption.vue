@@ -26,11 +26,7 @@ const zoomOn = (imgValue) => {
 
 <template>
   <div class="instructions">
-    <p>
-      Sélectionner ce que vous voyez sur votre arme :
-      bouton à proximité <span class="bold-highlight">du pontet du côté gauche de la poignée</span>,
-      ou <span class="bold-highlight">bouton sur le talon</span> de la crosse.
-    </p>
+    <p v-html="guideFacticeSelectOption[`${typology}_text_option`]" />
   </div>
   <div>
     <template
