@@ -12,10 +12,6 @@ const instructions = [
 const uploadMessage = ref('')
 const fileInput = ref(null)
 
-onBeforeMount(() => {
-  localStorage.clear()
-})
-
 function readInstruction () {
   fileInput.value.click()
 }

@@ -40,8 +40,6 @@ function goToSafetyRecommendation () {
 }
 
 function resetSearch () {
-  localStorage.clear()
-  // window.location.replace('/instructions')
   router.push({ name: 'Instructions' }).catch(() => {})
 }
 
@@ -154,7 +152,7 @@ function sendFeedback (isCorrect) {
             <p v-html="cleanMention" />
           </div>
           <div
-            v-if="cleanTypology === true && !stepsStore.selectedAmmo"
+            v-if="cleanTypology === true && !selectedAmmo"
             class="mt-2"
           >
             <p>Sauf si l'arme est factice:</p>

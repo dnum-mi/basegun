@@ -8,6 +8,11 @@
 import { useLocalStorage } from '@vueuse/core'
 import ResultComponent from '@/components/ResultComponent.vue'
 
+// import { useResultStore } from '@/stores/result.js'
+
+// const resultStore = useResultStore()
+// const img = resultStore.img
+
 const img = useLocalStorage('img')
 
 export default {
@@ -16,15 +21,15 @@ export default {
     ResultComponent,
   },
 
-  beforeRouteEnter (to, from, next) {
-    // redirect to start page if one goes to result route
-    // without having gone through the upload process
-    next(vm => {
-      if (img.value === null) {
-        vm.$router.push({ name: 'Start' }).catch(() => { })
-      }
-    })
-  },
+  //   beforeRouteEnter (to, from, next) {
+  //     // redirect to start page if one goes to result route
+  //     // without having gone through the upload process
+  //     next(vm => {
+  //       if (img.value === null) {
+  //         vm.$router.push({ name: 'Start' }).catch(() => { })
+  //       }
+  //     })
+  //   },
 
   data () {
     return {

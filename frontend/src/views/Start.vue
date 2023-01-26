@@ -31,7 +31,6 @@ export default {
 
   methods: {
     showInstruction () {
-      localStorage.clear()
       this.$router.push({ name: 'Instructions' }).catch(() => {})
     },
   },

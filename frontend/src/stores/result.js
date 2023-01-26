@@ -3,13 +3,13 @@ import { useLocalStorage } from '@vueuse/core'
 import { serializer } from '@/utils/storage-utils.js'
 
 export const useResultStore = defineStore('result', () => {
-  const typology = useLocalStorage('typology', undefined, { serializer })
-  const confidence = useLocalStorage('confidence', undefined, { serializer })
-  const confidenceLevel = useLocalStorage('confidenceLevel', undefined, { serializer })
-  const img = useLocalStorage('img', undefined, { serializer })
-  const imgUrl = useLocalStorage('imgUrl', undefined, { serializer })
-  const geolocation = useLocalStorage('geolocation', undefined, { serializer })
-  const resultText = useLocalStorage('resultText', undefined, { serializer })
+  const typology = useLocalStorage('typology', null, { serializer })
+  const confidence = useLocalStorage('confidence', null, { serializer })
+  const confidenceLevel = useLocalStorage('confidenceLevel', null, { serializer })
+  const img = useLocalStorage('img', null, { serializer })
+  const imgUrl = useLocalStorage('imgUrl', null, { serializer })
+  const geolocation = useLocalStorage('geolocation', null, { serializer })
+  const resultText = useLocalStorage('resultText', null, { serializer })
 
   const setResult = (result) => {
     typology.value = result.label

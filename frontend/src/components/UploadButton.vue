@@ -52,6 +52,10 @@ export default {
           const latitude = randomCoord(res.data.latitude)
           const longitude = randomCoord(res.data.longitude)
           resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
+        })
+        .catch(() => { })
+        .finally(() => {
+          // if geolocation is unavailable or incorrect format
           resizeAndUpload(uploadedFile)
         })
 

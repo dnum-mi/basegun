@@ -58,8 +58,6 @@ function goToResult () {
 }
 
 function homeRedirect () {
-  localStorage.clear()
-  // window.location.replace('/')
   router.push({ name: 'Home' }).catch(() => {})
 }
 
