@@ -1,28 +1,25 @@
 <script setup>
-import { store } from '@/store.js'
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { results, guideSteps } from '@/utils/firearms-utils'
-import { useLocalStorage } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
 const { setMessage } = useSnackbarStore()
 const router = useRouter()
 const stepsStore = useStepsStore()
+const resultStore = useResultStore()
 
-onBeforeMount(() => {
-  store.displayHeader = false
-})
+const confidence = computed(() => resultStore.confidence)
+const confidenceLevel = computed(() => resultStore.confidenceLevel)
+const img = computed(() => resultStore.img)
+const imgUrl = computed(() => resultStore.imgUrl)
 
-const confidence = useLocalStorage('confidence')
-const confidenceLevel = useLocalStorage('confidenceLevel')
-const img = useLocalStorage('img')
-const imgUrl = useLocalStorage('imgUrl')
+const typology = computed(() => resultStore.typology)
 
-const typology = computed(() => stepsStore.typology)
 const selectedAmmo = computed(() => stepsStore.selectedAmmo)
 const isFactice = computed(() => stepsStore.isFactice)
 
@@ -44,8 +41,8 @@ function goToSafetyRecommendation () {
 
 function resetSearch () {
   localStorage.clear()
-  window.location.replace('/instructions')
-  // router.push({ name: 'Instructions' }).catch(() => {})
+  // window.location.replace('/instructions')
+  router.push({ name: 'Instructions' }).catch(() => {})
 }
 
 function goToLastStep () {

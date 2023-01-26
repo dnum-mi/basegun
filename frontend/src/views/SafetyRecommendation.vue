@@ -1,17 +1,10 @@
 <script setup>
-import {
-  ref, onBeforeMount, computed,
-} from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { store } from '@/store.js'
 
 import { useStepsStore } from '@/stores/steps.js'
 
 const stepsStore = useStepsStore()
-
-onBeforeMount(() => {
-  store.displayHeader = false
-})
 
 const router = useRouter()
 const instructions = ref([
@@ -27,8 +20,7 @@ function goToTutorial () {
   stepsStore.setCurrentStep(1)
   router.push({ name: 'FirearmDirection' }).catch(() => { })
 }
-function goToResult () {
-  store.displayHeader = true
+function goToResults () {
   router.push({ name: 'Result' }).catch(() => { })
 }
 </script>

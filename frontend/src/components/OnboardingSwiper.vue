@@ -75,7 +75,6 @@ import 'swiper/css/navigation'
 
 // import Swiper required modules
 import { Navigation } from 'swiper'
-import { store } from '@/store'
 
 export default {
   name: 'OnboardingSwiper',
@@ -87,12 +86,6 @@ export default {
   setup () {
     return {
       modules: [Navigation],
-    }
-  },
-
-  data () {
-    return {
-      store,
     }
   },
 

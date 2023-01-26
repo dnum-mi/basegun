@@ -1,5 +1,4 @@
 <script setup>
-import { store } from '@/store.js'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -9,8 +8,6 @@ import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 
 const stepsStore = useStepsStore()
-
-store.displayHeader = false
 
 const route = useRoute()
 const router = useRouter()
@@ -62,8 +59,8 @@ function goToResult () {
 
 function homeRedirect () {
   localStorage.clear()
-  window.location.replace('/')
-  // router.push({ name: 'Home' }).catch(() => {})
+  // window.location.replace('/')
+  router.push({ name: 'Home' }).catch(() => {})
 }
 
 const validate = () => {

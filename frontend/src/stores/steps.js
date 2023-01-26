@@ -1,21 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
+import { serializer } from '@/utils/storage-utils.js'
 
 export const useStepsStore = defineStore('steps', () => {
-  const typology = useLocalStorage('typology')
-  const selectedOption = useLocalStorage('selectedOption', undefined, {
-    serializer: {
-      read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-      write: (v) => v === undefined ? 'null' : JSON.stringify(v),
-    },
-  })
-  const selectedAmmo = useLocalStorage('selecteAmmo', undefined, {
-    serializer: {
-      read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-      write: (v) => v === undefined ? 'null' : JSON.stringify(v),
-    },
-  })
+  const typology = useLocalStorage('typology', undefined, { serializer })
+  const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
+
+  const selectedAmmo = useLocalStorage('selecteAmmo', undefined, { serializer })
 
   const isFactice = computed(() => selectedAmmo === 'billes')
 

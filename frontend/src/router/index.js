@@ -1,5 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
+import { useAppStore } from '@/stores/app.js'
+import { useResultStore } from '@/stores/result.js'
+
 const Home = () => import('@/views/Home.vue')
 const Start = () => import('@/views/Start.vue')
 const Informations = () => import('@/views/Informations.vue')
@@ -24,16 +27,25 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      displayHeader: true,
+    },
   },
   {
     path: '/accueil',
     name: 'Start',
     component: Start,
+    meta: {
+      displayHeader: true,
+    },
   },
   {
     path: '/instructions',
     name: 'Instructions',
     component: Instructions,
+    meta: {
+      displayHeader: true,
+    },
   },
   {
     path: '/consignes-de-securite',
@@ -84,6 +96,13 @@ const routes = [
       reload: true,
     },
     component: Result,
+    beforeEnter (to) {
+      const resultStore = useResultStore()
+      if (resultStore.img !== null) {
+        return true
+      }
+      return { name: 'Start' }
+    },
   },
   {
     path: '/a-propos',
@@ -115,6 +134,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+})
+
+router.beforeEach((to) => {
+  const appStore = useAppStore()
+  appStore.setDisplayHeader(to.meta.displayHeader)
 })
 
 export default router

@@ -6,7 +6,6 @@
 
 <script>
 import { useLocalStorage } from '@vueuse/core'
-import { store } from '@/store.js'
 import ResultComponent from '@/components/ResultComponent.vue'
 
 const img = useLocalStorage('img')
@@ -27,15 +26,9 @@ export default {
     })
   },
 
-  beforeRouteLeave () {
-    store.uploadMessage = null
-    store.displayHeader = true
-  },
-
   data () {
     return {
       img,
-      store,
     }
   },
 }

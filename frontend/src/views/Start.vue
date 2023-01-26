@@ -23,22 +23,10 @@
 </template>
 
 <script>
-import { store } from '@/store.js'
 
 export default {
   name: 'Start',
   components: {
-  },
-
-  beforeRouteLeave () {
-    store.uploadMessage = null
-    store.displayHeader = true
-  },
-
-  data () {
-    return {
-      store,
-    }
   },
 
   methods: {
