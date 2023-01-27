@@ -37,19 +37,27 @@ guideSteps.value = results[stepsStore.typology].stepsNumber === 4
 
 const goToNewRoute = () => (
   currentStep.value === 0
-    ? router.push({ name: 'SafetyRecommendation' })
-    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` })
+    ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
+    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => {})
 )
 
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
 )
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
+  route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'
+    ? goToEndTutorial()
+    : (currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length)
 )
 
+const goToEndTutorial = () => {
+  // router.push({ name: 'EndTutorial' }).catch(() => {})
+  window.location.replace('/guide-factice/end-tutorial')
+  stepsStore.setCurrentStep(0)
+}
+
 function goToResult () {
-  router.push({ name: 'Result' }).catch(() => { })
+  router.push({ name: 'Result' }).catch(() => {})
 }
 
 function homeRedirect () {
@@ -59,7 +67,7 @@ function homeRedirect () {
 }
 
 const validate = () => {
-  router.push({ name: 'Result' })
+  router.push({ name: 'Result' }).catch(() => {})
 }
 
 </script>
@@ -97,14 +105,20 @@ const validate = () => {
   <div class="result col-11 col-lg-6">
     <div>
       <StepsGuide
+        v-if="route.name !== 'EndTutorial'"
         class="steps-guide"
         :steps="steps"
         :current-step="currentStep"
       />
       <RouterView />
     </div>
-    <div class="footer-background">
-      <div class="col-11 col-lg-6 footer-actions">
+    <div
+      v-if="route.name !== 'EndTutorial'"
+      class="footer-background"
+    >
+      <div
+        class="col-11 col-lg-6 footer-actions"
+      >
         <DsfrButton
           class="m-1 flex justify-content-center"
           icon="ri-arrow-left-line"
@@ -112,6 +126,16 @@ const validate = () => {
           label="Précédent"
           @click="goToPreviousStep(); goToNewRoute()"
         />
+        <!-- <div v-if="route.name === 'ExtractMag' && stepsStore.selectedOption === 'sans_chargeur'">
+          <DsfrButton
+            class="my-1 flex justify-content-center"
+            label="Retour au resultat"
+            icon="ri-arrow-go-back-fill"
+            :icon-right="true"
+            @click="goToResult()"
+          />
+        </div> -->
+        <!-- <div v-else> -->
         <DsfrButton
           v-if="currentStep < steps.length"
           class="m-1 flex justify-content-center"
@@ -121,6 +145,7 @@ const validate = () => {
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
+        <!-- </div> -->
         <DsfrButton
           v-if="currentStep === steps.length"
           class="m-1 flex justify-content-center"

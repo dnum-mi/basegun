@@ -5,7 +5,7 @@ export const results = {
     mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     // isFacticeTypology: false,
     isFacticeTypology: true,
-    stepsNumber: 3,
+    stepsNumber: 4,
   },
   pistolet_semi_auto_moderne: {
     displayLabel: 'pistolet semi-automatique moderne',
@@ -51,7 +51,7 @@ export const results = {
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
     isFacticeTypology: true,
-    stepsNumber: 3,
+    stepsNumber: 4,
   },
   epaule_a_pompe: {
     displayLabel: "arme d'épaule à pompe",
@@ -129,16 +129,39 @@ export const guideFacticeSelectOption = {
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       video: 'pistolet_mitrailleur_sm.mp4',
     },
-  epaule_a_verrou:
-    {
+  epaule_a_verrou_text_option: 'Sélectionner le type de chargeur sur l’arme',
+  epaule_a_verrou: {
+    avec_chargeur: {
+      label: 'un chargeur est \n présent',
+      value: 'avec_chargeur',
       text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      img: 'verrou_avec_chargeur_0.jpg',
       video: 'verrou_sm.mp4',
     },
-  revolver:
-    {
+    sans_chargeur: {
+      label: 'pas de chargeur présent',
+      value: 'sans_chargeur',
+      img: 'verrou_sans_chargeur_0.jpg',
+      text: '/!\\ info -  Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe',
+    },
+  },
+  revolver_text_option: '[TEXTE A MODIFIER]',
+  revolver: {
+    option_1: {
+      label: 'option_1',
+      value: 'option_1',
       text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, tirer vers l’arrière le bouton situé entre le chien et le barillet. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      img: 'revolver_0.jpg',
       video: 'revolver_sm.mp4',
     },
+    option_2: {
+      label: 'option_2',
+      value: 'option_2',
+      text: '[TEXTE A MODIFIER]',
+      img: 'revolver_0.jpg',
+      video: 'revolver_sm.mp4',
+    },
+  },
 }
 
 export const guideFacticeSelectAmmo = {

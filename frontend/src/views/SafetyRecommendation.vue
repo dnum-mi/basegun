@@ -27,7 +27,7 @@ function goToTutorial () {
   stepsStore.setCurrentStep(1)
   router.push({ name: 'FirearmDirection' }).catch(() => { })
 }
-function goToResults () {
+function goToResult () {
   store.displayHeader = true
   router.push({ name: 'Result' }).catch(() => { })
 }
@@ -72,7 +72,7 @@ function goToResults () {
         icon="ri-arrow-go-back-fill"
         :icon-right="true"
         secondary
-        @click="goToResults()"
+        @click="goToResult()"
       />
     </div>
   </div>

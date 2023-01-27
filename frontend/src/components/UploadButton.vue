@@ -125,11 +125,11 @@ export default {
               resultText.value = "Type d'arme : " + label.value + ' ' + confidence.value + '%'
               img.value = base64
               imgUrl.value = res.data.path
-              vm.$router.push({ name: 'Result' }).catch(() => { })
+              vm.$router.push({ name: 'Result' }).catch(() => { this.$router.push({ name: 'Error' }) })
             })
             .catch((err) => {
               console.log(err)
-              this.$router.push({ name: 'Error' }).catch(() => {})
+              this.$router.push({ name: 'Error' })
             })
         })
       }

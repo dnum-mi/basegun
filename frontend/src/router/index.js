@@ -17,6 +17,7 @@ const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
 const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
+const EndTutorial = () => import('@/views/GuideFactice/EndTutorial.vue')
 
 const routes = [
   {
@@ -63,6 +64,11 @@ const routes = [
         path: 'munition-type',
         name: 'SelectAmmo',
         component: SelectAmmo,
+      },
+      {
+        path: 'end-tutorial',
+        name: 'EndTutorial',
+        component: EndTutorial,
       },
     ],
   },
