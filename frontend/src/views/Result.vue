@@ -8,11 +8,6 @@
 import { useLocalStorage } from '@vueuse/core'
 import ResultComponent from '@/components/ResultComponent.vue'
 
-// import { useResultStore } from '@/stores/result.js'
-
-// const resultStore = useResultStore()
-// const img = resultStore.img
-
 const img = useLocalStorage('img')
 
 export default {

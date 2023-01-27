@@ -24,6 +24,8 @@ const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 const EndTutorial = () => import('@/views/GuideFactice/EndTutorial.vue')
 
 const clearLocalStorage = (to, from, next) => {
+  // localStorage.clear()
+
   const resulStore = useResultStore()
   const stepsStore = useStepsStore()
 
@@ -38,7 +40,7 @@ const clearLocalStorage = (to, from, next) => {
   })
   stepsStore.selectedAmmo = undefined
   stepsStore.selectedOption = undefined
-  stepsStore.currentStep =
+  stepsStore.currentStep = 0
 
   next()
 }
@@ -87,7 +89,7 @@ const routes = [
       },
       {
         path: 'option-arme',
-        name: 'SelectOption', // renommer SelectOption
+        name: 'SelectOption',
         component: SelectOption,
       },
       {
@@ -145,11 +147,17 @@ const routes = [
   {
     path: '/erreur',
     name: 'Error',
+    meta: {
+      displayHeader: true,
+    },
     component: Error,
   },
   {
     path: '/:pathMach(.*)*',
     name: 'PageNotFound',
+    meta: {
+      displayHeader: true,
+    },
     component: PageNotFound,
   },
 ]
