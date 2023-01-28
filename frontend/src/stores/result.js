@@ -12,7 +12,7 @@ export const useResultStore = defineStore('result', () => {
   const resultText = useLocalStorage('resultText', null, { serializer })
 
   const setResult = (result) => {
-    typology.value = result.label
+    typology.value = result.typology
     confidence.value = result.confidence
     confidenceLevel.value = result.confidenceLevel
     img.value = result.img

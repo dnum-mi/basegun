@@ -5,10 +5,12 @@ import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
 
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
+const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
-const typology = computed(() => stepsStore.typology)
+const typology = computed(() => resultStore.typology)
 
 const selectedAmmo = computed({
   get  () {

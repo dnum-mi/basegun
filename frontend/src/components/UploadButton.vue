@@ -53,7 +53,7 @@ export default {
           const longitude = randomCoord(res.data.longitude)
           resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
         })
-        .catch(() => { })
+        .catch(() => {})
         .finally(() => {
           // if geolocation is unavailable or incorrect format
           resizeAndUpload(uploadedFile)
@@ -116,14 +116,14 @@ export default {
           axios.post('/upload', fd)
             .then(res => {
               resultStore.setResult({
-                label: res.data.label,
+                typology: res.data.label,
                 confidence: res.data.confidence,
                 confidenceLevel: res.data.confidence_level,
                 resultText: "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%',
                 img: base64,
                 imgUrl: res.data.path,
               })
-              vm.$router.push({ name: 'Result' }).catch(() => { })
+              vm.$router.push({ name: 'Result' }).catch(() => {})
             })
             .catch((err) => {
               console.log(err)

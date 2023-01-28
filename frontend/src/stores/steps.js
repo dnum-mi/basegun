@@ -4,9 +4,8 @@ import { useLocalStorage } from '@vueuse/core'
 import { serializer } from '@/utils/storage-utils.js'
 
 export const useStepsStore = defineStore('steps', () => {
-  const typology = useLocalStorage('typology', undefined, { serializer })
   const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
-  const selectedAmmo = useLocalStorage('selecteAmmo', undefined, { serializer })
+  const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
 
   const isFactice = computed(() => selectedAmmo === 'billes')
 
@@ -26,7 +25,6 @@ export const useStepsStore = defineStore('steps', () => {
 
   return {
     isFactice,
-    typology,
     selectedOption,
     selectedAmmo,
     currentStep,

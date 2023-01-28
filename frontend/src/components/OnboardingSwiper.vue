@@ -4,7 +4,7 @@
       <swiper
         :navigation="true"
         :modules="modules"
-        class="mySwiper"
+        :pagination="{ clickable: true }"
       >
         <swiper-slide class="flex justify-content-center">
           <img
@@ -21,9 +21,6 @@
                 A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des armes à air comprimé > 2 joules, à blanc ou neutralisées.
               </li>
             </ul>
-          </div>
-          <div class="swiper-slide-number">
-            <span>1/2</span>
           </div>
         </swiper-slide>
         <swiper-slide>
@@ -55,9 +52,6 @@
               J'ai compris
             </button>
           </div>
-          <div class="swiper-slide-number-2">
-            <span class="">2/2</span>
-          </div>
         </swiper-slide>
       </swiper>
     </div>
@@ -66,15 +60,12 @@
 
 <script>
 
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, A11y } from 'swiper'
 
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-// import Swiper required modules
-import { Navigation } from 'swiper'
+import 'swiper/css/pagination'
 
 export default {
   name: 'OnboardingSwiper',
@@ -85,7 +76,7 @@ export default {
 
   setup () {
     return {
-      modules: [Navigation],
+      modules: [Navigation, Pagination, A11y],
     }
   },
 
@@ -107,20 +98,6 @@ export default {
 
 .swiper-slide {
   background: #fff;
-}
-
-.swiper-slide-number {
-  color: gray;
-  margin-top: 4.5em;
-  display: flex;
-  justify-content: center;
-}
-
-.swiper-slide-number-2 {
-  color: gray;
-  margin-top: 1em;
-  display: flex;
-  justify-content: center;
 }
 
 .swiper-logo {

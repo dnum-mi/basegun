@@ -7,10 +7,12 @@ import { useRoute, useRouter } from 'vue-router'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
-const stepsStore = useStepsStore()
 const { setMessage } = useSnackbarStore()
-const typology = computed(() => stepsStore.typology)
+const stepsStore = useStepsStore()
+const resultStore = useResultStore()
+const typology = computed(() => resultStore.typology)
 
 const router = useRouter()
 const route = useRoute()
@@ -41,7 +43,6 @@ async function sendTutorialFeedback () {
     .then(async res => {
       console.log(res)
       tutorialFeedback.value = json.tutorial_feedback
-      console.log(json)
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
     .catch(async (err) => {
@@ -51,8 +52,7 @@ async function sendTutorialFeedback () {
     .finally(setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
       tutorialFeedback.value = ''
-      console.log(json)
-      router.push({ name: 'Result' }).catch(() => { })
+      router.push({ name: 'Result' }).catch(() => {})
     }, 3000))
 }
 </script>

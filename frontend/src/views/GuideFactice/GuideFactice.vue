@@ -6,8 +6,10 @@ import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
 
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
 const stepsStore = useStepsStore()
+const resultStore = useResultStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -25,10 +27,10 @@ const currentStep = computed({
 })
 
 const steps = []
-steps.length = results[stepsStore.typology].stepsNumber
+steps.length = results[resultStore.typology].stepsNumber
 steps.fill(' ')
 
-guideSteps.value = results[stepsStore.typology].stepsNumber === 4
+guideSteps.value = results[resultStore.typology].stepsNumber === 4
   ? [...guideSteps]
   : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
@@ -54,11 +56,11 @@ const goToEndTutorial = () => {
 }
 
 function goToResult () {
-  router.push({ name: 'Result' }).catch(() => {})
+  router.push({ name: 'Result' }).catch(() => { router.push({ name: 'Error' }) })
 }
 
 function homeRedirect () {
-  router.push({ name: 'Home' }).catch(() => {})
+  router.push({ name: 'Home' }).catch(() => { router.push({ name: 'Error' }) })
 }
 
 const validate = () => {

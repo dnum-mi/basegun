@@ -18,10 +18,10 @@ const instructions = ref([
 
 function goToTutorial () {
   stepsStore.setCurrentStep(1)
-  router.push({ name: 'FirearmDirection' }).catch(() => { })
+  router.push({ name: 'FirearmDirection' }).catch(() => {})
 }
 function goToResults () {
-  router.push({ name: 'Result' }).catch(() => { })
+  router.push({ name: 'Result' }).catch(() => {})
 }
 </script>
 

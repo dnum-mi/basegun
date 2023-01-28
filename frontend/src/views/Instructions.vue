@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { ref } from 'vue'
 
 import UploadButton from '@/components/UploadButton.vue'
 

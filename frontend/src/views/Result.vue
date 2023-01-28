@@ -21,7 +21,7 @@ export default {
   //     // without having gone through the upload process
   //     next(vm => {
   //       if (img.value === null) {
-  //         vm.$router.push({ name: 'Start' }).catch(() => { })
+  //         vm.$router.push({ name: 'Start' }).catch(() => {})
   //       }
   //     })
   //   },

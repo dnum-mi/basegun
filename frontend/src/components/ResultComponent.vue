@@ -44,7 +44,7 @@ function resetSearch () {
 }
 
 function goToLastStep () {
-  router.push({ name: 'SelectAmmo' }).catch(() => { })
+  router.push({ name: 'SelectAmmo' }).catch(() => {})
   stepsStore.setCurrentStep(guideSteps.value.length)
 }
 
