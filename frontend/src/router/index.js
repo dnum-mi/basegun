@@ -91,6 +91,9 @@ const routes = [
   {
     path: '/informations',
     name: 'Informations',
+    meta: {
+      displayHeader: true,
+    },
     component: Informations,
   },
   {
@@ -111,16 +114,25 @@ const routes = [
   {
     path: '/a-propos',
     name: 'About',
+    meta: {
+      displayHeader: true,
+    },
     component: About,
   },
   {
     path: '/mentions-legales',
     name: 'Legal',
+    meta: {
+      displayHeader: true,
+    },
     component: Legal,
   },
   {
     path: '/contact',
     name: 'Contact',
+    meta: {
+      displayHeader: true,
+    },
     component: Contact,
   },
   {

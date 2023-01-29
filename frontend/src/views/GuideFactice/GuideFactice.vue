@@ -59,10 +59,6 @@ function goToResult () {
   router.push({ name: 'Result' }).catch(() => { router.push({ name: 'Error' }) })
 }
 
-function homeRedirect () {
-  router.push({ name: 'Home' }).catch(() => { router.push({ name: 'Error' }) })
-}
-
 const validate = () => {
   router.push({ name: 'Result' }).catch(() => {})
 }
@@ -72,31 +68,31 @@ const validate = () => {
 <template>
   <div class="mx-auto col-11 col-lg-6 d-flex justify-content-between">
     <div class="p-3 ps-0">
-      <a
+      <router-link
+        v-slot="{navigate}"
         class="go-result"
-        href="#"
-        @click="goToResult()"
+        :to="{name: 'Result'}"
       >
         <VIcon
-
           name="ri-arrow-left-line"
           scale="0.8"
         />
-        <span class="px-2">Retour au résultat</span>
-      </a>
+        <span
+          class="px-2"
+          @click="navigate()"
+        >Retour au résultat</span>
+      </router-link>
     </div>
     <div class="p-2">
-      <a
-        href="#"
-        title="Retour à l'accueil"
-        @click="homeRedirect()"
+      <router-link
+        :to="{ name: 'Home' }"
       >
         <img
           class="go-home"
           src="@/assets/basegun.png"
           alt="logo-basegun"
         >
-      </a>
+      </router-link>
     </div>
   </div>
   <div class="result col-11 col-lg-6">

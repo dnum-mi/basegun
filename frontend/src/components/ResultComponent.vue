@@ -35,16 +35,7 @@ const cleanMention = computed(() => results[typology.value].isFacticeTypology ==
   : results[typology.value].mention)
 const cleanTypology = computed(() => results[typology.value].isFacticeTypology === true)
 
-function goToSafetyRecommendation () {
-  router.push({ name: 'SafetyRecommendation' }).catch(() => {})
-}
-
-function resetSearch () {
-  router.push({ name: 'Instructions' }).catch(() => {})
-}
-
-function goToLastStep () {
-  router.push({ name: 'SelectAmmo' }).catch(() => {})
+function keepingLastStep () {
   stepsStore.setCurrentStep(guideSteps.value.length)
 }
 
@@ -159,11 +150,16 @@ function sendFeedback (isCorrect) {
             <p class="fr-callout__title">
               Non Classé
             </p>
-            <DsfrButton
-              class="my-4 flex justify-content-center"
-              label="Vérifier si l'arme est factice"
-              @click="goToSafetyRecommendation()"
-            />
+            <router-link
+              v-slot="{navigate}"
+              :to="{name:'SafetyRecommendation'}"
+            >
+              <DsfrButton
+                class="my-4 flex justify-content-center"
+                label="Vérifier si l'arme est factice"
+                @click="navigate()"
+              />
+            </router-link>
           </div>
           <div v-else>
             <div
@@ -250,22 +246,32 @@ function sendFeedback (isCorrect) {
         class="col-11 col-lg-6 mx-auto text-center"
         :class="{ 'footer-actions': selectedAmmo === undefined }"
       >
-        <DsfrButton
-          class="mx-4 my-1 flex justify-content-center"
-          label="Reprendre une photo"
-          icon="ri-camera-fill"
-          :icon-right="true"
-          @click="resetSearch()"
-        />
-        <div v-if="selectedAmmo !== undefined && isFactice !== ''">
+        <router-link
+          v-slot="{navigate}"
+          :to="{name: 'Instructions'}"
+        >
           <DsfrButton
             class="mx-4 my-1 flex justify-content-center"
-            label="Retourner à l'étape précédente"
-            icon="ri-arrow-go-back-fill"
+            label="Reprendre une photo"
+            icon="ri-camera-fill"
             :icon-right="true"
-            secondary
-            @click="goToLastStep()"
+            @click="navigate()"
           />
+        </router-link>
+        <div v-if="selectedAmmo !== undefined && isFactice !== ''">
+          <router-link
+            v-slot="{navigate}"
+            :to="{name:'SelectAmmo'}"
+          >
+            <DsfrButton
+              class="mx-4 my-1 flex justify-content-center"
+              label="Retourner à l'étape précédente"
+              icon="ri-arrow-go-back-fill"
+              :icon-right="true"
+              secondary
+              @click="keepingLastStep(); navigate()"
+            />
+          </router-link>
         </div>
       </div>
     </div>

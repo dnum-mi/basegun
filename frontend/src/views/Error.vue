@@ -3,11 +3,20 @@
     <div class="centered text-center m-4">
       <h1>Erreur</h1>
       <p>Une erreur est survenue dans le traitement de votre requête.</p>
-      <p>Veuillez réessayer ou <a href="/informations"> nous contacter</a>.</p>
-      <DsfrButton
-        :label="labelButton"
-        @click="homeRedirect"
-      />
+      <p>
+        Veuillez réessayer ou <router-link :to="{name:'Informations'}">
+          nous contacter
+        </router-link>.
+      </p>
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Home'}"
+      >
+        <DsfrButton
+          label="Retour"
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>
@@ -16,17 +25,5 @@
 
 export default {
   name: 'ErrorPage',
-  components: {
-  },
-  data () {
-    return {
-      labelButton: 'Retour',
-    }
-  },
-  methods: {
-    homeRedirect () {
-      this.$router.push({ name: 'Start' }).catch(() => {})
-    },
-  },
 }
 </script>

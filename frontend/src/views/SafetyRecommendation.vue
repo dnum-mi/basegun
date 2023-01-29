@@ -1,12 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
 import { useStepsStore } from '@/stores/steps.js'
 
 const stepsStore = useStepsStore()
-
-const router = useRouter()
 const instructions = ref([
   '<ul>',
   "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -16,13 +12,10 @@ const instructions = ref([
   '</ul>',
 ])
 
-function goToTutorial () {
+function setTutorialStep () {
   stepsStore.setCurrentStep(1)
-  router.push({ name: 'FirearmDirection' }).catch(() => {})
 }
-function goToResults () {
-  router.push({ name: 'Result' }).catch(() => {})
-}
+
 </script>
 
 <template>
@@ -51,21 +44,31 @@ function goToResults () {
   </div>
   <div class="footer-background">
     <div class="mx-auto col-11 col-lg-6">
-      <DsfrButton
-        class="mx-4 my-1 flex justify-content-center"
-        label="Commencer"
-        icon="ri-arrow-right-line"
-        :icon-right="true"
-        @click="goToTutorial()"
-      />
-      <DsfrButton
-        class="mx-4 my-1 flex justify-content-center"
-        label="Retour au resultat"
-        icon="ri-arrow-go-back-fill"
-        :icon-right="true"
-        secondary
-        @click="goToResult()"
-      />
+      <router-link
+        v-slot="{navigate}"
+        :to="{name: 'FirearmDirection'}"
+      >
+        <DsfrButton
+          class="mx-4 my-1 flex justify-content-center"
+          label="Commencer"
+          icon="ri-arrow-right-line"
+          :icon-right="true"
+          @click="navigate(); setTutorialStep()"
+        />
+      </router-link>
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Result'}"
+      >
+        <DsfrButton
+          class="mx-4 my-1 flex justify-content-center"
+          label="Retour au resultat"
+          icon="ri-arrow-go-back-fill"
+          :icon-right="true"
+          secondary
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>

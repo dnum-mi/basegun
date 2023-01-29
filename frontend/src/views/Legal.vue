@@ -2,10 +2,12 @@
   <div>
     <div class="content">
       <div class="d-flex align-items-center">
-        <a
-          href="/accueil"
+        <router-link
+          :to="{name:'Start'}"
           class="small-link small-text"
-        > Accueil</a>
+        >
+          Accueil
+        </router-link>
         <span
           class="fr-fi-arrow-right-s-line"
           aria-hidden="true"

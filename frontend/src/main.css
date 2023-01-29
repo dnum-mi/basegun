@@ -15,6 +15,10 @@
   height: 100%;
 }
 
+a {
+  background-image: none !important;
+}
+
 @media (min-width: 740px) {
   .info {
     position: absolute;

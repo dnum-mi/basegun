@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    export default {
-        name: "ContactInformationTabs",
-    };
+export default {
+  name: 'ContactInformationTabs',
+}
 </script>
 
 <style scoped>
