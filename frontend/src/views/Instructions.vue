@@ -117,6 +117,9 @@ img {
 }
 
 /* loading dots */
+.loading {
+  color: #000091;
+}
 .loading:after {
   content: ' .';
   animation: dots 1s steps(5, end) infinite;}
@@ -128,16 +131,16 @@ img {
       .25em 0 0 rgba(0,0,0,0),
       .5em 0 0 rgba(0,0,0,0);}
   40% {
-    color: black;
+    color: #000091;
     text-shadow:
       .25em 0 0 rgba(0,0,0,0),
       .5em 0 0 rgba(0,0,0,0);}
   60% {
     text-shadow:
-      .25em 0 0 black,
+      .25em 0 0 #000091,
       .5em 0 0 rgba(0,0,0,0);}
   80%, 100% {
     text-shadow:
-      .25em 0 0 black,
-      .5em 0 0 black;}}
+      .25em 0 0 #000091,
+      .5em 0 0 #000091;}}
 </style>

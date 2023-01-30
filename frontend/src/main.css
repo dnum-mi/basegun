@@ -15,10 +15,6 @@
   height: 100%;
 }
 
-a {
-  background-image: none !important;
-}
-
 @media (min-width: 740px) {
   .info {
     position: absolute;
@@ -110,4 +106,5 @@ a {
 
 .help {
   color: #000091;
+  background-image: var(--underline-img), var(--underline-img) !important;
 }

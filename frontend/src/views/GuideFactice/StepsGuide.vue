@@ -20,10 +20,10 @@ defineProps({
   />
 </template>
 
-<style>
+<style scoped>
 
-.fr-text--bold {
-  display: none;
+:deep(.fr-stepper__details) {
+  display: none !important;
 }
 
 </style>

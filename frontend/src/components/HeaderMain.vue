@@ -66,7 +66,6 @@
       <div>
         <DsfrSideMenuLink
           class="fr-nav__item  fr-nav__link"
-          :active="active"
           to="/a-propos"
           @click="clickOnLink()"
         >
@@ -81,8 +80,7 @@
         </DsfrSideMenuLink>
         <DsfrSideMenuLink
           class="fr-nav__item  fr-nav__link"
-          :active="active"
-          to="/Contact"
+          to="/contact"
           @click="clickOnLink()"
         >
           Contact
@@ -103,10 +101,6 @@ export default {
   },
 
   methods: {
-
-    openInformations () {
-      this.$router.push({ name: 'Informations' }).catch(() => {})
-    },
     openModal () {
       this.showModal = true
     },

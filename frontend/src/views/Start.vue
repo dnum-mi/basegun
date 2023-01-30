@@ -30,9 +30,7 @@
 <script>
 
 export default {
-  name: 'Start',
-  components: {
-  },
+  name: 'StartPage',
 }
 </script>
 

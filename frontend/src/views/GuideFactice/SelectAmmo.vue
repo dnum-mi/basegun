@@ -30,10 +30,16 @@ const zoomOn = (imgValue) => {
 
 <template>
   <div>
-    <p v-if="typology === 'revolver'">
+    <p
+      v-if="typology === 'revolver'"
+      class="mt-3"
+    >
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
-    <p v-else>
+    <p
+      v-else
+      class="mt-3"
+    >
       Sélectionner le type de munition du chargeur
     </p>
 

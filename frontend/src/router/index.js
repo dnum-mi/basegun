@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app.js'
 import { clearLocalStorage } from '@/utils/storage-utils.js'
 import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps.js'
 
 const Home = () => import('@/views/Home.vue')
 const Start = () => import('@/views/Start.vue')
@@ -49,7 +50,6 @@ const routes = [
     meta: {
       displayHeader: true,
     },
-    beforeEnter: clearLocalStorage,
   },
   {
     path: '/consignes-de-securite',
@@ -60,6 +60,13 @@ const routes = [
     path: '/guide-factice',
     name: 'GuideFactice',
     component: GuideFactice,
+    beforeEnter (to) {
+      const stepsStore = useStepsStore()
+      if (stepsStore.currentStep !== 0) {
+        return true
+      }
+      return { name: 'Start' }
+    },
     children: [
       {
         path: 'consignes-arme',
@@ -82,7 +89,7 @@ const routes = [
         component: SelectAmmo,
       },
       {
-        path: 'end-tutorial',
+        path: 'fin-tutoriel',
         name: 'EndTutorial',
         component: EndTutorial,
       },

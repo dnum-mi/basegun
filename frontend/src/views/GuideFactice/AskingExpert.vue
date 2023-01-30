@@ -12,16 +12,15 @@ import { useResultStore } from '@/stores/result.js'
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
-const typology = computed(() => resultStore.typology)
-
 const router = useRouter()
 const route = useRoute()
 
-const confidence = useLocalStorage('confidence')
-const confidenceLevel = useLocalStorage('confidenceLevel')
-const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
-const imgUrl = useLocalStorage('imgUrl')
+const typology = computed(() => resultStore.typology)
+const confidence = computed(() => resultStore.confidence)
+const confidenceLevel = computed(() => resultStore.confidenceLevel)
+const imgUrl = computed(() => resultStore.imgUrl)
 
+const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 const showModal = ref(false)
 
 function onClose () {
@@ -44,6 +43,7 @@ async function sendTutorialFeedback () {
       console.log(res)
       tutorialFeedback.value = json.tutorial_feedback
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
+      console.log(json)
     })
     .catch(async (err) => {
       console.log(err)

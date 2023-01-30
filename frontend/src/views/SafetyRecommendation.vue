@@ -73,7 +73,10 @@ function setTutorialStep () {
   </div>
 </template>
 
-<style>
+<style scoped>
+a {
+  background-image: none !important;
+}
 .result {
   margin: 0 auto;
   max-width: 1000px;

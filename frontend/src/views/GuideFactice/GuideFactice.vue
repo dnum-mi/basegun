@@ -16,6 +16,7 @@ const router = useRouter()
 
 const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
+const tutorialInterupt = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'))
 
 const currentStep = computed({
   get () {
@@ -43,24 +44,17 @@ const goToNewRoute = () => (
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
 )
+
 const goToNextStep = () => (
-  route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'
+  tutorialInterupt.value === true
     ? goToEndTutorial()
     : (currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length)
 )
 
 const goToEndTutorial = () => {
-  // router.push({ name: 'EndTutorial' }).catch(() => {})
-  window.location.replace('/guide-factice/end-tutorial')
-  stepsStore.setCurrentStep(0)
-}
-
-function goToResult () {
-  router.push({ name: 'Result' }).catch(() => { router.push({ name: 'Error' }) })
-}
-
-const validate = () => {
-  router.push({ name: 'Result' }).catch(() => {})
+  // router.push({ name: 'EndTutorial' })
+  window.location.replace('/guide-factice/fin-tutoriel')
+  // stepsStore.setCurrentStep(0)
 }
 
 </script>
@@ -119,16 +113,6 @@ const validate = () => {
           label="Précédent"
           @click="goToPreviousStep(); goToNewRoute()"
         />
-        <!-- <div v-if="route.name === 'ExtractMag' && stepsStore.selectedOption === 'sans_chargeur'">
-          <DsfrButton
-            class="my-1 flex justify-content-center"
-            label="Retour au resultat"
-            icon="ri-arrow-go-back-fill"
-            :icon-right="true"
-            @click="goToResult()"
-          />
-        </div> -->
-        <!-- <div v-else> -->
         <DsfrButton
           v-if="currentStep < steps.length"
           class="m-1 flex justify-content-center"
@@ -138,13 +122,12 @@ const validate = () => {
           :icon-right="true"
           @click="goToNextStep(); goToNewRoute()"
         />
-        <!-- </div> -->
         <DsfrButton
           v-if="currentStep === steps.length"
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"
-          @click="validate()"
+          @click="router.push({name: 'Result'})"
         />
       </div>
     </div>
@@ -152,8 +135,13 @@ const validate = () => {
 </template>
 
 <style scoped>
+
 .steps-guide {
   margin: auto;
+}
+
+a {
+  background-image: none !important;
 }
 
 .result {

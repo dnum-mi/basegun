@@ -5,16 +5,20 @@
       <p>Il n'est pas possible de poursuivre la démarche guidée.</p>
       <p>Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe.</p>
       <p>Pour plus d'information vous pouvez <a href="/informations"> nous contacter</a>.</p>
-      <DsfrButton
-        :label="labelButton"
-        @click="homeRedirect"
-      />
+      <router-link
+        v-slot="{ navigate } "
+        :to="{name:'Start'}"
+      >
+        <DsfrButton
+          :label="labelButton"
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { store } from '@/store'
 
 export default {
   name: 'EndTutorial',
@@ -24,12 +28,6 @@ export default {
     return {
       labelButton: 'Retour',
     }
-  },
-  methods: {
-    homeRedirect () {
-      this.$router.push({ name: 'Start' }).catch(() => { })
-      store.displayHeader = true
-    },
   },
 }
 </script>

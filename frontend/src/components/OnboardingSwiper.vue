@@ -6,7 +6,7 @@
         :modules="modules"
         :pagination="{ clickable: true }"
       >
-        <swiper-slide class="flex justify-content-center">
+        <swiper-slide>
           <img
             src="@/assets/basegun_green.png"
             alt=""
@@ -44,13 +44,18 @@
                 Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
               </li>
             </ul>
-            <button
-              id="position-button"
-              class="fr-btn fr-btn--sm"
-              @click="redirectToStart"
+            <router-link
+              v-slot="{navigate}"
+              :to="{name:'Start'}"
             >
-              J'ai compris
-            </button>
+              <button
+                id="position-button"
+                class="fr-btn fr-btn--sm"
+                @click="navigate()"
+              >
+                J'ai compris
+              </button>
+            </router-link>
           </div>
         </swiper-slide>
       </swiper>
@@ -77,18 +82,13 @@ export default {
   setup () {
     return {
       modules: [Navigation, Pagination, A11y],
-    }
-  },
 
-  methods: {
-    redirectToStart () {
-      this.$router.push({ name: 'Start' }).catch(() => {})
-    },
+    }
   },
 }
 </script>
 
-<style>
+<style scoped>
 
 .swiper {
   width: 100%;
@@ -121,26 +121,26 @@ export default {
   margin-bottom: 12px !important;
 }
 
-  :deep(.swiper-button-prev) {
-    color: #000091 !important;
-  }
-  :deep(.swiper-button-next) {
-    color: #000091 !important;
-  }
+:deep(.swiper-button-prev) {
+  color: #000091 !important;
+}
+:deep(.swiper-button-next) {
+  color: #000091 !important;
+}
 
-  :deep(.swiper-button-prev)::after {
-    font-size: 28px;
-  }
-  :deep(.swiper-button-next)::after {
-    font-size: 28px;
-  }
+:deep(.swiper-button-prev)::after {
+  font-size: 28px;
+}
+:deep(.swiper-button-next)::after {
+  font-size: 28px;
+}
 
-  :deep(.swiper-button-disabled) {
-    display: none;
-  }
-
-.swiper-button-disabled {
+:deep(.swiper-button-disabled) {
   display: none;
+}
+
+ :deep(.swiper-pagination-bullet-active) {
+  background: #00c7c8;
 }
 
 .swiper-red-highlight {
