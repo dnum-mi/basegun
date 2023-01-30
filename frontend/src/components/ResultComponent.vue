@@ -71,7 +71,6 @@ function sendFeedback (isCorrect) {
     .then(async res => {
       console.log(res)
       setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })
-      console.log(setMessage.value)
     })
     .catch(async (err) => {
       console.log(err)

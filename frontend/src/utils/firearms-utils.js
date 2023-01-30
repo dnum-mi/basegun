@@ -105,21 +105,21 @@ export const guideFacticeSelectOption = {
     chargeur_derriere: {
       label: 'chargeur derrière \n la poignée',
       value: 'chargeur_derriere',
-      text: 'Avec la main qui ne tient pas l’arme, soulever du pouce le levier au-dessus du pontet, et extraire le chargeur avec la même main en le faisant glisser vers le bas.',
+      text: 'Avec la main qui ne tient pas l’arme, pousser sur le bouton derrière le chargeur à l’aide du pouce et extraire ce dernier en le faisant glisser vers le bas.',
       img: 'autre-epaule-bullpup_arrow2.jpg',
       video: 'bullpup_sm.mp4',
     },
     levier_dessus: {
       label: 'levier au-dessus \n pontet',
       value: 'levier_dessus',
-      text: 'De la main qui ne tient pas l’arme, pousser simultanément sur les deux boutons de part et d’autre du chargeur vers l’arrière. Puis tirer sur le chargeur vers le haut pour l’extraire de la carcasse.',
+      text: 'A l’aide du pouce de la main droite pousser le levier présent au dessus de la détente et extraire le chargeur avec la main gauche en le faisant glisser vers le bas.',
       img: 'autre-epaule-thompson_arrow2.jpg',
       video: 'thompson_sm.mp4',
     },
     chargeur_dessus: {
-      label: 'chargeur au-dessus \n de l\'arme',
+      label: 'chargeur au-dessus \n de l’arme',
       value: 'chargeur_dessus',
-      text: 'De la main qui ne tient pas l’arme, appuyer avec le pouce sur le bouton situé à l’arrière du chargeur. En même temps, tirer avec cette même main le chargeur vers le bas pour l’extraire.',
+      text: 'De la main qui ne tient pas l’arme, pousser simultanément sur les deux boutons de part et d’autre du chargeur vers l’arrière, puis, tirer sur le chargeur vers le haut pour l’extraire de la carcasse.',
       img: 'autre-epaule-p90_arrow2.jpg',
       video: 'p90_sm.mp4',
     },
@@ -134,7 +134,7 @@ export const guideFacticeSelectOption = {
     avec_chargeur: {
       label: 'un chargeur est \n présent',
       value: 'avec_chargeur',
-      text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      text: '<span class="bold-highlight">Appuyer sur le levier</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: 'verrou_avec_chargeur_0.jpg',
       video: 'verrou_sm.mp4',
     },
@@ -151,15 +151,15 @@ export const guideFacticeSelectOption = {
       label: 'option_1',
       value: 'option_1',
       text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, tirer vers l’arrière le bouton situé entre le chien et le barillet. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
-      img: 'revolver_0.jpg',
-      video: 'revolver_sm.mp4',
+      img: 'revolver-1.jpg',
+      video: 'revolver-1_sm.mp4',
     },
     option_2: {
       label: 'option_2',
       value: 'option_2',
       text: '[TEXTE A MODIFIER]',
-      img: 'revolver_0.jpg',
-      video: 'revolver_sm.mp4',
+      img: 'revolver-2.jpg',
+      video: 'revolver-2_sm.mp4',
     },
   },
 }
@@ -167,8 +167,8 @@ export const guideFacticeSelectOption = {
 export const guideFacticeSelectAmmo = {
   pistolet_semi_auto_moderne: {
     cartouche: {
-      label: 'cartouche',
-      value: 'cartouche',
+      label: 'cartouches',
+      value: 'cartouches',
       img_ammo: 'pistolet-semi-auto-moderne-cartridge.jpg',
     },
     billes: {
@@ -178,9 +178,9 @@ export const guideFacticeSelectAmmo = {
     },
   },
   autre_epaule: {
-    cartouche: {
-      label: 'cartouche',
-      value: 'cartouche',
+    cartouches: {
+      label: 'cartouches',
+      value: 'cartouches',
       img_ammo: 'autre-epaule-cartridge.jpg',
     },
     billes: {
@@ -190,9 +190,9 @@ export const guideFacticeSelectAmmo = {
     },
   },
   autre_pistolet: {
-    cartouche: {
-      label: 'cartouche',
-      value: 'cartouche',
+    cartouches: {
+      label: 'cartouches',
+      value: 'cartouches',
       img_ammo: 'autre-pistolet-cartridge.jpg',
     },
     billes: {
@@ -202,9 +202,9 @@ export const guideFacticeSelectAmmo = {
     },
   },
   epaule_a_verrou: {
-    cartouche: {
-      label: 'cartouche',
-      value: 'cartouche',
+    cartouches: {
+      label: 'cartouches',
+      value: 'cartouches',
       img_ammo: 'epaule-a-verrou-cartridge.jpg',
     },
     billes: {
@@ -214,9 +214,9 @@ export const guideFacticeSelectAmmo = {
     },
   },
   revolver: {
-    cartouche: {
+    cartouches: {
       label: 'la cartouche \n possède ou peut \n posséder une ogive',
-      value: 'cartouche',
+      value: 'cartouches',
       img_ammo: 'revolver-cartridge.jpg',
     },
     billes: {
