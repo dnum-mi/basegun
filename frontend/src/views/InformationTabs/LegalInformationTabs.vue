@@ -47,12 +47,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'LegalInformationTabs',
-}
-</script>
-
 <style scoped>
     .title-space {
       margin-top: 20px;

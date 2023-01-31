@@ -4,12 +4,13 @@ import { useLocalStorage } from '@vueuse/core'
 import { serializer } from '@/utils/storage-utils.js'
 
 export const useStepsStore = defineStore('steps', () => {
+  const currentStep = useLocalStorage('currentStep', 1)
+
   const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
+  const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
   const isFactice = computed(() => selectedAmmo === 'billes')
-
-  const currentStep = useLocalStorage('currentStep', 1)
 
   function setCurrentStep (newStep) {
     currentStep.value = newStep
@@ -24,10 +25,11 @@ export const useStepsStore = defineStore('steps', () => {
   }
 
   return {
-    isFactice,
+    currentStep,
     selectedOption,
     selectedAmmo,
-    currentStep,
+    tutorialFeedback,
+    isFactice,
     setCurrentStep,
     setOption,
     setAmmo,

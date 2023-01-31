@@ -1,66 +1,62 @@
 <template>
-  <div>
-    <div>
-      <swiper
-        :navigation="true"
-        :modules="modules"
-        :pagination="{ clickable: true }"
+  <swiper
+    :navigation="true"
+    :modules="modules"
+    :pagination="{ clickable: true }"
+  >
+    <swiper-slide>
+      <img
+        src="@/assets/basegun_green.png"
+        alt=""
+        class="swiper-logo"
       >
-        <swiper-slide>
-          <img
-            src="@/assets/basegun_green.png"
-            alt=""
-            class="swiper-logo"
+      <div class="swiper-content">
+        <ul class="swiper-ul fr-text--md">
+          <li class="swiper-li">
+            Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur.
+          </li>
+          <li class="swiper-li">
+            A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des armes à air comprimé > 2 joules, à blanc ou neutralisées.
+          </li>
+        </ul>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <img
+        src="@/assets/basegun_red.png"
+        alt=""
+        class="swiper-logo"
+      >
+      <div class="swiper-content">
+        <ul class="swiper-ul fr-text--md">
+          <li class="swiper-li">
+            Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
+          </li>
+          <li class="swiper-li">
+            Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
+          </li>
+          <li class="swiper-li">
+            Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
+          </li>
+          <li class="swiper-li">
+            Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
+          </li>
+        </ul>
+        <router-link
+          v-slot="{navigate}"
+          :to="{name:'Start'}"
+        >
+          <button
+            id="position-button"
+            class="fr-btn fr-btn--sm"
+            @click="navigate()"
           >
-          <div class="swiper-content">
-            <ul class="swiper-ul fr-text--md">
-              <li class="swiper-li">
-                Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur.
-              </li>
-              <li class="swiper-li">
-                A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des armes à air comprimé > 2 joules, à blanc ou neutralisées.
-              </li>
-            </ul>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="@/assets/basegun_red.png"
-            alt=""
-            class="swiper-logo"
-          >
-          <div class="swiper-content">
-            <ul class="swiper-ul fr-text--md">
-              <li class="swiper-li">
-                Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
-              </li>
-              <li class="swiper-li">
-                Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
-              </li>
-              <li class="swiper-li">
-                Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
-              </li>
-              <li class="swiper-li">
-                Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
-              </li>
-            </ul>
-            <router-link
-              v-slot="{navigate}"
-              :to="{name:'Start'}"
-            >
-              <button
-                id="position-button"
-                class="fr-btn fr-btn--sm"
-                @click="navigate()"
-              >
-                J'ai compris
-              </button>
-            </router-link>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div>
-  </div>
+            J'ai compris
+          </button>
+        </router-link>
+      </div>
+    </swiper-slide>
+  </swiper>
 </template>
 
 <script>
@@ -122,9 +118,13 @@ export default {
 }
 
 :deep(.swiper-button-prev) {
+  position: fixed;
+  top: 45%;
   color: #000091 !important;
 }
 :deep(.swiper-button-next) {
+  position: fixed;
+  top: 45%;
   color: #000091 !important;
 }
 

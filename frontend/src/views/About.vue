@@ -1,7 +1,24 @@
+<script setup>
+import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.vue'
+
+const links = [
+  {
+    to: '/',
+    text: 'Acceuil',
+  },
+  {
+    text: 'À propos',
+  },
+]
+</script>
+
 <template>
   <div>
     <div class="content">
-      <div class="d-flex align-items-center">
+      <DsfrBreadcrumb
+        :links="links"
+      />
+      <!-- <div class="d-flex align-items-center">
         <router-link
           :to="{name:'Start'}"
           class="small-link small-text"
@@ -15,23 +32,11 @@
         <p class="small-text">
           À propos
         </p>
-      </div>
+      </div> -->
       <AboutInformationTabs />
     </div>
   </div>
 </template>
-
-<script>
-
-import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.vue'
-
-export default {
-  name: 'AboutPage',
-  components: {
-    AboutInformationTabs,
-  },
-}
-</script>
 
 <style scoped>
     .content {

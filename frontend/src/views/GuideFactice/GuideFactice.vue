@@ -38,7 +38,9 @@ guideSteps.value = results[resultStore.typology].stepsNumber === 4
 const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
-    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => {})
+    : tutorialInterupt.value === true
+      ? router.push({ name: 'EndTutorial' })
+      : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (
@@ -46,16 +48,8 @@ const goToPreviousStep = () => (
 )
 
 const goToNextStep = () => (
-  tutorialInterupt.value === true
-    ? goToEndTutorial()
-    : (currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length)
+  currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
 )
-
-const goToEndTutorial = () => {
-  // router.push({ name: 'EndTutorial' })
-  window.location.replace('/guide-factice/fin-tutoriel')
-  // stepsStore.setCurrentStep(0)
-}
 
 </script>
 

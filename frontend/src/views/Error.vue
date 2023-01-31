@@ -20,10 +20,3 @@
     </div>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'ErrorPage',
-}
-</script>

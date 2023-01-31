@@ -26,12 +26,12 @@ const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
 const mentionIfIsFactice = ref("Libre d'acquisition et de détention")
 
-const cleanLabel = computed(() => results[typology.value].displayLabel)
-const cleanCategory = computed(() => results[typology.value].category)
-const cleanMention = computed(() => results[typology.value].isFacticeTypology === true && selectedAmmo.value === 'billes'
+const cleanLabel = computed(() => results[typology.value]?.displayLabel)
+const cleanCategory = computed(() => results[typology.value]?.category)
+const cleanMention = computed(() => results[typology.value]?.isFacticeTypology === true && selectedAmmo.value === 'billes'
   ? mentionIfIsFactice.value
-  : results[typology.value].mention)
-const cleanTypology = computed(() => results[typology.value].isFacticeTypology === true)
+  : results[typology.value]?.mention)
+const cleanTypology = computed(() => results[typology.value]?.isFacticeTypology === true)
 
 function keepingLastStep () {
   stepsStore.setCurrentStep(guideSteps.value.length)
@@ -233,10 +233,7 @@ function sendFeedback (isCorrect) {
       >
         <SnackbarAlert class="text-center" />
       </div>
-      <div
-        v-else
-        class="blank"
-      />
+      <div class="blank" />
     </div>
     <div class="footer-background">
       <div

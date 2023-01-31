@@ -11,19 +11,19 @@
           aria-label="Menu principal"
           class="nav-container flex-lg-row-reverse"
         >
-          <router-link
-            :to="{name: 'Start'}"
+          <div
+            class="fr-header__logo"
           >
-            <div
-              class="fr-header__logo"
+            <router-link
+              :to="{name: 'Start'}"
             >
               <p class="fr-logo">
                 Ministère
                 <br>de l'Intérieur
                 <br>et de l'Outre-mer
               </p>
-            </div>
-          </router-link>
+            </router-link>
+          </div>
           <div class="fr-header__tools  d-none  d-lg-block">
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">

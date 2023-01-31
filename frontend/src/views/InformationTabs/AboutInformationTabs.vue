@@ -1,11 +1,11 @@
 <template>
   <div>
     <p class="title-space">
-      Basegun est un projet d'application par apprentissage automatique capable 
+      Basegun est un projet d'application par apprentissage automatique capable
       d'identifier et de classifier de manière fiable et rapide une arme à feu.
     </p>
     <p>
-      Le projet a été initié en 2021 dans le contexte du programme 
+      Le projet a été initié en 2021 dans le contexte du programme
       <a
         target="_blank"
         href="https://eig.etalab.gouv.fr/defis/basegun/"
@@ -45,44 +45,42 @@
   </div>
 </template>
 
-<script> 
+<script>
 
 import logoDnum from '@/assets/logo_dnum.jpg'
-import logoSCAE from'@/assets/logo_scae.png'
-import logoPN from'@/assets/logo_police.png'
-import logoGendarmerie from'@/assets/logo_gendarmerie.png'
-
-
+import logoSCAE from '@/assets/logo_scae.png'
+import logoPN from '@/assets/logo_police.png'
+import logoGendarmerie from '@/assets/logo_gendarmerie.png'
 
 export default {
-    name: "AboutInformationTabs",
+  name: 'AboutInformationTabs',
 
-    data () {
-        return {
-            imgs: [
-                {
-                alt: "Logo Ministère de l'interieur",
-                id: 'logo_dnum',
-                src: logoDnum,
-            },
-            {
-            alt: "Logo SCAE",
-            id: 'logo_scae',
-            src: logoSCAE,
+  data () {
+    return {
+      imgs: [
+        {
+          alt: "Logo Ministère de l'interieur",
+          id: 'logo_dnum',
+          src: logoDnum,
         },
         {
-            alt: "Logo Police Nationale",
-            id: 'logo_pn',
-            src: logoPN,
+          alt: 'Logo SCAE',
+          id: 'logo_scae',
+          src: logoSCAE,
         },
         {
-            alt: "Logo Gendarmerie",
-            id: 'logo_gendarmerie',
-            src: logoGendarmerie,
+          alt: 'Logo Police Nationale',
+          id: 'logo_pn',
+          src: logoPN,
         },
-    ],
-}
-}, 
+        {
+          alt: 'Logo Gendarmerie',
+          id: 'logo_gendarmerie',
+          src: logoGendarmerie,
+        },
+      ],
+    }
+  },
 }
 </script>
 

@@ -27,13 +27,6 @@
   </div>
 </template>
 
-<script>
-
-export default {
-  name: 'StartPage',
-}
-</script>
-
 <style scoped>
   .accueil-title {
     font-size: 28px;

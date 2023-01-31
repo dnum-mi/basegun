@@ -6,12 +6,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ContactInformationTabs',
-}
-</script>
-
 <style scoped>
   .title-space {
     margin-top: 20px;

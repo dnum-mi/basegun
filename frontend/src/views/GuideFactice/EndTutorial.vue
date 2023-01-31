@@ -10,24 +10,10 @@
         :to="{name:'Start'}"
       >
         <DsfrButton
-          :label="labelButton"
+          label="Retour"
           @click="navigate()"
         />
       </router-link>
     </div>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'EndTutorial',
-  components: {
-  },
-  data () {
-    return {
-      labelButton: 'Retour',
-    }
-  },
-}
-</script>

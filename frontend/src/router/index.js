@@ -50,11 +50,16 @@ const routes = [
     meta: {
       displayHeader: true,
     },
+    beforeEnter: clearLocalStorage,
   },
   {
     path: '/consignes-de-securite',
     name: 'SafetyRecommendation',
     component: SafetyRecommendation,
+    beforeEnter (to) {
+      const stepsStore = useStepsStore()
+      stepsStore.currentStep = 0
+    },
   },
   {
     path: '/guide-factice',

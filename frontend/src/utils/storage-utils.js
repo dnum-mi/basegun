@@ -7,7 +7,6 @@ export const serializer = {
 }
 
 export const clearLocalStorage = (to, from, next) => {
-  // localStorage.clear()
   const { setOption, setAmmo, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 

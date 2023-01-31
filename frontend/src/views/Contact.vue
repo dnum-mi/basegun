@@ -1,7 +1,24 @@
+<script setup>
+import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
+
+const links = [
+  {
+    to: '/',
+    text: 'Acceuil',
+  },
+  {
+    text: 'Contact',
+  },
+]
+</script>
+
 <template>
   <div>
     <div class="content">
-      <div class="d-flex align-items-center">
+      <DsfrBreadcrumb
+        :links="links"
+      />
+      <!-- <div class="d-flex align-items-center">
         <router-link
           :to="{name:'Start'}"
           class="small-link small-text"
@@ -15,23 +32,11 @@
         <p class="small-text">
           Contact
         </p>
-      </div>
+      </div> -->
       <ContactInformationTabs />
     </div>
   </div>
 </template>
-
-<script>
-
-import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
-
-export default {
-  name: 'ContactPage',
-  components: {
-    ContactInformationTabs,
-  },
-}
-</script>
 
 <style scoped>
   .content {
