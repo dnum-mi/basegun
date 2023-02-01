@@ -1,30 +1,23 @@
 <template>
   <div
     id="demarrer"
-    style="display: none"
+    style="width: 0; height: 1px; display: none;"
   >
     <input
       ref="fileInput"
-      style="display: none"
       type="file"
+      style="width: 0; height: 1px"
       :accept="handledImageTypes"
-      @change="onFileSelected"
+      @change="onFileSelected($event)"
     >
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import { useLocalStorage } from '@vueuse/core'
-import { store } from '@/store.js'
+import { useResultStore } from '@/stores/result.js'
 
-const label = useLocalStorage('typology')
-const confidence = useLocalStorage('confidence')
-const confidenceLevel = useLocalStorage('confidenceLevel')
-const img = useLocalStorage('img')
-const imgUrl = useLocalStorage('imgUrl')
-const geolocation = useLocalStorage('geolocation')
-const resultText = useLocalStorage('resultText')
+const resultStore = useResultStore()
 
 function randomCoord (num) {
   num = parseFloat(num)
@@ -35,9 +28,9 @@ function randomCoord (num) {
 
 export default {
   name: 'UploadButton',
+  emits: ['file-selected'],
   data () {
     return {
-      store,
       baseUrl: import.meta.env.BASE_URL,
       labelButton: 'Démarrer',
       // supported image types: https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
@@ -45,8 +38,11 @@ export default {
     }
   },
   methods: {
+    click () {
+      this.$refs.fileInput.click()
+    },
     onFileSelected (event) {
-      store.uploadMessage = 'Analyse'
+      this.$emit('file-selected', event)
       const uploadedFile = event.target.files[0]
       const vm = this // store this to be able to do router redirection later
 
@@ -55,10 +51,10 @@ export default {
         .then(res => {
           const latitude = randomCoord(res.data.latitude)
           const longitude = randomCoord(res.data.longitude)
-          geolocation.value = latitude.toString() + ',' + longitude.toString()
-          startUpload(uploadedFile)
+          resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
         })
-        .catch((err) => {
+        .catch(() => {})
+        .finally(() => {
           // if geolocation is unavailable or incorrect format
           resizeAndUpload(uploadedFile)
         })
@@ -115,21 +111,23 @@ export default {
           const fd = new FormData()
           fd.append('image', file, file.name)
           fd.append('date', Date.now() / 1000) // date.now gives in milliseconds, convert to seconds
-          fd.append('geolocation', geolocation.value)
+          fd.append('geolocation', resultStore.geolocation)
 
           axios.post('/upload', fd)
             .then(res => {
-              label.value = res.data.label
-              confidence.value = res.data.confidence
-              confidenceLevel.value = res.data.confidence_level
-              resultText.value = "Type d'arme : " + label.value + ' ' + confidence.value + '%'
-              img.value = base64
-              imgUrl.value = res.data.path
-              vm.$router.push({ name: 'Result' }).catch(() => { this.$router.push({ name: 'Error' }) })
+              resultStore.setResult({
+                typology: res.data.label,
+                confidence: res.data.confidence,
+                confidenceLevel: res.data.confidence_level,
+                resultText: "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%',
+                img: base64,
+                imgUrl: res.data.path,
+              })
+              vm.$router.push({ name: 'Result' }).catch(() => {})
             })
             .catch((err) => {
               console.log(err)
-              this.$router.push({ name: 'Error' })
+              vm.$router.push({ name: 'Error' }).catch(() => {})
             })
         })
       }

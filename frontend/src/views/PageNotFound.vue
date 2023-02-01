@@ -3,29 +3,15 @@
     <div class="centered text-center m-4">
       <h1>Page non trouvée</h1>
       <p>Vous avez saisi ou suivi un lien vers une page qui n'existe pas.</p>
-      <DsfrButton
-        :label="labelButton"
-        @click="homeRedirect"
-      />
+      <router-link
+        v-slot="{navigate}"
+        :to="{name: 'Home'}"
+      >
+        <DsfrButton
+          label="Retour"
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'PageNotFound',
-  components: {
-  },
-  data () {
-    return {
-      labelButton: 'Retour',
-    }
-  },
-  methods: {
-    homeRedirect () {
-      this.$router.push({ name: 'Start' }).catch(() => {})
-    },
-  },
-}
-</script>

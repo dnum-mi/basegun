@@ -1,6 +1,3 @@
-<script setup>
-
-</script>
 <template>
   <div>
     <p class="text-tutorial mt-3">
@@ -16,6 +13,3 @@
     </div>
   </div>
 </template>
-<style scoped>
-
-</style>

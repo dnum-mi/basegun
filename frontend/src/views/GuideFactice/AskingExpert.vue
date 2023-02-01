@@ -1,36 +1,35 @@
 <script setup>
 import { ref, computed } from 'vue'
 import axios from 'axios'
-import { useLocalStorage } from '@vueuse/core'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
-const stepsStore = useStepsStore()
 const { setMessage } = useSnackbarStore()
-const typology = computed(() => stepsStore.typology)
-
+const stepsStore = useStepsStore()
+const resultStore = useResultStore()
 const router = useRouter()
 const route = useRoute()
 
-const confidence = useLocalStorage('confidence')
-const confidenceLevel = useLocalStorage('confidenceLevel')
-const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
-const imgUrl = useLocalStorage('imgUrl')
+const typology = computed(() => resultStore.typology)
+const confidence = computed(() => resultStore.confidence)
+const confidenceLevel = computed(() => resultStore.confidenceLevel)
+const imgUrl = computed(() => resultStore.imgUrl)
 
 const showModal = ref(false)
 
 function onClose () {
-  tutorialFeedback.value = ''
+  stepsStore.tutorialFeedback = ''
   showModal.value = false
 }
 
 async function sendTutorialFeedback () {
   const json = {
     image_url: imgUrl.value,
-    tutorial_feedback: tutorialFeedback.value,
+    tutorial_feedback: stepsStore.tutorialFeedback,
     label: typology.value,
     current_step: stepsStore.currentStep,
     route_name: route.name,
@@ -40,8 +39,7 @@ async function sendTutorialFeedback () {
   await axios.post('/tutorial-feedback', json)
     .then(async res => {
       console.log(res)
-      tutorialFeedback.value = json.tutorial_feedback
-      console.log(json)
+      stepsStore.tutorialFeedback = json.tutorial_feedback
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
     .catch(async (err) => {
@@ -50,9 +48,8 @@ async function sendTutorialFeedback () {
     })
     .finally(setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
-      tutorialFeedback.value = ''
-      console.log(json)
-      router.push({ name: 'Result' }).catch(() => { })
+      stepsStore.tutorialFeedback = ''
+      router.push({ name: 'Result' }).catch(() => {})
     }, 3000))
 }
 </script>
@@ -89,23 +86,20 @@ async function sendTutorialFeedback () {
           <br>En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
         </p>
         <DsfrInput
-          v-model="tutorialFeedback"
+          v-model="stepsStore.tutorialFeedback"
           label="Décrivez votre problème"
           label-visible
           is-textarea
         />
       </div>
-
       <div>
-        <SnackbarAlert class="text-center p-5" />
+        <SnackbarAlert class="text-center pt-3" />
       </div>
-
       <div class="blank" />
-
       <div class="footer-background">
         <DsfrButton
           label="Valider et retour au résultat"
-          :disabled="!tutorialFeedback"
+          :disabled="!stepsStore.tutorialFeedback"
           @click="sendTutorialFeedback()"
         />
       </div>
@@ -120,9 +114,9 @@ async function sendTutorialFeedback () {
   justify-content: center;
 }
 
-.blank {
+/* .blank {
   height: 50px;
-}
+} */
 
 .footer-background {
   text-align: center;

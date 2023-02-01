@@ -1,19 +1,8 @@
 <script setup>
-import {
-  ref, onBeforeMount, computed,
-} from 'vue'
-import { useRouter } from 'vue-router'
-import { store } from '@/store.js'
-
+import { ref } from 'vue'
 import { useStepsStore } from '@/stores/steps.js'
 
 const stepsStore = useStepsStore()
-
-onBeforeMount(() => {
-  store.displayHeader = false
-})
-
-const router = useRouter()
 const instructions = ref([
   '<ul>',
   "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -23,14 +12,10 @@ const instructions = ref([
   '</ul>',
 ])
 
-function goToTutorial () {
+function setTutorialStep () {
   stepsStore.setCurrentStep(1)
-  router.push({ name: 'FirearmDirection' }).catch(() => { })
 }
-function goToResult () {
-  store.displayHeader = true
-  router.push({ name: 'Result' }).catch(() => { })
-}
+
 </script>
 
 <template>
@@ -59,26 +44,39 @@ function goToResult () {
   </div>
   <div class="footer-background">
     <div class="mx-auto col-11 col-lg-6">
-      <DsfrButton
-        class="mx-4 my-1 flex justify-content-center"
-        label="Commencer"
-        icon="ri-arrow-right-line"
-        :icon-right="true"
-        @click="goToTutorial()"
-      />
-      <DsfrButton
-        class="mx-4 my-1 flex justify-content-center"
-        label="Retour au resultat"
-        icon="ri-arrow-go-back-fill"
-        :icon-right="true"
-        secondary
-        @click="goToResult()"
-      />
+      <router-link
+        v-slot="{navigate}"
+        :to="{name: 'FirearmDirection'}"
+      >
+        <DsfrButton
+          class="mx-4 my-1 flex justify-content-center"
+          label="Commencer"
+          icon="ri-arrow-right-line"
+          :icon-right="true"
+          @click="navigate(); setTutorialStep()"
+        />
+      </router-link>
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Result'}"
+      >
+        <DsfrButton
+          class="mx-4 my-1 flex justify-content-center"
+          label="Retour au resultat"
+          icon="ri-arrow-go-back-fill"
+          :icon-right="true"
+          secondary
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
+a {
+  background-image: none !important;
+}
 .result {
   margin: 0 auto;
   max-width: 1000px;

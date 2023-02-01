@@ -11,44 +11,21 @@
       <p class="accueil-subtitle">
         Identification automatique des armes à feu
       </p>
-      <DsfrButton
-        label="Démarrer"
-        @click="showInstruction"
-      />
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Instructions'}"
+      >
+        <DsfrButton
+          label="Démarrer"
+          @click="navigate()"
+        />
+      </router-link>
     </div>
     <div class="footer-background footer-text">
       Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
     </div>
   </div>
 </template>
-
-<script>
-import { store } from '@/store.js'
-
-export default {
-  name: 'Start',
-  components: {
-  },
-
-  beforeRouteLeave () {
-    store.uploadMessage = null
-    store.displayHeader = true
-  },
-
-  data () {
-    return {
-      store,
-    }
-  },
-
-  methods: {
-    showInstruction () {
-      localStorage.clear()
-      this.$router.push({ name: 'Instructions' }).catch(() => {})
-    },
-  },
-}
-</script>
 
 <style scoped>
   .accueil-title {

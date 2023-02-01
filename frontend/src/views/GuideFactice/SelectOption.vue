@@ -4,10 +4,12 @@ import { computed, ref } from 'vue'
 import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
+const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
-const typology = computed(() => stepsStore.typology)
+const typology = computed(() => resultStore.typology)
 const selectedOption = computed({
   get () {
     return stepsStore.selectedOption
@@ -26,7 +28,10 @@ const zoomOn = (imgValue) => {
 
 <template>
   <div class="instructions">
-    <p v-html="guideFacticeSelectOption[`${typology}_text_option`]" />
+    <p
+      class="mt-3"
+      v-html="guideFacticeSelectOption[`${typology}_text_option`]"
+    />
   </div>
   <div>
     <template

@@ -1,11 +1,18 @@
+<script setup>
+import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
+</script>
+
 <template>
   <div>
     <div class="content">
-      <div class="d-flex align-items-center">
-        <a
-          href="/accueil"
+      <h2>Contact</h2>
+      <!-- <div class="d-flex align-items-center">
+        <router-link
+          :to="{name:'Start'}"
           class="small-link small-text"
-        > Accueil</a>
+        >
+          Accueil
+        </router-link>
         <span
           class="fr-fi-arrow-right-s-line"
           aria-hidden="true"
@@ -13,23 +20,11 @@
         <p class="small-text">
           Contact
         </p>
-      </div>
+      </div> -->
       <ContactInformationTabs />
     </div>
   </div>
 </template>
-
-<script>
-
-import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
-
-export default {
-  name: 'ContactPage',
-  components: {
-    ContactInformationTabs,
-  },
-}
-</script>
 
 <style scoped>
   .content {

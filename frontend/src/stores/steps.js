@@ -1,25 +1,16 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
+import { serializer } from '@/utils/storage-utils.js'
 
 export const useStepsStore = defineStore('steps', () => {
-  const typology = useLocalStorage('typology')
-  const selectedOption = useLocalStorage('selectedOption', undefined, {
-    serializer: {
-      read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-      write: (v) => v === undefined ? 'null' : JSON.stringify(v),
-    },
-  })
-  const selectedAmmo = useLocalStorage('selecteAmmo', undefined, {
-    serializer: {
-      read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-      write: (v) => v === undefined ? 'null' : JSON.stringify(v),
-    },
-  })
+  const currentStep = useLocalStorage('currentStep', 1)
+
+  const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
+  const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
+  const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
   const isFactice = computed(() => selectedAmmo === 'billes')
-
-  const currentStep = useLocalStorage('currentStep', 1)
 
   function setCurrentStep (newStep) {
     currentStep.value = newStep
@@ -34,11 +25,11 @@ export const useStepsStore = defineStore('steps', () => {
   }
 
   return {
-    isFactice,
-    typology,
+    currentStep,
     selectedOption,
     selectedAmmo,
-    currentStep,
+    tutorialFeedback,
+    isFactice,
     setCurrentStep,
     setOption,
     setAmmo,
