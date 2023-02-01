@@ -26,8 +26,8 @@
       <VIcon
         class="fr-fi-alert-fill"
         name="ri-alert-fill"
-      />Basegun ne prend pas encore en compte l'identification des armes non létales (factices,
-      à air comprimé, à blanc ou neutralisées).
+      />Basegun prend en compte uniquement l'identification d'armes à feu létales et d'armes factices type airsoft.
+      <br>Elle ne permet donc pas encore de distinguer les armes à air comprimé > 2 joules, les armes à blanc ou neutralisées.
     </p>
 
     <div class="container-img">

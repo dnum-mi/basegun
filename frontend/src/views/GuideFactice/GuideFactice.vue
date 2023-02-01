@@ -73,7 +73,7 @@ const goToNextStep = () => (
     </div>
     <div class="p-2">
       <router-link
-        :to="{ name: 'Home' }"
+        :to="{ name: 'Start' }"
       >
         <img
           class="go-home"

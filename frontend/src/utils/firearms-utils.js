@@ -141,22 +141,22 @@ export const guideFacticeSelectOption = {
       label: 'pas de chargeur présent',
       value: 'sans_chargeur',
       img: 'verrou_sans_chargeur_arrow2.jpg',
-      text: '/!\\ info -  Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe',
+      // text: 'Info -  Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe',
     },
   },
   revolver_text_option: 'Sélectionner ce que vous voyez sur l’arme',
   revolver: {
-    option_1: {
+    bouton_tirer: {
       label: 'bouton à tirer',
       value: 'bouton_tirer',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, tirer vers l’arrière le bouton situé entre le chien et le barillet. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
       img: 'revolver-1_arrow.jpg',
       video: 'revolver-1_sm.mp4',
     },
-    option_2: {
+    bouton_pousser: {
       label: 'bouton à pousser',
       value: 'bouton_pousser',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, pousser vers l’arrière le bouton situé entre le chien et le barillet. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
       img: 'revolver-2_arrow.jpg',
       video: 'revolver-2_sm.mp4',
     },

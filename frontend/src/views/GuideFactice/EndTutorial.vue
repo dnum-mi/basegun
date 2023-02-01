@@ -7,7 +7,7 @@
       <p>Pour plus d'information vous pouvez <a href="/informations"> nous contacter</a>.</p>
       <router-link
         v-slot="{ navigate } "
-        :to="{name:'Start'}"
+        :to="{name:'Result'}"
       >
         <DsfrButton
           label="Retour"

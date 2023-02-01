@@ -4,7 +4,7 @@
       <h1>Erreur</h1>
       <p>Une erreur est survenue dans le traitement de votre requête.</p>
       <p>
-        Veuillez réessayer ou <router-link :to="{name:'Informations'}">
+        Veuillez réessayer ou <router-link :to="{name:'Contact'}">
           nous contacter
         </router-link>.
       </p>
