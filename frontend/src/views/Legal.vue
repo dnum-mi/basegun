@@ -1,23 +1,11 @@
 <script setup>
 import LegalInformationTabs from '@/views/InformationTabs/LegalInformationTabs.vue'
-
-const links = [
-  {
-    to: '/',
-    text: 'Acceuil',
-  },
-  {
-    text: 'Mentions légales',
-  },
-]
 </script>
 
 <template>
   <div>
     <div class="content">
-      <DsfrBreadcrumb
-        :links="links"
-      />
+      <h2>Mentions légales</h2>
       <!-- <div class="d-flex align-items-center">
         <router-link
           :to="{name:'Start'}"
