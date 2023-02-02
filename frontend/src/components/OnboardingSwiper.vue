@@ -1,81 +1,72 @@
 <template>
-  <div>
-    <div>
-      <swiper
-        :navigation="true"
-        :modules="modules"
-        class="mySwiper"
+  <swiper
+    :navigation="true"
+    :modules="modules"
+    :pagination="{ clickable: true }"
+  >
+    <swiper-slide>
+      <img
+        src="@/assets/basegun_green.png"
+        alt=""
+        class="swiper-logo"
       >
-        <swiper-slide class="flex justify-content-center">
-          <img
-            src="@/assets/basegun_green.png"
-            alt=""
-            class="swiper-logo"
+      <div class="swiper-content">
+        <ul class="swiper-ul fr-text--md">
+          <li class="swiper-li">
+            Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur.
+          </li>
+          <li class="swiper-li">
+            A ce jour, Basegun <span class="swiper-green-highlight">prend en compte uniquement </span> l'identification d'<span class="swiper-green-highlight">armes à feu létales</span> et d'<span class="swiper-green-highlight">armes factices type airsoft</span>.
+          </li>
+        </ul>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <img
+        src="@/assets/basegun_red.png"
+        alt=""
+        class="swiper-logo"
+      >
+      <div class="swiper-content">
+        <ul class="swiper-ul fr-text--md">
+          <li class="swiper-li">
+            Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
+          </li>
+          <li class="swiper-li">
+            Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
+          </li>
+          <li class="swiper-li">
+            Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
+          </li>
+          <li class="swiper-li">
+            Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
+          </li>
+        </ul>
+        <router-link
+          v-slot="{navigate}"
+          :to="{name:'Start'}"
+        >
+          <button
+            id="position-button"
+            class="fr-btn fr-btn--sm"
+            @click="navigate()"
           >
-          <div class="swiper-content">
-            <ul class="swiper-ul fr-text--md">
-              <li class="swiper-li">
-                Basegun est une application <span class="swiper-green-highlight">prototype</span>, en cours de développement par le Ministère de l’Intérieur.
-              </li>
-              <li class="swiper-li">
-                A ce jour, Basegun <span class="swiper-green-highlight">ne prend pas encore en compte</span> l'identification des armes à air comprimé > 2 joules, à blanc ou neutralisées.
-              </li>
-            </ul>
-          </div>
-          <div class="swiper-slide-number">
-            <span>1/2</span>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="@/assets/basegun_red.png"
-            alt=""
-            class="swiper-logo"
-          >
-          <div class="swiper-content">
-            <ul class="swiper-ul fr-text--md">
-              <li class="swiper-li">
-                Une arme doit toujours être <span class="swiper-red-highlight">considérée comme chargée</span>.
-              </li>
-              <li class="swiper-li">
-                Une arme ne doit <span class="swiper-red-highlight">jamais être dirigée</span> vers quelqu’un.
-              </li>
-              <li class="swiper-li">
-                Avant de manipuler une arme, toujours s’assurer qu’elle est <span class="swiper-red-highlight">mise en sécurité.</span>
-              </li>
-              <li class="swiper-li">
-                Veiller à la préservation des <span class="swiper-red-highlight">traces et indices</span> éventuels lors des manipulations de sécurité.
-              </li>
-            </ul>
-            <button
-              id="position-button"
-              class="fr-btn fr-btn--sm"
-              @click="redirectToStart"
-            >
-              J'ai compris
-            </button>
-          </div>
-          <div class="swiper-slide-number-2">
-            <span class="">2/2</span>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </div>
-  </div>
+            J'ai compris
+          </button>
+        </router-link>
+      </div>
+    </swiper-slide>
+  </swiper>
 </template>
 
 <script>
 
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, A11y } from 'swiper'
 
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-// import Swiper required modules
-import { Navigation } from 'swiper'
-import { store } from '@/store'
+import 'swiper/css/pagination'
 
 export default {
   name: 'OnboardingSwiper',
@@ -86,25 +77,14 @@ export default {
 
   setup () {
     return {
-      modules: [Navigation],
-    }
-  },
+      modules: [Navigation, Pagination, A11y],
 
-  data () {
-    return {
-      store,
     }
-  },
-
-  methods: {
-    redirectToStart () {
-      this.$router.push({ name: 'Start' }).catch(() => {})
-    },
   },
 }
 </script>
 
-<style>
+<style scoped>
 
 .swiper {
   width: 100%;
@@ -114,20 +94,6 @@ export default {
 
 .swiper-slide {
   background: #fff;
-}
-
-.swiper-slide-number {
-  color: gray;
-  margin-top: 4.5em;
-  display: flex;
-  justify-content: center;
-}
-
-.swiper-slide-number-2 {
-  color: gray;
-  margin-top: 1em;
-  display: flex;
-  justify-content: center;
 }
 
 .swiper-logo {
@@ -151,26 +117,30 @@ export default {
   margin-bottom: 12px !important;
 }
 
-  :deep(.swiper-button-prev) {
-    color: #000091 !important;
-  }
-  :deep(.swiper-button-next) {
-    color: #000091 !important;
-  }
+:deep(.swiper-button-prev) {
+  position: fixed;
+  top: 45%;
+  color: #000091 !important;
+}
+:deep(.swiper-button-next) {
+  position: fixed;
+  top: 45%;
+  color: #000091 !important;
+}
 
-  :deep(.swiper-button-prev)::after {
-    font-size: 28px;
-  }
-  :deep(.swiper-button-next)::after {
-    font-size: 28px;
-  }
+:deep(.swiper-button-prev)::after {
+  font-size: 28px;
+}
+:deep(.swiper-button-next)::after {
+  font-size: 28px;
+}
 
-  :deep(.swiper-button-disabled) {
-    display: none;
-  }
-
-.swiper-button-disabled {
+:deep(.swiper-button-disabled) {
   display: none;
+}
+
+ :deep(.swiper-pagination-bullet-active) {
+  background: #00c7c8;
 }
 
 .swiper-red-highlight {

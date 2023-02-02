@@ -4,11 +4,13 @@ import { computed } from 'vue'
 import AskingExpert from './AskingExpert.vue'
 
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
+const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const selectedOption = computed(() => stepsStore.selectedOption)
-const typology = computed(() => stepsStore.typology)
+const typology = computed(() => resultStore.typology)
 
 </script>
 

@@ -1,11 +1,11 @@
 <template>
   <div>
     <p class="title-space">
-      Basegun est un projet d'application par apprentissage automatique capable 
+      Basegun est un projet d'application par apprentissage automatique capable
       d'identifier et de classifier de manière fiable et rapide une arme à feu.
     </p>
     <p>
-      Le projet a été initié en 2021 dans le contexte du programme 
+      Le projet a été initié en 2021 dans le contexte du programme
       <a
         target="_blank"
         href="https://eig.etalab.gouv.fr/defis/basegun/"
@@ -26,8 +26,8 @@
       <VIcon
         class="fr-fi-alert-fill"
         name="ri-alert-fill"
-      />Basegun ne prend pas encore en compte l'identification des armes non létales (factices,
-      à air comprimé, à blanc ou neutralisées).
+      />Basegun prend en compte uniquement l'identification d'armes à feu létales et d'armes factices type airsoft.
+      <br>Elle ne permet donc pas encore de distinguer les armes à air comprimé > 2 joules, les armes à blanc ou neutralisées.
     </p>
 
     <div class="container-img">
@@ -45,44 +45,42 @@
   </div>
 </template>
 
-<script> 
+<script>
 
 import logoDnum from '@/assets/logo_dnum.jpg'
-import logoSCAE from'@/assets/logo_scae.png'
-import logoPN from'@/assets/logo_police.png'
-import logoGendarmerie from'@/assets/logo_gendarmerie.png'
-
-
+import logoSCAE from '@/assets/logo_scae.png'
+import logoPN from '@/assets/logo_police.png'
+import logoGendarmerie from '@/assets/logo_gendarmerie.png'
 
 export default {
-    name: "AboutInformationTabs",
+  name: 'AboutInformationTabs',
 
-    data () {
-        return {
-            imgs: [
-                {
-                alt: "Logo Ministère de l'interieur",
-                id: 'logo_dnum',
-                src: logoDnum,
-            },
-            {
-            alt: "Logo SCAE",
-            id: 'logo_scae',
-            src: logoSCAE,
+  data () {
+    return {
+      imgs: [
+        {
+          alt: "Logo Ministère de l'interieur",
+          id: 'logo_dnum',
+          src: logoDnum,
         },
         {
-            alt: "Logo Police Nationale",
-            id: 'logo_pn',
-            src: logoPN,
+          alt: 'Logo SCAE',
+          id: 'logo_scae',
+          src: logoSCAE,
         },
         {
-            alt: "Logo Gendarmerie",
-            id: 'logo_gendarmerie',
-            src: logoGendarmerie,
+          alt: 'Logo Police Nationale',
+          id: 'logo_pn',
+          src: logoPN,
         },
-    ],
-}
-}, 
+        {
+          alt: 'Logo Gendarmerie',
+          id: 'logo_gendarmerie',
+          src: logoGendarmerie,
+        },
+      ],
+    }
+  },
 }
 </script>
 

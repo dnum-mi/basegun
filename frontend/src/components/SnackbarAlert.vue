@@ -1,3 +1,21 @@
+<script setup>
+import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { useSnackbarStore } from '@/stores/snackbar.js'
+
+const route = useRoute()
+const snackbarStore = useSnackbarStore()
+
+const message = computed(() => snackbarStore.message)
+const show = computed(() => snackbarStore.show)
+const type = computed(() => snackbarStore.type)
+
+const closeSnackbar = () => snackbarStore.hideMessage()
+
+watch(route, closeSnackbar)
+</script>
+
 <template>
   <transition name="fade">
     <div
@@ -17,24 +35,6 @@
     </div>
   </transition>
 </template>
-
-<script setup>
-import { computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
-
-import { useSnackbarStore } from '@/stores/snackbar.js'
-
-const route = useRoute()
-const snackbarStore = useSnackbarStore()
-
-const message = computed(() => snackbarStore.message)
-const show = computed(() => snackbarStore.show)
-const type = computed(() => snackbarStore.type)
-
-const closeSnackbar = () => snackbarStore.hideMessage()
-
-watch(route, closeSnackbar)
-</script>
 
 <style scoped>
 .snackbar {

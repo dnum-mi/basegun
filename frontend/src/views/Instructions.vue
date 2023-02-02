@@ -1,7 +1,7 @@
 <script setup>
+import { ref } from 'vue'
+
 import UploadButton from '@/components/UploadButton.vue'
-import { store } from '@/store.js'
-import { onBeforeMount } from 'vue'
 
 const instructions = [
   '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
@@ -9,13 +9,11 @@ const instructions = [
   "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
 ]
 
-onBeforeMount(() => {
-  localStorage.clear()
-})
+const uploadMessage = ref('')
+const fileInput = ref(null)
 
 function readInstruction () {
-  const demarrer = document.getElementById('demarrer')
-  demarrer.firstChild.click()
+  fileInput.value.click()
 }
 </script>
 
@@ -59,13 +57,16 @@ function readInstruction () {
   <div class="blank" />
   <div class="footer-background">
     <div
-      v-if="!store.uploadMessage"
+      v-if="!uploadMessage"
       class="btn-read-instruction text-center"
     >
       <div
         class="col-11 col-lg-6 footer-actions"
       >
-        <UploadButton />
+        <UploadButton
+          ref="fileInput"
+          @file-selected="uploadMessage = 'Analyse en cours'"
+        />
         <DsfrButton
           class="flex justify-content-center"
           label="Prendre la photo"
@@ -80,7 +81,7 @@ function readInstruction () {
       class="text-center bold"
     >
       <p class="loading bold-highlight">
-        {{ store.uploadMessage }}
+        {{ uploadMessage }}
       </p>
     </div>
   </div>
@@ -116,6 +117,9 @@ img {
 }
 
 /* loading dots */
+.loading {
+  color: #000091;
+}
 .loading:after {
   content: ' .';
   animation: dots 1s steps(5, end) infinite;}
@@ -127,16 +131,16 @@ img {
       .25em 0 0 rgba(0,0,0,0),
       .5em 0 0 rgba(0,0,0,0);}
   40% {
-    color: black;
+    color: #000091;
     text-shadow:
       .25em 0 0 rgba(0,0,0,0),
       .5em 0 0 rgba(0,0,0,0);}
   60% {
     text-shadow:
-      .25em 0 0 black,
+      .25em 0 0 #000091,
       .5em 0 0 rgba(0,0,0,0);}
   80%, 100% {
     text-shadow:
-      .25em 0 0 black,
-      .5em 0 0 black;}}
+      .25em 0 0 #000091,
+      .5em 0 0 #000091;}}
 </style>

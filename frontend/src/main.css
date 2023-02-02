@@ -106,4 +106,5 @@
 
 .help {
   color: #000091;
+  background-image: var(--underline-img), var(--underline-img) !important;
 }

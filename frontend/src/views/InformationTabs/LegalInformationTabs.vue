@@ -5,7 +5,7 @@
     </h3>
     <p>Le site basegun.fr est édité et géré par l’équipe du Laboratoire de la Donnée, à la Sous-Direction Innovation et Transformation Numérique, Direction du Numérique du Ministère de l’Intérieur.</p>
     <p>Adresse : 40 avenue des Terroirs de France, 75012 PARIS.</p>
-        
+
     <h3 class="title-space">
       Données collectées
     </h3>
@@ -46,12 +46,6 @@
     <p>Le site basegun.fr est hébergé par la société OVH. Adresse : 2 rue Kellermann, 59100 ROUBAIX.</p>
   </div>
 </template>
-
-<script>
-    export default {
-        name: "LegalInformationTabs",
-    };
-</script>
 
 <style scoped>
     .title-space {

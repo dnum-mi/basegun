@@ -1,5 +1,4 @@
 <script setup>
-import { store } from '@/store.js'
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -7,16 +6,17 @@ import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
 
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
 
 const stepsStore = useStepsStore()
-
-store.displayHeader = false
+const resultStore = useResultStore()
 
 const route = useRoute()
 const router = useRouter()
 
 const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
+const tutorialInterupt = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'))
 
 const currentStep = computed({
   get () {
@@ -28,83 +28,78 @@ const currentStep = computed({
 })
 
 const steps = []
-steps.length = results[stepsStore.typology].stepsNumber
+steps.length = results[resultStore.typology].stepsNumber
 steps.fill(' ')
 
-guideSteps.value = results[stepsStore.typology].stepsNumber === 4
+guideSteps.value = results[resultStore.typology].stepsNumber === 4
   ? [...guideSteps]
   : [...guideSteps].filter(str => (str !== 'SelectOption'))
 
 const goToNewRoute = () => (
   currentStep.value === 0
-    ? router.push({ name: 'SafetyRecommendation' })
-    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` })
+    ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
+    : tutorialInterupt.value === true
+      ? router.push({ name: 'EndTutorial' })
+      : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 1
 )
+
 const goToNextStep = () => (
   currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
 )
-
-function goToResult () {
-  router.push({ name: 'Result' }).catch(() => { })
-}
-
-function homeRedirect () {
-  localStorage.clear()
-  window.location.replace('/')
-  // router.push({ name: 'Home' }).catch(() => {})
-}
-
-const validate = () => {
-  router.push({ name: 'Result' })
-}
 
 </script>
 
 <template>
   <div class="mx-auto col-11 col-lg-6 d-flex justify-content-between">
     <div class="p-3 ps-0">
-      <a
+      <router-link
+        v-slot="{navigate}"
         class="go-result"
-        href="#"
-        @click="goToResult()"
+        :to="{name: 'Result'}"
       >
         <VIcon
-
           name="ri-arrow-left-line"
           scale="0.8"
         />
-        <span class="px-2">Retour au résultat</span>
-      </a>
+        <span
+          class="px-2"
+          @click="navigate()"
+        >Retour au résultat</span>
+      </router-link>
     </div>
     <div class="p-2">
-      <a
-        href="#"
-        title="Retour à l'accueil"
-        @click="homeRedirect()"
+      <router-link
+        :to="{ name: 'Start' }"
       >
         <img
           class="go-home"
           src="@/assets/basegun.png"
           alt="logo-basegun"
         >
-      </a>
+      </router-link>
     </div>
   </div>
   <div class="result col-11 col-lg-6">
     <div>
       <StepsGuide
+        v-if="route.name !== 'EndTutorial'"
         class="steps-guide"
         :steps="steps"
         :current-step="currentStep"
       />
       <RouterView />
     </div>
-    <div class="footer-background">
-      <div class="col-11 col-lg-6 footer-actions">
+    <div
+      v-if="route.name !== 'EndTutorial'"
+      class="footer-background"
+    >
+      <div
+        class="col-11 col-lg-6 footer-actions"
+      >
         <DsfrButton
           class="m-1 flex justify-content-center"
           icon="ri-arrow-left-line"
@@ -126,7 +121,7 @@ const validate = () => {
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"
-          @click="validate()"
+          @click="router.push({name: 'Result'})"
         />
       </div>
     </div>
@@ -134,8 +129,13 @@ const validate = () => {
 </template>
 
 <style scoped>
+
 .steps-guide {
   margin: auto;
+}
+
+a {
+  background-image: none !important;
 }
 
 .result {

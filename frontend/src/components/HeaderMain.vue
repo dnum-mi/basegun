@@ -11,24 +11,29 @@
           aria-label="Menu principal"
           class="nav-container flex-lg-row-reverse"
         >
-          <div class="fr-header__logo ">
-            <a href="/accueil">
+          <div
+            class="fr-header__logo"
+          >
+            <router-link
+              :to="{name: 'Start'}"
+            >
               <p class="fr-logo">
                 Ministère
                 <br>de l'Intérieur
                 <br>et de l'Outre-mer
               </p>
-            </a>
+            </router-link>
           </div>
           <div class="fr-header__tools  d-none  d-lg-block">
             <div class="fr-header__tools-links">
               <ul class="fr-links-group">
                 <li>
-                  <a
+                  <router-link
+                    :to="{name:'Informations'}"
                     class="fr-link  fr-fi-information-line  btn-menu-information"
-                    href="/informations"
-                  >Informations
-                  </a>
+                  >
+                    Informations
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -61,7 +66,6 @@
       <div>
         <DsfrSideMenuLink
           class="fr-nav__item  fr-nav__link"
-          :active="active"
           to="/a-propos"
           @click="clickOnLink()"
         >
@@ -76,8 +80,7 @@
         </DsfrSideMenuLink>
         <DsfrSideMenuLink
           class="fr-nav__item  fr-nav__link"
-          :active="active"
-          to="/Contact"
+          to="/contact"
           @click="clickOnLink()"
         >
           Contact
@@ -98,10 +101,6 @@ export default {
   },
 
   methods: {
-
-    openInformations () {
-      this.$router.push({ name: 'Informations' }).catch(() => {})
-    },
     openModal () {
       this.showModal = true
     },
