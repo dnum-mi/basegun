@@ -3,7 +3,7 @@ echo "# Test website is up"
 
 sudo apt install -y ca-certificates
 set +e
-timeout=600;
+timeout=900;
 elapse=0;
 range=10;
 test_result=1
