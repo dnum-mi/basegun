@@ -32,6 +32,7 @@ async function sendTutorialFeedback () {
     tutorial_feedback: stepsStore.tutorialFeedback,
     label: typology.value,
     current_step: stepsStore.currentStep,
+    select_option: stepsStore.selectedOption,
     route_name: route.name,
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
