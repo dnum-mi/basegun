@@ -141,7 +141,6 @@ export const guideFacticeSelectOption = {
       label: 'pas de chargeur présent',
       value: 'sans_chargeur',
       img: 'verrou_sans_chargeur_arrow2.jpg',
-      // text: 'Info -  Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe',
     },
   },
   revolver_text_option: 'Sélectionner ce que vous voyez sur l’arme',
