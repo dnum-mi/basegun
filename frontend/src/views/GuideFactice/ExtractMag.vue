@@ -20,7 +20,7 @@ const typology = computed(() => resultStore.typology)
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology].text}`"
     />
-    <div class="col-sm-6 col-lg-12">
+    <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
           width="320"
@@ -39,7 +39,7 @@ const typology = computed(() => resultStore.typology)
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology][selectedOption].text}`"
     />
-    <div class="col-sm-6 col-lg-12">
+    <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
           width="320"

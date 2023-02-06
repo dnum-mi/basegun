@@ -6,21 +6,6 @@ import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.v
   <div>
     <div class="content">
       <h2>À propos</h2>
-      <!-- <div class="d-flex align-items-center">
-        <router-link
-          :to="{name:'Start'}"
-          class="small-link small-text"
-        >
-          Accueil
-        </router-link>
-        <span
-          class="fr-fi-arrow-right-s-line"
-          aria-hidden="true"
-        />
-        <p class="small-text">
-          À propos
-        </p>
-      </div> -->
       <AboutInformationTabs />
     </div>
   </div>

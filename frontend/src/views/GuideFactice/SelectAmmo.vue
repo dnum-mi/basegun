@@ -26,22 +26,66 @@ const zoom = ref('')
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
+
+const showModal = ref(true)
+
+function closeModal () {
+  showModal.value = false
+}
+
+function openModal () {
+  showModal.value = true
+}
 </script>
 
 <template>
   <div>
-    <p
-      v-if="typology === 'revolver'"
-      class="mt-3"
+    <DsfrModal
+      v-if="typology === 'autre_epaule'"
+      title=""
+      :opened="showModal"
+      @close="closeModal()"
     >
-      Sélectionner ce que vous voyez en haut des projectiles
-    </p>
-    <p
-      v-else
-      class="mt-3"
-    >
-      Sélectionner le type de munition du chargeur
-    </p>
+      <div>
+        <DsfrAlert
+          type="warning"
+          title="Avertissement cartouche factice"
+          description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
+        />
+        <div class="d-flex align-items-center">
+          <img
+            class="transparent-mag"
+            src="@/assets/magazine-transparency.png"
+            alt="magasin transparent"
+          >
+          <img
+            class="transparent-mag"
+            src="@/assets/magazine-transparency-focus.png"
+            alt="magasin transparent avec focus"
+          >
+        </div>
+      </div>
+    </DsfrModal>
+    <div class="info-magazine d-flex">
+      <p
+        v-if="typology === 'revolver'"
+        class="mt-3"
+      >
+        Sélectionner ce que vous voyez en haut des projectiles
+      </p>
+      <p
+        v-else
+        class="mt-3"
+      >
+        Sélectionner le type de munition du chargeur
+      </p>
+      <VIcon
+        v-if="!showModal"
+        name="ri-information-line"
+        scale="1.25"
+        @click="openModal()"
+      />
+    </div>
 
     <div>
       <template
@@ -137,5 +181,19 @@ const zoomOn = (imgValue) => {
 }
 .instructions {
   padding-bottom: 2em;
+}
+
+.transparent-mag {
+  width: 50%;
+  padding: 1rem;
+}
+
+.info-magazine {
+  justify-content: space-between;}
+
+.info-magazine svg {
+  margin-top: 1rem;
+  fill: #ff1d1d;
+  cursor: pointer;
 }
 </style>
