@@ -85,7 +85,6 @@ export default {
 </script>
 
 <style scoped>
-
 .swiper {
   width: 100%;
   height: 100%;
@@ -122,6 +121,7 @@ export default {
   top: 45%;
   color: #000091 !important;
 }
+
 :deep(.swiper-button-next) {
   position: fixed;
   top: 45%;
@@ -131,6 +131,7 @@ export default {
 :deep(.swiper-button-prev)::after {
   font-size: 28px;
 }
+
 :deep(.swiper-button-next)::after {
   font-size: 28px;
 }
@@ -139,7 +140,7 @@ export default {
   display: none;
 }
 
- :deep(.swiper-pagination-bullet-active) {
+:deep(.swiper-pagination-bullet-active) {
   background: #00c7c8;
 }
 

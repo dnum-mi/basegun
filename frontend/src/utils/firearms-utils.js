@@ -122,6 +122,13 @@ export const guideFacticeSelectOption = {
       img: 'autre-epaule-p90_arrow2.jpg',
       video: 'p90_sm.mp4',
     },
+    bouton_poignee: {
+      label: 'bouton à la base de la poignée',
+      value: 'bouton_poignee',
+      text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      img: 'autre-epaule-pistolet-mitrailleur.png',
+      video: 'pistolet_mitrailleur_sm.mp4',
+    },
   },
   autre_pistolet:
     {
@@ -187,18 +194,18 @@ export const guideFacticeSelectAmmo = {
       img_ammo: 'autre-epaule-balls.jpg',
     },
   },
-  autre_pistolet: {
-    cartouches: {
-      label: 'cartouches',
-      value: 'cartouches',
-      img_ammo: 'autre-pistolet-cartridge.jpg',
-    },
-    billes: {
-      label: 'billes',
-      value: 'billes',
-      img_ammo: 'autre-pistolet-balls.jpg',
-    },
-  },
+  // autre_pistolet: {
+  //   cartouches: {
+  //     label: 'cartouches',
+  //     value: 'cartouches',
+  //     img_ammo: 'autre-pistolet-cartridge.jpg',
+  //   },
+  //   billes: {
+  //     label: 'billes',
+  //     value: 'billes',
+  //     img_ammo: 'autre-pistolet-balls.jpg',
+  //   },
+  // },
   epaule_a_verrou: {
     cartouches: {
       label: 'cartouches',

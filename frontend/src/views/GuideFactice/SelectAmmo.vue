@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useStorage } from '@vueuse/core'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -26,8 +27,9 @@ const zoom = ref('')
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
+const isOpened = useStorage('isOpened')
 
-const showModal = ref(true)
+const showModal = ref(false)
 
 function closeModal () {
   showModal.value = false
@@ -35,58 +37,80 @@ function closeModal () {
 
 function openModal () {
   showModal.value = true
+  isOpened.value = true
 }
+
+onMounted(() => {
+  if (isOpened.value === undefined) {
+    openModal()
+  } else { showModal.value = false }
+})
+
 </script>
 
 <template>
   <div>
-    <DsfrModal
-      v-if="typology === 'autre_epaule'"
-      title=""
-      :opened="showModal"
-      @close="closeModal()"
-    >
-      <div>
-        <DsfrAlert
-          type="warning"
-          title="Avertissement cartouche factice"
-          description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
-        />
-        <div class="d-flex align-items-center">
-          <img
-            class="transparent-mag"
-            src="@/assets/magazine-transparency.png"
-            alt="magasin transparent"
-          >
-          <img
-            class="transparent-mag"
-            src="@/assets/magazine-transparency-focus.png"
-            alt="magasin transparent avec focus"
-          >
+    <Teleport to="body">
+      <DsfrModal
+        v-if="typology === 'autre_epaule'"
+        title=""
+        :opened="showModal"
+        @close="closeModal()"
+      >
+        <div>
+          <DsfrAlert
+            type="warning"
+            title="Avertissement cartouche factice"
+            description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
+          />
+          <div class="d-flex">
+            <DsfrPicture
+              :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine.jpg`"
+              alt="exemple de magasin transparent"
+              title="title"
+              legend="exemple de magasin transparent"
+              ratio="3x4"
+            />
+            <DsfrPicture
+              :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine-focus.jpg`"
+              alt="focus sur la zone à vérifier"
+              title="title"
+              legend="focus sur la zone à vérifier"
+              ratio="3x4"
+            />
+          </div>
+          <div class="blank" />
+          <div class="footer-background">
+            <DsfrButton
+              class="full"
+              label="Oui, c'est clair, je poursuis le tutoriel"
+              icon-right
+              icon="ri-arrow-right-line"
+              @click="closeModal()"
+            />
+          </div>
         </div>
-      </div>
-    </DsfrModal>
-    <div class="info-magazine d-flex">
-      <p
-        v-if="typology === 'revolver'"
-        class="mt-3"
-      >
-        Sélectionner ce que vous voyez en haut des projectiles
-      </p>
-      <p
-        v-else
-        class="mt-3"
-      >
-        Sélectionner le type de munition du chargeur
-      </p>
-      <VIcon
-        v-if="!showModal"
-        name="ri-information-line"
-        scale="1.25"
+      </DsfrModal>
+    </Teleport>
+    <p
+      v-if="typology === 'revolver'"
+      class="mt-3"
+    >
+      Sélectionner ce que vous voyez en haut des projectiles
+    </p>
+    <p
+      v-else
+      class="mt-3"
+    >
+      Sélectionner le type de munition du chargeur<span
+        v-if="typology === 'autre_epaule'"
         @click="openModal()"
-      />
-    </div>
-
+      >. <a
+        href="#"
+      >
+        Chargeur transparent ?</a>
+      </span>
+    </p>
     <div>
       <template
         v-for="option of guideFacticeSelectAmmo[typology]"
@@ -154,6 +178,10 @@ function openModal () {
   justify-content: center;
 }
 
+:deep(.fr-content-media) {
+  margin: 2.5rem .5rem;
+}
+
 :deep(.fr-radio-rich input[type="radio"] + label) {
   height: 13rem;
 }
@@ -188,12 +216,18 @@ function openModal () {
   padding: 1rem;
 }
 
-.info-magazine {
-  justify-content: space-between;}
+.open-info {
+  justify-content: end;
+}
 
-.info-magazine svg {
+/* .open-info svg {
   margin-top: 1rem;
   fill: #ff1d1d;
   cursor: pointer;
+} */
+
+.warning {
+  cursor: pointer;
 }
+
 </style>

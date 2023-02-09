@@ -18,7 +18,7 @@ const typology = computed(() => resultStore.typology)
   <div v-if="selectedOption === undefined">
     <p
       class="text-tutorial mt-3"
-      v-html="`${guideFacticeSelectOption[typology].text}`"
+      v-html="`${guideFacticeSelectOption[typology]?.text}`"
     />
     <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
@@ -29,7 +29,7 @@ const typology = computed(() => resultStore.typology)
           playsinline
           loop
           muted
-          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology].video}`"
+          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology]?.video}`"
         />
       </div>
     </div>
@@ -37,7 +37,7 @@ const typology = computed(() => resultStore.typology)
   <div v-else>
     <p
       class="text-tutorial mt-3"
-      v-html="`${guideFacticeSelectOption[typology][selectedOption].text}`"
+      v-html="`${guideFacticeSelectOption[typology][selectedOption]?.text}`"
     />
     <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
@@ -49,7 +49,7 @@ const typology = computed(() => resultStore.typology)
           playsinline
           loop
           muted
-          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology][selectedOption].video}`"
+          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology][selectedOption]?.video}`"
         />
       </div>
     </div>
@@ -59,8 +59,40 @@ const typology = computed(() => resultStore.typology)
 </template>
 
 <style scoped>
-:deep(.fr-content-media__caption) {
+:deep(.fr-container) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* :deep(.fr-content-media__caption) {
   display:none !important;
   visibility: hidden;
+} */
+
+:deep(.fr-modal-content) {
+  overflow-y: scroll;
+}
+
+a {
+  background-image: none !important;
+}
+.open-info {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.open-info svg {
+  margin-top: 1rem;
+  fill: #ff1d1d;
+  cursor: pointer;
+}
+
+.full {
+  width: 100%;
+  justify-content: center;
+  margin: auto;
+  margin-top: .5rem;
 }
 </style>

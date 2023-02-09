@@ -70,7 +70,6 @@ async function sendTutorialFeedback () {
   <Teleport to="body">
     <DsfrModal
       title=""
-      class="help-modal"
       :opened="showModal"
       @close="onClose()"
     >
@@ -114,10 +113,6 @@ async function sendTutorialFeedback () {
   align-items: center;
   justify-content: center;
 }
-
-/* .blank {
-  height: 50px;
-} */
 
 .footer-background {
   text-align: center;
