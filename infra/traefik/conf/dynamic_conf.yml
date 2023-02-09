@@ -25,4 +25,4 @@ http:
     web:
       loadBalancer:
         servers:
-        - url: http://localhost:8080
+        - url: https://basegun-prod.c5.numerique-interieur.com
