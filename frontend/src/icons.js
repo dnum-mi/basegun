@@ -9,4 +9,5 @@ export {
   RiZoomInLine,
   RiArrowGoBackFill,
   RiListOrdered,
+  RiLogoutBoxRLine,
 } from 'oh-vue-icons/icons/ri/index.js'

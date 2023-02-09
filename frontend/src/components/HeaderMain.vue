@@ -119,25 +119,24 @@ export default {
 </script>
 
 <style scoped>
-
 header.fr-header {
-  -webkit-box-shadow: none;
-  -webkit-filter: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
+  box-shadow: none;
+  filter: none;
+  box-shadow: none;
+  box-shadow: none;
 }
 
 .nav-container {
-  margin: .2em auto;
+  margin: 0.2em auto;
   display: flex;
   justify-content: space-between;
 }
 
 :deep(.fr-header__logo) {
-    padding: .75rem 0 !important;
+  padding: 0.75rem 0 !important;
 }
 
-.container-link  {
+.container-link {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -162,7 +161,7 @@ header.fr-header {
 }
 
 :deep(.fr-modal__header) {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 .btn-open-modal {
@@ -177,7 +176,7 @@ header.fr-header {
 }
 
 .btn-menu-information:hover {
-    color: #1660CB !important;
+  color: #1660cb !important;
 }
 
 </style>
