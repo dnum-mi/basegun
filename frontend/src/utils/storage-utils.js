@@ -1,6 +1,5 @@
 import { useResultStore } from '@/stores/result.js'
 import { useStepsStore } from '@/stores/steps.js'
-import { useStorage } from '@vueuse/core'
 
 export const serializer = {
   read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
@@ -11,8 +10,7 @@ export const clearLocalStorage = (to, from, next) => {
   const { setOption, setAmmo, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 
-  const isOpened = useStorage('isOpened')
-  isOpened.value = undefined
+  useStepsStore.isOpened = undefined
   setOption(undefined)
   setAmmo(undefined)
   setCurrentStep(0)

@@ -2,18 +2,14 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import { serializer } from '@/utils/storage-utils.js'
 import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
 
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { useStorage } from '@vueuse/core'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
-const isOpened = useStorage('isOpened', null, { serializer })
-console.log(isOpened.value)
 
 const route = useRoute()
 const router = useRouter()

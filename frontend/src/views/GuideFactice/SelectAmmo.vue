@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useStorage } from '@vueuse/core'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -27,7 +26,6 @@ const zoom = ref('')
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
-const isOpened = useStorage('isOpened')
 
 const showModal = ref(false)
 
@@ -37,11 +35,11 @@ function closeModal () {
 
 function openModal () {
   showModal.value = true
-  isOpened.value = true
+  useStepsStore.isOpened = true
 }
 
 onMounted(() => {
-  if (isOpened.value === undefined) {
+  if (useStepsStore.isOpened === undefined) {
     openModal()
   } else { showModal.value = false }
 })
@@ -57,30 +55,31 @@ onMounted(() => {
         :opened="showModal"
         @close="closeModal()"
       >
-        <div>
-          <DsfrAlert
-            type="warning"
-            title="Avertissement cartouche factice"
-            description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
-          />
-          <div class="d-flex">
-            <DsfrPicture
-              :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine.jpg`"
-              alt="exemple de magasin transparent"
-              title="title"
-              legend="exemple de magasin transparent"
-              ratio="3x4"
+        <div class="modale">
+          <div class="modale-contenu">
+            <DsfrAlert
+              type="warning"
+              title="Avertissement cartouche factice"
+              description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
             />
-            <DsfrPicture
-              :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine-focus.jpg`"
-              alt="focus sur la zone à vérifier"
-              title="title"
-              legend="focus sur la zone à vérifier"
-              ratio="3x4"
-            />
+            <div class="d-flex">
+              <DsfrPicture
+                :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine.jpg`"
+                alt="exemple de magasin transparent"
+                title="title"
+                legend="exemple de magasin transparent"
+                ratio="3x4"
+              />
+              <DsfrPicture
+                :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine-focus.jpg`"
+                alt="focus sur la zone à vérifier"
+                title="title"
+                legend="focus sur la zone à vérifier"
+                ratio="3x4"
+              />
+            </div>
           </div>
-          <div class="blank" />
-          <div class="footer-background">
+          <div class="modale-footer">
             <DsfrButton
               class="full"
               label="Oui, c'est clair, je poursuis le tutoriel"
@@ -228,6 +227,26 @@ onMounted(() => {
 
 .warning {
   cursor: pointer;
+}
+
+.modale {
+  display: flex;
+  flex-direction: column;
+}
+
+.modale-contenu {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.modale-footer {
+  position: sticky;
+  bottom: 0;
+  text-align: center;
+  background-color: #f5f5fe;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  padding: 15px !important;
+  width: 100%;
 }
 
 </style>
