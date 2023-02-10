@@ -122,8 +122,6 @@ export default {
 header.fr-header {
   box-shadow: none;
   filter: none;
-  box-shadow: none;
-  box-shadow: none;
 }
 
 .nav-container {

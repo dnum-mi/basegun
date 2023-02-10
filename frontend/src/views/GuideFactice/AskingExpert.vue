@@ -123,6 +123,16 @@ async function sendTutorialFeedback () {
   width: 100%;
 }
 
+.modale-footer {
+  position: sticky;
+  bottom: 0;
+  text-align: center;
+  background-color: #f5f5fe;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  padding: 15px !important;
+  width: 100%;
+}
+
 :deep(.fr-btn) span {
   margin: auto !important;
 }
