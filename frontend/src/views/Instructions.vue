@@ -36,13 +36,13 @@ function readInstruction () {
     <div class="container-img  d-lg-flex">
       <DsfrPicture
         title="title"
-        src="/src/assets/good-photo-example.jpg"
+        src="/good-photo-example.jpg"
         alt="photo d'une arme tournée vers la droite et centrée"
         legend="Exemple d'une bonne photo"
       />
       <DsfrPicture
-        src="/src/assets/bad-photo-example.jpg"
-        alt="photo d\'une arme tournée vers la gauche et partiellement coupée"
+        src="/bad-photo-example.jpg"
+        alt="photo d'une arme tournée vers la gauche et partiellement coupée"
         legend="Exemple d'une mauvaise photo"
       />
     </div>
@@ -96,6 +96,7 @@ function readInstruction () {
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
+  object-fit: contain;
 }
 
 :deep(.fr-content-media) {

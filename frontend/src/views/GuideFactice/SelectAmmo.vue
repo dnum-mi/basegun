@@ -219,12 +219,6 @@ onMounted(() => {
   justify-content: end;
 }
 
-/* .open-info svg {
-  margin-top: 1rem;
-  fill: #ff1d1d;
-  cursor: pointer;
-} */
-
 .warning {
   cursor: pointer;
 }
