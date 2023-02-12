@@ -68,7 +68,7 @@ export const results = {
 }
 
 export const guideFacticeSelectOption = {
-  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : <br> bouton à proximité <span class='bold-highlight'>du pontet du côté gauche de la poignée</span>, ou <span class='bold-highlight'>bouton sur le talon</span> de la crosse.",
+  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : bouton à proximité <span class='bold-highlight'>du pontet du côté gauche de la poignée</span>, ou <span class='bold-highlight'>bouton sur le talon</span> de la crosse.",
   pistolet_semi_auto_moderne: {
     pontet: {
       label: 'bouton pontet',
