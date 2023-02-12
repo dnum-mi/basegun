@@ -96,6 +96,7 @@ function readInstruction () {
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
+  object-fit: contain;
 }
 
 :deep(.fr-content-media) {

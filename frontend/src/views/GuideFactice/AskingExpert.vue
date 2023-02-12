@@ -32,7 +32,8 @@ async function sendTutorialFeedback () {
     tutorial_feedback: stepsStore.tutorialFeedback,
     label: typology.value,
     current_step: stepsStore.currentStep,
-    select_option: stepsStore.selectedOption,
+    tutorial_option: stepsStore.selectedOption || null,
+    tutorial_ammo: stepsStore.selectedAmmo || null,
     route_name: route.name,
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
@@ -73,35 +74,37 @@ async function sendTutorialFeedback () {
       :opened="showModal"
       @close="onClose()"
     >
-      <div>
-        <h2>
-          <VIcon
-            name="ri-arrow-right-line"
-            scale="1.5"
+      <div class="modale">
+        <div class="modale-content">
+          <h2>
+            <VIcon
+              name="ri-arrow-right-line"
+              scale="1.5"
+            />
+            Je n'arrive pas à compléter une étape
+          </h2>
+          <p>
+            Si vous rencontrez une difficulté pour poursuivre ce tutoriel, nous vous conseillons de faire appel à un expert. <br>
+            <br>En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
+          </p>
+          <DsfrInput
+            v-model="stepsStore.tutorialFeedback"
+            label="Décrivez votre problème"
+            label-visible
+            is-textarea
           />
-          Je n'arrive pas à compléter une étape
-        </h2>
-        <p>
-          Si vous rencontrez une difficulté pour poursuivre ce tutoriel, nous vous conseillons de faire appel à un expert. <br>
-          <br>En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
-        </p>
-        <DsfrInput
-          v-model="stepsStore.tutorialFeedback"
-          label="Décrivez votre problème"
-          label-visible
-          is-textarea
-        />
-      </div>
-      <div>
-        <SnackbarAlert class="text-center pt-3" />
-      </div>
-      <div class="blank" />
-      <div class="footer-background">
-        <DsfrButton
-          label="Valider et retour au résultat"
-          :disabled="!stepsStore.tutorialFeedback"
-          @click="sendTutorialFeedback()"
-        />
+        </div>
+        <div>
+          <SnackbarAlert class="text-center pt-3" />
+        </div>
+        <div class="blank" />
+        <div class="modale-footer">
+          <DsfrButton
+            label="Valider et retour au résultat"
+            :disabled="!stepsStore.tutorialFeedback"
+            @click="sendTutorialFeedback()"
+          />
+        </div>
       </div>
     </DsfrModal>
   </Teleport>
@@ -114,13 +117,18 @@ async function sendTutorialFeedback () {
   justify-content: center;
 }
 
-.footer-background {
-  text-align: center;
-  padding: 1rem;
+:deep(.fr-btn) span {
+  margin: auto !important;
 }
 
-.footer-background button {
-  width: 100%;
+.modale {
+  display: flex;
+  flex-direction: column;
+}
+
+.modale-content {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .modale-footer {
@@ -129,11 +137,10 @@ async function sendTutorialFeedback () {
   text-align: center;
   background-color: #f5f5fe;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-  padding: 15px !important;
+  padding: 1rem !important;
   width: 100%;
 }
-
-:deep(.fr-btn) span {
-  margin: auto !important;
+.modale-footer button {
+  width: 100%;
 }
 </style>
