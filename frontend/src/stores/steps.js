@@ -12,6 +12,8 @@ export const useStepsStore = defineStore('steps', () => {
 
   const isFactice = computed(() => selectedAmmo === 'billes')
 
+  const isOpened = useLocalStorage('isOpened', undefined, { serializer })
+
   function setCurrentStep (newStep) {
     currentStep.value = newStep
   }
@@ -30,6 +32,7 @@ export const useStepsStore = defineStore('steps', () => {
     selectedAmmo,
     tutorialFeedback,
     isFactice,
+    isOpened,
     setCurrentStep,
     setOption,
     setAmmo,

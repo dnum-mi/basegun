@@ -276,7 +276,6 @@ function sendFeedback (isCorrect) {
 </template>
 
 <style scoped>
-
 a {
   background-image: none !important;
 }
@@ -304,6 +303,7 @@ a {
   background-color: #ffe9e9;
   margin-left: -4px;
 }
+
 .warning-tag {
   color: #b34000;
   background-color: #ffe8e5;
@@ -333,6 +333,7 @@ a {
   font-size: 0.9rem;
   line-height: 1.3rem;
 }
+
 .feedback {
   display: flex;
   align-items: center;

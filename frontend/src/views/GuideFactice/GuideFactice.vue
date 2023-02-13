@@ -151,7 +151,7 @@ a {
 .go-result {
   font-size: 0.9em;
   color: #080894;
-  background-image: none;
+  background-image: none !important;
 }
 
 .fr-link--close {

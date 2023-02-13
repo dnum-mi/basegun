@@ -34,24 +34,17 @@ function readInstruction () {
     </div>
 
     <div class="container-img  d-lg-flex">
-      <div>
-        <img
-          src="@/assets/good-photo-example.jpg"
-          alt="photo d'une arme tournée vers la droite et centrée"
-        >
-        <p class="modal-img-text fr-text--xs">
-          Exemple d'une bonne photo
-        </p>
-      </div>
-      <div>
-        <img
-          src="@/assets/bad-photo-example.jpg"
-          alt="photo d\'une arme tournée vers la gauche et partiellement coupée"
-        >
-        <p class="modal-img-text fr-text--xs">
-          Exemple d'une mauvaise photo
-        </p>
-      </div>
+      <DsfrPicture
+        title="title"
+        src="/src/assets/good-photo-example.jpg"
+        alt="photo d'une arme tournée vers la droite et centrée"
+        legend="Exemple d'une bonne photo"
+      />
+      <DsfrPicture
+        src="/src/assets/bad-photo-example.jpg"
+        alt="photo d\'une arme tournée vers la gauche et partiellement coupée"
+        legend="Exemple d'une mauvaise photo"
+      />
     </div>
   </div>
   <div class="blank" />
@@ -97,7 +90,17 @@ function readInstruction () {
 }
 
 :deep(.fr-alert) {
-margin: 1em;
+  margin: 1em;
+}
+
+:deep([class*=" fr-ratio"]) {
+  width: auto !important;
+  max-width: 95%;
+  object-fit: contain;
+}
+
+:deep(.fr-content-media) {
+  margin: 1rem auto;
 }
 
 .container-img {
@@ -120,27 +123,39 @@ img {
 .loading {
   color: #000091;
 }
-.loading:after {
-  content: ' .';
-  animation: dots 1s steps(5, end) infinite;}
+
+.loading::after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
 
 @keyframes dots {
-  0%, 20% {
-    color: rgba(0,0,0,0);
+  0%,
+  20% {
+    color: rgb(0 0 0 / 0%);
     text-shadow:
-      .25em 0 0 rgba(0,0,0,0),
-      .5em 0 0 rgba(0,0,0,0);}
+      0.25em 0 0 rgb(0 0 0 / 0%),
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
   40% {
     color: #000091;
     text-shadow:
-      .25em 0 0 rgba(0,0,0,0),
-      .5em 0 0 rgba(0,0,0,0);}
+      0.25em 0 0 rgb(0 0 0 / 0%),
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
   60% {
     text-shadow:
-      .25em 0 0 #000091,
-      .5em 0 0 rgba(0,0,0,0);}
-  80%, 100% {
+      0.25em 0 0 #000091,
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
+  80%,
+  100% {
     text-shadow:
-      .25em 0 0 #000091,
-      .5em 0 0 #000091;}}
+      0.25em 0 0 #000091,
+      0.5em 0 0 #000091;
+  }
+}
 </style>

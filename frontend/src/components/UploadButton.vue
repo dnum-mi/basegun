@@ -1,12 +1,12 @@
 <template>
   <div
     id="demarrer"
-    style="width: 0; height: 1px; display: none;"
+    style="width: 0; height: 1px; display: none;"
   >
     <input
       ref="fileInput"
       type="file"
-      style="width: 0; height: 1px"
+      style="width: 0; height: 1px"
       :accept="handledImageTypes"
       @change="onFileSelected($event)"
     >

@@ -77,6 +77,7 @@ function setTutorialStep () {
 a {
   background-image: none !important;
 }
+
 .result {
   margin: 0 auto;
   max-width: 1000px;
@@ -88,7 +89,7 @@ a {
 
 .text-orange {
   font-weight: 700;
-  color: rgba(179, 64, 0, 1)
+  color: rgb(179 64 0 / 100%)
 }
 
 .footer-background {

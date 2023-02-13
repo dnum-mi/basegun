@@ -6,21 +6,6 @@ import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTa
   <div>
     <div class="content">
       <h2>Contact</h2>
-      <!-- <div class="d-flex align-items-center">
-        <router-link
-          :to="{name:'Start'}"
-          class="small-link small-text"
-        >
-          Accueil
-        </router-link>
-        <span
-          class="fr-fi-arrow-right-s-line"
-          aria-hidden="true"
-        />
-        <p class="small-text">
-          Contact
-        </p>
-      </div> -->
       <ContactInformationTabs />
     </div>
   </div>

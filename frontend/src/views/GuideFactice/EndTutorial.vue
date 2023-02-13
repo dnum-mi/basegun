@@ -1,10 +1,9 @@
 <template>
   <div class="fr-container">
     <div class="centered text-center m-4">
-      <h1>Abandon</h1>
+      <h1>Fin de la démarche guidée</h1>
       <p>Il n'est pas possible de poursuivre la démarche guidée.</p>
-      <p>Ce tutoriel n’est valable que pour les armes à verrou avec chargeur externe.</p>
-      <p>Pour plus d'information vous pouvez <a href="/informations"> nous contacter</a>.</p>
+      <p>Votre arme nécessite des manipulations complexes. Veuillez contacter un expert.</p>
       <router-link
         v-slot="{ navigate } "
         :to="{name:'Result'}"
