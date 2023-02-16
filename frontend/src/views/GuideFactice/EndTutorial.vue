@@ -2,8 +2,12 @@
   <div class="fr-container">
     <div class="centered text-center m-4">
       <h1>Fin de la démarche guidée</h1>
-      <p>Il n'est pas possible de poursuivre la démarche guidée.</p>
-      <p>Votre arme nécessite des manipulations complexes. Veuillez contacter un expert.</p>
+
+      <p>Votre arme nécessite des manipulations complexes. </p>
+      <p>
+        Veuillez contacter un expert en manipulations d'armes d'épaule à verrou.
+        Dans le doute, veuillez considérer votre arme comme pouvant tirer des projectiles létaux.
+      </p>
       <router-link
         v-slot="{ navigate } "
         :to="{name:'Result'}"
