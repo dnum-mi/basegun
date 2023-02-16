@@ -30,7 +30,7 @@
                 <li>
                   <router-link
                     :to="{name:'Informations'}"
-                    class="fr-link  fr-fi-information-line  btn-menu-information"
+                    class="fr-link  fr-icon-information-line  btn-menu-information"
                   >
                     Informations
                   </router-link>
