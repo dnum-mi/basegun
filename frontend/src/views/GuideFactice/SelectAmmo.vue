@@ -7,6 +7,9 @@ import AskingExpert from './AskingExpert.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
+import TransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine.jpg'
+import FocusTransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
+
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
@@ -59,19 +62,19 @@ onMounted(() => {
           <div class="modale-contenu">
             <DsfrAlert
               type="warning"
-              title="Avertissement cartouche factice"
+              title="Avertissement cartouches factices"
               description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
             />
             <div class="d-flex">
               <DsfrPicture
-                :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine.jpg`"
+                :src="TransparentMagazine"
                 alt="exemple de magasin transparent"
                 title="title"
                 legend="exemple de magasin transparent"
                 ratio="3x4"
               />
               <DsfrPicture
-                :src="`/guide-factice/images/${typology}/autre-epaule-transparent-magazine-focus.jpg`"
+                :src="FocusTransparentMagazine"
                 alt="focus sur la zone à vérifier"
                 title="title"
                 legend="focus sur la zone à vérifier"
@@ -121,7 +124,7 @@ onMounted(() => {
             class="radio"
             :class="{ 'wide': typology === 'epaule_a_verrou' }"
             v-bind="option"
-            :img="`/guide-factice/images/${typology}/${option.img_ammo}`"
+            :img="option.img_ammo"
             required
             name="selectedAmmo"
           />
@@ -140,7 +143,7 @@ onMounted(() => {
             >
               <img
                 v-if="zoom === option.value"
-                :src="`/guide-factice/images/${typology}/${option.img_ammo}`"
+                :src="option.img_ammo"
                 :style="{'max-width': '100%'}"
               >
             </DsfrModal>

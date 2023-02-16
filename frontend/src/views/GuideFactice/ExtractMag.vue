@@ -29,7 +29,7 @@ const typology = computed(() => resultStore.typology)
           playsinline
           loop
           muted
-          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology]?.video}`"
+          :src="guideFacticeSelectOption[typology]?.video"
         />
       </div>
     </div>
@@ -49,7 +49,7 @@ const typology = computed(() => resultStore.typology)
           playsinline
           loop
           muted
-          :src="`/guide-factice/videos/${guideFacticeSelectOption[typology][selectedOption]?.video}`"
+          :src="guideFacticeSelectOption[typology][selectedOption]?.video"
         />
       </div>
     </div>
