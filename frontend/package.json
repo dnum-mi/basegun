@@ -22,9 +22,7 @@
     "swiper": "^8.4.2",
     "vite": "^4.1.1",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6",
-    "vuex": "^4.1.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
@@ -40,21 +38,12 @@
     "vite-plugin-pwa": "^0.14.4",
     "workbox-window": "^6.5.4"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "es2021": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {},
-    "rules": {}
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "volta": {
+    "node": "18.14.0"
+  }
 }
