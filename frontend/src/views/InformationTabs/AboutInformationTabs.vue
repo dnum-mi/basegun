@@ -24,7 +24,7 @@
     </p>
     <p class="fr-callout">
       <VIcon
-        class="fr-fi-alert-fill"
+        class="fr-icon-alert-fill"
         name="ri-alert-fill"
       />Basegun prend en compte uniquement l'identification d'armes à feu létales et d'armes factices type airsoft.
       <br>Elle ne permet donc pas encore de distinguer les armes à air comprimé > 2 joules, les armes à blanc ou neutralisées.
@@ -108,7 +108,7 @@ export default {
     list-style: square;
   }
 
-  :deep(.fr-fi-alert-fill) {
+  :deep(.fr-icon-alert-fill) {
     padding-right: .1em;
   }
 </style>

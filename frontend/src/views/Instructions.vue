@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 
 import UploadButton from '@/components/UploadButton.vue'
+import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
+import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
 const instructions = [
   '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
@@ -36,12 +38,12 @@ function readInstruction () {
     <div class="container-img  d-lg-flex">
       <DsfrPicture
         title="title"
-        src="/good-photo-example.jpg"
+        :src="GoodExamplePhoto"
         alt="photo d'une arme tournée vers la droite et centrée"
         legend="Exemple d'une bonne photo"
       />
       <DsfrPicture
-        src="/bad-photo-example.jpg"
+        :src="BadExamplePhoto"
         alt="photo d'une arme tournée vers la gauche et partiellement coupée"
         legend="Exemple d'une mauvaise photo"
       />

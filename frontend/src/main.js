@@ -1,10 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import '@gouvfr/dsfr/dist/dsfr.min.css'
+import '@gouvfr/dsfr/dist/utility/icons/icons.min.css' // Facultatif : Si des icônes sont utilisées avec <span class="fr-icon-..." />
+import '@gouvminint/vue-dsfr/styles' // Import des styles globaux
 import '@/main.css'
+
 import axios from 'axios'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import '@gouvminint/vue-dsfr/dist/vue-dsfr.css' // Import des styles globaux
 import VueDsfr from '@gouvminint/vue-dsfr' // Import (par défaut) de la bibliothèque
 
 import * as icons from './icons.js'
