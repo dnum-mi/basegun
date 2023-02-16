@@ -9,7 +9,10 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],  
+      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      // workbox: {
+      //   cleanupOutdatedCaches: true
+      // },
       base: "/",
       srcDir: "src",
       manifest: {
