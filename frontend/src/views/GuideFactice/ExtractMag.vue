@@ -23,8 +23,6 @@ const typology = computed(() => resultStore.typology)
     <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
-          width="320"
-          height="240"
           autoplay
           playsinline
           loop
@@ -42,8 +40,6 @@ const typology = computed(() => resultStore.typology)
     <div class="col-sm-6 col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
-          width="320"
-          height="240"
           type="video/mp4"
           autoplay
           playsinline
@@ -72,6 +68,11 @@ const typology = computed(() => resultStore.typology)
 
 :deep(.fr-modal-content) {
   overflow-y: scroll;
+}
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
 }
 
 a {
