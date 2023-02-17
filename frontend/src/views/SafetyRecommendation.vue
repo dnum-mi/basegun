@@ -1,8 +1,11 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
+import { results } from '@/utils/firearms-utils.js'
 
 const stepsStore = useStepsStore()
+const resultStore = useResultStore()
 const instructions = ref([
   '<ul>',
   "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
@@ -12,8 +15,15 @@ const instructions = ref([
   '</ul>',
 ])
 
+const typology = computed(() => resultStore.typology)
+const cleanLabel = computed(() => results[typology.value]?.displayLabel)
+
 function setTutorialStep () {
   stepsStore.setCurrentStep(1)
+}
+
+function setGender () {
+  return cleanLabel.value.includes('arme') ? 'une' : 'un'
 }
 
 </script>
@@ -22,7 +32,7 @@ function setTutorialStep () {
   <div class="fr-container">
     <div class="result col-11 col-lg-6 mt-5">
       <h3>
-        Vérifier si une arme est factice
+        Vérifier si <span>{{ setGender() }} {{ cleanLabel }}</span> est factice
       </h3>
 
       <p class="text-tutorial">

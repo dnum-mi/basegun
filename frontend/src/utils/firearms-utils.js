@@ -1,6 +1,6 @@
 import revolver1Img from '@/assets/guide-factice/images/revolver/revolver-1_arrow.jpg'
 import revolver1Video from '@/assets/guide-factice/videos/revolver-1_arrow.jpg'
-import revolver2Img from '@/assets/guide-factice/images/revlover/revolver-2_arrow.jpg'
+import revolver2Img from '@/assets/guide-factice/images/revolver/revolver-2_arrow.jpg'
 import revolver2Video from '@/assets/guide-factice/videos/revolver-2_arrow.jpg'
 import revolverCartridges from '@/assets/guide-factice/images/revolver_cartridges.jpg'
 import revolverBalls from '@/assets/guide-factice/images/revolver_balls.jpg'
