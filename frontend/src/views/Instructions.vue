@@ -56,7 +56,7 @@ function readInstruction () {
       class="btn-read-instruction text-center"
     >
       <div
-        class="col-11 col-lg-6 footer-actions"
+        class="col-11 col-lg-6 mx-auto"
       >
         <UploadButton
           ref="fileInput"

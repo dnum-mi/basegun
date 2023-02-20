@@ -98,7 +98,7 @@ const goToNextStep = () => (
       class="footer-background"
     >
       <div
-        class="col-11 col-lg-6 footer-actions"
+        class="col-11 col-lg-6 footer-actions mx-auto"
       >
         <DsfrButton
           class="m-1 flex justify-content-center"
