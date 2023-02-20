@@ -182,14 +182,14 @@ export const guideFacticeSelectOption = {
     bouton_tirer: {
       label: 'bouton à tirer',
       value: 'bouton_tirer',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="bold-highlight">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="bold-highlight">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
       img: revolver1Img,
       video: revolver1Video,
     },
     bouton_pousser: {
       label: 'bouton à pousser',
       value: 'bouton_pousser',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts pousser le barillet pour le faire basculer hors de l’arme. Puis pousser la tige à l’extrémité du barillet pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="bold-highlight">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="bold-highlight">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
       img: revolver2Img,
       video: revolver2Video,
     },
