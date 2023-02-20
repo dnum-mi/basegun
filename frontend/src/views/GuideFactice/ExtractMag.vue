@@ -71,8 +71,8 @@ const typology = computed(() => resultStore.typology)
 }
 
 video {
-  width: 100%    !important;
-  height: auto   !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 a {
