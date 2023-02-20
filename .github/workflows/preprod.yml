@@ -46,7 +46,7 @@ jobs:
     needs: build-push
     with:
       image_version: "develop"
-      branch: "develop"
+      branch: ${{ github.ref_name }}
       volume_size: 10
       flavor: "s1-2"
       workspace: "preprod"

@@ -238,8 +238,7 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="img"
-        class="col-11 col-lg-6 mx-auto text-center"
-        :class="{ 'footer-actions': selectedAmmo === undefined }"
+        class="col-11 col-lg-6 mx-auto"
       >
         <router-link
           v-slot="{navigate}"
@@ -247,29 +246,28 @@ function sendFeedback (isCorrect) {
           :to="{name: 'Instructions'}"
         >
           <DsfrButton
-            class="mx-4 my-1 flex justify-content-center"
+            class="mx-3 my-1 flex justify-content-center"
             label="Reprendre une photo"
             icon="ri-camera-fill"
             :icon-right="true"
             @click="navigate()"
           />
         </router-link>
-        <div v-if="selectedAmmo !== undefined && isFactice !== ''">
-          <router-link
-            v-slot="{navigate}"
-            class="navigate"
-            :to="{name:'SelectAmmo'}"
-          >
-            <DsfrButton
-              class="mx-4 my-1 flex justify-content-center"
-              label="Retourner à l'étape précédente"
-              icon="ri-arrow-go-back-fill"
-              :icon-right="true"
-              secondary
-              @click="keepingLastStep(); navigate()"
-            />
-          </router-link>
-        </div>
+        <router-link
+          v-if="selectedAmmo !== undefined && isFactice !== ''"
+          v-slot="{navigate}"
+          class="navigate"
+          :to="{name:'SelectAmmo'}"
+        >
+          <DsfrButton
+            class="mx-3 my-1 flex justify-content-center"
+            label="Retourner à l'étape précédente"
+            icon="ri-arrow-go-back-fill"
+            :icon-right="true"
+            secondary
+            @click="keepingLastStep(); navigate()"
+          />
+        </router-link>
       </div>
     </div>
   </div>
@@ -362,13 +360,6 @@ a {
   pointer-events: none;
   cursor: not-allowed;
   text-shadow: 0 0 0 grey;
-}
-
-.footer-actions {
-  display: flex;
-  justify-content: space-around;
-  color: #000091;
-  z-index: 1
 }
 
 :deep(.fr-btn) {
