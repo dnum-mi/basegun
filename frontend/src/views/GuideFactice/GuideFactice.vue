@@ -28,8 +28,8 @@ const currentStep = computed({
 })
 
 const steps = []
-steps.length = results[resultStore.typology]?.stepsNumber
-steps?.fill(' ')
+steps.length = results[resultStore.typology].stepsNumber
+steps.fill(' ')
 
 guideSteps.value = results[resultStore.typology].stepsNumber === 4
   ? [...guideSteps]
