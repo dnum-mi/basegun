@@ -67,7 +67,8 @@ const routes = [
     component: GuideFactice,
     beforeEnter (to) {
       const stepsStore = useStepsStore()
-      if (stepsStore.currentStep !== 0) {
+      const resultStore = useResultStore()
+      if (stepsStore.currentStep !== 0 && resultStore.confidence !== null) {
         return true
       }
       return { name: 'Start' }
@@ -117,7 +118,7 @@ const routes = [
     component: Result,
     beforeEnter (to) {
       const resultStore = useResultStore()
-      if (resultStore.img !== null || resultStore.confidence !== 0) {
+      if (resultStore.img !== null || resultStore.confidence !== null) {
         return true
       }
       return { name: 'Start' }
