@@ -57,7 +57,7 @@ function sendFeedback (isCorrect) {
   } else {
     isDown.value = true
   }
-  axios.post('/feedback', json)
+  axios.post('/identification-feedback', json)
     .then(async res => {
       console.log(res)
       setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })

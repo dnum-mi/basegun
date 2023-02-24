@@ -75,7 +75,7 @@ class TestModel(unittest.TestCase):
         confidence = 90
         label = "revolver"
         confidence_level = "high"
-        r = requests.post(self.url + "/feedback",
+        r = requests.post(self.url + "/identification-feedback",
                 json={"image_url": "test", "feedback": False, "confidence": confidence, "label": label, "confidence_level": confidence_level})
         self.assertEqual(r.status_code, 200)
         r = requests.get(self.url + "/logs")
