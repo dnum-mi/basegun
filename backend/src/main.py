@@ -287,7 +287,7 @@ async def imageupload(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/feedback")
+@app.post("/identification-feedback")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
     user_agent = parse(request.headers.get("user-agent"))
@@ -312,6 +312,33 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
 
 @app.post("/tutorial-feedback")
 async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
+    res = await request.json()
+    user_agent = parse(request.headers.get("user-agent"))
+
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_image_url": res["image_url"],
+        "bg_tutorial_feedback": res["tutorial_feedback"],
+        "bg_label": res["label"],
+        "bg_confidence": res["confidence"],
+        "bg_confidence_level": res["confidence_level"],
+        "bg_route_name": res["route_name"],
+        "bg_current_step": res["current_step"],
+        "bg_tutorial_option": res["tutorial_option"],
+        "bg_tutorial_ammo": res["tutorial_ammo"],
+        "bg_user_id": user_id,
+        "bg_device": get_device(user_agent),
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family,
+        "bg_version": APP_VERSION,
+    }
+    logger.info("Tutorial feedback", extra=extras_logging)
+    return
+
+
+@app.post("/identification-factice")
+async def log_identification_factice(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
     user_agent = parse(request.headers.get("user-agent"))
 
