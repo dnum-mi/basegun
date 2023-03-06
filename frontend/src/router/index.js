@@ -68,7 +68,7 @@ const routes = [
     beforeEnter (to) {
       const stepsStore = useStepsStore()
       const resultStore = useResultStore()
-      if (stepsStore.currentStep !== 0 && resultStore.confidence !== null) {
+      if (stepsStore.currentStep !== 0 && resultStore.img) {
         return true
       }
       return { name: 'Start' }
@@ -118,7 +118,7 @@ const routes = [
     component: Result,
     beforeEnter (to) {
       const resultStore = useResultStore()
-      if (resultStore.img !== null || resultStore.confidence !== null) {
+      if (resultStore.img) {
         return true
       }
       return { name: 'Start' }

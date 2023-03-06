@@ -107,7 +107,6 @@ a {
 }
 
 .footer-background button {
-  white-space: nowrap;
   width: 80%;
 }
 </style>
