@@ -1,25 +1,27 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import { useAppStore } from './stores/app.js'
 import HeaderMain from './components/HeaderMain.vue'
 
-const needRefresh = ref(false)
+// const needRefresh = ref(false)
 
 const appStore = useAppStore()
 
-const updateSW = registerSW({
-  // immediate: true,
-  onNeedRefresh () {
-    needRefresh.value = true
-  },
-  onOfflineReady () {},
-})
+registerSW({ immediate: true })
+
+// const updateSW = registerSW({
+//   immediate: true,
+//   onNeedRefresh () {
+//     needRefresh.value = true
+//   },
+//   onOfflineReady () {},
+// })
 </script>
 
 <template>
   <HeaderMain v-show="appStore.displayHeader" />
-  <DsfrCallout
+  <!-- <DsfrCallout
     v-show="needRefresh"
     class="col-lg-6  mx-auto  refresh"
     content=""
@@ -31,7 +33,7 @@ const updateSW = registerSW({
     >
       Mettre à jour
     </DsfrButton>
-  </DsfrCallout>
+  </DsfrCallout> -->
   <router-view />
 </template>
 

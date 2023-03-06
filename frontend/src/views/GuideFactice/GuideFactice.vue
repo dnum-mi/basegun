@@ -52,7 +52,9 @@ const goToNextStep = () => (
 )
 
 watchEffect(() => {
-  if (!resultStore.img) router.push({ name: 'Start' })
+  if (!resultStore.img) {
+    router.push({ name: 'Start' })
+  }
 })
 
 </script>
