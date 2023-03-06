@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
@@ -50,6 +50,10 @@ const goToPreviousStep = () => (
 const goToNextStep = () => (
   currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
 )
+
+watchEffect(() => {
+  if (!resultStore.img) router.push({ name: 'Start' })
+})
 
 </script>
 
