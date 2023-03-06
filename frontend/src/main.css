@@ -48,6 +48,7 @@
 .footer-background button {
   white-space: nowrap;
   display: inline-flex;
+  width: fit-content;
   align-items: center;
   gap: 0.5rem;
 }

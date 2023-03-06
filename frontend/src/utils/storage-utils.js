@@ -25,5 +25,7 @@ export const clearLocalStorage = (to, from, next) => {
     resultText: undefined,
   })
 
+  // localStorage.clear()
+
   next()
 }

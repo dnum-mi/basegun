@@ -1,15 +1,21 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { results, guideSteps } from '@/utils/firearms-utils'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
+import { useRouter } from 'vue-router'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
+const router = useRouter()
+
+watchEffect(() => {
+  if (!resultStore.img) router.push({ name: 'Start' })
+})
 
 const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
@@ -238,7 +244,7 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="img"
-        class="col-11 col-lg-6 mx-auto"
+        class="col-11 col-lg-6 mx-auto text-center"
       >
         <router-link
           v-slot="{navigate}"
@@ -246,6 +252,7 @@ function sendFeedback (isCorrect) {
           :to="{name: 'Instructions'}"
         >
           <DsfrButton
+            :class="{'btn-full-width': selectedAmmo}"
             class="mx-3 my-1 flex justify-content-center"
             label="Reprendre une photo"
             icon="ri-camera-fill"
@@ -260,6 +267,7 @@ function sendFeedback (isCorrect) {
           :to="{name:'SelectAmmo'}"
         >
           <DsfrButton
+            :class="{'btn-full-width': selectedAmmo}"
             class="mx-3 my-1 flex justify-content-center"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
@@ -364,7 +372,9 @@ a {
 
 :deep(.fr-btn) {
   white-space: nowrap;
-  width: 90%;
 }
 
+.btn-full-width {
+  width: 90%;
+}
 </style>
