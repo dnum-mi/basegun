@@ -4,7 +4,7 @@ import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTa
 
 <template>
   <div>
-    <div class="content">
+    <div class="fr-container mt-4">
       <h2>Contact</h2>
       <ContactInformationTabs />
     </div>
@@ -12,10 +12,6 @@ import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTa
 </template>
 
 <style scoped>
-  .content {
-    margin: min(5vw, 10rem);
-  }
-
   .title-space {
     margin-top: 20px;
   }

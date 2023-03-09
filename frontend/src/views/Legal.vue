@@ -4,7 +4,7 @@ import LegalInformationTabs from '@/views/InformationTabs/LegalInformationTabs.v
 
 <template>
   <div>
-    <div class="content">
+    <div class="fr-container mt-4">
       <h2>Mentions légales</h2>
       <LegalInformationTabs />
     </div>

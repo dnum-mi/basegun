@@ -7,7 +7,6 @@ import { useStepsStore } from '@/stores/steps.js'
 
 const Home = () => import('@/views/Home.vue')
 const Start = () => import('@/views/Start.vue')
-const Informations = () => import('@/views/Informations.vue')
 const Instructions = () => import('@/views/Instructions.vue')
 const Result = () => import('@/views/Result.vue')
 const Error = () => import('@/views/Error.vue')
@@ -100,14 +99,6 @@ const routes = [
         component: EndTutorial,
       },
     ],
-  },
-  {
-    path: '/informations',
-    name: 'Informations',
-    meta: {
-      displayHeader: true,
-    },
-    component: Informations,
   },
   {
     path: '/resultat',
