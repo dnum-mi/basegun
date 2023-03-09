@@ -4,7 +4,7 @@ import AboutInformationTabs from '@/views/InformationTabs/AboutInformationTabs.v
 
 <template>
   <div>
-    <div class="content">
+    <div class="fr-container mt-4">
       <h2>À propos</h2>
       <AboutInformationTabs />
     </div>
