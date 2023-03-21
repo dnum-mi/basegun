@@ -75,42 +75,8 @@ function sendFeedback (isCorrect) {
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
+
       <div
-        v-if="selectedAmmo === 'billes'"
-        class="fr-callout custom-callout"
-      >
-        <div v-if="confidenceLevel === 'high'">
-          <div class="callout-head">
-            <p class="fr-tag fr-tag--sm success-tag">
-              Indice de fiabilité : {{ Math.floor(confidence) }}%
-            </p>
-          </div>
-        </div>
-        <div v-else>
-          <p class="fr-tag fr-tag--sm warning-tag">
-            Indice de fiabilité : {{ Math.floor(confidence) }}%
-          </p>
-          <p class="warning-text">
-            Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
-          </p>
-        </div>
-        <p class="fr-callout__title">
-          Non Classé
-        </p>
-        <p class="fr-callout__text">
-          Objet, arme factice
-        </p>
-        <p class="mt-2 fr-callout__text">
-          <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
-        </p>
-        <div
-          class="callout-mention mt-4"
-        >
-          <p v-html="cleanMention" />
-        </div>
-      </div>
-      <div
-        v-else
         class="fr-callout custom-callout"
       >
         <div v-if="confidenceLevel === 'low'">
@@ -137,55 +103,75 @@ function sendFeedback (isCorrect) {
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
             </p>
           </div>
-
-          <p class="fr-callout__title">
-            Catégorie {{ cleanCategory }}
-          </p>
-          <div
-            class="callout-mention"
-          >
-            <p v-html="cleanMention" />
-          </div>
-          <div
-            v-if="cleanTypology === true && !selectedAmmo"
-            class="mt-2"
-          >
-            <p>Sauf si l'arme est factice:</p>
-            <p class="fr-callout__title">
+          <div v-if="selectedAmmo === 'billes'">
+            <p class="fr-callout__title mt-3">
               Non Classé
             </p>
-            <router-link
-              v-slot="{navigate}"
-              :to="{name:'SafetyRecommendation'}"
-            >
-              <DsfrButton
-                class="my-4 flex justify-content-center"
-                label="Vérifier si l'arme est factice"
-                @click="navigate()"
-              />
-            </router-link>
-          </div>
-          <div v-else>
+            <p class="fr-callout__text">
+              Objet, arme factice
+            </p>
+            <p class="mt-2 fr-callout__text">
+              <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
+            </p>
             <div
-              v-if="cleanTypology === false && !isFactice"
-              class="mt-2"
+              class="callout-mention"
             >
-              <p>Sauf si l'arme est factice:</p>
-              <p class="fr-callout__title">
-                Non Classé
-              </p>
-              <DsfrButton
-                class="my-4 flex justify-content-center"
-                label="Pas de guide de vérification"
-                disabled
-              />
+              <p v-html="cleanMention" />
             </div>
           </div>
-          <p
-            class="mt-2 fr-callout__text"
-          >
-            Typologie : {{ cleanLabel }}
-          </p>
+          <div v-else>
+            <p class="fr-callout__title mt-3">
+              Catégorie {{ cleanCategory }}
+            </p>
+
+            <div
+              class="callout-mention"
+            >
+              <p v-html="cleanMention" />
+            </div>
+            <div
+              class="mt-4"
+            >
+              <div v-if="cleanTypology === true && !selectedAmmo">
+                <p>Sauf si l'arme est factice:</p>
+                <p class="fr-callout__title">
+                  Non Classé
+                </p>
+                <router-link
+                  v-slot="{navigate}"
+                  :to="{name:'SafetyRecommendation'}"
+                >
+                  <DsfrButton
+                    class="my-4 flex justify-content-center"
+                    label="Vérifier si l'arme est factice"
+                    @click="navigate()"
+                  />
+                </router-link>
+              </div>
+
+              <div v-else>
+                <div
+                  v-if="cleanTypology === false && !isFactice"
+                  class="mt-2"
+                >
+                  <p>Sauf si l'arme est factice:</p>
+                  <p class="fr-callout__title">
+                    Non Classé
+                  </p>
+                  <DsfrButton
+                    class="my-4 flex justify-content-center"
+                    label="Pas de guide de vérification"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <p
+              class="mt-2 fr-callout__text"
+            >
+              Typologie : {{ cleanLabel }}
+            </p>
+          </div>
         </div>
       </div>
       <div v-if="confidenceLevel !== 'low'">
