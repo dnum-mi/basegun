@@ -15,11 +15,77 @@ import swiftclient
 from src.model import load_model_inference, predict_image
 
 
+####################
+#      SETUP       #
+####################
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
     'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
     f'uploaded-images/{os.environ["WORKSPACE"]}/'
+
+# FastAPI Setup
+app = FastAPI()
+origins = [ # allow requests from front-end
+    "http://basegun.fr",
+    "https://basegun.fr",
+    "http://preprod.basegun.fr",
+    "https://preprod.basegun.fr",
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:3000"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Logs
+PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+logger = setup_logs(PATH_LOGS)
+
+# Load model
+MODEL_PATH = os.path.join(
+            CURRENT_DIR,
+            "weights/model.pth")
+model = None
+if os.path.exists(MODEL_PATH):
+    model = load_model_inference(MODEL_PATH)
+if not model:
+    raise RuntimeError("Model not found")
+
+# Versions
+if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
+    with open("versions.json", "r") as f:
+        versions = json.load(f)
+        APP_VERSION = versions["app"]
+        MODEL_VERSION = versions["model"]
+else:
+    logger.warn("File versions.json not found")
+    APP_VERSION = "-1"
+    MODEL_VERSION = "-1"
+
+
+conn = None
+if "OS_USERNAME" in os.environ:
+    # Connection to OVH cloud
+    conn = swiftclient.Connection(
+        authurl="https://auth.cloud.ovh.net/v3",
+        user=os.environ["OS_USERNAME"],
+        key=os.environ["OS_PASSWORD"],
+        os_options={
+            "project_name": os.environ["OS_PROJECT_NAME"],
+            "region_name": "GRA"
+        },
+        auth_version='3'
+    )
+    conn.get_account()
+else:
+    logger.warn('Variables necessary for OVH connection not set !')
+
 
 
 def init_variable(var_name: str, path: str) -> str:
@@ -87,13 +153,13 @@ def get_device(user_agent) -> str:
 def get_base_logs(user_agent, user_id) -> dict:
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
+        "bg_user_id": user_id,
+        "bg_version": APP_VERSION,
+        "bg_model": MODEL_VERSION,
         "bg_device": get_device(user_agent),
         "bg_device_family": user_agent.device.family,
         "bg_device_os": user_agent.os.family,
-        "bg_user_id": user_id,
         "bg_device_browser": user_agent.browser.family,
-        "bg_version": APP_VERSION,
-        "bg_model": MODEL_VERSION,
     }
     return extras_logging
 
@@ -140,74 +206,6 @@ def upload_image_ovh(content: bytes, img_name: str):
             else:
                 extras_logging["bg_error_type"] = e.__class__.__name__
                 logger.exception(e, extra=extras_logging)
-
-
-####################
-#      SETUP       #
-####################
-
-# FastAPI Setup
-app = FastAPI()
-origins = [ # allow requests from front-end
-    "http://basegun.fr",
-    "https://basegun.fr",
-    "http://preprod.basegun.fr",
-    "https://preprod.basegun.fr",
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:3000"
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger = setup_logs(PATH_LOGS)
-
-# Load model
-MODEL_PATH = os.path.join(
-            CURRENT_DIR,
-            "weights/model.pth")
-model = None
-if os.path.exists(MODEL_PATH):
-    model = load_model_inference(MODEL_PATH)
-if not model:
-    raise RuntimeError("Model not found")
-
-# Versions
-if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
-    with open("versions.json", "r") as f:
-        versions = json.load(f)
-        APP_VERSION = versions["app"]
-        MODEL_VERSION = versions["model"]
-else:
-    logger.warn("File versions.json not found")
-    APP_VERSION = "-1"
-    MODEL_VERSION = "-1"
-
-
-conn = None
-if "OS_USERNAME" in os.environ:
-    # Connection to OVH cloud
-    conn = swiftclient.Connection(
-        authurl="https://auth.cloud.ovh.net/v3",
-        user=os.environ["OS_USERNAME"],
-        key=os.environ["OS_PASSWORD"],
-        os_options={
-            "project_name": os.environ["OS_PROJECT_NAME"],
-            "region_name": "GRA"
-        },
-        auth_version='3'
-    )
-    conn.get_account()
-else:
-    logger.warn('Variables necessary for OVH connection not set !')
-
 
 
 ####################
