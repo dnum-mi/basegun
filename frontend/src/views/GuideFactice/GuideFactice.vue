@@ -39,7 +39,7 @@ const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
     : tutorialInterupt.value === true
-      ? router.push({ name: 'EndTutorial' })
+      ? router.push({ name: 'StopTutorial' })
       : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
@@ -86,7 +86,7 @@ const goToNextStep = () => (
   <div class="result col-11 col-lg-6">
     <div>
       <StepsGuide
-        v-if="route.name !== 'EndTutorial'"
+        v-if="route.name !== 'StopTutorial'"
         class="steps-guide"
         :steps="steps"
         :current-step="currentStep"
@@ -94,7 +94,7 @@ const goToNextStep = () => (
       <RouterView />
     </div>
     <div
-      v-if="route.name !== 'EndTutorial'"
+      v-if="route.name !== 'StopTutorial'"
       class="footer-background"
     >
       <div

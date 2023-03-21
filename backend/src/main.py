@@ -317,8 +317,8 @@ async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Co
     extras_logging = get_base_logs(user_agent, user_id)
 
     extras_logging["bg_feedback_bool"] = res["feedback"],
-    for key in ["tutorial_feedback", "label", "confidence", "confidence_level", 
-        "route_name", "current_step", "tutorial_option", "tutorial_ammo"]:
+    for key in ["image_url", "label", "confidence", "confidence_level",
+        "tutorial_feedback", "tutorial_option", "route_name"]:
         extras_logging["bg_"+key] = res[key],
 
     logger.info("Tutorial feedback", extra=extras_logging)
@@ -332,28 +332,9 @@ async def log_identification_dummy(request: Request, user_id: Union[str, None] =
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
 
-    extras_logging["bg_feedback_bool"] = res["feedback"],
-    for key in ["tutorial_feedback", "label", "confidence", "confidence_level", 
-        "route_name", "current_step", "tutorial_option", "tutorial_ammo"]:
+    extras_logging["bg_dummy_bool"] = res["is_factice"], # to know if the firearm is dummy or real
+    for key in ["image_url", "label", "confidence", "confidence_level", "tutorial_option"]:
         extras_logging["bg_"+key] = res[key],
 
-    extras_logging = {
-        "bg_date": datetime.now().isoformat(),
-        "bg_image_url": res["image_url"],
-        "bg_dummy_bool": res["is_factice"],
-        "bg_label": res["label"],
-        "bg_confidence": res["confidence"],
-        "bg_confidence_level": res["confidence_level"],
-        "bg_route_name": res["route_name"],
-        "bg_current_step": res["current_step"],
-        "bg_tutorial_option": res["tutorial_option"],
-        "bg_tutorial_ammo": res["tutorial_ammo"],
-        "bg_user_id": user_id,
-        "bg_device": get_device(user_agent),
-        "bg_device_family": user_agent.device.family,
-        "bg_device_os": user_agent.os.family,
-        "bg_device_browser": user_agent.browser.family,
-        "bg_version": APP_VERSION,
-    }
     logger.info("Identification dummy", extra=extras_logging)
     return
