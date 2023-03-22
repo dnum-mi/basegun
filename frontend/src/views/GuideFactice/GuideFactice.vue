@@ -7,6 +7,7 @@ import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
+import axios from 'axios'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
@@ -17,6 +18,11 @@ const router = useRouter()
 const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
 const tutorialInterupt = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'))
+
+const imgUrl = computed(() => resultStore.imgUrl)
+const confidence = computed(() => resultStore.confidence)
+const confidenceLevel = computed(() => resultStore.confidenceLevel)
+const typology = computed(() => resultStore.typology)
 
 const currentStep = computed({
   get () {
@@ -56,6 +62,25 @@ watchEffect(() => {
     router.push({ name: 'Start' })
   }
 })
+async function sendLogsIfFactice () {
+  const json = {
+    image_url: imgUrl.value,
+    confidence: confidence.value,
+    label: typology.value,
+    confidence_level: confidenceLevel.value,
+    tutorial_option: stepsStore.selectedAmmo,
+  }
+  await axios.post('/identification-dummy', json, { 'content-type': 'text/plain' })
+    .then(async res => {
+      console.log(res)
+    })
+    .catch(async err => {
+      console.log(err)
+    })
+    .finally(async res => {
+      router.push({ name: 'Result' }).catch(() => {})
+    })
+}
 
 </script>
 
@@ -127,7 +152,7 @@ watchEffect(() => {
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"
-          @click="router.push({name: 'Result'})"
+          @click=" sendLogsIfFactice()"
         />
       </div>
     </div>

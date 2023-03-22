@@ -40,7 +40,7 @@ const cleanMention = computed(() => results[typology.value]?.isFacticeTypology =
 const cleanTypology = computed(() => results[typology.value]?.isFacticeTypology === true)
 
 function keepingLastStep () {
-  stepsStore.setCurrentStep(guideSteps.value.length)
+  stepsStore.setCurrentStep(guideSteps.length)
 }
 
 function sendFeedback (isCorrect) {
