@@ -9,7 +9,7 @@ range=10;
 test_result=1
 
 until [ "$elapse" -ge "$timeout" -o "$test_result" -eq "0" ] ; do
-        [[ ("$(curl -s -o /dev/null -w "%{http_code}" $1)" == "200") && ("$(curl -L -k -s $1/api/)" == "Basegun backend") ]]
+        [[ "$(curl -L -k -s $1/api/)" == "Basegun backend" ]]
         test_result=$?
         if [ "$test_result" -gt "0" ] ; then
             echo "Waited $elapse seconds";
