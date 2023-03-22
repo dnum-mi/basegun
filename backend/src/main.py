@@ -16,78 +16,12 @@ import swiftclient
 from src.model import load_model_inference, predict_image
 
 
-####################
-#      SETUP       #
-####################
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE = os.environ.get("WORKSPACE")
 
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
     'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
     f'uploaded-images/{os.environ["WORKSPACE"]}/'
-
-# FastAPI Setup
-app = FastAPI()
-origins = [ # allow requests from front-end
-    "http://basegun.fr",
-    "https://basegun.fr",
-    "http://preprod.basegun.fr",
-    "https://preprod.basegun.fr",
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:3000"
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger = setup_logs(PATH_LOGS)
-
-# Load model
-MODEL_PATH = os.path.join(
-            CURRENT_DIR,
-            "weights/model.pth")
-model = None
-if os.path.exists(MODEL_PATH):
-    model = load_model_inference(MODEL_PATH)
-if not model:
-    raise RuntimeError("Model not found")
-
-# Versions
-if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
-    with open("versions.json", "r") as f:
-        versions = json.load(f)
-        APP_VERSION = versions["app"]
-        MODEL_VERSION = versions["model"]
-else:
-    logger.warn("File versions.json not found")
-    APP_VERSION = "-1"
-    MODEL_VERSION = "-1"
-
-
-conn = None
-if "OS_USERNAME" in os.environ:
-    # Connection to OVH cloud
-    conn = swiftclient.Connection(
-        authurl="https://auth.cloud.ovh.net/v3",
-        user=os.environ["OS_USERNAME"],
-        key=os.environ["OS_PASSWORD"],
-        os_options={
-            "project_name": os.environ["OS_PROJECT_NAME"],
-            "region_name": "GRA"
-        },
-        auth_version='3'
-    )
-    conn.get_account()
-else:
-    logger.warn('Variables necessary for OVH connection not set !')
-
 
 
 def init_variable(var_name: str, path: str) -> str:
@@ -211,6 +145,73 @@ def upload_image_ovh(content: bytes, img_name: str):
 
 
 ####################
+#      SETUP       #
+####################
+
+# FastAPI Setup
+app = FastAPI()
+origins = [ # allow requests from front-end
+    "http://basegun.fr",
+    "https://basegun.fr",
+    "http://preprod.basegun.fr",
+    "https://preprod.basegun.fr",
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:3000"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Logs
+PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+logger = setup_logs(PATH_LOGS)
+
+# Load model
+MODEL_PATH = os.path.join(
+            CURRENT_DIR,
+            "weights/model.pth")
+model = None
+if os.path.exists(MODEL_PATH):
+    model = load_model_inference(MODEL_PATH)
+if not model:
+    raise RuntimeError("Model not found")
+
+# Versions
+if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
+    with open("versions.json", "r") as f:
+        versions = json.load(f)
+        APP_VERSION = versions["app"]
+        MODEL_VERSION = versions["model"]
+else:
+    logger.warn("File versions.json not found")
+    APP_VERSION = "-1"
+    MODEL_VERSION = "-1"
+
+
+conn = None
+if "OS_USERNAME" in os.environ:
+    # Connection to OVH cloud
+    conn = swiftclient.Connection(
+        authurl="https://auth.cloud.ovh.net/v3",
+        user=os.environ["OS_USERNAME"],
+        key=os.environ["OS_PASSWORD"],
+        os_options={
+            "project_name": os.environ["OS_PROJECT_NAME"],
+            "region_name": "GRA"
+        },
+        auth_version='3'
+    )
+    conn.get_account()
+else:
+    logger.warn('Variables necessary for OVH connection not set !')
+
+
+####################
 #     ROUTES       #
 ####################
 @app.get("/", response_class=PlainTextResponse)
@@ -316,7 +317,6 @@ async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Co
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
 
-    extras_logging["bg_feedback_bool"] = res["feedback"],
     for key in ["image_url", "label", "confidence", "confidence_level",
         "tutorial_feedback", "tutorial_option", "route_name"]:
         extras_logging["bg_"+key] = res[key],

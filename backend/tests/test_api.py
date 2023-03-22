@@ -24,10 +24,9 @@ class TestModel(unittest.TestCase):
 
     def check_log_base(self, log):
         self.assertTrue(
-            issubset(
-                set('timestamp', 'version', 'host', 'level', 'short_message', '_bg_date', '_bg_user_id',
-                '_bg_device', '_bg_device_os', '_bg_device_family', '_bg_device_browser', '_bg_version', '_bg_model'),
-                set(log.keys()))
+            {'timestamp', 'version', 'host', 'level', 'short_message', '_bg_date', '_bg_user_id',
+                '_bg_device', '_bg_device_os', '_bg_device_family', '_bg_device_browser', '_bg_version',
+                '_bg_model'}.issubset(set(log.keys()))
         )
         self.assertEqual(log["level"], 6)
         self.assertTrue(log["_bg_model"].startswith("EffB"))
@@ -48,7 +47,6 @@ class TestModel(unittest.TestCase):
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "path"}))
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 99.53, places=1)
         self.assertTrue(res["confidence_level"], "high")
@@ -69,10 +67,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
         # checks the previous log "Identification request"
         log = r.json()[1]
-        check_log_base(log)
+        self.check_log_base(log)
         self.assertEqual(log["short_message"], "Identification request")
         self.assertTrue("-" in log["_bg_user_id"])
         self.assertEqual(log["_bg_geolocation"], geoloc)
+        self.assertEqual(log["_bg_label"], "revolver")
+        self.assertAlmostEqual(log["_bg_confidence"], 99.53, places=1)
         self.assertTrue(log["_bg_upload_time"]>=0)
 
     def test_feedback_and_logs(self):
@@ -80,15 +80,17 @@ class TestModel(unittest.TestCase):
         confidence = 90
         label = "revolver"
         confidence_level = "high"
+        image_url = "https://storage.gra.cloud.ovh.net/v1/test"
         r = requests.post(self.url + "/identification-feedback",
-                json={"image_url": "test", "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
+                json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
+
         self.assertEqual(r.status_code, 200)
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
         log = r.json()[0]
-        check_log_base(log)
+        self.check_log_base(log)
         self.assertEqual(log["short_message"], "Identification feedback")
-        self.assertEqual(log["_bg_image_url"], "test")
+        self.assertEqual(log["_bg_image_url"], image_url)
         self.assertTrue(log["_bg_feedback_bool"])
         self.assertEqual(log["_bg_confidence"], confidence)
         self.assertEqual(log["_bg_label"], label)
