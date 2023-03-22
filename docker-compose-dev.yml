@@ -20,7 +20,9 @@ services:
       - OS_PROJECT_NAME
       - http_proxy
       - https_proxy
+      - no_proxy
       - WORKSPACE=dev
+      - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
     image: basegun-backend:${TAG}-dev
     ports:
       - 5000:5000
