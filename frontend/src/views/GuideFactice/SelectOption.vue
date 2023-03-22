@@ -29,7 +29,7 @@ const zoomOn = (imgValue) => {
 <template>
   <div class="instructions">
     <p
-      class="mt-3"
+      class="fr-mt-3"
       v-html="guideFacticeSelectOption[`${typology}_text_option`]"
     />
   </div>

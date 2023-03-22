@@ -20,10 +20,10 @@ watch(route, closeSnackbar)
   <transition name="fade">
     <div
       v-show="show"
-      class="mx-auto snackbar"
+      class="fr-mx-auto snackbar"
     >
       <DsfrAlert
-        class="shadow-md  m-0"
+        class="shadow-md  fr-m-0"
         :class="type"
         :type="type"
         small
