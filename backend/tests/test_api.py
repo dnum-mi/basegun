@@ -52,7 +52,7 @@ class TestModel(unittest.TestCase):
         self.assertTrue(res["confidence_level"], "high")
         self.assertTrue("ovh" in res["path"])
         # checks that written file is exactly the same as input file
-        time.sleep(30)
+        time.sleep(10)
         response = requests.get(res["path"])
         with Image.open(path) as image_one:
             with Image.open(BytesIO(response.content)) as image_two:
