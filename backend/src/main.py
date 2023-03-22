@@ -300,9 +300,9 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
 
-    extras_logging["bg_feedback_bool"] = res["feedback"],
+    extras_logging["bg_feedback_bool"] = res["feedback"]
     for key in ["image_url", "label", "confidence", "confidence_level"]:
-        extras_logging["bg_"+key] = res[key],
+        extras_logging["bg_"+key] = res[key]
 
     logger.info("Identification feedback", extra=extras_logging)
     return
@@ -317,7 +317,7 @@ async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Co
 
     for key in ["image_url", "label", "confidence", "confidence_level",
         "tutorial_feedback", "tutorial_option", "route_name"]:
-        extras_logging["bg_"+key] = res[key],
+        extras_logging["bg_"+key] = res[key]
 
     logger.info("Tutorial feedback", extra=extras_logging)
     return
