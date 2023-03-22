@@ -23,6 +23,9 @@ const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 const StopTutorial = () => import('@/views/GuideFactice/StopTutorial.vue')
 
+const metaViewport = document.querySelector('meta[name="viewport"]')
+const metaViewportContent = metaViewport.getAttribute('content')
+
 const routes = [
   {
     path: '/',
@@ -82,6 +85,9 @@ const routes = [
         path: 'option-arme',
         name: 'SelectOption',
         component: SelectOption,
+        meta: {
+          scalable: true,
+        },
       },
       {
         path: 'extract-mag',
@@ -165,6 +171,13 @@ const router = createRouter({
 router.beforeEach((to) => {
   const appStore = useAppStore()
   appStore.setDisplayHeader(to.meta.displayHeader)
+
+  if (to.meta.scalable) {
+    const scalableYes = metaViewportContent.split(',').map(value => value.startsWith('user-scalable') ? 'user-scalable=yes' : value)
+    metaViewport.setAttribute('content', scalableYes.join(','))
+  } else {
+    metaViewport.setAttribute('content', metaViewportContent)
+  }
 })
 
 export default router
