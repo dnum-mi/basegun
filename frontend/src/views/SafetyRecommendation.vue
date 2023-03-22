@@ -25,7 +25,7 @@ function setTutorialStep () {
 
 <template>
   <div class="fr-container">
-    <div class="result col-11 col-lg-6 mt-5">
+    <div class="result fr-col-11 fr-col-lg-6 fr-mt-5">
       <h3>
         Vérifier si votre {{ cleanLabel }} est factice
       </h3>
@@ -40,7 +40,7 @@ function setTutorialStep () {
         <span
           v-for="instruction in instructions"
           :key="instruction.id"
-          class="m-auto-lg d-lg-flex flex-wrap"
+          class="fr-m-auto-lg d-lg-flex flex-wrap"
           v-html="instruction"
         />
       </div>
@@ -48,13 +48,13 @@ function setTutorialStep () {
     <div class="blank" />
   </div>
   <div class="footer-background">
-    <div class="mx-auto col-11 col-lg-6">
+    <div class="fr-mx-auto fr-col-11 fr-col-lg-6">
       <router-link
         v-slot="{navigate}"
         :to="{name: 'FirearmDirection'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-content-center"
+          class="fr-mx-4 fr-my-1 flex justify-center"
           label="Commencer"
           icon="ri-arrow-right-line"
           :icon-right="true"
@@ -66,7 +66,7 @@ function setTutorialStep () {
         :to="{name:'Result'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-content-center"
+          class="fr-mx-4 fr-my-1 flex justify-center"
           label="Retour au resultat"
           icon="ri-arrow-go-back-fill"
           :icon-right="true"

@@ -86,8 +86,8 @@ async function sendLogsIdentificationDummy () {
 </script>
 
 <template>
-  <div class="mx-auto col-11 col-lg-6 d-flex justify-content-between">
-    <div class="p-3 ps-0">
+  <div class="fr-mx-auto fr-col-11 fr-col-lg-6 d-flex justify-between">
+    <div class="fr-m-3 ps-0">
       <router-link
         v-slot="{navigate}"
         class="go-result"
@@ -98,12 +98,12 @@ async function sendLogsIdentificationDummy () {
           scale="0.8"
         />
         <span
-          class="px-2"
+          class="fr-px-2"
           @click="navigate()"
         >Retour au résultat</span>
       </router-link>
     </div>
-    <div class="p-2">
+    <div class="fr-m-2">
       <router-link
         :to="{ name: 'Start' }"
       >
@@ -115,7 +115,7 @@ async function sendLogsIdentificationDummy () {
       </router-link>
     </div>
   </div>
-  <div class="result col-11 col-lg-6">
+  <div class="result fr-col-11 fr-col-lg-6">
     <div>
       <StepsGuide
         v-if="route.name !== 'StopTutorial'"
@@ -130,10 +130,10 @@ async function sendLogsIdentificationDummy () {
       class="footer-background"
     >
       <div
-        class="col-11 col-lg-6 footer-actions mx-auto"
+        class="fr-col-11 fr-col-lg-6 footer-actions fr-mx-auto"
       >
         <DsfrButton
-          class="m-1 flex justify-content-center"
+          class="m-1 flex justify-center"
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
@@ -141,7 +141,7 @@ async function sendLogsIdentificationDummy () {
         />
         <DsfrButton
           v-if="currentStep < steps.length"
-          class="m-1 flex justify-content-center"
+          class="m-1 flex justify-center"
           icon="ri-arrow-right-line"
           label="Suivant"
           :disabled="disabledNextStep"
@@ -150,7 +150,7 @@ async function sendLogsIdentificationDummy () {
         />
         <DsfrButton
           v-if="currentStep === steps.length"
-          class="m-1 flex justify-content-center"
+          class="m-1 flex justify-center"
           label="Valider"
           :disabled="disabledValidation"
           @click=" sendLogsIdentificationDummy()"

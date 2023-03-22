@@ -96,13 +96,13 @@ onMounted(() => {
     </Teleport>
     <p
       v-if="typology === 'revolver'"
-      class="mt-3"
+      class="fr-mt-3"
     >
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
     <p
       v-else
-      class="mt-3"
+      class="fr-mt-3"
     >
       Sélectionner le type de munition du chargeur<span
         v-if="typology === 'autre_epaule'"
