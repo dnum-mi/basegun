@@ -1,3 +1,15 @@
+<script setup>
+
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, A11y } from 'swiper'
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+const modules = [Navigation, Pagination, A11y]
+
+</script>
 <template>
   <swiper
     :navigation="true"
@@ -58,32 +70,6 @@
     </swiper-slide>
   </swiper>
 </template>
-
-<script>
-
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, A11y } from 'swiper'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-
-export default {
-  name: 'OnboardingSwiper',
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-
-  setup () {
-    return {
-      modules: [Navigation, Pagination, A11y],
-
-    }
-  },
-}
-</script>
-
 <style scoped>
 .swiper {
   width: 100%;
