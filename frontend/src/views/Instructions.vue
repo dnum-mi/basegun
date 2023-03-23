@@ -21,7 +21,7 @@ function readInstruction () {
 
 <template>
   <div
-    class="info  container-alert  fr-col-lg-6  fr-col-xs-9  fr-mx-auto"
+    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6  fr-col-sm-9  mx-auto"
   >
     <div class="fr-alert fr-alert--info">
       <h3 class="fr-alert__title">
@@ -30,12 +30,12 @@ function readInstruction () {
       <span
         v-for="instruction in instructions"
         :key="instruction.id"
-        class="fr-m-auto-lg d-lg-flex flex-wrap"
+        class="m-auto-lg lg:flex flex-wrap"
         v-html="instruction"
       />
     </div>
 
-    <div class="container-img  d-lg-flex">
+    <div class="container-img  lg:flex">
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
@@ -56,7 +56,7 @@ function readInstruction () {
       class="btn-read-instruction text-center"
     >
       <div
-        class="fr-col-11 fr-col-lg-6 fr-mx-auto"
+        class="fr-col-11 fr-col-lg-6 mx-auto"
       >
         <UploadButton
           ref="fileInput"
@@ -83,6 +83,7 @@ function readInstruction () {
 </template>
 
 <style scoped>
+
 .fr-alert {
   margin-top: 9em;
 }

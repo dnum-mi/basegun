@@ -65,7 +65,7 @@ onMounted(() => {
               title="Avertissement cartouches factices"
               description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
             />
-            <div class="d-flex">
+            <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
                 alt="exemple de magasin transparent"
@@ -96,13 +96,13 @@ onMounted(() => {
     </Teleport>
     <p
       v-if="typology === 'revolver'"
-      class="fr-mt-3"
+      class="mt-3"
     >
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
     <p
       v-else
-      class="fr-mt-3"
+      class="mt-3"
     >
       Sélectionner le type de munition du chargeur<span
         v-if="typology === 'autre_epaule'"

@@ -29,7 +29,7 @@ const zoomOn = (imgValue) => {
 <template>
   <div class="instructions">
     <p
-      class="fr-mt-3"
+      class="mt-3"
       v-html="guideFacticeSelectOption[`${typology}_text_option`]"
     />
   </div>
@@ -94,7 +94,7 @@ const zoomOn = (imgValue) => {
   justify-content: center;
 }
 
- :deep(.fr-modal__content) {
+ :deep(.modal__content) {
   padding-left: 1rem;
 }
 

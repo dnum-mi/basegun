@@ -86,8 +86,8 @@ async function sendLogsIdentificationDummy () {
 </script>
 
 <template>
-  <div class="fr-mx-auto fr-col-11 fr-col-lg-6 d-flex justify-between">
-    <div class="fr-m-3 ps-0">
+  <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
+    <div class="my-4">
       <router-link
         v-slot="{navigate}"
         class="go-result"
@@ -98,12 +98,12 @@ async function sendLogsIdentificationDummy () {
           scale="0.8"
         />
         <span
-          class="fr-px-2"
+          class="px-2"
           @click="navigate()"
         >Retour au résultat</span>
       </router-link>
     </div>
-    <div class="fr-m-2">
+    <div class="m-2">
       <router-link
         :to="{ name: 'Start' }"
       >
@@ -130,7 +130,7 @@ async function sendLogsIdentificationDummy () {
       class="footer-background"
     >
       <div
-        class="fr-col-11 fr-col-lg-6 footer-actions fr-mx-auto"
+        class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
       >
         <DsfrButton
           class="m-1 flex justify-center"

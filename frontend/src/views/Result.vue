@@ -230,7 +230,7 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="img"
-        class="fr-col-11 fr-col-lg-6 fr-mx-auto text-center"
+        class="fr-col-11 fr-col-lg-6 mx-auto text-center"
       >
         <router-link
           v-slot="{navigate}"
@@ -239,7 +239,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="fr-mx-3 fr-my-1 flex justify-center"
+            class="mx-3 my-1 flex justify-center"
             label="Reprendre une photo"
             icon="ri-camera-fill"
             :icon-right="true"
@@ -254,7 +254,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="fr-mx-3 fr-my-1 flex justify-center"
+            class="mx-3 my-1 flex justify-center"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
             :icon-right="true"
