@@ -1,6 +1,11 @@
 
 on:
   workflow_call:
+
+jobs:
+  deployment:
+    name: Update deployment
+    runs-on: ubuntu-20.04
     steps:
     - name: Checkout branch
       uses: actions/checkout@v2
