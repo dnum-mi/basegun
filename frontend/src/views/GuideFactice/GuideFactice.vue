@@ -62,15 +62,16 @@ watchEffect(() => {
     router.push({ name: 'Start' })
   }
 })
-async function sendLogsIfFactice () {
+async function sendLogsIdentificationDummy () {
   const json = {
     image_url: imgUrl.value,
     confidence: confidence.value,
     label: typology.value,
     confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.selectedAmmo,
+    tutorial_option: stepsStore.selectedOption,
+    is_factice: stepsStore.isFactice,
   }
-  await axios.post('/identification-dummy', json, { 'content-type': 'text/plain' })
+  await axios.post('/identification-dummy', json)
     .then(async res => {
       console.log(res)
     })
@@ -152,7 +153,7 @@ async function sendLogsIfFactice () {
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"
-          @click=" sendLogsIfFactice()"
+          @click=" sendLogsIdentificationDummy()"
         />
       </div>
     </div>
