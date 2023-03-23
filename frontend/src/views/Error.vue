@@ -1,6 +1,6 @@
 <template>
   <div class="fr-container">
-    <div class="centered text-center fr-m-4">
+    <div class="centered text-center m-4">
       <h1>Erreur</h1>
       <p>Une erreur est survenue dans le traitement de votre requête.</p>
       <p>
