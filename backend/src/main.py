@@ -332,9 +332,10 @@ async def log_identification_dummy(request: Request, user_id: Union[str, None] =
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
 
-    extras_logging["bg_dummy_bool"] = res["is_factice"], # to know if the firearm is dummy or real
+    # to know if the firearm is dummy or real
+    extras_logging["bg_dummy_bool"] = res["is_factice"]
     for key in ["image_url", "label", "confidence", "confidence_level", "tutorial_option"]:
-        extras_logging["bg_"+key] = res[key],
+        extras_logging["bg_"+key] = res[key]
 
     logger.info("Identification dummy", extra=extras_logging)
     return
