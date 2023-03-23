@@ -1,0 +1,23 @@
+
+on:
+  workflow_call:
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+
+    - name: Install yq
+      run: |
+        wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+
+    - name: Update Infra Version 
+      run: |
+          export TAG=$(make get-current-tag)
+          yq -i '.backend.image.tag = strenv(TAG)' ./infra/kube/basegun/values.yaml
+          yq -i '.frontend.image.tag = strenv(TAG)' ./infra/kube/basegun/values.yaml
+          
+    - name: Commit and push changes
+      uses: devops-infra/action-commit-push@v0.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        commit_prefix: [skip ci]
+        commit_message: Version updated

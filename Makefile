@@ -15,6 +15,9 @@ show-current-tag:
 	done ; \
 	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
 
+get-current-tag:
+	@echo ${TAG}
+
 check-prerequisites:
 ifeq ("$(wildcard ${DOCKER})","")
 	@echo "docker not found" ; exit 1
