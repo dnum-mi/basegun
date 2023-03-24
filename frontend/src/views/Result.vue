@@ -179,6 +179,12 @@ function sendFeedback (isCorrect) {
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
         <div
+          v-if="isFeedbackDone"
+          class="snackbar text-center"
+        >
+          <SnackbarAlert class="text-center" />
+        </div>
+        <div
           :aria-disabled="isFeedbackDone"
           class="feedback"
         >
@@ -218,12 +224,6 @@ function sendFeedback (isCorrect) {
             </label>
           </div>
         </div>
-      </div>
-      <div
-        v-if="isFeedbackDone"
-        class="snackbar text-center"
-      >
-        <SnackbarAlert class="text-center" />
       </div>
       <div class="blank" />
     </div>
