@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: basegun-frontend #{{ include "basegun.FrontFullname" . }}
+  name: {{ include "basegun.FrontFullname" . }}
   labels:
     {{- include "basegun.FrontLabels" . | nindent 4 }}
 spec:
@@ -17,7 +17,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: basegun-backend #{{ include "basegun.BackFullname" . }}
+  name: {{ include "basegun.BackFullname" . }}
   labels:
     {{- include "basegun.BackLabels" . | nindent 4 }}
 spec:

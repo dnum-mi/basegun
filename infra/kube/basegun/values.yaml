@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: "basegun"
 ingress:
   enabled: true
   className: ""
