@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 #{{- $fullName := include "basegun.chart" . -}}
-{{- $fullName := "basegun-frontend" -}}
 {{- $svcPort := .Values.frontend.service.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -16,7 +15,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: "{{ $fullName }}-ingress"
+  name: "basegun-ingress"
   labels:
     {{- include "basegun.FrontLabels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -50,11 +49,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: "basegun-frontend"
                 port:
                   number: {{ $svcPort }}
               {{- else }}
-              serviceName: {{ $fullName }}
+              serviceName: "basegun-frontend"
               servicePort: {{ $svcPort }}
               {{- end }}
           {{- end }}
