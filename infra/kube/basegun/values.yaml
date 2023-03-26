@@ -7,9 +7,9 @@ fullnameOverride: ""
 ingress:
   enabled: true
   className: ""
-  annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+  #annotations:
+    #traefik.ingress.kubernetes.io/router.tls: "true"
+    #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
     - host: kube.basegun.fr
       paths:
