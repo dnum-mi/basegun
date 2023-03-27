@@ -12,8 +12,8 @@ defineProps({
 
 <template>
   <div
-    class="centered animated"
-    :class="{fadeout: !isLoading }"
+    class="centered"
+    :class="{fadeout: isLoading, animated: isLoading }"
   >
     <div class="text-center">
       <img
@@ -33,7 +33,7 @@ defineProps({
   }
 
   .animated {
-    animation-duration: 10s;
+    animation-duration: 2s;
   }
 
   @keyframes fadeout {
@@ -45,5 +45,6 @@ defineProps({
 
   .loader {
     width: 60%;
+    max-width: 200px;
   }
 </style>
