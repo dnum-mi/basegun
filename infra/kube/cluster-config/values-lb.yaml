@@ -1,0 +1,59 @@
+certResolvers:
+  le:
+    email: datalab@interieur.gouv.fr
+    httpChallenge:
+      entryPoint: "web"
+    storage: /tmp/acme.json
+    #caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+persistence:
+  enabled: true
+  name: external-traefik
+  accessMode: ReadWriteOnce
+  storageClass: csi-cinder-classic
+  size: 1Gi
+  path: /data
+
+
+service:
+  enabled: true
+
+providers:
+  kubernetesIngress:
+    ingressClass: traefik-external
+    publishedService:
+      enabled: true
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+
+ports:
+  web:
+    redirectTo: websecure
+  websecure:
+    tls:
+      certResolver: le
+
+deployment:
+  # Can be either Deployment or DaemonSet
+  kind: Deployment
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 0
+
+logs:
+  general:
+    # Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+    level: INFO
+  access:
+    # To enable access logs
+    enabled: true
+    ## By default, logs are written using the Common Log Format (CLF) on stdout.
+    ## To write logs in JSON, use json in the format option.
+    ## If the given format is unsupported, the default (CLF) is used instead.
+    # format: json
+    filePath: "/data/logs/access.log"
+

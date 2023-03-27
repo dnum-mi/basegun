@@ -1,7 +1,34 @@
 
 on:
   workflow_call:
-
+    inputs:
+      secret_name:
+        required: true
+        type: string
+        description: "Secret name in kubernetes cluster"
+        default: "basegun-secret"
+      namespace:
+        required: true
+        type: string
+        description: "Namespace name in kubernetes cluster"
+        default: "basegun"  
+    secrets:
+      sa_secret:
+        description: 'Service account secret (run kubectl get serviceaccounts <service-account-name> -o yaml and copy the service-account-secret-name)'
+        required: true
+      cluster_url:
+        description: 'Cluster Url'
+        required: true
+      API_OVH_TOKEN:
+        required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      X_OVH_TOKEN:
+        required: true
 jobs:
   deployment:
     name: Update deployment
@@ -9,6 +36,27 @@ jobs:
     steps:
     - name: Checkout branch
       uses: actions/checkout@v2
+
+    - uses: azure/k8s-set-context@v3
+      with:
+        method: service-account
+        k8s-url: ${{ secrets.cluster_url }}
+        k8s-secret: ${( secrets.sa_secret )}
+
+    - name: Create secret for Kubernetes
+      uses: azure/k8s-create-secret@v2
+      with:
+        namespace: ${{ inputs.namespace }}
+        secret-type: 'generic'
+        secret-name: ${{ inputs.secret_name }}
+        stringData: |-
+          {
+          "OS_PASSWORD": ${{ secrets.OS_PASSWORD }}, 
+          "OS_PROJECT_NAME": ${{ secrets.OS_PROJECT_NAME }},
+          "OS_USERNAME": ${{ secrets.OS_USERNAME }}, 
+          "X_OVH_TOKEN": ${{ secrets.X_OVH_TOKEN }},
+          "API_OVH_TOKEN": ${{ secrets.API_OVH_TOKEN }}
+          }
 
     - name: Install yq
       run: |
@@ -25,4 +73,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         commit_prefix: "[skip ci]"
-        commit_message: Version updated
+        commit_message: "Version updated"

@@ -70,7 +70,7 @@ backend:
     #values:
     #  OS_PASSWORD: ""
     #  OS_PROJECT_NAME: ""
-    # OS_USERNAME: ""
+    #  OS_USERNAME: ""
     #  X_OVH_TOKEN: "test"
     #  API_OVH_TOKEN: "test"
     secretName: "basegun-secret"
