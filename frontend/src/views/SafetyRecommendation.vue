@@ -32,7 +32,7 @@ function setGender () {
   <div class="fr-container">
     <div class="result col-11 col-lg-6 mt-5">
       <h3>
-        Vérifier si <span>{{ setGender() }} {{ cleanLabel }}</span> est factice
+        Vérifier si {{ setGender() }} <span class="text-orange">{{ cleanLabel }}</span> est factice
       </h3>
 
       <p class="text-tutorial">

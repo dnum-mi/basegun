@@ -6,7 +6,7 @@ const router = useRouter()
 const logoText = [
   'Ministère',
   'de l’intérieur',
-  'et de l\'Outre-Mer',
+  'et des Outre-Mer',
 ]
 
 const quickLinks = [
@@ -28,15 +28,40 @@ function onClickOnLogo () {
   router.push({ name: 'Start' })
 }
 
+function onClickOnInfo () {
+  router.push({ name: 'Home' })
+}
+
 </script>
 
 <template>
-  <div>
+  <div style="position: relative;">
     <DsfrHeader
-      v-model="modelValue"
       :quick-links="quickLinks"
       :logo-text="logoText"
       @click="onClickOnLogo"
     />
+    <span
+      class="information fr-icon-info-fill"
+      aria-hidden="true"
+      @click="onClickOnInfo"
+    />
   </div>
 </template>
+
+<style scoped>
+  .information {
+    position: absolute;
+    top: 40%;
+    right: 32%;
+    z-index: 999;
+    color: #000091;
+    cursor: pointer;
+  }
+@media (max-width: 1024px) {
+  .information {
+    top: 12%;
+    right: 12%;
+  }
+}
+</style>
