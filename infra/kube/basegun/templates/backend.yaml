@@ -81,7 +81,7 @@ spec:
                 path: filebeat.yml
         - name: {{ include "basegun.name" . }}-secret
           secret:
-            secretName: {{ include "basegun.name" . }}-secret
+            secretName: {{ .Values.backend.secret.secretName }}
         - name: logs
           emptyDir: {}
 
