@@ -159,4 +159,7 @@ export default {
   margin: 0 auto;
 }
 
+:deep(.swiper-pagination-bullet-active[aria-label="Go to slide 2"]) {
+  background: #ff1d1d;
+}
 </style>
