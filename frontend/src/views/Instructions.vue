@@ -5,11 +5,11 @@ import UploadButton from '@/components/UploadButton.vue'
 import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
 import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
-const instructions = [
-  '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-  "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-  "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-]
+// const instructions = [
+//   '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
+//   "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
+//   "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
+// ]
 
 const uploadMessage = ref('')
 const fileInput = ref(null)
@@ -21,19 +21,17 @@ function readInstruction () {
 
 <template>
   <div
-    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6  fr-col-sm-9  mx-auto"
+    class="info col-lg-6  col-xs-9  mx-auto"
   >
-    <div class="fr-alert fr-alert--info">
-      <h3 class="fr-alert__title">
-        Pour un résultat optimal
-      </h3>
-      <span
-        v-for="instruction in instructions"
-        :key="instruction.id"
-        class="m-auto-lg lg:flex flex-wrap"
-        v-html="instruction"
-      />
-    </div>
+    <DsfrNotice
+      class="my-4"
+      title="Pour un résultat optimal"
+    >
+      <p>Pour un resultat optimal</p>
+      <p>1 - Présenter le canon vers la droite</p>
+      <p>2 - Ne photographier qu'une seule arme</p>
+      <p>3 - Placer l'arme en entier et centrée</p>
+    </DsfrNotice>
 
     <div class="container-img  lg:flex">
       <DsfrPicture
@@ -104,6 +102,10 @@ function readInstruction () {
 
 :deep(.fr-content-media) {
   margin: 1rem auto;
+}
+
+:deep(.fr-notice__body) {
+  padding: 0 .5rem 0 2.5rem;
 }
 
 .container-img {

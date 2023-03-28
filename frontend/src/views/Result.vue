@@ -81,24 +81,29 @@ function sendFeedback (isCorrect) {
       >
         <div v-if="confidenceLevel === 'low'">
           <div class="callout-head">
-            <p class="fr-tag fr-tag--sm error-tag">
-              Indice de fiabilité insuffisant
-            </p>
+            <DsfrTag
+              class="fr-tag--sm error-tag"
+              label="Indice de fiabilité insuffisant"
+            />
           </div>
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
           <div v-if="confidenceLevel === 'high'">
             <div class="callout-head">
-              <p class="fr-tag fr-tag--sm success-tag">
+              <DsfrTag
+                class="fr-tag--sm success-tag"
+              >
                 Indice de fiabilité : {{ Math.floor(confidence) }}%
-              </p>
+              </DsfrTag>
             </div>
           </div>
           <div v-else>
-            <p class="fr-tag fr-tag--sm warning-tag">
+            <DsfrTag
+              class="fr-tag--sm warning-tag"
+            >
               Indice de fiabilité : {{ Math.floor(confidence) }}%
-            </p>
+            </DsfrTag>
             <p class="warning-text">
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
             </p>
