@@ -16,7 +16,7 @@ const instructions = ref([
 ])
 
 const typology = computed(() => resultStore.typology)
-const cleanLabel = computed(() => results[typology.value]?.displayLabel)
+const label = computed(() => results[typology.value]?.displayLabel)
 
 function setTutorialStep () {
   stepsStore.setCurrentStep(1)
@@ -27,7 +27,7 @@ function setTutorialStep () {
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
       <h3>
-        Vérifier si votre {{ cleanLabel }} est factice
+        Vérifier si votre {{ label }}</span> est factice
       </h3>
 
       <p class="text-tutorial">
