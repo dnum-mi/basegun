@@ -27,7 +27,7 @@ function setTutorialStep () {
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
       <h3>
-        Vérifier si votre {{ label }}</span> est factice
+        Vérifier si votre {{ label }} est factice
       </h3>
 
       <p class="text-tutorial">
