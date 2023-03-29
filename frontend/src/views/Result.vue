@@ -40,7 +40,7 @@ const cleanMention = computed(() => results[typology.value]?.isFacticeTypology =
 const cleanTypology = computed(() => results[typology.value]?.isFacticeTypology === true)
 
 function keepingLastStep () {
-  stepsStore.setCurrentStep(guideSteps.value.length)
+  stepsStore.setCurrentStep(guideSteps.length)
 }
 
 function sendFeedback (isCorrect) {
@@ -57,7 +57,7 @@ function sendFeedback (isCorrect) {
   } else {
     isDown.value = true
   }
-  axios.post('/feedback', json)
+  axios.post('/identification-feedback', json)
     .then(async res => {
       console.log(res)
       setMessage({ type: 'success', message: 'Votre vote a été pris en compte' })

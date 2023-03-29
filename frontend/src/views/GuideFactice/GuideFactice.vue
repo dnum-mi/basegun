@@ -7,6 +7,7 @@ import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
+import axios from 'axios'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
@@ -17,6 +18,11 @@ const router = useRouter()
 const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
 const tutorialInterupt = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'))
+
+const imgUrl = computed(() => resultStore.imgUrl)
+const confidence = computed(() => resultStore.confidence)
+const confidenceLevel = computed(() => resultStore.confidenceLevel)
+const typology = computed(() => resultStore.typology)
 
 const currentStep = computed({
   get () {
@@ -39,7 +45,7 @@ const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
     : tutorialInterupt.value === true
-      ? router.push({ name: 'EndTutorial' })
+      ? router.push({ name: 'StopTutorial' })
       : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
@@ -56,6 +62,26 @@ watchEffect(() => {
     router.push({ name: 'Start' })
   }
 })
+async function sendLogsIdentificationDummy () {
+  const json = {
+    image_url: imgUrl.value,
+    confidence: confidence.value,
+    label: typology.value,
+    confidence_level: confidenceLevel.value,
+    tutorial_option: stepsStore.selectedOption,
+    is_factice: stepsStore.isFactice,
+  }
+  await axios.post('/identification-dummy', json)
+    .then(async res => {
+      console.log(res)
+    })
+    .catch(async err => {
+      console.log(err)
+    })
+    .finally(async res => {
+      router.push({ name: 'Result' }).catch(() => {})
+    })
+}
 
 </script>
 
@@ -92,7 +118,7 @@ watchEffect(() => {
   <div class="result col-11 col-lg-6">
     <div>
       <StepsGuide
-        v-if="route.name !== 'EndTutorial'"
+        v-if="route.name !== 'StopTutorial'"
         class="steps-guide"
         :steps="steps"
         :current-step="currentStep"
@@ -100,7 +126,7 @@ watchEffect(() => {
       <RouterView />
     </div>
     <div
-      v-if="route.name !== 'EndTutorial'"
+      v-if="route.name !== 'StopTutorial'"
       class="footer-background"
     >
       <div
@@ -127,7 +153,7 @@ watchEffect(() => {
           class="m-1 flex justify-content-center"
           label="Valider"
           :disabled="disabledValidation"
-          @click="router.push({name: 'Result'})"
+          @click=" sendLogsIdentificationDummy()"
         />
       </div>
     </div>
