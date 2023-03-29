@@ -47,7 +47,7 @@ const imgs = ref([
           >Entrepreneurs d’Intérêt Général</a>.
         </p>
         <p>
-          Il est actuellement piloté par le Datalab de la Direction du Numérique du Ministère de l'Intérieur,
+          Il est actuellement piloté par le Datalab de la Direction du Numérique du Ministère de l'Intérieur et des Outre-Mer,
           en partenariat avec le Service Central des Armes et Explosifs. La Direction Générale de la Police Nationale
           et la Direction Générale de la Gendarmerie Nationale sont associées pour les tests et le suivi de l'application.
         </p>
