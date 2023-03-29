@@ -9,7 +9,7 @@
         <h3 class="title-space">
           Editeur
         </h3>
-        <p>Le site basegun.fr est édité et géré par l’équipe du Laboratoire de la Donnée, à la Sous-Direction Innovation et Transformation Numérique, Direction du Numérique du Ministère de l’Intérieur.</p>
+        <p>Le site basegun.fr est édité et géré par l’équipe du Laboratoire de la Donnée, à la Sous-Direction Innovation et Transformation Numérique, Direction du Numérique du Ministère de l’Intérieur et des Outre-Mer.</p>
         <p>Adresse : 40 avenue des Terroirs de France, 75012 PARIS.</p>
 
         <h3 class="title-space">
