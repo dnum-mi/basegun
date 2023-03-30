@@ -1,21 +1,20 @@
 <script setup>
-import ContactInformationTabs from '@/views/InformationTabs/ContactInformationTabs.vue'
 </script>
 
 <template>
   <div>
-    <div class="content">
+    <div class="fr-container mt-4">
       <h2>Contact</h2>
-      <ContactInformationTabs />
+      <div>
+        <p class="title-space">
+          Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a href="mailto:basegun@interieur.gouv.fr">basegun@interieur.gouv.fr</a>.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-  .content {
-    margin: min(5vw, 10rem);
-  }
-
   .title-space {
     margin-top: 20px;
   }
