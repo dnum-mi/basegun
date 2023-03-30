@@ -1,6 +1,5 @@
 <script setup>
 import OnboardingSwiper from '@/components/OnboardingSwiper.vue'
-
 </script>
 
 <template>

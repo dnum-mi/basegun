@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.8.5",
-    "@gouvminint/vue-dsfr": "3.2.0",
+    "@gouvminint/vue-dsfr": "3.3.0",
     "@vue/compat": "^3.2.47",
     "@vueuse/core": "^9.12.0",
     "axios": "^0.27.2",
