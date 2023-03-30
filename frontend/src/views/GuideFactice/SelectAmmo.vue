@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -38,14 +38,8 @@ function closeModal () {
 
 function openModal () {
   showModal.value = true
-  useStepsStore.isOpened = true
+  useStepsStore.isModalTransparentAmmoOpened = true
 }
-
-onMounted(() => {
-  if (useStepsStore.isOpened === undefined) {
-    openModal()
-  } else { showModal.value = false }
-})
 
 </script>
 

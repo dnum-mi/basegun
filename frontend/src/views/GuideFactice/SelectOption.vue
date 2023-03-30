@@ -5,6 +5,7 @@ import { guideFacticeSelectOption } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
+import { onBeforeRouteLeave } from 'vue-router'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -24,6 +25,7 @@ const zoom = ref('')
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
+
 </script>
 
 <template>

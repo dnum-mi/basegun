@@ -5,12 +5,6 @@ import UploadButton from '@/components/UploadButton.vue'
 import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
 import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
-// const instructions = [
-//   '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-//   "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-//   "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-// ]
-
 const uploadMessage = ref('')
 const fileInput = ref(null)
 
@@ -23,15 +17,18 @@ function readInstruction () {
   <div
     class="info col-lg-6  col-xs-9  mx-auto"
   >
-    <DsfrNotice
-      class="my-4"
-      title="Pour un résultat optimal"
-    >
-      <p>Pour un resultat optimal</p>
-      <p>1 - Présenter le canon vers la droite</p>
-      <p>2 - Ne photographier qu'une seule arme</p>
-      <p>3 - Placer l'arme en entier et centrée</p>
-    </DsfrNotice>
+    <div class="fr-notice fr-notice--info">
+      <div class="fr-container">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title">
+            Pour un résultat optimal
+          </p>
+          <p>1 - Présenter le <b>canon vers la droite</b></p>
+          <p>2 - Ne photographier qu'<b>une seule</b> arme</p>
+          <p>3 - Placer l'arme <b>en entier</b> et <b>centrée</b></p>
+        </div>
+      </div>
+    </div>
 
     <div class="container-img  lg:flex">
       <DsfrPicture

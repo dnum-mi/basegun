@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watchEffect } from 'vue'
+import { computed, watchEffect, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
@@ -62,6 +62,7 @@ watchEffect(() => {
     router.push({ name: 'Start' })
   }
 })
+
 async function sendLogsIdentificationDummy () {
   const json = {
     image_url: imgUrl.value,
@@ -83,6 +84,14 @@ async function sendLogsIdentificationDummy () {
     })
 }
 
+// zoom autorisé sur toutes les vues du guide factice
+const metaViewport = document.querySelector('meta[name="viewport"]')
+onMounted(() => {
+  if (metaViewport) {
+    metaViewport.setAttribute('content', 'initial-scale=1, maximum-scale=3, user-scalable=yes')
+  }
+})
+onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no') })
 </script>
 
 <template>
