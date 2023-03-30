@@ -15,7 +15,7 @@ function readInstruction () {
 
 <template>
   <div
-    class="info col-lg-6  col-xs-9  mx-auto"
+    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >
     <div class="fr-notice fr-notice--info">
       <div class="fr-container">
@@ -23,9 +23,9 @@ function readInstruction () {
           <p class="fr-notice__title">
             Pour un résultat optimal
           </p>
-          <p>1 - Présenter le <b>canon vers la droite</b></p>
-          <p>2 - Ne photographier qu'<b>une seule</b> arme</p>
-          <p>3 - Placer l'arme <b>en entier</b> et <b>centrée</b></p>
+          <p>1 - Présenter le <span class="bold-highlight">canon vers la droite</span></p>
+          <p>2 - Ne photographier qu'<span class="bold-highlight">une seule</span> arme</p>
+          <p>3 - Placer l'arme <span class="bold-highlight">en entier</span> et <span class="bold-highlight">centrée</span></p>
         </div>
       </div>
     </div>
