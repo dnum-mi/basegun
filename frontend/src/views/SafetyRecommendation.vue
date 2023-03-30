@@ -21,18 +21,13 @@ const cleanLabel = computed(() => results[typology.value]?.displayLabel)
 function setTutorialStep () {
   stepsStore.setCurrentStep(1)
 }
-
-function setGender () {
-  return cleanLabel.value.includes('arme') ? 'une' : 'un'
-}
-
 </script>
 
 <template>
   <div class="fr-container">
     <div class="result col-11 col-lg-6 mt-5">
       <h3>
-        Vérifier si {{ setGender() }} <span class="text-orange">{{ cleanLabel }}</span> est factice
+        Vérifier si votre {{ cleanLabel }} est factice
       </h3>
 
       <p class="text-tutorial">
