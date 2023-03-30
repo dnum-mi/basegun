@@ -7,7 +7,6 @@ import { useStepsStore } from '@/stores/steps.js'
 
 const Home = () => import('@/views/Home.vue')
 const Start = () => import('@/views/Start.vue')
-const Informations = () => import('@/views/Informations.vue')
 const Instructions = () => import('@/views/Instructions.vue')
 const Result = () => import('@/views/Result.vue')
 const Error = () => import('@/views/Error.vue')
@@ -22,7 +21,7 @@ const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
 const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
-const EndTutorial = () => import('@/views/GuideFactice/EndTutorial.vue')
+const StopTutorial = () => import('@/views/GuideFactice/StopTutorial.vue')
 
 const routes = [
   {
@@ -95,19 +94,11 @@ const routes = [
         component: SelectAmmo,
       },
       {
-        path: 'fin-tutoriel',
-        name: 'EndTutorial',
-        component: EndTutorial,
+        path: 'stop-tutoriel',
+        name: 'StopTutorial',
+        component: StopTutorial,
       },
     ],
-  },
-  {
-    path: '/informations',
-    name: 'Informations',
-    meta: {
-      displayHeader: true,
-    },
-    component: Informations,
   },
   {
     path: '/resultat',

@@ -1,49 +1,23 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-// import { ref } from 'vue'
 import { useAppStore } from './stores/app.js'
 import HeaderMain from './components/HeaderMain.vue'
-
-// const needRefresh = ref(false)
 
 const appStore = useAppStore()
 
 registerSW({ immediate: true })
 
-// const updateSW = registerSW({
-//   immediate: true,
-//   onNeedRefresh () {
-//     needRefresh.value = true
-//   },
-//   onOfflineReady () {},
-// })
 </script>
 
 <template>
   <HeaderMain v-show="appStore.displayHeader" />
-  <!-- <DsfrCallout
-    v-show="needRefresh"
-    class="col-lg-6  mx-auto  refresh"
-    content=""
-    title="Une mise à jour est disponible"
-  >
-    <DsfrButton
-      secondary
-      @click="updateSW()"
-    >
-      Mettre à jour
-    </DsfrButton>
-  </DsfrCallout> -->
   <router-view />
 </template>
 
 <style scoped>
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* text-align: center; */
   color: #2c3e50;
 }
 

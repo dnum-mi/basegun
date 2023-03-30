@@ -25,7 +25,7 @@ const modules = [Navigation, Pagination, A11y]
       <div class="swiper-content">
         <ul class="swiper-ul fr-text--md">
           <li class="swiper-li">
-            Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur.
+            Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur et des Outre-Mer.
           </li>
           <li class="swiper-li">
             A ce jour, Basegun <span class="swiper-green-highlight">prend en compte uniquement </span> l'identification d'<span class="swiper-green-highlight">armes à feu létales</span> et d'<span class="swiper-green-highlight">armes factices type airsoft</span>.
@@ -145,4 +145,7 @@ const modules = [Navigation, Pagination, A11y]
   margin: 0 auto;
 }
 
+:deep(.swiper-pagination-bullet-active[aria-label="Go to slide 2"]) {
+  background: #ff1d1d;
+}
 </style>
