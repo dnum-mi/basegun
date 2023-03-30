@@ -28,32 +28,39 @@ function onClickOnLogo () {
   router.push({ name: 'Start' })
 }
 
-function onClickOnInfo () {
+function onClickOnInfo (event) {
+  event.stopPropagation()
   router.push({ name: 'Home' })
 }
 
 </script>
 
 <template>
-  <div style="position: relative;">
-    <DsfrHeader
-      :quick-links="quickLinks"
-      :logo-text="logoText"
-      @click="onClickOnLogo"
-    />
+  <DsfrHeader
+    :quick-links="quickLinks"
+    :logo-text="logoText"
+    @click="onClickOnLogo"
+  >
     <span
-      class="information fr-icon-info-fill"
+      class="information fr-icon-info-line"
       aria-hidden="true"
       @click="onClickOnInfo"
     />
-  </div>
+  </DsfrHeader>
 </template>
 
 <style scoped>
+  :deep(.fr-container) {
+    position: relative;
+  }
+
+    :deep(.fr-header__navbar .fr-btn--menu) {
+      color : var(--text-action-high-blue-france);
+    }
   .information {
     position: absolute;
     top: 40%;
-    right: 32%;
+    right: 30%;
     z-index: 999;
     color: #000091;
     cursor: pointer;
