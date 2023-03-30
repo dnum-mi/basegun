@@ -4,11 +4,6 @@ import axios from 'axios'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 
-// TODO: voir avec le back comment créer un proxy vers cette API
-const API_KEY = import.meta.env.VITE_IPGEOLOCATION_API_KEY
-const API_URL = import.meta.env.VITE_IPGEOLOCATION_API_URL
-const url = `${API_URL}?apiKey=${API_KEY}`
-
 const resultStore = useResultStore()
 const router = useRouter()
 
@@ -109,7 +104,7 @@ function onFileSelected (event) {
   const uploadedFile = event.target.files[0]
 
   // get user geolocation
-  axios.get(url, { withCredentials: false })
+  axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
     .then(res => {
       const latitude = randomCoord(res.data.latitude)
       const longitude = randomCoord(res.data.longitude)
