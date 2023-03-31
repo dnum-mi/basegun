@@ -8,10 +8,10 @@ const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const instructions = ref([
   '<ul>',
-  "<li>Une arme doit toujours être <span class='text-orange'>considérée comme chargée</span>. </li>",
-  "<li>En cas de doute, <span class='text-orange'>s’arrêter et faire appel à un expert.</span></li>",
-  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='text-orange'>mise en sécurité.</span></li>",
-  "<li>Veiller à la préservation des <span class='text-orange'>traces et indices </span> éventuels lors des manipulations.</li>",
+  "<li>Une arme doit toujours être <span class='bold-highlight text-orange-700'>considérée comme chargée</span>. </li>",
+  "<li>En cas de doute, <span class='bold-highlight text-orange-700'>s’arrêter et faire appel à un expert.</span></li>",
+  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='bold-highlight text-orange-700'>mise en sécurité.</span></li>",
+  "<li>Veiller à la préservation des <span class='bold-highlight text-orange-700'>traces et indices </span> éventuels lors des manipulations.</li>",
   '</ul>',
 ])
 
@@ -25,7 +25,7 @@ function setTutorialStep () {
 
 <template>
   <div class="fr-container">
-    <div class="result col-11 col-lg-6 mt-5">
+    <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
       <h3>
         Vérifier si votre {{ cleanLabel }} est factice
       </h3>
@@ -48,13 +48,13 @@ function setTutorialStep () {
     <div class="blank" />
   </div>
   <div class="footer-background">
-    <div class="mx-auto col-11 col-lg-6">
+    <div class="mx-auto fr-col-11 fr-col-lg-6">
       <router-link
         v-slot="{navigate}"
         :to="{name: 'FirearmDirection'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-content-center"
+          class="mx-4 my-1 flex justify-center"
           label="Commencer"
           icon="ri-arrow-right-line"
           :icon-right="true"
@@ -66,7 +66,7 @@ function setTutorialStep () {
         :to="{name:'Result'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-content-center"
+          class="mx-4 my-1 flex justify-center"
           label="Retour au resultat"
           icon="ri-arrow-go-back-fill"
           :icon-right="true"
@@ -84,7 +84,6 @@ a {
 }
 
 .result {
-  margin: 0 auto;
   max-width: 1000px;
 }
 

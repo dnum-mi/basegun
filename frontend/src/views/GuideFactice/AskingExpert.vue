@@ -72,8 +72,8 @@ async function sendTutorialFeedback () {
       :opened="showModal"
       @close="onClose()"
     >
-      <div class="modale">
-        <div class="modale-content">
+      <div class="modal">
+        <div class="modal-content">
           <h2>
             <VIcon
               name="ri-arrow-right-line"
@@ -96,7 +96,7 @@ async function sendTutorialFeedback () {
           <SnackbarAlert class="text-center pt-3" />
         </div>
         <div class="blank" />
-        <div class="modale-footer">
+        <div class="modal-footer">
           <DsfrButton
             label="Valider et retour au résultat"
             :disabled="!stepsStore.tutorialFeedback"
@@ -119,17 +119,17 @@ async function sendTutorialFeedback () {
   margin: auto !important;
 }
 
-.modale {
+.modal {
   display: flex;
   flex-direction: column;
 }
 
-.modale-content {
+.modal-content {
   flex: 1;
   overflow-y: auto;
 }
 
-.modale-footer {
+.modal-footer {
   position: sticky;
   bottom: 0;
   text-align: center;
@@ -138,7 +138,7 @@ async function sendTutorialFeedback () {
   padding: 1rem !important;
   width: 100%;
 }
-.modale-footer button {
+.modal-footer button {
   width: 100%;
 }
 </style>

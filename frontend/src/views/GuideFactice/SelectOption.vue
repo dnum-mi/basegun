@@ -94,10 +94,6 @@ const zoomOn = (imgValue) => {
   justify-content: center;
 }
 
- :deep(.fr-modal__content) {
-  padding-left: 1rem;
-}
-
 :deep(.fr-radio-rich__img){
   width: 8.25rem;
 }

@@ -17,14 +17,13 @@ watch(route, closeSnackbar)
 </script>
 
 <template>
-  <transition name="fade">
+  <transition>
     <div
       v-show="show"
       class="mx-auto snackbar"
     >
+      <!-- class="shadow-md m-0" -->
       <DsfrAlert
-        class="shadow-md  m-0"
-        :class="type"
         :type="type"
         small
         data-testid="snackbar"

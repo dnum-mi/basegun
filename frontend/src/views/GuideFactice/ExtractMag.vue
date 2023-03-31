@@ -20,7 +20,7 @@ const typology = computed(() => resultStore.typology)
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology]?.text}`"
     />
-    <div class="col-sm-6 col-lg-12 mx-auto">
+    <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
           autoplay
@@ -37,7 +37,7 @@ const typology = computed(() => resultStore.typology)
       class="text-tutorial mt-3"
       v-html="`${guideFacticeSelectOption[typology][selectedOption]?.text}`"
     />
-    <div class="col-sm-6 col-lg-12 mx-auto">
+    <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
       <div class="fr-content-media">
         <video
           type="video/mp4"
@@ -66,7 +66,7 @@ const typology = computed(() => resultStore.typology)
   visibility: hidden;
 } */
 
-:deep(.fr-modal-content) {
+:deep(.modal-content) {
   overflow-y: scroll;
 }
 

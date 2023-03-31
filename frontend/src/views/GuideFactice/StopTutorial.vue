@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 col-lg-12 fr-container">
+  <div class="fr-col-sm-6 fr-col-lg-12 fr-container">
     <div class="centered text-center m-4">
       <h1>Fin de la démarche guidée</h1>
 

@@ -70,7 +70,7 @@ function sendFeedback (isCorrect) {
 </script>
 <template>
   <div>
-    <div class="result col-11 col-lg-6">
+    <div class="result fr-col-11 fr-col-lg-6">
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
@@ -230,7 +230,7 @@ function sendFeedback (isCorrect) {
     <div class="footer-background">
       <div
         v-show="img"
-        class="col-11 col-lg-6 mx-auto text-center"
+        class="fr-col-11 fr-col-lg-6 mx-auto text-center"
       >
         <router-link
           v-slot="{navigate}"
@@ -239,7 +239,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="mx-3 my-1 flex justify-content-center"
+            class="mx-3 my-1 flex justify-center"
             label="Reprendre une photo"
             icon="ri-camera-fill"
             :icon-right="true"
@@ -254,7 +254,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="mx-3 my-1 flex justify-content-center"
+            class="mx-3 my-1 flex justify-center"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
             :icon-right="true"
