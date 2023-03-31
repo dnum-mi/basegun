@@ -104,13 +104,15 @@ const modules = [Navigation, Pagination, A11y]
 
 :deep(.swiper-button-prev) {
   position: fixed;
-  top: 45%;
+  top: 50%;
+  left: 3%;
   color: #000091 !important;
 }
 
 :deep(.swiper-button-next) {
   position: fixed;
-  top: 45%;
+  top: 50%;
+  right: 3%;
   color: #000091 !important;
 }
 

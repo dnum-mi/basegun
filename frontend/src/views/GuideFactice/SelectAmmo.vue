@@ -58,8 +58,8 @@ onMounted(() => {
         :opened="showModal"
         @close="closeModal()"
       >
-        <div class="modale">
-          <div class="modale-contenu">
+        <div class="modal">
+          <div class="modal-content">
             <DsfrAlert
               type="warning"
               title="Avertissement cartouches factices"
@@ -82,7 +82,7 @@ onMounted(() => {
               />
             </div>
           </div>
-          <div class="modale-footer">
+          <div class="modal-footer">
             <DsfrButton
               class="full"
               label="Oui, c'est clair, je poursuis le tutoriel"
@@ -226,17 +226,17 @@ onMounted(() => {
   cursor: pointer;
 }
 
-.modale {
+.modal {
   display: flex;
   flex-direction: column;
 }
 
-.modale-contenu {
+.modal-content {
   flex: 1;
   overflow-y: auto;
 }
 
-.modale-footer {
+.modal-footer {
   position: sticky;
   bottom: 0;
   background-color: #f5f5fe;
