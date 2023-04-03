@@ -122,12 +122,17 @@ function openModal () {
             required
             name="selectedAmmo"
           />
-          <VIcon
+          <div
             class="zoom"
-            name="ri-zoom-in-line"
-            scale="1.25"
             @click="zoomOn(option.value)"
-          />
+          >
+            <VIcon
+              name="ri-zoom-in-line"
+              scale="1.25"
+              @click="zoomOn(option.value)"
+            />
+            <span class="zoom-label">zoomer</span>
+          </div>
           <Teleport to="body">
             <DsfrModal
               title=""
@@ -145,27 +150,36 @@ function openModal () {
         </div>
       </template>
     </div>
-    <p v-if="typology !== 'revolver'">
-      <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
-    </p>
-    <AskingExpert />
-    <div class="blank" />
   </div>
+  <p v-if="typology !== 'revolver'">
+    <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
+  </p>
+  <AskingExpert />
+  <div class="blank" />
 </template>
 
 <style scoped>
 
 .item {
   position: relative;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 
+.ov-icon {
+  vertical-align: -.39rem;
+}
 .zoom {
-  position: absolute;
-  top: 0.125em;
-  right: 0.125em;
   background-color: #eee9;
   cursor: zoom-in;
+  position: absolute;
+  bottom: 1.25rem;
+  right: 2.5rem;
+}
+
+.zoom-label {
+  right: -6rem;
+  bottom: 0;
+  padding: 0 .25rem;
 }
 
 :deep(.fr-container) {
@@ -204,7 +218,7 @@ function openModal () {
   white-space: pre-wrap;
 }
 .instructions {
-  padding-bottom: 2em;
+  padding-bottom: .5em;
 }
 
 .transparent-mag {
