@@ -46,12 +46,17 @@ const zoomOn = (imgValue) => {
           required
           name="selectedOption"
         />
-        <VIcon
-          class="zoom"
-          name="ri-zoom-in-line"
-          scale="1.25"
+        <div
+          class="zoom-position"
           @click="zoomOn(option.value)"
-        />
+        >
+          <VIcon
+            class="zoom"
+            name="ri-zoom-in-line"
+            scale="1.25"
+          />
+          <span class="zoom zoom-label">zoomer</span>
+        </div>
         <Teleport to="body">
           <DsfrModal
             title=""
@@ -80,12 +85,25 @@ const zoomOn = (imgValue) => {
   padding-bottom: 2em;
 }
 
-.zoom {
+.ov-icon {
+  vertical-align: -.39rem;
+}
+
+.zoom-position {
   position: absolute;
-  top: 0.125em;
-  right: 0.125em;
+  bottom: 2.25rem;
+  right: 7.5rem;
+}
+
+.zoom {
   background-color: #eee9;
   cursor: zoom-in;
+}
+
+.zoom-label {
+  /* left: 9.75em; */
+  background-color: none !important;
+  padding: 0 .25rem;
 }
 
 :deep(.fr-container) {
@@ -95,15 +113,19 @@ const zoomOn = (imgValue) => {
 }
 
 :deep(.fr-radio-rich__img){
-  width: 8.25rem;
+  width: 13.25rem;
+  height: 8rem;
 }
 
 :deep(.fr-radio-rich__img img){
-  width: 8rem;
+  width: 13rem;
+  height: 8rem;
   max-width: unset;
 }
 
 :deep(.fr-radio-rich input[type="radio"] + label){
+  align-items: flex-start;
+  min-height: 8.5rem;
   white-space: pre-wrap;
 }
 .instructions {
