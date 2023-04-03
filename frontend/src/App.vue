@@ -1,17 +1,43 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { registerSW } from 'virtual:pwa-register'
 import { useAppStore } from './stores/app.js'
 import HeaderMain from './components/HeaderMain.vue'
 
 const appStore = useAppStore()
 
+const online = ref(navigator.onLine)
+
+const updateOnlineStatus = () => {
+  online.value = navigator.onLine
+}
+
+onMounted(() => {
+  window.addEventListener('online', updateOnlineStatus)
+  window.addEventListener('offline', updateOnlineStatus)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('online', updateOnlineStatus)
+  window.removeEventListener('offline', updateOnlineStatus)
+})
+
 registerSW({ immediate: true })
 
 </script>
 
 <template>
-  <HeaderMain v-show="appStore.displayHeader" />
-  <router-view />
+  <HeaderMain v-show="appStore.displayHeader && online" />
+  <router-view v-if="online" />
+  <div v-else>
+    <HeaderMain />
+    <div class="fr-container">
+      <div class="centered text-center m-4">
+        <h1>Problème de connexion</h1>
+        <p>Vous n'avez pas accès à Internet.</p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
