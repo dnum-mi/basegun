@@ -116,7 +116,7 @@ function sendFeedback (isCorrect) {
               Objet, arme factice
             </p>
             <p class="mt-2 fr-callout__text">
-              <span class="bold-highlight">Typologie de référence : </span><br>{{ label }}
+              <span class="font-bold">Typologie de référence : </span><br>{{ cleanLabel }}
             </p>
             <div
               class="callout-mention"

@@ -109,11 +109,11 @@ async function sendTutorialFeedback () {
 </template>
 <style scoped>
 
-:deep(.fr-container) {
+/* :deep(.fr-container) {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 :deep(.fr-btn) span {
   margin: auto !important;

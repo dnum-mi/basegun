@@ -100,12 +100,12 @@ export const results = {
 }
 
 export const guideFacticeSelectOption = {
-  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : bouton à proximité <span class='bold-highlight'>du pontet du côté gauche de la poignée</span>, ou <span class='bold-highlight'>bouton sur le talon</span> de la crosse.",
+  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : bouton à proximité <span class='font-bold'>du pontet du côté gauche de la poignée</span>, ou <span class='font-bold'>bouton sur le talon</span> de la crosse.",
   pistolet_semi_auto_moderne: {
     pontet: {
       label: 'bouton \npontet',
       value: 'pontet',
-      text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight">extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      text: '<span class="font-bold">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="font-bold">extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: pistoletSemiAutoModerne1Img,
       video: pistoletSemiAutoModerne1Video,
     },
@@ -157,7 +157,7 @@ export const guideFacticeSelectOption = {
     bouton_poignee: {
       label: 'bouton \nà la base de \nla poignée',
       value: 'bouton_poignee',
-      text: '<span class="bold-highlight">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      text: '<span class="font-bold">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="font-bold"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: autreEpaulePistoletMitralleurImg,
       video: autreEpaulePistoletMitralleurVideo,
     },
@@ -167,7 +167,7 @@ export const guideFacticeSelectOption = {
     avec_chargeur: {
       label: 'chargeur \nprésent',
       value: 'avec_chargeur',
-      text: '<span class="bold-highlight">Appuyer sur le levier</span> avec le pouce de la main droite, puis <span class="bold-highlight"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
+      text: '<span class="font-bold">Appuyer sur le levier</span> avec le pouce de la main droite, puis <span class="font-bold"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: epaulAVerrou1Img,
       video: epaulAVerrou1Video,
     },
@@ -182,14 +182,14 @@ export const guideFacticeSelectOption = {
     bouton_tirer: {
       label: 'bouton \nà tirer',
       value: 'bouton_tirer',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="bold-highlight">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="bold-highlight">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="font-bold">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
       img: revolver1Img,
       video: revolver1Video,
     },
     bouton_pousser: {
       label: 'bouton \nà pousser',
       value: 'bouton_pousser',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="bold-highlight"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="bold-highlight">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="bold-highlight">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="font-bold">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
       img: revolver2Img,
       video: revolver2Video,
     },

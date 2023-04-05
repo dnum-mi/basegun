@@ -8,10 +8,10 @@ const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const instructions = ref([
   '<ul>',
-  "<li>Une arme doit toujours être <span class='bold-highlight text-orange-700'>considérée comme chargée</span>. </li>",
-  "<li>En cas de doute, <span class='bold-highlight text-orange-700'>s’arrêter et faire appel à un expert.</span></li>",
-  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='bold-highlight text-orange-700'>mise en sécurité.</span></li>",
-  "<li>Veiller à la préservation des <span class='bold-highlight text-orange-700'>traces et indices </span> éventuels lors des manipulations.</li>",
+  "<li>Une arme doit toujours être <span class='font-bold text-orange-700'>considérée comme chargée</span>. </li>",
+  "<li>En cas de doute, <span class='font-bold text-orange-700'>s’arrêter et faire appel à un expert.</span></li>",
+  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='font-bold text-orange-700'>mise en sécurité.</span></li>",
+  "<li>Veiller à la préservation des <span class='font-bold text-orange-700'>traces et indices </span> éventuels lors des manipulations.</li>",
   '</ul>',
 ])
 

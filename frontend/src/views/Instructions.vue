@@ -70,7 +70,7 @@ function readInstruction () {
       v-else
       class="text-center bold"
     >
-      <p class="loading bold-highlight">
+      <p class="loading font-bold">
         {{ uploadMessage }}
       </p>
     </div>
