@@ -24,11 +24,6 @@ import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autr
 import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
 import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
 import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
-import epaulAVerrou1Img from '@/assets/guide-factice/images/epaule_a_verrou/verrou_avec_chargeur_arrow2.jpg'
-import epaulAVerrou1Video from '@/assets/guide-factice/videos/verrou_sm.mp4'
-import epaulAVerrou2Img from '@/assets/guide-factice/images/epaule_a_verrou/verrou_sans_chargeur_arrow2.jpg'
-import epauleAverrouCartridges from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-cartridges.jpg'
-import epauleAverrouBalls from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-balls.jpg'
 
 export const results = {
   revolver: {
@@ -162,21 +157,6 @@ export const guideFacticeSelectOption = {
       video: autreEpaulePistoletMitralleurVideo,
     },
   },
-  epaule_a_verrou_text_option: 'Sélectionner le type de chargeur sur l’arme',
-  epaule_a_verrou: {
-    avec_chargeur: {
-      label: 'chargeur \nprésent',
-      value: 'avec_chargeur',
-      text: '<span class="font-bold">Appuyer sur le levier</span> avec le pouce de la main droite, puis <span class="font-bold"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
-      img: epaulAVerrou1Img,
-      video: epaulAVerrou1Video,
-    },
-    sans_chargeur: {
-      label: 'pas de \nchargeur \nprésent',
-      value: 'sans_chargeur',
-      img: epaulAVerrou2Img,
-    },
-  },
   revolver_text_option: 'Sélectionner ce que vous voyez sur l’arme',
   revolver: {
     bouton_tirer: {
@@ -220,26 +200,14 @@ export const guideFacticeSelectAmmo = {
       img_ammo: autreEpauleBalls,
     },
   },
-  epaule_a_verrou: {
-    cartouches: {
-      label: 'cartouches',
-      value: 'cartouches',
-      img_ammo: epauleAverrouCartridges,
-    },
-    billes: {
-      label: 'billes',
-      value: 'billes',
-      img_ammo: epauleAverrouBalls,
-    },
-  },
   revolver: {
     cartouches: {
-      label: 'la cartouche \npossède ou peut \nposséder une ogive',
+      label: 'balles',
       value: 'cartouches',
       img_ammo: revolverCartridges,
     },
     billes: {
-      label: 'la cartouche \ncontient ou peut \ncontenir des billes',
+      label: 'bille ou \ntrou à billes',
       value: 'billes',
       img_ammo: revolverBalls,
     },

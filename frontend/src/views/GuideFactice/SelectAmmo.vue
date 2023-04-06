@@ -62,9 +62,9 @@ function openModal () {
             <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
-                alt="exemple de magasin transparent"
+                alt="exemple de magasin transparent factice"
                 title="title"
-                legend="exemple de magasin transparent"
+                legend="exemple de magasin transparent factice"
                 ratio="3x4"
               />
               <DsfrPicture
