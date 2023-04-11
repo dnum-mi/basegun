@@ -1,5 +1,5 @@
 <template>
-  <div class="centered">
+  <div class="relative <md:top-12 lg:top-24">
     <div class="text-center">
       <img
         src="@/assets/basegun.png"

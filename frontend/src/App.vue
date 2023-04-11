@@ -60,8 +60,4 @@ registerSW({ immediate: true })
   color: #42b983;
 }
 
-.refresh {
-  z-index: 999 !important;
-}
-
 </style>
