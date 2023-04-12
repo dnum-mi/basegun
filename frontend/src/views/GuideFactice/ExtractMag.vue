@@ -51,7 +51,7 @@ const typology = computed(() => resultStore.typology)
     </div>
   </div>
   <AskingExpert />
-  <div class="blank" />
+  <div class="big-blank" />
 </template>
 
 <style scoped>
@@ -60,11 +60,6 @@ const typology = computed(() => resultStore.typology)
   align-items: center;
   justify-content: center;
 }
-
-/* :deep(.fr-content-media__caption) {
-  display:none !important;
-  visibility: hidden;
-} */
 
 :deep(.modal-content) {
   overflow-y: scroll;

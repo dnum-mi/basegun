@@ -55,8 +55,13 @@
   margin: auto;
 }
 
-.blank {
-  height: 20vh;
+.small-blank {
+  height: 10vh;
+  z-index: 1
+}
+
+.big-blank {
+  height: 25vh;
   z-index: 1
 }
 

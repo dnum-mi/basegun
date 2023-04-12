@@ -155,7 +155,7 @@ function openModal () {
     <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
   </p>
   <AskingExpert />
-  <div class="blank" />
+  <div class="big-blank" />
 </template>
 
 <style scoped>

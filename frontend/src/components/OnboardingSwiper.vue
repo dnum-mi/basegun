@@ -66,7 +66,7 @@ const modules = [Navigation, Pagination, A11y]
             J'ai compris
           </button>
         </router-link>
-        <div class="blank" />
+        <div class="small-blank" />
       </div>
     </swiper-slide>
   </swiper>

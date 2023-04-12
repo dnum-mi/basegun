@@ -230,7 +230,7 @@ function sendFeedback (isCorrect) {
           </div>
         </div>
       </div>
-      <div class="blank" />
+      <div class="big-blank" />
     </div>
     <div class="footer-background">
       <div

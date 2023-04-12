@@ -44,7 +44,7 @@ function readInstruction () {
       />
     </div>
   </div>
-  <div class="blank" />
+  <div class="big-blank" />
   <div class="footer-background">
     <div
       v-if="!uploadMessage"
@@ -98,7 +98,11 @@ function readInstruction () {
 }
 
 :deep(.fr-content-media) {
-  margin: 1rem auto;
+  margin: 1.5rem auto;
+}
+
+:deep(.fr-content-media__caption) {
+  margin-top: .25rem;
 }
 
 :deep(.fr-notice__body) {

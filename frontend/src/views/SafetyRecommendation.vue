@@ -45,7 +45,7 @@ function setTutorialStep () {
         />
       </div>
     </div>
-    <div class="blank" />
+    <div class="big-blank" />
   </div>
   <div class="footer-background">
     <div class="mx-auto fr-col-11 fr-col-lg-6">

@@ -75,7 +75,7 @@ const zoomOn = (imgValue) => {
   <div>
     <AskingExpert />
   </div>
-  <div class="blank" />
+  <div class="big-blank" />
 </template>
 
 <style scoped>

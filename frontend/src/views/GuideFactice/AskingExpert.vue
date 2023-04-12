@@ -95,7 +95,7 @@ async function sendTutorialFeedback () {
         <div>
           <SnackbarAlert class="text-center pt-3" />
         </div>
-        <div class="blank" />
+        <div class="small-blank" />
         <div class="modal-footer">
           <DsfrButton
             label="Valider et retour au résultat"
