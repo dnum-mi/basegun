@@ -1,12 +1,9 @@
-.centered {
+#app {
   position: absolute;
-  top: 40%;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-}
-.text-center {
-  text-align: center;
 }
 
 .fr-container {
