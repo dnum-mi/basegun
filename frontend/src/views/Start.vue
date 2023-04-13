@@ -37,8 +37,4 @@
   .accueil-subtitle {
     font-size: 14px;
   }
-
-  .footer-text {
-    box-shadow: none;
-  }
 </style>

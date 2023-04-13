@@ -33,6 +33,7 @@
 .footer-text {
   padding: 10px;
   text-align: center;
+  box-shadow: none;
 }
 
 .footer-actions {
