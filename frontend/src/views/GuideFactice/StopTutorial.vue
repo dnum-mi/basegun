@@ -1,6 +1,6 @@
 <template>
   <div class="fr-col-sm-6 fr-col-lg-12 fr-container">
-    <div class="centered text-center m-4">
+    <div class="relative top-1/6 m-4">
       <h1>Fin de la démarche guidée</h1>
 
       <p>Votre arme nécessite des manipulations complexes. </p>

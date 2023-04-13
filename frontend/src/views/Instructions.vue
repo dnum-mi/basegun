@@ -30,7 +30,7 @@ function readInstruction () {
       </div>
     </div>
 
-    <div class="container-img  lg:flex">
+    <div class="text-center  lg:flex">
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
@@ -45,7 +45,7 @@ function readInstruction () {
     </div>
   </div>
   <div class="big-blank" />
-  <div class="footer-background">
+  <div class="footer-background footer-text">
     <div
       v-if="!uploadMessage"
       class="btn-read-instruction text-center"
@@ -79,18 +79,6 @@ function readInstruction () {
 
 <style scoped>
 
-.fr-alert {
-  margin-top: 9em;
-}
-
-.title {
-  margin: 1em;
-}
-
-:deep(.fr-alert) {
-  margin: 1em;
-}
-
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
@@ -98,31 +86,25 @@ function readInstruction () {
 }
 
 :deep(.fr-content-media) {
-  margin: 1.5rem auto;
+  margin: .5rem auto;
 }
 
 :deep(.fr-content-media__caption) {
-  margin-top: .25rem;
+  margin: -.5rem 0 0 0;
+}
+
+:deep(.fr-notice) {
+  margin-top: 1.5rem;
 }
 
 :deep(.fr-notice__body) {
   padding: 0 .5rem 0 2.5rem;
 }
 
-.container-img {
-  justify-content: center;
-  text-align: center;
-  padding: 0 0.5rem;
-}
-
 img {
   max-width: 100%;
   max-height: 200px;
   padding: 0 0.5rem;
-}
-
-.modal-img-text {
-  font-style: italic;
 }
 
 /* loading dots */
