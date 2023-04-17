@@ -30,7 +30,7 @@ function setTutorialStep () {
         Vérifier si votre {{ label }} est factice
       </h3>
 
-      <p class="text-tutorial">
+      <p>
         Vous allez recevoir des instructions pour extraire des munitions de l’arme.
       </p>
       <div class="fr-alert fr-alert--warning callout">
@@ -47,7 +47,7 @@ function setTutorialStep () {
     </div>
     <div class="big-blank" />
   </div>
-  <div class="footer-background">
+  <div class="footer">
     <div class="mx-auto fr-col-11 fr-col-lg-6">
       <router-link
         v-slot="{navigate}"
@@ -96,11 +96,11 @@ a {
   color: rgb(179 64 0 / 100%)
 }
 
-.footer-background {
+.footer {
   text-align: center;
 }
 
-.footer-background button {
+.footer button {
   width: 80%;
 }
 </style>

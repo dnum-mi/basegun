@@ -45,7 +45,7 @@ function readInstruction () {
     </div>
   </div>
   <div class="big-blank" />
-  <div class="footer-background">
+  <div class="footer">
     <div
       v-if="!uploadMessage"
       class="btn-read-instruction text-center"

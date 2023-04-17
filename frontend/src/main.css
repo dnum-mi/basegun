@@ -11,16 +11,7 @@
   height: 100%;
 }
 
-.footer-home {
-  position: fixed;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  background-color: #f5f5fe;
-  width: 100%;
-}
-
-.footer-background {
+.footer {
   position: fixed;
   top: 100%;
   left: 50%;
@@ -31,7 +22,7 @@
   width: 100%;
 }
 
-.footer-background button {
+.footer button {
   white-space: nowrap;
   display: inline-flex;
   width: fit-content;

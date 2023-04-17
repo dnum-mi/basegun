@@ -232,7 +232,7 @@ function sendFeedback (isCorrect) {
       </div>
       <div class="big-blank" />
     </div>
-    <div class="footer-background">
+    <div class="footer">
       <div
         v-show="img"
         class="fr-col-11 fr-col-lg-6 mx-auto text-center"

@@ -21,7 +21,7 @@
         />
       </router-link>
     </div>
-    <div class="footer-background footer-text">
+    <div class="footer footer-text">
       Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
     </div>
   </div>

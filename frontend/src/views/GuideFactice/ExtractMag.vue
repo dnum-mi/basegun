@@ -17,7 +17,7 @@ const typology = computed(() => resultStore.typology)
 <template>
   <div v-if="selectedOption === undefined">
     <p
-      class="text-tutorial mt-3"
+      class="mt-3"
       v-html="`${guideFacticeSelectOption[typology]?.text}`"
     />
     <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
@@ -34,7 +34,7 @@ const typology = computed(() => resultStore.typology)
   </div>
   <div v-else>
     <p
-      class="text-tutorial mt-3"
+      class="mt-3"
       v-html="`${guideFacticeSelectOption[typology][selectedOption]?.text}`"
     />
     <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">

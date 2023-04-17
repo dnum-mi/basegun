@@ -136,7 +136,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
     </div>
     <div
       v-if="route.name !== 'StopTutorial'"
-      class="footer-background"
+      class="footer"
     >
       <div
         class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
@@ -207,11 +207,11 @@ a {
   flex-direction: column;
 }
 
-.footer-background {
+.footer {
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
-.footer-background button {
+.footer button {
   width: 50%;
 }
 
