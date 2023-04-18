@@ -12,7 +12,6 @@ defineProps({
 
 <template>
   <div
-    class="centered"
     :class="{fadeout: isLoading, animated: isLoading }"
   >
     <div class="text-center">

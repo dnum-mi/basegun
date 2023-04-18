@@ -14,13 +14,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative top-1/6 <md:top-4">
+  <div
+    v-if="isLoading"
+    class="relative <lg:top-24"
+  >
     <SplashScreen :is-loading="isLoading" />
-    <div
-      v-if="!isLoading"
-      class="<lg:top-24 centered"
-    >
-      <OnboardingSwiper />
-    </div>
+  </div>
+  <div
+    v-else
+    class="<lg:top-24"
+  >
+    <OnboardingSwiper />
   </div>
 </template>
