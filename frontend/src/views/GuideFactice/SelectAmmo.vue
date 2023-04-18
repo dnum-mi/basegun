@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -30,6 +30,8 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
+const transparentMagazine = ['De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut <b>bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches</b>, comme dans l’exemple ci-dessous.']
+
 const showModal = ref(false)
 
 function closeModal () {
@@ -41,6 +43,11 @@ function openModal () {
   useStepsStore.isModalTransparentAmmoOpened = true
 }
 
+onMounted(() => {
+  if (useStepsStore.isModalTransparentAmmoOpened === undefined) {
+    openModal()
+  } else { showModal.value = false }
+})
 </script>
 
 <template>
@@ -54,11 +61,10 @@ function openModal () {
       >
         <div class="modal">
           <div class="modal-content">
-            <DsfrAlert
-              type="warning"
-              title="Avertissement cartouches factices"
-              description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
-            />
+            <div class="fr-alert fr-alert--warning">
+              <h3>Avertissement cartouches factices</h3>
+              <p v-html="transparentMagazine" />
+            </div>
             <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
@@ -90,69 +96,69 @@ function openModal () {
     </Teleport>
     <p
       v-if="typology === 'revolver'"
-      class="mt-3"
+      class="texte-tuto my-3"
     >
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
-    <p
+    <div
       v-else
-      class="mt-3"
     >
-      Sélectionner le type de munition du chargeur<span
-        v-if="typology === 'autre_epaule'"
-        @click="openModal()"
-      >. <a
-        href="#"
-      >
-        Chargeur transparent ?</a>
-      </span>
-    </p>
-    <div>
-      <template
-        v-for="option of guideFacticeSelectAmmo[typology]"
-        :key="option.value"
-      >
-        <div class="item">
-          <DsfrRadioButton
-            v-model="selectedAmmo"
-            class="radio"
-            :class="{ 'wide': typology === 'epaule_a_verrou' }"
-            v-bind="option"
-            :img="option.img_ammo"
-            required
-            name="selectedAmmo"
-          />
-          <div
-            class="zoom"
-            @click="zoomOn(option.value)"
-          >
-            <VIcon
-              name="ri-zoom-in-line"
-              scale="1.25"
-              @click="zoomOn(option.value)"
+      <p class="texte-tuto my-3">
+        Sélectionner le <span class="bold">type de munitions</span> du chargeur.
+        <span
+          v-if="typology === 'autre_epaule'"
+          @click="openModal()"
+        >
+          <a href="#"> Chargeur transparent ?</a>
+        </span>
+      </p>
+      <div>
+        <template
+          v-for="option of guideFacticeSelectAmmo[typology]"
+          :key="option.value"
+        >
+          <div class="item">
+            <DsfrRadioButton
+              v-model="selectedAmmo"
+              class="radio"
+              :class="{ 'wide': typology === 'epaule_a_verrou' }"
+              v-bind="option"
+              :img="option.img_ammo"
+              required
+              name="selectedAmmo"
             />
-            <span class="zoom-label">zoomer</span>
-          </div>
-          <Teleport to="body">
-            <DsfrModal
-              title=""
-              class="test"
-              :opened="zoom === option.value"
-              @close="zoom = ''"
+            <div
+              class="zoom"
+              @click="zoomOn(option.value)"
             >
-              <img
-                v-if="zoom === option.value"
-                :src="option.img_ammo"
-                :style="{'max-width': '100%'}"
+              <VIcon
+                name="ri-zoom-in-line"
+                scale="1.25"
+                @click="zoomOn(option.value)"
+              />
+              <span class="zoom-label">zoomer</span>
+            </div>
+            <Teleport to="body">
+              <DsfrModal
+                title=""
+                class="test"
+                :opened="zoom === option.value"
+                @close="zoom = ''"
               >
-            </DsfrModal>
-          </Teleport>
-        </div>
-      </template>
+                <img
+                  v-if="zoom === option.value"
+                  :src="option.img_ammo"
+                  :style="{'max-width': '100%'}"
+                >
+              </DsfrModal>
+            </Teleport>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
   <p v-if="typology !== 'revolver'">
-    <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
+    <i>Si le <span class="bold">chargeur</span> est <span class="bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
   </p>
   <AskingExpert />
   <div class="big-blank" />

@@ -23,9 +23,9 @@ function readInstruction () {
           <p class="fr-notice__title">
             Pour un résultat optimal
           </p>
-          <p>1 - Présenter le <span class="bold-highlight">canon vers la droite</span></p>
-          <p>2 - Ne photographier qu'<span class="bold-highlight">une seule</span> arme</p>
-          <p>3 - Placer l'arme <span class="bold-highlight">en entier</span> et <span class="bold-highlight">centrée</span></p>
+          <p>1 - Présenter le <span class="bold">canon vers la droite</span></p>
+          <p>2 - Ne photographier qu'<span class="bold">une seule</span> arme</p>
+          <p>3 - Placer l'arme <span class="bold">en entier</span> et <span class="bold">centrée</span></p>
         </div>
       </div>
     </div>
