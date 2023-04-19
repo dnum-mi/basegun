@@ -3,13 +3,16 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "serve": "vite preview",
+    "preview": "vite preview",
     "build": "vite build",
+    "compose:up": "docker compose -f ../docker-compose-dev.yml --profile backend-only up -d",
     "dev": "vite",
     "lint": "eslint src",
     "format": "eslint src --fix",
     "format:css": "stylelint --fix src/**/*.{css,vue}",
-    "pretest:unit": "npm run lint"
+    "pretest:unit": "npm run lint",
+    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
+    "test:e2e-dev": "start-server-and-test 'vite --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.9.2",
@@ -17,7 +20,9 @@
     "@vue/compat": "^3.3.2",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
-    "pinia": "^2.1.0",
+    "cypress": "^12.10.0",
+    "pinia": "^2.0.30",
+    "start-server-and-test": "^2.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "swiper": "^9.3.2",
     "vite": "^4.3.7",

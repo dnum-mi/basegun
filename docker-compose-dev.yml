@@ -3,6 +3,9 @@ version: '3.8'
 services:
 
   backend:
+    profiles:
+        - all
+        - backend-only
     build:
       args:
         - http_proxy
@@ -33,6 +36,8 @@ services:
       - /app/src/weights
 
   frontend:
+    profiles:
+        - all
     build:
       args:
         - http_proxy
@@ -45,6 +50,7 @@ services:
     container_name: basegun-frontend
     ports:
       - 3000:5173
+      - 4173:4173
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules
