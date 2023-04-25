@@ -42,7 +42,7 @@ function onClickOnInfo (event) {
     @click="onClickOnLogo"
   >
     <span
-      class="information lg:information fr-icon-info-line"
+      class="information fr-icon-info-line"
       aria-hidden="true"
       @click="onClickOnInfo"
     />
@@ -54,9 +54,9 @@ function onClickOnInfo (event) {
     position: relative;
   }
 
-  /* :deep(.fr-header__navbar .fr-btn--menu) {
+  :deep(.fr-header__navbar .fr-btn--menu) {
     color : var(--text-action-high-blue-france);
-  } */
+  }
 
 .information {
     position: absolute;
@@ -68,9 +68,8 @@ function onClickOnInfo (event) {
   }
 
 @screen lg {
-  .lg\:information {
-    top: 40%;
-    right: 30%;
+  .information {
+    --uno: top-4\/10 right-3\/10;
   }
 }
 
