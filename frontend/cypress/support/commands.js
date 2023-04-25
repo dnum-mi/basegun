@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { mount } from 'cypress/vue'
+
+Cypress.Commands.add('mount', mount)
+
+Cypress.Commands.add('getByDataTestid', (selector, options) => {
+  return cy.get(`[data-testid=${selector}]`, options)
+})

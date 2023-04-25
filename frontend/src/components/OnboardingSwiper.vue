@@ -21,6 +21,7 @@ const modules = [Navigation, Pagination, A11y]
         src="@/assets/basegun_green.png"
         alt=""
         class="swiper-logo"
+        data-testid="basegun-logo"
       >
       <div class="swiper-content">
         <ul class="swiper-ul fr-text--md">
