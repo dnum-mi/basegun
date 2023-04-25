@@ -245,7 +245,7 @@ function sendFeedback (isCorrect) {
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
             class="mx-3 my-1 flex justify-center"
-            label="Reprendre une photo"
+            label="Identifier une nouvelle arme"
             icon="ri-camera-fill"
             :icon-right="true"
             @click="navigate()"
