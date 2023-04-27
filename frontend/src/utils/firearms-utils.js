@@ -10,25 +10,21 @@ import pistoletSemiAutoModerne2Img from '@/assets/guide-factice/images/pistolet_
 import pistoletSemiAutoModerne2Video from '@/assets/guide-factice/videos/pistol-2_sm.mp4'
 import pistoletSemiAutoModerneCartridges from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-cartridges.jpg'
 import pistoletSemiAutoModerneBalls from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-balls.jpg'
-import autreEpauleAr15Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ar_arrow2.jpg'
+import autreEpauleAr15Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ar_arrow1.jpg'
 import autreEpauleAr15Video from '@/assets/guide-factice/videos/ar_sm.mp4'
-import autreEpauleAkImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ak_arrow2.jpg'
+import autreEpauleAkImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ak_arrow1.jpg'
 import autreEpauleAkVideo from '@/assets/guide-factice/videos/ak_sm.mp4'
-import autreEpauleBullpupImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-bullpup_arrow2.jpg'
+import autreEpauleBullpupImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-bullpup_arrow1.jpg'
 import autreEpauleBullpupVideo from '@/assets/guide-factice/videos/bullpup_sm.mp4'
-import autreEpauleThompsonImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-thompson_arrow2.jpg'
+import autreEpauleThompsonImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-thompson_arrow1.jpg'
 import autreEpauleThompsonVideo from '@/assets/guide-factice/videos/thompson_sm.mp4'
-import autreEpauleP90Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-p90_arrow2.jpg'
+import autreEpauleP90Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-p90_arrow1.jpg'
 import autreEpauleP90Video from '@/assets/guide-factice/videos/p90_sm.mp4'
-import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-pistolet-mitrailleur.png'
+// import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-pistolet-mitrailleur.png'
+import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-pistolet-mitrailleur-without-arrow.png'
 import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
 import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
 import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
-import epaulAVerrou1Img from '@/assets/guide-factice/images/epaule_a_verrou/verrou_avec_chargeur_arrow2.jpg'
-import epaulAVerrou1Video from '@/assets/guide-factice/videos/verrou_sm.mp4'
-import epaulAVerrou2Img from '@/assets/guide-factice/images/epaule_a_verrou/verrou_sans_chargeur_arrow2.jpg'
-import epauleAverrouCartridges from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-cartridges.jpg'
-import epauleAverrouBalls from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-balls.jpg'
 
 export const results = {
   revolver: {
@@ -56,8 +52,6 @@ export const results = {
     category: 'A, B ou D',
     mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     isDummyTypology: false,
-    // isDummyTypology: true,
-    // stepsNumber: 3,
   },
   epaule_a_percussion_silex: {
     displayLabel: "arme d'épaule à mécanisme ancien",
@@ -81,7 +75,7 @@ export const results = {
     displayLabel: "arme d'épaule à verrou",
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
-    isDummyTypology: true,
+    isDummyTypology: false,
     stepsNumber: 4,
   },
   epaule_a_pompe: {
@@ -100,7 +94,7 @@ export const results = {
 }
 
 export const guideFacticeSelectOption = {
-  pistolet_semi_auto_moderne_text_option: "Sélectionner ce que vous voyez sur votre arme : bouton à proximité <span class='font-bold'>du pontet du côté gauche de la poignée</span>, ou <span class='font-bold'>bouton sur le talon</span> de la crosse.",
+  pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
   pistolet_semi_auto_moderne: {
     pontet: {
       label: 'bouton \npontet',
@@ -110,9 +104,9 @@ export const guideFacticeSelectOption = {
       video: pistoletSemiAutoModerne1Video,
     },
     talon: {
-      label: 'bouton \ntalon',
+      label: 'poussoir \ntalon',
       value: 'talon',
-      text: '<span class="bold-highlight">Pousser le  bouton vers l’arrière</span>  avec le pouce de l’autre main, puis <span class="bold-highlight">extraire le chargeur</span> de la même main en le tirant ou en le laissant glisser.',
+      text: '<span class="font-bold">Pousser le  bouton vers l’arrière</span>  avec le pouce de l’autre main, puis <span class="font-bold">extraire le chargeur</span> de la même main en le tirant ou en le laissant glisser.',
       img: pistoletSemiAutoModerne2Img,
       video: pistoletSemiAutoModerne2Video,
     },
@@ -122,74 +116,59 @@ export const guideFacticeSelectOption = {
     bouton_dessus: {
       label: 'bouton \nau-dessus \nchargeur',
       value: 'bouton_dessus',
-      text: 'Tenir l’arme de la main droite. Avec l’index de cette main, <span class="bold-highlight">appuyer sur le bouton</span>. Avec l’autre main, <span class="bold-highlight">tirer le chargeur vers le bas</span> pour l’extraire de la carcasse.',
+      text: '<span class="font-bold">Tenir l’arme</span> de la main droite. Avec l’index de cette main, <span class="font-bold">appuyer sur le bouton</span>. Avec l’autre main, <span class="font-bold">tirer le chargeur</span> vers le bas pour l’<span class="font-bold">extraire de la carcasse</span>.',
       img: autreEpauleAr15Img,
       video: autreEpauleAr15Video,
     },
     levier_derriere: {
       label: 'levier \nderrière \nchargeur',
       value: 'levier_derriere',
-      text: 'A l’aide de la main qui ne tient pas l’arme, <span class="bold-highlight">appuyer avec le pouce</span> sur le levier en maintenant le chargeur. <span class="bold-highlight">Faire pivoter le chargeur</span> en le poussant légèrement vers l’avant pour l’extraire de la carcasse. Puis <span class="bold-highlight">relâcher le levier</span>.',
+      text: 'A l’aide de la main qui ne tient pas l’arme, <span class="font-bold">appuyer avec le pouce sur le levier en maintenant le chargeur. Faire pivoter le chargeur</span> en le poussant légèrement vers l’avant pour l’extraire de la carcasse. Puis <span class="font-bold">relâcher le levier</span>.',
       img: autreEpauleAkImg,
       video: autreEpauleAkVideo,
     },
     chargeur_derriere: {
       label: 'chargeur \nderrière \nla poignée',
       value: 'chargeur_derriere',
-      text: 'Avec la main qui ne tient pas l’arme, <span class="bold-highlight">pousser sur le bouton</span> derrière le chargeur à l’aide du pouce et <span class="bold-highlight">extraire</span> ce dernier en le faisant <span class="bold-highlight">glisser vers le bas</span>.',
+      text: 'De la main qui ne tient pas l’arme, <span class="font-bold">appuyer</span> avec le pouce <span class="font-bold">sur le bouton situé à l\'arrière du chargeur</span>. En même temps, <span class="font-bold">tirer avec cette même main le chargeur vers le bas pour l\'extraire</span>.',
       img: autreEpauleBullpupImg,
       video: autreEpauleBullpupVideo,
     },
     levier_dessus: {
-      label: 'levier \nau-dessus \npontet',
+      label: 'chargeur devant \nla poignée \navec levier \nau-dessus \npontet',
       value: 'levier_dessus',
-      text: 'A l’aide du pouce de la main droite <span class="bold-highlight">pousser le levier</span> présent au dessus de la détente et <span class="bold-highlight">extraire le chargeur</span> avec la main gauche en le faisant <span class="bold-highlight">glisser vers le bas</span>.',
+      text: 'Avec la main qui ne tient pas l’arme, <span class="font-bold">soulever du pouce le levier au-dessus du pontet</span>, et <span class="font-bold">extraire le chargeur</span> avec la même main en le faisant glisser vers le bas.',
       img: autreEpauleThompsonImg,
       video: autreEpauleThompsonVideo,
     },
     chargeur_dessus: {
-      label: 'chargeur \nau-dessus \n de l’arme',
+      label: 'chargeur \nsur le dessus \n de l’arme',
       value: 'chargeur_dessus',
-      text: 'De la main qui ne tient pas l’arme, <span class="bold-highlight">pousser simultanément sur les deux boutons</span> de part et d’autre du chargeur vers l’arrière, puis, <span class="bold-highlight">tirer sur le chargeur</span> vers le haut pour l’extraire de la carcasse.',
+      text: 'De la main qui ne tient pas l’arme, <span class="font-bold">pousser simultanément sur les deux boutons</span> de part et d’autre du chargeur <span class="font-bold">vers l’arrière</span>. Puis, <span class="font-bold">tirer sur le chargeur vers le haut pour l’extraire</span> de la carcasse.',
       img: autreEpauleP90Img,
       video: autreEpauleP90Video,
     },
     bouton_poignee: {
-      label: 'bouton \nà la base de \nla poignée',
+      label: 'poussoir \nà base \npoignée',
       value: 'bouton_poignee',
       text: '<span class="font-bold">Appuyer sur le bouton</span> avec le pouce de la main droite, puis <span class="font-bold"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
       img: autreEpaulePistoletMitralleurImg,
       video: autreEpaulePistoletMitralleurVideo,
     },
   },
-  epaule_a_verrou_text_option: 'Sélectionner le type de chargeur sur l’arme',
-  epaule_a_verrou: {
-    avec_chargeur: {
-      label: 'chargeur \nprésent',
-      value: 'avec_chargeur',
-      text: '<span class="font-bold">Appuyer sur le levier</span> avec le pouce de la main droite, puis <span class="font-bold"> extraire le chargeur </span>avec la main gauche en le tirant ou en le laissant glisser.',
-      img: epaulAVerrou1Img,
-      video: epaulAVerrou1Video,
-    },
-    sans_chargeur: {
-      label: 'pas de \nchargeur \nprésent',
-      value: 'sans_chargeur',
-      img: epaulAVerrou2Img,
-    },
-  },
-  revolver_text_option: 'Sélectionner ce que vous voyez sur l’arme',
+  revolver_text_option: 'Sélectionner ce que vous voyez à côté du barillet',
   revolver: {
     bouton_tirer: {
       label: 'bouton \nà tirer',
       value: 'bouton_tirer',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="font-bold">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> tirer vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer hors de l’arme</span>. Puis <span class="font-bold">pousser la tige à l’extrémité du barillet</span> pour <span class="font-bold">faciliter l’extraction</span> des munitions.',
       img: revolver1Img,
       video: revolver1Video,
     },
     bouton_pousser: {
       label: 'bouton \nà pousser',
       value: 'bouton_pousser',
-      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer</span> hors de l’arme. <span class="font-bold">Puis pousser la tige à l’extrémité du barillet</span> pour faciliter l’extraction des munitions.',
+      text: 'Tenir de la main droite la crosse du revolver. Avec votre pouce droit, <span class="font-bold"> pousser vers l’arrière le bouton situé entre le chien et le barillet</span>. Placer la main gauche sur le côté droit de l’arme, et avec vos doigts <span class="font-bold">pousser le barillet pour le faire basculer hors de l’arme</span>. Puis <span class="font-bold">pousser la tige à l’extrémité du barillet</span> pour <span class="font-bold">faciliter l’extraction</span> des munitions.',
       img: revolver2Img,
       video: revolver2Video,
     },
@@ -220,26 +199,14 @@ export const guideFacticeSelectAmmo = {
       img_ammo: autreEpauleBalls,
     },
   },
-  epaule_a_verrou: {
-    cartouches: {
-      label: 'cartouches',
-      value: 'cartouches',
-      img_ammo: epauleAverrouCartridges,
-    },
-    billes: {
-      label: 'billes',
-      value: 'billes',
-      img_ammo: epauleAverrouBalls,
-    },
-  },
   revolver: {
     cartouches: {
-      label: 'la cartouche \npossède ou peut \nposséder une ogive',
+      label: 'balles',
       value: 'cartouches',
       img_ammo: revolverCartridges,
     },
     billes: {
-      label: 'la cartouche \ncontient ou peut \ncontenir des billes',
+      label: 'bille ou \ntrou pour billes',
       value: 'billes',
       img_ammo: revolverBalls,
     },

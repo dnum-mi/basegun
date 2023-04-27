@@ -1,7 +1,8 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const logoText = [
   'Ministère',
@@ -42,6 +43,7 @@ function onClickOnInfo (event) {
     @click="onClickOnLogo"
   >
     <span
+      v-if="route.name !== 'Home'"
       class="information fr-icon-info-line"
       aria-hidden="true"
       @click="onClickOnInfo"

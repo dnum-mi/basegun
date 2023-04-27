@@ -44,9 +44,7 @@ guideSteps.value = results[resultStore.typology].stepsNumber === 4
 const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
-    : tutorialInterupt.value === true
-      ? router.push({ name: 'StopTutorial' })
-      : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
+    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (
@@ -127,17 +125,13 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
   <div class="result fr-col-11 fr-col-lg-6">
     <div>
       <StepsGuide
-        v-if="route.name !== 'StopTutorial'"
         class="steps-guide"
         :steps="steps"
         :current-step="currentStep"
       />
       <RouterView />
     </div>
-    <div
-      v-if="route.name !== 'StopTutorial'"
-      class="footer"
-    >
+    <div class="footer">
       <div
         class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
       >

@@ -23,14 +23,14 @@ function readInstruction () {
           <p class="fr-notice__title">
             Pour un résultat optimal
           </p>
-          <p>1 - Présenter le <span class="bold-highlight">canon vers la droite</span></p>
-          <p>2 - Ne photographier qu'<span class="bold-highlight">une seule</span> arme</p>
-          <p>3 - Placer l'arme <span class="bold-highlight">en entier</span> et <span class="bold-highlight">centrée</span></p>
+          <p>1 - Présenter le <span class="font-bold">canon vers la droite</span></p>
+          <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme</p>
+          <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">centrée</span></p>
         </div>
       </div>
     </div>
 
-    <div class="container-img  lg:flex">
+    <div class="text-center  lg:flex">
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
@@ -79,18 +79,6 @@ function readInstruction () {
 
 <style scoped>
 
-.fr-alert {
-  margin-top: 9em;
-}
-
-.title {
-  margin: 1em;
-}
-
-:deep(.fr-alert) {
-  margin: 1em;
-}
-
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
@@ -98,31 +86,25 @@ function readInstruction () {
 }
 
 :deep(.fr-content-media) {
-  margin: 1.5rem auto;
+  margin: .5rem auto;
 }
 
 :deep(.fr-content-media__caption) {
-  margin-top: .25rem;
+  margin: -.5rem 0 0 0;
+}
+
+:deep(.fr-notice) {
+  margin-top: 1.5rem;
 }
 
 :deep(.fr-notice__body) {
   padding: 0 .5rem 0 2.5rem;
 }
 
-.container-img {
-  justify-content: center;
-  text-align: center;
-  padding: 0 0.5rem;
-}
-
 img {
   max-width: 100%;
   max-height: 200px;
   padding: 0 0.5rem;
-}
-
-.modal-img-text {
-  font-style: italic;
 }
 
 /* loading dots */

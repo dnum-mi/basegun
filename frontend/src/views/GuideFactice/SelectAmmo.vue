@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
 import AskingExpert from './AskingExpert.vue'
@@ -30,6 +30,8 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
+const transparentMagazine = ['De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut <b>bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches</b>, comme dans l’exemple ci-dessous.']
+
 const showModal = ref(false)
 
 function closeModal () {
@@ -41,6 +43,11 @@ function openModal () {
   useStepsStore.isModalTransparentAmmoOpened = true
 }
 
+onMounted(() => {
+  if (useStepsStore.isModalTransparentAmmoOpened === undefined) {
+    openModal()
+  } else { showModal.value = false }
+})
 </script>
 
 <template>
@@ -54,17 +61,16 @@ function openModal () {
       >
         <div class="modal">
           <div class="modal-content">
-            <DsfrAlert
-              type="warning"
-              title="Avertissement cartouches factices"
-              description="De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches, comme dans l’exemple ci-dessous "
-            />
+            <div class="fr-alert fr-alert--warning">
+              <h3>Avertissement cartouches factices</h3>
+              <p v-html="transparentMagazine" />
+            </div>
             <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
-                alt="exemple de magasin transparent"
+                alt="exemple de magasin transparent factice"
                 title="title"
-                legend="exemple de magasin transparent"
+                legend="exemple de magasin transparent factice"
                 ratio="3x4"
               />
               <DsfrPicture
@@ -90,23 +96,23 @@ function openModal () {
     </Teleport>
     <p
       v-if="typology === 'revolver'"
-      class="mt-3"
+      class="texte-tuto my-3"
     >
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
-    <p
+    <div
       v-else
-      class="mt-3"
     >
-      Sélectionner le type de munition du chargeur<span
-        v-if="typology === 'autre_epaule'"
-        @click="openModal()"
-      >. <a
-        href="#"
-      >
-        Chargeur transparent ?</a>
-      </span>
-    </p>
+      <p class="texte-tuto my-3">
+        Sélectionner le <span class="font-bold">type de munitions</span> du chargeur.
+        <span
+          v-if="typology === 'autre_epaule'"
+          @click="openModal()"
+        >
+          <a href="#"> Chargeur transparent ?</a>
+        </span>
+      </p>
+    </div>
     <div>
       <template
         v-for="option of guideFacticeSelectAmmo[typology]"
@@ -152,7 +158,7 @@ function openModal () {
     </div>
   </div>
   <p v-if="typology !== 'revolver'">
-    <i>Si le chargeur est vide, regarder l’emplacement des munitions : peut-il contenir des cartouches ou des billes ?</i>
+    <i>Si le <span class="font-bold">chargeur</span> est <span class="font-bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
   </p>
   <AskingExpert />
   <div class="big-blank" />

@@ -1,9 +1,6 @@
 #app {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 .fr-container {
@@ -21,6 +18,9 @@
   padding: 15px !important;
   width: 100%;
 }
+.footer-up {
+  top: 97%;
+}
 
 .footer button {
   white-space: nowrap;
@@ -33,6 +33,7 @@
 .footer-text {
   padding: 10px;
   text-align: center;
+  box-shadow: none;
 }
 
 .footer-actions {
@@ -71,6 +72,7 @@
 
 .img-deco {
   margin-bottom: 1em;
+  margin-top: 33%;
   width: 100%;
 }
 

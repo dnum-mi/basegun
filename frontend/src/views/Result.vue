@@ -181,7 +181,7 @@ function sendFeedback (isCorrect) {
       </div>
       <div v-if="confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
-          Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
+          Le <span class="font-bold">résultat donné par Basegun</span> n'emporte qu'une simple <span class="font-bold">valeur de renseignement</span>. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un <span class="font-bold">examen scientifique ou technique </span>prévu par le code de procédure pénale.
         </p>
         <div
           v-if="isFeedbackDone"
@@ -245,7 +245,7 @@ function sendFeedback (isCorrect) {
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
             class="mx-3 my-1 flex justify-center"
-            label="Reprendre une photo"
+            label="Identifier une nouvelle arme"
             icon="ri-camera-fill"
             :icon-right="true"
             @click="navigate()"
