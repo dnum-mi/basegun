@@ -104,7 +104,7 @@ onMounted(() => {
       v-else
     >
       <p class="texte-tuto my-3">
-        Sélectionner le <span class="bold">type de munitions</span> du chargeur.
+        Sélectionner le <span class="font-bold">type de munitions</span> du chargeur.
         <span
           v-if="typology === 'autre_epaule'"
           @click="openModal()"
@@ -112,53 +112,53 @@ onMounted(() => {
           <a href="#"> Chargeur transparent ?</a>
         </span>
       </p>
-      <div>
-        <template
-          v-for="option of guideFacticeSelectAmmo[typology]"
-          :key="option.value"
-        >
-          <div class="item">
-            <DsfrRadioButton
-              v-model="selectedAmmo"
-              class="radio"
-              :class="{ 'wide': typology === 'epaule_a_verrou' }"
-              v-bind="option"
-              :img="option.img_ammo"
-              required
-              name="selectedAmmo"
-            />
-            <div
-              class="zoom"
+    </div>
+    <div>
+      <template
+        v-for="option of guideFacticeSelectAmmo[typology]"
+        :key="option.value"
+      >
+        <div class="item">
+          <DsfrRadioButton
+            v-model="selectedAmmo"
+            class="radio"
+            :class="{ 'wide': typology === 'epaule_a_verrou' }"
+            v-bind="option"
+            :img="option.img_ammo"
+            required
+            name="selectedAmmo"
+          />
+          <div
+            class="zoom"
+            @click="zoomOn(option.value)"
+          >
+            <VIcon
+              name="ri-zoom-in-line"
+              scale="1.25"
               @click="zoomOn(option.value)"
-            >
-              <VIcon
-                name="ri-zoom-in-line"
-                scale="1.25"
-                @click="zoomOn(option.value)"
-              />
-              <span class="zoom-label">zoomer</span>
-            </div>
-            <Teleport to="body">
-              <DsfrModal
-                title=""
-                class="test"
-                :opened="zoom === option.value"
-                @close="zoom = ''"
-              >
-                <img
-                  v-if="zoom === option.value"
-                  :src="option.img_ammo"
-                  :style="{'max-width': '100%'}"
-                >
-              </DsfrModal>
-            </Teleport>
+            />
+            <span class="zoom-label">zoomer</span>
           </div>
-        </template>
-      </div>
+          <Teleport to="body">
+            <DsfrModal
+              title=""
+              class="test"
+              :opened="zoom === option.value"
+              @close="zoom = ''"
+            >
+              <img
+                v-if="zoom === option.value"
+                :src="option.img_ammo"
+                :style="{'max-width': '100%'}"
+              >
+            </DsfrModal>
+          </Teleport>
+        </div>
+      </template>
     </div>
   </div>
   <p v-if="typology !== 'revolver'">
-    <i>Si le <span class="bold">chargeur</span> est <span class="bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
+    <i>Si le <span class="font-bold">chargeur</span> est <span class="font-bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
   </p>
   <AskingExpert />
   <div class="big-blank" />

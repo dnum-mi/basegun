@@ -181,7 +181,7 @@ function sendFeedback (isCorrect) {
       </div>
       <div v-if="confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
-          Le <span class="bold">résultat donné par Basegun</span> n'emporte qu'une simple <span class="bold">valeur de renseignement</span>. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un <span class="bold">examen scientifique ou technique </span>prévu par le code de procédure pénale.
+          Le <span class="font-bold">résultat donné par Basegun</span> n'emporte qu'une simple <span class="font-bold">valeur de renseignement</span>. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un <span class="font-bold">examen scientifique ou technique </span>prévu par le code de procédure pénale.
         </p>
         <div
           v-if="isFeedbackDone"

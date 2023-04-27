@@ -131,7 +131,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
       />
       <RouterView />
     </div>
-    <div class="footer-background">
+    <div class="footer">
       <div
         class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
       >
