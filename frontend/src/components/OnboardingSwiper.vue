@@ -66,6 +66,7 @@ const modules = [Navigation, Pagination, A11y]
             J'ai compris
           </button>
         </router-link>
+        <div class="small-blank" />
       </div>
     </swiper-slide>
   </swiper>
@@ -102,24 +103,15 @@ const modules = [Navigation, Pagination, A11y]
   margin-bottom: 12px !important;
 }
 
-:deep(.swiper-button-prev) {
-  position: fixed;
-  top: 50%;
-  left: 3%;
-  color: #000091 !important;
-}
-
+:deep(.swiper-button-prev),
 :deep(.swiper-button-next) {
   position: fixed;
-  top: 50%;
+  top: 57%;
   right: 3%;
   color: #000091 !important;
 }
 
-:deep(.swiper-button-prev)::after {
-  font-size: 28px;
-}
-
+:deep(.swiper-button-prev)::after,
 :deep(.swiper-button-next)::after {
   font-size: 28px;
 }
@@ -147,7 +139,15 @@ const modules = [Navigation, Pagination, A11y]
   margin: 0 auto;
 }
 
+@media (max-height: 35rem) {
+  :deep(.swiper-pagination:has(.swiper-pagination-bullet-active[aria-label="Go to slide 2"])) {
+    position: relative;
+    z-index: 0;
+  }
+}
+
 :deep(.swiper-pagination-bullet-active[aria-label="Go to slide 2"]) {
   background: #ff1d1d;
 }
+
 </style>

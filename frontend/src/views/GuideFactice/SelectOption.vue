@@ -46,12 +46,16 @@ const zoomOn = (imgValue) => {
           required
           name="selectedOption"
         />
-        <VIcon
+        <div
           class="zoom"
-          name="ri-zoom-in-line"
-          scale="1.25"
           @click="zoomOn(option.value)"
-        />
+        >
+          <VIcon
+            name="ri-zoom-in-line"
+            scale="1.25"
+          />
+          <span class="zoom-label">zoomer</span>
+        </div>
         <Teleport to="body">
           <DsfrModal
             title=""
@@ -71,21 +75,29 @@ const zoomOn = (imgValue) => {
   <div>
     <AskingExpert />
   </div>
-  <div class="blank" />
+  <div class="big-blank" />
 </template>
 
 <style scoped>
 .item {
   position: relative;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
+}
+
+.ov-icon {
+  vertical-align: -.39rem;
 }
 
 .zoom {
-  position: absolute;
-  top: 0.125em;
-  right: 0.125em;
   background-color: #eee9;
   cursor: zoom-in;
+  position: absolute;
+  bottom: 1.25rem;
+  right: 7.5rem;
+}
+
+.zoom-label {
+  padding: 0 .25rem;
 }
 
 :deep(.fr-container) {
@@ -95,18 +107,31 @@ const zoomOn = (imgValue) => {
 }
 
 :deep(.fr-radio-rich__img){
-  width: 8.25rem;
+  width: 13.25rem;
+  height: 8rem;
 }
 
 :deep(.fr-radio-rich__img img){
-  width: 8rem;
+  width: 13rem;
+  height: 8rem;
   max-width: unset;
 }
 
 :deep(.fr-radio-rich input[type="radio"] + label){
+  font-size: smaller;
+  align-items: flex-start;
+  min-height: 8.5rem;
   white-space: pre-wrap;
 }
-.instructions {
-  padding-bottom: 2em;
+
+:deep(.fr-col-md-8),
+:deep(.fr-col-lg-6) {
+  flex: 0 0 100%;
+  max-width: 100%;
+  width: 100%;
 }
+.instructions {
+  padding-bottom: .5em;
+}
+
 </style>

@@ -54,21 +54,23 @@ function onClickOnInfo (event) {
     position: relative;
   }
 
-    :deep(.fr-header__navbar .fr-btn--menu) {
-      color : var(--text-action-high-blue-france);
-    }
-  .information {
+  :deep(.fr-header__navbar .fr-btn--menu) {
+    color : var(--text-action-high-blue-france);
+  }
+
+.information {
     position: absolute;
-    top: 40%;
-    right: 30%;
+    top: 12%;
+    right: 12%;
     z-index: 999;
     color: #000091;
     cursor: pointer;
   }
-@media (max-width: 1024px) {
+
+@screen lg {
   .information {
-    top: 12%;
-    right: 12%;
+    --uno: top-4\/10 right-3\/10;
   }
 }
+
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watchEffect } from 'vue'
+import { computed, watchEffect, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
@@ -62,6 +62,7 @@ watchEffect(() => {
     router.push({ name: 'Start' })
   }
 })
+
 async function sendLogsIdentificationDummy () {
   const json = {
     image_url: imgUrl.value,
@@ -69,7 +70,7 @@ async function sendLogsIdentificationDummy () {
     label: typology.value,
     confidence_level: confidenceLevel.value,
     tutorial_option: stepsStore.selectedOption,
-    is_factice: stepsStore.isFactice,
+    is_dummy: stepsStore.isDummy,
   }
   await axios.post('/identification-dummy', json)
     .then(async res => {
@@ -83,6 +84,14 @@ async function sendLogsIdentificationDummy () {
     })
 }
 
+// zoom autorisé sur toutes les vues du guide factice
+const metaViewport = document.querySelector('meta[name="viewport"]')
+onMounted(() => {
+  if (metaViewport) {
+    metaViewport.setAttribute('content', 'initial-scale=1, maximum-scale=3, user-scalable=yes')
+  }
+})
+onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no') })
 </script>
 
 <template>
@@ -127,7 +136,7 @@ async function sendLogsIdentificationDummy () {
     </div>
     <div
       v-if="route.name !== 'StopTutorial'"
-      class="footer-background"
+      class="footer"
     >
       <div
         class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
@@ -198,11 +207,11 @@ a {
   flex-direction: column;
 }
 
-.footer-background {
+.footer {
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
-.footer-background button {
+.footer button {
   width: 50%;
 }
 

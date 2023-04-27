@@ -32,7 +32,7 @@ registerSW({ immediate: true })
   <div v-else>
     <HeaderMain />
     <div class="fr-container">
-      <div class="centered text-center m-4">
+      <div class="relative top-1/6 m-4">
         <h1>Problème de connexion</h1>
         <p>Vous n'avez pas accès à Internet.</p>
       </div>
@@ -58,10 +58,6 @@ registerSW({ immediate: true })
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-
-.refresh {
-  z-index: 999 !important;
 }
 
 </style>

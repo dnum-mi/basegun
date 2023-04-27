@@ -8,15 +8,15 @@ const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const instructions = ref([
   '<ul>',
-  "<li>Une arme doit toujours être <span class='bold-highlight text-orange-700'>considérée comme chargée</span>. </li>",
-  "<li>En cas de doute, <span class='bold-highlight text-orange-700'>s’arrêter et faire appel à un expert.</span></li>",
-  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='bold-highlight text-orange-700'>mise en sécurité.</span></li>",
-  "<li>Veiller à la préservation des <span class='bold-highlight text-orange-700'>traces et indices </span> éventuels lors des manipulations.</li>",
+  "<li>Une arme doit toujours être <span class='font-bold text-orange-700'>considérée comme chargée</span>. </li>",
+  "<li>En cas de doute, <span class='font-bold text-orange-700'>s’arrêter et faire appel à un expert.</span></li>",
+  "<li>Avant de manipuler une arme, toujours s’assurer qu’elle est <span class='font-bold text-orange-700'>mise en sécurité.</span></li>",
+  "<li>Veiller à la préservation des <span class='font-bold text-orange-700'>traces et indices </span> éventuels lors des manipulations.</li>",
   '</ul>',
 ])
 
 const typology = computed(() => resultStore.typology)
-const cleanLabel = computed(() => results[typology.value]?.displayLabel)
+const label = computed(() => results[typology.value]?.displayLabel)
 
 function setTutorialStep () {
   stepsStore.setCurrentStep(1)
@@ -27,10 +27,10 @@ function setTutorialStep () {
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
       <h3>
-        Vérifier si votre {{ cleanLabel }} est factice
+        Vérifier si votre {{ label }} est factice
       </h3>
 
-      <p class="text-tutorial">
+      <p>
         Vous allez recevoir des instructions pour extraire des munitions de l’arme.
       </p>
       <div class="fr-alert fr-alert--warning callout">
@@ -45,9 +45,9 @@ function setTutorialStep () {
         />
       </div>
     </div>
-    <div class="blank" />
+    <div class="big-blank" />
   </div>
-  <div class="footer-background">
+  <div class="footer">
     <div class="mx-auto fr-col-11 fr-col-lg-6">
       <router-link
         v-slot="{navigate}"
@@ -96,11 +96,11 @@ a {
   color: rgb(179 64 0 / 100%)
 }
 
-.footer-background {
+.footer {
   text-align: center;
 }
 
-.footer-background button {
+.footer button {
   width: 80%;
 }
 </style>

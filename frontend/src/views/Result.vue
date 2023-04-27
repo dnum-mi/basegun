@@ -25,19 +25,19 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const typology = computed(() => resultStore.typology)
 
 const selectedAmmo = computed(() => stepsStore.selectedAmmo)
-const isFactice = computed(() => stepsStore.isFactice)
+const isDummy = computed(() => stepsStore.isDummy)
 
 const isUp = ref(undefined)
 const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
-const mentionIfIsFactice = ref("Libre d'acquisition et de détention")
+const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
-const cleanLabel = computed(() => results[typology.value]?.displayLabel)
-const cleanCategory = computed(() => results[typology.value]?.category)
-const cleanMention = computed(() => results[typology.value]?.isFacticeTypology === true && selectedAmmo.value === 'billes'
-  ? mentionIfIsFactice.value
+const label = computed(() => results[typology.value]?.displayLabel)
+const category = computed(() => results[typology.value]?.category)
+const mention = computed(() => isDummy.value === true
+  ? mentionIfisDummy.value
   : results[typology.value]?.mention)
-const cleanTypology = computed(() => results[typology.value]?.isFacticeTypology === true)
+const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
 
 function keepingLastStep () {
   stepsStore.setCurrentStep(guideSteps.length)
@@ -81,29 +81,34 @@ function sendFeedback (isCorrect) {
       >
         <div v-if="confidenceLevel === 'low'">
           <div class="callout-head">
-            <p class="fr-tag fr-tag--sm error-tag">
-              Indice de fiabilité insuffisant
-            </p>
+            <DsfrTag
+              class="fr-tag--sm error-tag"
+              label="Indice de fiabilité insuffisant"
+            />
           </div>
           <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
         </div>
         <div v-else>
           <div v-if="confidenceLevel === 'high'">
             <div class="callout-head">
-              <p class="fr-tag fr-tag--sm success-tag">
+              <DsfrTag
+                class="fr-tag--sm success-tag"
+              >
                 Indice de fiabilité : {{ Math.floor(confidence) }}%
-              </p>
+              </DsfrTag>
             </div>
           </div>
           <div v-else>
-            <p class="fr-tag fr-tag--sm warning-tag">
+            <DsfrTag
+              class="fr-tag--sm warning-tag"
+            >
               Indice de fiabilité : {{ Math.floor(confidence) }}%
-            </p>
+            </DsfrTag>
             <p class="warning-text">
               Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
             </p>
           </div>
-          <div v-if="selectedAmmo === 'billes'">
+          <div v-if="isDummy === true">
             <p class="fr-callout__title mt-3">
               Non Classé
             </p>
@@ -111,28 +116,28 @@ function sendFeedback (isCorrect) {
               Objet, arme factice
             </p>
             <p class="mt-2 fr-callout__text">
-              <span class="bold-highlight">Typologie de référence : </span><br>{{ cleanLabel }}
+              <span class="font-bold">Typologie de référence : </span><br>{{ cleanLabel }}
             </p>
             <div
               class="callout-mention"
             >
-              <p v-html="cleanMention" />
+              <p v-html="mention" />
             </div>
           </div>
           <div v-else>
             <p class="fr-callout__title mt-3">
-              Catégorie {{ cleanCategory }}
+              Catégorie {{ category }}
             </p>
 
             <div
               class="callout-mention"
             >
-              <p v-html="cleanMention" />
+              <p v-html="mention" />
             </div>
             <div
               class="mt-4"
             >
-              <div v-if="cleanTypology === true && !selectedAmmo">
+              <div v-if="isDummyTypology === true && !selectedAmmo">
                 <p>Sauf si l'arme est factice:</p>
                 <p class="fr-callout__title">
                   Non Classé
@@ -151,7 +156,7 @@ function sendFeedback (isCorrect) {
 
               <div v-else>
                 <div
-                  v-if="cleanTypology === false && !isFactice"
+                  v-if="isDummyTypology === false"
                   class="mt-2"
                 >
                   <p>Sauf si l'arme est factice:</p>
@@ -169,7 +174,7 @@ function sendFeedback (isCorrect) {
             <p
               class="mt-2 fr-callout__text"
             >
-              Typologie : {{ cleanLabel }}
+              Typologie : {{ label }}
             </p>
           </div>
         </div>
@@ -178,6 +183,12 @@ function sendFeedback (isCorrect) {
         <p class="fr-text--sm warning-msg">
           Le résultat donné par Basegun n'emporte qu'une simple valeur de renseignement. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
         </p>
+        <div
+          v-if="isFeedbackDone"
+          class="snackbar text-center"
+        >
+          <SnackbarAlert class="text-center" />
+        </div>
         <div
           :aria-disabled="isFeedbackDone"
           class="feedback"
@@ -219,15 +230,9 @@ function sendFeedback (isCorrect) {
           </div>
         </div>
       </div>
-      <div
-        v-if="isFeedbackDone"
-        class="snackbar text-center"
-      >
-        <SnackbarAlert class="text-center" />
-      </div>
-      <div class="blank" />
+      <div class="big-blank" />
     </div>
-    <div class="footer-background">
+    <div class="footer">
       <div
         v-show="img"
         class="fr-col-11 fr-col-lg-6 mx-auto text-center"
@@ -247,7 +252,7 @@ function sendFeedback (isCorrect) {
           />
         </router-link>
         <router-link
-          v-if="selectedAmmo !== undefined && isFactice !== ''"
+          v-if="selectedAmmo"
           v-slot="{navigate}"
           class="navigate"
           :to="{name:'SelectAmmo'}"

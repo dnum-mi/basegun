@@ -10,7 +10,7 @@ export const clearLocalStorage = (to, from, next) => {
   const { setOption, setAmmo, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 
-  useStepsStore.isOpened = undefined
+  useStepsStore.isModalTransparentAmmoOpened = undefined
   setOption(undefined)
   setAmmo(undefined)
   setCurrentStep(0)
