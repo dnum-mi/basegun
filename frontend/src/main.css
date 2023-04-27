@@ -18,6 +18,9 @@
   padding: 15px !important;
   width: 100%;
 }
+.footer-up {
+  top: 97%;
+}
 
 .footer button {
   white-space: nowrap;
@@ -69,6 +72,7 @@
 
 .img-deco {
   margin-bottom: 1em;
+  margin-top: 33%;
   width: 100%;
 }
 
