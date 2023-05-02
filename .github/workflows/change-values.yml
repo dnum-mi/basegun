@@ -57,13 +57,13 @@ jobs:
         namespace: ${{ inputs.namespace }}
         secret-type: 'generic'
         secret-name: ${{ inputs.secret_name }}
-        string-data: |-
+        data: |
           {
-          "OS_PASSWORD": ${{ secrets.OS_PASSWORD }},
-          "OS_PROJECT_NAME": ${{ secrets.OS_PROJECT_NAME }},
-          "OS_USERNAME": ${{ secrets.OS_USERNAME }},
-          "X_OVH_TOKEN": ${{ secrets.X_OVH_TOKEN }},
-          "API_OVH_TOKEN": ${{ secrets.API_OVH_TOKEN }}
+          "OS_PASSWORD": "${{ secrets.OS_PASSWORD }}",
+          "OS_PROJECT_NAME": "${{ secrets.OS_PROJECT_NAME }}",
+          "OS_USERNAME": "${{ secrets.OS_USERNAME }}",
+          "X_OVH_TOKEN": "${{ secrets.X_OVH_TOKEN }}",
+          "API_OVH_TOKEN": "${{ secrets.API_OVH_TOKEN }}"
           }
 
     - name: Install yq
