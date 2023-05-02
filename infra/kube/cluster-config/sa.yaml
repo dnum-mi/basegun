@@ -33,4 +33,3 @@ roleRef:
   kind: Role
   name: create-secret-role
   apiGroup: ""
-  
