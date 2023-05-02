@@ -1,4 +1,3 @@
-
 on:
   workflow_call:
     inputs:
@@ -48,7 +47,9 @@ jobs:
     - uses: azure/k8s-set-context@v3
       with:
         method: service-account
+        # kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
         k8s-url: ${{ secrets.CLUSTER_URL }}
+        # kubectl get secret <service-account-secret-name> -n <namespace> -o yaml
         k8s-secret: ${( secrets.SA_SECRET }}
 
     - name: Create secret for Kubernetes
