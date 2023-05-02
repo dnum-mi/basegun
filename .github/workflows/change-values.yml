@@ -20,15 +20,17 @@ on:
       SA_SECRET:
         description: 'Service account secret (run kubectl get serviceaccounts <service-account-name> -o yaml and copy the service-account-secret-name)'
         required: true
+      CLUSTER_URL:
+        required: true
       X_OVH_TOKEN:
+        required: true
+      API_OVH_TOKEN:
         required: true
       OS_PASSWORD:
         required: true
       OS_PROJECT_NAME:
         required: true
       OS_USERNAME:
-        required: true
-      CLUSTER_URL:
         required: true
       JOB_GITHUB_TOKEN:
         required: true
