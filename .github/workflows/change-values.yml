@@ -57,7 +57,7 @@ jobs:
         namespace: ${{ inputs.namespace }}
         secret-type: 'generic'
         secret-name: ${{ inputs.secret_name }}
-        stringData: |-
+        string-data: |-
           {
           "OS_PASSWORD": ${{ secrets.OS_PASSWORD }},
           "OS_PROJECT_NAME": ${{ secrets.OS_PROJECT_NAME }},
