@@ -46,7 +46,7 @@ jobs:
 
     - uses: azure/k8s-set-context@v3
       with:
-        # kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
+        # kubectl 
         method: kubeconfig
         kubeconfig: ${{ secrets.SA_SECRET }}
 
@@ -67,7 +67,7 @@ jobs:
 
     - name: Install yq
       run: |
-        wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+        sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
 
     - name: Update Infra Version
       run: |
@@ -81,3 +81,28 @@ jobs:
         github_token: ${{ secrets.JOB_GITHUB_TOKEN }}
         commit_prefix: "[skip ci]"
         commit_message: "Version updated"
+
+# To generate a kubeconfig, fill this file with informations available in theses commands:
+#  - token and ca
+#    kubectl get secret -n <namespace> -o yaml <secret-service-account>
+#  - server
+#    kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
+
+# apiVersion: v1
+# kind: Config
+# clusters:
+# - name: default-cluster
+#   cluster:
+#     certificate-authority-data: ${ca}
+#     server: ${server}
+# contexts:
+# - name: default-context
+#   context:
+#     cluster: default-cluster
+#     namespace: default
+#     user: default-user
+# current-context: default-context
+# users:
+# - name: default-user
+#   user:
+#     token: ${token}
