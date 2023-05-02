@@ -1,4 +1,9 @@
-on: workflow_dispatch
+on:
+  # only work when code is on main branch
+  workflow_dispatch:
+  push:
+    branches:
+      - 'enh/kube'
 name: Deploy on KUBE
 jobs:
   deploy-kube:
