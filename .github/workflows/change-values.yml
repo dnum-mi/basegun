@@ -52,12 +52,12 @@ jobs:
         k8s-secret: ${( secrets.SA_SECRET }}
 
     - name: Create secret for Kubernetes
-      uses: azure/k8s-create-secret@v2
+      uses: azure/k8s-create-secret@v4
       with:
         namespace: ${{ inputs.namespace }}
         secret-type: 'generic'
         secret-name: ${{ inputs.secret_name }}
-        data: |
+        string-data: |
           {
           "OS_PASSWORD": "${{ secrets.OS_PASSWORD }}",
           "OS_PROJECT_NAME": "${{ secrets.OS_PROJECT_NAME }}",
