@@ -22,6 +22,19 @@ on:
         required: true
       X_OVH_TOKEN:
         required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_ID:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      CLUSTER_URL:
+        required: true
+      JOB_GITHUB_TOKEN:
+        required: true
+
 jobs:
   deployment:
     name: Update deployment
@@ -35,8 +48,8 @@ jobs:
     - uses: azure/k8s-set-context@v3
       with:
         method: service-account
-        k8s-url: ${{ secrets.K8_CLUSTER_URL }}
-        k8s-secret: ${( secrets.SA_SECRET )} 
+        k8s-url: ${{ secrets.CLUSTER_URL }}
+        k8s-secret: ${( secrets.SA_SECRET }}
 
     - name: Create secret for Kubernetes
       uses: azure/k8s-create-secret@v2
@@ -66,6 +79,6 @@ jobs:
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.JOB_GITHUB_TOKEN }}
         commit_prefix: "[skip ci]"
         commit_message: "Version updated"
