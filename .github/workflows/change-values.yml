@@ -45,14 +45,10 @@ jobs:
         ref: ${{ inputs.branch }}
 
     - uses: azure/k8s-set-context@v3
-      env:
-        CONFIG_SECRET: ${{ secrets.SA_SECRET }}
       with:
-        method: service-account
         # kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
-        k8s-url: ${{ secrets.CLUSTER_URL }}
-        # kubectl get secret <service-account-secret-name> -n <namespace> -o yaml
-        k8s-secret: $CONFIG_SECRET
+        method: kubeconfig
+        kubeconfig: ${{ secrets.SA_SECRET }}
 
     - name: Create secret for Kubernetes
       uses: azure/k8s-create-secret@v4
