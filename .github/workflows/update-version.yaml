@@ -8,3 +8,4 @@ jobs:
       branch: ${{ github.ref_name }}
     secrets:
       SA_SECRET: ${{ secrets.K8_PREPROD_TOKEN }}
+      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
