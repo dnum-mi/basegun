@@ -14,6 +14,7 @@ jobs:
       # static variables
       CLUSTER_URL: ${{ secrets.CLUSTER_URL }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_PROJECT_ID: 
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}

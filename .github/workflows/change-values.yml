@@ -24,8 +24,6 @@ on:
         required: true
       OS_PASSWORD:
         required: true
-      OS_PROJECT_ID:
-        required: true
       OS_PROJECT_NAME:
         required: true
       OS_USERNAME:
