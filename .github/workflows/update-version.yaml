@@ -1,0 +1,10 @@
+on: workflow_dispatch
+name: Deploy on KUBE
+jobs:
+  deploy-kube:
+    uses: ./.github/workflows/change-values.yml
+    with:
+      namespace: "basegun-preprod" # reuse environment github in namespace
+      branch: ${{ github.ref_name }}
+    secrets:
+      SA_SECRET: ${{ secrets.K8_PREPROD_TOKEN }}
