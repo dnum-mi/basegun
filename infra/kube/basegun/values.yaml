@@ -8,8 +8,8 @@ ingress:
   enabled: true
   className: ""
   #annotations:
-    #traefik.ingress.kubernetes.io/router.tls: "true"
-    #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+  #traefik.ingress.kubernetes.io/router.tls: "true"
+  #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
     - host: kube.basegun.fr
       paths:
@@ -34,7 +34,7 @@ backend:
     repository: ghcr.io/datalab-mi/basegun/basegun-backend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "1.5"
+    tag: "2.0"
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
@@ -74,7 +74,6 @@ backend:
     #  X_OVH_TOKEN: "test"
     #  API_OVH_TOKEN: "test"
     secretName: "basegun-secret"
-
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -96,7 +95,7 @@ frontend:
     repository: ghcr.io/datalab-mi/basegun/basegun-frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "1.5"
+    tag: "2.0"
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
