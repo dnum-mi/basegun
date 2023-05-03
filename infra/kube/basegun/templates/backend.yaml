@@ -36,6 +36,8 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ include "basegun.name" . }}-config
+          - secretRef:
+              name: {{ .Values.backend.secret.secretName }}
           ports:
             - name: api
               containerPort: 5000
