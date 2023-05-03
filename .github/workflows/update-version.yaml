@@ -13,11 +13,10 @@ jobs:
       branch: ${{ github.ref_name }}
     secrets:
       # environment dependant
-      SA_SECRET: ${{ secrets.PREPROD_K8_TOKEN }}
+      KUBECONFIG: ${{ secrets.PREPROD_K8_CONFIG }}
       X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
 
       # static variables
-      CLUSTER_URL: ${{ secrets.CLUSTER_URL }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}

@@ -16,10 +16,8 @@ on:
         type: string
         description: "Branche de déploiement"
     secrets:
-      SA_SECRET:
+      KUBECONFIG:
         description: 'Service account secret (run kubectl get serviceaccounts <service-account-name> -o yaml and copy the service-account-secret-name)'
-        required: true
-      CLUSTER_URL:
         required: true
       X_OVH_TOKEN:
         required: true
@@ -46,9 +44,8 @@ jobs:
 
     - uses: azure/k8s-set-context@v3
       with:
-        # kubectl 
         method: kubeconfig
-        kubeconfig: ${{ secrets.SA_SECRET }}
+        kubeconfig: ${{ secrets.KUBECONFIG }}
 
     - name: Create secret for Kubernetes
       uses: azure/k8s-create-secret@v4
@@ -83,9 +80,9 @@ jobs:
         commit_message: "Version updated"
 
 # To generate a kubeconfig, fill this file with informations available in theses commands:
-#  - token and ca
+#  - ${token} and ${ca}
 #    kubectl get secret -n <namespace> -o yaml <secret-service-account>
-#  - server
+#  - ${server}
 #    kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
 
 # apiVersion: v1

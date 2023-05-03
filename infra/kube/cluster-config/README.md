@@ -3,11 +3,11 @@
 Exemple de configuration d'un cluster kubernetes pour l'installation de l'application
 
 
-## 1. Ingress controller 
+## 1. Ingress controller
 
 L'ingress controller permet de gérer connexions entrantes au cluster sous la forme d'un reverse proxy. Pour notre cas nous utiliserons `traefik` et activerons
 - letsencrypt par défaut
-- la redirectio en https automatique pour tous les ingress
+- la redirection en https automatique pour tous les ingress
 
 
 Ajout du dépôt traefik
@@ -70,13 +70,41 @@ Cette partie permet de créer un compte de service pour l'ajout des secrets via 
 kubectl apply -f sa.yaml -n <namespace>
 ```
 
-Cette commande permet de : 
+Cette commande permet de :
 - Créer un rôle permettant au service account de gérer les secrets dans son namespace
 - Créer un SA (compte de service)
 - Créer un secret permanent permettant de se connecter au cluster (via un token) en tant que compte de service, crée précédemment
 - Ajouter le rôle crée à la première étape au compte de service
 
-Pour récupérer le token dans un fichier
+Par exemple, pour récupérer le kubeconfig pour l'environnement <env> 
+
+```bash
+token=$(kubectl get secret -n basegun-<env> token-github -o jsonpath="{.data.token}" | base64 -d)
+ca=$(kubectl get secret -n basegun-<env> token-github -o jsonpath="{.data.ca\.crt}")
+server=$(kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}')
 ```
-kubectl get secret -n secret -n basegun-preprod token-github -o jsonpath="{.data.token}" | base64 -d > token.txt
+
+Et remplir le yaml suivant :
+
+```yaml
+apiVersion: v1
+kind: Config
+clusters:
+- name: default-cluster
+  cluster:
+    certificate-authority-data: ${ca}
+    server: ${server}
+contexts:
+- name: default-context
+  context:
+    cluster: default-cluster
+    namespace: default
+    user: default-user
+current-context: default-context
+users:
+- name: default-user
+  user:
+    token: ${token}
 ```
+
+Et ajouter le contenu du yaml dans le secret github <env>_K8_CONFIG
