@@ -223,6 +223,13 @@ onMounted(() => {
 :deep(.fr-radio-rich input[type="radio"] + label){
   white-space: pre-wrap;
 }
+
+:deep(.fr-col-md-8),
+:deep(.fr-col-lg-6) {
+  flex: 0 0 100%;
+  max-width: 100%;
+  width: 100%;
+}
 .instructions {
   padding-bottom: .5em;
 }
