@@ -18,6 +18,7 @@
   padding: 15px !important;
   width: 100%;
 }
+
 .footer-up {
   top: 97%;
 }
@@ -42,6 +43,10 @@
   color: #000091;
   z-index: 1;
   margin: auto;
+}
+
+:deep(.fr-btn) { 
+  border-radius: 4px !important;
 }
 
 .small-blank {
