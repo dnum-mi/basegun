@@ -107,12 +107,12 @@ const zoomOn = (imgValue) => {
 }
 
 :deep(.fr-radio-rich__img){
-  width: 13.25rem;
+  width: var(--select-option-image-width)+.25rem; /* cf. variable in main.css */
   height: 8rem;
 }
 
 :deep(.fr-radio-rich__img img){
-  width: 13rem;
+  width: var(--select-option-image-width);
   height: 8rem;
   max-width: unset;
 }
@@ -121,7 +121,7 @@ const zoomOn = (imgValue) => {
   font-size: smaller;
   align-items: flex-start;
   min-height: 8.5rem;
-  white-space: pre-wrap;
+  padding-right: 13.5rem;
 }
 
 :deep(.fr-col-md-8),

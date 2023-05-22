@@ -116,7 +116,7 @@ function sendFeedback (isCorrect) {
               Objet, arme factice
             </p>
             <p class="mt-2 fr-callout__text">
-              <span class="font-bold">Typologie de référence : </span><br>{{ cleanLabel }}
+              Typologie de référence : <br>{{ label }}
             </p>
             <div
               class="callout-mention"
@@ -259,7 +259,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="mx-3 my-1 flex justify-center"
+            class="my-3 flex justify-center w-full"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
             :icon-right="true"
@@ -363,9 +363,5 @@ a {
 
 :deep(.fr-btn) {
   white-space: nowrap;
-}
-
-.btn-full-width {
-  width: 90%;
 }
 </style>

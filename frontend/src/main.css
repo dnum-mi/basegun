@@ -1,3 +1,7 @@
+html {
+  --select-option-image-width: 13rem;
+}
+
 #app {
   position: absolute;
   inset: 0;
