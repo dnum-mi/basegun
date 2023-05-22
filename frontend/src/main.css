@@ -18,11 +18,13 @@
   padding: 15px !important;
   width: 100%;
 }
+
 .footer-up {
   top: 97%;
 }
 
-.footer button {
+button {
+  border-radius: 3px;
   white-space: nowrap;
   display: inline-flex;
   width: fit-content;
