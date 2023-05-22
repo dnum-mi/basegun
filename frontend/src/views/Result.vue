@@ -235,7 +235,7 @@ function sendFeedback (isCorrect) {
     <div class="footer">
       <div
         v-show="img"
-        class="fr-col-11 fr-col-lg-6 mx-auto text-center"
+        class="fr-col-11 fr-col-lg-6 mx-auto"
       >
         <router-link
           v-slot="{navigate}"
@@ -244,7 +244,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="mx-3 my-1 flex justify-center w-full"
+            class="flex justify-center w-full"
             label="Identifier une nouvelle arme"
             icon="ri-camera-fill"
             :icon-right="true"
