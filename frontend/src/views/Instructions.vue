@@ -1,112 +1,104 @@
+<script setup>
+import { ref } from 'vue'
+
+import UploadButton from '@/components/UploadButton.vue'
+import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
+import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
+
+const uploadMessage = ref('')
+const fileInput = ref(null)
+
+function readInstruction () {
+  fileInput.value.click()
+}
+</script>
+
 <template>
   <div
-    class="info container-alert  col-lg-6  col-xs-9  mx-auto"
+    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >
-    <div class="fr-alert fr-alert--info">
-      <h3 class="fr-alert__title">
-        Pour un résultat optimal
-      </h3>
-      <span
-        v-for="instruction in instructions"
-        :key="instruction.id"
-        class="m-auto-lg d-lg-flex flex-wrap"
-        v-html="instruction"
-      />
+    <div class="fr-notice fr-notice--info">
+      <div class="fr-container">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title">
+            Pour un résultat optimal
+          </p>
+          <p>1 - Présenter le <span class="font-bold">canon vers la droite</span></p>
+          <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme</p>
+          <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">centrée</span></p>
+        </div>
+      </div>
     </div>
 
-    <div class="container-img  d-lg-flex">
-      <div>
-        <img
-          src="../assets/good-photo-example.jpg"
-          alt="photo d'une arme tournée vers la droite et centrée"
-        >
-        <p class="modal-img-text fr-text--xs">
-          Exemple d'une bonne photo
-        </p>
-      </div>
-      <div>
-        <img
-          src="../assets/bad-photo-example.jpg"
-          alt="photo d'une arme tournée vers la gauche et partiellement coupée"
-        >
-        <p class="modal-img-text fr-text--xs">
-          Exemple d'une mauvaise photo
-        </p>
-      </div>
+    <div class="text-center  lg:flex">
+      <DsfrPicture
+        title="title"
+        :src="GoodExamplePhoto"
+        alt="photo d'une arme tournée vers la droite et centrée"
+        legend="Exemple d'une bonne photo"
+      />
+      <DsfrPicture
+        :src="BadExamplePhoto"
+        alt="photo d'une arme tournée vers la gauche et partiellement coupée"
+        legend="Exemple d'une mauvaise photo"
+      />
     </div>
   </div>
-  <div class="blank" />
-  <div class="footer-background footer-actions">
+  <div class="big-blank" />
+  <div class="footer">
     <div
-      v-if="!store.uploadMessage"
+      v-if="!uploadMessage"
       class="btn-read-instruction text-center"
     >
       <div
-        class="col-11 col-lg-6 footer-actions"
-      />
-      <UploadButton />
-      <DsfrButton
-        class="my-2"
-        label="prendre la photo"
-        icon="ri-camera-fill"
-        @click="readInstruction"
-      />
+        class="fr-col-11 fr-col-lg-6 mx-auto"
+      >
+        <UploadButton
+          ref="fileInput"
+          @file-selected="uploadMessage = 'Analyse en cours'"
+        />
+        <DsfrButton
+          class="flex justify-center w-full"
+          label="Prendre la photo"
+          icon="ri-camera-fill"
+          :icon-right="true"
+          @click="readInstruction()"
+        />
+      </div>
     </div>
     <div
       v-else
-      class="text-center mt-2 bold"
+      class="text-center bold"
     >
-      <p>{{ store.uploadMessage }}</p>
+      <p class="loading font-bold">
+        {{ uploadMessage }}
+      </p>
     </div>
   </div>
 </template>
 
-<script>
-import { store } from '@/store/store.js'
-import UploadButton from '@/components/UploadButton.vue'
-
-export default {
-  name: 'InstructionsPage',
-  components: {
-    UploadButton,
-  },
-  data () {
-    return {
-      store,
-      instructions: [
-        '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-        "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-        "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-      ],
-    }
-  },
-
-  methods: {
-    readInstruction () {
-      const demarrer = document.getElementById('demarrer')
-      demarrer.firstChild.click()
-    },
-  },
-}
-</script>
-
 <style scoped>
-.fr-alert {
-  margin-top: 9em;
+
+:deep([class*=" fr-ratio"]) {
+  width: auto !important;
+  max-width: 95%;
+  object-fit: contain;
 }
 
-.title {
-  margin: 1em;
+:deep(.fr-content-media) {
+  margin: .5rem auto;
 }
 
-:deep(.fr-alert) {
-margin: 1em;
+:deep(.fr-content-media__caption) {
+  margin: -.5rem 0 0 0;
 }
 
-.container-img {
-  justify-content: center;
-  text-align: center;
-  padding: 0 0.5rem;
+:deep(.fr-notice) {
+  margin-top: 1.5rem;
+}
+
+:deep(.fr-notice__body) {
+  padding: 0 .5rem 0 2.5rem;
 }
 
 img {
@@ -115,12 +107,43 @@ img {
   padding: 0 0.5rem;
 }
 
-.modal-img-text {
-  font-style: italic;
+/* loading dots */
+.loading {
+  color: #000091;
 }
 
-.bold-highlight {
-  font-weight: bold;
+.loading::after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
 }
 
+@keyframes dots {
+  0%,
+  20% {
+    color: rgb(0 0 0 / 0%);
+    text-shadow:
+      0.25em 0 0 rgb(0 0 0 / 0%),
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
+  40% {
+    color: #000091;
+    text-shadow:
+      0.25em 0 0 rgb(0 0 0 / 0%),
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
+  60% {
+    text-shadow:
+      0.25em 0 0 #000091,
+      0.5em 0 0 rgb(0 0 0 / 0%);
+  }
+
+  80%,
+  100% {
+    text-shadow:
+      0.25em 0 0 #000091,
+      0.5em 0 0 #000091;
+  }
+}
 </style>

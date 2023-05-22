@@ -5,6 +5,7 @@ from io import BytesIO
 import requests
 from PIL import Image, ImageChops
 
+
 class TestModel(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(TestModel, self).__init__(*args, **kwargs)
@@ -20,6 +21,15 @@ class TestModel(unittest.TestCase):
         r = requests.get(self.url + '/version')
         self.assertNotEqual(r.text, "-1")
         self.assertEqual(len(r.text.split('.')), 2) # checks version has format X.Y
+
+    def check_log_base(self, log):
+        self.assertTrue(
+            {'timestamp', 'version', 'host', 'level', 'short_message', '_bg_date', '_bg_user_id',
+                '_bg_device', '_bg_device_os', '_bg_device_family', '_bg_device_browser', '_bg_version',
+                '_bg_model'}.issubset(set(log.keys()))
+        )
+        self.assertEqual(log["level"], 6)
+        self.assertTrue(log["_bg_model"].startswith("EffB"))
 
     def test_upload_and_logs(self):
         """Checks that the file upload works properly"""
@@ -37,13 +47,12 @@ class TestModel(unittest.TestCase):
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(set(res.keys()), set({"label", "confidence", "confidence_level", "path"}))
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 99.53, places=1)
         self.assertTrue(res["confidence_level"], "high")
         self.assertTrue("ovh" in res["path"])
         # checks that written file is exactly the same as input file
-        time.sleep(30)
+        time.sleep(10)
         response = requests.get(res["path"])
         with Image.open(path) as image_one:
             with Image.open(BytesIO(response.content)) as image_two:
@@ -58,16 +67,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
         # checks the previous log "Identification request"
         log = r.json()[1]
-        self.assertEqual(
-            set(log.keys()),
-            set({'timestamp', '_bg_device', 'host', '_bg_model_time', 'version', '_bg_device_os', '_bg_device_family',
-            'short_message', '_bg_confidence', '_bg_confidence_level', '_bg_upload_time', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
-            'level', '_bg_geolocation', '_bg_device_browser', '_bg_version', '_bg_model'})
-        )
-        self.assertEqual(log["level"], 6)
+        self.check_log_base(log)
         self.assertEqual(log["short_message"], "Identification request")
         self.assertTrue("-" in log["_bg_user_id"])
         self.assertEqual(log["_bg_geolocation"], geoloc)
+        self.assertEqual(log["_bg_label"], "revolver")
+        self.assertAlmostEqual(log["_bg_confidence"], 99.53, places=1)
         self.assertTrue(log["_bg_upload_time"]>=0)
 
     def test_feedback_and_logs(self):
@@ -75,22 +80,18 @@ class TestModel(unittest.TestCase):
         confidence = 90
         label = "revolver"
         confidence_level = "high"
-        r = requests.post(self.url + "/feedback",
-                json={"image_url": "test", "feedback": False, "confidence": confidence, "label": label, "confidence_level": confidence_level})
+        image_url = "https://storage.gra.cloud.ovh.net/v1/test"
+        r = requests.post(self.url + "/identification-feedback",
+                json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
+
         self.assertEqual(r.status_code, 200)
         r = requests.get(self.url + "/logs")
         self.assertEqual(r.status_code, 200)
         log = r.json()[0]
-        self.assertEqual(
-            set(log.keys()),
-            set({'timestamp', '_bg_device', 'host', '_bg_feedback_bool', 'version', '_bg_device_os', '_bg_device_family',
-            'short_message', '_bg_confidence', '_bg_confidence_level', '_bg_date', '_bg_user_id', '_bg_label', '_bg_image_url',
-            'level', '_bg_device_browser', '_bg_version'})
-        )
-        self.assertEqual(log["level"], 6)
+        self.check_log_base(log)
         self.assertEqual(log["short_message"], "Identification feedback")
-        self.assertEqual(log["_bg_image_url"], "test")
-        self.assertFalse(log["_bg_feedback_bool"])
+        self.assertEqual(log["_bg_image_url"], image_url)
+        self.assertTrue(log["_bg_feedback_bool"])
         self.assertEqual(log["_bg_confidence"], confidence)
         self.assertEqual(log["_bg_label"], label)
         self.assertEqual(log["_bg_confidence_level"], confidence_level)

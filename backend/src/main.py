@@ -84,6 +84,64 @@ def get_device(user_agent) -> str:
         return "other"
 
 
+def get_base_logs(user_agent, user_id) -> dict:
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_user_id": user_id,
+        "bg_version": APP_VERSION,
+        "bg_model": MODEL_VERSION,
+        "bg_device": get_device(user_agent),
+        "bg_device_family": user_agent.device.family,
+        "bg_device_os": user_agent.os.family,
+        "bg_device_browser": user_agent.browser.family,
+    }
+    return extras_logging
+
+
+def upload_image_ovh(content: bytes, img_name: str):
+    """ Uploads an image to owh swift container basegun-public
+        path uploaded-images/WORKSPACE/img_name
+        where WORKSPACE is dev, preprod or prod
+
+    Args:
+        content (bytes): file content
+        img_name (str): name we want to give on ovh
+    """
+    num_tries = 0
+    LIMIT_TRIES = 5
+    image_path = os.path.join(CLOUD_PATH, img_name)
+    start = time.time()
+
+    if not conn:
+        logger.exception("Variables not set for using OVH swift.", extra={
+            "bg_error_type": "NameError"
+        })
+        return
+
+    while num_tries <= LIMIT_TRIES:
+        num_tries += 1
+        extras_logging = {
+            "bg_date": datetime.now().isoformat(),
+            "bg_upload_time": time.time()-start,
+            "bg_image_url": image_path
+        }
+        try:
+            conn.put_object("basegun-public",
+                            f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
+                            contents=content)
+            # if success, get out of the loop
+            logger.info("Upload to OVH successful", extra=extras_logging)
+            break
+        except Exception as e:
+            if (num_tries <= LIMIT_TRIES and e.__class__.__name__ == "ClientException"):
+                # we try uploading another time
+                time.sleep(30)
+                continue
+            else:
+                extras_logging["bg_error_type"] = e.__class__.__name__
+                logger.exception(e, extra=extras_logging)
+
+
 ####################
 #      SETUP       #
 ####################
@@ -151,50 +209,6 @@ else:
     logger.warn('Variables necessary for OVH connection not set !')
 
 
-def upload_image_ovh(content: bytes, img_name: str):
-    """ Uploads an image to owh swift container basegun-public
-        path uploaded-images/WORKSPACE/img_name
-        where WORKSPACE is dev, preprod or prod
-
-    Args:
-        content (bytes): file content
-        img_name (str): name we want to give on ovh
-    """
-    num_tries = 0
-    LIMIT_TRIES = 5
-    image_path = os.path.join(CLOUD_PATH, img_name)
-    start = time.time()
-
-    if not conn:
-        logger.exception("Variables not set for using OVH swift.", extra={
-            "bg_error_type": "NameError"
-        })
-        return
-
-    while num_tries <= LIMIT_TRIES:
-        num_tries += 1
-        extras_logging = {
-            "bg_date": datetime.now().isoformat(),
-            "bg_upload_time": time.time()-start,
-            "bg_image_url": image_path
-        }
-        try:
-            conn.put_object("basegun-public",
-                            f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
-                            contents=content)
-            # if success, get out of the loop
-            logger.info("Upload to OVH successful", extra=extras_logging)
-            break
-        except Exception as e:
-            if (num_tries <= LIMIT_TRIES and e.__class__.__name__ == "ClientException"):
-                # we try uploading another time
-                time.sleep(30)
-                continue
-            else:
-                extras_logging["bg_error_type"] = e.__class__.__name__
-                logger.exception(e, extra=extras_logging)
-
-
 ####################
 #     ROUTES       #
 ####################
@@ -232,17 +246,9 @@ async def imageupload(
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
-    extras_logging = {
-        "bg_date": datetime.now().isoformat(),
-        "bg_upload_time": round(time.time()-date, 2),
-        "bg_geolocation": geolocation,
-        "bg_device": get_device(user_agent),
-        "bg_device_family": user_agent.device.family,
-        "bg_device_os": user_agent.os.family,
-        "bg_device_browser": user_agent.browser.family,
-        "bg_version": APP_VERSION,
-        "bg_model": MODEL_VERSION,
-    }
+    extras_logging = get_base_logs(user_agent, user_id)
+    extras_logging["bg_geolocation"] = geolocation
+    extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
         img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
@@ -257,7 +263,7 @@ async def imageupload(
         if not user_id:
             user_id = uuid4()
             response.set_cookie(key="user_id", value=user_id)
-        extras_logging["bg_user_id"] = user_id
+            extras_logging["bg_user_id"] = user_id
 
         # send image to model for prediction
         start = time.time()
@@ -287,24 +293,47 @@ async def imageupload(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/feedback")
+@app.post("/identification-feedback")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
-    user_agent = parse(request.headers.get("user-agent"))
 
-    extras_logging = {
-        "bg_date": datetime.now().isoformat(),
-        "bg_image_url": res["image_url"],
-        "bg_feedback_bool": res["feedback"],
-        "bg_label": res["label"],
-        "bg_confidence": res["confidence"],
-        "bg_confidence_level": res["confidence_level"],
-        "bg_user_id": user_id,
-        "bg_device": get_device(user_agent),
-        "bg_device_family": user_agent.device.family,
-        "bg_device_os": user_agent.os.family,
-        "bg_device_browser": user_agent.browser.family,
-        "bg_version": APP_VERSION,
-    }
+    user_agent = parse(request.headers.get("user-agent"))
+    extras_logging = get_base_logs(user_agent, user_id)
+
+    extras_logging["bg_feedback_bool"] = res["feedback"]
+    for key in ["image_url", "label", "confidence", "confidence_level"]:
+        extras_logging["bg_"+key] = res[key]
+
     logger.info("Identification feedback", extra=extras_logging)
+    return
+
+
+@app.post("/tutorial-feedback")
+async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
+    res = await request.json()
+
+    user_agent = parse(request.headers.get("user-agent"))
+    extras_logging = get_base_logs(user_agent, user_id)
+
+    for key in ["image_url", "label", "confidence", "confidence_level",
+        "tutorial_feedback", "tutorial_option", "route_name"]:
+        extras_logging["bg_"+key] = res[key]
+
+    logger.info("Tutorial feedback", extra=extras_logging)
+    return
+
+
+@app.post("/identification-dummy")
+async def log_identification_dummy(request: Request, user_id: Union[str, None] = Cookie(None)):
+    res = await request.json()
+
+    user_agent = parse(request.headers.get("user-agent"))
+    extras_logging = get_base_logs(user_agent, user_id)
+
+    # to know if the firearm is dummy or real
+    extras_logging["bg_dummy_bool"] = res["is_dummy"]
+    for key in ["image_url", "label", "confidence", "confidence_level", "tutorial_option"]:
+        extras_logging["bg_"+key] = res[key]
+
+    logger.info("Identification dummy", extra=extras_logging)
     return

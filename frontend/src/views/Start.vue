@@ -1,53 +1,29 @@
 <template>
-  <div class="centered">
-    <div class="text-center">
-      <img
-        src="../assets/basegun.png"
-        alt=""
-      >
-      <h1 class="accueil-title">
-        Basegun <label class="fr-tag fr-tag--sm">beta</label>
-      </h1>
-      <p class="accueil-subtitle">
-        Identification automatique des armes à feu
-      </p>
+  <div class="text-center relative top-1/6">
+    <img
+      src="@/assets/basegun.png"
+      alt=""
+    >
+    <h1 class="accueil-title">
+      Basegun <label class="fr-tag fr-tag--sm">beta</label>
+    </h1>
+    <p class="accueil-subtitle">
+      Identification automatique des armes à feu
+    </p>
+    <router-link
+      v-slot="{navigate}"
+      :to="{name:'Instructions'}"
+    >
       <DsfrButton
         label="Démarrer"
-        @click="showInstruction"
+        @click="navigate()"
       />
-    </div>
-    <div class="footer-background footer-text">
+    </router-link>
+    <div class="footer footer-up footer-text">
       Basegun est un outil d'aide à la décision. Il ne remplace en aucun cas l'avis d'un expert.
     </div>
   </div>
 </template>
-
-<script>
-import { store } from '@/store/store.js'
-
-export default {
-  name: 'StartPage',
-  components: {
-  },
-
-  beforeRouteLeave () {
-    store.uploadMessage = null
-    store.isDisplayHeader = true
-  },
-
-  data () {
-    return {
-      store,
-    }
-  },
-
-  methods: {
-    showInstruction () {
-      this.$router.push({ name: 'Instructions' }).catch(() => {})
-    },
-  },
-}
-</script>
 
 <style scoped>
   .accueil-title {
@@ -58,19 +34,5 @@ export default {
 
   .accueil-subtitle {
     font-size: 14px;
-  }
-
-  .footer-background {
-    position: fixed;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    background-color: #f5f5fe;
-    width: 100%;
-  }
-
-  .footer-text {
-    padding: 20px 10px;
-    text-align: center;
   }
 </style>

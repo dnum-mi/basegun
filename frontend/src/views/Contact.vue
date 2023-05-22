@@ -1,41 +1,20 @@
+<script setup>
+</script>
+
 <template>
   <div>
-    <div class="content">
-      <div class="d-flex align-items-center">
-        <a
-          href="/accueil"
-          class="small-link small-text"
-        > Accueil</a>
-        <span
-          class="fr-fi-arrow-right-s-line"
-          aria-hidden="true"
-        />
-        <p class="small-text">
-          Contact
+    <div class="fr-container mt-4">
+      <h2>Contact</h2>
+      <div>
+        <p class="title-space">
+          Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a href="mailto:basegun@interieur.gouv.fr">basegun@interieur.gouv.fr</a>.
         </p>
       </div>
-      <ContactTextContent />
     </div>
   </div>
 </template>
 
-<script>
-
-import ContactTextContent from "@/views/text_content/ContactTextContent.vue";
-
-export default {
-  name: 'ContactPage',
-  components: {
-    ContactTextContent,
-  },
-}
-</script>
-
 <style scoped>
-  .content {
-    margin: min(5vw, 10rem);
-  }
-
   .title-space {
     margin-top: 20px;
   }

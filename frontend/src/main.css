@@ -1,13 +1,10 @@
-.centered {
-  position: absolute;
-  top: 30%;
-  right: 0;
-  bottom: 0;
-  left: 0;
+html {
+  --select-option-image-width: 13rem;
 }
 
-.home {
-  top: 15%;
+#app {
+  position: absolute;
+  inset: 0;
 }
 
 .fr-container {
@@ -15,29 +12,34 @@
   height: 100%;
 }
 
-@media (min-width: 740px) {
-  .info {
-    position: absolute;
-    top: 30%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.footer-background {
+.footer {
   position: fixed;
   top: 100%;
   left: 50%;
   transform: translate(-50%, -100%);
   background-color: #f5f5fe;
-  padding: 5px;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  padding: 15px !important;
   width: 100%;
 }
 
+.footer-up {
+  top: 97%;
+}
+
+button {
+  border-radius: 3px;
+  white-space: nowrap;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .footer-text {
-  padding: 20px 10px;
+  padding: 10px;
   text-align: center;
+  box-shadow: none;
 }
 
 .footer-actions {
@@ -48,10 +50,39 @@
   margin: auto;
 }
 
-.blank {
-  height: 120px;
+.small-blank {
+  height: 10vh;
+  z-index: 1
 }
 
-.bold {
-  font-weight: 700;
+.big-blank {
+  height: 25vh;
+  z-index: 1
+}
+
+.action-group {
+  text-align: center;
+  cursor: pointer;
+  margin: 8px 0;
+}
+
+.action-group:hover {
+  color: #1212ff;
+}
+
+.action-group-text {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0
+}
+
+.img-deco {
+  margin-bottom: 1em;
+  margin-top: 33%;
+  width: 100%;
+}
+
+.help {
+  color: #000091;
+  background-image: var(--underline-img), var(--underline-img) !important;
 }

@@ -1,6 +1,6 @@
 {
   "name": "basegun",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "serve": "vite preview",
@@ -12,47 +12,41 @@
     "pretest:unit": "npm run lint"
   },
   "dependencies": {
-    "@gouvminint/vue-dsfr": "~1.4.0",
-    "@vue/compat": "^3.2.40",
-    "axios": "^0.27.2",
-    "bootstrap": "^5.2.2",
+    "@gouvfr/dsfr": "^1.9.2",
+    "@gouvminint/vue-dsfr": "3.6.0",
+    "@vue/compat": "^3.3.2",
+    "@vueuse/core": "^10.1.2",
+    "axios": "^1.4.0",
+    "pinia": "^2.1.0",
     "stylelint-config-recommended-vue": "^1.4.0",
-    "swiper": "^8.4.2",
-    "vite": "^3.1.4",
-    "vue": "^3.2.40",
-    "vue-router": "^4.1.5",
-    "vuex": "^4.0.2",
-    "vuex-persistedstate": "^4.1.0"
+    "swiper": "^9.3.2",
+    "vite": "^4.3.7",
+    "vue": "^3.3.2",
+    "vue-router": "^4.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^3.1.2",
-    "eslint": "^8.21.0",
+    "@unocss/transformer-directives": "^0.51.13",
+    "@unocss/transformer-variant-group": "^0.51.13",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.40.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.4",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-vue": "^9.3.0",
-    "stylelint": "^14.9.1",
-    "stylelint-config-standard": "^26.0.0",
-    "vite-plugin-pwa": "^0.13.1",
+    "eslint-plugin-cypress": "^2.13.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.13.0",
+    "stylelint": "^15.6.2",
+    "stylelint-config-standard": "^33.0.0",
+    "unocss": "^0.51.13",
+    "vite-plugin-pwa": "^0.14.7",
     "workbox-window": "^6.5.4"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "es2021": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {},
-    "rules": {}
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "volta": {
+    "node": "18.14.0"
+  }
 }
