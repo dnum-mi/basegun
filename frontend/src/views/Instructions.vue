@@ -58,7 +58,7 @@ function readInstruction () {
           @file-selected="uploadMessage = 'Analyse en cours'"
         />
         <DsfrButton
-          class="flex justify-center"
+          class="flex justify-center w-full"
           label="Prendre la photo"
           icon="ri-camera-fill"
           :icon-right="true"

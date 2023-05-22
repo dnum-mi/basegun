@@ -23,7 +23,8 @@
   top: 97%;
 }
 
-.footer button {
+button {
+  border-radius: 3px;
   white-space: nowrap;
   display: inline-flex;
   width: fit-content;
@@ -43,10 +44,6 @@
   color: #000091;
   z-index: 1;
   margin: auto;
-}
-
-:deep(.fr-btn) { 
-  border-radius: 4px !important;
 }
 
 .small-blank {
