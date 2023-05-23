@@ -31,7 +31,7 @@ function onClickOnLogo () {
 
 function onClickOnInfo (event) {
   event.stopPropagation()
-  router.push({ name: 'Home' })
+  router.push({ name: 'HomePage' })
 }
 
 </script>
@@ -43,7 +43,7 @@ function onClickOnInfo (event) {
     @click="onClickOnLogo"
   >
     <span
-      v-if="route.name !== 'Home'"
+      v-if="route.name !== 'HomePage'"
       class="information fr-icon-info-line"
       aria-hidden="true"
       @click="onClickOnInfo"
