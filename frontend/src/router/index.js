@@ -23,15 +23,6 @@ const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 
 const routes = [
   {
-    path: '/',
-    name: 'HomePage',
-    component: HomePage,
-    meta: {
-      displayHeader: true,
-    },
-    beforeEnter: clearLocalStorage,
-  },
-  {
     path: '/accueil',
     name: 'StartPage',
     component: StartPage,
