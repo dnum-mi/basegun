@@ -26,7 +26,7 @@ const quickLinks = [
 ]
 
 function onClickOnLogo () {
-  router.push({ name: 'Start' })
+  router.push({ name: 'StartPage' })
 }
 
 function onClickOnInfo (event) {

@@ -5,8 +5,7 @@ import { clearLocalStorage } from '@/utils/storage-utils.js'
 import { useResultStore } from '@/stores/result.js'
 import { useStepsStore } from '@/stores/steps.js'
 
-const HomePage = () => import('@/views/HomePage.vue')
-const Start = () => import('@/views/Start.vue')
+const StartPage = () => import('@/views/StartPage.vue')
 const Instructions = () => import('@/views/Instructions.vue')
 const Result = () => import('@/views/Result.vue')
 const Error = () => import('@/views/Error.vue')
@@ -34,8 +33,8 @@ const routes = [
   },
   {
     path: '/accueil',
-    name: 'Start',
-    component: Start,
+    name: 'StartPage',
+    component: StartPage,
     meta: {
       displayHeader: true,
     },
@@ -69,7 +68,7 @@ const routes = [
       if (stepsStore.currentStep !== 0 && resultStore.img) {
         return true
       }
-      return { name: 'Start' }
+      return { name: 'StartPage' }
     },
     children: [
       {
@@ -106,7 +105,7 @@ const routes = [
       if (resultStore.img) {
         return true
       }
-      return { name: 'Start' }
+      return { name: 'StartPage' }
     },
   },
   {

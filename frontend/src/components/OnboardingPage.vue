@@ -3,7 +3,7 @@
     <img
       src="@/assets/basegun_green.png"
       alt=""
-      class="onboarding-logo"
+      class="w-1\/3"
     >
     <div class="onboarding-content">
       <ul class="onboarding-ul fr-text--sm">
@@ -20,7 +20,7 @@
     </div>
     <router-link
       v-slot="{navigate}"
-      :to="{name:'Start'}"
+      :to="{name:'StartPage'}"
     >
       <button
         id="agree-button"
@@ -37,10 +37,6 @@
   width: 100%;
   height: 100%;
   position: static;
-}
-
-.onboarding-logo {
-  width: 40%;
 }
 
 .onboarding-content {
