@@ -21,7 +21,7 @@
       </div>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'Start'}"
+        :to="{name:'StartPage'}"
       >
         <DsfrButton
           id="agree-button"

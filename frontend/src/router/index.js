@@ -5,6 +5,7 @@ import { clearLocalStorage } from '@/utils/storage-utils.js'
 import { useResultStore } from '@/stores/result.js'
 import { useStepsStore } from '@/stores/steps.js'
 
+const HomePage = () => import('@/views/HomePage.vue')
 const StartPage = () => import('@/views/StartPage.vue')
 const Instructions = () => import('@/views/Instructions.vue')
 const Result = () => import('@/views/Result.vue')
@@ -22,6 +23,15 @@ const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 
 const routes = [
+  {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage,
+    meta: {
+      displayHeader: true,
+    },
+    beforeEnter: clearLocalStorage,
+  },
   {
     path: '/accueil',
     name: 'StartPage',
