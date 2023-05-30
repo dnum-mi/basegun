@@ -12,16 +12,29 @@
     </p>
     <router-link
       v-slot="{navigate}"
+      :to="{name:'StartPage'}"
+    >
+      <DsfrButton
+        class=" w-14rem mb-4 p-2 whitespace-pre-line"
+        label="Je veux mettre en sécurité mon arme"
+        size="small"
+        @click="navigate()"
+      />
+    </router-link>
+    <router-link
+      v-slot="{navigate}"
       :to="{name:'Instructions'}"
     >
       <DsfrButton
-        label="Démarrer"
+        class=" w-14rem mb-4 p-2 whitespace-pre-line"
+        label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
+        size="small"
         @click="navigate()"
       />
     </router-link>
     <div class="footer footer-up footer-text">
-      Basegun est un <span class="bold">outil d'aide à la décision</span>. 
-      <span class="bold">Il ne remplace en aucun cas l'avis d'un expert</span>.
+      Basegun est un <span class="font-bold">outil d'aide à la décision</span>.
+      Il <span class="font-bold">ne remplace en aucun cas l'avis d'un expert</span>.
     </div>
   </div>
 </template>
