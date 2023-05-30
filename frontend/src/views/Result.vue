@@ -125,10 +125,12 @@ function sendFeedback (isCorrect) {
             </p>
           </div>
           <div v-else>
-            <p class="fr-callout__title mt-3">
+            <p
+              class="fr-callout__title mt-3"
+              data-testid="legal-category"
+            >
               Catégorie {{ category }}
             </p>
-
             <div
               class="callout-mention"
             >
@@ -147,6 +149,7 @@ function sendFeedback (isCorrect) {
                   :to="{name:'SafetyRecommendation'}"
                 >
                   <DsfrButton
+                    data-testid="dummy-button"
                     class="my-4 flex justify-content-center"
                     label="Vérifier si l'arme est factice"
                     @click="navigate()"
@@ -164,6 +167,7 @@ function sendFeedback (isCorrect) {
                     Non Classé
                   </p>
                   <DsfrButton
+                    data-testid="dummy-button"
                     class="my-4 flex justify-content-center"
                     label="Pas de guide de vérification"
                     disabled

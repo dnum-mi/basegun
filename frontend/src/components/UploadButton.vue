@@ -125,6 +125,7 @@ function onFileSelected (event) {
   >
     <input
       ref="fileInput"
+      data-testid="select-file"
       type="file"
       style="width: 0; height: 1px"
       :accept="handledImageTypes"
