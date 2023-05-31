@@ -1,0 +1,56 @@
+name: Test on kubernetes
+
+on:
+  # only work when code is on main branch
+  workflow_dispatch:
+  push:
+    branches:
+      - 'enh/kube'
+
+
+jobs:
+  create-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+        with:
+          cluster_name: basegun-testing
+          wait: 60s
+          verbosity: 2
+          config: /tmp/
+
+      - name: Set up ingress controller 
+        run: |
+         kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+         kubectl wait --namespace ingress-nginx \
+              --for=condition=ready pod \
+              --selector=app.kubernetes.io/component=controller \
+              --timeout=90s
+      
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.11.2
+
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 basegun.kubernetes.local" | sudo tee -a /etc/hosts
+
+      - name: Checkout to code
+        uses: actions/checkout@v2
+
+      - name: Install basegun with helm and test is running
+        run: |
+         helm upgrade --install basegun ./infra/kube/basegun/  \
+           --set="ingress.hosts[0].host=basegun.kubernetes.local,ingress.hosts[0].paths[0].path=/" 
+           --wait
+         kubectl rollout status deploy basegun-backend basegun-frontend --timeout=300s
+
+      - name: Test unitests on backend
+        run : |
+         kubectl exec basegun-backend -- python -m unittest discover -v
+      
+      - name: Test frontend
+        run: |
+         curl -o /dev/null basegun.kubernetes.local

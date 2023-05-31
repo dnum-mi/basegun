@@ -1,9 +1,11 @@
 on:
-  # only work when code is on main branch
-  workflow_dispatch:
-  push:
-    branches:
-      - 'enh/kube'
+  workflow_run:
+    workflows: ["Test on kubernetes"]
+    branches: [enh/kube]
+    types: 
+      - completed
+
+
 name: Deploy on KUBE
 jobs:
   deploy-kube:
