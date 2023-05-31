@@ -52,6 +52,9 @@ spec:
             httpGet:
               path: /
               port: api
+          volumeMounts:
+            - name: logs
+              mountPath: /tmp/log/basegun/
         - name: filebeat
           imagePullPolicy: {{ .Values.backend.logs.pullPolicy }}
           image: "{{ .Values.backend.logs.repository }}:{{ .Values.backend.logs.tag }}"

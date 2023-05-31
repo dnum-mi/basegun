@@ -29,7 +29,7 @@ serviceAccount:
   name: ""
 # Config for backend
 backend:
-  replicaCount: 3
+  replicaCount: 1
   image:
     repository: ghcr.io/datalab-mi/basegun/basegun-backend
     pullPolicy: IfNotPresent
