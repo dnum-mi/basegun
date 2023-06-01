@@ -51,29 +51,26 @@ jobs:
       - name: Checkout to code
         uses: actions/checkout@v2
 
-      - name: Install basegun with helm and test it's running
-        env:
-          OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-          X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
-          OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-          OS_USERNAME: ${{ secrets.OS_USERNAME }}
-          API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
+      - name: Build and install basegun with helm and test it's running
         run: |
+         BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build backend
+         BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build frontend
          helm upgrade --install basegun ./infra/kube/basegun/  \
            --set="ingress.hosts[0].host=basegun.kubernetes.local" \
            --set="ingress.hosts[0].paths[0].path=/" \
            --set="ingress.hosts[0].paths[0].pathType=Prefix"  \
-           --set="secret.create=true" \
-           --set="secret.values.OS_PASSWORD=$OS_PASSWORD" \
-           --set="secret.values.OS_PROJECT_NAME=$OS_PROJECT_NAME" \
-           --set="secret.values.OS_USERNAME=$OS_USERNAME" \
-           --set="secret.values.X_OVH_TOKEN=$PREPROD_OVH_TOKEN" \
-           --set="secret.values.API_OVH_TOKEN=$API_OVH_TOKEN" 
+           --set="backend.secret.create=true" \
+           --set="backend.image.repository=basegun-backend" \
+           --set="backend.image.tag=$(make get-current-tag)-dev" \
+           --set="frontend.image.repository=basegun-frontend"
+           --set="frontend.image.tag=$(make get-current-tag)-dev" \
+           --set="backend.secret.values.X_OVH_TOKEN=test" \
+           --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
 
       - name: Test unitests on backend
         run : |
-         kubectl exec deploy/basegun-backend -- python -m unittest discover -v
+         kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
       
       - name: Test frontend
         run: |
