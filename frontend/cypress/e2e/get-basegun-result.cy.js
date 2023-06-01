@@ -15,44 +15,31 @@ describe('Get Basegun result', () => {
     cy.contains('h3', 'Pour un résultat optimal')
     cy.contains('span', 'canon vers la droite')
 
-    cy.readFile('./cypress/images/pistolet-semi-auto.jpg', null).then((file) => {
-      expect(Cypress.Buffer.isBuffer(file)).to.be.true
-      cy.intercept('POST', '/api/upload', {
-        label: 'pistolet_semi_auto_moderne',
-        confidence: 98,
-        confidence_level: 'high'
-      }).as('upload')
-      cy.getByDataTestid('select-file').selectFile(file, { force: true })
-      cy.wait('@upload').then(({ response }) => {
-        expect(response.statusCode).to.eq(200)
-      })
+    cy.getByDataTestid('select-file').as('fileInput')
+    cy.intercept('POST','/api/upload').as('upload')
+    cy.get('@fileInput').selectFile('./cypress/images/pistolet-semi-auto.jpg', { force: true })
+    cy.wait('@upload').then(({ response }) => {
+      expect(response.statusCode).to.eq(200)
     })
-      cy.visit('/resultat')
+      cy.url().should('contain','/resultat')
       cy.getByDataTestid('legal-category').contains('Catégorie B')
       cy.getByDataTestid('dummy-button')
         .should('be.enabled')
         .contains('Vérifier si l\'arme est factice')
   })
 
-    it('should have dummy button disabled', () => { 
+  it('should have dummy button disabled', () => { 
     cy.visit('/instructions')
-
-    cy.readFile('./cypress/images/autre-pistolet.jpg', null).then((file2) => {
-      expect(Cypress.Buffer.isBuffer(file2)).to.be.true
-      cy.intercept('POST', '/api/upload', {
-        label: 'autre_pistolet',
-        confidence: 52,
-        confidence_level: 'medium'
-      }).as('upload')
-      cy.getByDataTestid('select-file').selectFile(file2, { force: true })
-      cy.wait('@upload').then(({ response }) => {
-        expect(response.statusCode).to.eq(200)
-      })
-      cy.visit('/resultat')
+    cy.getByDataTestid('select-file').as('fileInput')
+    cy.intercept('POST','/api/upload').as('upload')
+    cy.get('@fileInput').selectFile('./cypress/images/autre-pistolet.jpg', { force: true })
+    cy.wait('@upload').then(({ response }) => {
+      expect(response.statusCode).to.eq(200)
+    })
+      cy.url().should('contain','/resultat')
       cy.getByDataTestid('legal-category').contains('Catégorie A, B ou D')
       cy.getByDataTestid('dummy-button')
         .should('be.disabled')
         .contains('Pas de guide de vérification')
     })
-  })
 })

@@ -46,6 +46,7 @@ test-backend: test-workflow-backend
 
 test-frontend: test-workflow-frontend
 	curl -s -o /dev/null localhost:3000
+	docker exec basegun-frontend npm run test:e2e
 
 down-%:
 	${DC} -f docker-compose-$*.yml down

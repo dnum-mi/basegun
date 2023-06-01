@@ -50,7 +50,6 @@ services:
     container_name: basegun-frontend
     ports:
       - 3000:5173
-      - 4173:4173
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules
