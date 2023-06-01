@@ -10,7 +10,7 @@
       </p>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'Start'}"
+        :to="{name:'StartPage'}"
       >
         <DsfrButton
           label="Retour"

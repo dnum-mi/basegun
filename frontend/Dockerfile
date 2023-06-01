@@ -7,10 +7,10 @@ ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
 # downgrade npm version to avoid chokidar error
-RUN npm install -g npm@8
+# RUN npm install -g npm@8
 
 COPY ./package.json ./package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 COPY src ./src
 COPY public ./public

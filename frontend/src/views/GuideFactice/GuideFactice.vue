@@ -57,7 +57,7 @@ const goToNextStep = () => (
 
 watchEffect(() => {
   if (!resultStore.img) {
-    router.push({ name: 'Start' })
+    router.push({ name: 'StartPage' })
   }
 })
 
@@ -112,7 +112,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
     </div>
     <div class="m-2">
       <router-link
-        :to="{ name: 'Start' }"
+        :to="{ name: 'StartPage' }"
       >
         <img
           class="go-home"

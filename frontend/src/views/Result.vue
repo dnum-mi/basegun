@@ -14,7 +14,7 @@ const resultStore = useResultStore()
 const router = useRouter()
 
 watchEffect(() => {
-  if (!resultStore.img) router.push({ name: 'Start' })
+  if (!resultStore.img) router.push({ name: 'StartPage' })
 })
 
 const confidence = computed(() => resultStore.confidence)
