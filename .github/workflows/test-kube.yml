@@ -68,6 +68,12 @@ jobs:
            --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
 
+      - name: Display pod logs on failure
+        if: ${{ job.status != 'Success' }}
+        run: |
+          kubectl describe pods
+          kubectl logs --all-containers=true --tail=100 
+
       - name: Test unitests on backend
         run : |
          kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
