@@ -52,6 +52,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and install basegun with helm and test it's running
+        id: tests
         run: |
          BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build backend
          BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build frontend
@@ -69,7 +70,7 @@ jobs:
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
 
       - name: Display pod logs on failure
-        if: ${{ job.status != 'Success' }}
+        if: failure() && steps.tests.outcome == 'failure'
         run: |
           kubectl describe pods
           kubectl logs --all-containers=true --tail=100 
