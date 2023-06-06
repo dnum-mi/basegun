@@ -64,8 +64,8 @@ jobs:
          export SHELL=/bin/bash
          eval $(minikube -p minikube docker-env)
          
-         BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build backend
-         BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build frontend
+         BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build backend
+         TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build frontend
          helm upgrade --install basegun ./infra/kube/basegun/  \
            --set="ingress.hosts[0].host=basegun.kubernetes.local" \
            --set="ingress.hosts[0].paths[0].path=/" \
