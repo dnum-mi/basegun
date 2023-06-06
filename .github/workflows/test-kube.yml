@@ -9,40 +9,46 @@ on:
 
 
 jobs:
-  create-cluster:
+  test-app-k8s:
     runs-on: ubuntu-latest
     steps:
-      - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.4.0
+    
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
         with:
-          cluster_name: basegun-testing
-          wait: 60s
-          verbosity: 2
+          addons: registry,ingress
+      
+      #- name: Create k8s Kind Cluster
+      #  uses: helm/kind-action@v1.4.0
+      #  with:
+      #    cluster_name: basegun-testing
+      #    wait: 60s
+      #    verbosity: 2
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
         with:
           version: v3.11.2
 
-      - name: Set up ingress controller 
-        run: |
-         cat << EOF > values.yml
-         deployment:
-           kind: DaemonSet
-         ingressClass:
-           enabled: true
-           isDefaultClass: true
-         ports:
-           web:
-             hostPort: 80
-           websecure:
-             hostPort: 443
-         service:
-           type: ClusterIP
-         EOF
-         helm repo add traefik https://traefik.github.io/charts && helm repo update
-         helm install --namespace ingress-traefik --create-namespace traefik traefik/traefik -f values.yml
-         kubectl --namespace ingress-traefik rollout status daemonset traefik --timeout=90s
+      #- name: Set up ingress controller 
+      #  run: |
+      #   cat << EOF > values.yml
+      #  deployment:
+      #     kind: DaemonSet
+      #   ingressClass:
+      #     enabled: true
+      #     isDefaultClass: true
+      #   ports:
+      #     web:
+      #       hostPort: 80
+      #     websecure:
+      #       hostPort: 443
+      #   service:
+      #     type: ClusterIP
+      #   EOF
+      #   helm repo add traefik https://traefik.github.io/charts && helm repo update
+      #   helm install --namespace ingress-traefik --create-namespace traefik traefik/traefik -f values.yml
+      #   kubectl --namespace ingress-traefik rollout status daemonset traefik --timeout=90s
 
       - name: Add hosts to /etc/hosts
         run: |
@@ -54,6 +60,10 @@ jobs:
       - name: Build and install basegun with helm and test it's running
         id: tests
         run: |
+         # use docker env 
+         export SHELL=/bin/bash
+         eval $(minikube -p minikube docker-env)
+         
          BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build backend
          BUILD_TARGET=test TAG=$(make get-current-tag) docker-compose -f docker-compose-dev.yml build frontend
          helm upgrade --install basegun ./infra/kube/basegun/  \
