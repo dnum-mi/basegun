@@ -83,7 +83,8 @@ jobs:
         if: failure() && steps.tests.outcome == 'failure'
         run: |
           kubectl describe pods
-          kubectl logs --all-containers=true --tail=100 
+          kubectl logs deploy/basegun-backend --all-containers --ignore-errors
+          kubectl logs deploy/basegun-frontend --all-containers --ignore-errors
 
       - name: Test unitests on backend
         run : |
