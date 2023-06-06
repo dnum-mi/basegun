@@ -72,9 +72,9 @@ jobs:
            --set="ingress.hosts[0].paths[0].pathType=Prefix"  \
            --set="backend.secret.create=true" \
            --set="backend.image.repository=basegun-backend" \
-           --set="backend.image.tag=$(make get-current-tag)-dev" \
+           --set="backend.image.tag=$(make get-current-tag)-prod" \
            --set="frontend.image.repository=basegun-frontend" \
-           --set="frontend.image.tag=$(make get-current-tag)-dev" \
+           --set="frontend.image.tag=$(make get-current-tag)-prod" \
            --set="backend.secret.values.X_OVH_TOKEN=test" \
            --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
