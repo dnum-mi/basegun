@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-3">
-      Mettre en sécurité mon arme
-    </h3>
     <p class="leading-7 mt-3">
       Une arme doit <span class="font-bold">toujours</span> être <span class="font-bold">considérée comme chargée</span>.
     </p>
@@ -21,5 +18,5 @@
 .img-deco {
   margin-bottom: 1em;
   margin-top: 0;
-  width: 60%;
+  width: 75%;
 }</style>

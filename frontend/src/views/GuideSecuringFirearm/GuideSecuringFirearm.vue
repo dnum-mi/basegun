@@ -33,19 +33,19 @@ const goToNextStep = () => (
 
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
-    <div class="m-2">
+    <div class="m-5 absolute right-0">
       <router-link
         :to="{ name: 'StartPage' }"
       >
-        <img
-          class="go-home"
-          src="@/assets/basegun.png"
-          alt="logo-basegun"
-        >
+        <VIcon
+          class="fr-icon-home-3-line"
+          name="ri-home-3-line"
+          scale="1.2"
+        />
       </router-link>
     </div>
   </div>
-  <div class="'fr-container'">
+  <div class="mt-5 fr-container">
     <div class="result fr-col-11 fr-col-lg-6">
       <div>
         <StepsGuide
@@ -53,6 +53,9 @@ const goToNextStep = () => (
           :steps="steps"
           :current-step="currentStep"
         />
+        <h3 class="mt-5">
+          Mettre en sécurité mon arme
+        </h3>
         <RouterView />
       </div>
     </div>
@@ -111,6 +114,14 @@ const goToNextStep = () => (
     font-size: 0.9em;
     color: #080894;
     background-image: none !important;
+    }
+
+    :deep(div.fr-stepper__steps) {
+      border-radius: 10%;
+    }
+
+    :deep(.fr-icon-home-3-line) {
+      color: #000091;
     }
 
     .fr-link--close {
