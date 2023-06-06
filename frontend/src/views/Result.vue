@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { results, guideSteps } from '@/utils/firearms-utils'
+import { results, airsoftsGuideSteps } from '@/utils/firearms-utils'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -40,7 +40,7 @@ const mention = computed(() => isDummy.value === true
 const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
 
 function keepingLastStep () {
-  stepsStore.setCurrentStep(guideSteps.length)
+  stepsStore.setCurrentStep(airsoftsGuideSteps.length)
 }
 
 function sendFeedback (isCorrect) {

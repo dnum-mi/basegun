@@ -216,12 +216,21 @@ const firearmDirection = 'FirearmDirection'
 const selectOption = 'SelectOption'
 const extractMag = 'ExtractMag'
 const selectAmmo = 'SelectAmmo'
+const securingIntroduction = 'SecuringIntroduction'
+const securingInstructions = 'SecuringInstructions'
+const securingRecommendations = 'SecuringRecommendations'
 
-export const guideSteps = [
+export const airsoftsGuideSteps = [
   firearmDirection,
   selectOption,
   extractMag,
   selectAmmo,
+]
+
+export const securingGuideSteps = [
+  securingIntroduction,
+  securingInstructions,
+  securingRecommendations,
 ]
 
 export const routePaths = [
@@ -229,4 +238,10 @@ export const routePaths = [
   'option-arme',
   'extract-mag',
   'munition-type',
+]
+
+export const securingRoutePaths = [
+  'securing-introduction',
+  'securing-instructions',
+  'securing-recommendations',
 ]
