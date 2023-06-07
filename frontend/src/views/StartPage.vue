@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center relative top-1/6">
+  <div class="text-center relative top-1/8">
     <img
       src="@/assets/basegun.png"
       alt=""
@@ -8,7 +8,7 @@
       Basegun <label class="fr-tag fr-tag--sm">beta</label>
     </h1>
     <p class="accueil-subtitle">
-      Identification automatique des armes à feu
+      Outil d'indentification rapide et <br> de mise en sécurité des armes à feu
     </p>
     <router-link
       v-slot="{navigate}"
@@ -48,5 +48,6 @@
 
   .accueil-subtitle {
     font-size: 14px;
+    line-height: normal;
   }
 </style>
