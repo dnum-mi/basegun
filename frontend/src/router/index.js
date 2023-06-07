@@ -16,11 +16,15 @@ const Legal = () => import('@/views/Legal.vue')
 const Contact = () => import('@/views/Contact.vue')
 
 const GuideFactice = () => import('@/views/GuideFactice/GuideFactice.vue')
-const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue')
 const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
+const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue')
 const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
+const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
+const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
+const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
+const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 
 const routes = [
   {
@@ -91,6 +95,36 @@ const routes = [
         path: 'munition-type',
         name: 'SelectAmmo',
         component: SelectAmmo,
+      },
+    ],
+  },
+  {
+    path: '/guide-mise-en-securite',
+    name: 'GuideSecuringFirearm',
+    component: GuideSecuringFirearm,
+    // beforeEnter (to) {
+    //   const stepsStore = useStepsStore()
+    //   const resultStore = useResultStore()
+    //   if (stepsStore.currentStep !== 0 && resultStore.img) {
+    //     return true
+    //   }
+    //   return { name: 'StartPage' }
+    // },
+    children: [
+      {
+        path: 'securing-introduction',
+        name: 'SecuringIntroduction',
+        component: SecuringIntroduction,
+      },
+      {
+        path: 'securing-instructions',
+        name: 'SecuringInstructions',
+        component: SecuringInstructions,
+      },
+      {
+        path: 'securing-recommendations',
+        name: 'SecuringRecommendations',
+        component: SecuringRecommendations,
       },
     ],
   },

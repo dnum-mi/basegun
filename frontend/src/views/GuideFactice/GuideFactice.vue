@@ -2,7 +2,7 @@
 import { computed, watchEffect, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import { routePaths, guideSteps, results } from '@/utils/firearms-utils.js'
+import { routePaths, airsoftsGuideSteps, results } from '@/utils/firearms-utils.js'
 
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
@@ -17,7 +17,6 @@ const router = useRouter()
 
 const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
-const tutorialInterupt = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === 'sans_chargeur'))
 
 const imgUrl = computed(() => resultStore.imgUrl)
 const confidence = computed(() => resultStore.confidence)
@@ -37,14 +36,14 @@ const steps = []
 steps.length = results[resultStore.typology].stepsNumber
 steps.fill(' ')
 
-guideSteps.value = results[resultStore.typology].stepsNumber === 4
-  ? [...guideSteps]
-  : [...guideSteps].filter(str => (str !== 'SelectOption'))
+airsoftsGuideSteps.value = results[resultStore.typology].stepsNumber === 4
+  ? [...airsoftsGuideSteps]
+  : [...airsoftsGuideSteps].filter(str => (str !== 'SelectOption'))
 
 const goToNewRoute = () => (
   currentStep.value === 0
     ? router.push({ name: 'SafetyRecommendation' }).catch(() => {})
-    : router.push({ name: `${guideSteps.value[currentStep.value - 1]}` }).catch(() => { })
+    : router.push({ name: `${airsoftsGuideSteps.value[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (

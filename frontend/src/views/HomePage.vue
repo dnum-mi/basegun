@@ -4,7 +4,7 @@
       <img
         src="@/assets/basegun_green.png"
         alt=""
-        class="homepage-logo"
+        class="w-2\/5 md:w-1\/4"
       >
       <div class="homepage-content">
         <ul class="homepage-ul fr-text--sm">
@@ -40,10 +40,6 @@
   width: 100%;
   height: 100%;
   position: static;
-}
-
-.homepage-logo {
-  width: 40%;
 }
 
 .homepage-content {

@@ -11,4 +11,5 @@ export {
   RiListOrdered,
   RiLogoutBoxRLine,
   RiInformationFill,
+  RiHome3Line,
 } from 'oh-vue-icons/icons/ri/index.js'
