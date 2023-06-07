@@ -17,6 +17,6 @@
 
 .img-deco {
   margin-bottom: 1em;
-  margin-top: 0;
+  margin-top: 3rem;
   width: 75%;
 }</style>

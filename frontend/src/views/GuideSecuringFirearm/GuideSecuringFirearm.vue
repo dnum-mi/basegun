@@ -13,7 +13,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = ['Introduction', 'Consignes de sécurité', 'Préconisation']
+const steps = [': Introduction', ': Consignes de sécurité', ': Préconisation']
 
 const stepsStore = useStepsStore()
 const router = useRouter()
@@ -53,9 +53,9 @@ const goToNextStep = () => (
           :steps="steps"
           :current-step="currentStep"
         />
-        <h3 class="mt-5">
+        <h4 class="mt-5">
           Mettre en sécurité mon arme
-        </h3>
+        </h4>
         <RouterView />
       </div>
     </div>
@@ -117,7 +117,7 @@ const goToNextStep = () => (
     }
 
     :deep(div.fr-stepper__steps) {
-      border-radius: 10%;
+      border-radius: 5px 5px 5px 5px;
     }
 
     :deep(.fr-icon-home-3-line) {

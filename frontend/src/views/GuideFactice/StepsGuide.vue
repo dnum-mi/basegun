@@ -26,4 +26,16 @@ defineProps({
   display: none !important;
 }
 
+:deep(.fr-stepper__state) {
+  display: inline flow-root;
+  color: var(--default-grey);
+  font-size: .9rem;
+}
+
+:deep(.fr-stepper__title) {
+  font-weight: normal;
+  color: var(--default-grey);
+  font-size: .9rem;
+}
+
 </style>
