@@ -7,6 +7,10 @@ html {
   inset: 0;
 }
 
+a {
+background-image: none !important;
+}
+
 .fr-container {
   width: 100%;
   height: 100%;
@@ -86,3 +90,5 @@ button {
   color: #000091;
   background-image: var(--underline-img), var(--underline-img) !important;
 }
+
+

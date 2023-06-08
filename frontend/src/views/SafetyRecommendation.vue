@@ -48,13 +48,13 @@ function setTutorialStep () {
     <div class="big-blank" />
   </div>
   <div class="footer">
-    <div class="mx-auto fr-col-11 fr-col-lg-6">
+    <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <router-link
         v-slot="{navigate}"
         :to="{name: 'FirearmDirection'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-center"
+          class="flex justify-center w-full"
           label="Commencer"
           icon="ri-arrow-right-line"
           :icon-right="true"
@@ -66,7 +66,7 @@ function setTutorialStep () {
         :to="{name:'Result'}"
       >
         <DsfrButton
-          class="mx-4 my-1 flex justify-center"
+          class="mt-3 flex justify-center w-full"
           label="Retour au resultat"
           icon="ri-arrow-go-back-fill"
           :icon-right="true"
@@ -79,10 +79,6 @@ function setTutorialStep () {
 </template>
 
 <style scoped>
-a {
-  background-image: none !important;
-}
-
 .result {
   max-width: 1000px;
 }
@@ -100,7 +96,4 @@ a {
   text-align: center;
 }
 
-.footer button {
-  width: 80%;
-}
 </style>

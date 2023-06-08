@@ -22,9 +22,11 @@ const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
 const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
 const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
-const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
-const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
-const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
+const FirearmSecuringIntroduction = () => import('@/views/GuideSecuringFirearm/FirearmSecuringIntroduction.vue')
+const FirearmSecuringInstructions = () => import('@/views/GuideSecuringFirearm/FirearmSecuringInstructions.vue')
+const FirearmSecuringRecommendations = () => import('@/views/GuideSecuringFirearm/FirearmSecuringRecommendations.vue')
+const FirearmSecuringTracesAndClues = () => import('@/views/GuideSecuringFirearm/FirearmSecuringTracesAndClues.vue')
+const FirearmSecuringAchievement = () => import('@/views/GuideSecuringFirearm/FirearmSecuringAchievement.vue')
 
 const routes = [
   {
@@ -112,21 +114,31 @@ const routes = [
     // },
     children: [
       {
-        path: 'securing-introduction',
-        name: 'SecuringIntroduction',
-        component: SecuringIntroduction,
+        path: 'mise-en-securite-introduction',
+        name: 'FirearmSecuringIntroduction',
+        component: FirearmSecuringIntroduction,
       },
       {
-        path: 'securing-instructions',
-        name: 'SecuringInstructions',
-        component: SecuringInstructions,
+        path: 'mise-en-securite-instructions',
+        name: 'FirearmSecuringInstructions',
+        component: FirearmSecuringInstructions,
       },
       {
-        path: 'securing-recommendations',
-        name: 'SecuringRecommendations',
-        component: SecuringRecommendations,
+        path: 'mise-en-securite-recommandations',
+        name: 'FirearmSecuringRecommendations',
+        component: FirearmSecuringRecommendations,
       },
     ],
+  },
+  {
+    path: '/mise-en-securite-traces-et-indices',
+    name: 'FirearmSecuringTracesAndClues',
+    component: FirearmSecuringTracesAndClues,
+  },
+  {
+    path: '/fin-mise-en-securite',
+    name: 'FirearmSecuringAchievement',
+    component: FirearmSecuringAchievement,
   },
   {
     path: '/resultat',

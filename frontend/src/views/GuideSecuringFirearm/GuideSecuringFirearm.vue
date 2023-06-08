@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils.js'
+import { firearmSecuringRoutePaths, firearmSecuringGuideSteps } from '@/utils/firearms-utils.js'
 import StepsGuide from '../GuideFactice/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 
@@ -19,7 +19,7 @@ const stepsStore = useStepsStore()
 const router = useRouter()
 
 const goToNewRoute = () => (
-  router.push({ name: `${securingGuideSteps[currentStep.value - 1]}` }).catch(() => { })
+  router.push({ name: `${firearmSecuringGuideSteps[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (
@@ -27,7 +27,7 @@ const goToPreviousStep = () => (
 )
 
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < securingRoutePaths.length ? currentStep.value : securingRoutePaths.length
+  currentStep.value = currentStep.value < firearmSecuringRoutePaths.length ? currentStep.value : firearmSecuringRoutePaths.length
 )
 </script>
 
@@ -94,10 +94,6 @@ const goToNextStep = () => (
 <style scoped>
     .steps-guide {
     margin: auto;
-    }
-
-    a {
-    background-image: none !important;
     }
 
     .result {

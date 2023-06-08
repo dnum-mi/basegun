@@ -24,6 +24,7 @@ const typology = computed(() => resultStore.typology)
       <div class="fr-content-media">
         <video
           autoplay
+          controls
           playsinline
           loop
           muted
@@ -42,6 +43,7 @@ const typology = computed(() => resultStore.typology)
         <video
           type="video/mp4"
           autoplay
+          controls
           playsinline
           loop
           muted
@@ -68,10 +70,6 @@ const typology = computed(() => resultStore.typology)
 video {
   width: 100% !important;
   height: auto !important;
-}
-
-a {
-  background-image: none !important;
 }
 .open-info {
   display: flex;

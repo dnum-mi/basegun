@@ -211,14 +211,15 @@ export const guideFacticeSelectAmmo = {
     },
   },
 }
-
+// Tuto Factice
 const firearmDirection = 'FirearmDirection'
 const selectOption = 'SelectOption'
 const extractMag = 'ExtractMag'
 const selectAmmo = 'SelectAmmo'
-const securingIntroduction = 'SecuringIntroduction'
-const securingInstructions = 'SecuringInstructions'
-const securingRecommendations = 'SecuringRecommendations'
+// Tuto Mise en sécurité
+const firearmSecuringIntroduction = 'FirearmSecuringIntroduction'
+const firearmSecuringInstructions = 'FirearmSecuringInstructions'
+const firearmSecuringRecommendations = 'FirearmSecuringRecommendations'
 
 export const airsoftsGuideSteps = [
   firearmDirection,
@@ -227,10 +228,10 @@ export const airsoftsGuideSteps = [
   selectAmmo,
 ]
 
-export const securingGuideSteps = [
-  securingIntroduction,
-  securingInstructions,
-  securingRecommendations,
+export const firearmSecuringGuideSteps = [
+  firearmSecuringIntroduction,
+  firearmSecuringInstructions,
+  firearmSecuringRecommendations,
 ]
 
 export const routePaths = [
@@ -240,8 +241,8 @@ export const routePaths = [
   'munition-type',
 ]
 
-export const securingRoutePaths = [
-  'securing-introduction',
-  'securing-instructions',
-  'securing-recommendations',
+export const firearmSecuringRoutePaths = [
+  'mise-en-securite-introduction',
+  'mise-en-securite-instructions',
+  'mise-en-securite-recommandations',
 ]

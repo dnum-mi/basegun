@@ -259,7 +259,7 @@ function sendFeedback (isCorrect) {
         >
           <DsfrButton
             :class="{'btn-full-width': selectedAmmo}"
-            class="my-3 flex justify-center w-full"
+            class="mt-3 flex justify-center w-full"
             label="Retourner à l'étape précédente"
             icon="ri-arrow-go-back-fill"
             :icon-right="true"
@@ -273,10 +273,6 @@ function sendFeedback (isCorrect) {
 </template>
 
 <style scoped>
-a {
-  background-image: none !important;
-}
-
 .result {
   margin: 0 auto;
   max-width: 1000px;

@@ -38,4 +38,8 @@ defineProps({
   font-size: .9rem;
 }
 
+/* :deep(.fr-stepper__title)::before {
+  content: ": ";
+} */
+
 </style>

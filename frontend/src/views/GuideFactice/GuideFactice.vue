@@ -109,15 +109,15 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
         >Retour au résultat</span>
       </router-link>
     </div>
-    <div class="m-2">
+    <div class="mt-4">
       <router-link
         :to="{ name: 'StartPage' }"
       >
-        <img
-          class="go-home"
-          src="@/assets/basegun.png"
-          alt="logo-basegun"
-        >
+        <VIcon
+          class="fr-icon-home-3-line"
+          name="ri-home-3-line"
+          scale="1.2"
+        />
       </router-link>
     </div>
   </div>
@@ -168,8 +168,12 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
   margin: auto;
 }
 
-a {
-  background-image: none !important;
+:deep(div.fr-stepper__steps) {
+  border-radius: 5px 5px 5px 5px;
+}
+
+:deep(.fr-icon-home-3-line) {
+  color: #000091;
 }
 
 .result {

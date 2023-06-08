@@ -10,28 +10,30 @@
     <p class="accueil-subtitle">
       Outil d'indentification rapide et <br> de mise en sécurité des armes à feu
     </p>
-    <router-link
-      v-slot="{navigate}"
-      :to="{name:'SecuringIntroduction'}"
-    >
-      <DsfrButton
-        class=" w-14rem mb-4 p-2 whitespace-pre-line"
-        label="Je veux mettre en sécurité mon arme"
-        size="small"
-        @click="navigate()"
-      />
-    </router-link>
-    <router-link
-      v-slot="{navigate}"
-      :to="{name:'Instructions'}"
-    >
-      <DsfrButton
-        class=" w-14rem mb-4 p-2 whitespace-pre-line"
-        label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
-        size="small"
-        @click="navigate()"
-      />
-    </router-link>
+    <div class="inline-grid">
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'FirearmSecuringIntroduction'}"
+      >
+        <DsfrButton
+          class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          label="Je veux mettre en sécurité mon arme"
+          size="small"
+          @click="navigate()"
+        />
+      </router-link>
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Instructions'}"
+      >
+        <DsfrButton
+          class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
+          size="small"
+          @click="navigate()"
+        />
+      </router-link>
+    </div>
     <div class="footer footer-up footer-text">
       Basegun est un <span class="font-bold">outil d'aide à la décision</span>.
       Il <span class="font-bold">ne remplace en aucun cas l'avis d'un expert</span>.
