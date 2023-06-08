@@ -5,12 +5,6 @@ import UploadButton from '@/components/UploadButton.vue'
 import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
 import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
-const instructions = [
-  '1 - Présenter le<b>&nbsp;canon vers la droite</b><br>',
-  "2 - Ne photographier qu'<b>&nbsp;une seule &nbsp;</b>arme <br>",
-  "3 - Placer l'arme<b>&nbsp;en entier&nbsp;</b> et <b>&nbsp;centrée&nbsp;</b> <br> ",
-]
-
 const uploadMessage = ref('')
 const fileInput = ref(null)
 
@@ -21,21 +15,22 @@ function readInstruction () {
 
 <template>
   <div
-    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6  fr-col-sm-9  mx-auto"
+    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >
-    <div class="fr-alert fr-alert--info">
-      <h3 class="fr-alert__title">
-        Pour un résultat optimal
-      </h3>
-      <span
-        v-for="instruction in instructions"
-        :key="instruction.id"
-        class="m-auto-lg lg:flex flex-wrap"
-        v-html="instruction"
-      />
+    <div class="fr-notice fr-notice--info">
+      <div class="fr-container">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title">
+            Pour un résultat optimal
+          </p>
+          <p>1 - Présenter le <span class="font-bold">canon vers la droite</span></p>
+          <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme</p>
+          <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">centrée</span></p>
+        </div>
+      </div>
     </div>
 
-    <div class="container-img  lg:flex">
+    <div class="text-center  lg:flex">
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
@@ -49,8 +44,8 @@ function readInstruction () {
       />
     </div>
   </div>
-  <div class="blank" />
-  <div class="footer-background">
+  <div class="big-blank" />
+  <div class="footer">
     <div
       v-if="!uploadMessage"
       class="btn-read-instruction text-center"
@@ -63,7 +58,7 @@ function readInstruction () {
           @file-selected="uploadMessage = 'Analyse en cours'"
         />
         <DsfrButton
-          class="flex justify-center"
+          class="flex justify-center w-full"
           label="Prendre la photo"
           icon="ri-camera-fill"
           :icon-right="true"
@@ -75,7 +70,7 @@ function readInstruction () {
       v-else
       class="text-center bold"
     >
-      <p class="loading bold-highlight">
+      <p class="loading font-bold">
         {{ uploadMessage }}
       </p>
     </div>
@@ -84,18 +79,6 @@ function readInstruction () {
 
 <style scoped>
 
-.fr-alert {
-  margin-top: 9em;
-}
-
-.title {
-  margin: 1em;
-}
-
-:deep(.fr-alert) {
-  margin: 1em;
-}
-
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
@@ -103,23 +86,25 @@ function readInstruction () {
 }
 
 :deep(.fr-content-media) {
-  margin: 1rem auto;
+  margin: .5rem auto;
 }
 
-.container-img {
-  justify-content: center;
-  text-align: center;
-  padding: 0 0.5rem;
+:deep(.fr-content-media__caption) {
+  margin: -.5rem 0 0 0;
+}
+
+:deep(.fr-notice) {
+  margin-top: 1.5rem;
+}
+
+:deep(.fr-notice__body) {
+  padding: 0 .5rem 0 2.5rem;
 }
 
 img {
   max-width: 100%;
   max-height: 200px;
   padding: 0 0.5rem;
-}
-
-.modal-img-text {
-  font-style: italic;
 }
 
 /* loading dots */

@@ -29,13 +29,14 @@ registerSW({ immediate: true })
 <template>
   <HeaderMain v-show="appStore.displayHeader && online" />
   <router-view v-if="online" />
-  <div v-else>
+  <div
+    v-else
+    id="app"
+  >
     <HeaderMain />
-    <div class="fr-container">
-      <div class="centered text-center m-4">
-        <h1>Problème de connexion</h1>
-        <p>Vous n'avez pas accès à Internet.</p>
-      </div>
+    <div class="text-center relative top-1/6 m-4">
+      <h1>Problème de connexion</h1>
+      <p>Vous n'avez pas accès à Internet.</p>
     </div>
   </div>
 </template>
@@ -58,10 +59,6 @@ registerSW({ immediate: true })
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-
-.refresh {
-  z-index: 999 !important;
 }
 
 </style>

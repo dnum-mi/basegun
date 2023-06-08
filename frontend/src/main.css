@@ -1,13 +1,10 @@
-.centered {
-  position: absolute;
-  top: 30%;
-  right: 0;
-  bottom: 0;
-  left: 0;
+html {
+  --select-option-image-width: 13rem;
 }
 
-.text-center {
-  text-align: center;
+#app {
+  position: absolute;
+  inset: 0;
 }
 
 .fr-container {
@@ -15,16 +12,7 @@
   height: 100%;
 }
 
-.footer-home {
-  position: fixed;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  background-color: #f5f5fe;
-  width: 100%;
-}
-
-.footer-background {
+.footer {
   position: fixed;
   top: 100%;
   left: 50%;
@@ -35,7 +23,12 @@
   width: 100%;
 }
 
-.footer-background button {
+.footer-up {
+  top: 97%;
+}
+
+button {
+  border-radius: 3px;
   white-space: nowrap;
   display: inline-flex;
   width: fit-content;
@@ -46,6 +39,7 @@
 .footer-text {
   padding: 10px;
   text-align: center;
+  box-shadow: none;
 }
 
 .footer-actions {
@@ -56,8 +50,13 @@
   margin: auto;
 }
 
-.blank {
-  height: 120px;
+.small-blank {
+  height: 10vh;
+  z-index: 1
+}
+
+.big-blank {
+  height: 25vh;
   z-index: 1
 }
 
@@ -77,16 +76,9 @@
   margin: 0
 }
 
-.bold-highlight {
-  font-weight: 700;
-}
-
-.text-tuto {
-  font-size: 18px;
-}
-
 .img-deco {
   margin-bottom: 1em;
+  margin-top: 33%;
   width: 100%;
 }
 

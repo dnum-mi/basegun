@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p class="text-tutorial mt-3">
-      Tenir l’arme en la dirigeant toujours dans une <span class="bold-highlight">DIRECTION SÛRE</span>
-      par la poignée en maintenant toujours le doigt <span class="bold-highlight">hors du pontet</span>.
+    <p class="leading-7 mt-3">
+      Tenir l’arme en la dirigeant toujours dans une <span class="font-bold">DIRECTION SÛRE</span>
+      par la poignée en maintenant toujours le <span class="font-bold">doigt hors du pontet</span>.
     </p>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
