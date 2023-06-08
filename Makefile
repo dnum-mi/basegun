@@ -27,7 +27,7 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
 build-%: check-dc-config-% show-current-tag
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
+	TAG=${TAG} ${DC} -f docker-compose-$*.yml --profile all build
 
 up-%: check-dc-config-% show-current-tag
 ifeq ("$(WORKSPACE)","preprod")
@@ -46,6 +46,7 @@ test-backend: test-workflow-backend
 
 test-frontend: test-workflow-frontend
 	curl -s -o /dev/null localhost:3000
+	docker exec basegun-frontend npm run build
 	docker exec basegun-frontend npm run test:e2e
 
 down-%:

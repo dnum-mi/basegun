@@ -11,7 +11,7 @@
     "format": "eslint src --fix",
     "format:css": "stylelint --fix src/**/*.{css,vue}",
     "pretest:unit": "npm run lint",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e --browser chrome'",
+    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e --browser firefox'",
     "test:e2e-dev": "API_HOST=localhost start-server-and-test 'vite --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
@@ -22,7 +22,6 @@
     "axios": "^1.4.0",
     "cypress": "^12.10.0",
     "pinia": "^2.0.30",
-    "start-server-and-test": "^2.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "swiper": "^9.3.2",
     "vite": "^4.3.7",
@@ -42,6 +41,7 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.13.0",
+    "start-server-and-test": "^2.0.0",
     "stylelint": "^15.6.2",
     "stylelint-config-standard": "^33.0.0",
     "unocss": "^0.51.13",

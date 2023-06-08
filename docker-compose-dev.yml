@@ -38,6 +38,7 @@ services:
   frontend:
     profiles:
         - all
+        - frontend-only
     build:
       args:
         - http_proxy

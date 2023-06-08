@@ -17,6 +17,8 @@ FROM base as dev
 
 CMD ["npm", "run", "dev"]
 
+FROM base as test
+
 FROM base as build
 
 # RUN npm ci --production
