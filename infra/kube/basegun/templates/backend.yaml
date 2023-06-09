@@ -40,7 +40,7 @@ spec:
               name: {{ .Values.backend.secret.secretName }}
           ports:
             - name: api
-              containerPort: 5000
+              containerPort: {{ .Values.backend.service.containerPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
