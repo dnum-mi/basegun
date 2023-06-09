@@ -26,48 +26,28 @@ import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/au
 import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
 
 export const results = {
-  revolver: {
-    displayLabel: 'revolver',
-    category: 'B ou D',
-    mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
-    isDummyTypology: true,
-    stepsNumber: 4,
-  },
-  pistolet_semi_auto_moderne: {
-    displayLabel: 'pistolet semi-automatique',
-    category: 'B',
-    mention: 'Soumise à autorisation',
-    isDummyTypology: true,
-    stepsNumber: 4,
-  },
-  pistolet_a_mecanisme_ancien: {
-    displayLabel: 'pistolet à mécanisme ancien',
-    category: 'D',
-    mention: "Libre d'acquisition et de détention",
-    isDummyTypology: false,
-  },
   autre_pistolet: {
     displayLabel: 'pistolet divers',
     category: 'A, B ou D',
     mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     isDummyTypology: false,
   },
-  epaule_a_mecanisme_ancien: {
-    displayLabel: "arme d'épaule à mécanisme ancien",
-    category: 'D',
-    mention: "Libre d'acquisition et de détention",
-    isDummyTypology: false,
-  },
-  epaule_a_un_coup: {
-    displayLabel: "arme d'épaule à un coup par canon",
-    category: 'C',
-    mention: 'Soumise à déclaration',
-    isDummyTypology: false,
-  },
   epaule_a_levier_sous_garde: {
     displayLabel: "arme d'épaule à levier de sous-garde",
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  epaule_a_pompe: {
+    displayLabel: "arme d'épaule à pompe",
+    category: 'B ou C',
+    mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  epaule_a_un_coup: {
+    displayLabel: "arme d'épaule à un coup ou un coup par canon",
+    category: 'C',
+    mention: 'Soumise à déclaration',
     isDummyTypology: false,
   },
   epaule_a_verrou: {
@@ -77,30 +57,50 @@ export const results = {
     isDummyTypology: false,
     stepsNumber: 4,
   },
-  epaule_a_pompe: {
-    displayLabel: "arme d'épaule à pompe",
-    category: 'B ou C',
-    mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+  epaule_mecanisme_ancien: {
+    displayLabel: "arme d'épaule à mécanisme ancien",
+    category: 'D',
+    mention: "Libre d'acquisition et de détention",
     isDummyTypology: false,
   },
-  semi_auto_style_militaire_autre: {
-    displayLabel: "arme d'épaule non manuelle",
-    category: 'A, B ou C',
-    mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
-    isDummyTypology: true,
-    stepsNumber: 4,
-  },
   epaule_semi_auto_style_chasse: {
-    displayLabel: "arme d'épaule non manuelle",
+    displayLabel: "arme d'épaule semi-automatique",
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
     isDummyTypology: false,
   },
   epaule_semi_auto_style_militaire_milieu_20e: {
-    displayLabel: "arme d'épaule non manuelle",
+    displayLabel: "arme d'épaule semi-automatique ou automatique",
     category: 'A, B ou C',
     mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
     isDummyTypology: false,
+  },
+  pistolet_semi_auto_moderne: {
+    displayLabel: 'pistolet semi-automatique',
+    category: 'B',
+    mention: 'Soumise à autorisation',
+    isDummyTypology: true,
+    stepsNumber: 4,
+  },
+  pistolet_mecanisme_ancien: {
+    displayLabel: 'pistolet à mécanisme ancien',
+    category: 'D',
+    mention: "Libre d'acquisition et de détention",
+    isDummyTypology: false,
+  },
+  revolver: {
+    displayLabel: 'revolver',
+    category: 'B ou D',
+    mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
+    isDummyTypology: true,
+    stepsNumber: 4,
+  },
+  semi_auto_style_militaire_autre: {
+    displayLabel: "arme semi-automatique ou automatique",
+    category: 'A, B ou C',
+    mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: true,
+    stepsNumber: 4,
   },
 }
 
@@ -122,8 +122,8 @@ export const guideFacticeSelectOption = {
       video: pistoletSemiAutoModerne2Video,
     },
   },
-  autre_epaule_text_option: 'Sélectionner ce que vous voyez sur l’arme',
-  autre_epaule: {
+  semi_auto_style_militaire_autre_text_option: 'Sélectionner ce que vous voyez sur l’arme',
+  semi_auto_style_militaire_autre: {
     bouton_dessus: {
       label: 'bouton au-dessus chargeur',
       value: 'bouton_dessus',
@@ -198,7 +198,7 @@ export const guideFacticeSelectAmmo = {
       img_ammo: pistoletSemiAutoModerneBalls,
     },
   },
-  autre_epaule: {
+  semi_auto_style_militaire_autre: {
     cartouches: {
       label: 'cartouches',
       value: 'cartouches',
