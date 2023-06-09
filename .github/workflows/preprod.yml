@@ -48,7 +48,7 @@ jobs:
       image_version: "develop"
       branch: ${{ github.ref_name }}
       volume_size: 10
-      flavor: "s1-2"
+      flavor: "b2-7"
       workspace: "preprod"
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
