@@ -98,7 +98,7 @@ export const results = {
   semi_auto_style_militaire_autre: {
     displayLabel: "arme semi-automatique ou automatique",
     category: 'A, B ou C',
-    mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
+    mention: 'A - Interdite<br>B - Soumise à autoriszation<br>C - Soumise à déclaration',
     isDummyTypology: true,
     stepsNumber: 4,
   },
