@@ -17,13 +17,12 @@ RUN apt update && apt install -y \
 COPY requirements.txt ./
 ENV PIP_CERT=$CACERT_LOCATION
 RUN pip install --upgrade pip \
-    && pip --default-timeout=300 install --no-cache-dir -f \
-    https://download.pytorch.org/whl/cpu/torch_stable.html -r requirements.txt \
+    && pip --default-timeout=300 install --no-cache-dir -r requirements.txt \
     && rm -r /root/.cache
 
 # launch website
 ARG VERSION
-ARG MODEL="EffB4_2022-03-02_08"
+ARG MODEL="EffB4_2023-02-28_16"
 ENV SSL_CERT_FILE=$CACERT_LOCATION
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth
 COPY src/ src/
