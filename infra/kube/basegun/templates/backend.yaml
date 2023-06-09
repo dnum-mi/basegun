@@ -73,7 +73,7 @@ spec:
                   name: {{ include "basegun.name" . }}-secret
                   key: API_OVH_TOKEN
           volumeMounts:
-            - name: {{ include "basegun.name" . }}-filebeat-config
+            - name: {{ include "basegun.name" . }}-filebeat-conf
               mountPath: /tmp/filebeat/
             - name: logs
               mountPath: /var/log/basegun
