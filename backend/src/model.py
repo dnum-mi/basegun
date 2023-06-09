@@ -7,9 +7,18 @@ import torchvision.models as Model
 from torchvision import transforms
 
 
-CLASSES = ['autre_epaule', 'autre_pistolet', 'epaule_a_levier_sous_garde',
-        'epaule_a_percussion_silex', 'epaule_a_pompe', 'epaule_a_un_coup', 'epaule_a_verrou',
-        'pistolet_a_percussion_silex', 'pistolet_semi_auto_moderne', 'revolver']
+CLASSES = ['autre_pistolet',
+    'epaule_a_pompe',
+    'epaule_a_levier_sous_garde',
+    'epaule_a_un_coup_par_canon',
+    'epaule_a_verrou',
+    'epaule_mecanisme_ancien',
+    'epaule_semi_auto_style_chasse',
+    'epaule_semi_auto_style_militaire_milieu_20e',
+    'pistolet_mecanisme_ancien',
+    'pistolet_semi_auto_moderne',
+    'revolver',
+    'semi_auto_style_militaire_autre']
 
 MODEL_TORCH = Model.efficientnet_b4
 INPUT_SIZE = 380

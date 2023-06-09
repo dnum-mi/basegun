@@ -34,13 +34,13 @@ export const results = {
     stepsNumber: 4,
   },
   pistolet_semi_auto_moderne: {
-    displayLabel: 'pistolet semi-automatique moderne',
+    displayLabel: 'pistolet semi-automatique',
     category: 'B',
     mention: 'Soumise à autorisation',
     isDummyTypology: true,
     stepsNumber: 4,
   },
-  pistolet_a_percussion_silex: {
+  pistolet_a_mecanisme_ancien: {
     displayLabel: 'pistolet à mécanisme ancien',
     category: 'D',
     mention: "Libre d'acquisition et de détention",
@@ -52,7 +52,7 @@ export const results = {
     mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     isDummyTypology: false,
   },
-  epaule_a_percussion_silex: {
+  epaule_a_mecanisme_ancien: {
     displayLabel: "arme d'épaule à mécanisme ancien",
     category: 'D',
     mention: "Libre d'acquisition et de détention",
@@ -83,12 +83,24 @@ export const results = {
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
     isDummyTypology: false,
   },
-  autre_epaule: {
+  semi_auto_style_militaire_autre: {
     displayLabel: "arme d'épaule non manuelle",
     category: 'A, B ou C',
     mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
     isDummyTypology: true,
     stepsNumber: 4,
+  },
+  epaule_semi_auto_style_chasse: {
+    displayLabel: "arme d'épaule non manuelle",
+    category: 'B ou C',
+    mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  epaule_semi_auto_style_militaire_milieu_20e: {
+    displayLabel: "arme d'épaule non manuelle",
+    category: 'A, B ou C',
+    mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
   },
 }
 
