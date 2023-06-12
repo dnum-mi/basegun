@@ -65,6 +65,7 @@ const routes = [
       stepsStore.currentStep = 0
     },
   },
+  // Tutorial for detecting airsofts
   {
     path: '/guide-factice',
     name: 'GuideFactice',
@@ -100,6 +101,7 @@ const routes = [
       },
     ],
   },
+  // tutorial to secure a firearm
   {
     path: '/guide-mise-en-securite',
     name: 'GuideSecuringFirearm',
@@ -140,6 +142,7 @@ const routes = [
     name: 'FirearmSecuringAchievement',
     component: FirearmSecuringAchievement,
   },
+  // Tutorial to identificate a firearm
   {
     path: '/resultat',
     name: 'Result',

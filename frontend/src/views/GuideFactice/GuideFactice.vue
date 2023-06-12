@@ -2,7 +2,7 @@
 import { computed, watchEffect, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import { routePaths, airsoftsGuideSteps, results } from '@/utils/firearms-utils.js'
+import { airsoftsRoutePaths, airsoftsGuideSteps, results } from '@/utils/firearms-utils.js'
 
 import StepsGuide from './StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
@@ -51,7 +51,7 @@ const goToPreviousStep = () => (
 )
 
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < routePaths.length ? currentStep.value + 1 : routePaths.length
+  currentStep.value = currentStep.value < airsoftsRoutePaths.length ? currentStep.value + 1 : airsoftsRoutePaths.length
 )
 
 watchEffect(() => {
