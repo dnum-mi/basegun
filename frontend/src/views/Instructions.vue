@@ -15,7 +15,7 @@ function readInstruction () {
 
 <template>
   <div
-    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
+    class="lg:absolute lg:inset-y-1\/3 lg:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >
     <div class="fr-notice fr-notice--info">
       <div class="fr-container">
@@ -58,7 +58,7 @@ function readInstruction () {
           @file-selected="uploadMessage = 'Analyse en cours'"
         />
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center <md:w-full"
           label="Prendre la photo"
           icon="ri-camera-fill"
           :icon-right="true"
