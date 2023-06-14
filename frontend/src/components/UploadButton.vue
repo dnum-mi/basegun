@@ -45,7 +45,7 @@ function submitUpload (base64, fileName) {
           imgUrl: res.data.path,
         })
         // router.push({ name: 'Result' }).catch(() => {})
-        router.push({ name: 'FirearmSecuringTracesAndClues' }).catch(() => {})
+        router.push({ name: 'SecuringTracesAndClues' }).catch(() => {})
       })
       .catch((err) => {
         console.log(err)

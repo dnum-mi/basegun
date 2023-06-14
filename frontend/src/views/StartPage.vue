@@ -13,7 +13,7 @@
     <div class="inline-grid">
       <router-link
         v-slot="{navigate}"
-        :to="{name:'FirearmSecuringIntroduction'}"
+        :to="{name:'SecuringIntroduction'}"
       >
         <DsfrButton
           class=" w-14rem mb-4 p-2 whitespace-pre-line"

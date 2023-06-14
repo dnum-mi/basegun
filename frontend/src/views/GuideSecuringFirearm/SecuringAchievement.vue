@@ -38,7 +38,7 @@
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'Result'}"
+        :to="{name: 'TypologyResult'}"
       >
         <DsfrButton
           class="flex justify-center w-full"

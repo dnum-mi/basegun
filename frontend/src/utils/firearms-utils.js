@@ -212,64 +212,65 @@ export const guideFacticeSelectAmmo = {
   },
 }
 // Tuto Factice
-const firearmDirection = 'FirearmDirection'
-const selectOption = 'SelectOption'
-const extractMag = 'ExtractMag'
-const selectAmmo = 'SelectAmmo'
+// const firearmDirection = 'FirearmDirection'
+// const selectOption = 'SelectOption'
+// const extractMag = 'ExtractMag'
+// const selectAmmo = 'SelectAmmo'
+
 // Tuto Mise en sécurité
-const firearmSecuringIntroduction = 'FirearmSecuringIntroduction'
-const firearmSecuringInstructions = 'FirearmSecuringInstructions'
-const firearmSecuringRecommendations = 'FirearmSecuringRecommendations'
-// Tuto Mise en securité contenu
+const securingIntroduction = 'SecuringIntroduction'
+const securingInstructions = 'SecuringInstructions'
+const securingRecommendations = 'SecuringRecommendations'
+// Tuto Mise en securité - contenu
 // Tuto Mise en securité identification
-const firearmIdentificationTypology = 'FirearmIdentificationTypology'
-const firearmIdentificationComplements = 'FirearmIdentificationComplements'
-const firearmIdentificationAmmunitions = 'FirearmIdentificationAmmunitions'
-const firearmIdentificationFinalResult = 'FirearmIdentificationFinalResult'
+const TypologyResult = 'TypologyResult'
+const FurtherInformations = 'FurtherInformations'
+const SelectAmmo = 'SelectAmmo'
+const FinalResult = 'FinalResult'
 
-export const airsoftsGuideSteps = [
-  firearmDirection,
-  selectOption,
-  extractMag,
-  selectAmmo,
+// export const airsoftsGuideSteps = [
+//   firearmDirection,
+//   selectOption,
+//   extractMag,
+//   selectAmmo,
+// ]
+
+export const securingGuideSteps = [
+  securingIntroduction,
+  securingInstructions,
+  securingRecommendations,
 ]
 
-export const firearmSecuringGuideSteps = [
-  firearmSecuringIntroduction,
-  firearmSecuringInstructions,
-  firearmSecuringRecommendations,
-]
-
-// export const firearmSecuringContentGuideSteps = [
+// export const securingContentGuideSteps = [
 
 // ]
 
-export const idenficationGuideSteps = [
-  firearmIdentificationTypology,
-  firearmIdentificationComplements,
-  firearmIdentificationAmmunitions,
-  firearmIdentificationFinalResult
+export const identificationGuideSteps = [
+  TypologyResult,
+  FurtherInformations,
+  SelectAmmo,
+  FinalResult,
 ]
 
-export const airsoftsRoutePaths = [
-  'consigne-arme',
-  'option-arme',
-  'extract-mag',
-  'munition-type',
-]
+// export const airsoftsRoutePaths = [
+//   'consigne-arme',
+//   'option-arme',
+//   'extract-mag',
+//   'munition-type',
+// ]
 
-export const firearmSecuringRoutePaths = [
+export const securingRoutePaths = [
   'mise-en-securite-introduction',
   'mise-en-securite-instructions',
   'mise-en-securite-recommandations',
 ]
 
-// export const firearmSecuringContentRoutePaths = [
+// export const securingContentRoutePaths = [
 
 // ]
 
-export const firearmSecuringIdentificationRoutePaths = [
-  'typologie',
+export const securingIdentificationRoutePaths = [
+  'resultat-typologie',
   'complements',
   'munitions',
   'resultat-final',

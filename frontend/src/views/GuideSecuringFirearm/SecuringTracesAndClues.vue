@@ -40,7 +40,7 @@
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <router-link
         v-slot="{navigate}"
-        :to="{name: 'FirearmSecuringAchievement'}"
+        :to="{name: 'SecuringAchievement'}"
       >
         <DsfrButton
           class="flex justify-center w-full"

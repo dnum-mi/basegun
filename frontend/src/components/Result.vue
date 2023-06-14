@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { results, airsoftsGuideSteps } from '@/utils/firearms-utils'
+import { results, identificationGuideSteps } from '@/utils/firearms-utils'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -40,7 +40,7 @@ const mention = computed(() => isDummy.value === true
 const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
 
 function keepingLastStep () {
-  stepsStore.setCurrentStep(airsoftsGuideSteps.length)
+  stepsStore.setCurrentStep(identificationGuideSteps.length)
 }
 
 function sendFeedback (isCorrect) {
@@ -116,7 +116,7 @@ function sendFeedback (isCorrect) {
               Objet, arme factice
             </p>
             <p class="mt-2 fr-callout__text">
-              Typologie de référence : <br>{{ label }}
+              Typologie de référence : {{ label }}
             </p>
             <div
               class="callout-mention"
@@ -137,7 +137,7 @@ function sendFeedback (isCorrect) {
             <div
               class="mt-4"
             >
-              <div v-if="isDummyTypology === true && !selectedAmmo">
+              <!-- <div v-if="isDummyTypology === true && !selectedAmmo">
                 <p>Sauf si l'arme est factice:</p>
                 <p class="fr-callout__title">
                   Non Classé
@@ -169,7 +169,7 @@ function sendFeedback (isCorrect) {
                     disabled
                   />
                 </div>
-              </div>
+              </div> -->
             </div>
             <p
               class="mt-2 fr-callout__text"
