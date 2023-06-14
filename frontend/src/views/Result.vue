@@ -115,14 +115,14 @@ function sendFeedback (isCorrect) {
             <p class="fr-callout__text">
               Objet, arme factice
             </p>
-            <p class="mt-2 fr-callout__text">
-              Typologie de référence : <br>{{ label }}
-            </p>
             <div
               class="callout-mention"
             >
               <p v-html="mention" />
             </div>
+            <p class="mt-2 fr-callout__text">
+              Typologie de référence : <br>{{ label }}
+            </p>
           </div>
           <div v-else>
             <p class="fr-callout__title mt-3">
