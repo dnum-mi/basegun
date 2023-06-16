@@ -27,18 +27,22 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
 build-%: check-dc-config-% show-current-tag
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml --profile all build
+	TAG=${TAG} ${DC} -f docker-compose-$*.yml --profile app build
+
+test-e2e: check-dc-config-dev show-current-tag
+	TAG=${TAG} BUILD_TARGET=prod ${DC} --profile e2e -f "docker-compose-dev.yml" up --build
 
 up-%: check-dc-config-% show-current-tag
 ifeq ("$(WORKSPACE)","preprod")
-	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-$*.yml up -d
+	TAG=${TAG} PORT_PROD=8080 ${DC} --profile app -f docker-compose-$*.yml up -d
 else
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
+	TAG=${TAG} ${DC} --profile app -f docker-compose-$*.yml up -d
 endif
 
+
 test-workflow-%:
-	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build $*
-	${DC} -f docker-compose-dev.yml up -d $*
+	BUILD_TARGET=test TAG=${TAG} ${DC} --profile app -f docker-compose-dev.yml build $*
+	${DC} --profile app -f docker-compose-dev.yml up -d $*
 	sleep 10
 
 test-backend: test-workflow-backend

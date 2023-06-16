@@ -1,0 +1,7 @@
+FROM cypress/included as base
+
+WORKDIR /e2e
+
+COPY . .
+
+RUN npm i
