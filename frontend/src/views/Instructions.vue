@@ -20,9 +20,9 @@ function readInstruction () {
     <div class="fr-notice fr-notice--info">
       <div class="fr-container">
         <div class="fr-notice__body">
-          <p class="fr-notice__title">
+          <h3 class="fr-notice__title">
             Pour un résultat optimal
-          </p>
+          </h3>
           <p>1 - Présenter le <span class="font-bold">canon vers la droite</span></p>
           <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme</p>
           <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">centrée</span></p>
