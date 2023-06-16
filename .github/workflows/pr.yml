@@ -48,5 +48,7 @@ jobs:
     if: ( contains(needs.check-files-modified.outputs.changed_files, 'frontend/') )
     steps:
     - uses: actions/checkout@v2
-    - name: Run frontend tests
+    - name: Test frontend is alive
       run: make test-frontend
+    - name: Run frontend end-to-end tests
+      run: make test-e2e
