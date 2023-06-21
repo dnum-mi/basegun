@@ -8,8 +8,8 @@ from torchvision import transforms
 
 
 CLASSES = ['autre_pistolet',
-    'epaule_a_pompe',
     'epaule_a_levier_sous_garde',
+    'epaule_a_pompe',
     'epaule_a_un_coup_par_canon',
     'epaule_a_verrou',
     'epaule_mecanisme_ancien',
