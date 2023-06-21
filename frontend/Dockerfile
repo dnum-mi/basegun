@@ -17,8 +17,6 @@ FROM base as dev
 
 CMD ["npm", "run", "dev"]
 
-FROM base as test
-
 FROM base as build
 
 # RUN npm ci --production
@@ -29,3 +27,5 @@ FROM nginx:1.21.4-alpine as prod
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build /app/dist /usr/share/nginx/html/
+
+FROM prod as test

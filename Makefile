@@ -29,9 +29,6 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 build-%: check-dc-config-% show-current-tag
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml --profile app build
 
-test-e2e: check-dc-config-dev show-current-tag
-	TAG=${TAG} BUILD_TARGET=prod ${DC} --profile e2e -f "docker-compose-dev.yml" up --build
-
 up-%: check-dc-config-% show-current-tag
 ifeq ("$(WORKSPACE)","preprod")
 	TAG=${TAG} PORT_PROD=8080 ${DC} --profile app -f docker-compose-$*.yml up -d
@@ -39,19 +36,21 @@ else
 	TAG=${TAG} ${DC} --profile app -f docker-compose-$*.yml up -d
 endif
 
+build-test: check-dc-config-dev show-current-tag
+	BUILD_TARGET=test TAG=${TAG} ${DC} --profile e2e -f docker-compose-dev.yml build
 
-test-workflow-%:
-	BUILD_TARGET=test TAG=${TAG} ${DC} --profile app -f docker-compose-dev.yml build $*
-	${DC} --profile app -f docker-compose-dev.yml up -d $*
+test-backend:
+	${DC} --profile backend-only -f docker-compose-dev.yml up -d
 	sleep 10
-
-test-backend: test-workflow-backend
 	docker exec basegun-backend python -m unittest discover -v
 
-test-frontend: test-workflow-frontend
+test-frontend-alive:
+	${DC} --profile app -f docker-compose-dev.yml up -d
+	sleep 10
 	curl -s -o /dev/null localhost:3000
-	docker exec basegun-frontend npm run build
-	docker exec basegun-frontend npm run test:e2e
+
+test-e2e:
+	${DC} --profile e2e -f docker-compose-dev.yml up -d
 
 down-%:
 	${DC} -f docker-compose-$*.yml down

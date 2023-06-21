@@ -54,7 +54,7 @@ services:
     ports:
       - 8080:80 # if BUILD_TARGET = prod
       - 3000:5173
-      - 4173:4173
+      # - 4173:4173 
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules
