@@ -22,7 +22,7 @@ RUN pip install --upgrade pip \
 
 # launch website
 ARG VERSION
-ARG MODEL="EffB6_2023-03-03_15"
+ARG MODEL="EffB7_2023-03-06_08"
 ENV SSL_CERT_FILE=$CACERT_LOCATION
 RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth
 COPY src/ src/
