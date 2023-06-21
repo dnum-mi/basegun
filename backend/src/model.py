@@ -20,8 +20,8 @@ CLASSES = ['autre_pistolet',
     'revolver',
     'semi_auto_style_militaire_autre']
 
-MODEL_TORCH = Model.efficientnet_b6
-INPUT_SIZE = 528
+MODEL_TORCH = Model.efficientnet_b7
+INPUT_SIZE = 600
 device = torch.device('cpu')
 
 
