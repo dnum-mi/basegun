@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils.js'
+import { identificationRoutePaths, identificationGuideSteps } from '@/utils/firearms-utils.js'
 import StepsGuide from '../GuideFactice/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 
@@ -13,13 +13,13 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = [': Introduction', ': Consignes de sécurité', ': Préconisation']
+const steps = [': Typologie de l\'arme', ': Compléments', ': Typologie de munitions']
 
 const stepsStore = useStepsStore()
 const router = useRouter()
 
 const goToNewRoute = () => (
-  router.push({ name: `${securingGuideSteps[currentStep.value - 1]}` }).catch(() => { })
+  router.push({ name: `${identificationGuideSteps[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToPreviousStep = () => (
@@ -27,7 +27,7 @@ const goToPreviousStep = () => (
 )
 
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < securingRoutePaths.length ? currentStep.value : securingRoutePaths.length
+  currentStep.value = currentStep.value < identificationRoutePaths.length ? currentStep.value : identificationRoutePaths.length
 )
 </script>
 
@@ -45,17 +45,14 @@ const goToNextStep = () => (
       </router-link>
     </div>
   </div>
-  <div class="mt-5 fr-container">
-    <div class="result fr-col-11 fr-col-lg-6">
-      <div>
+  <div class="mt-5">
+    <div class="result fr-col-lg-6">
+      <div class="">
         <StepsGuide
-          class="steps-guide"
+          class="!fr-container steps-guide"
           :steps="steps"
           :current-step="currentStep"
         />
-        <h4 class="mt-5">
-          Mettre en sécurité mon arme
-        </h4>
         <RouterView />
       </div>
     </div>
@@ -93,7 +90,11 @@ const goToNextStep = () => (
 
 <style scoped>
     .steps-guide {
-    margin: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      width: 100%;
     }
 
     .result {

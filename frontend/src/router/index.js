@@ -23,6 +23,7 @@ const Contact = () => import('@/views/Contact.vue')
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
 const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
+const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringTracesAndClues = () => import('@/views/GuideSecuringFirearm/SecuringTracesAndClues.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
@@ -133,6 +134,11 @@ const routes = [
     path: '/mise-en-securite-traces-et-indices',
     name: 'SecuringTracesAndClues',
     component: SecuringTracesAndClues,
+  },
+  {
+    path: '/mise-en-securite-tutoriel',
+    name: 'SecuringTutorialContent',
+    component: SecuringTutorialContent,
   },
   {
     path: '/fin-mise-en-securite',

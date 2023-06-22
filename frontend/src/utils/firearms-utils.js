@@ -269,7 +269,7 @@ export const securingRoutePaths = [
 
 // ]
 
-export const securingIdentificationRoutePaths = [
+export const identificationRoutePaths = [
   'resultat-typologie',
   'complements',
   'munitions',

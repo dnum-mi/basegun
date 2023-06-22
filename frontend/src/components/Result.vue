@@ -37,7 +37,8 @@ const category = computed(() => results[typology.value]?.category)
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
   : results[typology.value]?.mention)
-const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
+
+// const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
 
 function keepingLastStep () {
   stepsStore.setCurrentStep(identificationGuideSteps.length)
@@ -69,115 +70,248 @@ function sendFeedback (isCorrect) {
 }
 </script>
 <template>
-  <div>
+  <div class="result-frame p-5">
+    <div class="result">
+      <h4 class="typology-title bg-white py-4 mt-2">
+        Typologie de l'arme
+      </h4>
+      <div
+        class="result-image"
+        :style="{backgroundImage:`url(${img})`}"
+      />
+      <div class="fr-tile fr-enlarge-link mb-3">
+        <div class="fr-tile fr-enlarge-link">
+          <h4 class="fr-tile__title">
+            <div v-if="confidenceLevel === 'low'">
+              <div class="fr-tile__body">
+                <DsfrTag
+                  class="fr-tag--sm error-tag"
+                  label="Indice de fiabilité insuffisant"
+                />
+              </div>
+              <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
+            </div>
+            <div v-else>
+              <div v-if="confidenceLevel === 'high'">
+                <div class="fr-tile__body">
+                  <DsfrTag
+                    class="fr-tag--sm success-tag"
+                  >
+                    Indice de fiabilité : {{ Math.floor(confidence) }}%
+                  </DsfrTag>
+                </div>
+              </div>
+              <div v-else>
+                <DsfrTag
+                  class="fr-tag--sm warning-tag"
+                >
+                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                </DsfrTag>
+                <p class="warning-text">
+                  Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+                </p>
+              </div>
+              <div v-if="isDummy === true">
+                <p class="fr-callout__title mt-3">
+                  Non Classé
+                </p>
+                <p class="fr-callout__text">
+                  Objet, arme factice
+                </p>
+                <p class="mt-2 fr-callout__text">
+                  Typologie de référence : {{ label }}
+                </p>
+                <div
+                  class="callout-mention"
+                >
+                  <p v-html="mention" />
+                </div>
+              </div>
+              <div v-else>
+                <div
+                  class="callout-mention"
+                >
+                  <p v-html="mention" />
+                </div>
+                <div class="mt-4" />
+                <p
+                  class="mt-2 fr-callout__text"
+                >
+                  Typologie : {{ label }}
+                </p>
+              </div>
+            </div>
+          </h4>
+        </div>
+        <!-- <div v-if="confidenceLevel !== 'low'">
+          <p class="fr-text--sm warning-msg">
+            Le <span class="font-bold">résultat donné par Basegun</span> n'emporte qu'une simple <span class="font-bold">valeur de renseignement</span>. Pour faire référence dans une procédure, il doit impérativement et réglementairement être validé par le biais d'un <span class="font-bold">examen scientifique ou technique </span>prévu par le code de procédure pénale.
+          </p>
+          <div
+            v-if="isFeedbackDone"
+            class="snackbar text-center"
+          >
+            <SnackbarAlert class="text-center" />
+          </div>
+          <div
+            :aria-disabled="isFeedbackDone"
+            class="feedback"
+          >
+            <p class="feedback-text">
+              Ce résultat vous semble-t-il correct ?
+            </p>
+            <div class="feedback-thumb">
+              <label
+                class="feedback-click"
+                @click="sendFeedback(true)"
+              >
+                <VIcon
+                  v-if="isUp"
+                  name="ri-thumb-up-fill"
+                  class="feedback-click"
+                />
+                <VIcon
+                  v-else
+                  name="ri-thumb-up-line"
+                  class="feedback-click"
+                />
+              </label>
+              <label
+                class="feedback-click"
+                @click="sendFeedback(false)"
+              >
+                <VIcon
+                  v-if="isDown"
+                  name="ri-thumb-down-fill"
+                  class="feedback-click"
+                />
+                <VIcon
+                  v-else
+                  name="ri-thumb-down-line"
+                  class="feedback-click"
+                />
+              </label>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="big-blank" /> -->
+      </div>
+      <div class="footer">
+        <div
+          v-show="img"
+          class="fr-col-11 fr-col-lg-6 mx-auto"
+        >
+          <router-link
+            v-slot="{navigate}"
+            class="navigate"
+            :to="{name: 'Instructions'}"
+          >
+            <DsfrButton
+              :class="{'btn-full-width': selectedAmmo}"
+              class="flex justify-center w-full"
+              label="Identifier une nouvelle arme"
+              icon="ri-camera-fill"
+              :icon-right="true"
+              @click="navigate()"
+            />
+          </router-link>
+          <router-link
+            v-if="selectedAmmo"
+            v-slot="{navigate}"
+            class="navigate"
+            :to="{name:'SelectAmmo'}"
+          >
+            <DsfrButton
+              :class="{'btn-full-width': selectedAmmo}"
+              class="mt-3 flex justify-center w-full"
+              label="Retourner à l'étape précédente"
+              icon="ri-arrow-go-back-fill"
+              :icon-right="true"
+              secondary
+              @click="keepingLastStep(); navigate()"
+            />
+          </router-link>
+        </div>
+      </div>
+      <DsfrTile
+        title=""
+        description=""
+        to="#"
+      />
+    </div>
+  </div>
+  <!-- <div class="result-frame">
     <div class="result fr-col-11 fr-col-lg-6">
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
-
-      <div
-        class="fr-callout custom-callout"
-      >
-        <div v-if="confidenceLevel === 'low'">
-          <div class="callout-head">
-            <DsfrTag
-              class="fr-tag--sm error-tag"
-              label="Indice de fiabilité insuffisant"
-            />
-          </div>
-          <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
-        </div>
-        <div v-else>
-          <div v-if="confidenceLevel === 'high'">
-            <div class="callout-head">
+      <div class="fr-tile fr-enlarge-link">
+        <h4 class="fr-tile__title">
+          <div v-if="confidenceLevel === 'low'">
+            <div class="fr-tile__body">
               <DsfrTag
-                class="fr-tag--sm success-tag"
+                class="fr-tag--sm error-tag"
+                label="Indice de fiabilité insuffisant"
+              />
+            </div>
+            <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
+          </div>
+          <div v-else>
+            <div v-if="confidenceLevel === 'high'">
+              <div class="fr-tile__body">
+                <DsfrTag
+                  class="fr-tag--sm success-tag"
+                >
+                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                </DsfrTag>
+              </div>
+            </div>
+            <div v-else>
+              <DsfrTag
+                class="fr-tag--sm warning-tag"
               >
                 Indice de fiabilité : {{ Math.floor(confidence) }}%
               </DsfrTag>
+              <p class="warning-text">
+                Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+              </p>
             </div>
-          </div>
-          <div v-else>
-            <DsfrTag
-              class="fr-tag--sm warning-tag"
-            >
-              Indice de fiabilité : {{ Math.floor(confidence) }}%
-            </DsfrTag>
-            <p class="warning-text">
-              Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
-            </p>
-          </div>
-          <div v-if="isDummy === true">
-            <p class="fr-callout__title mt-3">
-              Non Classé
-            </p>
-            <p class="fr-callout__text">
-              Objet, arme factice
-            </p>
-            <p class="mt-2 fr-callout__text">
-              Typologie de référence : {{ label }}
-            </p>
-            <div
-              class="callout-mention"
-            >
-              <p v-html="mention" />
-            </div>
-          </div>
-          <div v-else>
-            <p class="fr-callout__title mt-3">
-              Catégorie {{ category }}
-            </p>
-
-            <div
-              class="callout-mention"
-            >
-              <p v-html="mention" />
-            </div>
-            <div
-              class="mt-4"
-            >
-              <!-- <div v-if="isDummyTypology === true && !selectedAmmo">
-                <p>Sauf si l'arme est factice:</p>
-                <p class="fr-callout__title">
-                  Non Classé
-                </p>
-                <router-link
-                  v-slot="{navigate}"
-                  :to="{name:'SafetyRecommendation'}"
-                >
-                  <DsfrButton
-                    class="my-4 flex justify-content-center"
-                    label="Vérifier si l'arme est factice"
-                    @click="navigate()"
-                  />
-                </router-link>
+            <div v-if="isDummy === true">
+              <p class="fr-callout__title mt-3">
+                Non Classé
+              </p>
+              <p class="fr-callout__text">
+                Objet, arme factice
+              </p>
+              <p class="mt-2 fr-callout__text">
+                Typologie de référence : {{ label }}
+              </p>
+              <div
+                class="callout-mention"
+              >
+                <p v-html="mention" />
               </div>
-
-              <div v-else>
-                <div
-                  v-if="isDummyTypology === false"
-                  class="mt-2"
-                >
-                  <p>Sauf si l'arme est factice:</p>
-                  <p class="fr-callout__title">
-                    Non Classé
-                  </p>
-                  <DsfrButton
-                    class="my-4 flex justify-content-center"
-                    label="Pas de guide de vérification"
-                    disabled
-                  />
-                </div>
-              </div> -->
             </div>
-            <p
-              class="mt-2 fr-callout__text"
-            >
-              Typologie : {{ label }}
-            </p>
+            <div v-else>
+              <p class="fr-callout__title mt-3">
+                Catégorie {{ category }}
+              </p>
+
+              <div
+                class="callout-mention"
+              >
+                <p v-html="mention" />
+              </div>
+              <div class="mt-4" />
+              <p
+                class="mt-2 fr-callout__text"
+              >
+                Typologie : {{ label }}
+              </p>
+            </div>
           </div>
-        </div>
+        </h4>
       </div>
       <div v-if="confidenceLevel !== 'low'">
         <p class="fr-text--sm warning-msg">
@@ -269,20 +403,22 @@ function sendFeedback (isCorrect) {
         </router-link>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
-.result {
-  margin: 0 auto;
-  max-width: 1000px;
+.typology-title {
+  color: #000091;
+}
+.result-frame {
+  background-color: #E3E3FD;
 }
 
 .result-image {
   height: 30vh;
   background-position: center;
   background-size: cover;
-  margin: 0 auto;
+  margin-top: -1.5rem;
 }
 
 .success-tag {

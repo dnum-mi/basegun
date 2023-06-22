@@ -1,4 +1,3 @@
-
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
     <div class="fr-container m-5">
@@ -18,48 +17,47 @@
       <h4 class="mt-5">
         Mettre en sécurité mon arme
       </h4>
-      <p class="warning font-600 text-center">
-        Précaution avant la manipulation
-      </p>
       <p>
-        S’il s’agit d’une mise en sécurité dans le cadre d’une <span class="font-bold">enquête</span>, pensez à
-        <span class="font-bold">mettre des gants</span> si possible afin de <span class="font-bold">ne pas compromettre
-          les traces et indices</span>
-        pouvant se trouver sur l’arme.
+        Description de manipulations de l'utilisateur
       </p>
     </div>
-    <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
-      <img
-        src="@/assets/guide-mise-en-securite/icones/gants-traces-et-indices.jpeg"
-        alt="alt"
-        class="img-deco"
-      >
+    <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
+      <div class="fr-content-media">
+        <video
+          autoplay
+          controls
+          playsinline
+          loop
+          muted
+          src="../../assets/guide-factice/videos/revolver-1_sm.mp4"
+        />
+      </div>
     </div>
   </div>
+  <div class="big-blank" />
   <div class="footer">
-    <div class="fr-col-11 fr-col-lg-6 mx-auto">
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <router-link
         v-slot="{navigate}"
         :to="{name: 'SecuringTutorialContent'}"
       >
         <DsfrButton
-          class="flex justify-center w-full"
-          label="Commencer"
-          icon="ri-arrow-right-line"
-          :icon-right="true"
+          class="m-1 flex justify-center"
+          icon="ri-arrow-left-line"
+          :secondary="true"
+          label="Précédent"
           @click="navigate()"
         />
       </router-link>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'StartPage'}"
+        :to="{name: 'SecuringAchievement'}"
       >
         <DsfrButton
-          class="mt-3 flex justify-center w-full"
-          label="Retour au menu"
-          icon="ri-arrow-go-back-fill"
+          class="m-1 flex justify-center"
+          icon="ri-arrow-right-line"
+          label="Suivant"
           :icon-right="true"
-          secondary
           @click="navigate()"
         />
       </router-link>
@@ -85,4 +83,39 @@
   text-align: center;
 }
 
+</style>
+
+<style scoped>
+:deep(.fr-container) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:deep(.modal-content) {
+  overflow-y: scroll;
+}
+
+video {
+  width: 100% !important;
+  height: auto !important;
+}
+.open-info {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.open-info svg {
+  margin-top: 1rem;
+  fill: #ff1d1d;
+  cursor: pointer;
+}
+
+.full {
+  width: 100%;
+  justify-content: center;
+  margin: auto;
+  margin-top: .5rem;
+}
 </style>
