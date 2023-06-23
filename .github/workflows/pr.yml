@@ -19,10 +19,17 @@ jobs:
 
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      BUILD_TARGET: 'test'
+      TAG: '2.0'
     steps:
     - uses: actions/checkout@v2
     - name: Build for tests
-      run: make build-test
+      run: |
+          echo "Building containers"
+          docker compose --profile e2e -f docker-compose-dev.yml config
+          docker compose --profile e2e -f docker-compose-dev.yml build
+          echo "Containers built"
     - name: Run backend tests
       run: make test-backend
       env:
@@ -32,8 +39,4 @@ jobs:
     - name: Test frontend is alive
       run: make test-frontend-alive
     - name: Run frontend end-to-end tests
-      run: make test-e2e
-      env:
-        OS_USERNAME: ${{ secrets.OS_USERNAME }}
-        OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-        OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      run: docker compose --profile e2e -f docker-compose-dev.yml up

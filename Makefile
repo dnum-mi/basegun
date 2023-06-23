@@ -37,7 +37,7 @@ else
 endif
 
 build-test: check-dc-config-dev show-current-tag
-	BUILD_TARGET=test TAG=${TAG} ${DC} --profile e2e -f docker-compose-dev.yml build
+	BUILD_TARGET=prod TAG=${TAG} ${DC} --profile e2e -f docker-compose-dev.yml build
 
 test-backend:
 	${DC} --profile backend-only -f docker-compose-dev.yml up -d
@@ -47,10 +47,10 @@ test-backend:
 test-frontend-alive:
 	${DC} --profile app -f docker-compose-dev.yml up -d
 	sleep 10
-	curl -s -o /dev/null localhost:3000
+	curl -s -o /dev/null localhost:8080
 
 test-e2e:
-	${DC} --profile e2e -f docker-compose-dev.yml up -d
+	${DC} --profile e2e -f docker-compose-dev.yml up
 
 down-%:
 	${DC} -f docker-compose-$*.yml down

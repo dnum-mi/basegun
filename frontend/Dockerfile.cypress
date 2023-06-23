@@ -4,4 +4,4 @@ WORKDIR /e2e
 
 COPY . .
 
-RUN npm i
+RUN npm ci
