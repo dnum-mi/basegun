@@ -11,5 +11,6 @@ module.exports = defineConfig({
     // Iphone XR
     viewportWidth: 414, 
     viewportHeight: 896, 
+    video: false,
   }
 })
