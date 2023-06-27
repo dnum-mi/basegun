@@ -1,37 +1,10 @@
+<script setup>
+import OnboardingSwiper from '@/components/OnboardingSwiper.vue'
+</script>
+
 <template>
   <div class="text-center relative top-1/6 <md:top-4">
-    <div>
-      <img
-        src="@/assets/basegun_green.png"
-        alt=""
-        class="w-2\/5 md:w-1\/4"
-      >
-      <div class="homepage-content">
-        <ul class="homepage-ul fr-text--sm">
-          <li class="mb-2">
-            Basegun est une application <span class="homepage-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur et des Outre-Mer.
-          </li>
-          <li class="mb-2">
-            A ce jour, Basegun <span class="homepage-green-highlight">permet</span> d'identifier uniquement des <span class="homepage-green-highlight">armes à feu létales</span> et des<span class="homepage-green-highlight"> armes factices type airsoft</span>.
-          </li>
-          <li class="mb-2">
-            Basegun propose également de les <span class="homepage-green-highlight">mettre en sécurité</span> grâce à des <span class="homepage-green-highlight">tutoriels personnalisés</span>.
-          </li>
-        </ul>
-      </div>
-      <router-link
-        v-slot="{navigate}"
-        :to="{name:'StartPage'}"
-      >
-        <DsfrButton
-          id="agree-button"
-          size="small"
-          @click="navigate()"
-        >
-          J'ai compris
-        </DsfrButton>
-      </router-link>
-    </div>
+    <OnboardingSwiper />
   </div>
 </template>
 

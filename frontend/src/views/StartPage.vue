@@ -34,10 +34,6 @@
         />
       </router-link>
     </div>
-    <div class="footer footer-up footer-text">
-      Basegun est un <span class="font-bold">outil d'aide à la décision</span>.
-      Il <span class="font-bold">ne remplace en aucun cas l'avis d'un expert</span>.
-    </div>
   </div>
 </template>
 
