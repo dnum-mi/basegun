@@ -146,7 +146,7 @@ const routes = [
     component: GuideIdentificationFirearm,
     children: [
       {
-        path: '/resultat-typology',
+        path: 'resultat-typologie',
         name: 'TypologyResult',
         meta: {
           reload: true,
@@ -154,7 +154,7 @@ const routes = [
         component: TypologyResult,
       },
       {
-        path: '/informations-complementaires',
+        path: 'informations-complementaires',
         name: 'FurtherInformations',
         meta: {
           reload: true,

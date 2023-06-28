@@ -22,9 +22,9 @@ defineProps({
 
 <style scoped>
 
-:deep(.fr-stepper__details) {
+/* :deep(.fr-stepper__details) {
   display: none !important;
-}
+} */
 
 :deep(.fr-stepper__state) {
   display: inline flow-root;

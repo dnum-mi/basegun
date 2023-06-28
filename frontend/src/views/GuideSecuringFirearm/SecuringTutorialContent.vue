@@ -1,3 +1,8 @@
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+</script>
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
     <div class="fr-container m-5">
@@ -14,53 +19,43 @@
   </div>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
-      <h4 class="mt-5">
+      <h4 class="mt-3">
         Mettre en sécurité mon arme
       </h4>
-      <p>
-        Description de manipulations de l'utilisateur
+      <p class="manipulations -mx-8 p-6">
+        <span class="font-bold">Appuyer sur le bouton</span> avec le pouce de la main droite,
+        puis <span class="font-bold">extraire le chargeur</span> avec la main gauche en le tirant ou en le laissant glisser.
       </p>
-    </div>
-    <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
-      <div class="fr-content-media">
-        <video
-          autoplay
-          controls
-          playsinline
-          loop
-          muted
-          src="../../assets/guide-factice/videos/revolver-1_sm.mp4"
-        />
+      <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
+        <div class="fr-content-media">
+          <video
+            autoplay
+            controls
+            playsinline
+            loop
+            muted
+            src="../../assets/guide-factice/videos/pistol-1_sm.mp4"
+          />
+        </div>
       </div>
     </div>
-  </div>
-  <div class="big-blank" />
-  <div class="footer">
-    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-      <router-link
-        v-slot="{navigate}"
-        :to="{name: 'SecuringTutorialContent'}"
-      >
+    <div class="footer">
+      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
         <DsfrButton
           class="m-1 flex justify-center"
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="navigate()"
+          @click="router.push({ name:'Instructions'})"
         />
-      </router-link>
-      <router-link
-        v-slot="{navigate}"
-        :to="{name: 'SecuringAchievement'}"
-      >
         <DsfrButton
           class="m-1 flex justify-center"
           icon="ri-arrow-right-line"
           label="Suivant"
           :icon-right="true"
-          @click="navigate()"
+          @click="router.push({ name:'SecuringAchievement'})"
         />
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -80,42 +75,25 @@
   color: #000091;
 }
 .footer {
-  text-align: center;
+background-color: #fff;
+box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+}
+.footer button {
+width: 50%;
 }
 
-</style>
-
-<style scoped>
 :deep(.fr-container) {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-:deep(.modal-content) {
-  overflow-y: scroll;
-}
-
 video {
   width: 100% !important;
   height: auto !important;
 }
-.open-info {
-  display: flex;
-  justify-content: flex-end;
-  cursor: pointer;
-}
 
-.open-info svg {
-  margin-top: 1rem;
-  fill: #ff1d1d;
-  cursor: pointer;
-}
-
-.full {
-  width: 100%;
-  justify-content: center;
-  margin: auto;
-  margin-top: .5rem;
+.manipulations {
+  background-color: #E3E3FD;
 }
 </style>

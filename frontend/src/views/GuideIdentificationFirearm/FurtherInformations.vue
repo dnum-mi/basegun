@@ -1,11 +1,12 @@
 <template>
   <div>
     <p class="leading-7 mt-3">
-      Une arme doit <span class="font-bold">toujours</span> être <span class="font-bold">considérée comme chargée</span>.
+      A présent, veuillez répondre à quelques <span class="font-bold">questions supplémentaires</span> dépendant de la typologie
+      dont le but est de finaliser l’<span class="font-bold">identification </span>totale de votre arme.
     </p>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
-        src="@/assets/guide-mise-en-securite/icones/consignes-securite.jpeg"
+        src="@/assets/guide-identification/complements.jpeg"
         alt="alt"
         class="img-deco"
       >
@@ -15,6 +16,7 @@
 
 <style scoped>
 .img-deco {
+  margin-top: auto;
   margin-bottom: 1em;
   width: 75%;
 }

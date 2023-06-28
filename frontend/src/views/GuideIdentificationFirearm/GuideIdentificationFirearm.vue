@@ -13,7 +13,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = [': Typologie de l\'arme', ': Compléments', ': Typologie de munitions']
+const steps = ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
 
 const stepsStore = useStepsStore()
 const router = useRouter()
@@ -23,7 +23,7 @@ const goToNewRoute = () => (
 )
 
 const goToPreviousStep = () => (
-  currentStep.value = currentStep.value - 2
+  currentStep.value = currentStep.value - 1
 )
 
 const goToNextStep = () => (
@@ -45,8 +45,8 @@ const goToNextStep = () => (
       </router-link>
     </div>
   </div>
-  <div class="mt-5">
-    <div class="result fr-col-lg-6">
+  <div class="mt-5 fr-container">
+    <div class="result  fr-col-11 fr-col-lg-6">
       <div class="">
         <StepsGuide
           class="!fr-container steps-guide"
@@ -65,7 +65,7 @@ const goToNextStep = () => (
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="goToPreviousStep(); router.go(-1)"
+          @click="goToPreviousStep()"
         />
         <DsfrButton
           v-if="currentStep < steps.length"
@@ -76,7 +76,7 @@ const goToNextStep = () => (
           @click="goToNextStep(); goToNewRoute()"
         />
         <DsfrButton
-          v-if="currentStep === 3"
+          v-if="currentStep === steps.length"
           class="m-1 flex justify-center"
           icon="ri-arrow-right-line"
           label="Suivant"
@@ -89,55 +89,55 @@ const goToNextStep = () => (
 </template>
 
 <style scoped>
-    .steps-guide {
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      width: 100%;
-    }
+.steps-guide {
+  margin: auto;
+}
 
-    .result {
-    margin: 0 auto;
-    max-width: 1000px;
-    }
+.result {
+margin: 0 auto;
+max-width: 1000px;
+}
 
-    .go-home {
-    width: 3em;
-    height: 3em;
-    }
+.go-home {
+width: 3em;
+height: 3em;
+}
 
-    .go-result {
-    font-size: 0.9em;
-    color: #080894;
-    background-image: none !important;
-    }
+.go-result {
+font-size: 0.9em;
+color:  080894;
+background-image: none !important;
+}
 
-    :deep(div.fr-stepper__steps) {
-      border-radius: 5px 5px 5px 5px;
-    }
+:deep(div.fr-stepper__steps) {
+  border-radius: 5px 5px 5px 5px;
+}
 
-    :deep(.fr-icon-home-3-line) {
-      color: #000091;
-    }
+:deep(.fr-stepper__state::after) {
+  content: " :\a";
+}
 
-    .fr-link--close {
-    visibility: hidden;
-    }
+:deep(.fr-icon-home-3-line) {
+  color: #000091;
+}
 
-    .wrapper-btn {
-    margin: 0.8em;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    }
+.fr-link--close {
+visibility: hidden;
+}
 
-    .footer {
-    background-color: #fff;
-    box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-    }
-    .footer button {
-    width: 50%;
-    }
-  </style>
+.wrapper-btn {
+margin: 0.8em;
+padding: 0;
+display: flex;
+justify-content: center;
+flex-direction: column;
+}
+
+.footer {
+background-color: #fff;
+box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+}
+.footer button {
+width: 50%;
+}
+</style>

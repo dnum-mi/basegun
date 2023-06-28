@@ -271,7 +271,7 @@ export const securingRoutePaths = [
 
 export const identificationRoutePaths = [
   'resultat-typologie',
-  'complements',
-  'munitions',
+  'informations-complementaires',
+  'munition-type',
   'resultat-final',
 ]

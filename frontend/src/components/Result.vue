@@ -70,9 +70,9 @@ function sendFeedback (isCorrect) {
 }
 </script>
 <template>
-  <div class="result-frame p-5">
+  <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
-      <h4 class="typology-title bg-white py-4 mt-2">
+      <h4 class="typology-title bg-white py-4">
         Typologie de l'arme
       </h4>
       <div
@@ -81,7 +81,7 @@ function sendFeedback (isCorrect) {
       />
       <div class="fr-tile fr-enlarge-link mb-3">
         <div class="fr-tile fr-enlarge-link">
-          <h4 class="fr-tile__title">
+          <h4 class="fr-tile__title px-2">
             <div v-if="confidenceLevel === 'low'">
               <div class="fr-tile__body">
                 <DsfrTag
@@ -92,53 +92,45 @@ function sendFeedback (isCorrect) {
               <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
             </div>
             <div v-else>
-              <div v-if="confidenceLevel === 'high'">
-                <div class="fr-tile__body">
+              <div class="fr-tile__body">
+                <div v-if="confidenceLevel === 'high'">
                   <DsfrTag
                     class="fr-tag--sm success-tag"
                   >
                     Indice de fiabilité : {{ Math.floor(confidence) }}%
                   </DsfrTag>
                 </div>
-              </div>
-              <div v-else>
-                <DsfrTag
-                  class="fr-tag--sm warning-tag"
-                >
-                  Indice de fiabilité : {{ Math.floor(confidence) }}%
-                </DsfrTag>
-                <p class="warning-text">
-                  Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
-                </p>
-              </div>
-              <div v-if="isDummy === true">
-                <p class="fr-callout__title mt-3">
-                  Non Classé
-                </p>
-                <p class="fr-callout__text">
-                  Objet, arme factice
-                </p>
-                <p class="mt-2 fr-callout__text">
-                  Typologie de référence : {{ label }}
-                </p>
-                <div
-                  class="callout-mention"
-                >
-                  <p v-html="mention" />
+                <div v-else>
+                  <DsfrTag
+                    class="fr-tag--sm warning-tag"
+                  >
+                    Indice de fiabilité : {{ Math.floor(confidence) }}%
+                  </DsfrTag>
+                  <p class="warning-text">
+                    Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+                  </p>
                 </div>
-              </div>
-              <div v-else>
-                <div
-                  class="callout-mention"
-                >
-                  <p v-html="mention" />
+                <div v-if="isDummy === true">
+                  <p class="fr-callout__title mt-3">
+                    Non Classé
+                  </p>
+                  <p class="fr-callout__text">
+                    Objet, arme factice
+                  </p>
+                  <p class="mt-2 text-left">
+                    Typologie de référence : {{ label }}
+                  </p>
+                  <div
+                    class="callout-mention"
+                  >
+                    <p v-html="mention" />
+                  </div>
                 </div>
-                <div class="mt-4" />
-                <p
-                  class="mt-2 fr-callout__text"
-                >
-                  Typologie : {{ label }}
-                </p>
+                <div v-else>
+                  <p class="mt-2 text-left capitalize">
+                    {{ label }}
+                  </p>
+                </div>
               </div>
             </div>
           </h4>
@@ -196,49 +188,70 @@ function sendFeedback (isCorrect) {
         </div> -->
         <!-- <div class="big-blank" /> -->
       </div>
-      <div class="footer">
-        <div
-          v-show="img"
-          class="fr-col-11 fr-col-lg-6 mx-auto"
-        >
-          <router-link
-            v-slot="{navigate}"
-            class="navigate"
-            :to="{name: 'Instructions'}"
-          >
-            <DsfrButton
-              :class="{'btn-full-width': selectedAmmo}"
-              class="flex justify-center w-full"
-              label="Identifier une nouvelle arme"
-              icon="ri-camera-fill"
-              :icon-right="true"
-              @click="navigate()"
-            />
-          </router-link>
-          <router-link
-            v-if="selectedAmmo"
-            v-slot="{navigate}"
-            class="navigate"
-            :to="{name:'SelectAmmo'}"
-          >
-            <DsfrButton
-              :class="{'btn-full-width': selectedAmmo}"
-              class="mt-3 flex justify-center w-full"
-              label="Retourner à l'étape précédente"
-              icon="ri-arrow-go-back-fill"
-              :icon-right="true"
-              secondary
-              @click="keepingLastStep(); navigate()"
-            />
-          </router-link>
+      <div class="fr-tile fr-enlarge-link">
+        <div class="fr-tile__body pt-0">
+          <h3 class="fr-tile__title" />
+          <div class="flex">
+            <img
+              class="w-24 p-2"
+              src="@/assets/guide-identification/warning.jpeg"
+              alt="alt"
+            >
+            <p class="text-sm text-justify">
+              Basegun a identifié votre arme mais a encore <span class="font-bold">besoin d’informations supplémentaires</span>
+              pour vous donner le résultat final.
+            </p>
+          </div>
         </div>
       </div>
-      <DsfrTile
-        title=""
-        description=""
-        to="#"
-      />
     </div>
+    <div
+      v-if="isFeedbackDone"
+      class="text-center mt-2"
+    >
+      <SnackbarAlert class="text-center" />
+    </div>
+    <div
+      :aria-disabled="isFeedbackDone"
+      class="feedback"
+    >
+      <p class="feedback-text">
+        Cette typologie vous semble-t-elle correcte ?
+      </p>
+      <div class="feedback-thumb">
+        <label
+          class="feedback-click"
+          @click="sendFeedback(true)"
+        >
+          <VIcon
+            v-if="isUp"
+            name="ri-thumb-up-fill"
+            class="feedback-click"
+          />
+          <VIcon
+            v-else
+            name="ri-thumb-up-line"
+            class="feedback-click"
+          />
+        </label>
+        <label
+          class="feedback-click"
+          @click="sendFeedback(false)"
+        >
+          <VIcon
+            v-if="isDown"
+            name="ri-thumb-down-fill"
+            class="feedback-click"
+          />
+          <VIcon
+            v-else
+            name="ri-thumb-down-line"
+            class="feedback-click"
+          />
+        </label>
+      </div>
+    </div>
+    <div class="big-blank" />
   </div>
   <!-- <div class="result-frame">
     <div class="result fr-col-11 fr-col-lg-6">
@@ -440,10 +453,12 @@ function sendFeedback (isCorrect) {
 }
 
 .warning-text {
+  text-align: left;
   font-size: 0.7rem;
   font-style: italic;
   line-height: 1rem;
   margin-bottom: 12px;
+  font-weight: initial;
 }
 
 .warning-msg {
@@ -470,9 +485,10 @@ function sendFeedback (isCorrect) {
 }
 
 .feedback-text {
-  margin-bottom: 0;
-  margin-right: 4px;
+  margin: auto -.05rem auto 0;
+  color: #000091;
   font-weight: bold;
+  font-size: .75rem;
 }
 
 .feedback-click {
@@ -480,6 +496,10 @@ function sendFeedback (isCorrect) {
   font-size: 35px;
   margin: 0.1em 0.05em;
   text-shadow: 0 0 0 #00c8c8;
+}
+
+.feedback-thumb {
+  line-height: unset;
 }
 
 .feedback-click:hover {
@@ -495,5 +515,13 @@ function sendFeedback (isCorrect) {
 
 :deep(.fr-btn) {
   white-space: nowrap;
+}
+
+:deep(.fr-tile__body) {
+  align-items: start !important;
+}
+
+:deep(.fr-tag) {
+  display: flex;
 }
 </style>
