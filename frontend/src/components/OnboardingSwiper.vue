@@ -31,7 +31,7 @@ const modules = [Navigation, Pagination, A11y]
             A ce jour, Basegun <span class="swiper-green-highlight">prend en compte uniquement </span> l'identification d'<span class="swiper-green-highlight">armes à feu létales</span> et d'<span class="swiper-green-highlight">armes factices type airsoft</span>.
           </li>
           <li>
-            Basegun propose également de les <span class="swiper-green-highlight">mettre en sécurité</span> grâce à des <span class="swiper-green-highlight" />.
+            Basegun propose également de les <span class="swiper-green-highlight">mettre en sécurité</span> grâce à des <span class="swiper-green-highlight">tutoriels personnalisés</span>.
           </li>
         </ul>
       </div>
@@ -116,6 +116,10 @@ const modules = [Navigation, Pagination, A11y]
 
 :deep(.swiper-button-disabled) {
   display: none;
+}
+
+:deep(.swiper-pagination-bullets) {
+  bottom: auto;
 }
 
 :deep(.swiper-pagination-bullet-active) {
