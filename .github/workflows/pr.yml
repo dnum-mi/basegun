@@ -8,45 +8,36 @@ jobs:
   tag-pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Tag PR
-      uses: release-drafter/release-drafter@v5
-      with:
-        name: PR ${{ github.ref }}
-        prerelease: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Tag PR
+        uses: release-drafter/release-drafter@v5
+        with:
+          name: PR ${{ github.ref }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  check-files-modified:
+  build-and-test:
     runs-on: ubuntu-latest
-    outputs:
-      changed_files: ${{ steps.changed-files.outputs.all_modified_files }}
+    env:
+      BUILD_TARGET: 'test'
+      TAG: '2.0'
     steps:
-    - uses: actions/checkout@v2
-    - name: Verify Changed files
-      uses: tj-actions/changed-files@v18.4
-      id: changed-files
-      with:
-        base_sha: ${{ github.event.pull_request.base.sha }}
-
-  build-backend-and-test:
-    runs-on: ubuntu-latest
-    needs: check-files-modified
-    if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend/') )
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run backend tests
-      run: make test-backend
-      env:
-        OS_USERNAME: ${{ secrets.OS_USERNAME }}
-        OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-        OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-
-  build-frontend-and-test:
-    runs-on: ubuntu-latest
-    needs: check-files-modified
-    if: ( contains(needs.check-files-modified.outputs.changed_files, 'frontend/') )
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run frontend tests
-      run: make test-frontend
+      - uses: actions/checkout@v2
+      - name: Build for tests
+        run: |
+            echo "Building containers"
+            docker compose --profile e2e -f docker-compose-dev.yml config
+            docker compose --profile e2e -f docker-compose-dev.yml build
+            echo "Containers built"
+      - name: Run backend tests
+        run: make test-backend
+        env:
+          OS_USERNAME: ${{ secrets.OS_USERNAME }}
+          OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+          OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      - name: Test frontend is alive
+        run: make test-frontend-alive
+      - name: Run frontend end-to-end tests
+        run: docker compose --profile e2e -f docker-compose-dev.yml up --abort-on-container-exit --exit-code-from cypress
+    

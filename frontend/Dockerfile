@@ -6,9 +6,6 @@ WORKDIR /app
 ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
-# downgrade npm version to avoid chokidar error
-RUN npm install -g npm@8
-
 COPY ./package.json ./package-lock.json ./
 RUN npm ci
 
@@ -30,3 +27,5 @@ FROM nginx:1.21.4-alpine as prod
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build /app/dist /usr/share/nginx/html/
+
+FROM prod as test

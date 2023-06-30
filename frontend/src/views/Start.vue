@@ -15,6 +15,7 @@
       :to="{name:'Instructions'}"
     >
       <DsfrButton
+        data-testid="start"
         label="Démarrer"
         @click="navigate()"
       />
