@@ -106,7 +106,12 @@ function sendFeedback (isCorrect) {
                     Indice de fiabilité : {{ Math.floor(confidence) }}%
                   </DsfrTag>
                   <div v-if="route.name !== 'TypologyResult' && isDummy !== true">
-                    <p class="fr-callout__title mt-3">
+                    <p class="category fr-callout__title mt-3">
+                      <img
+                        class="px-2"
+                        src="@/assets/guide-identification/gun.jpeg"
+                        alt=""
+                      >
                       Catégorie {{ category }}
                     </p>
                     <div
@@ -127,7 +132,12 @@ function sendFeedback (isCorrect) {
                   </p>
                 </div>
                 <div v-if="isDummy === true">
-                  <p class="fr-callout__title mt-3">
+                  <p class="category fr-callout__title mt-3">
+                    <img
+                      class="px-2"
+                      src="@/assets/guide-identification/gun.jpeg"
+                      alt=""
+                    >
                     Catégorie Non Classée
                   </p>
                   <div
@@ -135,15 +145,15 @@ function sendFeedback (isCorrect) {
                   >
                     <span v-html="mention" />
                   </div>
-                  <p class="fr-callout__text">
-                    Typologie : Objet, arme factice
+                  <p class="mt-2 text-left text-base fr-callout__text">
+                    <span class="font-normal">Typologie : </span>Objet, arme factice
                   </p>
                   <p class="mt-2 text-left capitalize">
                     {{ label }}
                   </p>
                 </div>
                 <div v-else>
-                  <p class="mt-2 text-left capitalize">
+                  <p class="mt-2 text-left text-base fr-callout__text capitalize">
                     <span v-if="route.name !== 'TypologyResult'"> Typologie : </span>
                     {{ label }}
                   </p>
@@ -304,9 +314,9 @@ function sendFeedback (isCorrect) {
 }
 
 .callout-mention {
+  font-weight: normal;
   margin-top: 10px;
   font-style: italic;
-  font-size: 0.9rem;
   line-height: 1.3rem;
 }
 
@@ -357,4 +367,12 @@ function sendFeedback (isCorrect) {
 :deep(.fr-tag) {
   display: flex;
 }
+
+.category {
+  border: solid 1px #000091;
+  padding: .5rem;
+  color: #000091;
+  font-size: medium;
+}
+
 </style>
