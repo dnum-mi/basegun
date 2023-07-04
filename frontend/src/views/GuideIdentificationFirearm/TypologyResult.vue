@@ -1,9 +1,9 @@
 <script setup>
-import Result from '@/components/Result.vue'
+import ResultPage from '@/components/ResultPage.vue'
 
 </script>
 <template>
   <div class="text-center mt-5">
-    <Result />
+    <ResultPage />
   </div>
 </template>

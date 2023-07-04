@@ -170,7 +170,7 @@ const routes = [
         component: SelectAmmo,
       },
       {
-        path: '/resultat-final',
+        path: 'resultat-final',
         name: 'FinalResult',
         meta: {
           reload: true,

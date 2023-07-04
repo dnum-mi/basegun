@@ -27,7 +27,7 @@ defineProps({
 } */
 
 :deep(.fr-stepper__state) {
-  display: inline flow-root;
+  display: inline flow-root !important;
   color: var(--default-grey);
   font-size: .9rem;
 }

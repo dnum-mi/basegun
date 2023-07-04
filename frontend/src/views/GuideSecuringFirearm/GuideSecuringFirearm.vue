@@ -68,7 +68,7 @@ const goToNextStep = () => (
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="goToPreviousStep(); router.go(-1)"
+          @click="goToPreviousStep(); router.back()"
         />
         <DsfrButton
           v-if="currentStep < steps.length"

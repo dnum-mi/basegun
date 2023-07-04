@@ -12,4 +12,5 @@ export {
   RiLogoutBoxRLine,
   RiInformationFill,
   RiHome3Line,
+  RiCheckboxCircleLine,
 } from 'oh-vue-icons/icons/ri/index.js'

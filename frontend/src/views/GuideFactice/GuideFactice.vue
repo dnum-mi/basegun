@@ -77,7 +77,7 @@ async function sendLogsIdentificationDummy () {
       console.log(err)
     })
     .finally(async res => {
-      router.push({ name: 'Result' }).catch(() => {})
+      router.push({ name: 'ResultPage' }).catch(() => {})
     })
 }
 
@@ -97,7 +97,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
       <router-link
         v-slot="{navigate}"
         class="go-result"
-        :to="{name: 'Result'}"
+        :to="{name: 'ResultPage'}"
       >
         <VIcon
           name="ri-arrow-left-line"

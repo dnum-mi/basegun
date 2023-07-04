@@ -63,7 +63,7 @@ function setTutorialStep () {
       </router-link>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'Result'}"
+        :to="{name:'ResultPage'}"
       >
         <DsfrButton
           class="mt-3 flex justify-center w-full"
