@@ -1,8 +1,3 @@
-<script setup>
-import { useStepsStore } from '@/stores/steps.js'
-const stepsStore = useStepsStore()
-
-</script>
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
     <div class="fr-container m-5">
@@ -49,7 +44,7 @@ const stepsStore = useStepsStore()
           label="Je veux identier mon arme"
           icon="ri-arrow-right-line"
           :icon-right="true"
-          @click="navigate(); setCurrentStep(1)"
+          @click="navigate()"
         />
       </router-link>
       <router-link

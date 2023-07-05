@@ -10,6 +10,8 @@ export const useResultStore = defineStore('result', () => {
   const imgUrl = useLocalStorage('imgUrl', null, { serializer })
   const geolocation = useLocalStorage('geolocation', null, { serializer })
   const resultText = useLocalStorage('resultText', null, { serializer })
+  const securingTutorial = useLocalStorage('securingTutorial', false, { serializer })
+  const identificationTutorial = useLocalStorage('identificationTutorial', false, { serializer })
 
   const setResult = (result) => {
     typology.value = result.typology
@@ -19,6 +21,14 @@ export const useResultStore = defineStore('result', () => {
     imgUrl.value = result.imgUrl
     geolocation.value = result.geolocation
     resultText.value = result.resultText
+  }
+
+  const setSecuringTutorial = (newValue) => {
+    securingTutorial.value = newValue
+  }
+
+  const setIdentificationTutorial = (newValue) => {
+    identificationTutorial.value = newValue
   }
 
   const setGeolocation = (geoloc) => {
@@ -33,7 +43,11 @@ export const useResultStore = defineStore('result', () => {
     imgUrl,
     geolocation,
     resultText,
+    securingTutorial,
+    identificationTutorial,
     setResult,
+    setSecuringTutorial,
+    setIdentificationTutorial,
     setGeolocation,
   }
 })

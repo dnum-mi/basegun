@@ -2,8 +2,6 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 import { useAppStore } from '@/stores/app.js'
 import { clearLocalStorage } from '@/utils/storage-utils.js'
-import { useResultStore } from '@/stores/result.js'
-import { useStepsStore } from '@/stores/steps.js'
 
 const HomePage = () => import('@/views/HomePage.vue')
 const StartPage = () => import('@/views/StartPage.vue')

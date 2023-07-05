@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
+import { useLocalStorage } from '@vueuse/core'
 
 const resultStore = useResultStore()
 const router = useRouter()
@@ -44,11 +45,17 @@ function submitUpload (base64, fileName) {
           img: base64,
           imgUrl: res.data.path,
         })
-        router.push({ name: 'SecuringTutorialContent' }).catch(() => {})
+        resultStore.setSecuringTutorial(useLocalStorage('securingTutorial').value)
+        resultStore.setIdentificationTutorial(useLocalStorage('identificationTutorial').value)
       })
       .catch((err) => {
         console.log(err)
         router.push({ name: 'Error' }).catch(() => {})
+      })
+      .finally(async res => {
+        if (resultStore.securingTutorial === 'true') {
+          router.push({ name: 'SecuringTutorialContent' }).catch(() => {})
+        } else { router.push({ name: 'TypologyResult' }).catch(() => {}) }
       })
   })
 }
