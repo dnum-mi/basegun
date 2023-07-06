@@ -2,7 +2,6 @@
 import { ref, computed, onMounted } from 'vue'
 
 import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
-import AskingExpert from './AskingExpert.vue'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -160,7 +159,6 @@ onMounted(() => {
   <p v-if="typology !== 'revolver'">
     <i>Si le <span class="font-bold">chargeur</span> est <span class="font-bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
   </p>
-  <AskingExpert />
   <div class="big-blank" />
 </template>
 

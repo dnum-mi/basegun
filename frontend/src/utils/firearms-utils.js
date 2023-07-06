@@ -211,21 +211,29 @@ export const guideFacticeSelectAmmo = {
     },
   },
 }
+// Tuto Factice
+// const firearmDirection = 'FirearmDirection'
+// const selectOption = 'SelectOption'
+// const extractMag = 'ExtractMag'
+// const selectAmmo = 'SelectAmmo'
 
-const firearmDirection = 'FirearmDirection'
-const selectOption = 'SelectOption'
-const extractMag = 'ExtractMag'
-const selectAmmo = 'SelectAmmo'
+// Tuto Mise en sécurité
 const securingIntroduction = 'SecuringIntroduction'
 const securingInstructions = 'SecuringInstructions'
 const securingRecommendations = 'SecuringRecommendations'
+// Tuto Mise en securité - contenu
+// Tuto Mise en securité identification
+const TypologyResult = 'TypologyResult'
+const FurtherInformations = 'FurtherInformations'
+const SelectAmmo = 'SelectAmmo'
+const FinalResult = 'FinalResult'
 
-export const airsoftsGuideSteps = [
-  firearmDirection,
-  selectOption,
-  extractMag,
-  selectAmmo,
-]
+// export const airsoftsGuideSteps = [
+//   firearmDirection,
+//   selectOption,
+//   extractMag,
+//   selectAmmo,
+// ]
 
 export const securingGuideSteps = [
   securingIntroduction,
@@ -233,15 +241,37 @@ export const securingGuideSteps = [
   securingRecommendations,
 ]
 
-export const routePaths = [
-  'consigne-arme',
-  'option-arme',
-  'extract-mag',
-  'munition-type',
+// export const securingContentGuideSteps = [
+
+// ]
+
+export const identificationGuideSteps = [
+  TypologyResult,
+  FurtherInformations,
+  SelectAmmo,
+  FinalResult,
 ]
 
+// export const airsoftsRoutePaths = [
+//   'consigne-arme',
+//   'option-arme',
+//   'extract-mag',
+//   'munition-type',
+// ]
+
 export const securingRoutePaths = [
-  'securing-introduction',
-  'securing-instructions',
-  'securing-recommendations',
+  'mise-en-securite-introduction',
+  'mise-en-securite-instructions',
+  'mise-en-securite-recommandations',
+]
+
+// export const securingContentRoutePaths = [
+
+// ]
+
+export const identificationRoutePaths = [
+  'resultat-typologie',
+  'informations-complementaires',
+  'munition-type',
+  'resultat-final',
 ]

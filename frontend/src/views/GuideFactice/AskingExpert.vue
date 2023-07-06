@@ -49,7 +49,7 @@ async function sendTutorialFeedback () {
     .finally(setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
       stepsStore.tutorialFeedback = ''
-      router.push({ name: 'Result' }).catch(() => {})
+      router.push({ name: 'ResultPage' }).catch(() => {})
     }, 3000))
 }
 </script>

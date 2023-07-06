@@ -1,3 +1,28 @@
+<script setup>
+import { computed } from 'vue'
+import { useResultStore } from '@/stores/result.js'
+
+const resultStore = useResultStore()
+
+const securingTutorial = computed({
+  get () {
+    return resultStore.securingTutorial
+  },
+  set (value) {
+    resultStore.setSecuringTutorial(value)
+  },
+})
+
+const identificationTutorial = computed({
+  get () {
+    return resultStore.identificationTutorial
+  },
+  set (value) {
+    resultStore.setIdentificationTutorial(value)
+  },
+})
+</script>
+
 <template>
   <div class="text-center relative top-1/8">
     <img
@@ -8,33 +33,31 @@
       Basegun <label class="fr-tag fr-tag--sm">beta</label>
     </h1>
     <p class="accueil-subtitle">
-      Outil d'indentification rapide et <br> de mise en sécurité des armes à feu
+      Outil d'identification rapide et <br> de mise en sécurité des armes à feu
     </p>
-    <router-link
-      v-slot="{navigate}"
-      :to="{name:'SecuringIntroduction'}"
-    >
-      <DsfrButton
-        class=" w-14rem mb-4 p-2 whitespace-pre-line"
-        label="Je veux mettre en sécurité mon arme"
-        size="small"
-        @click="navigate()"
-      />
-    </router-link>
-    <router-link
-      v-slot="{navigate}"
-      :to="{name:'Instructions'}"
-    >
-      <DsfrButton
-        class=" w-14rem mb-4 p-2 whitespace-pre-line"
-        label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
-        size="small"
-        @click="navigate()"
-      />
-    </router-link>
-    <div class="footer footer-up footer-text">
-      Basegun est un <span class="font-bold">outil d'aide à la décision</span>.
-      Il <span class="font-bold">ne remplace en aucun cas l'avis d'un expert</span>.
+    <div class="inline-grid">
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'SecuringIntroduction'}"
+      >
+        <DsfrButton
+          class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          label="Je veux mettre en sécurité mon arme"
+          size="small"
+          @click="navigate(); identificationTutorial = false; securingTutorial = true"
+        />
+      </router-link>
+      <router-link
+        v-slot="{navigate}"
+        :to="{name:'Instructions'}"
+      >
+        <DsfrButton
+          class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
+          size="small"
+          @click="navigate(); securingTutorial = false; identificationTutorial = true"
+        />
+      </router-link>
     </div>
   </div>
 </template>
