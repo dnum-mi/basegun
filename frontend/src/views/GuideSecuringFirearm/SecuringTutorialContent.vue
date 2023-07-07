@@ -34,7 +34,7 @@ const router = useRouter()
             playsinline
             loop
             muted
-            src="../../assets/guide-factice/videos/pistol-1_sm.mp4"
+            src="../../assets/guide-mise-en-securite/videos/kalash-montage_sm.mp4"
           />
         </div>
       </div>
