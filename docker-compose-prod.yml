@@ -7,7 +7,7 @@ services:
       args:
         - VERSION=${TAG}
       context: ./backend
-      target: prod
+      target: ${BUILD_TARGET:-prod}
     container_name: basegun-backend
     environment:
       - PATH_LOGS=/app/logs
