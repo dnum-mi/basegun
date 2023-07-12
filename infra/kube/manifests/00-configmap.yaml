@@ -23,6 +23,10 @@ metadata:
   name: filebeat-config
   namespace: basegun
 data:
+#{{ tpl (.Files.Get .Values.myApp.configFile) $ | indent 4 }}
+# -> regarder si helm peut lire un fichier en dehors de son scope sinon tant pis
+# -> changer les values pour donner le folder à templatiser
+# ajouter dans le filebeat.yml le template helm du values 
   filebeat.elastic.yml: |-
     ###################### Filebeat Configuration Example #########################
 
@@ -51,7 +55,7 @@ data:
 
       # Paths that should be crawled and fetched. Glob based paths.
       paths:
-        - /var/log/basegun/log.json
+        - /tmp/log/basegun/log.json
 
       # Exclude lines. A list of regular expressions to match. It drops the lines that are
       # matching any regular expression from the list.

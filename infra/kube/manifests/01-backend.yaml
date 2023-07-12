@@ -66,7 +66,7 @@ spec:
         - name: filebeat
           image: elastic/filebeat:6.5.4
           command: ["/bin/bash"]
-          args: ["-c", "filebeat -e --path.config /tmp/filebeat/ --strict.perms=false"]
+          args: ["-c", "filebeat -e -c /tmp/filebeat/filebeat.yml --strict.perms=false"]
           env:
             - name: X_OVH_TOKEN
               valueFrom:
@@ -83,7 +83,7 @@ spec:
             - name: filebeat-conf
               mountPath: /tmp/filebeat/
             - name: logs
-              mountPath: /var/log/basegun
+              mountPath: /tmp/log/basegun
       volumes:
         - name: filebeat-conf
           configMap:
