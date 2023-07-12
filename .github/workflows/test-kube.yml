@@ -57,7 +57,7 @@ jobs:
       - name: Checkout to code
         uses: actions/checkout@v2
 
-      - name: Build and install basegun with helm and test it's running
+      - name: Build and install basegun with helm, and test if deployment is successful
         id: tests
         run: |
          # use docker env 
@@ -75,6 +75,9 @@ jobs:
            --set="backend.image.tag=$(make get-current-tag)-prod" \
            --set="frontend.image.repository=basegun-frontend" \
            --set="frontend.image.tag=$(make get-current-tag)-prod" \
+           --set="backend.secret.values.OS_USERNAME=${{ secrets.OS_USERNAME }}" \
+           --set="backend.secret.values.OS_PASSWORD=${{ secrets.OS_PASSWORD }}" \
+           --set="backend.secret.values.OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} \
            --set="backend.secret.values.X_OVH_TOKEN=test" \
            --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
@@ -90,6 +93,6 @@ jobs:
         run : |
          kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
       
-      - name: Test frontend
+      - name: Test frontend is alive
         run: |
-         curl -v basegun.kubernetes.local
+         [[ "$(curl -L -s basegun.kubernetes.local/api/version)" == $(make get-current-tag) ]] || exit 1
