@@ -77,7 +77,7 @@ jobs:
            --set="frontend.image.tag=$(make get-current-tag)-prod" \
            --set="backend.secret.values.OS_USERNAME=${{ secrets.OS_USERNAME }}" \
            --set="backend.secret.values.OS_PASSWORD=${{ secrets.OS_PASSWORD }}" \
-           --set="backend.secret.values.OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} \
+           --set="backend.secret.values.OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }}" \
            --set="backend.secret.values.X_OVH_TOKEN=test" \
            --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
