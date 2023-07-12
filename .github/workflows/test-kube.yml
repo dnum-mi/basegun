@@ -80,9 +80,9 @@ jobs:
            --set="frontend.image.repository=basegun-frontend" \
            --set="frontend.image.tag=$(make get-current-tag)-prod" \
            --set="backend.secret.create=true" \
-           --set="backend.secret.values.OS_USERNAME=${OS_USERNAME}" \
-           --set="backend.secret.values.OS_PASSWORD=${OS_PASSWORD}" \
-           --set="backend.secret.values.OS_PROJECT_NAME=${OS_PROJECT_NAME}" \
+           --set="backend.secret.values.OS_USERNAME=\"${OS_USERNAME}\"" \
+           --set="backend.secret.values.OS_PASSWORD=\"${OS_PASSWORD}\""\
+           --set="backend.secret.values.OS_PROJECT_NAME=\"${OS_PROJECT_NAME}\"" \
            --set="backend.secret.values.X_OVH_TOKEN=test" \
            --set="backend.secret.values.API_OVH_TOKEN=test"
          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
