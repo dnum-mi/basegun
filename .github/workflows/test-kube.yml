@@ -66,28 +66,26 @@ jobs:
           OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
           OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
         run: |
-         # use docker env 
-         export SHELL=/bin/bash
-         eval $(minikube -p minikube docker-env)
-         
-         TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build backend
-         TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build frontend
-         helm upgrade --install basegun ./infra/kube/basegun/  \
-           --set="ingress.hosts[0].host=basegun.kubernetes.local" \
-           --set="ingress.hosts[0].paths[0].path=/" \
-           --set="ingress.hosts[0].paths[0].pathType=Prefix"  \
-           --set="backend.image.repository=basegun-backend" \
-           --set="backend.image.tag=$(make get-current-tag)-prod" \
-           --set="frontend.image.repository=basegun-frontend" \
-           --set="frontend.image.tag=$(make get-current-tag)-prod" \
-           --set="backend.secret.create=true" \
-           --set backend.secret.values.OS_USERNAME="${OS_USERNAME}" \
-           --set backend.secret.values.OS_PASSWORD="${OS_PASSWORD}" \
-           --set backend.secret.values.OS_PROJECT_NAME="${OS_PROJECT_NAME}" \
-           --set backend.secret.values.OS_PROJECT_ID="${OS_PROJECT_ID}" \
-           --set backend.secret.values.X_OVH_TOKEN=test \
-           --set backend.secret.values.API_OVH_TOKEN=test
-         for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
+          # use docker env 
+          export SHELL=/bin/bash
+          eval $(minikube -p minikube docker-env)
+          
+          TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build backend
+          TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build frontend
+          helm upgrade --install basegun ./infra/kube/helm/  \
+            --set="ingress.hosts[0].host=basegun.kubernetes.local" \
+            --set="ingress.hosts[0].paths[0].path=/" \
+            --set="ingress.hosts[0].paths[0].pathType=Prefix"  \
+            --set="backend.image.repository=basegun-backend" \
+            --set="backend.image.tag=$(make get-current-tag)-prod" \
+            --set="frontend.image.repository=basegun-frontend" \
+            --set="frontend.image.tag=$(make get-current-tag)-prod" \
+            --set="backend.secret.create=true" \
+            --set backend.secret.values.OS_USERNAME="${OS_USERNAME}" \
+            --set backend.secret.values.OS_PASSWORD="${OS_PASSWORD}" \
+            --set backend.secret.values.X_OVH_TOKEN=test \
+            --set backend.secret.values.API_OVH_TOKEN=test
+          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
 
       - name: Display pod logs on failure
         if: failure() && steps.tests.outcome == 'failure'
@@ -98,8 +96,8 @@ jobs:
 
       - name: Test unitests on backend
         run : |
-         kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
+          kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
       
       - name: Test frontend is alive
         run: |
-         [[ "$(curl -L -s basegun.kubernetes.local/api/version)" == $(make get-current-tag) ]] || exit 1
+          [[ "$(curl -L -s basegun.kubernetes.local/api/version)" == $(make get-current-tag) ]] || exit 1
