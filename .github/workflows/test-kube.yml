@@ -104,7 +104,6 @@ jobs:
         env:
           OS_USERNAME: ${{ secrets.OS_USERNAME }}
           OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-          OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
           OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
         run: |
           # use docker env 
@@ -122,10 +121,9 @@ jobs:
             --set frontend.image.repository="basegun-frontend" \
             --set frontend.image.tag="$(make get-current-tag)-prod" \
             --set backend.secret.create="true" \
-            --set backend.secret.values.OS_USERNAME="test1" \
-            --set backend.secret.values.OS_PASSWORD="test2" \
-            --set backend.secret.values.OS_PROJECT_NAME="test3" \
-            --set backend.secret.values.OS_PROJECT_ID="test4" \
+            --set backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
+            --set backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
+            --set backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
             --set backend.secret.values.X_OVH_TOKEN="test5" \
             --set backend.secret.values.API_OVH_TOKEN="test6"
           # for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
