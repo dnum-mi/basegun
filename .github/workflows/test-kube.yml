@@ -148,7 +148,6 @@ jobs:
           BACKEND_POD="$(kubectl get pod | grep 'backend' | awk '{print $1}')"
           printf "\n$(kubectl get pod/$BACKEND_POD -o yaml)"
           printf "\n$(kubectl describe pod/$BACKEND_POD)"
-          printf "\n$(kubectl get secret/basegun-secret -o yaml)"
           kubectl get secret/basegun-secret -o jsonpath='{.data.OS_TEST}' | base64 -d
 
       - name: Display pod logs on failure
