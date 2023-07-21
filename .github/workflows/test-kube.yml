@@ -7,10 +7,11 @@ on:
     branches:
       - 'enh/kube'
 
-
 jobs:
   test-app-k8s:
     runs-on: ubuntu-latest
+    env:
+      LOCAL_DOMAIN: basegun.kubernetes.local
     steps:
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
@@ -25,11 +26,11 @@ jobs:
       - name: Add hosts to /etc/hosts
         run: |
           MINIKUBE_IP="$(minikube ip)"
-          sudo echo "$MINIKUBE_IP basegun.kubernetes.local" | sudo tee -a /etc/hosts
+          sudo echo "$MINIKUBE_IP $LOCAL_DOMAIN" | sudo tee -a /etc/hosts
       # we are forced to attribute a DNS to kube cluster for it to work properly
 
       - name: Checkout to code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build and install basegun with helm, and test if deployment is successful
         id: tests
@@ -41,7 +42,7 @@ jobs:
           TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build backend
           TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build frontend
           helm upgrade --install basegun ./infra/kube/helm/  \
-            --set ingress.hosts[0].host="basegun.kubernetes.local" \
+            --set ingress.hosts[0].host="$LOCAL_DOMAIN" \
             --set ingress.hosts[0].paths[0].path="/" \
             --set ingress.hosts[0].paths[0].pathType="Prefix"  \
             --set backend.image.repository="basegun-backend" \
@@ -67,7 +68,27 @@ jobs:
       - name: Test unitests on backend
         run : |
           kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
+
+      - name: Setup nodejs (for cypress)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          check-latest: true
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
       
-      - name: Test frontend is alive
-        run: |
-          [[ "$(curl -L -s basegun.kubernetes.local/api/version)" == $(make get-current-tag) ]] || exit 1
+      - name: Install npm packages (for cypress)
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Test end to end
+        run: FRONTEND_HOST=$LOCAL_DOMAIN FRONTEND_PORT=80 npm run test:e2e-ci
+        working-directory: ./frontend
+
+      - name: Send artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: cypress-screenshots
+          path: |
+            ./frontend/cypress/screenshots/

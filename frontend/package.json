@@ -12,6 +12,7 @@
     "format:css": "stylelint --fix src/**/*.{css,vue}",
     "pretest:unit": "npm run lint",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e --browser firefox'",
+    "test:e2e-ci": "cypress run --e2e --browser firefox",
     "test:e2e-dev": "API_HOST=localhost start-server-and-test 'vite --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
@@ -54,6 +55,6 @@
     "not dead"
   ],
   "volta": {
-    "node": "18.14.0"
+    "node": "18.16.1"
   }
 }
