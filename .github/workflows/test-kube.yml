@@ -9,8 +9,49 @@ on:
 
 
 jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the docker images
+      run: make CONTINUE=y build-prod
+    - name: Test running the docker containers
+      run: |
+        make CONTINUE=y up-prod
+        ./infra/scripts/test-alive.sh localhost
+        make down-prod
+    - name: Login to GHCR
+      if: success()
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push on GHCR
+      if: success()
+      run: |
+        make push
+        make push-develop
+    - name: Delete untagged images
+      uses: vlaurin/action-ghcr-prune@main
+      with:
+        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        organization: datalab-mi
+        container: basegun/basegun-backend
+        dry-run: false
+        untagged: true
+    - name: Delete untagged images
+      uses: vlaurin/action-ghcr-prune@main
+      with:
+        token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+        organization: datalab-mi
+        container: basegun/basegun-frontend
+        dry-run: false
+        untagged: true
+
   test-app-k8s:
     runs-on: ubuntu-latest
+    needs: build-push
     steps:
     
       - name: Start minikube
