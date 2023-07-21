@@ -138,6 +138,7 @@ jobs:
             --set backend.secret.values.OS_USERNAME=${{ secrets.OS_USERNAME }} \
             --set backend.secret.values.OS_PASSWORD=${{ secrets.OS_PASSWORD }} \
             --set backend.secret.values.OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} \
+            --set backend.secret.values.OS_TEST=${{ secrets.OS_TEST }} \
             --set backend.secret.values.X_OVH_TOKEN="test5" \
             --set backend.secret.values.API_OVH_TOKEN="test6"
           # for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
@@ -148,6 +149,7 @@ jobs:
           printf "\n$(kubectl get pod/$BACKEND_POD -o yaml)"
           printf "\n$(kubectl describe pod/$BACKEND_POD)"
           printf "\n$(kubectl get secret/basegun-secret -o yaml)"
+          kubectl get secret/basegun-secret -o jsonpath='{.data.OS_TEST}' | base64 -d
 
       - name: Display pod logs on failure
         if: failure() && steps.tests.outcome == 'failure'
