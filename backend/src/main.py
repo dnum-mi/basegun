@@ -194,19 +194,22 @@ else:
 
 
 conn = None
-if "OS_USERNAME" in os.environ:
-    # Connection to OVH cloud
-    conn = swiftclient.Connection(
-        authurl="https://auth.cloud.ovh.net/v3",
-        user=os.environ["OS_USERNAME"],
-        key=os.environ["OS_PASSWORD"],
-        os_options={
-            "project_name": os.environ["OS_PROJECT_NAME"],
-            "region_name": "GRA"
-        },
-        auth_version='3'
-    )
-    conn.get_account()
+if all(var in os.environ for var in ["OS_USERNAME", "OS_PASSWORD", "OS_PROJECT_NAME"]) :
+    try:
+        # Connection to OVH cloud
+        conn = swiftclient.Connection(
+            authurl="https://auth.cloud.ovh.net/v3",
+            user=os.environ["OS_USERNAME"],
+            key=os.environ["OS_PASSWORD"],
+            os_options={
+                "project_name": os.environ["OS_PROJECT_NAME"],
+                "region_name": "GRA"
+            },
+            auth_version='3'
+        )
+        conn.get_account()
+    except Exception as e:
+        logger.exception(e)
 else:
     logger.warn('Variables necessary for OVH connection not set !')
 
