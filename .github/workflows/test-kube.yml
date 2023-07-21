@@ -9,8 +9,22 @@ on:
 
 
 jobs:
+  check-files-modified:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_files: ${{ steps.changed-files.outputs.all_modified_files }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Verify Changed files
+      uses: tj-actions/changed-files@v18.4
+      id: changed-files
+      with:
+        base_sha: ${{ github.event.pull_request.base.sha }}
+
   build-push:
     runs-on: ubuntu-latest
+    needs: check-files-modified
+    if: ( contains(needs.check-files-modified.outputs.changed_files, 'backend/') || contains(needs.check-files-modified.outputs.changed_files, 'frontend/') )
     steps:
     - uses: actions/checkout@v2
     - name: Build the docker images
@@ -52,8 +66,8 @@ jobs:
   test-app-k8s:
     runs-on: ubuntu-latest
     needs: build-push
+    if: always()
     steps:
-    
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
         with:
@@ -121,9 +135,9 @@ jobs:
             --set frontend.image.repository="basegun-frontend" \
             --set frontend.image.tag="$(make get-current-tag)-prod" \
             --set backend.secret.create="true" \
-            --set backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
-            --set backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
-            --set backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
+            --set backend.secret.values.OS_USERNAME=${{ secrets.OS_USERNAME }} \
+            --set backend.secret.values.OS_PASSWORD=${{ secrets.OS_PASSWORD }} \
+            --set backend.secret.values.OS_PROJECT_NAME=${{ secrets.OS_PROJECT_NAME }} \
             --set backend.secret.values.X_OVH_TOKEN="test5" \
             --set backend.secret.values.API_OVH_TOKEN="test6"
           # for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
