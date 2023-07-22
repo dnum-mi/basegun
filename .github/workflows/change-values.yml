@@ -11,6 +11,11 @@ on:
         type: string
         description: "Namespace name in kubernetes cluster"
         default: "basegun"
+      domain:
+        required: true
+        type: string
+        description: "Nom de domaine utilisé par l'application"
+        default: "basegun.fr"
       branch:
         required: true
         type: string
@@ -68,9 +73,14 @@ jobs:
 
     - name: Update Infra Version
       run: |
-          export TAG=$(make get-current-tag)
-          yq -i '.backend.image.tag = strenv(TAG)' ./infra/kube/basegun/values.yaml
-          yq -i '.frontend.image.tag = strenv(TAG)' ./infra/kube/basegun/values.yaml
+        export TAG=$(make get-current-tag)
+        yq -i '.backend.image.tag = strenv(TAG)' ./infra/kube/helm/values.yaml
+        yq -i '.frontend.image.tag = strenv(TAG)' ./infra/kube/helm/values.yaml
+
+    - name: Update ingress domaine
+      run: |
+        export DOMAIN="${{ inputs.domain }}"
+        yq -i '.ingress.hosts[0].host = strenv(DOMAIN)' ./infra/kube/helm/values.yaml
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.3

@@ -11,9 +11,9 @@
     "format": "eslint src --fix",
     "format:css": "stylelint --fix src/**/*.{css,vue}",
     "pretest:unit": "npm run lint",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e --browser firefox'",
     "test:e2e-ci": "cypress run --e2e --browser firefox",
-    "test:e2e-dev": "API_HOST=localhost start-server-and-test 'vite --port 4173' http://localhost:4173 'cypress open --e2e'"
+    "test:e2e-open": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress open --e2e --browser firefox",
+    "test:e2e-run": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress run --e2e --browser firefox"
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.9.2",

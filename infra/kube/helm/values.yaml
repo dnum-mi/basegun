@@ -11,7 +11,7 @@ ingress:
   #traefik.ingress.kubernetes.io/router.tls: "true"
   #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
-    - host: kube.basegun.fr
+    - host: preprod.basegun.fr
       paths:
         - path: /
           pathType: Prefix
@@ -34,7 +34,7 @@ backend:
     repository: ghcr.io/datalab-mi/basegun/basegun-backend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "2.0"
+    tag: "3.0"
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
@@ -96,7 +96,7 @@ frontend:
     repository: ghcr.io/datalab-mi/basegun/basegun-frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "2.0"
+    tag: "3.0"
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
