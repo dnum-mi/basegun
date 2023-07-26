@@ -1,11 +1,19 @@
 name: Test on kubernetes
 
 on:
-  # only work when code is on main branch
-  workflow_dispatch:
-  push:
-    branches:
-      - 'enh/kube'
+  workflow_call:
+    secrets:
+      API_OVH_TOKEN:
+        required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      X_OVH_TOKEN:
+        required: true
+
 
 jobs:
   test-app-k8s:
@@ -60,7 +68,7 @@ jobs:
             --set-string backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
             --set-string backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
             --set-string backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
-            --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.PREPROD_OVH_TOKEN }}" \
+            --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.X_OVH_TOKEN }}" \
             --set-string backend.secret.values.API_OVH_TOKEN="${{ secrets.API_OVH_TOKEN }}"
           for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
 

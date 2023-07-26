@@ -1,7 +1,7 @@
 name: CI for pr
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
   workflow_dispatch:
 
 jobs:
@@ -18,26 +18,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-and-test:
-    runs-on: ubuntu-latest
-    env:
-      BUILD_TARGET: 'test'
-      TAG: '2.0'
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build for tests
-        run: |
-            echo "Building containers"
-            docker compose --profile e2e -f docker-compose-dev.yml config
-            docker compose --profile e2e -f docker-compose-dev.yml build
-            echo "Containers built"
-      - name: Run backend tests
-        run: make test-backend
-        env:
-          OS_USERNAME: ${{ secrets.OS_USERNAME }}
-          OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-          OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-      - name: Test frontend is alive
-        run: make test-frontend-alive
-      - name: Run frontend end-to-end tests
-        run: docker compose --profile e2e -f docker-compose-dev.yml up --abort-on-container-exit --exit-code-from cypress
-    
+    uses: ./.github/workflows/test-on-kube.yml
+    needs: tag-pr
+    secrets:
+      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
+      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
+      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
+      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
