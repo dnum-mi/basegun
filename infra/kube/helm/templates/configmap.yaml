@@ -12,5 +12,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "basegun.name" . }}-filebeat-config
 data:
-  filebeat.elastic.yml: |-
-    {{ .Files.Get "configs/filebeat.elastic.yml" | nindent 4 }}
+  filebeat.yml: |-
+    {{ .Files.Get "configs/filebeat.yml" | nindent 4 }}

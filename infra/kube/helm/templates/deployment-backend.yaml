@@ -82,7 +82,7 @@ spec:
           configMap:
             name: {{ include "basegun.name" . }}-filebeat-config
             items:
-              - key: filebeat.elastic.yml
+              - key: filebeat.yml
                 path: filebeat.yml
         - name: {{ include "basegun.name" . }}-secret
           secret:

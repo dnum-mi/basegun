@@ -72,7 +72,7 @@ The log file rotates every day : the current log file is `log.json` while the pr
 
 We use OVH Log Data Platform as endpoint for these logs. We use 3 separate "Data streams" destinations which correspond to 3 different ElasticSearch aliases/indexes: one for dev, one for preprod, one for prod, so that we don't mix the logs issues from these 3 phases. We set the variable `X_OVH_TOKEN` accordingly to the data stream we want to use.
 
-The logs are sent from the server to the endpoint using Filebeat. A Filebeat Docker container using `filebeat.elastic.yml` conf file is launched at the same time as the website. It watches the log file written by the website and sends the log to OVH every time there is a change in the file.
+The logs are sent from the server to the endpoint using Filebeat. A Filebeat Docker container using `filebeat.yml` conf file is launched at the same time as the website. It watches the log file written by the website and sends the log to OVH every time there is a change in the file.
 
 In OVH Log Data Platform, we use Kibana to visualize the logs and make queries to extract valuable information from them.
 
