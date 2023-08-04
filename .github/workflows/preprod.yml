@@ -42,7 +42,7 @@ jobs:
         prune-untagged: true
 
   deploy-preprod:
-    uses: ./.github/workflows/change-values.yml
+    uses: ./.github/workflows/change-values-kube.yml
     needs: build-push
     with:
       branch: ${{ github.ref_name }}
