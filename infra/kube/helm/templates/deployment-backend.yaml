@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "basegun.BackFullname" . }}
+  labels:
+    {{- include "basegun.BackLabels" . | nindent 4 }}
+spec:
+  {{- if not .Values.backend.autoscaling.enabled }}
+  replicas: {{ .Values.backend.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "basegun.BackSelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "basegun.BackSelectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.backend.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "basegun.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.backend.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "basegun.BackFullname" . }}
+          securityContext:
+            {{- toYaml .Values.backend.securityContext | nindent 12 }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ include "basegun.name" . }}-config
+          - secretRef:
+              name: {{ .Values.backend.secret.secretName }}
+          ports:
+            - name: api
+              containerPort: {{ .Values.backend.service.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: api
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /
+              port: api
+          volumeMounts:
+            - name: logs
+              mountPath: /tmp/log/basegun/
+        - name: filebeat
+          imagePullPolicy: {{ .Values.backend.logs.pullPolicy }}
+          image: "{{ .Values.backend.logs.repository }}:{{ .Values.backend.logs.tag }}"
+          command: ["/bin/bash"]
+          args: ["-c", "filebeat -e -c /tmp/filebeat/filebeat.yml --strict.perms=false"]
+          resources: {}
+          env:
+            - name: X_OVH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "basegun.name" . }}-secret
+                  key: X_OVH_TOKEN
+            - name: API_OVH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "basegun.name" . }}-secret
+                  key: API_OVH_TOKEN
+          volumeMounts:
+            - name: {{ include "basegun.name" . }}-filebeat-conf
+              mountPath: /tmp/filebeat/
+            - name: logs
+              mountPath: /tmp/log/basegun
+      volumes:
+        - name: {{ include "basegun.name" . }}-filebeat-conf
+          configMap:
+            name: {{ include "basegun.name" . }}-filebeat-config
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml
+        - name: {{ include "basegun.name" . }}-secret
+          secret:
+            secretName: {{ .Values.backend.secret.secretName }}
+        - name: logs
+          emptyDir: {}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.backend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.backend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -22,6 +22,7 @@ watch(route, closeSnackbar)
       v-show="show"
       class="mx-auto snackbar"
     >
+      <!-- class="shadow-md m-0" -->
       <DsfrAlert
         :type="type"
         small

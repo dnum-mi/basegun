@@ -1,11 +1,11 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 2.1
+TAG		:= 3.0
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
-
+UVICORN_LOG_LEVEL :=  # info, debug, trace
 
 export
 
@@ -14,6 +14,9 @@ show-current-tag:
 		read -r -p "Current tag is ${TAG}. Continue? [y/N]: " CONTINUE; \
 	done ; \
 	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
+
+get-current-tag:
+	@echo ${TAG}
 
 check-prerequisites:
 ifeq ("$(wildcard ${DOCKER})","")

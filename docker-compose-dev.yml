@@ -1,7 +1,5 @@
 version: '3.8'
-
 services:
-
   backend:
     profiles:
       - app
@@ -24,6 +22,8 @@ services:
       - OS_PROJECT_NAME
       - http_proxy
       - https_proxy
+      - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
+      - LOG_LEVEL=${UVICORN_LOG_LEVEL}
       - no_proxy
       - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
@@ -58,19 +58,3 @@ services:
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules
-
-  cypress:
-    depends_on:
-      - frontend
-      - backend
-    profiles:
-      - e2e
-    container_name: basegun-cypress
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.cypress
-    image: basegun-cypress:${TAG:-2.0}-dev
-    environment:
-      - FRONTEND_HOST=frontend
-      - FRONTEND_PORT=80
-    working_dir: /e2e
