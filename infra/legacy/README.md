@@ -5,7 +5,7 @@ This folder stores various contents related to Basegun deployment.
 ## Full infrastructure of the project
 ![Basegun-infra-legacy-1](https://github.com/datalab-mi/Basegun/assets/24997639/12692b3a-6108-47a9-ac16-44da2ebabd01)
 
-1. Using Github actions, we trigger either the [*preprod* deployment](../.github/workflows/develop.yml) or the [*prod* deployment](../.github/workflows/release.yml).
+1. Using Github actions, we trigger either the [*preprod* deployment](../../.github/workflows/develop.yml) or the [*prod* deployment](../../.github/workflows/release.yml).
 2. For both of them, the [workflow calls Terraform](../.github/workflows/deploy.yml) using specific env variables to differentiate preprod from prod, to start a VM on OVH public cloud.
 3. On the VM, we always have [3 containers](../docker-compose-prod.yml) :
 * 1 for Basegun frontend (Vue.js website)
