@@ -1,4 +1,8 @@
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
 name: CI for preprod
 jobs:
   build-push:
