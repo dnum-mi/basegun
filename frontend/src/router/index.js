@@ -21,6 +21,7 @@ const Contact = () => import('@/views/Contact.vue')
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
 const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
+const SecuringSelectOption = () => import('@/views/GuideSecuringFirearm/SecuringSelectOption.vue')
 const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
@@ -126,6 +127,11 @@ const routes = [
         component: SecuringRecommendations,
       },
     ],
+  },
+  {
+    path: '/mise-en-securite-choix-option',
+    name: 'SecuringSelectOption',
+    component: SecuringSelectOption,
   },
   {
     path: '/mise-en-securite-tutoriel',
