@@ -1,15 +1,3 @@
-import revolver1Img from '@/assets/guide-factice/images/revolver/revolver-1_arrow.jpg'
-import revolver1Video from '@/assets/guide-factice/videos/revolver-1_sm.mp4'
-import revolver2Img from '@/assets/guide-factice/images/revolver/revolver-2_arrow.jpg'
-import revolver2Video from '@/assets/guide-factice/videos/revolver-2_sm.mp4'
-import revolverCartridges from '@/assets/guide-factice/images/revolver/revolver-cartridges-arrow.jpg'
-import revolverBalls from '@/assets/guide-factice/images/revolver/revolver-balls-arrow.jpg'
-import pistoletSemiAutoModerne1Img from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-1_arrow1.jpg'
-import pistoletSemiAutoModerne1Video from '@/assets/guide-factice/videos/pistol-1_sm.mp4'
-import pistoletSemiAutoModerne2Img from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-2_arrow1.jpg'
-import pistoletSemiAutoModerne2Video from '@/assets/guide-factice/videos/pistol-2_sm.mp4'
-import pistoletSemiAutoModerneCartridges from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-cartridges.jpg'
-import pistoletSemiAutoModerneBalls from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-balls.jpg'
 import autreEpauleAr15Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ar_arrow1.jpg'
 import autreEpauleAr15Video from '@/assets/guide-factice/videos/ar_sm.mp4'
 import autreEpauleAkImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ak_arrow1.jpg'
@@ -24,6 +12,7 @@ import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autr
 import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
 import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
 import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
+
 
 export const results = {
   revolver: {

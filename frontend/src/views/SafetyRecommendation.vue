@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { results } from '@/utils/firearms-utils.js'
+import { results } from '@/utils/firearms-utils.js.js'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()

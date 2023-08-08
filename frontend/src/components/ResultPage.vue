@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { results } from '@/utils/firearms-utils'
+import { resultats } from '@/utils/securing-firearms-utils.js'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -33,11 +33,11 @@ const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
 const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
-const label = computed(() => results[typology.value]?.displayLabel)
-const category = computed(() => results[typology.value]?.category)
+const label = computed(() => resultats[typology.value]?.displayLabel)
+const category = computed(() => resultats[typology.value]?.category)
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
-  : results[typology.value]?.mention)
+  : resultats[typology.value]?.mention)
 
 // const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
 
