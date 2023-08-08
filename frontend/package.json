@@ -1,15 +1,19 @@
 {
   "name": "basegun",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
-    "serve": "vite preview",
+    "preview": "vite preview",
     "build": "vite build",
+    "compose:up": "docker compose -f ../docker-compose-dev.yml --profile backend-only up -d",
     "dev": "vite",
     "lint": "eslint src",
     "format": "eslint src --fix",
     "format:css": "stylelint --fix src/**/*.{css,vue}",
-    "pretest:unit": "npm run lint"
+    "pretest:unit": "npm run lint",
+    "test:e2e-ci": "cypress run --e2e --browser firefox",
+    "test:e2e-open": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress open --e2e --browser firefox",
+    "test:e2e-run": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress run --e2e --browser firefox"
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.9.3",
@@ -25,16 +29,19 @@
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^9.0.0",
     "@unocss/transformer-directives": "^0.53.4",
     "@unocss/transformer-variant-group": "^0.53.4",
     "@vitejs/plugin-vue": "^4.2.3",
-    "eslint": "^8.43.0",
-    "eslint-config-standard": "^17.1.0",
+    "cypress": "^12.13.0",
+    "eslint": "^8.34.0",
+    "eslint-config-standard": "^17.0.0",
     "eslint-plugin-cypress": "^2.13.3",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.15.1",
+    "start-server-and-test": "^2.0.0",
     "stylelint": "^15.9.0",
     "stylelint-config-standard": "^33.0.0",
     "unocss": "^0.53.4",
@@ -47,6 +54,6 @@
     "not dead"
   ],
   "volta": {
-    "node": "18.14.0"
+    "node": "18.16.1"
   }
 }

@@ -1,3 +1,4 @@
+
 import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -16,6 +17,7 @@ from src.model import load_model_inference, predict_image
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+WORKSPACE = os.environ.get("WORKSPACE")
 
 CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
     'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
@@ -155,11 +157,11 @@ origins = [ # allow requests from front-end
     "https://preprod.basegun.fr",
     "http://localhost",
     "http://localhost:8080",
-    "http://localhost:3000"
+    "http://localhost:3000",
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -192,19 +194,22 @@ else:
 
 
 conn = None
-if "OS_USERNAME" in os.environ:
-    # Connection to OVH cloud
-    conn = swiftclient.Connection(
-        authurl="https://auth.cloud.ovh.net/v3",
-        user=os.environ["OS_USERNAME"],
-        key=os.environ["OS_PASSWORD"],
-        os_options={
-            "project_name": os.environ["OS_PROJECT_NAME"],
-            "region_name": "GRA"
-        },
-        auth_version='3'
-    )
-    conn.get_account()
+if all(var in os.environ for var in ["OS_USERNAME", "OS_PASSWORD", "OS_PROJECT_NAME"]) :
+    try:
+        # Connection to OVH cloud
+        conn = swiftclient.Connection(
+            authurl="https://auth.cloud.ovh.net/v3",
+            user=os.environ["OS_USERNAME"],
+            key=os.environ["OS_PASSWORD"],
+            os_options={
+                "project_name": os.environ["OS_PROJECT_NAME"],
+                "region_name": "GRA"
+            },
+            auth_version='3'
+        )
+        conn.get_account()
+    except Exception as e:
+        logger.exception(e)
 else:
     logger.warn('Variables necessary for OVH connection not set !')
 

@@ -48,9 +48,9 @@ function submitUpload (base64, fileName) {
         resultStore.setSecuringTutorial(useLocalStorage('securingTutorial').value)
         resultStore.setIdentificationTutorial(useLocalStorage('identificationTutorial').value)
       })
-      .catch((err) => {
-        console.log(err)
-        router.push({ name: 'Error' }).catch(() => {})
+      .catch((error) => {
+        // TODO: Afficher l’erreur à l’utilisateur
+        router.push({ name: 'Error', meta: { error } })
       })
       .finally(async res => {
         if (resultStore.securingTutorial === 'true') {
@@ -95,6 +95,7 @@ function resizeAndUpload (uploadedFile) {
     }
 
     imgElement.onerror = function () {
+      // TODO: Afficher l’erreur en français et dans une modal du DSFR et surtout pas dans un alert()
       alert('Corrupted image file, please try another')
     }
   }
@@ -117,7 +118,7 @@ function onFileSelected (event) {
       const longitude = randomCoord(res.data.longitude)
       resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
     })
-    .catch(() => {})
+    .catch(() => {}) // TODO: Gérer l’erreur
     .finally(() => {
       // if geolocation is unavailable or incorrect format
       resizeAndUpload(uploadedFile)
@@ -126,16 +127,26 @@ function onFileSelected (event) {
 </script>
 
 <template>
-  <div
+  <form
     id="demarrer"
     style="width: 0; height: 1px; display: none;"
+    @submit="submitUpload"
   >
     <input
       ref="fileInput"
+      data-testid="select-file"
       type="file"
       style="width: 0; height: 1px"
       :accept="handledImageTypes"
       @change="onFileSelected($event)"
     >
-  </div>
+    <button
+      id="file-submit"
+      data-testid="file-submit"
+      type="submit"
+      style="width: 0; height: 1px"
+    >
+      ok
+    </button>
+  </form>
 </template>
