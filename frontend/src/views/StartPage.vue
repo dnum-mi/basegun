@@ -53,6 +53,7 @@ const identificationTutorial = computed({
       >
         <DsfrButton
           class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          data-testid="identification"
           label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
           size="small"
           @click="navigate(); securingTutorial = false; identificationTutorial = true"

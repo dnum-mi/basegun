@@ -4,7 +4,7 @@ describe('HomePage', () => {
       cy.getByDataTestid('basegun-logo').should('exist')
       cy.contains('li', 'Basegun est une application')
       cy.get('.swiper-button-next').click()
-      cy.contains('li', 'Une arme doit toujours être')
+      cy.contains('li', 'ne remplace en aucun cas l\'avis d\'un expert')
       cy.get('#position-button').contains('J\'ai compris').click()
       cy.url().should('contain', '/accueil')
     })
