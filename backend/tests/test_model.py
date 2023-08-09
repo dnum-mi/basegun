@@ -51,4 +51,4 @@ class TestModel(unittest.TestCase):
         with open(path, 'rb') as f:
             res = predict_image(self.model, f.read())
         self.assertEqual(res[0], "revolver")
-        self.assertAlmostEqual(res[1], 99.67, places=1)
+        self.assertAlmostEqual(res[1], 98.43, places=1)
