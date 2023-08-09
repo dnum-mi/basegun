@@ -32,14 +32,16 @@ export const pistolet_semi_auto_moderne = {
       video: pistoletSemiAutoModerne2Video,
     },
   },
-  cartouche: {
-    label: 'cartouches',
-    value: 'cartouches',
-    img_ammo: pistoletSemiAutoModerneCartridges,
-  },
-  billes: {
-    label: 'billes',
-    value: 'billes',
-    img_ammo: pistoletSemiAutoModerneBalls,
+  guideFactice: {
+    cartouche: {
+      label: 'cartouches',
+      value: 'cartouches',
+      img_ammo: pistoletSemiAutoModerneCartridges,
+    },
+    billes: {
+      label: 'billes',
+      value: 'billes',
+      img_ammo: pistoletSemiAutoModerneBalls,
+    },
   },
 }

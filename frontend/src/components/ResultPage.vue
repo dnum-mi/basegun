@@ -39,7 +39,7 @@ const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
   : resultats[typology.value]?.mention)
 
-// const isDummyTypology = computed(() => results[typology.value]?.isDummyTypology === true)
+// const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
 
 function sendFeedback (isCorrect) {
   const json = {

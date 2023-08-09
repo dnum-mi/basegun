@@ -1,13 +1,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-import { guideFacticeSelectAmmo } from '@/utils/firearms-utils'
-
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
 import TransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
+import { resultats } from '@/utils/securing-firearms-utils'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -108,20 +107,22 @@ onMounted(() => {
           v-if="typology === 'autre_epaule'"
           @click="openModal()"
         >
-          <a href="#"> Chargeur transparent ?</a>
+          <a
+            class="underline"
+            href="#"
+          > Chargeur transparent ?</a>
         </span>
       </p>
     </div>
     <div>
       <template
-        v-for="option of guideFacticeSelectAmmo[typology]"
+        v-for="option of resultats[typology].guideFactice"
         :key="option.value"
       >
         <div class="item">
           <DsfrRadioButton
             v-model="selectedAmmo"
             class="radio"
-            :class="{ 'wide': typology === 'epaule_a_verrou' }"
             v-bind="option"
             :img="option.img_ammo"
             required

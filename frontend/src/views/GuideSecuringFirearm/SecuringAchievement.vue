@@ -1,3 +1,15 @@
+<script setup>
+import { computed } from 'vue'
+import { useResultStore } from '@/stores/result.js'
+import { resultats } from '@/utils/securing-firearms-utils.js'
+
+const resultStore = useResultStore()
+const typology = computed(() => resultStore.typology)
+
+const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
+
+</script>
+
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
     <div class="fr-container m-5">
@@ -34,6 +46,7 @@
   </div>
   <div class="footer">
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
+      <!-- v-if="isDummyTypology" -->
       <router-link
         v-slot="{navigate}"
         class="navigate"
@@ -41,12 +54,26 @@
       >
         <DsfrButton
           class="flex justify-center w-full"
-          label="Je veux identier mon arme"
+          label="Je veux identifier mon arme"
           icon="ri-arrow-right-line"
           :icon-right="true"
           @click="navigate()"
         />
       </router-link>
+      <!-- <router-link
+        v-else
+        v-slot="{navigate}"
+        class="navigate"
+        :to="{name: 'FinalResult'}"
+      >
+        <DsfrButton
+          class="flex justify-center w-full"
+          label="Je veux identifier mon arme"
+          icon="ri-arrow-right-line"
+          :icon-right="true"
+          @click="navigate()"
+        />
+      </router-link> -->
       <router-link
         v-slot="{navigate}"
         :to="{name:'StartPage'}"

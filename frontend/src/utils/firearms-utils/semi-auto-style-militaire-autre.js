@@ -1,3 +1,5 @@
+import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
+import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
 /*
 Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   AR15
@@ -47,6 +49,18 @@ export const semi_auto_style_militaire_autre = {
       text: '',
       img: '',
       video: '',
+    },
+  },
+  guideFactice: {
+    cartouches: {
+      label: 'cartouches',
+      value: 'cartouches',
+      img_ammo: autreEpauleCartridges,
+    },
+    billes: {
+      label: 'billes',
+      value: 'billes',
+      img_ammo: autreEpauleBalls,
     },
   },
 }
