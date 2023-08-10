@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core'
+import { resultats } from '@/utils/securing-firearms-utils'
 
 const resultStore = useResultStore()
 const router = useRouter()
@@ -45,16 +46,18 @@ function submitUpload (base64, fileName) {
           img: base64,
           imgUrl: res.data.path,
         })
-        resultStore.setSecuringTutorial(useLocalStorage('securingTutorial').value)
-        resultStore.setIdentificationTutorial(useLocalStorage('identificationTutorial').value)
+        useLocalStorage('securingTutorial')
+        useLocalStorage('identificationTutorial')
       })
       .catch((error) => {
         // TODO: Afficher l’erreur à l’utilisateur
         router.push({ name: 'Error', meta: { error } })
       })
       .finally(async res => {
-        if (resultStore.securingTutorial === 'true') {
-          router.push({ name: 'SecuringTutorialContent' }).catch(() => {})
+        if (resultStore.securingTutorial === true) {
+          if (resultats[resultStore.typology]?.options) {
+            router.push({ name: 'SecuringSelectOption' }).catch(() => { })
+          } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => {}) }
         } else { router.push({ name: 'TypologyResult' }).catch(() => {}) }
       })
   })

@@ -146,7 +146,7 @@ function sendFeedback (isCorrect) {
                     <span v-html="mention" />
                   </div>
                   <p class="mt-2 text-left text-base fr-callout__text">
-                    <span class="font-normal">Typologie : </span>Objet, arme factice
+                    <span class="font-normal">Typologie : Objet, arme factice</span>
                   </p>
                   <p class="mt-2 text-left capitalize">
                     {{ label }}
@@ -154,7 +154,10 @@ function sendFeedback (isCorrect) {
                 </div>
                 <div v-else>
                   <p class="mt-2 text-left text-base fr-callout__text capitalize">
-                    <span v-if="route.name !== 'TypologyResult'"> Typologie : </span>
+                    <span
+                      v-if="route.name !== 'TypologyResult'"
+                      class="font-normal"
+                    > Typologie : </span>
                     {{ label }}
                   </p>
                 </div>

@@ -1,5 +1,5 @@
 describe('Get Basegun result', () => {
-  it.skip('should have dummy button enabled', () => { 
+  it('should have dummy button enabled', () => { 
     cy.visit('/')
     cy.get('.swiper-button-next').click()
     cy.get('#position-button')
@@ -28,7 +28,7 @@ describe('Get Basegun result', () => {
         .contains('Vérifier si l\'arme est factice')
   })
 
-  it.skip('should have dummy button disabled', () => { 
+  it('should have dummy button disabled', () => { 
     cy.visit('/instructions')
     cy.getByDataTestid('select-file').as('fileInput')
     cy.intercept('POST','/api/upload').as('upload')
