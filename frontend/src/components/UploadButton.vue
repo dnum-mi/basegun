@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core'
-import { resultats } from '@/utils/securing-firearms-utils'
+import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const resultStore = useResultStore()
 const router = useRouter()

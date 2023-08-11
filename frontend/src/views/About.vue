@@ -54,7 +54,7 @@ const imgs = ref([
         <div />
         <p>
           A ce jour, Basegun permet de prendre en photo une arme à feu et d'obtenir un
-          résultat parmi 10 typologies possibles. Ce résultat donne une indication sur la ou les catégories légales
+          résultat parmi 12 typologies possibles. Ce résultat donne une indication sur la ou les catégories légales
           à laquelle l'arme appartient.
         </p>
         <p class="fr-callout">

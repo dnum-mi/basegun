@@ -12,48 +12,28 @@ import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autr
 import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
 
 export const results = {
-  revolver: {
-    displayLabel: 'revolver',
-    category: 'B ou D',
-    mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
-    isDummyTypology: true,
-    stepsNumber: 4,
-  },
-  pistolet_semi_auto_moderne: {
-    displayLabel: 'pistolet semi-automatique moderne',
-    category: 'B',
-    mention: 'Soumise à autorisation',
-    isDummyTypology: true,
-    stepsNumber: 4,
-  },
-  pistolet_a_percussion_silex: {
-    displayLabel: 'pistolet à mécanisme ancien',
-    category: 'D',
-    mention: "Libre d'acquisition et de détention",
-    isDummyTypology: false,
-  },
   autre_pistolet: {
     displayLabel: 'pistolet divers',
     category: 'A, B ou D',
     mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
     isDummyTypology: false,
   },
-  epaule_a_percussion_silex: {
-    displayLabel: "arme d'épaule à mécanisme ancien",
-    category: 'D',
-    mention: "Libre d'acquisition et de détention",
-    isDummyTypology: false,
-  },
-  epaule_a_un_coup: {
-    displayLabel: "arme d'épaule à un coup par canon",
-    category: 'C',
-    mention: 'Soumise à déclaration',
-    isDummyTypology: false,
-  },
   epaule_a_levier_sous_garde: {
     displayLabel: "arme d'épaule à levier de sous-garde",
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  epaule_a_pompe: {
+    displayLabel: "arme d'épaule à pompe",
+    category: 'B ou C',
+    mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  epaule_a_un_coup_par_canon: {
+    displayLabel: "arme d'épaule à un coup ou un coup par canon",
+    category: 'C',
+    mention: 'Soumise à déclaration',
     isDummyTypology: false,
   },
   epaule_a_verrou: {
@@ -63,16 +43,48 @@ export const results = {
     isDummyTypology: false,
     stepsNumber: 4,
   },
-  epaule_a_pompe: {
-    displayLabel: "arme d'épaule à pompe",
+  epaule_mecanisme_ancien: {
+    displayLabel: "arme d'épaule à mécanisme ancien",
+    category: 'D',
+    mention: "Libre d'acquisition et de détention",
+    isDummyTypology: false,
+  },
+  epaule_semi_auto_style_chasse: {
+    displayLabel: "arme d'épaule semi-automatique",
     category: 'B ou C',
     mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
     isDummyTypology: false,
   },
-  autre_epaule: {
-    displayLabel: "arme d'épaule non manuelle",
+  epaule_semi_auto_style_militaire_milieu_20e: {
+    displayLabel: "arme d'épaule semi-automatique ou automatique",
     category: 'A, B ou C',
     mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
+    isDummyTypology: false,
+  },
+  pistolet_semi_auto_moderne: {
+    displayLabel: 'pistolet semi-automatique',
+    category: 'B',
+    mention: 'Soumise à autorisation',
+    isDummyTypology: true,
+    stepsNumber: 4,
+  },
+  pistolet_mecanisme_ancien: {
+    displayLabel: 'pistolet à mécanisme ancien',
+    category: 'D',
+    mention: "Libre d'acquisition et de détention",
+    isDummyTypology: false,
+  },
+  revolver: {
+    displayLabel: 'revolver',
+    category: 'B ou D',
+    mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
+    isDummyTypology: true,
+    stepsNumber: 4,
+  },
+  semi_auto_style_militaire_autre: {
+    displayLabel: "arme semi-automatique ou automatique",
+    category: 'A, B ou C',
+    mention: 'A - Interdite<br>B - Soumise à autoriszation<br>C - Soumise à déclaration',
     isDummyTypology: true,
     stepsNumber: 4,
   },

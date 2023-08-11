@@ -4,7 +4,9 @@ import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { resultats } from '@/utils/securing-firearms-utils'
+import { resultats } from '@/utils/securing-firearms-utils.js'
+
+import AskingExpert from '@/views/GuideFactice/AskingExpert.vue'
 
 const router = useRouter()
 
@@ -92,6 +94,8 @@ const zoomOn = (imgValue) => {
           </Teleport>
         </div>
       </div>
+      <AskingExpert />
+      <div class="big-blank" />
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">

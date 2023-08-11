@@ -46,13 +46,12 @@ const selectedOption = computed({
       <div v-if="resultats[typology]?.options">
         <p class="manipulations -mx-8 p-6">
           <ul class="list-none text-sm">
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_1 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_2 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_3 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_4 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_5 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_6 }}</li>
-            <li>{{ resultats[typology]?.options[selectedOption].text_step_7 }}</li>
+            <li
+              v-for="option in resultats[typology].options[selectedOption].text_steps"
+              :key="option.value"
+            >
+              {{ option }}
+            </li>
           </ul>
         </p>
         <div
@@ -74,16 +73,19 @@ const selectedOption = computed({
         <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
         <!-- <p class="manipulations -mx-8 p-6">
           <ul class="list-none text-sm">
-            <li>{{ resultats[typology].text_step_1 }}</li>
-            <li>{{ resultats[typology].text_step_2 }}</li>
-            <li>{{ resultats[typology].text_step_3 }}</li>
-            <li>{{ resultats[typology].text_step_4 }}</li>
-            <li>{{ resultats[typology].text_step_5 }}</li>
-            <li>{{ resultats[typology].text_step_6 }}</li>
-            <li>{{ resultats[typology].text_step_7 }}</li>
+            <li
+              v-for="option in resultats[typology].options[selectedOption].text_steps"
+              :key="option.value"
+            >
+              {{ option }}
+            </li>
           </ul>
         </p> -->
         <DsfrAccordionsGroup>
+          <!-- v-for="option in resultats[typology].text_steps"
+          :key="option.value" -->
+          <!-- {{ option }} -->
+          <!-- v-bind="option" -->
           <li>
             <DsfrAccordion
               id="accordion-1"
@@ -91,7 +93,10 @@ const selectedOption = computed({
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_1 }}</p>
+              <p class="manipulations -mx-8 p-6">
+                {{ resultats[typology].text_steps.text_step_1 }}
+              </p>
+
               <video
                 autoplay
                 controls
@@ -109,7 +114,9 @@ const selectedOption = computed({
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_2 }}</p>
+              <p class="manipulations -mx-8 p-6">
+                {{ resultats[typology].text_steps.text_step_2 }}
+              </p>
               <video
                 autoplay
                 controls
@@ -127,7 +134,9 @@ const selectedOption = computed({
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <p class="manipulations -mx-8 p-6">
+                {{ resultats[typology].text_steps.text_step_3 }}
+              </p>
               <video
                 autoplay
                 controls
@@ -145,7 +154,9 @@ const selectedOption = computed({
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <p class="manipulations -mx-8 p-6">
+                {{ resultats[typology].text_steps.text_step_3 }}
+              </p>
               <video
                 autoplay
                 controls
@@ -163,7 +174,9 @@ const selectedOption = computed({
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <p class="manipulations -mx-8 p-6">
+                {{ resultats[typology].text_steps.text_step_3 }}
+              </p>
               <video
                 autoplay
                 controls
@@ -191,6 +204,7 @@ const selectedOption = computed({
           </div>
         </div> -->
       </div>
+      <div class="big-blank" />
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">

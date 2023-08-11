@@ -6,7 +6,7 @@ import { useResultStore } from '@/stores/result.js'
 
 import TransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
-import { resultats } from '@/utils/securing-firearms-utils'
+import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()

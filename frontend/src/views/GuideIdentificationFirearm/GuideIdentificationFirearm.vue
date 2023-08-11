@@ -5,6 +5,7 @@ import { identificationRoutePaths, identificationGuideSteps } from '@/utils/fire
 import StepsGuide from '../GuideFactice/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
+import { resultats } from '@/utils/securing-firearms-utils.js'
 import axios from 'axios'
 
 const stepsStore = useStepsStore()
@@ -24,7 +25,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
+const steps = resultats[resultStore.typology].isDummyTypology || !confidenceLevel.value === 'low' ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final'] : ['Résultat final']
 
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
 
@@ -100,7 +101,7 @@ async function sendLogsIdentificationDummy () {
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final'"
+    v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology].isDummyTypology"
     class="footer end"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -117,7 +118,22 @@ async function sendLogsIdentificationDummy () {
           @click="navigate()"
         />
       </router-link>
+      <router-link
+        v-if="!resultats[typology].isDummyTypology"
+        v-slot="{navigate}"
+        :to="{name:'StartPage'}"
+      >
+        <DsfrButton
+          class="mt-3 flex justify-center w-full"
+          label="Retour au menu"
+          icon="ri-arrow-go-back-fill"
+          :icon-right="true"
+          secondary
+          @click="navigate()"
+        />
+      </router-link>
       <DsfrButton
+        v-else
         class="mt-3 flex justify-center w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"

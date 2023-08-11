@@ -25,7 +25,6 @@ const imgUrl = computed(() => resultStore.imgUrl)
 
 const typology = computed(() => resultStore.typology)
 
-// const selectedAmmo = computed(() => stepsStore.selectedAmmo)
 const isDummy = computed(() => stepsStore.isDummy)
 
 const isUp = ref(undefined)
@@ -39,7 +38,7 @@ const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
   : resultats[typology.value]?.mention)
 
-// const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
+const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
 
 function sendFeedback (isCorrect) {
   const json = {
@@ -70,7 +69,7 @@ function sendFeedback (isCorrect) {
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
       <h4
-        v-if="route.name === 'TypologyResult'"
+        v-if="route.name === 'TypologyResult' && isDummyTypology === true"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
@@ -105,21 +104,6 @@ function sendFeedback (isCorrect) {
                   >
                     Indice de fiabilité : {{ Math.floor(confidence) }}%
                   </DsfrTag>
-                  <div v-if="route.name !== 'TypologyResult' && isDummy !== true">
-                    <p class="category fr-callout__title mt-3">
-                      <img
-                        class="px-2"
-                        src="@/assets/guide-identification/gun.jpeg"
-                        alt=""
-                      >
-                      Catégorie {{ category }}
-                    </p>
-                    <div
-                      class="callout-mention"
-                    >
-                      <p v-html="mention" />
-                    </div>
-                  </div>
                 </div>
                 <div v-else>
                   <DsfrTag
@@ -130,6 +114,21 @@ function sendFeedback (isCorrect) {
                   <p class="warning-text">
                     Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
                   </p>
+                </div>
+                <div v-if="isDummy === false && (route.name !== 'TypologyResult'|| isDummyTypology !== true)">
+                  <p class="category fr-callout__title mt-3">
+                    <img
+                      class="px-2"
+                      src="@/assets/guide-identification/gun.jpeg"
+                      alt=""
+                    >
+                    Catégorie {{ category }}
+                  </p>
+                  <div
+                    class="callout-mention"
+                  >
+                    <p v-html="mention" />
+                  </div>
                 </div>
                 <div v-if="isDummy === true">
                   <p class="category fr-callout__title mt-3">
@@ -148,12 +147,12 @@ function sendFeedback (isCorrect) {
                   <p class="mt-2 text-left text-base fr-callout__text">
                     <span class="font-normal">Typologie : Objet, arme factice</span>
                   </p>
-                  <p class="mt-2 text-left capitalize">
+                  <p class="mt-2 text-left typo">
                     {{ label }}
                   </p>
                 </div>
                 <div v-else>
-                  <p class="mt-2 text-left text-base fr-callout__text capitalize">
+                  <p class="mt-2 text-left text-base fr-callout__text typo">
                     <span
                       v-if="route.name !== 'TypologyResult'"
                       class="font-normal"
@@ -167,7 +166,7 @@ function sendFeedback (isCorrect) {
         </div>
       </div>
       <div
-        v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low'"
+        v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low' && resultats[resultStore.typology].isDummyTypology"
         class="fr-tile fr-enlarge-link"
       >
         <div class="fr-tile__body pt-0">
@@ -376,6 +375,10 @@ function sendFeedback (isCorrect) {
   padding: .5rem;
   color: #000091;
   font-size: medium;
+}
+
+.typo:first-letter {
+  text-transform: uppercase;
 }
 
 </style>

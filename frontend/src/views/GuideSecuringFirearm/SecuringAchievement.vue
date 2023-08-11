@@ -27,12 +27,15 @@ const typology = computed(() => resultStore.typology)
       <h4 class="mt-5 text-center">
         Fin de la mise en sécurité de l’arme
       </h4>
-      <p
+      <div
         v-if="!resultats[typology].isSecuringOptions"
-        class="ending font-600 text-center"
+        class="text-center"
       >
-        Votre arme ne possède pas de guide de mise en sécurité. <br> Souhaitez-vous l'identifier quand même ?
-      </p>
+        <p class="ending font-600">
+          Votre arme ne possède pas de guide de mise en sécurité.
+        </p>
+        <p>Souhaitez-vous l'identifier quand même ? Sinon vous pouvez retourner au menu.</p>
+      </div>
       <div v-else>
         <p class="ending font-600 text-center">
           Vous venez de sécuriser votre arme !
