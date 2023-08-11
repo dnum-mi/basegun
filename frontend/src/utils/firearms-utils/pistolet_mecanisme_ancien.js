@@ -1,7 +1,7 @@
 /*
 Pistolet à mécanisme ancien
 */
-export const pistolet_a_percussion_silex = {
+export const pistolet_mecanisme_ancien = {
   displayLabel: 'pistolet à mécanisme ancien',
   category: 'D',
   mention: "Libre d'acquisition et de détention",

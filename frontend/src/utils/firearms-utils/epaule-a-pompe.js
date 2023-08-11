@@ -7,4 +7,5 @@ export const epaule_a_pompe = {
   mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,
   isSecuringOptions: false,
+  textOptions: '',
 }

@@ -55,10 +55,14 @@ function submitUpload (base64, fileName) {
       })
       .finally(async res => {
         if (resultStore.securingTutorial === true) {
-          if (resultats[resultStore.typology]?.options) {
-            router.push({ name: 'SecuringSelectOption' }).catch(() => { })
-          } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => {}) }
-        } else { router.push({ name: 'TypologyResult' }).catch(() => {}) }
+          if (!resultats[resultStore.typology].isSecuringOptions) {
+            router.push({ name: 'SecuringAchievement' }).catch(() => { })
+          } else {
+            if (resultats[resultStore.typology]?.options) {
+              router.push({ name: 'SecuringSelectOption' }).catch(() => { })
+            } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => { }) }
+          }
+        } else { router.push({ name: 'TypologyResult' }).catch(() => { }) }
       })
   })
 }

@@ -6,8 +6,6 @@ import { resultats } from '@/utils/securing-firearms-utils.js'
 const resultStore = useResultStore()
 const typology = computed(() => resultStore.typology)
 
-const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
-
 </script>
 
 <template>
@@ -29,12 +27,20 @@ const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypolog
       <h4 class="mt-5 text-center">
         Fin de la mise en sécurité de l’arme
       </h4>
-      <p class="ending font-600 text-center">
-        Vous venez de sécuriser votre arme !
+      <p
+        v-if="!resultats[typology].isSecuringOptions"
+        class="ending font-600 text-center"
+      >
+        Votre arme ne possède pas de guide de mise en sécurité. <br> Souhaitez-vous l'identifier quand même ?
       </p>
-      <p>
-        La manipulation étant terminée, vous pouvez identifier votre arme ou retourner au menu.
-      </p>
+      <div v-else>
+        <p class="ending font-600 text-center">
+          Vous venez de sécuriser votre arme !
+        </p>
+        <p>
+          La manipulation étant terminée, vous pouvez identifier votre arme ou retourner au menu.
+        </p>
+      </div>
     </div>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
@@ -46,7 +52,6 @@ const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypolog
   </div>
   <div class="footer">
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
-      <!-- v-if="isDummyTypology" -->
       <router-link
         v-slot="{navigate}"
         class="navigate"
@@ -60,20 +65,6 @@ const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypolog
           @click="navigate()"
         />
       </router-link>
-      <!-- <router-link
-        v-else
-        v-slot="{navigate}"
-        class="navigate"
-        :to="{name: 'FinalResult'}"
-      >
-        <DsfrButton
-          class="flex justify-center w-full"
-          label="Je veux identifier mon arme"
-          icon="ri-arrow-right-line"
-          :icon-right="true"
-          @click="navigate()"
-        />
-      </router-link> -->
       <router-link
         v-slot="{navigate}"
         :to="{name:'StartPage'}"

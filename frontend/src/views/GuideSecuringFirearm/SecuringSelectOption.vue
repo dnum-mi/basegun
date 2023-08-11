@@ -52,7 +52,7 @@ const zoomOn = (imgValue) => {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[`${typology}_text_option`]"
+          v-html="resultats[typology].textOptions"
         />
       </div>
       <div
@@ -93,27 +93,26 @@ const zoomOn = (imgValue) => {
         </div>
       </div>
     </div>
-  </div>
-  <div class="footer">
-    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-      <DsfrButton
-        class="m-1 flex justify-center"
-        icon="ri-arrow-left-line"
-        :secondary="true"
-        label="Précédent"
-        @click="router.push({ name:'Instructions'})"
-      />
-      <DsfrButton
-        class="m-1 flex justify-center"
-        icon="ri-arrow-right-line"
-        :disabled="disabledValidation"
-        label="Suivant"
-        :icon-right="true"
-        @click="router.push({ name:'SecuringTutorialContent'})"
-      />
+    <div class="footer">
+      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+        <DsfrButton
+          class="m-1 flex justify-center"
+          icon="ri-arrow-left-line"
+          :secondary="true"
+          label="Précédent"
+          @click="router.push({ name:'Instructions'})"
+        />
+        <DsfrButton
+          class="m-1 flex justify-center"
+          icon="ri-arrow-right-line"
+          :disabled="disabledValidation"
+          label="Suivant"
+          :icon-right="true"
+          @click="router.push({ name:'SecuringTutorialContent'})"
+        />
+      </div>
     </div>
   </div>
-  <div class="big-blank" />
 </template>
 
 <style scoped>
@@ -170,6 +169,9 @@ const zoomOn = (imgValue) => {
 }
 .instructions {
   padding-bottom: .5em;
+}
+.footer button {
+width: 50%;
 }
 
 </style>

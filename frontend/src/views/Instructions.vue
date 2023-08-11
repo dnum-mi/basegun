@@ -102,6 +102,11 @@ function readInstruction () {
   padding: 0 .5rem 0 2.5rem;
 }
 
+:deep(.fr-notice__title) {
+  color: var(--text-default-info);
+  font-size: 1.1rem;
+}
+
 img {
   max-width: 100%;
   max-height: 200px;

@@ -1,7 +1,28 @@
 <script setup>
+import { computed, ref } from 'vue'
+
+import { useStepsStore } from '@/stores/steps.js'
+import { useResultStore } from '@/stores/result.js'
+
 import { useRouter } from 'vue-router'
+import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const router = useRouter()
+const resultStore = useResultStore()
+const stepsStore = useStepsStore()
+
+const expandedId = ref(undefined)
+
+const typology = computed(() => resultStore.typology)
+
+const selectedOption = computed({
+  get () {
+    return stepsStore.selectedOption
+  },
+  set (option) {
+    stepsStore.setOption(option)
+  },
+})
 </script>
 <template>
   <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
@@ -22,21 +43,153 @@ const router = useRouter()
       <h4 class="mt-3">
         Mettre en sécurité mon arme
       </h4>
-      <p class="manipulations -mx-8 p-6">
-        <span class="font-bold">Appuyer sur le bouton</span> avec le pouce de la main droite,
-        puis <span class="font-bold">extraire le chargeur</span> avec la main gauche en le tirant ou en le laissant glisser.
-      </p>
-      <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
-        <div class="fr-content-media">
-          <video
-            autoplay
-            controls
-            playsinline
-            loop
-            muted
-            src="../../assets/guide-mise-en-securite/videos/kalash-montage_sm.mp4"
-          />
+      <div v-if="resultats[typology]?.options">
+        <p class="manipulations -mx-8 p-6">
+          <ul class="list-none text-sm">
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_1 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_2 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_3 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_4 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_5 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_6 }}</li>
+            <li>{{ resultats[typology]?.options[selectedOption].text_step_7 }}</li>
+          </ul>
+        </p>
+        <div
+          class="fr-col-sm-6 fr-col-lg-12 mx-auto"
+        >
+          <div class="fr-content-media">
+            <video
+              autoplay
+              controls
+              playsinline
+              loop
+              muted
+              :src="resultats[typology]?.options[selectedOption].video"
+            />
+          </div>
         </div>
+      </div>
+      <div v-else>
+        <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
+        <!-- <p class="manipulations -mx-8 p-6">
+          <ul class="list-none text-sm">
+            <li>{{ resultats[typology].text_step_1 }}</li>
+            <li>{{ resultats[typology].text_step_2 }}</li>
+            <li>{{ resultats[typology].text_step_3 }}</li>
+            <li>{{ resultats[typology].text_step_4 }}</li>
+            <li>{{ resultats[typology].text_step_5 }}</li>
+            <li>{{ resultats[typology].text_step_6 }}</li>
+            <li>{{ resultats[typology].text_step_7 }}</li>
+          </ul>
+        </p> -->
+        <DsfrAccordionsGroup>
+          <li>
+            <DsfrAccordion
+              id="accordion-1"
+              title="title_1"
+              :expanded-id="expandedId"
+              @expand="expandedId = $event"
+            >
+              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_1 }}</p>
+              <video
+                autoplay
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultats[typology].video"
+              />
+            </DsfrAccordion>
+          </li>
+          <li>
+            <DsfrAccordion
+              id="accordion-2"
+              title="title_2"
+              :expanded-id="expandedId"
+              @expand="expandedId = $event"
+            >
+              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_2 }}</p>
+              <video
+                autoplay
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultats[typology].video"
+              />
+            </DsfrAccordion>
+          </li>
+          <li>
+            <DsfrAccordion
+              id="accordion-3"
+              title="title_3"
+              :expanded-id="expandedId"
+              @expand="expandedId = $event"
+            >
+              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <video
+                autoplay
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultats[typology].video"
+              />
+            </DsfrAccordion>
+          </li>
+          <li>
+            <DsfrAccordion
+              id="accordion-4"
+              title="title_4"
+              :expanded-id="expandedId"
+              @expand="expandedId = $event"
+            >
+              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <video
+                autoplay
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultats[typology].video"
+              />
+            </DsfrAccordion>
+          </li>
+          <li>
+            <DsfrAccordion
+              id="accordion-5"
+              title="title_5"
+              :expanded-id="expandedId"
+              @expand="expandedId = $event"
+            >
+              <p class="manipulations -mx-8 p-6">{{ resultats[typology].text_step_3 }}</p>
+              <video
+                autoplay
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultats[typology].video"
+              />
+            </DsfrAccordion>
+          </li>
+        </DsfrAccordionsGroup>
+        <!-- <div
+          class="fr-col-sm-6 fr-col-lg-12 mx-auto"
+        >
+          <div class="fr-content-media">
+            <video
+
+              autoplay
+              controls
+              playsinline
+              loop
+              muted
+              :src="resultats[typology].video"
+            />
+          </div>
+        </div> -->
       </div>
     </div>
     <div class="footer">
@@ -46,7 +199,7 @@ const router = useRouter()
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="router.push({ name:'Instructions'})"
+          @click="router.back()"
         />
         <DsfrButton
           class="m-1 flex justify-center"

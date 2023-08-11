@@ -1,7 +1,7 @@
 /*
 Armes d’épaule à mécanisme ancien
 */
-export const epaule_a_percussion_silex = {
+export const epaule_mecanisme_ancien = {
   displayLabel: "arme d'épaule à mécanisme ancien",
   category: 'D',
   mention: "Libre d'acquisition et de détention",
