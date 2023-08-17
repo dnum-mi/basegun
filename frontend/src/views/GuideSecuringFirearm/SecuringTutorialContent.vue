@@ -82,19 +82,21 @@ const selectedOption = computed({
           </ul>
         </p> -->
         <DsfrAccordionsGroup>
-          <!-- v-for="option in resultats[typology].text_steps"
-          :key="option.value" -->
           <!-- {{ option }} -->
           <!-- v-bind="option" -->
-          <li>
+          <li
+            v-for="option in resultats[typology].text_steps"
+            :key="option.value"
+          >
+            <!-- ici : {{ option }} -->
             <DsfrAccordion
-              id="accordion-1"
-              title="title_1"
+              :id="option.value"
+              :title="option.value"
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations -mx-8 p-6">
-                {{ resultats[typology].text_steps.text_step_1 }}
+              <p class="manipulations mb-0 p-6">
+                {{ option }}
               </p>
 
               <video
@@ -107,7 +109,7 @@ const selectedOption = computed({
               />
             </DsfrAccordion>
           </li>
-          <li>
+          <!-- <li>
             <DsfrAccordion
               id="accordion-2"
               title="title_2"
@@ -186,7 +188,7 @@ const selectedOption = computed({
                 :src="resultats[typology].video"
               />
             </DsfrAccordion>
-          </li>
+          </li> -->
         </DsfrAccordionsGroup>
         <!-- <div
           class="fr-col-sm-6 fr-col-lg-12 mx-auto"
