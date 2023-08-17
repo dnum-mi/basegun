@@ -6,6 +6,7 @@ import transformerDirectives from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 const path = require("path");
+const apiHost = process.env.API_HOST || 'basegun-backend'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -59,8 +60,8 @@ export default defineConfig({
   server: {
     host: true,
     proxy: {
-      '/api': {
-        target: 'http://basegun-backend:5000',
+      '^/api': {
+        target: `http://${apiHost}:5000`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

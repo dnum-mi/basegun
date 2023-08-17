@@ -1,14 +1,16 @@
 version: '3.8'
-
 services:
-
   backend:
+    profiles:
+      - app
+      - backend-only
+      - e2e
     build:
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-        - VERSION=${TAG}
+        - VERSION=${TAG:-2.0}
         - CACERT_LOCATION
       context: ./backend
       target: ${BUILD_TARGET:-dev}
@@ -20,10 +22,12 @@ services:
       - OS_PROJECT_NAME
       - http_proxy
       - https_proxy
+      - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
+      - LOG_LEVEL=${UVICORN_LOG_LEVEL}
       - no_proxy
       - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
-    image: basegun-backend:${TAG}-dev
+    image: basegun-backend:${TAG:-2.0}-dev
     ports:
       - 5000:5000
     volumes:
@@ -33,6 +37,10 @@ services:
       - /app/src/weights
 
   frontend:
+    profiles:
+      - app
+      - frontend-only
+      - e2e
     build:
       args:
         - http_proxy
@@ -40,11 +48,13 @@ services:
         - no_proxy
         - NODE_EXTRA_CA_CERTS=$CACERT_LOCATION
       context: ./frontend
-      target: dev
-    image: basegun-frontend:${TAG}-dev
+      target: ${BUILD_TARGET:-dev}
+    image: basegun-frontend:${TAG:-2.0}-dev
     container_name: basegun-frontend
     ports:
+      - 8080:80 # if BUILD_TARGET = prod
       - 3000:5173
+      # - 4173:4173 
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules

@@ -15,14 +15,14 @@ function readInstruction () {
 
 <template>
   <div
-    class="md:absolute md:inset-y-1\/3 md:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
+    class="lg:absolute lg:inset-y-1\/3 lg:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >
     <div class="fr-notice fr-notice--info">
       <div class="fr-container">
         <div class="fr-notice__body">
-          <p class="fr-notice__title">
+          <h3 class="fr-notice__title">
             Pour un résultat optimal
-          </p>
+          </h3>
           <p>1 - Présenter le <span class="font-bold">canon vers la droite</span></p>
           <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme</p>
           <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">centrée</span></p>
@@ -58,7 +58,8 @@ function readInstruction () {
           @file-selected="uploadMessage = 'Analyse en cours'"
         />
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center"
+          data-testid="take-a-picture"
           label="Prendre la photo"
           icon="ri-camera-fill"
           :icon-right="true"

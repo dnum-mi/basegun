@@ -37,7 +37,7 @@ CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000
 FROM base as test
 RUN pip install -r requirements/dev.txt && pip install requests && rm -r /root/.cache
 COPY tests/ tests/
-CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
 
 FROM base as prod
 RUN pip install --no-cache-dir -r requirements/prod.txt

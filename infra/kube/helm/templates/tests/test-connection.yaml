@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "basegun.FrontFullname" . }}-test-connection"
+  labels:
+    {{- include "basegun.FrontLabels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "basegun.FrontFullname" . }}:{{ .Values.frontend.service.port }}']
+  restartPolicy: Never

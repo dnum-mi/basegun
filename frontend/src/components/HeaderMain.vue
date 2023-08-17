@@ -71,7 +71,7 @@ function onClickOnInfo (event) {
 
 @screen lg {
   .information {
-    --uno: top-4\/10 right-3\/10;
+    --uno: top-4\/10 right-3.5\/10;
   }
 }
 
