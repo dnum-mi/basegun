@@ -1,17 +1,15 @@
-import autreEpauleAr15Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ar_arrow1.jpg'
-import autreEpauleAr15Video from '@/assets/guide-factice/videos/ar_sm.mp4'
-import autreEpauleAkImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ak_arrow1.jpg'
-import autreEpauleAkVideo from '@/assets/guide-factice/videos/ak_sm.mp4'
-import autreEpauleBullpupImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-bullpup_arrow1.jpg'
-import autreEpauleBullpupVideo from '@/assets/guide-factice/videos/bullpup_sm.mp4'
-import autreEpauleThompsonImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-thompson_arrow1.jpg'
-import autreEpauleThompsonVideo from '@/assets/guide-factice/videos/thompson_sm.mp4'
-// import autreEpauleP90Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-p90_arrow1.jpg'
-// import autreEpauleP90Video from '@/assets/guide-factice/videos/p90_sm.mp4'
-import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-pistolet-mitrailleur-arrow.jpg'
-import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
-import autreEpauleCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
-import autreEpauleBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
+import semiAutoMilitaireAr15Img from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_ar15.jpg'
+import semiAutoMilitaireAr15Video from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_ar15.mp4'
+import semiAutoMilitaireAkImg from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_ak.jpg'
+import semiAutoMilitaireAkVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_ak.mp4'
+import semiAutoMilitaireStenImg from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_sten.jpg'
+import semiAutoMilitaireStenVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_sten.mp4'
+import semiAutoMilitaireThompsonImg from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_thompson.jpg'
+import semiAutoMilitaireThompsonVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_thompson.mp4'
+import semiAutoMilitairePistoletMitralleurImg from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_uzi.jpg'
+import semiAutoMilitairePistoletMitralleurVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi.mp4'
+import semiAutoMilitaireCartridges from '@/assets/guide-factice/images/autre_epaule/autre-epaule-cartridges.jpg'
+import semiAutoMilitaireBalls from '@/assets/guide-factice/images/autre_epaule/autre-epaule-balls.jpg'
 /*
 Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   AR15
@@ -21,7 +19,7 @@ Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   UZI
 */
 export const semi_auto_style_militaire_autre = {
-  displayLabel: 'arme d’épaule semi-automatiques ou automatiques type militaire moderne',
+  displayLabel: 'arme d’épaule semi-automatique ou automatique',
   category: 'A, B ou C',
   mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: true,
@@ -38,8 +36,8 @@ export const semi_auto_style_militaire_autre = {
         text_step_4: '4 - Retirer la munition éventuelle',
         text_step_5: '5 - Tout en maintenant le levier d’armement vers l’arrière, contrôler visuellement que la chambre est vide',
       },
-      img: autreEpauleAr15Img,
-      video: autreEpauleAr15Video,
+      img: semiAutoMilitaireAr15Img,
+      video: semiAutoMilitaireAr15Video,
     },
     kalash: {
       label: 'levier derrière chargeur',
@@ -52,8 +50,8 @@ export const semi_auto_style_militaire_autre = {
         text_step_5: '5 - Retirer la munition éventuelle de la chambre',
         text_step_6: '6 - Tout en maintenant le levier d’armement vers l’arrière, contrôler visuellement que la chambre est vide',
       },
-      img: autreEpauleAkImg,
-      video: autreEpauleAkVideo,
+      img: semiAutoMilitaireAkImg,
+      video: semiAutoMilitaireAkVideo,
     },
     sten: {
       label: 'chargeur à angle droit',
@@ -65,8 +63,8 @@ export const semi_auto_style_militaire_autre = {
         text_step_4: '4 - Tirer le levier d’armement vers l’arrière et bloquer le levier en position arrière dans le cran arrière, en extrayant la cartouche éventuelle s’il y en a une',
         text_step_5: '5 - Contrôler visuellement que la chambre est vide',
       },
-      img: autreEpauleBullpupImg,
-      video: autreEpauleBullpupVideo,
+      img: semiAutoMilitaireStenImg,
+      video: semiAutoMilitaireStenVideo,
     },
     thompson: {
       label: 'levier au-dessus pontet',
@@ -80,8 +78,8 @@ export const semi_auto_style_militaire_autre = {
         text_step_6: '6 - Tirer le levier d’armement vers l’arrière et extraire la munition éventuelle',
         text_step_7: '7 - Contrôler visuellement que la chambre est vide',
       },
-      img: autreEpauleThompsonImg,
-      video: autreEpauleThompsonVideo,
+      img: semiAutoMilitaireThompsonImg,
+      video: semiAutoMilitaireThompsonVideo,
     },
     uzi: {
       label: 'bouton poussoir à base poignée',
@@ -94,20 +92,20 @@ export const semi_auto_style_militaire_autre = {
         text_step_5: '5 - Tirer le levier d’armement situé sur le dessus de l’arme vers l’arrière et retirer la munition éventuelle de la chambre',
         text_step_6: '6 - Tout en maintenant le levier d’armement vers l’arrière, contrôler visuellement que la chambre est vide',
       },
-      img: autreEpaulePistoletMitralleurImg,
-      video: autreEpaulePistoletMitralleurVideo,
+      img: semiAutoMilitairePistoletMitralleurImg,
+      video: semiAutoMilitairePistoletMitralleurVideo,
     },
   },
   guideFactice: {
     cartouches: {
       label: 'cartouches',
       value: 'cartouches',
-      img_ammo: autreEpauleCartridges,
+      img_ammo: semiAutoMilitaireCartridges,
     },
     billes: {
       label: 'billes',
       value: 'billes',
-      img_ammo: autreEpauleBalls,
+      img_ammo: semiAutoMilitaireBalls,
     },
   },
 }

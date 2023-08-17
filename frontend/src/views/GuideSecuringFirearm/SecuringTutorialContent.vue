@@ -7,6 +7,8 @@ import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
+import AskingExpert from '@/views/GuideFactice/AskingExpert.vue'
+
 const router = useRouter()
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -49,9 +51,8 @@ const selectedOption = computed({
             <li
               v-for="option in resultats[typology].options[selectedOption].text_steps"
               :key="option.value"
-            >
-              {{ option }}
-            </li>
+              v-html="option"
+            />
           </ul>
         </p>
         <div
@@ -71,34 +72,21 @@ const selectedOption = computed({
       </div>
       <div v-else>
         <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
-        <!-- <p class="manipulations -mx-8 p-6">
-          <ul class="list-none text-sm">
-            <li
-              v-for="option in resultats[typology].options[selectedOption].text_steps"
-              :key="option.value"
-            >
-              {{ option }}
-            </li>
-          </ul>
-        </p> -->
         <DsfrAccordionsGroup>
-          <!-- {{ option }} -->
-          <!-- v-bind="option" -->
           <li
             v-for="option in resultats[typology].text_steps"
             :key="option.value"
           >
-            <!-- ici : {{ option }} -->
             <DsfrAccordion
               :id="option.value"
               :title="option.value"
               :expanded-id="expandedId"
               @expand="expandedId = $event"
             >
-              <p class="manipulations mb-0 p-6">
-                {{ option }}
-              </p>
-
+              <p
+                class="manipulations mb-0 p-6"
+                v-html="option"
+              />
               <video
                 autoplay
                 controls
@@ -109,103 +97,9 @@ const selectedOption = computed({
               />
             </DsfrAccordion>
           </li>
-          <!-- <li>
-            <DsfrAccordion
-              id="accordion-2"
-              title="title_2"
-              :expanded-id="expandedId"
-              @expand="expandedId = $event"
-            >
-              <p class="manipulations -mx-8 p-6">
-                {{ resultats[typology].text_steps.text_step_2 }}
-              </p>
-              <video
-                autoplay
-                controls
-                playsinline
-                loop
-                muted
-                :src="resultats[typology].video"
-              />
-            </DsfrAccordion>
-          </li>
-          <li>
-            <DsfrAccordion
-              id="accordion-3"
-              title="title_3"
-              :expanded-id="expandedId"
-              @expand="expandedId = $event"
-            >
-              <p class="manipulations -mx-8 p-6">
-                {{ resultats[typology].text_steps.text_step_3 }}
-              </p>
-              <video
-                autoplay
-                controls
-                playsinline
-                loop
-                muted
-                :src="resultats[typology].video"
-              />
-            </DsfrAccordion>
-          </li>
-          <li>
-            <DsfrAccordion
-              id="accordion-4"
-              title="title_4"
-              :expanded-id="expandedId"
-              @expand="expandedId = $event"
-            >
-              <p class="manipulations -mx-8 p-6">
-                {{ resultats[typology].text_steps.text_step_3 }}
-              </p>
-              <video
-                autoplay
-                controls
-                playsinline
-                loop
-                muted
-                :src="resultats[typology].video"
-              />
-            </DsfrAccordion>
-          </li>
-          <li>
-            <DsfrAccordion
-              id="accordion-5"
-              title="title_5"
-              :expanded-id="expandedId"
-              @expand="expandedId = $event"
-            >
-              <p class="manipulations -mx-8 p-6">
-                {{ resultats[typology].text_steps.text_step_3 }}
-              </p>
-              <video
-                autoplay
-                controls
-                playsinline
-                loop
-                muted
-                :src="resultats[typology].video"
-              />
-            </DsfrAccordion>
-          </li> -->
         </DsfrAccordionsGroup>
-        <!-- <div
-          class="fr-col-sm-6 fr-col-lg-12 mx-auto"
-        >
-          <div class="fr-content-media">
-            <video
-
-              autoplay
-              controls
-              playsinline
-              loop
-              muted
-              :src="resultats[typology].video"
-            />
-          </div>
-        </div> -->
       </div>
+      <AskingExpert />
       <div class="big-blank" />
     </div>
     <div class="footer">

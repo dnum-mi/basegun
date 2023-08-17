@@ -1,3 +1,11 @@
+import autrePistoletFusilScieImg from '@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_fusil_scie.jpg'
+import autrePistoletDrulovImg from '@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_drulov.jpg'
+import autrePistoletDerringerImg from '@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_derringer.jpg'
+import autrePistoletThompsonImg from '@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_thompson.jpg'
+import autrePistoletFusilScieVideo from '@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_fusil_scie.mp4'
+import autrePistoletDrulovVideo from '@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_drulov.mp4'
+import autrePistoletDerringerVideo from '@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_derringer.mp4'
+import autrePistoletThompsonVideo from '@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_thompson.mp4'
 /*
 Autre pistolet
   Drulov
@@ -24,8 +32,8 @@ export const autre_pistolet = {
         text_step_4: '4 - Actionner la culasse d’avant en arrière',
         text_step_5: '5 - Contrôler visuellement que la chambre est bien vide',
       },
-      img: '',
-      video: '',
+      img: autrePistoletDrulovImg,
+      video: autrePistoletDrulovVideo,
     },
     derringer: {
       label: 'Derringer',
@@ -37,8 +45,8 @@ export const autre_pistolet = {
         text_step_4: '4 - Pencher l’entrée des canons pour extraire les munitions éventuelles',
         text_step_5: '5 - Contrôler visuellement que la chambre est bien vide',
       },
-      img: '',
-      video: '',
+      img: autrePistoletDerringerImg,
+      video: autrePistoletDerringerVideo,
     },
     thompson_contender: {
       label: 'Thompson contender',
@@ -50,8 +58,8 @@ export const autre_pistolet = {
         text_step_4: '4 - Retourner l’arme pour extraire la munition éventuelle',
         text_step_5: '5 - Contrôler visuellement que la chambre est bien vide',
       },
-      img: '',
-      video: '',
+      img: autrePistoletThompsonImg,
+      video: autrePistoletThompsonVideo,
     },
     fusil_crosse_cannon_scie: {
       label: 'Ancien fusil à crosse et canon scié',
@@ -63,8 +71,8 @@ export const autre_pistolet = {
         text_step_4: '4 - Retirer les munitions éventuelles',
         text_step_5: '5 - Contrôler visuellement que les chambres sont bien vides',
       },
-      img: '',
-      video: '',
+      img: autrePistoletFusilScieImg,
+      video: autrePistoletFusilScieVideo,
     },
   },
 }

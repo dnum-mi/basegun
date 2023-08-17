@@ -1,7 +1,7 @@
-import pistoletSemiAutoModerne1Img from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-1_arrow1.jpg'
-import pistoletSemiAutoModerne1Video from '@/assets/guide-factice/videos/pistol-1_sm.mp4'
-import pistoletSemiAutoModerne2Img from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-2_arrow1.jpg'
-import pistoletSemiAutoModerne2Video from '@/assets/guide-factice/videos/pistol-2_sm.mp4'
+import pistoletSemiAutoPontetImg from '@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_pontet.jpg'
+import pistoletSemiAutoPontetVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_pontet.mp4'
+import pistoletSemiAutoTalonImg from '@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_talon.jpg'
+import pistoletSemiAutoTalonVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4'
 import pistoletSemiAutoModerneCartridges from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-cartridges.jpg'
 import pistoletSemiAutoModerneBalls from '@/assets/guide-factice/images/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-balls.jpg'
 /*
@@ -29,8 +29,8 @@ export const pistolet_semi_auto_moderne = {
         text_step_5: '5 - Actionner la culasse d’avant en arrière',
         text_step_6: '6 - Contrôler visuellement que la chambre est vide',
       },
-      img: pistoletSemiAutoModerne1Img,
-      video: pistoletSemiAutoModerne1Video,
+      img: pistoletSemiAutoPontetImg,
+      video: pistoletSemiAutoPontetVideo,
     },
     poussoir_talon: {
       label: 'poussoir talon',
@@ -43,8 +43,8 @@ export const pistolet_semi_auto_moderne = {
         text_step_5: '5 - Actionner la culasse d’avant en arrière',
         text_step_6: '6 - Contrôler visuellement que la chambre est vide',
       },
-      img: pistoletSemiAutoModerne2Img,
-      video: pistoletSemiAutoModerne2Video,
+      img: pistoletSemiAutoTalonImg,
+      video: pistoletSemiAutoTalonVideo,
     },
   },
   guideFactice: {

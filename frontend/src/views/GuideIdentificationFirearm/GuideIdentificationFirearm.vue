@@ -101,7 +101,7 @@ async function sendLogsIdentificationDummy () {
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology].isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology]?.isDummyTypology"
     class="footer end"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -119,7 +119,7 @@ async function sendLogsIdentificationDummy () {
         />
       </router-link>
       <router-link
-        v-if="!resultats[typology].isDummyTypology"
+        v-if="!resultats[typology]?.isDummyTypology"
         v-slot="{navigate}"
         :to="{name:'StartPage'}"
       >
