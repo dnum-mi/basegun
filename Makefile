@@ -1,7 +1,7 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 3.0
+TAG		:= 3.1
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
