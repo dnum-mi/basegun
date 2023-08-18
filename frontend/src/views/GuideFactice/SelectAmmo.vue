@@ -54,7 +54,7 @@ onMounted(() => {
   <div>
     <Teleport to="body">
       <DsfrModal
-        v-if="typology === 'autre_epaule'"
+        v-if="typology === 'semi_auto_style_militaire_autre'"
         title=""
         :opened="showModal"
         @close="closeModal()"
@@ -84,7 +84,7 @@ onMounted(() => {
           </div>
           <div class="modal-footer">
             <DsfrButton
-              class="full"
+              class="w-full text-sm"
               label="Oui, c'est clair, je poursuis le tutoriel"
               icon-right
               icon="ri-arrow-right-line"
@@ -106,7 +106,7 @@ onMounted(() => {
       <p class="texte-tuto my-3">
         Sélectionner le <span class="font-bold">type de munitions</span> du chargeur.
         <span
-          v-if="typology === 'autre_epaule'"
+          v-if="typology === 'semi_auto_style_militaire_autre'"
           @click="openModal()"
         >
           <a href="#"> Chargeur transparent ?</a>
@@ -224,12 +224,6 @@ onMounted(() => {
   white-space: pre-wrap;
 }
 
-:deep(.fr-col-md-8),
-:deep(.fr-col-lg-6) {
-  flex: 0 0 100%;
-  max-width: 100%;
-  width: 100%;
-}
 .instructions {
   padding-bottom: .5em;
 }
