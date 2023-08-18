@@ -1,15 +1,19 @@
-import revolver1Cheminees from '@/assets/guide-mise-en-securite/photos/revolver/revolver_1_cheminees.jpg'
-import revolver1Video from '@/assets/guide-mise-en-securite/videos//revolver/revolver-1_sm.mp4'
-import revolver21873US from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_1873_US.jpg'
-import revolver2AxeBarillet from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_axe_barillet.jpg'
-import revolver2Cartouches from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_cartouches.jpg'
-// import revolver2EwBrisure from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
-import revolver2Portiere from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
-import revolver2SwBrisure from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg'
-import revolver31892 from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
-import revolver2Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver-2_sm.mp4'
-import revolverCartridges from '@/assets/guide-mise-en-securite/photos/revolver/revolver-cartridges-arrow.jpg'
-import revolverBalls from '@/assets/guide-mise-en-securite/photos/revolver/revolver-balls-arrow.jpg'
+import revolver1ChemineesImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_1_cheminees.jpg'
+import revolver21873USImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_1873_US.jpg'
+import revolver21873USVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_US.mp4'
+import revolver2AxeBarilletImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_axe_barillet.jpg'
+import revolver2AxeBarilletVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_axe_barillet.mp4'
+import revolver2CartouchesImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_cartouches.jpg'
+// import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
+// import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
+import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
+import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
+import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg'
+import revolver2SwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4'
+import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
+import revolver31892Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4'
+import revolverCartridges from '@/assets/guide-factice/images/revolver/revolver-cartridges-arrow.jpg'
+import revolverBalls from '@/assets/guide-factice/images/revolver/revolver-balls-arrow.jpg'
 /*
 Revolvers
   Revolver Enfield - Webley - brisure
@@ -27,7 +31,17 @@ export const revolver = {
   isDummyTypology: true,
   isSecuringOptions: true,
   revolver_text_option: '',
-  textOptions: 'Sélectionner ce que vous voyez à côté du barillet',
+  textOptions: 'En maintenant l’arme dans une <span class="font-bold">direction sécurisée</span>, tournez-la pour observer l’arrière du barillet. Sélectionnez ce que vous voyez.',
+  pre_select: {
+    black_powder: {
+      label: 'Petites Cheminées',
+      value: 'revolver_black_powder',
+    },
+    bullets: {
+      label: 'Arrière plat',
+      value: 'revolver_bullets',
+    },
+  },
   options: {
     revolver_enfield: {
       label: 'Revolver Enfield',
@@ -39,8 +53,7 @@ export const revolver = {
         text_step_4: '4 - Retourner l’arme et vider les munitions éventuelles du barillet',
         text_step_5: '5 - Contrôler visuellement que les chambres sont vides',
       },
-      img: revolver1Cheminees,
-      video: revolver1Video,
+      img: revolver1ChemineesImg,
     },
     revolver_1873_fr: {
       label: 'Revolver 1873 fr',
@@ -54,8 +67,7 @@ export const revolver = {
         text_step_6: '6 - Actionner la tringle d’extraction vers l’arrière pour chaque chambre du barillet contenant une munition',
         text_step_7: '7 - Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
       },
-      img: revolver2Cartouches,
-      video: revolver1Video,
+      img: revolver2CartouchesImg,
     },
     revolver_1873_us: {
       label: 'Revolver 1873 us',
@@ -67,8 +79,8 @@ export const revolver = {
         text_step_4: '4 - Actionner la tringle d’extraction vers l’arrière pour chaque chambre du barillet',
         text_step_5: '5 - Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
       },
-      img: revolver21873US,
-      video: revolver1Video,
+      img: revolver21873USImg,
+      video: revolver21873USVideo,
     },
     revolver_axe_barillet: {
       label: 'Revolver axe barillet',
@@ -80,8 +92,8 @@ export const revolver = {
         text_step_4: '4 - Appuyer sur l’axe du barillet vers l’arrière pour extraire les cartouches',
         text_step_5: '5 - Contrôler visuellement que les chambres sont bien vides',
       },
-      img: revolver2AxeBarillet,
-      video: revolver2Video,
+      img: revolver2AxeBarilletImg,
+      video: revolver2AxeBarilletVideo,
     },
     revolver_bouton_barillet: {
       label: 'Revolver bouton barillet',
@@ -94,8 +106,8 @@ export const revolver = {
         text_step_5: '5 - Vider les munitions éventuelles du barillet en appuyant sur la tige d’extraction située à l’avant du barillet',
         text_step_6: '6 - Contrôler visuellement que les chambres sont vides',
       },
-      img: revolver2Portiere,
-      video: revolver2Video,
+      img: revolver2PortiereImg,
+      video: revolver2PortiereVideo,
     },
     revolver_ancien_brisure: {
       label: 'Revolver ancien brisure',
@@ -106,8 +118,8 @@ export const revolver = {
         text_step_3: '3 - Retourner l’arme afin de disposer l’arrière du barillet vers le bas et vider les munitions',
         text_step_4: '4 - Contrôler visuellement les chambres du barillet',
       },
-      img: revolver2SwBrisure,
-      video: revolver2Video,
+      img: revolver2SwBrisureImg,
+      video: revolver2SwBrisureVideo,
     },
     revolver_verrou_1892: {
       label: 'Revolver verrou 1892',
@@ -120,8 +132,8 @@ export const revolver = {
         text_step_5: '5 - Vider les munitions éventuelles du barillet en appuyant sur la tige d’extraction située à l’avant du barille',
         text_step_6: '6 - Contrôler visuellement que les chambres sont vides',
       },
-      img: revolver31892,
-      video: revolver2Video,
+      img: revolver31892Img,
+      video: revolver31892Video,
     },
   },
   guideFactice: {

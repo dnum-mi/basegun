@@ -12,15 +12,10 @@ const About = () => import('@/views/About.vue')
 const Legal = () => import('@/views/Legal.vue')
 const Contact = () => import('@/views/Contact.vue')
 
-// const GuideFactice = () => import('@/views/GuideFactice/GuideFactice.vue')
-// const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
-// const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue')
-// const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
-// const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
-// const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
 const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
+const SecuringSelectPreselection = () => import('@/views/GuideSecuringFirearm/SecuringSelectPreselection.vue')
 const SecuringSelectOption = () => import('@/views/GuideSecuringFirearm/SecuringSelectOption.vue')
 const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
@@ -59,52 +54,6 @@ const routes = [
     },
     beforeEnter: clearLocalStorage,
   },
-  // {
-  //   path: '/consignes-de-securite',
-  //   name: 'SafetyRecommendation',
-  //   component: SafetyRecommendation,
-  //   beforeEnter (to) {
-  //     const stepsStore = useStepsStore()
-  //     stepsStore.currentStep = 0
-  //   },
-  // },
-  // Tutorial for detecting airsofts
-  // {
-  //   path: '/guide-factice',
-  //   name: 'GuideFactice',
-  //   component: GuideFactice,
-  //   beforeEnter (to) {
-  //     const stepsStore = useStepsStore()
-  //     const resultStore = useResultStore()
-  //     if (stepsStore.currentStep !== 0 && resultStore.img) {
-  //       return true
-  //     }
-  //     return { name: 'StartPage' }
-  //   },
-  //   children: [
-  //     {
-  //       path: 'consignes-arme',
-  //       name: 'FirearmDirection',
-  //       component: FirearmDirection,
-  //     },
-  //     {
-  //       path: 'option-arme',
-  //       name: 'SelectOption',
-  //       component: SelectOption,
-  //     },
-  //     {
-  //       path: 'extract-mag',
-  //       name: 'ExtractMag',
-  //       component: ExtractMag,
-  //     },
-  //     {
-  //       path: 'munition-type',
-  //       name: 'SelectAmmo',
-  //       component: SelectAmmo,
-  //     },
-  //   ],
-  // },
-
   // tutorial to secure a firearm
   {
     path: '/guide-mise-en-securite',
@@ -127,6 +76,11 @@ const routes = [
         component: SecuringRecommendations,
       },
     ],
+  },
+  {
+    path: '/mise-en-securite-choix-preselection',
+    name: 'SecuringSelectPreselection',
+    component: SecuringSelectPreselection,
   },
   {
     path: '/mise-en-securite-choix-option',

@@ -58,7 +58,9 @@ function submitUpload (base64, fileName) {
           if (!resultats[resultStore.typology].isSecuringOptions) {
             router.push({ name: 'SecuringAchievement' }).catch(() => { })
           } else {
-            if (resultats[resultStore.typology]?.options) {
+            if (resultats[resultStore.typology]?.pre_select) {
+              router.push({ name: 'SecuringSelectPreselection' }).catch(() => { })
+            } else if (resultats[resultStore.typology]?.options) {
               router.push({ name: 'SecuringSelectOption' }).catch(() => { })
             } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => { }) }
           }

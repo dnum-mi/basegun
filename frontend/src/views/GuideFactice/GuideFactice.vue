@@ -97,7 +97,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
       <router-link
         v-slot="{navigate}"
         class="go-result"
-        :to="{name: 'ResultPage'}"
+        :to="{name: 'FinalResult'}"
       >
         <VIcon
           name="ri-arrow-left-line"
