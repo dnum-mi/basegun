@@ -39,11 +39,6 @@ else
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 endif
 
-test-frontend-alive:
-	${DC} --profile app -f docker-compose-dev.yml up -d
-	sleep 10
-	curl -s -o /dev/null localhost:8080
-
 down-%:
 	${DC} -f docker-compose-$*.yml down
 
