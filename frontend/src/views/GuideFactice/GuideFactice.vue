@@ -33,10 +33,10 @@ const currentStep = computed({
 })
 
 const steps = []
-steps.length = results[resultStore.typology].stepsNumber
+steps.length = results[typology]?.stepsNumber
 steps.fill(' ')
 
-airsoftsGuideSteps.value = results[resultStore.typology].stepsNumber === 4
+airsoftsGuideSteps.value = results[typology]?.stepsNumber === 4
   ? [...airsoftsGuideSteps]
   : [...airsoftsGuideSteps].filter(str => (str !== 'SelectOption'))
 

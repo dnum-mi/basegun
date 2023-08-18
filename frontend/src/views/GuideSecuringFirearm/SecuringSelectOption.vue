@@ -22,6 +22,7 @@ const selectedOption = computed({
     stepsStore.setOption(option)
   },
 })
+const selectedPreselection = computed(() => stepsStore.selectedPreselection)
 
 const disabledValidation = computed(() => stepsStore.selectedOption === undefined)
 
@@ -104,7 +105,7 @@ const zoomOn = (imgValue) => {
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="router.push({ name:'Instructions'})"
+          @click="selectedPreselection = 'revolver_bullets' ? router.back() : router.push({ name:'Instructions'})"
         />
         <DsfrButton
           class="m-1 flex justify-center"

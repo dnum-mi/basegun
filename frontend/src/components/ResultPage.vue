@@ -166,7 +166,7 @@ function sendFeedback (isCorrect) {
         </div>
       </div>
       <div
-        v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low' && resultats[resultStore.typology].isDummyTypology"
+        v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low' && resultats[typology]?.isDummyTypology"
         class="fr-tile fr-enlarge-link"
       >
         <div class="fr-tile__body pt-0">

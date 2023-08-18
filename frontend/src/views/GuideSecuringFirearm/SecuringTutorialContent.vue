@@ -99,8 +99,9 @@ const selectedOption = computed({
           </li>
         </DsfrAccordionsGroup>
       </div>
+      <div />
+      <div class="small-blank" />
       <AskingExpert />
-      <div class="big-blank" />
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">

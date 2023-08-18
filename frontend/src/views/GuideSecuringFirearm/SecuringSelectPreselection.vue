@@ -14,16 +14,17 @@ const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
-const selectedOption = computed({
+
+const selectedPreselection = computed({
   get () {
-    return stepsStore.selectedOption
+    return stepsStore.selectedPreselection
   },
-  set (option) {
-    stepsStore.setOption(option)
+  set (selection) {
+    stepsStore.setPreselection(selection)
   },
 })
 
-const disabledValidation = computed(() => stepsStore.selectedOption === undefined)
+const disabledValidation = computed(() => stepsStore.selectedPreselection === undefined)
 
 const zoom = ref('')
 
@@ -31,9 +32,34 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
+function changeTypology () {
+  if (selectedPreselection.value === 'revolver_black_powder') {
+    resultStore.setResult({
+      typology: resultStore.typology + '_black_powder',
+      confidence: resultStore.confidence,
+      confidenceLevel: resultStore.confidenceLevel,
+      img: resultStore.img,
+      imgUrl: resultStore.imgUrl,
+      geolocation: resultStore.geolocation,
+      resultText: resultStore.resultText,
+    })
+  } else {
+    resultStore.setResult({
+      typology: resultStore.typology,
+      confidence: resultStore.confidence,
+      confidenceLevel: resultStore.confidenceLevel,
+      img: resultStore.img,
+      imgUrl: resultStore.imgUrl,
+      geolocation: resultStore.geolocation,
+      resultText: resultStore.resultText,
+    })
+  }
+}
+
 function goToNextRoute () {
-  selectedOption.value === 'revolver_black_powder'
-    ? router.push({ name: 'FinalResult' }).catch(() => {})
+  changeTypology()
+  selectedPreselection.value === 'revolver_black_powder'
+    ? router.push({ name: 'SecuringAchievement' }).catch(() => {})
     : router.push({ name: 'SecuringSelectOption' }).catch(() => {})
 }
 
@@ -61,7 +87,7 @@ function goToNextRoute () {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[typology].textOptions"
+          v-html="resultats[typology]?.textOptions"
         />
       </div>
       <div
@@ -70,11 +96,11 @@ function goToNextRoute () {
       >
         <div class="item">
           <DsfrRadioButton
-            v-model="selectedOption"
+            v-model="selectedPreselection"
             v-bind="option"
             :img="option.img"
             required
-            name="selectedOption"
+            name="selectedPreselection"
           />
           <div
             class="zoom"

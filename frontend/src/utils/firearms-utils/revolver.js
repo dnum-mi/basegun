@@ -1,11 +1,11 @@
 import revolver1ChemineesImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_1_cheminees.jpg'
+import revolver2CartouchesImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_cartouches.jpg'
 import revolver21873USImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_1873_US.jpg'
 import revolver21873USVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_US.mp4'
 import revolver2AxeBarilletImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_axe_barillet.jpg'
 import revolver2AxeBarilletVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_axe_barillet.mp4'
-import revolver2CartouchesImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_cartouches.jpg'
-// import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
-// import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
+import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
+import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
 import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
 import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
 import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg'
@@ -26,8 +26,8 @@ Revolvers
 */
 export const revolver = {
   displayLabel: 'revolver',
-  category: 'B ou D',
-  mention: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
+  category: 'B',
+  mention: 'B - Soumise à autorisation',
   isDummyTypology: true,
   isSecuringOptions: true,
   revolver_text_option: '',
@@ -36,10 +36,12 @@ export const revolver = {
     black_powder: {
       label: 'Petites Cheminées',
       value: 'revolver_black_powder',
+      img: revolver1ChemineesImg,
     },
     bullets: {
       label: 'Arrière plat',
       value: 'revolver_bullets',
+      img: revolver2CartouchesImg,
     },
   },
   options: {
@@ -53,22 +55,23 @@ export const revolver = {
         text_step_4: '4 - Retourner l’arme et vider les munitions éventuelles du barillet',
         text_step_5: '5 - Contrôler visuellement que les chambres sont vides',
       },
-      img: revolver1ChemineesImg,
+      img: revolver2EwBrisureImg,
+      video: revolver2EwBrisureVideo,
     },
-    revolver_1873_fr: {
-      label: 'Revolver 1873 fr',
-      value: 'revolver_1873_fr',
-      text_steps: {
-        text_step_1: '1 - Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
-        text_step_2: '2 - Tirer le haut du levier de verrouillage de barillet vers l’arrière',
-        text_step_3: '3 - Tirer légèrement le chien/marteau vers l’arrière jusqu’à entendre un premier clic',
-        text_step_4: '4 - Faire tourner le barillet jusqu’à trouver une munition',
-        text_step_5: '5 - Déverrouiller la tringle d’éjection en tournant son extrémité d’un quart de tour',
-        text_step_6: '6 - Actionner la tringle d’extraction vers l’arrière pour chaque chambre du barillet contenant une munition',
-        text_step_7: '7 - Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
-      },
-      img: revolver2CartouchesImg,
-    },
+    // revolver_1873_fr: {
+    //   label: 'Revolver 1873 fr',
+    //   value: 'revolver_1873_fr',
+    //   text_steps: {
+    //     text_step_1: '1 - Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
+    //     text_step_2: '2 - Tirer le haut du levier de verrouillage de barillet vers l’arrière',
+    //     text_step_3: '3 - Tirer légèrement le chien/marteau vers l’arrière jusqu’à entendre un premier clic',
+    //     text_step_4: '4 - Faire tourner le barillet jusqu’à trouver une munition',
+    //     text_step_5: '5 - Déverrouiller la tringle d’éjection en tournant son extrémité d’un quart de tour',
+    //     text_step_6: '6 - Actionner la tringle d’extraction vers l’arrière pour chaque chambre du barillet contenant une munition',
+    //     text_step_7: '7 - Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
+    //   },
+    //   img: '',
+    // },
     revolver_1873_us: {
       label: 'Revolver 1873 us',
       value: 'revolver_1873_us',
@@ -148,4 +151,12 @@ export const revolver = {
       img_ammo: revolverBalls,
     },
   },
+}
+
+export const revolver_black_powder = {
+  displayLabel: 'revolver',
+  category: 'D',
+  mention: "D - Libre d'acquisition et de détention",
+  isDummyTypology: false,
+  isSecuringOptions: false,
 }

@@ -8,6 +8,7 @@ export const useStepsStore = defineStore('steps', () => {
 
   const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
+  const selectedPreselection = useLocalStorage('selectedPreselection', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
   const isDummy = useLocalStorage('isDummy', computed(() => !!(selectedAmmo.value === 'billes')), { serializer })
@@ -26,15 +27,21 @@ export const useStepsStore = defineStore('steps', () => {
     selectedAmmo.value = ammo
   }
 
+  function setPreselection (selection) {
+    selectedPreselection.value = selection
+  }
+
   return {
     currentStep,
     selectedOption,
     selectedAmmo,
+    selectedPreselection,
     tutorialFeedback,
     isDummy,
     isModalTransparentAmmoOpened,
     setCurrentStep,
     setOption,
     setAmmo,
+    setPreselection,
   }
 })

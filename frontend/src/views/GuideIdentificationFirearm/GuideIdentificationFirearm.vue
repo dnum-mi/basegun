@@ -25,7 +25,10 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = resultats[resultStore.typology].isDummyTypology || !confidenceLevel.value === 'low' ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final'] : ['Résultat final']
+const steps = resultats[resultStore.typology].isDummyTypology ||
+  !confidenceLevel.value === 'low'
+  ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
+  : ['Résultat final']
 
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
 

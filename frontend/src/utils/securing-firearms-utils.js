@@ -1,4 +1,5 @@
 import { revolver } from './firearms-utils/revolver.js'
+import { revolver_black_powder } from './firearms-utils/revolver.js'
 import { pistolet_semi_auto_moderne } from './firearms-utils/pistolet-semi-auto-moderne.js'
 import { epaule_a_un_coup_par_canon } from './firearms-utils/epaule-a-un-coup-par-canon.js'
 import { epaule_a_verrou } from './firearms-utils/epaule-a-verrou.js'
@@ -23,5 +24,6 @@ export const resultats = {
   pistolet_mecanisme_ancien,
   pistolet_semi_auto_moderne,
   revolver,
+  revolver_black_powder,
   semi_auto_style_militaire_autre,
 }

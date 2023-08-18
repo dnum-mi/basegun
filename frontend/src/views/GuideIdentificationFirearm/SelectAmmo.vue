@@ -52,7 +52,7 @@ onMounted(() => {
   <div>
     <Teleport to="body">
       <DsfrModal
-        v-if="typology === 'autre_epaule'"
+        v-if="typology === 'semi_auto_style_militaire_autre'"
         title=""
         :opened="showModal"
         @close="closeModal()"
@@ -104,7 +104,7 @@ onMounted(() => {
       <p class="texte-tuto my-3">
         Sélectionner le <span class="font-bold">type de munitions</span> du chargeur.
         <span
-          v-if="typology === 'autre_epaule'"
+          v-if="typology === 'semi_auto_style_militaire_autre'"
           @click="openModal()"
         >
           <a
