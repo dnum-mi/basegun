@@ -50,8 +50,7 @@ jobs:
       - name: Build and install basegun with helm, and test if deployment is successful
         id: tests
         run: |
-          TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build backend
-          TAG=$(make get-current-tag) docker-compose -f docker-compose-prod.yml build frontend
+          TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build
           kind load docker-image \
             basegun-backend:$(make get-current-tag)-prod \
             basegun-frontend:$(make get-current-tag)-prod \

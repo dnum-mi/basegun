@@ -30,6 +30,6 @@ docker run --rm -d -p 5000:5000 --name basegun_back -e VERSION=1.2 basegun-back:
 Remember afterwards to stop container `docker stop basegun_back`
 
 ## Run tests
-1. Build image to target test `docker build --target test -t basegun-back:test .`
+1. Build image to target test `TAG=0.0 docker build --target test -t basegun-back:test .`
 2. Start container `docker run --rm --name basegun_back_test -d basegun-back:test`
 3. Execute tests `docker exec basegun_back_test python -m unittest discover -v`

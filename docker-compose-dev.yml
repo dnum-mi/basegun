@@ -1,10 +1,6 @@
 version: '3.8'
 services:
   backend:
-    profiles:
-      - app
-      - backend-only
-      - e2e
     build:
       args:
         - http_proxy
@@ -37,10 +33,6 @@ services:
       - /app/src/weights
 
   frontend:
-    profiles:
-      - app
-      - frontend-only
-      - e2e
     build:
       args:
         - http_proxy

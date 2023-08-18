@@ -30,30 +30,19 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
 build-%: check-dc-config-% show-current-tag
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml --profile app build
+	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
 up-%: check-dc-config-% show-current-tag
 ifeq ("$(WORKSPACE)","preprod")
-	TAG=${TAG} PORT_PROD=8080 ${DC} --profile app -f docker-compose-$*.yml up -d
+	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-$*.yml up -d
 else
-	TAG=${TAG} ${DC} --profile app -f docker-compose-$*.yml up -d
+	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 endif
-
-build-test: check-dc-config-dev show-current-tag
-	BUILD_TARGET=prod TAG=${TAG} ${DC} --profile e2e -f docker-compose-dev.yml build
-
-test-backend:
-	${DC} --profile backend-only -f docker-compose-dev.yml up -d
-	sleep 10
-	docker exec basegun-backend python -m unittest discover -v
 
 test-frontend-alive:
 	${DC} --profile app -f docker-compose-dev.yml up -d
 	sleep 10
 	curl -s -o /dev/null localhost:8080
-
-test-e2e:
-	${DC} --profile e2e -f docker-compose-dev.yml up
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
@@ -81,8 +70,3 @@ push-%:
 	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod
-
-start-https:
-	touch infra/traefik/acme.json
-	sudo chmod 600 infra/traefik/acme.json
-	${DC} -f infra/traefik/docker-compose.yml up -d
