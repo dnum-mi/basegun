@@ -1,0 +1,115 @@
+on:
+  workflow_call:
+    inputs:
+      secret_name:
+        required: false
+        type: string
+        description: "Secret name in kubernetes cluster"
+        default: "basegun-secret"
+      namespace:
+        required: true
+        type: string
+        description: "Namespace name in kubernetes cluster"
+        default: "basegun"
+      domain:
+        required: true
+        type: string
+        description: "Nom de domaine utilisé par l'application"
+        default: "basegun.fr"
+      branch:
+        required: true
+        type: string
+        description: "Branche de déploiement"
+    secrets:
+      KUBECONFIG:
+        description: 'Service account secret (run kubectl get serviceaccounts <service-account-name> -o yaml and copy the service-account-secret-name)'
+        required: true
+      X_OVH_TOKEN:
+        required: true
+      API_OVH_TOKEN:
+        required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      JOB_GITHUB_TOKEN:
+        required: true
+
+jobs:
+  deployment:
+    name: Update deployment
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ inputs.branch }}
+
+    - uses: azure/k8s-set-context@v3
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBECONFIG }}
+
+    - name: Create secret for Kubernetes
+      uses: azure/k8s-create-secret@v4
+      with:
+        namespace: ${{ inputs.namespace }}
+        secret-type: 'generic'
+        secret-name: ${{ inputs.secret_name }}
+        string-data: |
+          {
+          "OS_PASSWORD": "${{ secrets.OS_PASSWORD }}",
+          "OS_PROJECT_NAME": "${{ secrets.OS_PROJECT_NAME }}",
+          "OS_USERNAME": "${{ secrets.OS_USERNAME }}",
+          "X_OVH_TOKEN": "${{ secrets.X_OVH_TOKEN }}",
+          "API_OVH_TOKEN": "${{ secrets.API_OVH_TOKEN }}"
+          }
+
+    - name: Install yq
+      run: |
+        sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
+
+    - name: Update Infra Version
+      run: |
+        export TAG=$(make get-current-tag)
+        yq -i '.backend.image.tag = strenv(TAG)' ./infra/kube/helm/values.yaml
+        yq -i '.frontend.image.tag = strenv(TAG)' ./infra/kube/helm/values.yaml
+
+    - name: Update ingress domaine
+      run: |
+        export DOMAIN="${{ inputs.domain }}"
+        yq -i '.ingress.hosts[0].host = strenv(DOMAIN)' ./infra/kube/helm/values.yaml
+
+    - name: Commit and push changes
+      uses: devops-infra/action-commit-push@v0.3
+      with:
+        github_token: ${{ secrets.JOB_GITHUB_TOKEN }}
+        commit_prefix: "[skip ci]"
+        commit_message: "Version updated"
+
+# To generate a kubeconfig, fill this file with informations available in theses commands:
+#  - ${token} and ${ca}
+#    kubectl get secret -n <namespace> -o yaml <secret-service-account>
+#  - ${server}
+#    kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
+
+# apiVersion: v1
+# kind: Config
+# clusters:
+# - name: default-cluster
+#   cluster:
+#     certificate-authority-data: ${ca}
+#     server: ${server}
+# contexts:
+# - name: default-context
+#   context:
+#     cluster: default-cluster
+#     namespace: default
+#     user: default-user
+# current-context: default-context
+# users:
+# - name: default-user
+#   user:
+#     token: ${token}

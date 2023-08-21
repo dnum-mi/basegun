@@ -1,11 +1,11 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
 DC		:= $(shell type -p docker-compose)
-TAG		:= 2.0
+TAG		:= 3.1
 APP_NAME	:= basegun
 REG		:= ghcr.io
 ORG		:= datalab-mi
-
+UVICORN_LOG_LEVEL :=  # info, debug, trace
 
 export
 
@@ -14,6 +14,9 @@ show-current-tag:
 		read -r -p "Current tag is ${TAG}. Continue? [y/N]: " CONTINUE; \
 	done ; \
 	[ $$CONTINUE = "y" ] || [ $$CONTINUE = "Y" ] || (echo "Exiting."; exit 1;)
+
+get-current-tag:
+	@echo ${TAG}
 
 check-prerequisites:
 ifeq ("$(wildcard ${DOCKER})","")
@@ -35,17 +38,6 @@ ifeq ("$(WORKSPACE)","preprod")
 else
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
 endif
-
-test-workflow-%:
-	BUILD_TARGET=test TAG=${TAG} ${DC} -f docker-compose-dev.yml build $*
-	${DC} -f docker-compose-dev.yml up -d $*
-	sleep 10
-
-test-backend: test-workflow-backend
-	docker exec basegun-backend python -m unittest discover -v
-
-test-frontend: test-workflow-frontend
-	curl -s -o /dev/null localhost:3000
 
 down-%:
 	${DC} -f docker-compose-$*.yml down
@@ -73,8 +65,3 @@ push-%:
 	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod
-
-start-https:
-	touch infra/traefik/acme.json
-	sudo chmod 600 infra/traefik/acme.json
-	${DC} -f infra/traefik/docker-compose.yml up -d

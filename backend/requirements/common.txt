@@ -1,0 +1,9 @@
+fastapi==0.68.0
+uvicorn==0.14.0
+python-multipart>=0.0.5
+gelf-formatter==0.2.1
+pyyaml>=5.4.1
+user-agents==2.2.0
+ua-parser==0.10.0
+python-openstackclient==5.8.0
+python-swiftclient==4.0.0

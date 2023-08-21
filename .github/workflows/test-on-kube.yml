@@ -1,0 +1,107 @@
+name: Test on kubernetes
+
+on:
+  workflow_call:
+    secrets:
+      API_OVH_TOKEN:
+        required: true
+      OS_PASSWORD:
+        required: true
+      OS_PROJECT_NAME:
+        required: true
+      OS_USERNAME:
+        required: true
+      X_OVH_TOKEN:
+        required: true
+
+
+jobs:
+  test-app-k8s:
+    runs-on: ubuntu-latest
+    env:
+      LOCAL_DOMAIN: basegun.kubernetes.local
+    steps:
+      - name: Checkout to code
+        uses: actions/checkout@v3
+
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+        with:
+          cluster_name: basegun-testing
+          config: ./infra/kube/kind/kind-config.yml
+          wait: 60s
+          verbosity: 2
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.11.2
+
+      - name: Set up ingress controller 
+        run: |
+          helm repo add traefik https://traefik.github.io/charts && helm repo update
+          helm install --namespace ingress-traefik --create-namespace traefik traefik/traefik --values ./infra/kube/kind/traefik-values.yml 
+
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 $LOCAL_DOMAIN" | sudo tee -a /etc/hosts
+      # we are forced to attribute a DNS to kube cluster for it to work properly
+
+      - name: Build and install basegun with helm, and test if deployment is successful
+        id: tests
+        run: |
+          TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build
+          kind load docker-image \
+            basegun-backend:$(make get-current-tag)-prod \
+            basegun-frontend:$(make get-current-tag)-prod \
+            --name basegun-testing
+          helm upgrade --install basegun ./infra/kube/helm/  \
+            --set ingress.hosts[0].host="$LOCAL_DOMAIN" \
+            --set ingress.hosts[0].paths[0].path="/" \
+            --set ingress.hosts[0].paths[0].pathType="Prefix"  \
+            --set backend.image.repository="basegun-backend" \
+            --set backend.image.tag="$(make get-current-tag)-prod" \
+            --set frontend.image.repository="basegun-frontend" \
+            --set frontend.image.tag="$(make get-current-tag)-prod" \
+            --set backend.secret.create="true" \
+            --set-string backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
+            --set-string backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
+            --set-string backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
+            --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.X_OVH_TOKEN }}" \
+            --set-string backend.secret.values.API_OVH_TOKEN="${{ secrets.API_OVH_TOKEN }}"
+          for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
+
+      - name: Display pod logs on failure
+        if: failure() && steps.tests.outcome == 'failure'
+        run: |
+          kubectl describe pods
+          kubectl logs deploy/basegun-backend --all-containers --ignore-errors
+          kubectl logs deploy/basegun-frontend --all-containers --ignore-errors
+
+      - name: Test unitests on backend
+        run : |
+          kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
+
+      - name: Setup nodejs (for cypress)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          check-latest: true
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+      
+      - name: Install npm packages (for cypress)
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Test end to end (cypress)
+        run: FRONTEND_HOST=$LOCAL_DOMAIN FRONTEND_PORT=80 npm run test:e2e-ci
+        working-directory: ./frontend
+
+      - name: Send artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: cypress-screenshots
+          path: |
+            ./frontend/cypress/screenshots/

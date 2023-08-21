@@ -1,5 +1,5 @@
-on: workflow_dispatch
 name: CI for preprod
+on: workflow_dispatch
 jobs:
   build-push:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
         organization: datalab-mi
         container: basegun/basegun-backend
         dry-run: false
-        untagged: true
+        prune-untagged: true
     - name: Delete untagged images
       uses: vlaurin/action-ghcr-prune@main
       with:
@@ -39,25 +39,23 @@ jobs:
         organization: datalab-mi
         container: basegun/basegun-frontend
         dry-run: false
-        untagged: true
+        prune-untagged: true
 
   deploy-preprod:
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/change-values-kube.yml
     needs: build-push
     with:
-      image_version: "develop"
-      branch: ${{ github.ref_name }}
-      volume_size: 10
-      flavor: "s1-2"
-      workspace: "preprod"
+      branch: develop
+      namespace: basegun-preprod
+      domain: preprod.basegun.fr
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      SERVER_IP: ${{ secrets.PREPROD_SERVER_IP }}
       OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-      OS_PROJECT_ID: ${{ secrets.OS_PROJECT_ID }}
       OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
       OS_USERNAME: ${{ secrets.OS_USERNAME }}
       X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
+      JOB_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      KUBECONFIG: ${{ secrets.PREPROD_K8_CONFIG }}
 
   test:
     runs-on: ubuntu-latest

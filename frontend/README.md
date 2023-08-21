@@ -32,6 +32,17 @@ Open localhost:3000
 docker run --rm -p 3000:3000 -d basegun-front:dev
 ```
 
+## Test project
+Run end-to-end tests with cypress. You need first to have installed dependancies with `npm ci`.
+
+First run website with Docker then
+```bash
+# run in headless mode (only in terminal)
+npm --prefix frontend run test:e2e-run
+
+# run with graphical interface
+npm --prefix frontend run test:e2e-open
+``` 
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

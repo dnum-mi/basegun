@@ -115,20 +115,22 @@ function sendFeedback (isCorrect) {
             <p class="fr-callout__text">
               Objet, arme factice
             </p>
-            <p class="mt-2 fr-callout__text">
-              Typologie de référence : <br>{{ label }}
-            </p>
             <div
               class="callout-mention"
             >
               <p v-html="mention" />
             </div>
+            <p class="mt-2 fr-callout__text">
+              Typologie de référence : <br>{{ label }}
+            </p>
           </div>
           <div v-else>
-            <p class="fr-callout__title mt-3">
+            <p
+              class="fr-callout__title mt-3"
+              data-testid="legal-category"
+            >
               Catégorie {{ category }}
             </p>
-
             <div
               class="callout-mention"
             >
@@ -147,6 +149,7 @@ function sendFeedback (isCorrect) {
                   :to="{name:'SafetyRecommendation'}"
                 >
                   <DsfrButton
+                    data-testid="dummy-button"
                     class="my-4 flex justify-content-center"
                     label="Vérifier si l'arme est factice"
                     @click="navigate()"
@@ -164,6 +167,7 @@ function sendFeedback (isCorrect) {
                     Non Classé
                   </p>
                   <DsfrButton
+                    data-testid="dummy-button"
                     class="my-4 flex justify-content-center"
                     label="Pas de guide de vérification"
                     disabled

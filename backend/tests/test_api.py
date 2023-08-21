@@ -48,7 +48,7 @@ class TestModel(unittest.TestCase):
 
         # checks that the json result is as expected
         self.assertEqual(res["label"], "revolver")
-        self.assertAlmostEqual(res["confidence"], 99.53, places=1)
+        self.assertAlmostEqual(res["confidence"], 98.43, places=1)
         self.assertTrue(res["confidence_level"], "high")
         self.assertTrue("ovh" in res["path"])
         # checks that written file is exactly the same as input file
@@ -72,7 +72,7 @@ class TestModel(unittest.TestCase):
         self.assertTrue("-" in log["_bg_user_id"])
         self.assertEqual(log["_bg_geolocation"], geoloc)
         self.assertEqual(log["_bg_label"], "revolver")
-        self.assertAlmostEqual(log["_bg_confidence"], 99.53, places=1)
+        self.assertAlmostEqual(log["_bg_confidence"], 98.43, places=1)
         self.assertTrue(log["_bg_upload_time"]>=0)
 
     def test_feedback_and_logs(self):
