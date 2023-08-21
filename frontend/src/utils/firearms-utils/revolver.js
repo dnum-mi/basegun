@@ -92,6 +92,18 @@ export const revolver = {
       img: revolver2EwBrisureImg,
       video: revolver2EwBrisureVideo,
     },
+    revolver_ancien_brisure: {
+      label: 'Verrou en T à l’avant du chien',
+      value: 'revolver_ancien_brisure',
+      text_steps: {
+        text_step_1: '1 - Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
+        text_step_2: '2 - Soulever le verrou en appuyant sur son petit bouton poussoir et casser/basculer l’ensemble canon et barille',
+        text_step_3: '3 - Retourner l’arme afin de disposer l’arrière du barillet vers le bas et vider les munitions',
+        text_step_4: '4 - Contrôler visuellement les chambres du barillet',
+      },
+      img: revolver2SwBrisureImg,
+      video: revolver2SwBrisureVideo,
+    },
     revolver_axe_barillet: {
       label: 'Aucun des systèmes précédents',
       value: 'revolver_axe_barillet',
@@ -104,18 +116,6 @@ export const revolver = {
       },
       img: revolver2AxeBarilletImg,
       video: revolver2AxeBarilletVideo,
-    },
-    revolver_ancien_brisure: {
-      label: 'Verrou en T à l’avant du chien',
-      value: 'revolver_ancien_brisure',
-      text_steps: {
-        text_step_1: '1 - Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
-        text_step_2: '2 - Soulever le verrou en appuyant sur son petit bouton poussoir et casser/basculer l’ensemble canon et barille',
-        text_step_3: '3 - Retourner l’arme afin de disposer l’arrière du barillet vers le bas et vider les munitions',
-        text_step_4: '4 - Contrôler visuellement les chambres du barillet',
-      },
-      img: revolver2SwBrisureImg,
-      video: revolver2SwBrisureVideo,
     },
   },
   options_step_3_text: 'En maintenant l’arme dans une direction sécurisée, tirez la portière vers l’arrière avec le pouce, puis essayez de poucer sur un côté du barillet pour le faire basculer.',

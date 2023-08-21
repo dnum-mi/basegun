@@ -87,7 +87,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-6">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options_step_2[selectedOptionStep2].text_steps"
+                v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 v-html="option"
               />
@@ -103,7 +103,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options_step_2[selectedOptionStep2].video"
+                :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options[selectedOptionStep2].video"
+                :src="resultats[typology]?.options[selectedOptionStep2]?.video"
               />
             </div>
           </div>
@@ -139,7 +139,7 @@ const selectedOptionStep3 = computed({
           <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
           <DsfrAccordionsGroup>
             <li
-              v-for="option in resultats[typology].text_steps"
+              v-for="option in resultats[typology]?.text_steps"
               :key="option.value"
             >
               <DsfrAccordion
@@ -158,7 +158,7 @@ const selectedOptionStep3 = computed({
                   playsinline
                   loop
                   muted
-                  :src="resultats[typology].video"
+                  :src="resultats[typology]?.video"
                 />
               </DsfrAccordion>
             </li>

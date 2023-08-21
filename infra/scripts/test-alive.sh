@@ -7,10 +7,10 @@ timeout=900;
 elapse=0;
 range=10;
 test_result=1
-TAG=$(make get-current-version)
+TAG=$(make get-current-tag)
 
 until [ "$elapse" -ge "$timeout" -o "$test_result" -eq "0" ] ; do
-        [[ "$(curl -L -s $1/api/)" == "Basegun backend" ]]
+        [[ "$(curl -L -s $1/api/version)" == "$TAG" ]]
         test_result=$?
         if [ "$test_result" -gt "0" ] ; then
             echo "Waited $elapse seconds";
