@@ -58,10 +58,10 @@ function submitUpload (base64, fileName) {
           if (!resultats[resultStore.typology].isSecuringOptions) {
             router.push({ name: 'SecuringAchievement' }).catch(() => { })
           } else {
-            if (resultats[resultStore.typology]?.pre_select) {
-              router.push({ name: 'SecuringSelectPreselection' }).catch(() => { })
+            if (resultats[resultStore.typology]?.options_step_1) {
+              router.push({ name: 'SecuringSelectOptionStep1' }).catch(() => { })
             } else if (resultats[resultStore.typology]?.options) {
-              router.push({ name: 'SecuringSelectOption' }).catch(() => { })
+              router.push({ name: 'SecuringSelectOptionStep2' }).catch(() => { })
             } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => { }) }
           }
         } else { router.push({ name: 'TypologyResult' }).catch(() => { }) }

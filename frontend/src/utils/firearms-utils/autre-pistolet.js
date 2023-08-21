@@ -20,7 +20,7 @@ export const autre_pistolet = {
   mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
   isDummyTypology: false,
   isSecuringOptions: true,
-  textOptions: '',
+  options_text: '',
   options: {
     drulov: {
       label: 'Drulov',

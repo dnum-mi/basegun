@@ -8,12 +8,12 @@ const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
-const selectedPreselection = computed({
+const selectedOptionStep1 = computed({
   get () {
-    return stepsStore.selectedPreselection
+    return stepsStore.selectedOptionStep1
   },
   set (selection) {
-    stepsStore.setPreselection(selection)
+    stepsStore.setOptionStep1(selection)
   },
 })
 </script>
@@ -38,7 +38,7 @@ const selectedPreselection = computed({
         Fin de la mise en sécurité de l’arme
       </h4>
       <div
-        v-if="selectedPreselection === 'revolver_black_powder'"
+        v-if="selectedOptionStep1 === 'revolver_black_powder'"
         class="text-center"
       >
         <p class="text-red font-600">

@@ -13,7 +13,7 @@ export const epaule_a_levier_sous_garde = {
   mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,
   isSecuringOptions: true,
-  textOptions: 'En manipulant l’arme avec précaution dans une <span class="font-bold">direction sans risque</span>, inspectez l’<span class="font-bold">extrémité du tube sous le canon</span>. Sélectionnez ce que vous voyez :',
+  options_text: 'En manipulant l’arme avec précaution dans une <span class="font-bold">direction sans risque</span>, inspectez l’<span class="font-bold">extrémité du tube sous le canon</span>. Sélectionnez ce que vous voyez :',
   options: {
     front_magazine: {
       label: 'Embout rugueux',

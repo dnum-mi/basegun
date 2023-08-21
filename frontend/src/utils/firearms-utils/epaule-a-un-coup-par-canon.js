@@ -14,7 +14,7 @@ export const epaule_a_un_coup_par_canon = {
   mention: 'Soumise à déclaration',
   isDummyTypology: false,
   isSecuringOptions: true,
-  textOptions: 'Sélectionnez ce que vous voyez sur la <span class="font-bold">zone centrale de l’arme</span>',
+  options_text: 'Sélectionnez ce que vous voyez sur la <span class="font-bold">zone centrale de l’arme</span>',
   options: {
     cle_pouce: {
       label: 'Clé supérieure',

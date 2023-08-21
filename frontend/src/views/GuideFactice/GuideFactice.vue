@@ -15,7 +15,7 @@ const resultStore = useResultStore()
 const route = useRoute()
 const router = useRouter()
 
-const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOption === undefined))
+const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOptionStep2 === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
 
 const imgUrl = computed(() => resultStore.imgUrl)
@@ -66,7 +66,7 @@ async function sendLogsIdentificationDummy () {
     confidence: confidence.value,
     label: typology.value,
     confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.selectedOption,
+    tutorial_option: stepsStore.selectedOptionStep2,
     is_dummy: stepsStore.isDummy,
   }
   await axios.post('/identification-dummy', json)

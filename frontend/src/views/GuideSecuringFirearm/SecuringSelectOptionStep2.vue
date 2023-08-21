@@ -14,17 +14,17 @@ const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
-const selectedOption = computed({
+const selectedOptionStep2 = computed({
   get () {
-    return stepsStore.selectedOption
+    return stepsStore.selectedOptionStep2
   },
   set (option) {
-    stepsStore.setOption(option)
+    stepsStore.setOptionStep2(option)
   },
 })
-const selectedPreselection = computed(() => stepsStore.selectedPreselection)
+const selectedOptionStep1 = computed(() => stepsStore.selectedOptionStep1)
 
-const disabledValidation = computed(() => stepsStore.selectedOption === undefined)
+const disabledValidation = computed(() => stepsStore.selectedOptionStep2 === undefined)
 
 const zoom = ref('')
 
@@ -48,14 +48,17 @@ const zoomOn = (imgValue) => {
     </div>
   </div>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
+    <div
+      v-if="typology !== 'revolver'"
+      class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto"
+    >
       <h4 class="mt-3">
         Mettre en sécurité mon arme
       </h4>
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[typology].textOptions"
+          v-html="resultats[typology]?.options_text"
         />
       </div>
       <div
@@ -64,11 +67,64 @@ const zoomOn = (imgValue) => {
       >
         <div class="item">
           <DsfrRadioButton
-            v-model="selectedOption"
+            v-model="selectedOptionStep2"
             v-bind="option"
             :img="option.img"
             required
-            name="selectedOption"
+            name="selectedOptionStep2"
+          />
+          <div
+            class="zoom"
+            @click="zoomOn(option.value)"
+          >
+            <VIcon
+              name="ri-zoom-in-line"
+              scale="1.25"
+            />
+            <span class="zoom-label">zoomer</span>
+          </div>
+          <Teleport to="body">
+            <DsfrModal
+              title=""
+              :opened="zoom === option.value"
+              @close="zoom = ''"
+            >
+              <img
+                v-if="zoom === option.value"
+                :src="option.img"
+                :style="{'max-width': '100%'}"
+              >
+            </DsfrModal>
+          </Teleport>
+        </div>
+      </div>
+      <AskingExpert />
+      <div class="big-blank" />
+    </div>
+    <div
+      v-else
+      class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto"
+    >
+      <h4 class="mt-3">
+        Mettre en sécurité mon arme
+      </h4>
+      <div class="instructions">
+        <p
+          class="leading-7 mt-3"
+          v-html="resultats[typology].options_step_2_text"
+        />
+      </div>
+      <div
+        v-for="option of resultats[typology]?.options_step_2"
+        :key="option.value"
+      >
+        <div class="item">
+          <DsfrRadioButton
+            v-model="selectedOptionStep2"
+            v-bind="option"
+            :img="option.img"
+            required
+            name="selectedOptionStep2"
           />
           <div
             class="zoom"
@@ -105,7 +161,7 @@ const zoomOn = (imgValue) => {
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="selectedPreselection = 'revolver_bullets' ? router.back() : router.push({ name:'Instructions'})"
+          @click="selectedOptionStep1 === 'revolver_bullets' ? router.back() : router.push({ name:'Instructions'})"
         />
         <DsfrButton
           class="m-1 flex justify-center"
@@ -113,7 +169,7 @@ const zoomOn = (imgValue) => {
           :disabled="disabledValidation"
           label="Suivant"
           :icon-right="true"
-          @click="router.push({ name:'SecuringTutorialContent'})"
+          @click="selectedOptionStep2 === 'revolver_1873_fr' ? router.push({ name:'SecuringSelectOptionStep3'}) : router.push({ name:'SecuringTutorialContent'})"
         />
       </div>
     </div>

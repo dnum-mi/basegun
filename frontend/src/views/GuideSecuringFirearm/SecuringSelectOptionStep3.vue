@@ -15,52 +15,21 @@ const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
 
-const selectedPreselection = computed({
+const selectedOptionStep3 = computed({
   get () {
-    return stepsStore.selectedPreselection
+    return stepsStore.selectedOptionStep3
   },
   set (selection) {
-    stepsStore.setPreselection(selection)
+    stepsStore.setOptionStep3(selection)
   },
 })
 
-const disabledValidation = computed(() => stepsStore.selectedPreselection === undefined)
+const disabledValidation = computed(() => stepsStore.selectedOptionStep3 === undefined)
 
 const zoom = ref('')
 
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
-}
-
-function changeTypology () {
-  if (selectedPreselection.value === 'revolver_black_powder') {
-    resultStore.setResult({
-      typology: resultStore.typology + '_black_powder',
-      confidence: resultStore.confidence,
-      confidenceLevel: resultStore.confidenceLevel,
-      img: resultStore.img,
-      imgUrl: resultStore.imgUrl,
-      geolocation: resultStore.geolocation,
-      resultText: resultStore.resultText,
-    })
-  } else {
-    resultStore.setResult({
-      typology: resultStore.typology,
-      confidence: resultStore.confidence,
-      confidenceLevel: resultStore.confidenceLevel,
-      img: resultStore.img,
-      imgUrl: resultStore.imgUrl,
-      geolocation: resultStore.geolocation,
-      resultText: resultStore.resultText,
-    })
-  }
-}
-
-function goToNextRoute () {
-  changeTypology()
-  selectedPreselection.value === 'revolver_black_powder'
-    ? router.push({ name: 'SecuringAchievement' }).catch(() => {})
-    : router.push({ name: 'SecuringSelectOption' }).catch(() => {})
 }
 
 </script>
@@ -80,27 +49,29 @@ function goToNextRoute () {
     </div>
   </div>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
+    <div
+      class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto"
+    >
       <h4 class="mt-3">
         Mettre en sécurité mon arme
       </h4>
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[typology]?.textOptions"
+          v-html="resultats[typology]?.options_step_3_text"
         />
       </div>
       <div
-        v-for="option of resultats[typology]?.pre_select"
+        v-for="option of resultats[typology]?.options_step_3"
         :key="option.value"
       >
         <div class="item">
           <DsfrRadioButton
-            v-model="selectedPreselection"
+            v-model="selectedOptionStep3"
             v-bind="option"
             :img="option.img"
             required
-            name="selectedPreselection"
+            name="selectedOptionStep3"
           />
           <div
             class="zoom"
@@ -137,7 +108,7 @@ function goToNextRoute () {
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="router.push({ name:'Instructions'})"
+          @click="router.back()"
         />
         <DsfrButton
           class="m-1 flex justify-center"
@@ -145,7 +116,7 @@ function goToNextRoute () {
           :disabled="disabledValidation"
           label="Suivant"
           :icon-right="true"
-          @click="goToNextRoute()"
+          @click="router.push({ name:'SecuringTutorialContent'})"
         />
       </div>
     </div>

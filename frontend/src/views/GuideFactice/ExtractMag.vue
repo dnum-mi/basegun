@@ -9,13 +9,13 @@ import { useResultStore } from '@/stores/result.js'
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
-const selectedOption = computed(() => stepsStore.selectedOption)
+const selectedOptionStep2 = computed(() => stepsStore.selectedOptionStep2)
 const typology = computed(() => resultStore.typology)
 
 </script>
 
 <template>
-  <div v-if="selectedOption === undefined">
+  <div v-if="selectedOptionStep2 === undefined">
     <p
       class="leading-7 mt-3"
       v-html="`${guideFacticeSelectOption[typology]?.text}`"
@@ -36,7 +36,7 @@ const typology = computed(() => resultStore.typology)
   <div v-else>
     <p
       class="leading-7 mt-3"
-      v-html="`${guideFacticeSelectOption[typology][selectedOption]?.text}`"
+      v-html="`${guideFacticeSelectOption[typology][selectedOptionStep2]?.text}`"
     />
     <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
       <div class="fr-content-media">
@@ -47,7 +47,7 @@ const typology = computed(() => resultStore.typology)
           playsinline
           loop
           muted
-          :src="guideFacticeSelectOption[typology][selectedOption]?.video"
+          :src="guideFacticeSelectOption[typology][selectedOptionStep2]?.video"
         />
       </div>
     </div>

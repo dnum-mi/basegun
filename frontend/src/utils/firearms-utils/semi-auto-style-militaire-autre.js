@@ -19,12 +19,12 @@ Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   UZI
 */
 export const semi_auto_style_militaire_autre = {
-  displayLabel: 'arme d’épaule semi-automatique ou automatique',
+  displayLabel: 'arme semi-automatique ou automatique',
   category: 'A, B ou C',
   mention: 'A - Interdite<br>B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: true,
   isSecuringOptions: true,
-  textOptions: '',
+  options_text: '',
   options: {
     ar15: {
       label: 'bouton au-dessus chargeur',

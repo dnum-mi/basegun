@@ -60,7 +60,7 @@ async function sendLogsIdentificationDummy () {
     confidence: confidence.value,
     label: typology.value,
     confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.selectedOption,
+    tutorial_option: stepsStore.selectedOptionStep2,
     is_dummy: stepsStore.isDummy,
   }
   await axios.post('/identification-dummy', json)

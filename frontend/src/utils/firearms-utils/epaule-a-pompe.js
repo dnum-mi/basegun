@@ -9,7 +9,7 @@ export const epaule_a_pompe = {
   mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,
   isSecuringOptions: true,
-  textOptions: '',
+  options_text: '',
   text_steps: {
     text_step_1: '1 - Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
     text_step_2: '2 - Si la pompe est bloquée, appuyer sur le bouton de déverrouillage situé à l’avant ou sous le pontet',

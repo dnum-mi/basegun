@@ -10,12 +10,12 @@ const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
-const selectedOption = computed({
+const selectedOptionStep2 = computed({
   get () {
-    return stepsStore.selectedOption
+    return stepsStore.selectedOptionStep2
   },
   set (option) {
-    stepsStore.setOption(option)
+    stepsStore.setOptionStep2(option)
   },
 })
 
@@ -40,11 +40,11 @@ const zoomOn = (imgValue) => {
     >
       <div class="item">
         <DsfrRadioButton
-          v-model="selectedOption"
+          v-model="selectedOptionStep2"
           v-bind="option"
           :img="option.img"
           required
-          name="selectedOption"
+          name="selectedOptionStep2"
         />
         <div
           class="zoom"

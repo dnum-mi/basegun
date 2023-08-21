@@ -6,9 +6,10 @@ import { serializer } from '@/utils/storage-utils.js'
 export const useStepsStore = defineStore('steps', () => {
   const currentStep = useLocalStorage('currentStep', 1)
 
-  const selectedOption = useLocalStorage('selectedOption', undefined, { serializer })
+  const selectedOptionStep2 = useLocalStorage('selectedOptionStep2', undefined, { serializer })
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
-  const selectedPreselection = useLocalStorage('selectedPreselection', undefined, { serializer })
+  const selectedOptionStep1 = useLocalStorage('selectedOptionStep1', undefined, { serializer })
+  const selectedOptionStep3 = useLocalStorage('selectedOptionStep3', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
   const isDummy = useLocalStorage('isDummy', computed(() => !!(selectedAmmo.value === 'billes')), { serializer })
@@ -19,29 +20,34 @@ export const useStepsStore = defineStore('steps', () => {
     currentStep.value = newStep
   }
 
-  function setOption (option) {
-    selectedOption.value = option
-  }
-
   function setAmmo (ammo) {
     selectedAmmo.value = ammo
   }
 
-  function setPreselection (selection) {
-    selectedPreselection.value = selection
+  function setOptionStep1 (selection) {
+    selectedOptionStep1.value = selection
+  }
+
+  function setOptionStep2 (option) {
+    selectedOptionStep2.value = option
+  }
+  function setOptionStep3 (selection) {
+    selectedOptionStep3.value = selection
   }
 
   return {
     currentStep,
-    selectedOption,
+    selectedOptionStep2,
     selectedAmmo,
-    selectedPreselection,
+    selectedOptionStep1,
+    selectedOptionStep3,
     tutorialFeedback,
     isDummy,
     isModalTransparentAmmoOpened,
     setCurrentStep,
-    setOption,
     setAmmo,
-    setPreselection,
+    setOptionStep1,
+    setOptionStep2,
+    setOptionStep3,
   }
 })

@@ -7,13 +7,14 @@ export const serializer = {
 }
 
 export const clearLocalStorage = (to, from, next) => {
-  const { setOption, setAmmo, setPreselection, setCurrentStep } = useStepsStore()
+  const { setAmmo, setOptionStep1, setOptionStep2, setOptionStep3, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 
   useStepsStore.isModalTransparentAmmoOpened = undefined
-  setOption(undefined)
   setAmmo(undefined)
-  setPreselection(undefined)
+  setOptionStep1(undefined)
+  setOptionStep2(undefined)
+  setOptionStep3(undefined)
   setCurrentStep(0)
 
   setResult({
