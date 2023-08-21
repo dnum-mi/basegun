@@ -1,9 +1,5 @@
-on:
-  push:
-    branches:
-      - develop
-  workflow_dispatch:
 name: CI for preprod
+on: workflow_dispatch
 jobs:
   build-push:
     runs-on: ubuntu-latest
@@ -49,7 +45,7 @@ jobs:
     uses: ./.github/workflows/change-values-kube.yml
     needs: build-push
     with:
-      branch: ${{ github.ref_name }}
+      branch: develop
       namespace: basegun-preprod
       domain: preprod.basegun.fr
     secrets:
