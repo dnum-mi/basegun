@@ -22,8 +22,6 @@ jobs:
 
   build-push:
     runs-on: ubuntu-latest
-    outputs:
-      branch: ${{ steps.get_branch.outputs.branch }}
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
@@ -61,19 +59,12 @@ jobs:
         container: basegun/basegun-frontend
         dry-run: false
         untagged: true
-    - name: Get branch
-        id: get_branch
-        run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          branch=${raw##*/}
-          echo "{name}=branch" >> $GITHUB_OUTPUT
-          echo "Branch is $branch."
 
   deploy-prod:
     uses: ./.github/workflows/change-values-kube.yml
     needs: build-push
     with:
-      branch: ${{ needs.check.outputs.branch }}
+      branch: main
       namespace: basegun-prod
       domain: basegun.fr
     secrets:
