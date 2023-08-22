@@ -35,41 +35,22 @@ const selectedOptionStep3 = computed({
 })
 </script>
 <template>
-  <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
-    <div class="fr-container m-5">
-      <router-link
-        :to="{ name: 'StartPage' }"
-      >
-        <VIcon
-          class="absolute right-3 fr-icon-home-3-line"
-          name="ri-home-3-line"
-          scale="1.2"
-        />
-      </router-link>
-    </div>
-  </div>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto">
-      <h4 class="mt-3">
+    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
+      <h4 class="mt-3 text-center">
         Mettre en sécurité mon arme
       </h4>
+      <h5 class="text-center my-auto">
+        Manipulations
+      </h5>
       <div v-if="typology === 'revolver'">
         <div
           v-if="selectedOptionStep2 === 'revolver_1873_fr'"
         >
-          <p class="manipulations -mx-8 p-6">
-            <ul class="list-none text-sm">
-              <li
-                v-for="option in resultats[typology].options_step_3[selectedOptionStep3].text_steps"
-                :key="option.value"
-                v-html="option"
-              />
-            </ul>
-          </p>
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
-            <div class="fr-content-media">
+            <div class="fr-content-media relative">
               <video
                 autoplay
                 controls
@@ -78,25 +59,26 @@ const selectedOptionStep3 = computed({
                 muted
                 :src="resultats[typology]?.options_step_3[selectedOptionStep3].video"
               />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
           </div>
-        </div>
-        <div
-          v-else
-        >
-          <p class="manipulations -mx-8 p-6">
+          <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
+                v-for="option in resultats[typology].options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
                 v-html="option"
               />
             </ul>
           </p>
+        </div>
+        <div
+          v-else
+        >
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
-            <div class="fr-content-media">
+            <div class="fr-content-media relative">
               <video
                 autoplay
                 controls
@@ -105,25 +87,26 @@ const selectedOptionStep3 = computed({
                 muted
                 :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
           </div>
-        </div>
-      </div>
-      <div v-else>
-        <div v-if="resultats[typology]?.options">
-          <p class="manipulations -mx-8 p-6">
+          <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options[selectedOptionStep2]?.text_steps"
+                v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 v-html="option"
               />
             </ul>
           </p>
+        </div>
+      </div>
+      <div v-else>
+        <div v-if="resultats[typology]?.options">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
-            <div class="fr-content-media">
+            <div class="fr-content-media relative">
               <video
                 autoplay
                 controls
@@ -132,7 +115,18 @@ const selectedOptionStep3 = computed({
                 muted
                 :src="resultats[typology]?.options[selectedOptionStep2]?.video"
               />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
+          </div>
+          <div class="manipulations -mx-8 p-8">
+            <ul class="list-none text-sm">
+              <li
+                v-for="option in resultats[typology].options[selectedOptionStep2]?.text_steps"
+                :key="option.value"
+                class="list-decimal"
+                v-html="option"
+              />
+            </ul>
           </div>
         </div>
         <div v-else>
@@ -190,9 +184,6 @@ const selectedOptionStep3 = computed({
 </template>
 
 <style scoped>
-h4 {
-  color: var(--blue-france-sun-113-625)
-}
 .img-deco {
   margin-bottom: 1em;
   margin-top: 0;
@@ -218,6 +209,13 @@ width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+:deep(.fr-col-md-8),
+:deep(.fr-col-lg-6) {
+  flex: 0 0 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
 :deep(.fr-accordion__title span) {

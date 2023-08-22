@@ -82,8 +82,19 @@ button {
 
 .img-deco {
   margin-bottom: 1em;
-  margin-top: 33%;
-  width: 100%;
+
+  /* margin-top: 33%; */
+  width: 100%
+}
+
+h4 {
+  margin: 0.75rem;
+  font-size: 1.3rem;
+  color: var(--blue-france-sun-113-625)
+}
+
+h5 {
+  font-size: 1.1rem;
 }
 
 .help {

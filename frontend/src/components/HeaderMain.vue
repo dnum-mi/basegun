@@ -1,16 +1,25 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import {
+  useRouter,
+} from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
 
-const logoText = [
-  'Ministère',
-  'de l’intérieur',
-  'et des Outre-Mer',
-]
+const isMobile = window.innerWidth <= 640
+
+const logoText = !isMobile
+  ? [
+      'Ministère',
+      'de l’intérieur',
+      'et des Outre-Mer',
+    ]
+  : []
 
 const quickLinks = [
+  {
+    label: 'Important',
+    to: '/',
+  },
   {
     label: 'A propos',
     to: '/a-propos',
@@ -29,11 +38,6 @@ function onClickOnLogo () {
   router.push({ name: 'StartPage' })
 }
 
-function onClickOnInfo (event) {
-  event.stopPropagation()
-  router.push({ name: 'HomePage' })
-}
-
 </script>
 
 <template>
@@ -41,24 +45,31 @@ function onClickOnInfo (event) {
     :quick-links="quickLinks"
     :logo-text="logoText"
     @click="onClickOnLogo"
-  >
-    <span
-      v-if="route.name !== 'HomePage'"
-      class="information fr-icon-info-line"
-      aria-hidden="true"
-      @click="onClickOnInfo"
-    />
-  </DsfrHeader>
+  />
 </template>
 
 <style scoped>
-  :deep(.fr-container) {
-    position: relative;
-  }
+:deep(.fr-container) {
+  position: relative;
+}
 
-  :deep(.fr-header__navbar .fr-btn--menu) {
-    color : var(--text-action-high-blue-france);
+@screen lt-sm {
+  :deep(.fr-logo::after) {
+    display: none;
   }
+}
+
+:deep(.fr-header__navbar .fr-btn--menu) {
+  color : var(--text-action-high-blue-france);
+}
+
+:deep(.fr-header__logo .fr-logo::before) {
+  background-size: cover;
+  background-position: inherit;
+  height: 1.2rem;
+  margin-bottom: .25rem;
+  width: 3rem;
+}
 
 .information {
     position: absolute;
@@ -68,11 +79,5 @@ function onClickOnInfo (event) {
     color: var(--blue-france-sun-113-625);
     cursor: pointer;
   }
-
-@screen lg {
-  .information {
-    --uno: top-4\/10 right-3.5\/10;
-  }
-}
 
 </style>

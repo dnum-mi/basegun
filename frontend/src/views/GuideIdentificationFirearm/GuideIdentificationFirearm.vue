@@ -78,21 +78,8 @@ async function sendLogsIdentificationDummy () {
 </script>
 
 <template>
-  <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
-    <div class="m-5 absolute right-0">
-      <router-link
-        :to="{ name: 'StartPage' }"
-      >
-        <VIcon
-          class="fr-icon-home-3-line"
-          name="ri-home-3-line"
-          scale="1.2"
-        />
-      </router-link>
-    </div>
-  </div>
   <div class="mt-5 fr-container">
-    <div class="result  fr-col-11 fr-col-lg-6">
+    <div class="result  fr-col-11 fr-col-lg-6 mx-auto">
       <div class="">
         <StepsGuide
           class="!fr-container steps-guide"
@@ -111,27 +98,27 @@ async function sendLogsIdentificationDummy () {
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'Instructions'}"
+        :to="{name: 'StartPage'}"
       >
         <DsfrButton
           class="flex justify-center w-full"
-          label="Identifier une nouvelle arme"
-          icon="ri-camera-fill"
+          label="Retour à l'accueil"
+          icon="ri-home-4-line"
           :icon-right="true"
           @click="navigate()"
         />
       </router-link>
       <router-link
-        v-if="!resultats[typology]?.isDummyTypology"
+        v-if="!resultats[typology]?.isDummyTypology "
         v-slot="{navigate}"
         :to="{name:'StartPage'}"
       >
         <DsfrButton
+          v-if="confidenceLevel !== 'low'"
           class="mt-3 flex justify-center w-full"
-          label="Retour au menu"
-          icon="ri-arrow-go-back-fill"
+          label="Retour à l'accueil"
+          icon="ri-home-4-line"
           :icon-right="true"
-          secondary
           @click="navigate()"
         />
       </router-link>
@@ -173,8 +160,8 @@ async function sendLogsIdentificationDummy () {
       >
         <DsfrButton
           class="mt-3 flex justify-center !w-full"
-          label="Retour au menu"
-          icon="ri-arrow-go-back-fill"
+          label="Retour à l'accueil"
+          icon="ri-home-4-line"
           :icon-right="true"
           secondary
           @click="navigate()"

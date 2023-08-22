@@ -157,9 +157,6 @@ onMounted(() => {
       </template>
     </div>
   </div>
-  <p v-if="typology !== 'revolver'">
-    <i>Si le <span class="font-bold">chargeur</span> est <span class="font-bold">vide, regarder l’emplacement des munitions</span> : peut-il contenir des cartouches ou des billes ?</i>
-  </p>
   <div class="big-blank" />
 </template>
 

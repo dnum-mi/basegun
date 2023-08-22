@@ -17,7 +17,6 @@
 <style scoped>
 
 .img-deco {
-  margin-bottom: 1em;
-  margin-top: 3rem;
+  margin: 1em;
   width: 60%;
 }</style>

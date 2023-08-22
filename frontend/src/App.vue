@@ -27,7 +27,7 @@ registerSW({ immediate: true })
 </script>
 
 <template>
-  <HeaderMain v-show="appStore.displayHeader && online" />
+  <HeaderMain v-show="online" />
   <router-view v-if="online" />
   <div
     v-else

@@ -35,26 +35,16 @@ const zoomOn = (imgValue) => {
 </script>
 
 <template>
-  <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
-    <div class="fr-container m-5">
-      <router-link
-        :to="{ name: 'StartPage' }"
-      >
-        <VIcon
-          class="absolute right-3 fr-icon-home-3-line"
-          name="ri-home-3-line"
-          scale="1.2"
-        />
-      </router-link>
-    </div>
-  </div>
   <div class="fr-container">
     <div
-      class="result fr-col-11 fr-col-lg-6 mt-12 mx-auto"
+      class="result fr-col-11 fr-col-lg-6 mx-auto"
     >
-      <h4 class="mt-3">
+      <h4 class="mt-3 text-center">
         Mettre en sécurité mon arme
       </h4>
+      <h5 class="text-center my-auto">
+        Choix du type d'arme
+      </h5>
       <div class="instructions">
         <p
           class="leading-7 mt-3"

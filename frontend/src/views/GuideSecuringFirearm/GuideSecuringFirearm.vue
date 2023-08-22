@@ -32,21 +32,8 @@ const goToNextStep = () => (
 </script>
 
 <template>
-  <div class="mx-auto fr-col-11 fr-col-lg-6 flex justify-between">
-    <div class="m-5 absolute right-0">
-      <router-link
-        :to="{ name: 'StartPage' }"
-      >
-        <VIcon
-          class="fr-icon-home-3-line"
-          name="ri-home-3-line"
-          scale="1.2"
-        />
-      </router-link>
-    </div>
-  </div>
   <div class="mt-5 fr-container">
-    <div class="result fr-col-11 fr-col-lg-6">
+    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <div>
         <StepsGuide
           class="steps-guide"

@@ -94,7 +94,17 @@ function sendFeedback (isCorrect) {
                   label="Indice de fiabilité insuffisant"
                 />
               </div>
-              <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
+              <p class="category fr-callout__title mt-3">
+                <img
+                  class="px-2"
+                  src="@/assets/guide-identification/gun.jpeg"
+                  alt=""
+                >
+                Catégorie Non determinée
+              </p>
+              <p class="text-sm font-normal m-4 text-left text-current">
+                Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
+              </p>
             </div>
             <div v-else>
               <div class="fr-tile__body">
@@ -145,17 +155,18 @@ function sendFeedback (isCorrect) {
                     <span v-html="mention" />
                   </div>
                   <p class="mt-2 text-left text-base fr-callout__text">
-                    <span class="font-normal">Typologie : Objet, arme factice</span>
-                  </p>
-                  <p class="mt-2 text-left typo">
-                    {{ label }}
+                    <span class="font-normal">Typologie : </span>
+                    <span>Objet, arme factice de type </span>
+                    <span class="typo text-blue-500">
+                      {{ label }}
+                    </span>
                   </p>
                 </div>
                 <div v-else>
-                  <p class="mt-2 text-left text-base fr-callout__text typo">
+                  <p class="mt-2 text-left text-base fr-callout__text">
                     <span
                       v-if="route.name !== 'TypologyResult'"
-                      class="font-normal"
+                      class="font-normal typo"
                     > Typologie : </span>
                     {{ label }}
                   </p>
@@ -188,7 +199,10 @@ function sendFeedback (isCorrect) {
         v-else
         class="fr-tile fr-enlarge-link"
       >
-        <div class="fr-tile__body pt-0">
+        <div
+          v-if="confidenceLevel !== 'low'"
+          class="fr-tile__body pt-0"
+        >
           <h3 class="fr-tile__title" />
           <div class="block">
             <div class="flex">
@@ -351,6 +365,10 @@ function sendFeedback (isCorrect) {
   text-shadow: 0 0 0 #1212ff;
 }
 
+h4 {
+  color: unset;
+}
+
 [aria-disabled="true"] .feedback-click {
   pointer-events: none;
   cursor: not-allowed;
@@ -377,7 +395,7 @@ function sendFeedback (isCorrect) {
   font-size: medium;
 }
 
-.typo:first-letter {
+.typo::first-letter {
   text-transform: uppercase;
 }
 
