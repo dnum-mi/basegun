@@ -173,7 +173,7 @@ onBeforeUnmount(() => { metaViewport.setAttribute('content', 'width=device-width
 }
 
 :deep(.fr-icon-home-3-line) {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 
 .result {

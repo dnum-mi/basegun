@@ -115,7 +115,7 @@ img {
 
 /* loading dots */
 .loading {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 
 .loading::after {
@@ -133,7 +133,7 @@ img {
   }
 
   40% {
-    color: #000091;
+    color: var(--blue-france-sun-113-625);
     text-shadow:
       0.25em 0 0 rgb(0 0 0 / 0%),
       0.5em 0 0 rgb(0 0 0 / 0%);
@@ -141,15 +141,15 @@ img {
 
   60% {
     text-shadow:
-      0.25em 0 0 #000091,
+      0.25em 0 0 var(--blue-france-sun-113-625),
       0.5em 0 0 rgb(0 0 0 / 0%);
   }
 
   80%,
   100% {
     text-shadow:
-      0.25em 0 0 #000091,
-      0.5em 0 0 #000091;
+      0.25em 0 0 var(--blue-france-sun-113-625),
+      0.5em 0 0 var(--blue-france-sun-113-625);
   }
 }
 </style>

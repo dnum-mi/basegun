@@ -25,7 +25,7 @@
   }
 
   .small-link {
-    color: #000091;
+    color: var(--blue-france-sun-113-625);
   }
 
   .small-link:hover {

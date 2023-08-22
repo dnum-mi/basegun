@@ -1,7 +1,7 @@
 <script setup>
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, A11y } from 'swiper'
+import { Navigation, Pagination, A11y } from 'swiper/modules'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -107,7 +107,7 @@ const modules = [Navigation, Pagination, A11y]
   position: fixed;
   top: 57%;
   right: 3%;
-  color: #000091 !important;
+  color: var(--blue-france-sun-113-625) !important;
 }
 
 :deep(.swiper-button-prev)::after,

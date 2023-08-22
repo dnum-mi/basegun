@@ -144,13 +144,13 @@ const selectedOptionStep3 = computed({
             >
               <DsfrAccordion
                 :id="option.value"
-                :title="option.value"
+                :title="option.title + ' - ' + option.time"
                 :expanded-id="expandedId"
                 @expand="expandedId = $event"
               >
                 <p
                   class="manipulations mb-0 p-6"
-                  v-html="option"
+                  v-html="option.content"
                 />
                 <video
                   autoplay
@@ -190,6 +190,9 @@ const selectedOptionStep3 = computed({
 </template>
 
 <style scoped>
+h4 {
+  color: var(--blue-france-sun-113-625)
+}
 .img-deco {
   margin-bottom: 1em;
   margin-top: 0;
@@ -201,7 +204,7 @@ const selectedOptionStep3 = computed({
 }
 
 :deep(.fr-icon-home-3-line) {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 .footer {
 background-color: #fff;
@@ -215,6 +218,11 @@ width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+:deep(.fr-accordion__title span) {
+  color: var(--blue-france-sun-113-625);
+  font-weight: bold;
 }
 
 video {

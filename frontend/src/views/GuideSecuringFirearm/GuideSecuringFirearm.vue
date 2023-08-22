@@ -121,7 +121,7 @@ background-image: none !important;
 }
 
 :deep(.fr-icon-home-3-line) {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 
 .fr-link--close {

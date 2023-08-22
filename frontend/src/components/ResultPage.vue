@@ -265,7 +265,7 @@ function sendFeedback (isCorrect) {
 <style scoped>
 .typology-title {
   text-align: center;
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 .result-frame {
   background-color: #E3E3FD;
@@ -330,13 +330,13 @@ function sendFeedback (isCorrect) {
 
 .feedback-text {
   margin: auto -.05rem auto 0;
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
   font-weight: bold;
   font-size: .75rem;
 }
 
 .feedback-click {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
   font-size: 35px;
   margin: 0.1em 0.05em;
   text-shadow: 0 0 0 #00c8c8;
@@ -371,9 +371,9 @@ function sendFeedback (isCorrect) {
 }
 
 .category {
-  border: solid 1px #000091;
+  border: solid 1px var(--blue-france-sun-113-625);
   padding: .5rem;
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
   font-size: medium;
 }
 

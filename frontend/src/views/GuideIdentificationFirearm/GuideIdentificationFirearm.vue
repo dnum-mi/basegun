@@ -193,14 +193,6 @@ async function sendLogsIdentificationDummy () {
         label="Précédent"
         @click="goToPreviousStep(); goToNewRoute()"
       />
-      <!-- <DsfrButton
-        v-if="currentStep < 1"
-        class="m-1 flex justify-center"
-        icon="ri-arrow-right-line"
-        label="Continuer"
-        :icon-right="true"
-        @click="goToNextStep(); goToNewRoute()"
-      /> -->
       <DsfrButton
         v-if="confidenceLevel !== 'low'"
         :disabled="disabledValidation"
@@ -210,15 +202,6 @@ async function sendLogsIdentificationDummy () {
         :icon-right="true"
         @click="goToNextStep(); goToNewRoute()"
       />
-      <!-- <DsfrButton
-        v-else
-        class="m-1 flex justify-center"
-        :disabled="disabledValidation"
-        icon="ri-checkbox-circle-line"
-        label="Valider"
-        :icon-right="true"
-        @click="goToNextStep(); goToNewRoute(); sendLogsIdentificationDummy()"
-      /> -->
     </div>
   </div>
 </template>
@@ -253,7 +236,7 @@ background-image: none !important;
 }
 
 :deep(.fr-icon-home-3-line) {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
 }
 
 .fr-link--close {
