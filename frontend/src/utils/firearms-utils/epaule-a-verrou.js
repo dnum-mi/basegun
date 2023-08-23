@@ -1,6 +1,6 @@
 import epauleAVerrouCartridges from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-cartridges-arrow.jpg'
 import epauleAVerrouBalls from '@/assets/guide-factice/images/epaule_a_verrou/epaule-a-verrou-balls-arrow.jpg'
-import revolver2Video from '@/assets/guide-factice/videos/revolver-2_sm.mp4'
+import epauleAVerrouVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_chargeur-video.mp4'
 
 /*
 Armes d’épaule à verrou
@@ -38,7 +38,7 @@ export const epaule_a_verrou = {
       content: 'Contrôler visuellement la chambre',
     },
   },
-  video: revolver2Video,
+  video: epauleAVerrouVideo,
   guideFactice: {
     cartouches: {
       label: 'balles',

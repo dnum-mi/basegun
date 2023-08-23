@@ -108,8 +108,8 @@ async function sendLogsIdentificationDummy () {
           @click="navigate()"
         />
       </router-link>
-      <router-link
-        v-if="!resultats[typology]?.isDummyTypology "
+      <!-- <router-link
+        v-if="!resultats[typology]?.isDummyTypology"
         v-slot="{navigate}"
         :to="{name:'StartPage'}"
       >
@@ -121,9 +121,9 @@ async function sendLogsIdentificationDummy () {
           :icon-right="true"
           @click="navigate()"
         />
-      </router-link>
+      </router-link> -->
       <DsfrButton
-        v-else
+        v-if="resultats[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"

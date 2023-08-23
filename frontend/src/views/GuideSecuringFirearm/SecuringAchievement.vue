@@ -1,21 +1,11 @@
 <script setup>
 import { computed } from 'vue'
 import { useResultStore } from '@/stores/result.js'
-import { useStepsStore } from '@/stores/steps.js'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const resultStore = useResultStore()
-const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
-const selectedOptionStep1 = computed({
-  get () {
-    return stepsStore.selectedOptionStep1
-  },
-  set (selection) {
-    stepsStore.setOptionStep1(selection)
-  },
-})
 </script>
 
 <template>
@@ -25,20 +15,11 @@ const selectedOptionStep1 = computed({
         Fin de la mise en sécurité de l’arme
       </h4>
       <div
-        v-if="selectedOptionStep1 === 'revolver_black_powder'"
+        v-if="!resultats[typology]?.isSecuringOptions"
         class="text-center"
       >
         <p class="text-red font-600">
           Il s’agit d’une arme dont les manipulations sont complexes. <span class="font-bold">Nous vous conseillons de faire appel à un expert</span>.
-        </p>
-        <p>Souhaitez-vous l'identifier quand même ? <br> Sinon vous pouvez retourner au menu.</p>
-      </div>
-      <div
-        v-else-if="!resultats[typology]?.isSecuringOptions"
-        class="text-center"
-      >
-        <p class="ending font-600">
-          Votre arme ne possède pas de guide de mise en sécurité.
         </p>
         <p>Souhaitez-vous l'identifier quand même ? <br> Sinon vous pouvez retourner au menu.</p>
       </div>

@@ -52,10 +52,8 @@ const selectedOptionStep3 = computed({
           >
             <div class="fr-content-media relative">
               <video
-                autoplay
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultats[typology]?.options_step_3[selectedOptionStep3].video"
               />
@@ -67,6 +65,7 @@ const selectedOptionStep3 = computed({
               <li
                 v-for="option in resultats[typology].options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
+                class="list-decimal"
                 v-html="option"
               />
             </ul>
@@ -80,10 +79,8 @@ const selectedOptionStep3 = computed({
           >
             <div class="fr-content-media relative">
               <video
-                autoplay
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
@@ -95,6 +92,7 @@ const selectedOptionStep3 = computed({
               <li
                 v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
+                class="list-decimal"
                 v-html="option"
               />
             </ul>
@@ -108,10 +106,8 @@ const selectedOptionStep3 = computed({
           >
             <div class="fr-content-media relative">
               <video
-                autoplay
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultats[typology]?.options[selectedOptionStep2]?.video"
               />

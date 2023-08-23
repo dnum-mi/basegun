@@ -14,8 +14,8 @@ import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolv
 import revolver2SwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4'
 import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
 import revolver31892Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4'
-import revolverCartridges from '@/assets/guide-factice/images/revolver/revolver-cartridges-arrow.jpg'
-import revolverBalls from '@/assets/guide-factice/images/revolver/revolver-balls-arrow.jpg'
+import revolverCartridges from '@/assets/guide-mise-en-securite/photos/revolver/revolver_cartouche_pleine.jpg'
+import revolverBalls from '@/assets/guide-mise-en-securite/photos/revolver/revolver_bille_factice.png'
 /*
 Revolvers
   Revolver Enfield - Webley - brisure
@@ -118,7 +118,7 @@ export const revolver = {
       video: revolver2AxeBarilletVideo,
     },
   },
-  options_step_3_text: 'En maintenant l’arme dans une direction sécurisée, tirez la portière vers l’arrière avec le pouce, puis essayez de poucer sur un côté du barillet pour le faire basculer.',
+  options_step_3_text: 'En maintenant l’arme dans une direction sécurisée, tirez la portière vers l’arrière avec le pouce, puis essayez de pousser sur un côté du barillet pour le faire basculer.',
   options_step_3: {
     revolver_1873_fr: {
       label: 'Le barillet ne bascule pas',

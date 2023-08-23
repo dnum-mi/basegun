@@ -100,7 +100,7 @@ function sendFeedback (isCorrect) {
                   src="@/assets/guide-identification/gun.jpeg"
                   alt=""
                 >
-                Catégorie Non determinée
+                Catégorie Non déterminée
               </p>
               <p class="text-sm font-normal m-4 text-left text-current">
                 Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
@@ -157,7 +157,7 @@ function sendFeedback (isCorrect) {
                   <p class="mt-2 text-left text-base fr-callout__text">
                     <span class="font-normal">Typologie : </span>
                     <span>Objet, arme factice de type </span>
-                    <span class="typo text-blue-500">
+                    <span class="typo">
                       {{ label }}
                     </span>
                   </p>
@@ -367,6 +367,7 @@ function sendFeedback (isCorrect) {
 
 h4 {
   color: unset;
+  margin: var(--title-spacing);;
 }
 
 [aria-disabled="true"] .feedback-click {

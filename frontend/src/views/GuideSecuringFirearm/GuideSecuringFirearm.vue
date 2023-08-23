@@ -40,7 +40,7 @@ const goToNextStep = () => (
           :steps="steps"
           :current-step="currentStep"
         />
-        <h4 class="mt-5">
+        <h4 class="m-2.5">
           Mettre en sécurité mon arme
         </h4>
         <RouterView />
@@ -97,6 +97,10 @@ height: 3em;
 font-size: 0.9em;
 color: #080894;
 background-image: none !important;
+}
+
+h4 {
+  color: unset;
 }
 
 :deep(div.fr-stepper__steps) {

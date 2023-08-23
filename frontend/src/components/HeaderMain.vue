@@ -1,18 +1,18 @@
 <script setup>
+// import { useAppStore } from '@/stores/app'
 import {
   useRouter,
 } from 'vue-router'
 
+// const appStore = useAppStore()
 const router = useRouter()
 
 const isMobile = window.innerWidth <= 640
 
 const logoText = !isMobile
-  ? [
-      'Ministère',
+  ? ['Ministère',
       'de l’intérieur',
-      'et des Outre-Mer',
-    ]
+      'et des Outre-Mer']
   : []
 
 const quickLinks = [

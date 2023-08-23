@@ -32,27 +32,18 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage,
-    meta: {
-      displayHeader: true,
-    },
     beforeEnter: clearLocalStorage,
   },
   {
     path: '/accueil',
     name: 'StartPage',
     component: StartPage,
-    meta: {
-      displayHeader: true,
-    },
     beforeEnter: clearLocalStorage,
   },
   {
     path: '/instructions',
     name: 'Instructions',
     component: Instructions,
-    meta: {
-      displayHeader: true,
-    },
     beforeEnter: clearLocalStorage,
   },
   // tutorial to secure a firearm
@@ -146,9 +137,6 @@ const routes = [
   {
     path: '/a-propos',
     name: 'About',
-    meta: {
-      displayHeader: true,
-    },
     component: About,
   },
   {
