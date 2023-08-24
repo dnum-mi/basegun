@@ -33,12 +33,18 @@ const routes = [
     name: 'HomePage',
     component: HomePage,
     beforeEnter: clearLocalStorage,
+    meta: {
+      wholeLogo: true,
+    },
   },
   {
     path: '/accueil',
     name: 'StartPage',
     component: StartPage,
     beforeEnter: clearLocalStorage,
+    meta: {
+      wholeLogo: true,
+    },
   },
   {
     path: '/instructions',
@@ -138,12 +144,15 @@ const routes = [
     path: '/a-propos',
     name: 'About',
     component: About,
+    meta: {
+      wholeLogo: true,
+    },
   },
   {
     path: '/mentions-legales',
     name: 'Legal',
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
     component: Legal,
   },
@@ -151,7 +160,7 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
     component: Contact,
   },
@@ -159,7 +168,7 @@ const routes = [
     path: '/erreur',
     name: 'Error',
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
     component: Error,
   },
@@ -167,7 +176,7 @@ const routes = [
     path: '/:pathMach(.*)*',
     name: 'PageNotFound',
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
     component: PageNotFound,
   },

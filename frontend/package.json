@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@gouvfr/dsfr": "^1.10.0",
-    "@gouvminint/vue-dsfr": "4.4.0",
+    "@gouvminint/vue-dsfr": "4.5.0",
     "@vue/compat": "^3.3.4",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",

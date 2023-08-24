@@ -54,6 +54,7 @@ const selectedOptionStep3 = computed({
               <video
                 controls
                 playsinline
+                loop
                 muted
                 :src="resultats[typology]?.options_step_3[selectedOptionStep3].video"
               />
@@ -81,6 +82,7 @@ const selectedOptionStep3 = computed({
               <video
                 controls
                 playsinline
+                loop
                 muted
                 :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
@@ -108,6 +110,7 @@ const selectedOptionStep3 = computed({
               <video
                 controls
                 playsinline
+                loop
                 muted
                 :src="resultats[typology]?.options[selectedOptionStep2]?.video"
               />

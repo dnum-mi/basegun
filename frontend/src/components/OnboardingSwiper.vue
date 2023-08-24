@@ -1,7 +1,7 @@
 <script setup>
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, A11y } from 'swiper'
+import { Navigation, Pagination, A11y } from 'swiper/modules'
 
 import 'swiper/css'
 import 'swiper/css/navigation'

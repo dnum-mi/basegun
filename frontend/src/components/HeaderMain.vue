@@ -1,19 +1,18 @@
 <script setup>
-// import { useAppStore } from '@/stores/app'
-import {
-  useRouter,
-} from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-// const appStore = useAppStore()
-const router = useRouter()
+const route = useRoute()
+
+const wholeLogo = computed(() => route.meta.wholeLogo)
 
 const isMobile = window.innerWidth <= 640
 
-const logoText = !isMobile
+const logoText = computed(() => (!isMobile || wholeLogo.value)
   ? ['Ministère',
       'de l’intérieur',
       'et des Outre-Mer']
-  : []
+  : [])
 
 const quickLinks = [
   {
@@ -34,17 +33,15 @@ const quickLinks = [
   },
 ]
 
-function onClickOnLogo () {
-  router.push({ name: 'StartPage' })
-}
-
 </script>
 
 <template>
   <DsfrHeader
+    :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
+    service-title=" "
+    :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
-    @click="onClickOnLogo"
   />
 </template>
 
@@ -54,7 +51,7 @@ function onClickOnLogo () {
 }
 
 @screen lt-sm {
-  :deep(.fr-logo::after) {
+  .marianne-only :deep(.fr-logo::after) {
     display: none;
   }
 }
@@ -63,12 +60,19 @@ function onClickOnLogo () {
   color : var(--text-action-high-blue-france);
 }
 
-:deep(.fr-header__logo .fr-logo::before) {
+.marianne-only :deep(.fr-header__logo .fr-logo::before) {
   background-size: cover;
   background-position: inherit;
   height: 1.2rem;
   margin-bottom: .25rem;
   width: 3rem;
+}
+
+:deep(.fr-header__service) {
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  height: 0;
 }
 
 .information {
