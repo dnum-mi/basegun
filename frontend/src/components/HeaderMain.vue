@@ -39,6 +39,7 @@ const quickLinks = [
   <DsfrHeader
     :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
+    :show-beta="true"
     service-title=" "
     :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
@@ -73,6 +74,12 @@ const quickLinks = [
   margin: 0;
   padding: 0;
   height: 0;
+}
+
+:deep(.fr-badge) {
+  position: absolute;
+  left: 4.25rem;
+  bottom: 1rem;
 }
 
 .information {

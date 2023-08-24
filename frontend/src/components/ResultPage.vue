@@ -84,107 +84,105 @@ function sendFeedback (isCorrect) {
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
-      <div class="fr-tile fr-enlarge-link mb-3">
-        <div class="fr-tile fr-enlarge-link">
-          <h4 class="fr-tile__title px-2">
-            <div v-if="confidenceLevel === 'low'">
-              <div class="fr-tile__body">
+      <div class="fr-tile fr-enlarge-link fr-mb-3v">
+        <h4 class="fr-tile__title px-2">
+          <div v-if="confidenceLevel === 'low'">
+            <div class="fr-tile__body">
+              <DsfrTag
+                class="fr-tag--sm error-tag"
+                label="Indice de fiabilité insuffisant"
+              />
+            </div>
+            <p class="category fr-callout__title mt-3">
+              <img
+                class="px-2"
+                src="@/assets/guide-identification/gun.jpeg"
+                alt=""
+              >
+              Catégorie Non déterminée
+            </p>
+            <p class="text-sm font-normal m-4 text-left text-current">
+              Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
+            </p>
+          </div>
+          <div v-else>
+            <div class="fr-tile__body">
+              <div v-if="confidenceLevel === 'high'">
                 <DsfrTag
-                  class="fr-tag--sm error-tag"
-                  label="Indice de fiabilité insuffisant"
-                />
-              </div>
-              <p class="category fr-callout__title mt-3">
-                <img
-                  class="px-2"
-                  src="@/assets/guide-identification/gun.jpeg"
-                  alt=""
+                  class="fr-tag--sm success-tag"
                 >
-                Catégorie Non déterminée
-              </p>
-              <p class="text-sm font-normal m-4 text-left text-current">
-                Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
-              </p>
-            </div>
-            <div v-else>
-              <div class="fr-tile__body">
-                <div v-if="confidenceLevel === 'high'">
-                  <DsfrTag
-                    class="fr-tag--sm success-tag"
+                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                </DsfrTag>
+              </div>
+              <div v-else>
+                <DsfrTag
+                  class="fr-tag--sm warning-tag"
+                >
+                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                </DsfrTag>
+                <p class="warning-text">
+                  Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+                </p>
+              </div>
+              <div v-if="isDummy === false && (route.name !== 'TypologyResult'|| isDummyTypology !== true)">
+                <p class="category fr-callout__title mt-3">
+                  <img
+                    class="px-2"
+                    src="@/assets/guide-identification/gun.jpeg"
+                    alt=""
                   >
-                    Indice de fiabilité : {{ Math.floor(confidence) }}%
-                  </DsfrTag>
-                </div>
-                <div v-else>
-                  <DsfrTag
-                    class="fr-tag--sm warning-tag"
-                  >
-                    Indice de fiabilité : {{ Math.floor(confidence) }}%
-                  </DsfrTag>
-                  <p class="warning-text">
-                    Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
-                  </p>
-                </div>
-                <div v-if="isDummy === false && (route.name !== 'TypologyResult'|| isDummyTypology !== true)">
-                  <p class="category fr-callout__title mt-3">
-                    <img
-                      class="px-2"
-                      src="@/assets/guide-identification/gun.jpeg"
-                      alt=""
-                    >
-                    Catégorie {{ category }}
-                  </p>
-                  <div
-                    class="callout-mention"
-                  >
-                    <p v-html="mention" />
-                  </div>
-                </div>
-                <div v-if="isDummy === true">
-                  <p class="category fr-callout__title mt-3">
-                    <img
-                      class="px-2"
-                      src="@/assets/guide-identification/gun.jpeg"
-                      alt=""
-                    >
-                    Catégorie Non Classée
-                  </p>
-                  <div
-                    class="callout-mention"
-                  >
-                    <span v-html="mention" />
-                  </div>
-                  <p class="mt-2 text-left text-base fr-callout__text">
-                    <span class="font-normal">Typologie : </span>
-                    <span>Objet, arme factice de type </span>
-                    <span class="typo">
-                      {{ label }}
-                    </span>
-                  </p>
-                </div>
-                <div v-else>
-                  <p class="mt-2 text-left text-base fr-callout__text">
-                    <span
-                      v-if="route.name !== 'TypologyResult'"
-                      class="font-normal typo"
-                    > Typologie : </span>
-                    {{ label }}
-                  </p>
+                  Catégorie {{ category }}
+                </p>
+                <div
+                  class="callout-mention"
+                >
+                  <p v-html="mention" />
                 </div>
               </div>
+              <div v-if="isDummy === true">
+                <p class="category fr-callout__title mt-3">
+                  <img
+                    class="px-2"
+                    src="@/assets/guide-identification/gun.jpeg"
+                    alt=""
+                  >
+                  Catégorie Non Classée
+                </p>
+                <div
+                  class="callout-mention"
+                >
+                  <span v-html="mention" />
+                </div>
+                <p class="mt-2 text-left text-base fr-callout__text">
+                  <span class="font-normal">Typologie : </span>
+                  <span>Objet, arme factice de type </span>
+                  <span class="typo">
+                    {{ label }}
+                  </span>
+                </p>
+              </div>
+              <div v-else>
+                <p class="mt-2 text-left text-base fr-callout__text">
+                  <span
+                    v-if="route.name !== 'TypologyResult'"
+                    class="font-normal typo"
+                  > Typologie : </span>
+                  {{ label }}
+                </p>
+              </div>
             </div>
-          </h4>
-        </div>
+          </div>
+        </h4>
       </div>
       <div
         v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low' && resultats[typology]?.isDummyTypology"
-        class="fr-tile fr-enlarge-link"
+        class="fr-tile fr-enlarge-link  p-4"
       >
         <div class="fr-tile__body pt-0">
           <h3 class="fr-tile__title" />
           <div class="flex">
             <img
-              class="w-24 p-2"
+              class="h-24"
               src="@/assets/guide-identification/warning.jpeg"
               alt="alt"
             >
