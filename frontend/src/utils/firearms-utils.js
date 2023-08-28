@@ -1,14 +1,14 @@
-import autreEpauleAr15Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ar_arrow1.jpg'
+import autreEpauleAr15Img from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-ar_arrow1.jpg'
 import autreEpauleAr15Video from '@/assets/guide-factice/videos/ar_sm.mp4'
-import autreEpauleAkImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-ak_arrow1.jpg'
+import autreEpauleAkImg from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-ak_arrow1.jpg'
 import autreEpauleAkVideo from '@/assets/guide-factice/videos/ak_sm.mp4'
-import autreEpauleBullpupImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-bullpup_arrow1.jpg'
+import autreEpauleBullpupImg from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-bullpup_arrow1.jpg'
 import autreEpauleBullpupVideo from '@/assets/guide-factice/videos/bullpup_sm.mp4'
-import autreEpauleThompsonImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-thompson_arrow1.jpg'
+import autreEpauleThompsonImg from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-thompson_arrow1.jpg'
 import autreEpauleThompsonVideo from '@/assets/guide-factice/videos/thompson_sm.mp4'
-import autreEpauleP90Img from '@/assets/guide-factice/images/autre_epaule/autre-epaule-p90_arrow1.jpg'
+import autreEpauleP90Img from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-p90_arrow1.jpg'
 import autreEpauleP90Video from '@/assets/guide-factice/videos/p90_sm.mp4'
-import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/images/autre_epaule/autre-epaule-pistolet-mitrailleur-arrow.jpg'
+import autreEpaulePistoletMitralleurImg from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-pistolet-mitrailleur-arrow.jpg'
 import autreEpaulePistoletMitralleurVideo from '@/assets/guide-factice/videos/pistolet_mitrailleur_sm.mp4'
 
 export const results = {
@@ -211,7 +211,7 @@ export const results = {
 // }
 // Tuto Factice
 // const firearmDirection = 'FirearmDirection'
-// const selectOption = 'SelectOption'
+// const SelectOptionDummy = 'SelectOptionDummy'
 // const extractMag = 'ExtractMag'
 // const selectAmmo = 'SelectAmmo'
 
@@ -228,7 +228,7 @@ const FinalResult = 'FinalResult'
 
 // export const airsoftsGuideSteps = [
 //   firearmDirection,
-//   selectOption,
+//   SelectOptionDummy,
 //   extractMag,
 //   selectAmmo,
 // ]

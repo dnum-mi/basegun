@@ -1,19 +1,9 @@
 <script setup>
-
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, A11y } from 'swiper/modules'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-
-const modules = [Navigation, Pagination, A11y]
-
 </script>
+
 <template>
-  <swiper
+  <swiper-container
     :navigation="true"
-    :modules="modules"
     :pagination="{ clickable: true }"
   >
     <swiper-slide>
@@ -57,21 +47,21 @@ const modules = [Navigation, Pagination, A11y]
           v-slot="{navigate}"
           :to="{name:'StartPage'}"
         >
-          <button
-            id="position-button"
-            class="fr-btn fr-btn--sm"
+          <DsfrButton
+            id="agree-button"
+            class="fr-btn fr-btn--sm mt-5"
             @click="navigate()"
           >
             J'ai compris
-          </button>
+          </DsfrButton>
         </router-link>
         <div class="small-blank" />
       </div>
     </swiper-slide>
-  </swiper>
+  </swiper-container>
 </template>
 <style scoped>
-.swiper {
+.swiper-container {
   width: 100%;
   height: 100%;
   position: static;
@@ -102,29 +92,33 @@ const modules = [Navigation, Pagination, A11y]
   margin-bottom: 12px !important;
 }
 
-:deep(.swiper-button-prev),
-:deep(.swiper-button-next) {
+swiper-container::part(button-prev),
+swiper-container::part(button-next) {
   position: fixed;
   top: 57%;
   right: 3%;
   color: var(--blue-france-sun-113-625) !important;
+  width :1rem;
 }
 
-:deep(.swiper-button-prev)::after,
-:deep(.swiper-button-next)::after {
-  font-size: 28px;
+.swiper-button-prev {
+  background-color: #f00 !important;
 }
 
-:deep(.swiper-button-disabled) {
+.swiper-button-disabled {
   display: none;
 }
 
-:deep(.swiper-pagination-bullets) {
-  bottom: auto;
+.swiper-button-prev {
+  background-color: yellow !important;
 }
 
-:deep(.swiper-pagination-bullet-active) {
-  background: #00c7c8;
+swiper-container::part(pagination) {
+  bottom: -.35rem;
+}
+
+swiper-container::part(bullet-active) {
+  background: var(--blue-france-sun-113-625);
 }
 
 .swiper-red-highlight {
@@ -135,22 +129,6 @@ const modules = [Navigation, Pagination, A11y]
 .swiper-green-highlight {
   font-weight: bold;
   color: #00c7c8;
-}
-
-#position-button {
-  display: block;
-  margin: 0 auto;
-}
-
-@media (max-height: 35rem) {
-  :deep(.swiper-pagination:has(.swiper-pagination-bullet-active[aria-label="Go to slide 2"])) {
-    position: relative;
-    z-index: 0;
-  }
-}
-
-:deep(.swiper-pagination-bullet-active[aria-label="Go to slide 2"]) {
-  background: #ff1d1d;
 }
 
 </style>

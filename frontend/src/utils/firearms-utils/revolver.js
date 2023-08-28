@@ -29,7 +29,9 @@ Revolvers
 export const revolver = {
   displayLabel: 'revolver',
   category: 'B',
+  categoryWithoutSecuring: 'B ou D',
   mention: 'B - Soumise à autorisation',
+  mentionWithoutSecuring: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
   isDummyTypology: true,
   isSecuringOptions: true,
   options_step_1_text: 'En maintenant l’arme dans une direction sécurisée, sélectionnez ce que vous voyez.',

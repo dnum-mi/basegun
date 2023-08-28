@@ -16,8 +16,8 @@
     "test:e2e-run": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress run --e2e --browser firefox"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "^1.10.0",
-    "@gouvminint/vue-dsfr": "4.5.0",
+    "@gouvfr/dsfr": "~1.10.0",
+    "@gouvminint/vue-dsfr": "4.5.1",
     "@vue/compat": "^3.3.4",
     "@vueuse/core": "^10.3.0",
     "axios": "^1.4.0",

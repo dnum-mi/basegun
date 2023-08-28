@@ -15,7 +15,7 @@ const resultStore = useResultStore()
 const route = useRoute()
 const router = useRouter()
 
-const disabledNextStep = computed(() => !!(route.name === 'SelectOption' && stepsStore.selectedOptionStep2 === undefined))
+const disabledNextStep = computed(() => !!(route.name === 'SelectOptionDummy' && stepsStore.selectedOptionStep2 === undefined))
 const disabledValidation = computed(() => stepsStore.selectedAmmo === undefined)
 
 const imgUrl = computed(() => resultStore.imgUrl)
@@ -38,7 +38,7 @@ steps.fill(' ')
 
 airsoftsGuideSteps.value = results[typology]?.stepsNumber === 4
   ? [...airsoftsGuideSteps]
-  : [...airsoftsGuideSteps].filter(str => (str !== 'SelectOption'))
+  : [...airsoftsGuideSteps].filter(str => (str !== 'SelectOptionDummy'))
 
 const goToNewRoute = () => (
   currentStep.value === 0

@@ -13,6 +13,11 @@ import VueDsfr from '@gouvminint/vue-dsfr' // Import (par défaut) de la bibliot
 import * as icons from './icons.js'
 import App from './App.vue'
 import router from '@/router/index.js'
+// import function to register Swiper custom elements
+import { register } from 'swiper/element/bundle'
+// register Swiper custom elements
+register()
+
 const pinia = createPinia()
 
 axios.defaults.withCredentials = true

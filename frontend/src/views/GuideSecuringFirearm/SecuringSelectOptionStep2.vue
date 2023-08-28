@@ -98,6 +98,9 @@ const zoomOn = (imgValue) => {
       <h4 class="mt-3 text-center">
         Mettre en sécurité mon arme
       </h4>
+      <h5 class="text-center my-auto">
+        Choix du type d'arme
+      </h5>
       <div class="instructions">
         <p
           class="leading-7 mt-3"
@@ -169,23 +172,11 @@ const zoomOn = (imgValue) => {
 <style scoped>
 .item {
   position: relative;
-  padding-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .ov-icon {
   vertical-align: -.39rem;
-}
-
-.zoom {
-  background-color: #eee9;
-  cursor: zoom-in;
-  position: absolute;
-  bottom: 1.25rem;
-  right: 7.5rem;
-}
-
-.zoom-label {
-  padding: 0 .25rem;
 }
 
 :deep(.fr-container) {
@@ -194,22 +185,39 @@ const zoomOn = (imgValue) => {
   justify-content: center;
 }
 
-:deep(.fr-radio-rich__img){
-  width: var(--select-option-image-width)+.25rem; /* cf. variable in main.css */
-  height: 8rem;
+:deep(.fr-label) {
+  font-size: small;
 }
 
-:deep(.fr-radio-rich__img img){
-  width: var(--select-option-image-width);
-  height: 8rem;
-  max-width: unset;
+:deep(.fr-radio-rich__pictogram) {
+  width: 240% !important;
+  height: auto;
 }
 
-:deep(.fr-radio-rich input[type="radio"] + label){
-  font-size: smaller;
-  align-items: flex-start;
-  min-height: 8.5rem;
-  padding-right: 13.5rem;
+:deep(.fr-radio-rich__pictogram img){
+  height: 100%;
+  width: 100%;
+}
+
+:deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
+  max-height: 95%;
+  max-width: 95%;
+}
+
+.zoom {
+  background-color: #eee9;
+  cursor: zoom-in;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 6.75rem;
+}
+
+.zoom-label {
+  padding: 0 -2rem;
+}
+
+:deep(.fr-radio-rich__pictogram) {
+  width: auto;
 }
 
 :deep(.fr-col-md-8),
@@ -224,5 +232,4 @@ const zoomOn = (imgValue) => {
 .footer button {
 width: 50%;
 }
-
 </style>

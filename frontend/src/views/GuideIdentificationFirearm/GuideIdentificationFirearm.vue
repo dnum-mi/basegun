@@ -44,11 +44,11 @@ const goToNextStep = () => (
   currentStep.value = currentStep.value < identificationRoutePaths.length ? currentStep.value : identificationRoutePaths.length
 )
 
-const goOnAndFollow = () => (
+const goOnAndFollow = computed(() => (
   currentStep.value === 1
     ? 'Continuer'
     : currentStep.value === 3 ? 'Valider' : 'Suivant'
-)
+))
 
 const arrowOrCircleIcon = () => (
   currentStep.value === 3 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
@@ -92,7 +92,7 @@ async function sendLogsIdentificationDummy () {
   </div>
   <div
     v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology]?.isDummyTypology"
-    class="footer end"
+    class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <router-link
@@ -135,7 +135,7 @@ async function sendLogsIdentificationDummy () {
   </div>
   <div
     v-else
-    class="footer content"
+    class="footer content z-1"
   >
     <div
       v-if="confidenceLevel === 'low'"
@@ -185,7 +185,7 @@ async function sendLogsIdentificationDummy () {
         :disabled="disabledValidation"
         class="m-1 flex justify-center"
         :icon="arrowOrCircleIcon()"
-        :label="goOnAndFollow()"
+        :label="goOnAndFollow"
         :icon-right="true"
         @click="goToNextStep(); goToNewRoute()"
       />
@@ -209,9 +209,9 @@ height: 3em;
 }
 
 .go-result {
-font-size: 0.9em;
-color:  080894;
-background-image: none !important;
+  font-size: 0.9em;
+  color:  080894;
+  background-image: none !important;
 }
 
 :deep(div.fr-stepper__steps) {
