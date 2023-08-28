@@ -88,13 +88,13 @@ button {
 }
 
 h4 {
-  margin: 0.75rem;
   font-size: 1.3rem;
-  color: var(--blue-france-sun-113-625)
+  margin: 0.75rem;
 }
 
 h5 {
   font-size: 1.1rem;
+  color: var(--blue-france-sun-113-625)
 }
 
 .help {

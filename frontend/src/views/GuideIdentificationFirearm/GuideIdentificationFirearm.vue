@@ -92,7 +92,7 @@ async function sendLogsIdentificationDummy () {
   </div>
   <div
     v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology]?.isDummyTypology"
-    class="footer end"
+    class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <router-link

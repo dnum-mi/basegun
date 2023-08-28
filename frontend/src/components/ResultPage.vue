@@ -7,12 +7,15 @@ import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter, useRoute } from 'vue-router'
+import { useLocalStorage } from '@vueuse/core'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const router = useRouter()
 const route = useRoute()
+
+const identificationTutorial = useLocalStorage('identificationTutorial')
 
 watchEffect(() => {
   if (!resultStore.img) router.push({ name: 'StartPage' })

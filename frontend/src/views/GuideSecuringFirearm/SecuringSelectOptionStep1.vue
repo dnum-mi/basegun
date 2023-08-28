@@ -158,12 +158,20 @@ function goToNextRoute () {
   justify-content: center;
 }
 
-:deep(.fr-radio-rich__img img){
+:deep(.fr-label) {
+  font-size: small;
+}
+
+:deep(.fr-radio-rich__pictogram) {
+  width: 150% !important;
+  height: 150% !important;
+}
+:deep(.fr-radio-rich__pictogram img){
   height: 100%;
   width: 100%;
 }
 
-:deep(.fr-radio-rich__img img, .fr-radio-rich__img svg) {
+:deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
   max-height: 95%;
   max-width: 95%;
 }
@@ -172,15 +180,15 @@ function goToNextRoute () {
   background-color: #eee9;
   cursor: zoom-in;
   position: absolute;
-  bottom: 0.5rem;
-  right: 6.5rem;
+  bottom: 0.25rem;
+  right: 4.5rem;
 }
 
 .zoom-label {
-  padding: 0 -2rem;
+  padding: .5rem;
 }
 
-:deep(.fr-radio-rich__img) {
+:deep(.fr-radio-rich__pictogram) {
   width: auto;
 }
 

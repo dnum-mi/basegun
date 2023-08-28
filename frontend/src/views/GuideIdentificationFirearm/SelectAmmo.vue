@@ -4,8 +4,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
-import TransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine.jpg'
-import FocusTransparentMagazine from '@/assets/guide-factice/images/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
+import TransparentMagazine from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-transparent-magazine.jpg'
+import FocusTransparentMagazine from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const resultStore = useResultStore()
@@ -174,14 +174,12 @@ onMounted(() => {
   background-color: #eee9;
   cursor: zoom-in;
   position: absolute;
-  bottom: 1.25rem;
-  right: 2.5rem;
+  bottom: 1.5rem;
+  right: 4.5rem;
 }
 
 .zoom-label {
-  right: -6rem;
-  bottom: 0;
-  padding: 0 .25rem;
+  padding: .5rem;
 }
 
 :deep(.fr-container) {
@@ -194,30 +192,18 @@ onMounted(() => {
   margin: 2.5rem .5rem;
 }
 
-:deep(.fr-radio-rich input[type="radio"] + label) {
-  height: 13rem;
+:deep(.fr-radio-rich__pictogram) {
+  width: 240% !important;
+  height: auto;
+}
+:deep(.fr-radio-rich__pictogram img){
+  height: 100%;
+  width: 100%;
 }
 
-:deep(.radio > .fr-radio-rich__img){
-  height: 12.5rem;
-  width: 8.25rem;
-}
-
-:deep(.radio > .fr-radio-rich__img img){
-  width: 8rem;
-  max-width: unset;
-}
-
-:deep(.wide > .fr-radio-rich__img){
-  width: 13.25rem !important;
-}
-
-:deep(.wide > .fr-radio-rich__img img){
-  width: 13rem;
-}
-
-:deep(.fr-radio-rich input[type="radio"] + label){
-  white-space: pre-wrap;
+:deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
+  max-height: 95%;
+  max-width: 95%;
 }
 
 .instructions {

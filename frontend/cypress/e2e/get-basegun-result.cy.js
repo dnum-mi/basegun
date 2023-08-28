@@ -17,7 +17,7 @@ describe('Get Basegun result', () => {
 
     cy.getByDataTestid('select-file').as('fileInput')
     cy.intercept('POST','/api/upload').as('upload')
-    cy.get('@fileInput').selectFile('./cypress/images/pistolet-semi-auto.jpg', { force: true })
+    cy.get('@fileInput').selectFile('./cypress/photos/pistolet-semi-auto.jpg', { force: true })
     cy.wait('@upload').then(({ response }) => {
       expect(response.statusCode).to.eq(200)
     })
@@ -32,7 +32,7 @@ describe('Get Basegun result', () => {
     cy.visit('/instructions')
     cy.getByDataTestid('select-file').as('fileInput')
     cy.intercept('POST','/api/upload').as('upload')
-    cy.get('@fileInput').selectFile('./cypress/images/pistolet-ancien-a-percussion-monocoup.jpg', { force: true })
+    cy.get('@fileInput').selectFile('./cypress/photos/pistolet-ancien-a-percussion-monocoup.jpg', { force: true })
     cy.wait('@upload').then(({ response }) => {
       expect(response.statusCode).to.eq(200)
     })

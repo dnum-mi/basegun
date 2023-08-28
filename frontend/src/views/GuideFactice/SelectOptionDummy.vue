@@ -93,11 +93,11 @@ const zoomOn = (imgValue) => {
   cursor: zoom-in;
   position: absolute;
   bottom: 1.25rem;
-  right: 7.5rem;
+  right: 6.75rem;
 }
 
 .zoom-label {
-  padding: 0 .25rem;
+  padding: 0 -2rem;
 }
 
 :deep(.fr-container) {
@@ -106,22 +106,14 @@ const zoomOn = (imgValue) => {
   justify-content: center;
 }
 
-:deep(.fr-radio-rich__img){
-  width: var(--select-option-image-width)+.25rem; /* cf. variable in main.css */
-  height: 8rem;
+:deep(.fr-radio-rich__pictogram img){
+  height: 100%;
+  width: 100%;
 }
 
-:deep(.fr-radio-rich__img img){
-  width: var(--select-option-image-width);
-  height: 8rem;
-  max-width: unset;
-}
-
-:deep(.fr-radio-rich input[type="radio"] + label){
-  font-size: smaller;
-  align-items: flex-start;
-  min-height: 8.5rem;
-  padding-right: 13.5rem;
+:deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
+  max-height: 95%;
+  max-width: 95%;
 }
 
 :deep(.fr-col-md-8),

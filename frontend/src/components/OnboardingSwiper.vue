@@ -47,13 +47,13 @@
           v-slot="{navigate}"
           :to="{name:'StartPage'}"
         >
-          <button
-            id="position-button"
-            class="fr-btn fr-btn--sm"
+          <DsfrButton
+            id="agree-button"
+            class="fr-btn fr-btn--sm mt-5"
             @click="navigate()"
           >
             J'ai compris
-          </button>
+          </DsfrButton>
         </router-link>
         <div class="small-blank" />
       </div>
@@ -114,7 +114,7 @@ swiper-container::part(button-next) {
 }
 
 swiper-container::part(pagination) {
-  bottom: 0;
+  bottom: -.35rem;
 }
 
 swiper-container::part(bullet-active) {
@@ -129,11 +129,6 @@ swiper-container::part(bullet-active) {
 .swiper-green-highlight {
   font-weight: bold;
   color: #00c7c8;
-}
-
-#position-button {
-  display: block;
-  margin: 0 auto;
 }
 
 </style>
