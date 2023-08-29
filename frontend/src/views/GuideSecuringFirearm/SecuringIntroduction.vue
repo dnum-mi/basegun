@@ -6,7 +6,7 @@
     </p>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
-        src="@/assets/guide-mise-en-securite/icones/instructions.jpeg"
+        src="@/assets/guide-mise-en-securite/icones/instructions.jpg"
         alt="alt"
         class="img-deco"
       >

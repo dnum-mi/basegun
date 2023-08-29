@@ -1,4 +1,5 @@
 <script setup>
+// VOIR AVEC STAN
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -6,7 +7,7 @@ import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
-import AskingExpert from '@/views/GuideFactice/AskingExpert.vue'
+import AskingExpert from '@/views/GuideIdentificationFirearm/AskingExpert.vue'
 
 const router = useRouter()
 

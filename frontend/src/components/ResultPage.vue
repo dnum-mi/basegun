@@ -104,7 +104,7 @@ function sendFeedback (isCorrect) {
             <p class="category fr-callout__title mt-3">
               <img
                 class="px-2"
-                src="@/assets/guide-identification/gun.jpeg"
+                src="@/assets/guide-identification/icones/gun.jpg"
                 alt=""
               >
               Catégorie Non déterminée
@@ -136,7 +136,7 @@ function sendFeedback (isCorrect) {
                 <p class="category fr-callout__title mt-3">
                   <img
                     class="px-2"
-                    src="@/assets/guide-identification/gun.jpeg"
+                    src="@/assets/guide-identification/icones/gun.jpg"
                     alt=""
                   >
                   <span v-if="securingTutorial === true"> Catégorie {{ category }}</span>
@@ -152,7 +152,7 @@ function sendFeedback (isCorrect) {
                 <p class="category fr-callout__title mt-3">
                   <img
                     class="px-2"
-                    src="@/assets/guide-identification/gun.jpeg"
+                    src="@/assets/guide-identification/icones/gun.jpg"
                     alt=""
                   >
                   Catégorie Non Classée
@@ -192,7 +192,7 @@ function sendFeedback (isCorrect) {
           <div class="flex">
             <img
               class="h-24"
-              src="@/assets/guide-identification/warning.jpeg"
+              src="@/assets/guide-identification/icones/warning.jpg"
               alt="alt"
             >
             <p class="text-sm text-justify">
@@ -215,11 +215,11 @@ function sendFeedback (isCorrect) {
               <div class="flex">
                 <img
                   class="w-5 h-5 mx-2"
-                  src="@/assets/guide-identification/warning.jpeg"
+                  src="@/assets/guide-identification/icones/warning.jpg"
                   alt="alt"
                 ><span>Attention</span> <img
                   class="w-5 h-5  mx-2"
-                  src="@/assets/guide-identification/warning.jpeg"
+                  src="@/assets/guide-identification/icones/warning.jpg"
                   alt="alt"
                 >
               </div>

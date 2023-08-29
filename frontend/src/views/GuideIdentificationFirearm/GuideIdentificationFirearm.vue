@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { identificationRoutePaths, identificationGuideSteps } from '@/utils/firearms-utils.js'
-import StepsGuide from '../GuideFactice/StepsGuide.vue'
+import StepsGuide from '../GuideIdentificationFirearm/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { resultats } from '@/utils/securing-firearms-utils.js'
@@ -108,20 +108,7 @@ async function sendLogsIdentificationDummy () {
           @click="navigate()"
         />
       </router-link>
-      <!-- <router-link
-        v-if="!resultats[typology]?.isDummyTypology"
-        v-slot="{navigate}"
-        :to="{name:'StartPage'}"
-      >
-        <DsfrButton
-          v-if="confidenceLevel !== 'low'"
-          class="mt-3 flex justify-center w-full"
-          label="Retour à l'accueil"
-          icon="ri-home-4-line"
-          :icon-right="true"
-          @click="navigate()"
-        />
-      </router-link> -->
+      <!-- VOIR AVEC STAN -->
       <DsfrButton
         v-if="resultats[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"

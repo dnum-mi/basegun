@@ -8,8 +8,8 @@ import semiAutoMilitaireThompsonImg from '@/assets/guide-mise-en-securite/photos
 import semiAutoMilitaireThompsonVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_thompson.mp4'
 import semiAutoMilitairePistoletMitralleurImg from '@/assets/guide-mise-en-securite/photos/semi_auto_militaire_autre/semi_auto_mil_uzi.jpg'
 import semiAutoMilitairePistoletMitralleurVideo from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi.mp4'
-import semiAutoMilitaireCartridges from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-cartridges.jpg'
-import semiAutoMilitaireBalls from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-balls.jpg'
+import semiAutoMilitaireCartridges from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-cartridges.jpg'
+import semiAutoMilitaireBalls from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-balls.jpg'
 /*
 Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   AR15

@@ -6,7 +6,7 @@
     </p>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
-        src="@/assets/guide-identification/complements.jpeg"
+        src="@/assets/guide-identification/icones/complements.jpg"
         alt="alt"
         class="img-deco"
       >

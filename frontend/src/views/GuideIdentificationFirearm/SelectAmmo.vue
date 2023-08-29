@@ -4,8 +4,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
-import TransparentMagazine from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-transparent-magazine.jpg'
-import FocusTransparentMagazine from '@/assets/guide-factice/photos/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
+import TransparentMagazine from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-transparent-magazine.jpg'
+import FocusTransparentMagazine from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
 const resultStore = useResultStore()

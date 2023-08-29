@@ -1,18 +1,3 @@
-<!-- <script setup>
-const buttons = [
-  {
-    label: "Page d'accueil",
-    link: 'https://www.systeme-de-design.gouv.fr/',
-  },
-  {
-    label: 'Contactez-nous',
-    secondary: true,
-    link: 'https://www.systeme-de-design.gouv.fr/',
-  },
-]
-
-const description = 'test'
-</script> -->
 <template>
   <div class="fr-container">
     <div class="text-center relative top-1/6 m-4">
@@ -29,8 +14,4 @@ const description = 'test'
       </router-link>
     </div>
   </div>
-  <!-- <DsfrErrorPage
-    :description="description"
-    :buttons="buttons"
-  /> -->
 </template>

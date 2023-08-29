@@ -7,7 +7,7 @@ import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 import { resultats } from '@/utils/securing-firearms-utils.js'
 
-import AskingExpert from '@/views/GuideFactice/AskingExpert.vue'
+import AskingExpert from '@/views/GuideIdentificationFirearm/AskingExpert.vue'
 
 const router = useRouter()
 const resultStore = useResultStore()

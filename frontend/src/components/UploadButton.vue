@@ -54,6 +54,7 @@ function submitUpload (base64, fileName) {
         router.push({ name: 'Error', meta: { error } })
       })
       .finally(async res => {
+        // VOIR AVEC STAN
         if (resultStore.securingTutorial === true && resultStore.confidenceLevel !== 'low') {
           if (!resultats[resultStore.typology].isSecuringOptions) {
             router.push({ name: 'SecuringAchievement' }).catch(() => { })
