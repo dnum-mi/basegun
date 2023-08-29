@@ -1,4 +1,5 @@
 <script setup>
+// VOIR AVEC STAN
 import { ref } from 'vue'
 
 import UploadButton from '@/components/UploadButton.vue'

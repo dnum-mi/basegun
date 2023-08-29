@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 
 const resultStore = useResultStore()
 const router = useRouter()
@@ -56,16 +56,16 @@ function submitUpload (base64, fileName) {
       .finally(async res => {
         // VOIR AVEC STAN
         if (resultStore.securingTutorial === true && resultStore.confidenceLevel !== 'low') {
-          if (!resultats[resultStore.typology].isSecuringOptions) {
+          if (!result[resultStore.typology].isSecuringOptions) {
             router.push({ name: 'SecuringAchievement' }).catch(() => { })
           } else {
-            if (resultats[resultStore.typology]?.options_step_1) {
+            if (result[resultStore.typology]?.options_step_1) {
               router.push({ name: 'SecuringSelectOptionStep1' }).catch(() => { })
-            } else if (resultats[resultStore.typology]?.options) {
+            } else if (result[resultStore.typology]?.options) {
               router.push({ name: 'SecuringSelectOptionStep2' }).catch(() => { })
             } else { router.push({ name: 'SecuringTutorialContent' }).catch(() => { }) }
           }
-        } else { router.push({ name: 'TypologyResult' }).catch(() => { }) }
+        } else { router.push({ name: 'IdentificationTypologyResult' }).catch(() => { }) }
       })
   })
 }
@@ -160,3 +160,4 @@ function onFileSelected (event) {
     </button>
   </form>
 </template>
+@/utils/firearms-utils.js

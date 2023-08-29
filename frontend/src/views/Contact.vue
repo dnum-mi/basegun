@@ -1,6 +1,4 @@
-<script setup>
-</script>
-
+<!-- VOIR AVEC STAN -->
 <template>
   <div>
     <div class="fr-container mt-4">

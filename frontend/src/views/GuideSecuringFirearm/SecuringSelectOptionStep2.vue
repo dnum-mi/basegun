@@ -5,9 +5,9 @@ import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 
-import AskingExpert from '@/views/GuideIdentificationFirearm/AskingExpert.vue'
+import AskingExpert from '@/components/AskingExpert.vue'
 
 const router = useRouter()
 
@@ -49,11 +49,11 @@ const zoomOn = (imgValue) => {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[typology]?.options_text"
+          v-html="result[typology]?.options_text"
         />
       </div>
       <div
-        v-for="option of resultats[typology]?.options"
+        v-for="option of result[typology]?.options"
         :key="option.value"
       >
         <div class="item">
@@ -105,11 +105,11 @@ const zoomOn = (imgValue) => {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultats[typology].options_step_2_text"
+          v-html="result[typology].options_step_2_text"
         />
       </div>
       <div
-        v-for="option of resultats[typology]?.options_step_2"
+        v-for="option of result[typology]?.options_step_2"
         :key="option.value"
       >
         <div class="item">
@@ -234,3 +234,4 @@ const zoomOn = (imgValue) => {
 width: 50%;
 }
 </style>
+@/utils/firearms-utils.js

@@ -22,10 +22,10 @@ const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/Secur
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
 const GuideIdentificationFirearm = () => import('@/views/GuideIdentificationFirearm/GuideIdentificationFirearm.vue')
-const TypologyResult = () => import('@/views/GuideIdentificationFirearm/TypologyResult.vue')
-const FinalResult = () => import('@/views/GuideIdentificationFirearm/FinalResult.vue')
-const FurtherInformations = () => import('@/views/GuideIdentificationFirearm/FurtherInformations.vue')
-const SelectAmmo = () => import('@/views/GuideIdentificationFirearm//SelectAmmo.vue')
+const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFirearm/IdentificationTypologyResult.vue')
+const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
+const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
+const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 
 const routes = [
   {
@@ -108,35 +108,35 @@ const routes = [
     children: [
       {
         path: 'resultat-typologie',
-        name: 'TypologyResult',
+        name: 'IdentificationTypologyResult',
         meta: {
           reload: true,
         },
-        component: TypologyResult,
+        component: IdentificationTypologyResult,
       },
       {
         path: 'informations-complementaires',
-        name: 'FurtherInformations',
+        name: 'IdentificationFurtherInformations',
         meta: {
           reload: true,
         },
-        component: FurtherInformations,
+        component: IdentificationFurtherInformations,
       },
       {
         path: 'munition-type',
-        name: 'SelectAmmo',
+        name: 'IdentificationSelectAmmo',
         meta: {
           reload: true,
         },
-        component: SelectAmmo,
+        component: IdentificationSelectAmmo,
       },
       {
         path: 'resultat-final',
-        name: 'FinalResult',
+        name: 'IdentificationFinalResult',
         meta: {
           reload: true,
         },
-        component: FinalResult,
+        component: IdentificationFinalResult,
       },
     ],
   },

@@ -5,9 +5,9 @@ import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
 import { useRouter } from 'vue-router'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 
-import AskingExpert from '@/views/GuideIdentificationFirearm/AskingExpert.vue'
+import AskingExpert from '@/components/AskingExpert.vue'
 
 const router = useRouter()
 const resultStore = useResultStore()
@@ -56,7 +56,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options_step_3[selectedOptionStep3].video"
+                :src="result[typology]?.options_step_3[selectedOptionStep3].video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -64,7 +64,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options_step_3[selectedOptionStep3].text_steps"
+                v-for="option in result[typology].options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -77,7 +77,7 @@ const selectedOptionStep3 = computed({
             </p>
             <DsfrAccordionsGroup>
               <li
-                v-for="option, index in resultats[typology]?.options_step_3[selectedOptionStep3].text_steps"
+                v-for="option, index in result[typology]?.options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
               >
                 <DsfrAccordion
@@ -116,7 +116,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
+                :src="result[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -124,7 +124,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
+                v-for="option in result[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -134,7 +134,7 @@ const selectedOptionStep3 = computed({
         </div>
       </div>
       <div v-else>
-        <div v-if="resultats[typology]?.options">
+        <div v-if="result[typology]?.options">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -144,7 +144,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options[selectedOptionStep2]?.video"
+                :src="result[typology]?.options[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -152,7 +152,7 @@ const selectedOptionStep3 = computed({
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options[selectedOptionStep2]?.text_steps"
+                v-for="option in result[typology].options[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -164,7 +164,7 @@ const selectedOptionStep3 = computed({
           <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
           <DsfrAccordionsGroup>
             <li
-              v-for="option, index in resultats[typology]?.text_steps"
+              v-for="option, index in result[typology]?.text_steps"
               :key="option.value"
             >
               <DsfrAccordion
@@ -183,7 +183,7 @@ const selectedOptionStep3 = computed({
                   playsinline
                   loop
                   muted
-                  :src="resultats[typology]?.video"
+                  :src="result[typology]?.video"
                 />
               </DsfrAccordion>
             </li>
@@ -263,3 +263,4 @@ video {
   background-color: #E3E3FD;
 }
 </style>
+@/utils/firearms-utils.js

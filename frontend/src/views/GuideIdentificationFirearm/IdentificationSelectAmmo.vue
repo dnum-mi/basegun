@@ -6,7 +6,7 @@ import { useResultStore } from '@/stores/result.js'
 
 import TransparentMagazine from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-identification/photos/autre_epaule/autre-epaule-transparent-magazine-focus.jpg'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -116,7 +116,7 @@ onMounted(() => {
     </div>
     <div>
       <template
-        v-for="option of resultats[typology].guideFactice"
+        v-for="option of result[typology].guideFactice"
         :key="option.value"
       >
         <div class="item">

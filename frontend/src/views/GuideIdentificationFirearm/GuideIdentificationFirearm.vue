@@ -1,11 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { identificationRoutePaths, identificationGuideSteps } from '@/utils/firearms-utils.js'
-import StepsGuide from '../GuideIdentificationFirearm/StepsGuide.vue'
+import { identificationRoutePaths, identificationGuideSteps, result } from '@/utils/firearms-utils.js'
+import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { resultats } from '@/utils/securing-firearms-utils.js'
 import axios from 'axios'
 
 const stepsStore = useStepsStore()
@@ -25,7 +24,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = resultats[resultStore.typology].isDummyTypology ||
+const steps = result[resultStore.typology].isDummyTypology ||
   !confidenceLevel.value === 'low'
   ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
   : ['Résultat final']
@@ -71,7 +70,7 @@ async function sendLogsIdentificationDummy () {
       console.log(err)
     })
     // .finally(async res => {
-    //   router.push({ name: 'FinalResult' }).catch(() => {})
+    //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
     // })
 }
 
@@ -91,7 +90,7 @@ async function sendLogsIdentificationDummy () {
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology]?.isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || !result[typology]?.isDummyTypology"
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -110,7 +109,7 @@ async function sendLogsIdentificationDummy () {
       </router-link>
       <!-- VOIR AVEC STAN -->
       <DsfrButton
-        v-if="resultats[typology]?.isDummyTypology"
+        v-if="result[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
@@ -234,3 +233,4 @@ height: 3em;
   width: 50%;
 }
 </style>
+@/utils/firearms-utils.js

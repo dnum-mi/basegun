@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useResultStore } from '@/stores/result.js'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 
 const resultStore = useResultStore()
 
@@ -11,7 +11,7 @@ const typology = computed(() => resultStore.typology)
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
-      <div v-if="!resultats[typology]?.isSecuringOptions">
+      <div v-if="!result[typology]?.isSecuringOptions">
         <h4 class="mt-5 text-center">
           Pas de guide de mise en sécurité pour votre arme
         </h4>
@@ -50,7 +50,7 @@ const typology = computed(() => resultStore.typology)
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'TypologyResult'}"
+        :to="{name: 'IdentificationTypologyResult'}"
       >
         <DsfrButton
           class="flex justify-center w-full"
@@ -96,3 +96,4 @@ const typology = computed(() => resultStore.typology)
 }
 
 </style>
+@/utils/firearms-utils.js

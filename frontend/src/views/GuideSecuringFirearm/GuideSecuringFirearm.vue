@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils.js'
-import StepsGuide from '../GuideIdentificationFirearm/StepsGuide.vue'
+import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 
 const currentStep = computed({

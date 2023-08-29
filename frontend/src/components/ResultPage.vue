@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { result } from '@/utils/firearms-utils.js'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -26,7 +26,7 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
-const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
+const isDummyTypology = computed(() => result[typology.value]?.isDummyTypology === true)
 
 const isUp = ref(undefined)
 const isDown = ref(undefined)
@@ -34,16 +34,16 @@ const isFeedbackDone = ref(undefined)
 
 const securingTutorial = computed(() => resultStore.securingTutorial)
 
-const label = computed(() => resultats[typology.value]?.displayLabel)
+const label = computed(() => result[typology.value]?.displayLabel)
 
-const category = computed(() => resultats[typology.value]?.category)
-const categoryWithoutSecuring = resultats[typology.value]?.categoryWithoutSecuring
+const category = computed(() => result[typology.value]?.category)
+const categoryWithoutSecuring = result[typology.value]?.categoryWithoutSecuring
 
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
   : (securingTutorial.value === true
-      ? resultats[typology.value]?.mention
-      : resultats[typology.value]?.mentionWithoutSecuring))
+      ? result[typology.value]?.mention
+      : result[typology.value]?.mentionWithoutSecuring))
 
 const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
@@ -73,11 +73,10 @@ function sendFeedback (isCorrect) {
 }
 </script>
 <template>
-  {{ identificationTutorial }}
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
       <h4
-        v-if="route.name === 'TypologyResult' && isDummyTypology === true"
+        v-if="route.name === 'IdentificationTypologyResult' && isDummyTypology === true"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
@@ -132,7 +131,7 @@ function sendFeedback (isCorrect) {
                   Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
                 </p>
               </div>
-              <div v-if="isDummy === false && (route.name !== 'TypologyResult'|| isDummyTypology !== true)">
+              <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
                 <p class="category fr-callout__title mt-3">
                   <img
                     class="px-2"
@@ -173,7 +172,7 @@ function sendFeedback (isCorrect) {
               <div v-else>
                 <p class="mt-2 text-left text-base fr-callout__text">
                   <span
-                    v-if="route.name !== 'TypologyResult'"
+                    v-if="route.name !== 'IdentificationTypologyResult'"
                     class="font-normal typo"
                   > Typologie : </span>
                   {{ label }}
@@ -184,7 +183,7 @@ function sendFeedback (isCorrect) {
         </h4>
       </div>
       <div
-        v-if="route.name === 'TypologyResult' && confidenceLevel !== 'low' && resultats[typology]?.isDummyTypology"
+        v-if="route.name === 'IdentificationTypologyResult' && confidenceLevel !== 'low' && result[typology]?.isDummyTypology"
         class="fr-tile fr-enlarge-link  p-4"
       >
         <div class="fr-tile__body pt-0">
@@ -240,7 +239,7 @@ function sendFeedback (isCorrect) {
       <SnackbarAlert class="text-center" />
     </div>
     <div
-      v-if="confidenceLevel !== 'low' && route.name !== 'FinalResult'"
+      v-if="confidenceLevel !== 'low' && route.name !== 'IdentificationFinalResult'"
       :aria-disabled="isFeedbackDone"
       class="feedback"
     >
@@ -413,3 +412,4 @@ h4 {
 }
 
 </style>
+@/utils/firearms-utils.js

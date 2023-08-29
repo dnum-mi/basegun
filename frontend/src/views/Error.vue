@@ -1,3 +1,4 @@
+<!-- VOIR AVEC STAN -->
 <template>
   <div class="fr-container">
     <div class="text-center relative top-1/6 m-4">
