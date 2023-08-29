@@ -40,7 +40,7 @@ const quickLinks = [
     :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
     :show-beta="true"
-    service-title=" "
+    service-title=" "
     :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
   />

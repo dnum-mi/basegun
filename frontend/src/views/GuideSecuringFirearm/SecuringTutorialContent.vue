@@ -47,7 +47,7 @@ const selectedOptionStep3 = computed({
         <div
           v-if="selectedOptionStep2 === 'revolver_1873_fr'"
         >
-          <div
+          <!-- <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
             <div class="fr-content-media relative">
@@ -70,7 +70,37 @@ const selectedOptionStep3 = computed({
                 v-html="option"
               />
             </ul>
-          </p>
+          </p> -->
+          <div>
+            <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
+            <DsfrAccordionsGroup>
+              <li
+                v-for="option, index in resultats[typology]?.options_step_3[selectedOptionStep3].text_steps"
+                :key="option.value"
+              >
+                <DsfrAccordion
+                  :id="option.value"
+                  :title="'Etape ' + index + ' - durée : ' + option.time"
+                  :expanded-id="expandedId"
+                  @expand="expandedId = $event"
+                >
+                  <video
+                    autoplay
+                    controls
+                    playsinline
+                    loop
+                    muted
+                    :src="option.video"
+                  />
+                  <p
+                    class="manipulations -mt-2 p-6"
+                    v-html="option.content"
+                  />
+                  <AskingExpert />
+                </DsfrAccordion>
+              </li>
+            </DsfrAccordionsGroup>
+          </div>
         </div>
         <div
           v-else
@@ -132,12 +162,12 @@ const selectedOptionStep3 = computed({
           <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
           <DsfrAccordionsGroup>
             <li
-              v-for="option in resultats[typology]?.text_steps"
+              v-for="option, index in resultats[typology]?.text_steps"
               :key="option.value"
             >
               <DsfrAccordion
                 :id="option.value"
-                :title="option.title + ' - ' + option.time"
+                :title="index + ' - ' + option.title + ' - ' + option.time"
                 :expanded-id="expandedId"
                 @expand="expandedId = $event"
               >

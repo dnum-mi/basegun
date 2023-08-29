@@ -82,7 +82,7 @@ export const results = {
     stepsNumber: 4,
   },
   semi_auto_style_militaire_autre: {
-    displayLabel: "arme semi-automatique ou automatique",
+    displayLabel: 'arme semi-automatique ou automatique',
     category: 'A, B ou C',
     mention: 'A - Interdite<br>B - Soumise à autoriszation<br>C - Soumise à déclaration',
     isDummyTypology: true,
@@ -91,7 +91,7 @@ export const results = {
 }
 
 // export const guideFacticeSelectOption = {
-//   pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
+//   pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
 //   pistolet_semi_auto_moderne: {
 //     pontet: {
 //       label: 'bouton pontet',

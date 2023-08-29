@@ -7,15 +7,12 @@ import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { useRouter, useRoute } from 'vue-router'
-import { useLocalStorage } from '@vueuse/core'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const router = useRouter()
 const route = useRoute()
-
-const identificationTutorial = useLocalStorage('identificationTutorial')
 
 watchEffect(() => {
   if (!resultStore.img) router.push({ name: 'StartPage' })
@@ -29,19 +26,26 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
+const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
 
 const isUp = ref(undefined)
 const isDown = ref(undefined)
 const isFeedbackDone = ref(undefined)
-const mentionIfisDummy = ref("Libre d'acquisition et de détention")
+
+const securingTutorial = computed(() => resultStore.securingTutorial)
 
 const label = computed(() => resultats[typology.value]?.displayLabel)
+
 const category = computed(() => resultats[typology.value]?.category)
+const categoryWithoutSecuring = resultats[typology.value]?.categoryWithoutSecuring
+
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
-  : resultats[typology.value]?.mention)
+  : (securingTutorial.value === true
+      ? resultats[typology.value]?.mention
+      : resultats[typology.value]?.mentionWithoutSecuring))
 
-const isDummyTypology = computed(() => resultats[typology.value]?.isDummyTypology === true)
+const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
 function sendFeedback (isCorrect) {
   const json = {
@@ -69,6 +73,7 @@ function sendFeedback (isCorrect) {
 }
 </script>
 <template>
+  {{ identificationTutorial }}
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
       <h4
@@ -87,7 +92,7 @@ function sendFeedback (isCorrect) {
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
-      <div class="fr-tile fr-enlarge-link fr-mb-3v">
+      <div class="fr-tile fr-enlarge-link mb-3">
         <h4 class="fr-tile__title px-2">
           <div v-if="confidenceLevel === 'low'">
             <div class="fr-tile__body">
@@ -134,7 +139,8 @@ function sendFeedback (isCorrect) {
                     src="@/assets/guide-identification/gun.jpeg"
                     alt=""
                   >
-                  Catégorie {{ category }}
+                  <span v-if="securingTutorial === true"> Catégorie {{ category }}</span>
+                  <span v-else> Catégorie {{ categoryWithoutSecuring }}</span>
                 </p>
                 <div
                   class="callout-mention"
@@ -196,32 +202,33 @@ function sendFeedback (isCorrect) {
           </div>
         </div>
       </div>
-      <div
-        v-else
-        class="fr-tile fr-enlarge-link"
-      >
+      <div v-else>
         <div
           v-if="confidenceLevel !== 'low'"
-          class="fr-tile__body pt-0"
+          class="fr-tile fr-enlarge-link"
         >
-          <h3 class="fr-tile__title" />
-          <div class="block">
-            <div class="flex">
-              <img
-                class="w-5 h-5 mx-2"
-                src="@/assets/guide-identification/warning.jpeg"
-                alt="alt"
-              ><span>Attention</span> <img
-                class="w-5 h-5  mx-2"
-                src="@/assets/guide-identification/warning.jpeg"
-                alt="alt"
-              >
+          <div
+            class="fr-tile__body pt-0"
+          >
+            <h3 class="fr-tile__title" />
+            <div class="block">
+              <div class="flex">
+                <img
+                  class="w-5 h-5 mx-2"
+                  src="@/assets/guide-identification/warning.jpeg"
+                  alt="alt"
+                ><span>Attention</span> <img
+                  class="w-5 h-5  mx-2"
+                  src="@/assets/guide-identification/warning.jpeg"
+                  alt="alt"
+                >
+              </div>
+              <p class="text-sm text-justify">
+                Le résultat donné par Basegun n’emporte qu’une simple <span class="font-bold">valeur de renseignement</span>.
+                Pour faire référence dans une procédure, il <span class="font-bold">doit impérativement et réglementairement être validé</span>
+                par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
+              </p>
             </div>
-            <p class="text-sm text-justify">
-              Le résultat donné par Basegun n’emporte qu’une simple <span class="font-bold">valeur de renseignement</span>.
-              Pour faire référence dans une procédure, il <span class="font-bold">doit impérativement et réglementairement être validé</span>
-              par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
-            </p>
           </div>
         </div>
       </div>
@@ -233,7 +240,7 @@ function sendFeedback (isCorrect) {
       <SnackbarAlert class="text-center" />
     </div>
     <div
-      v-if="confidenceLevel !== 'low'"
+      v-if="confidenceLevel !== 'low' && route.name !== 'FinalResult'"
       :aria-disabled="isFeedbackDone"
       class="feedback"
     >
@@ -379,6 +386,10 @@ h4 {
 
 :deep(.fr-btn) {
   white-space: nowrap;
+}
+
+:deep(.fr-tile) {
+  padding: 1rem;
 }
 
 :deep(.fr-tile__body) {
