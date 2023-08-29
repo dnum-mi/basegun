@@ -26,7 +26,7 @@ export const autre_pistolet = {
       label: 'Drulov',
       value: 'drulov',
       text_steps: {
-        1: 'Analyser l’arme en <span class="font-bold">direction sécurisée</span>',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span>',
         2: '<span class="font-bold">Pivoter l’arrière de la culasse</span> légèrement vers la gauche',
         3: '<span class="font-bold">Tirer la glissière</span> vers l’arrière pour extraire la munition éventuelle',
         4: '<span class="font-bold">Actionner la culasse</span> d’avant en arrière',
@@ -39,7 +39,7 @@ export const autre_pistolet = {
       label: 'Derringer',
       value: 'derringer',
       text_steps: {
-        1: 'Analyser l’arme en <span class="font-bold">direction sécurisée</span>',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span>',
         2: 'Pivoter le <span class="font-bold">levier de déverrouillage</span>',
         3: 'Casser/Basculer les canons vers le haut',
         4: 'Pencher l’entrée des canons pour extraire les munitions éventuelles',
@@ -52,7 +52,7 @@ export const autre_pistolet = {
       label: 'Thompson contender',
       value: 'thompson_contender',
       text_steps: {
-        1: 'Analyser l’arme en direction sécurisée',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
         2: 'Tirer sur le levier situé sous le pontet avec la main tenant la poignée',
         3: 'Casser/Basculer le canon vers le bas',
         4: 'Retourner l’arme pour extraire la munition éventuelle',
@@ -65,7 +65,7 @@ export const autre_pistolet = {
       label: 'Ancien fusil à crosse et canon scié',
       value: 'fusil_crosse_cannon_scie',
       text_steps: {
-        1: 'Analyser l’arme en direction sécurisée',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
         2: 'Pousser sur la clef avec le pouce tenant la poignée de l’arme',
         3: 'Casser/Basculer le canon de l’arme',
         4: 'Retirer les munitions éventuelles',

@@ -72,7 +72,9 @@ const selectedOptionStep3 = computed({
             </ul>
           </p> -->
           <div>
-            <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
+            <p class="my-4">
+              Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme
+            </p>
             <DsfrAccordionsGroup>
               <li
                 v-for="option, index in resultats[typology]?.options_step_3[selectedOptionStep3].text_steps"
@@ -80,15 +82,15 @@ const selectedOptionStep3 = computed({
               >
                 <DsfrAccordion
                   :id="option.value"
-                  :title="'Etape ' + index + ' - durée : ' + option.time"
+                  :title="index ? 'Etape ' + index + ' - durée : ' + option.time : 'Video intégrale' + ' - durée : ' + option.time "
                   :expanded-id="expandedId"
                   @expand="expandedId = $event"
                 >
                   <video
-                    autoplay
+                    :autoplay="!index ? autoplay : ''"
                     controls
                     playsinline
-                    loop
+                    :loop="!index ? loop : ''"
                     muted
                     :src="option.video"
                   />

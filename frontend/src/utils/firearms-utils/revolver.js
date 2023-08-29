@@ -9,7 +9,15 @@ import revolver2BoutoneBarilletVideo from '@/assets/guide-mise-en-securite/video
 import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
 import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
 import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
+import revolverBasculantImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_basculant.jpg'
 import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
+import revolver2PortiereP1Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p1.mp4'
+import revolver2PortiereP2Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p2.mp4'
+import revolver2PortiereP3Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p3.mp4'
+import revolver2PortiereP4Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p4.mp4'
+import revolver2PortiereP5Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p5.mp4'
+import revolver2PortiereP6Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p6.mp4'
+import revolver2PortiereP7Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p7.mp4'
 import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg'
 import revolver2SwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4'
 import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
@@ -34,7 +42,7 @@ export const revolver = {
   mentionWithoutSecuring: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
   isDummyTypology: true,
   isSecuringOptions: true,
-  options_step_1_text: 'En maintenant l’arme dans une direction sécurisée, sélectionnez ce que vous voyez.',
+  options_step_1_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
   options_step_1: {
     black_powder: {
       label: 'Petites Cheminées',
@@ -47,7 +55,7 @@ export const revolver = {
       img: revolver2CartouchesImg,
     },
   },
-  options_step_2_text: 'En maintenant l’arme dans une <span class="font-bold">direction sécurisée</span>, tournez-la pour observer l’arrière du barillet. Sélectionnez ce que vous voyez.',
+  options_step_2_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span>, tournez-la pour observer l’arrière du barillet. Sélectionnez ce que vous voyez.',
   options_step_2: {
     revolver_bouton_barillet: {
       label: 'Revolver bouton barillet',
@@ -120,7 +128,7 @@ export const revolver = {
       video: revolver2AxeBarilletVideo,
     },
   },
-  options_step_3_text: 'En maintenant l’arme dans une direction sécurisée, tirez la portière vers l’arrière avec le pouce, puis essayez de pousser sur un côté du barillet pour le faire basculer.',
+  options_step_3_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , tirez la portière vers l’arrière avec le pouce, puis essayez de pousser sur un côté du barillet pour le faire basculer.',
   options_step_3: {
     revolver_1873_fr: {
       label: 'Le barillet ne bascule pas',
@@ -128,44 +136,50 @@ export const revolver = {
       text_steps: {
         1: {
           title: 'Etape 1',
-          time: '2s',
+          time: '4 sec',
           content: 'Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP1Video,
         },
         2: {
           title: 'Etape 2',
-          time: '2s',
+          time: '10 sec',
           content: 'Tirer le haut du levier de verrouillage de barillet vers l’arrière',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP2Video,
         },
         3: {
           title: 'Etape 3',
-          time: '2s',
+          time: '6 sec',
           content: 'Tirer légèrement le chien/marteau vers l’arrière jusqu’à entendre un premier clic',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP3Video,
         },
         4: {
           title: 'Etape 4',
-          time: '2s',
+          time: '9 sec',
           content: 'Faire tourner le barillet jusqu’à trouver une munition',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP4Video,
         },
         5: {
           title: 'Etape 5',
-          time: '2s',
+          time: '7 sec',
           content: 'Déverrouiller la tringle d’éjection en tournant son extrémité d’un quart de tour',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP5Video,
         },
         6: {
           title: 'Etape 6',
-          time: '2s',
+          time: '18 sec',
           content: 'Actionner la tringle d’extraction vers l’arrière pour chaque chambre du barillet contenant une munition',
-          video: revolver2PortiereVideo,
+          video: revolver2PortiereP6Video,
         },
         7: {
           title: 'Etape 7',
-          time: '2s',
+          time: '4 sec',
           content: 'Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
+          video: revolver2PortiereP7Video,
+        },
+        '': {
+          title: 'Video intégrale',
+          time: '56 sec',
+          content: 'Veuillez suivre les indications dans l’ordre afin de mettre en sécurité votre arme',
           video: revolver2PortiereVideo,
         },
       },
@@ -177,42 +191,42 @@ export const revolver = {
       text_steps: {
         1: {
           title: 'Etape 1',
-          time: '2s',
+          time: '2 sec',
           content: 'Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
           video: revolver31892Video,
         },
         2: {
           title: 'Etape 2',
-          time: '2s',
+          time: '2 sec',
           content: 'Tirer le haut du levier de verrouillage de barillet vers l’arrière',
           video: revolver31892Video,
         },
         3: {
           title: 'Etape 3',
-          time: '2s',
+          time: '2 sec',
           content: 'Basculer le barillet sur le côté',
           video: revolver31892Video,
         },
         4: {
           title: 'Etape 4',
-          time: '2s',
+          time: '2 sec',
           content: 'Pencher l’arme légèrement vers l’arrière',
           video: revolver31892Video,
         },
         5: {
           title: 'Etape 5',
-          time: '2s',
+          time: '2 sec',
           content: 'Vider les munitions éventuelles du barillet en appuyant sur la tige d’extraction située à l’avant du barillet',
           video: revolver31892Video,
         },
         6: {
           title: 'Etape 6',
-          time: '2s',
+          time: '2 sec',
           content: 'Contrôler visuellement que les chambres sont vides',
           video: revolver31892Video,
         },
       },
-      img: revolver31892Img,
+      img: revolverBasculantImg,
       video: revolver31892Video,
     },
   },

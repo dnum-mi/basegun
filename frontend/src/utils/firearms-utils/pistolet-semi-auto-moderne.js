@@ -22,7 +22,7 @@ export const pistolet_semi_auto_moderne = {
       label: 'bouton pontet',
       value: 'bouton_pontet',
       text_steps: {
-        1: 'Analyser l’arme en direction sécurisée',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
         2: 'Appuyer sur le bouton de déverrouillage de chargeur situé à l’arrière du pontet',
         3: 'Retirer le chargeur de l’arme',
         4: 'Tirer la glissière vers l’arrière pour extraire  la munition éventuelle',
@@ -36,7 +36,7 @@ export const pistolet_semi_auto_moderne = {
       label: 'poussoir talon',
       value: 'poussoir_talon',
       text_steps: {
-        1: 'Analyser l’arme en direction sécurisée',
+        1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
         2: 'Appuyer sur le bouton de déverrouillage de chargeur situé sous la poignée',
         3: 'Retirer le chargeur de l’arme',
         4: 'Tirer la glissière vers l’arrière pour extraire  la munition éventuelle',
