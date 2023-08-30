@@ -15,7 +15,7 @@ export const epaule_a_verrou = {
     1: {
       title: 'Observer l’arme',
       time: '2 sec',
-      content: 'Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
+      content: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
     },
     2: {
       title: 'Ouvrez la culasse',
@@ -25,12 +25,12 @@ export const epaule_a_verrou = {
     3: {
       title: 'Retourner l’arme',
       time: '1 min 30',
-      content: 'Retourner l’arme et chercher la présence éventuelle de levier ou bouton devant le pontent indiquant la présence d’un chargeur externe. Si tel est le cas, extraire le chargeur en appuyant ou en tirant sur ces derniers',
+      content: 'Retourner l’arme et chercher la présence éventuelle de levier ou bouton devant le pontet en indiquant la présence d’un chargeur externe. Si tel est le cas, <span class="font-bold">extraire le chargeur</span> en appuyant ou en tirant sur ces derniers',
     },
     4: {
       title: 'Vider le magasin',
       time: '5 sec',
-      content: 'Si vous n’avez pas enlevé de chargeur, vider le magasin des munitions éventuelles en les faisant glisser vers l’avant à l’aide de votre pouce',
+      content: 'Si vous n’avez pas enlevé de chargeur, <span class="font-bold">vider le magasin des munitions</span> éventuelles en les faisant glisser vers l’avant à l’aide de votre pouce',
     },
     5: {
       title: 'Contrôle',

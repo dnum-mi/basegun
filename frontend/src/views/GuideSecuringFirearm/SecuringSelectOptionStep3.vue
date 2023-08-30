@@ -94,6 +94,7 @@ const zoomOn = (imgValue) => {
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+        <!-- VOIR AVEC STAN -->
         <DsfrButton
           class="m-1 flex justify-center"
           icon="ri-arrow-left-line"
