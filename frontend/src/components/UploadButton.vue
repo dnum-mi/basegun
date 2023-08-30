@@ -47,7 +47,7 @@ function submitUpload (base64, fileName) {
           imgUrl: res.data.path,
         })
         useLocalStorage('securingTutorial')
-        useLocalStorage('identificationTutorial')
+        // useLocalStorage('identificationTutorial')
       })
       .catch((error) => {
         // TODO: Afficher l’erreur à l’utilisateur

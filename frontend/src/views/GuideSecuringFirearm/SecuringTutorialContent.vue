@@ -80,6 +80,7 @@ const selectedOptionStep3 = computed({
                 v-for="option, index in result[typology]?.options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
               >
+                <!-- VOIR AVEC STAN -->
                 <DsfrAccordion
                   :id="option.value"
                   :title="index ? 'Etape ' + index + ' - durée : ' + option.time : 'Video intégrale' + ' - durée : ' + option.time "
@@ -104,9 +105,7 @@ const selectedOptionStep3 = computed({
             </DsfrAccordionsGroup>
           </div>
         </div>
-        <div
-          v-else
-        >
+        <div v-else>
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -161,33 +160,30 @@ const selectedOptionStep3 = computed({
           </div>
         </div>
         <div v-else>
-          <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
-          <DsfrAccordionsGroup>
-            <li
-              v-for="option, index in result[typology]?.text_steps"
-              :key="option.value"
-            >
-              <DsfrAccordion
-                :id="option.value"
-                :title="index + ' - ' + option.title + ' - ' + option.time"
-                :expanded-id="expandedId"
-                @expand="expandedId = $event"
-              >
-                <p
-                  class="manipulations mb-0 p-6"
-                  v-html="option.content"
-                />
-                <video
-                  autoplay
-                  controls
-                  playsinline
-                  loop
-                  muted
-                  :src="result[typology]?.video"
-                />
-              </DsfrAccordion>
-            </li>
-          </DsfrAccordionsGroup>
+          <div
+            class="fr-col-sm-6 fr-col-lg-12 mx-auto"
+          >
+            <div class="fr-content-media relative">
+              <video
+                controls
+                playsinline
+                loop
+                muted
+                :src="result[typology]?.video"
+              />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+            </div>
+          </div>
+          <div class="manipulations -mx-8 p-8">
+            <ul class="list-none text-sm">
+              <li
+                v-for="option in result[typology].text_steps"
+                :key="option.value"
+                class="list-decimal"
+                v-html="option"
+              />
+            </ul>
+          </div>
         </div>
       </div>
       <div class="small-blank" />

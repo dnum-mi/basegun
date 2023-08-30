@@ -23,10 +23,6 @@ defineProps({
 
 <style scoped>
 
-/* :deep(.fr-stepper__details) {
-  display: none !important;
-} */
-
 :deep(.fr-stepper__state) {
   display: inline flow-root !important;
   color: var(--default-grey);
@@ -38,9 +34,4 @@ defineProps({
   color: var(--default-grey);
   font-size: .9rem;
 }
-
-/* :deep(.fr-stepper__title)::before {
-  content: ": ";
-} */
-
 </style>

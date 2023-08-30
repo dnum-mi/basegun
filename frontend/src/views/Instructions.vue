@@ -114,7 +114,7 @@ img {
   padding: 0 0.5rem;
 }
 
-/* loading dots */
+/* upload loading dots */
 .loading {
   color: var(--blue-france-sun-113-625);
 }
