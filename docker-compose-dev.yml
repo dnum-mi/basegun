@@ -11,6 +11,7 @@ services:
       context: ./backend
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
+    user: appuser
     environment:
       - PATH_LOGS=/app/logs
       - OS_USERNAME
