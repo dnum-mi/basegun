@@ -10,14 +10,14 @@ services:
       target: ${BUILD_TARGET:-prod}
     container_name: basegun-backend
     environment:
-      - PATH_LOGS=/app/logs
+      - PATH_LOGS=/tmp/logs
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
       - WORKSPACE=${WORKSPACE:-prod}
     image: basegun-backend:${TAG}-prod
     ports:
-      - 5000:5000
+      - 8000:8000
 
   frontend:
     build:
