@@ -15,6 +15,7 @@ function readInstruction () {
 </script>
 
 <template>
+  <!-- VOIR AVEC STAN -->
   <div
     class="lg:absolute lg:inset-y-1\/3 lg:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto"
   >

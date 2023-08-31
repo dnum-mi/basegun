@@ -16,7 +16,7 @@ export const epaule_a_pompe = {
     3: 'Actionner la pompe doucement d’arrière en avant afin d’<span class="font-bold">extraire toutes les munitions</span>',
     4: '<span class="font-bold">Verrouiller l’arme</span> en avançant légèrement la pompe vers l’avant',
     5: 'Contrôler visuellement que la chambre est vide',
-    6: '<span class="font-bold">Contrôler l’orifice du tube magasin</span> et constater que celui-ci est bien vide',
+    6: '<span class="font-bold">Contrôler l’orifice du tube magasin</span>p et constater que celui-ci est bien vide',
   },
   video: epaulePompeSimpleVideo,
   // text_steps: {

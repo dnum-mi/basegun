@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils.js'
+import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/index.js'
 import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 

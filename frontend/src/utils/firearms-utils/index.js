@@ -1,17 +1,17 @@
-import { revolver, revolver_black_powder } from './firearms-utils/revolver.js'
-import { pistolet_semi_auto_moderne } from './firearms-utils/pistolet-semi-auto-moderne.js'
-import { epaule_a_un_coup_par_canon } from './firearms-utils/epaule-a-un-coup-par-canon.js'
-import { epaule_a_verrou } from './firearms-utils/epaule-a-verrou.js'
-import { epaule_a_pompe } from './firearms-utils/epaule-a-pompe.js'
-import { epaule_a_levier_sous_garde } from './firearms-utils/epaule-a-levier-sous-garde.js'
-import { semi_auto_style_militaire_autre } from './firearms-utils/semi-auto-style-militaire-autre.js'
-import { epaule_semi_auto_style_militaire_milieu_20e } from './firearms-utils/epaule-semi-auto-militaire-milieu-20e.js'
-import { epaule_semi_auto_style_chasse } from './firearms-utils/epaule-semi-auto-style-chasse.js'
-import { epaule_mecanisme_ancien } from './firearms-utils/epaule_mecanisme_ancien.js'
-import { pistolet_mecanisme_ancien } from './firearms-utils/pistolet_mecanisme_ancien.js'
-import { autre_pistolet } from './firearms-utils/autre-pistolet.js'
+import { revolver, revolver_black_powder } from './revolver.js'
+import { pistolet_semi_auto_moderne } from './pistolet-semi-auto-moderne.js'
+import { epaule_a_un_coup_par_canon } from './epaule-a-un-coup-par-canon.js'
+import { epaule_a_verrou } from './epaule-a-verrou.js'
+import { epaule_a_pompe } from './epaule-a-pompe.js'
+import { epaule_a_levier_sous_garde } from './epaule-a-levier-sous-garde.js'
+import { semi_auto_style_militaire_autre } from './semi-auto-style-militaire-autre.js'
+import { epaule_semi_auto_style_militaire_milieu_20e } from './epaule-semi-auto-militaire-milieu-20e.js'
+import { epaule_semi_auto_style_chasse } from './epaule-semi-auto-style-chasse.js'
+import { epaule_mecanisme_ancien } from './epaule_mecanisme_ancien.js'
+import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien.js'
+import { autre_pistolet } from './autre-pistolet.js'
 
-export const result = {
+export const resultTree = {
   autre_pistolet,
   epaule_a_levier_sous_garde,
   epaule_a_pompe,
@@ -63,4 +63,3 @@ export const identificationRoutePaths = [
   'munition-type',
   'resultat-final',
 ]
-

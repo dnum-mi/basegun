@@ -49,8 +49,7 @@ async function sendTutorialFeedback () {
     .finally(setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
       stepsStore.tutorialFeedback = ''
-      // VOIR AVEC STAN
-      router.push({ name: 'ResultPage' }).catch(() => {})
+      router.push({ name: 'ResultPage' })
     }, 3000))
 }
 </script>

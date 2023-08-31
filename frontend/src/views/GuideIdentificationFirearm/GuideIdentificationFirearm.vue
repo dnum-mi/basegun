@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { identificationRoutePaths, identificationGuideSteps, result } from '@/utils/firearms-utils.js'
+import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index.js'
 import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -24,7 +24,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = result[resultStore.typology].isDummyTypology ||
+const steps = resultTree[resultStore.typology].isDummyTypology ||
   !confidenceLevel.value === 'low'
   ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
   : ['Résultat final']
@@ -90,7 +90,7 @@ async function sendLogsIdentificationDummy () {
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !result[typology]?.isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || !resultTree[typology]?.isDummyTypology"
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -109,7 +109,7 @@ async function sendLogsIdentificationDummy () {
       </router-link>
       <!-- VOIR AVEC STAN -->
       <DsfrButton
-        v-if="result[typology]?.isDummyTypology"
+        v-if="resultTree[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
@@ -233,4 +233,3 @@ height: 3em;
   width: 50%;
 }
 </style>
-@/utils/firearms-utils.js

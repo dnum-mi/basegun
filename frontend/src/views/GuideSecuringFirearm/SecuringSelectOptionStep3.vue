@@ -1,11 +1,10 @@
 <script setup>
-// VOIR AVEC STAN
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { result } from '@/utils/firearms-utils.js'
+import { resultTree } from '@/utils/firearms-utils/index.js'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
@@ -49,11 +48,11 @@ const zoomOn = (imgValue) => {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="result[typology]?.options_step_3_text"
+          v-html="resultTree[typology]?.options_step_3_text"
         />
       </div>
       <div
-        v-for="option of result[typology]?.options_step_3"
+        v-for="option of resultTree[typology]?.options_step_3"
         :key="option.value"
       >
         <div class="item">
@@ -174,4 +173,3 @@ const zoomOn = (imgValue) => {
 width: 50%;
 }
 </style>
-@/utils/firearms-utils.js

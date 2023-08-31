@@ -1,11 +1,10 @@
 <script setup>
-// VOIR AVEC STAN
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { result } from '@/utils/firearms-utils.js'
+import { resultTree } from '@/utils/firearms-utils/index.js'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
@@ -33,33 +32,9 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
-// VOIR AVEC STAN
-function changeTypology () {
-  if (selectedOptionStep1.value === 'revolver_black_powder') {
-    resultStore.setResult({
-      typology: resultStore.typology + '_black_powder',
-      confidence: resultStore.confidence,
-      confidenceLevel: resultStore.confidenceLevel,
-      img: resultStore.img,
-      imgUrl: resultStore.imgUrl,
-      geolocation: resultStore.geolocation,
-      resultText: resultStore.resultText,
-    })
-  } else {
-    resultStore.setResult({
-      typology: resultStore.typology,
-      confidence: resultStore.confidence,
-      confidenceLevel: resultStore.confidenceLevel,
-      img: resultStore.img,
-      imgUrl: resultStore.imgUrl,
-      geolocation: resultStore.geolocation,
-      resultText: resultStore.resultText,
-    })
-  }
-}
-
 function goToNextRoute () {
-  changeTypology()
+  // Remember if it is a revolver with black powder
+  resultStore.updateTypology(selectedOptionStep1.value)
   selectedOptionStep1.value === 'revolver_black_powder'
     ? router.push({ name: 'SecuringAchievement' }).catch(() => {})
     : router.push({ name: 'SecuringSelectOptionStep2' }).catch(() => {})
@@ -79,11 +54,11 @@ function goToNextRoute () {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="result[typology]?.options_step_1_text"
+          v-html="resultTree[typology]?.options_step_1_text"
         />
       </div>
       <div
-        v-for="option of result[typology]?.options_step_1"
+        v-for="option of resultTree[typology]?.options_step_1"
         :key="option.value"
       >
         <div class="item">
@@ -207,4 +182,3 @@ function goToNextRoute () {
 width: 50%;
 }
 </style>
-@/utils/firearms-utils.js

@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { result } from '@/utils/firearms-utils.js'
+import { resultTree } from '@/utils/firearms-utils/index.js'
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -26,7 +26,7 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
-const isDummyTypology = computed(() => result[typology.value]?.isDummyTypology === true)
+const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
 
 const isUp = ref(undefined)
 const isDown = ref(undefined)
@@ -34,16 +34,16 @@ const isFeedbackDone = ref(undefined)
 
 const securingTutorial = computed(() => resultStore.securingTutorial)
 
-const label = computed(() => result[typology.value]?.displayLabel)
+const label = computed(() => resultTree[typology.value]?.displayLabel)
 
-const category = computed(() => result[typology.value]?.category)
-const categoryWithoutSecuring = result[typology.value]?.categoryWithoutSecuring
+const category = computed(() => resultTree[typology.value]?.category)
+const categoryWithoutSecuring = resultTree[typology.value]?.categoryWithoutSecuring
 
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
   : (securingTutorial.value === true
-      ? result[typology.value]?.mention
-      : result[typology.value]?.mentionWithoutSecuring))
+      ? resultTree[typology.value]?.mention
+      : resultTree[typology.value]?.mentionWithoutSecuring))
 
 const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
@@ -183,7 +183,7 @@ function sendFeedback (isCorrect) {
         </h4>
       </div>
       <div
-        v-if="route.name === 'IdentificationTypologyResult' && confidenceLevel !== 'low' && result[typology]?.isDummyTypology"
+        v-if="route.name === 'IdentificationTypologyResult' && confidenceLevel !== 'low' && resultTree[typology]?.isDummyTypology"
         class="fr-tile fr-enlarge-link  p-4"
       >
         <div class="fr-tile__body pt-0">
@@ -412,4 +412,3 @@ h4 {
 }
 
 </style>
-@/utils/firearms-utils.js

@@ -5,7 +5,7 @@ import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
 import { useRouter } from 'vue-router'
-import { result } from '@/utils/firearms-utils.js'
+import { resultTree } from '@/utils/firearms-utils/index.js'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
@@ -33,6 +33,11 @@ const selectedOptionStep3 = computed({
     stepsStore.setOptionStep3(option)
   },
 })
+
+const openNextAccordion = (currentIndex) => {
+  const nextAccordion = document.querySelector(`[aria-controls='accordion-${+currentIndex + 1}-video']`) || document.querySelector('[aria-controls=\'accordion--video\']')
+  nextAccordion?.click()
+}
 </script>
 <template>
   <div class="fr-container">
@@ -77,28 +82,40 @@ const selectedOptionStep3 = computed({
             </p>
             <DsfrAccordionsGroup>
               <li
-                v-for="option, index in result[typology]?.options_step_3[selectedOptionStep3].text_steps"
-                :key="option.value"
+                v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
+                :key="key"
               >
                 <!-- VOIR AVEC STAN -->
                 <DsfrAccordion
-                  :id="option.value"
-                  :title="index ? 'Etape ' + index + ' - durée : ' + option.time : 'Video intégrale' + ' - durée : ' + option.time "
+                  :id="`accordion-${key}-video`"
+                  :title="key ? 'Etape ' + key + ' - durée : ' + step.time : 'Video intégrale' + ' - durée : ' + step.time "
                   :expanded-id="expandedId"
                   @expand="expandedId = $event"
                 >
                   <video
-                    :autoplay="!index ? autoplay : ''"
+                    :autoplay="!key ? autoplay : ''"
                     controls
                     playsinline
-                    :loop="!index ? loop : ''"
+                    :loop="!key ? loop : ''"
                     muted
-                    :src="option.video"
+                    :src="step.video"
                   />
                   <p
                     class="manipulations -mt-2 p-6"
-                    v-html="option.content"
+                    v-html="step.content"
                   />
+                  <div class="flex justify-end my-4">
+                    <!-- v-if="key !== ''" -->
+                    <DsfrButton
+                      v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length"
+                      @click="openNextAccordion(key)"
+                    >
+                      Etape {{ +key + 1 }}
+                      <VIcon
+                        name="ri-arrow-right-s-line"
+                      />
+                    </DsfrButton>
+                  </div>
                   <AskingExpert />
                 </DsfrAccordion>
               </li>
@@ -115,7 +132,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="result[typology]?.options_step_2[selectedOptionStep2]?.video"
+                :src="resultTree[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -123,7 +140,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in result[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
+                v-for="option in resultTree[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -133,7 +150,7 @@ const selectedOptionStep3 = computed({
         </div>
       </div>
       <div v-else>
-        <div v-if="result[typology]?.options">
+        <div v-if="resultTree[typology]?.options">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -143,7 +160,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="result[typology]?.options[selectedOptionStep2]?.video"
+                :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -151,7 +168,7 @@ const selectedOptionStep3 = computed({
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in result[typology].options[selectedOptionStep2]?.text_steps"
+                v-for="option in resultTree[typology].options[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -169,7 +186,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="result[typology]?.video"
+                :src="resultTree[typology]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -177,7 +194,7 @@ const selectedOptionStep3 = computed({
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in result[typology].text_steps"
+                v-for="option in resultTree[typology].text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -259,4 +276,3 @@ video {
   background-color: #E3E3FD;
 }
 </style>
-@/utils/firearms-utils.js
