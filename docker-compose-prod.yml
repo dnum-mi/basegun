@@ -18,8 +18,6 @@ services:
     image: basegun-backend:${TAG}-prod
     ports:
       - 5000:5000
-    volumes:
-      - /var/log/basegun:/app/logs
 
   frontend:
     build:
@@ -29,15 +27,3 @@ services:
     image: basegun-frontend:${TAG}-prod
     ports:
       - ${PORT_PROD:-80}:8080
-
-  filebeat:
-    image: elastic/filebeat:6.5.4
-    user: root
-    container_name: filebeat
-    environment:
-      - X_OVH_TOKEN
-      - API_OVH_TOKEN
-    volumes:
-      - $PWD/infra/kube/helm/configs/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - /var/log/basegun:/var/log/basegun
-    command: bash -c "sleep 30 && filebeat -e --strict.perms=false"
