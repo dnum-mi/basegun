@@ -1,5 +1,5 @@
-import epauleAVerrouCartridges from '@/assets/guide-identification/photos/epaule_a_verrou/epaule-a-verrou-cartridges-arrow.jpg'
-import epauleAVerrouBalls from '@/assets/guide-identification/photos/epaule_a_verrou/epaule-a-verrou-balls-arrow.jpg'
+import epauleAVerrouCartridges from '@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_cartouche.jpg'
+import epauleAVerrouBalls from '@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_bille.jpg'
 import epauleAVerrouVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_chargeur-video.mp4'
 
 /*

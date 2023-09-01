@@ -71,7 +71,7 @@ const goToNextStep = () => (
           icon="ri-arrow-right-line"
           label="Suivant"
           :icon-right="true"
-          @click="router.push({ name:'Instructions'})"
+          @click="router.push({ name:'InstructionsPage'})"
         />
       </div>
     </div>

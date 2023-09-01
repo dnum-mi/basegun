@@ -49,7 +49,7 @@ const securingTutorial = computed({
       </router-link>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'Instructions'}"
+        :to="{name:'InstructionsPage'}"
       >
         <DsfrButton
           class=" w-14rem mb-4 p-2 whitespace-pre-line"

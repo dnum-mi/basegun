@@ -1,14 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { resultTree } from '@/utils/firearms-utils/index.js'
 
 import AskingExpert from '@/components/AskingExpert.vue'
-
-const router = useRouter()
+import SecuringFooter from './SecuringFooter.vue'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -32,14 +30,10 @@ const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
-function goToNextRoute () {
+function updateTypology () {
   // Remember if it is a revolver with black powder
   resultStore.updateTypology(selectedOptionStep1.value)
-  selectedOptionStep1.value === 'revolver_black_powder'
-    ? router.push({ name: 'SecuringAchievement' }).catch(() => {})
-    : router.push({ name: 'SecuringSelectOptionStep2' }).catch(() => {})
 }
-
 </script>
 
 <template>
@@ -97,25 +91,12 @@ function goToNextRoute () {
       <AskingExpert />
       <div class="big-blank" />
     </div>
-    <div class="footer">
-      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-left-line"
-          :secondary="true"
-          label="Précédent"
-          @click="router.push({ name:'Instructions'})"
-        />
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-right-line"
-          :disabled="disabledValidation"
-          label="Suivant"
-          :icon-right="true"
-          @click="goToNextRoute()"
-        />
-      </div>
-    </div>
+    <SecuringFooter
+      :back-to="{ name: 'InstructionsPage' }"
+      :next-to="{ name: selectedOptionStep1 === 'revolver_black_powder' ? 'SecuringAchievement' : 'SecuringSelectOptionStep2'}"
+      :next-disabled="disabledValidation"
+      @next-click="updateTypology()"
+    />
   </div>
 </template>
 

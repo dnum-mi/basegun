@@ -61,7 +61,7 @@ const openNextAccordion = (currentIndex) => {
                 playsinline
                 loop
                 muted
-                :src="result[typology]?.options_step_3[selectedOptionStep3].video"
+                :src="resultTree[typology]?.options_step_3[selectedOptionStep3].video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -69,7 +69,7 @@ const openNextAccordion = (currentIndex) => {
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in result[typology].options_step_3[selectedOptionStep3].text_steps"
+                v-for="option in resultTree[typology].options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -85,13 +85,14 @@ const openNextAccordion = (currentIndex) => {
                 v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
                 :key="key"
               >
-                <!-- VOIR AVEC STAN -->
                 <DsfrAccordion
                   :id="`accordion-${key}-video`"
-                  :title="key ? 'Etape ' + key + ' - durée : ' + step.time : 'Video intégrale' + ' - durée : ' + step.time "
                   :expanded-id="expandedId"
                   @expand="expandedId = $event"
                 >
+                  <template #title>
+                    Etape {{ key }}  <em class="text-gray-400"> - {{ step.time }}</em>
+                  </template>
                   <video
                     :autoplay="!key ? autoplay : ''"
                     controls
@@ -105,7 +106,6 @@ const openNextAccordion = (currentIndex) => {
                     v-html="step.content"
                   />
                   <div class="flex justify-end my-4">
-                    <!-- v-if="key !== ''" -->
                     <DsfrButton
                       v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length"
                       @click="openNextAccordion(key)"
@@ -202,9 +202,9 @@ const openNextAccordion = (currentIndex) => {
             </ul>
           </div>
         </div>
+        <div class="small-blank" />
+        <AskingExpert />
       </div>
-      <div class="small-blank" />
-      <AskingExpert />
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">

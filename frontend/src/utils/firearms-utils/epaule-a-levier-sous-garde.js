@@ -8,7 +8,7 @@ Armes d’épaule à levier de sous-garde
   Magasin fixe
 */
 export const epaule_a_levier_sous_garde = {
-  displayLabel: "arme d'épaule à levier de sous-garde",
+  displayLabel: "Arme d'épaule à levier de sous-garde",
   category: 'B ou C',
   mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,

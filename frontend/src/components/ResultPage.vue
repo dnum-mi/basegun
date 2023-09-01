@@ -37,7 +37,7 @@ const securingTutorial = computed(() => resultStore.securingTutorial)
 const label = computed(() => resultTree[typology.value]?.displayLabel)
 
 const category = computed(() => resultTree[typology.value]?.category)
-const categoryWithoutSecuring = resultTree[typology.value]?.categoryWithoutSecuring
+const categoryWithoutSecuring = computed(() => resultTree[typology.value]?.categoryWithoutSecuring)
 
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
@@ -138,7 +138,7 @@ function sendFeedback (isCorrect) {
                     src="@/assets/guide-identification/icones/gun.jpg"
                     alt=""
                   >
-                  <span v-if="securingTutorial === true"> Catégorie {{ category }}</span>
+                  <span v-if="securingTutorial || typology !== 'revolver'"> Catégorie {{ category }}</span>
                   <span v-else> Catégorie {{ categoryWithoutSecuring }}</span>
                 </p>
                 <div
@@ -412,3 +412,4 @@ h4 {
 }
 
 </style>
+@/utils/firearms-utils.js

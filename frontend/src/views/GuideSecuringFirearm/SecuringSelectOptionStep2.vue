@@ -1,14 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { resultTree } from '@/utils/firearms-utils/index.js'
 
 import AskingExpert from '@/components/AskingExpert.vue'
-
-const router = useRouter()
+import SecuringFooter from './SecuringFooter.vue'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -147,26 +145,11 @@ const zoomOn = (imgValue) => {
       <AskingExpert />
       <div class="big-blank" />
     </div>
-    <div class="footer">
-      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-        <!-- VOIR AVEC STAN -->
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-left-line"
-          :secondary="true"
-          label="Précédent"
-          @click="selectedOptionStep1 === 'revolver_bullets' ? router.back() : router.push({ name:'Instructions'})"
-        />
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-right-line"
-          :disabled="disabledValidation"
-          label="Suivant"
-          :icon-right="true"
-          @click="selectedOptionStep2 === 'revolver_1873_fr' ? router.push({ name:'SecuringSelectOptionStep3'}) : router.push({ name:'SecuringTutorialContent'})"
-        />
-      </div>
-    </div>
+    <SecuringFooter
+      :back-to="{ name: selectedOptionStep1 ? 'SecuringSelectOptionStep1' : 'InstructionsPage' }"
+      :next-to="{ name: selectedOptionStep2 === 'revolver_1873_fr' ? 'SecuringSelectOptionStep3' : 'SecuringTutorialContent' }"
+      :next-disabled="disabledValidation"
+    />
   </div>
 </template>
 
@@ -229,8 +212,5 @@ const zoomOn = (imgValue) => {
 }
 .instructions {
   padding-bottom: .5em;
-}
-.footer button {
-width: 50%;
 }
 </style>

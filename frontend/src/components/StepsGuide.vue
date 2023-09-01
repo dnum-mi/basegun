@@ -1,5 +1,4 @@
 <script setup>
-// VOIR AVEC STAN
 import { DsfrStepper } from '@gouvminint/vue-dsfr'
 
 defineProps({

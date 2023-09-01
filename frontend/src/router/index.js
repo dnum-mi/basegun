@@ -5,12 +5,12 @@ import { clearLocalStorage } from '@/utils/storage-utils.js'
 
 const HomePage = () => import('@/views/HomePage.vue')
 const StartPage = () => import('@/views/StartPage.vue')
-const Instructions = () => import('@/views/Instructions.vue')
-const Error = () => import('@/views/Error.vue')
+const InstructionsPage = () => import('@/views/InstructionsPage.vue')
+const ErrorPage = () => import('@/views/ErrorPage.vue')
 const PageNotFound = () => import('@/views/PageNotFound.vue')
-const About = () => import('@/views/About.vue')
-const Legal = () => import('@/views/Legal.vue')
-const Contact = () => import('@/views/Contact.vue')
+const AboutPage = () => import('@/views/AboutPage.vue')
+const LegalPage = () => import('@/views/LegalPage.vue')
+const ContactPage = () => import('@/views/ContactPage.vue')
 
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
@@ -48,8 +48,8 @@ const routes = [
   },
   {
     path: '/instructions',
-    name: 'Instructions',
-    component: Instructions,
+    name: 'InstructionsPage',
+    component: InstructionsPage,
     beforeEnter: clearLocalStorage,
   },
   // tutorial to secure a firearm
@@ -142,35 +142,35 @@ const routes = [
   },
   {
     path: '/a-propos',
-    name: 'About',
-    component: About,
+    name: 'AboutPage',
+    component: AboutPage,
     meta: {
       wholeLogo: true,
     },
   },
   {
     path: '/mentions-legales',
-    name: 'Legal',
+    name: 'LegalPage',
     meta: {
       wholeLogo: true,
     },
-    component: Legal,
+    component: LegalPage,
   },
   {
     path: '/contact',
-    name: 'Contact',
+    name: 'ContactPage',
     meta: {
       wholeLogo: true,
     },
-    component: Contact,
+    component: ContactPage,
   },
   {
     path: '/erreur',
-    name: 'Error',
+    name: 'ErrorPage',
     meta: {
       wholeLogo: true,
     },
-    component: Error,
+    component: ErrorPage,
   },
   {
     path: '/:pathMach(.*)*',

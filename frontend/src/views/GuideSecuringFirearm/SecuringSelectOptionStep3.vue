@@ -1,20 +1,20 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 import { resultTree } from '@/utils/firearms-utils/index.js'
 
+import SecuringFooter from './SecuringFooter.vue'
 import AskingExpert from '@/components/AskingExpert.vue'
-
-const router = useRouter()
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
 
+const selectedOptionStep1 = computed(() => stepsStore.selectedOptionStep1)
+const selectedOptionStep2 = computed(() => stepsStore.selectedOptionStep2)
 const selectedOptionStep3 = computed({
   get () {
     return stepsStore.selectedOptionStep3
@@ -31,7 +31,6 @@ const zoom = ref('')
 const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
-
 </script>
 
 <template>
@@ -91,26 +90,11 @@ const zoomOn = (imgValue) => {
       <AskingExpert />
       <div class="big-blank" />
     </div>
-    <div class="footer">
-      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-        <!-- VOIR AVEC STAN -->
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-left-line"
-          :secondary="true"
-          label="Précédent"
-          @click="router.back()"
-        />
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-right-line"
-          :disabled="disabledValidation"
-          label="Suivant"
-          :icon-right="true"
-          @click="router.push({ name:'SecuringTutorialContent'})"
-        />
-      </div>
-    </div>
+    <SecuringFooter
+      :back-to="{name :'SecuringSelectOptionStep2'}"
+      :next-to="{name : 'SecuringTutorialContent'}"
+      :next-disabled="disabledValidation"
+    />
   </div>
 </template>
 
@@ -169,7 +153,7 @@ const zoomOn = (imgValue) => {
 .instructions {
   padding-bottom: .5em;
 }
-.footer button {
-width: 50%;
+.footer a {
+  width: 50%;
 }
 </style>

@@ -62,16 +62,13 @@ async function sendLogsIdentificationDummy () {
     tutorial_option: stepsStore.selectedOptionStep2,
     is_dummy: stepsStore.isDummy,
   }
-  await axios.post('/identification-dummy', json)
-    .then(async res => {
-      console.log(res)
-    })
-    .catch(async err => {
-      console.log(err)
-    })
-    // .finally(async res => {
-    //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
-    // })
+  try {
+    await axios.post('/identification-dummy', json)
+  } catch (err) {
+    console.log(err)
+  // } finally {
+  //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
+  }
 }
 
 </script>
@@ -107,7 +104,6 @@ async function sendLogsIdentificationDummy () {
           @click="navigate()"
         />
       </router-link>
-      <!-- VOIR AVEC STAN -->
       <DsfrButton
         v-if="resultTree[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"
@@ -130,7 +126,7 @@ async function sendLogsIdentificationDummy () {
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'Instructions'}"
+        :to="{name: 'InstructionsPage'}"
       >
         <DsfrButton
           class="flex justify-center !w-full"

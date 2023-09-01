@@ -51,7 +51,7 @@ async function submitUpload (base64, fileName) {
     useLocalStorage('securingTutorial')
   } catch (error) {
     // TODO: Afficher l’erreur à l’utilisateur
-    router.push({ name: 'Error', meta: { error } })
+    router.push({ name: 'ErrorPage', meta: { error } })
   } finally {
     router.push({
       name: getNextRouteAfterResult({

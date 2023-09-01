@@ -15,7 +15,7 @@ Autre pistolet
 */
 export const autre_pistolet = {
   typologie: 'autre_pistolet',
-  displayLabel: 'pistolet divers',
+  displayLabel: 'Pistolet divers',
   category: 'A, B ou D',
   mention: "A - Interdite<br>B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
   isDummyTypology: false,

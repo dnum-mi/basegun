@@ -9,7 +9,7 @@ Armes d’épaule à un coup par canon
   Clé Darne
   */
 export const epaule_a_un_coup_par_canon = {
-  displayLabel: "arme d'épaule à un coup par canon",
+  displayLabel: "Arme d'épaule à un coup par canon",
   category: 'C',
   mention: 'Soumise à déclaration',
   isDummyTypology: false,

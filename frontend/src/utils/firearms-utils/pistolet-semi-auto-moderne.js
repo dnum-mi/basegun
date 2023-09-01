@@ -2,15 +2,15 @@ import pistoletSemiAutoPontetImg from '@/assets/guide-mise-en-securite/photos/pi
 import pistoletSemiAutoPontetVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_pontet.mp4'
 import pistoletSemiAutoTalonImg from '@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_talon.jpg'
 import pistoletSemiAutoTalonVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4'
-import pistoletSemiAutoModerneCartridges from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-cartridges.jpg'
-import pistoletSemiAutoModerneBalls from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-balls.jpg'
+import pistoletSemiAutoModerneCartridges from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_cartouche.jpg'
+import pistoletSemiAutoModerneBalls from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_bille.jpg'
 /*
 Pistolets semi-auto modernes
   Bouton pontet
   Poussoir talon
 */
 export const pistolet_semi_auto_moderne = {
-  displayLabel: 'pistolet semi-automatique',
+  displayLabel: 'Pistolet semi-automatique',
   category: 'B',
   mention: 'Soumise à autorisation',
   isDummyTypology: true,

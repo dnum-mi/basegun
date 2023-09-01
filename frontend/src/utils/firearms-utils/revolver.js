@@ -10,7 +10,7 @@ import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolv
 import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
 import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
 // import revolverBasculantImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_basculant.jpg'
-import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
+// import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
 import revolver2PortiereP1Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p1.mp4'
 import revolver2PortiereP2Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p2.mp4'
 import revolver2PortiereP3Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p3.mp4'
@@ -22,8 +22,8 @@ import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolv
 import revolver2SwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4'
 import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
 import revolver31892Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4'
-import revolverCartridges from '@/assets/guide-mise-en-securite/photos/revolver/revolver_cartouche_pleine.jpg'
-import revolverBalls from '@/assets/guide-mise-en-securite/photos/revolver/revolver_bille_factice.png'
+import revolverCartridges from '@/assets/guide-identification/photos/revolver/revolver_cartouche_pleine.jpg'
+import revolverBalls from '@/assets/guide-identification/photos/revolver/revolver_cartouche_bille.jpg'
 /*
 Revolvers
   Revolver Enfield - Webley - brisure
@@ -35,7 +35,7 @@ Revolvers
   Revolvers verrou MOD 1892
 */
 export const revolver = {
-  displayLabel: 'revolver',
+  displayLabel: 'Revolver',
   category: 'B',
   categoryWithoutSecuring: 'B ou D',
   mention: 'B - Soumise à autorisation',
@@ -176,12 +176,12 @@ export const revolver = {
           content: 'Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
           video: revolver2PortiereP7Video,
         },
-        '': {
-          title: 'Video intégrale',
-          time: '56 sec',
-          content: 'Veuillez suivre les indications dans l’ordre afin de mettre en sécurité votre arme',
-          video: revolver2PortiereVideo,
-        },
+        // '': {
+        //   title: 'Video intégrale',
+        //   time: '56 sec',
+        //   content: 'Veuillez suivre les indications dans l’ordre afin de mettre en sécurité votre arme',
+        //   video: revolver2PortiereVideo,
+        // },
       },
       img: revolver2PortiereImg,
     },
@@ -245,7 +245,7 @@ export const revolver = {
 }
 
 export const revolver_black_powder = {
-  displayLabel: 'revolver à poudre noire',
+  displayLabel: 'Revolver à poudre noire',
   category: 'D',
   mention: "D - Libre d'acquisition et de détention",
   isDummyTypology: false,
