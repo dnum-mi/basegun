@@ -5,9 +5,9 @@ import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
 
 import { useRouter } from 'vue-router'
-import { resultats } from '@/utils/securing-firearms-utils.js'
+import { resultTree } from '@/utils/firearms-utils/index.js'
 
-import AskingExpert from '@/views/GuideFactice/AskingExpert.vue'
+import AskingExpert from '@/components/AskingExpert.vue'
 
 const router = useRouter()
 const resultStore = useResultStore()
@@ -33,6 +33,11 @@ const selectedOptionStep3 = computed({
     stepsStore.setOptionStep3(option)
   },
 })
+
+const openNextAccordion = (currentIndex) => {
+  const nextAccordion = document.querySelector(`[aria-controls='accordion-${+currentIndex + 1}-video']`) || document.querySelector('[aria-controls=\'accordion--video\']')
+  nextAccordion?.click()
+}
 </script>
 <template>
   <div class="fr-container">
@@ -56,7 +61,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options_step_3[selectedOptionStep3].video"
+                :src="resultTree[typology]?.options_step_3[selectedOptionStep3].video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -64,7 +69,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options_step_3[selectedOptionStep3].text_steps"
+                v-for="option in resultTree[typology].options_step_3[selectedOptionStep3].text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -77,36 +82,47 @@ const selectedOptionStep3 = computed({
             </p>
             <DsfrAccordionsGroup>
               <li
-                v-for="option, index in resultats[typology]?.options_step_3[selectedOptionStep3].text_steps"
-                :key="option.value"
+                v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
+                :key="key"
               >
                 <DsfrAccordion
-                  :id="option.value"
-                  :title="index ? 'Etape ' + index + ' - durée : ' + option.time : 'Video intégrale' + ' - durée : ' + option.time "
+                  :id="`accordion-${key}-video`"
                   :expanded-id="expandedId"
                   @expand="expandedId = $event"
                 >
+                  <template #title>
+                    Etape {{ key }}  <em class="text-gray-400"> - {{ step.time }}</em>
+                  </template>
                   <video
-                    :autoplay="!index ? autoplay : ''"
+                    :autoplay="!key ? autoplay : ''"
                     controls
                     playsinline
-                    :loop="!index ? loop : ''"
+                    :loop="!key ? loop : ''"
                     muted
-                    :src="option.video"
+                    :src="step.video"
                   />
                   <p
                     class="manipulations -mt-2 p-6"
-                    v-html="option.content"
+                    v-html="step.content"
                   />
+                  <div class="flex justify-end my-4">
+                    <DsfrButton
+                      v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length"
+                      @click="openNextAccordion(key)"
+                    >
+                      Etape {{ +key + 1 }}
+                      <VIcon
+                        name="ri-arrow-right-s-line"
+                      />
+                    </DsfrButton>
+                  </div>
                   <AskingExpert />
                 </DsfrAccordion>
               </li>
             </DsfrAccordionsGroup>
           </div>
         </div>
-        <div
-          v-else
-        >
+        <div v-else>
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -116,7 +132,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options_step_2[selectedOptionStep2]?.video"
+                :src="resultTree[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -124,7 +140,7 @@ const selectedOptionStep3 = computed({
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
+                v-for="option in resultTree[typology]?.options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -134,7 +150,7 @@ const selectedOptionStep3 = computed({
         </div>
       </div>
       <div v-else>
-        <div v-if="resultats[typology]?.options">
+        <div v-if="resultTree[typology]?.options">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -144,7 +160,7 @@ const selectedOptionStep3 = computed({
                 playsinline
                 loop
                 muted
-                :src="resultats[typology]?.options[selectedOptionStep2]?.video"
+                :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -152,7 +168,7 @@ const selectedOptionStep3 = computed({
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultats[typology].options[selectedOptionStep2]?.text_steps"
+                v-for="option in resultTree[typology].options[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -161,37 +177,34 @@ const selectedOptionStep3 = computed({
           </div>
         </div>
         <div v-else>
-          <p>Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme</p>
-          <DsfrAccordionsGroup>
-            <li
-              v-for="option, index in resultats[typology]?.text_steps"
-              :key="option.value"
-            >
-              <DsfrAccordion
-                :id="option.value"
-                :title="index + ' - ' + option.title + ' - ' + option.time"
-                :expanded-id="expandedId"
-                @expand="expandedId = $event"
-              >
-                <p
-                  class="manipulations mb-0 p-6"
-                  v-html="option.content"
-                />
-                <video
-                  autoplay
-                  controls
-                  playsinline
-                  loop
-                  muted
-                  :src="resultats[typology]?.video"
-                />
-              </DsfrAccordion>
-            </li>
-          </DsfrAccordionsGroup>
+          <div
+            class="fr-col-sm-6 fr-col-lg-12 mx-auto"
+          >
+            <div class="fr-content-media relative">
+              <video
+                controls
+                playsinline
+                loop
+                muted
+                :src="resultTree[typology]?.video"
+              />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+            </div>
+          </div>
+          <div class="manipulations -mx-8 p-8">
+            <ul class="list-none text-sm">
+              <li
+                v-for="option in resultTree[typology].text_steps"
+                :key="option.value"
+                class="list-decimal"
+                v-html="option"
+              />
+            </ul>
+          </div>
         </div>
+        <div class="small-blank" />
+        <AskingExpert />
       </div>
-      <div class="small-blank" />
-      <AskingExpert />
     </div>
     <div class="footer">
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">

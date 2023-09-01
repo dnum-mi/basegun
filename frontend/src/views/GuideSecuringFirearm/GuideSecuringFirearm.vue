@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils.js'
-import StepsGuide from '../GuideFactice/StepsGuide.vue'
+import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/index.js'
+import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 
 const currentStep = computed({
@@ -71,7 +71,7 @@ const goToNextStep = () => (
           icon="ri-arrow-right-line"
           label="Suivant"
           :icon-right="true"
-          @click="router.push({ name:'Instructions'})"
+          @click="router.push({ name:'InstructionsPage'})"
         />
       </div>
     </div>

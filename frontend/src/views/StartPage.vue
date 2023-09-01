@@ -13,14 +13,14 @@ const securingTutorial = computed({
   },
 })
 
-const identificationTutorial = computed({
-  get () {
-    return resultStore.identificationTutorial
-  },
-  set (value) {
-    resultStore.setIdentificationTutorial(value)
-  },
-})
+// const identificationTutorial = computed({
+//   get () {
+//     return resultStore.identificationTutorial
+//   },
+//   set (value) {
+//     resultStore.setIdentificationTutorial(value)
+//   },
+// })
 </script>
 
 <template>
@@ -44,19 +44,19 @@ const identificationTutorial = computed({
           class=" w-14rem mb-4 p-2 whitespace-pre-line"
           label="Je veux mettre en sécurité mon arme"
           size="small"
-          @click="navigate(); identificationTutorial = false; securingTutorial = true"
+          @click="navigate(); /*identificationTutorial = false*/; securingTutorial = true"
         />
       </router-link>
       <router-link
         v-slot="{navigate}"
-        :to="{name:'Instructions'}"
+        :to="{name:'InstructionsPage'}"
       >
         <DsfrButton
           class=" w-14rem mb-4 p-2 whitespace-pre-line"
           data-testid="identification"
           label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
           size="small"
-          @click="navigate(); securingTutorial = false; identificationTutorial = true"
+          @click="navigate(); securingTutorial = false; /*identificationTutorial = true*/"
         />
       </router-link>
     </div>

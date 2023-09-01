@@ -2,15 +2,15 @@ import pistoletSemiAutoPontetImg from '@/assets/guide-mise-en-securite/photos/pi
 import pistoletSemiAutoPontetVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_pontet.mp4'
 import pistoletSemiAutoTalonImg from '@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_talon.jpg'
 import pistoletSemiAutoTalonVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4'
-import pistoletSemiAutoModerneCartridges from '@/assets/guide-factice/photos/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-cartridges.jpg'
-import pistoletSemiAutoModerneBalls from '@/assets/guide-factice/photos/pistolet_semi_auto_moderne/pistolet-semi-auto-moderne-balls.jpg'
+import pistoletSemiAutoModerneCartridges from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_cartouche.jpg'
+import pistoletSemiAutoModerneBalls from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_bille.jpg'
 /*
 Pistolets semi-auto modernes
   Bouton pontet
   Poussoir talon
 */
 export const pistolet_semi_auto_moderne = {
-  displayLabel: 'pistolet semi-automatique',
+  displayLabel: 'Pistolet semi-automatique',
   category: 'B',
   mention: 'Soumise à autorisation',
   isDummyTypology: true,
@@ -23,9 +23,9 @@ export const pistolet_semi_auto_moderne = {
       value: 'bouton_pontet',
       text_steps: {
         1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
-        2: 'Appuyer sur le bouton de déverrouillage de chargeur situé à l’arrière du pontet',
-        3: 'Retirer le chargeur de l’arme',
-        4: 'Tirer la glissière vers l’arrière pour extraire  la munition éventuelle',
+        2: '<span class="font-bold">Appuyer sur le bouton de déverrouillage</span> de chargeur situé à l’arrière du pontet',
+        3: '<span class="font-bold">Retirer le chargeur de l’arme</span>',
+        4: 'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
         5: 'Actionner la culasse d’avant en arrière',
         6: 'Contrôler visuellement que la chambre est vide',
       },
@@ -37,9 +37,9 @@ export const pistolet_semi_auto_moderne = {
       value: 'poussoir_talon',
       text_steps: {
         1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
-        2: 'Appuyer sur le bouton de déverrouillage de chargeur situé sous la poignée',
-        3: 'Retirer le chargeur de l’arme',
-        4: 'Tirer la glissière vers l’arrière pour extraire  la munition éventuelle',
+        2: '<span class="font-bold">Appuyer sur le bouton de déverrouillage de chargeur</span> situé sous la poignée',
+        3: '<span class="font-bold">Retirer le chargeur de l’arme</span>',
+        4: 'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
         5: 'Actionner la culasse d’avant en arrière',
         6: 'Contrôler visuellement que la chambre est vide',
       },

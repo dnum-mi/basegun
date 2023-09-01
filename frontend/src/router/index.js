@@ -5,12 +5,12 @@ import { clearLocalStorage } from '@/utils/storage-utils.js'
 
 const HomePage = () => import('@/views/HomePage.vue')
 const StartPage = () => import('@/views/StartPage.vue')
-const Instructions = () => import('@/views/Instructions.vue')
-const Error = () => import('@/views/Error.vue')
+const InstructionsPage = () => import('@/views/InstructionsPage.vue')
+const ErrorPage = () => import('@/views/ErrorPage.vue')
 const PageNotFound = () => import('@/views/PageNotFound.vue')
-const About = () => import('@/views/About.vue')
-const Legal = () => import('@/views/Legal.vue')
-const Contact = () => import('@/views/Contact.vue')
+const AboutPage = () => import('@/views/AboutPage.vue')
+const LegalPage = () => import('@/views/LegalPage.vue')
+const ContactPage = () => import('@/views/ContactPage.vue')
 
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
@@ -22,10 +22,10 @@ const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/Secur
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
 const GuideIdentificationFirearm = () => import('@/views/GuideIdentificationFirearm/GuideIdentificationFirearm.vue')
-const TypologyResult = () => import('@/views/GuideIdentificationFirearm/TypologyResult.vue')
-const FinalResult = () => import('@/views/GuideIdentificationFirearm/FinalResult.vue')
-const FurtherInformations = () => import('@/views/GuideIdentificationFirearm/FurtherInformations.vue')
-const SelectAmmo = () => import('@/views/GuideIdentificationFirearm//SelectAmmo.vue')
+const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFirearm/IdentificationTypologyResult.vue')
+const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
+const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
+const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 
 const routes = [
   {
@@ -48,8 +48,8 @@ const routes = [
   },
   {
     path: '/instructions',
-    name: 'Instructions',
-    component: Instructions,
+    name: 'InstructionsPage',
+    component: InstructionsPage,
     beforeEnter: clearLocalStorage,
   },
   // tutorial to secure a firearm
@@ -108,69 +108,69 @@ const routes = [
     children: [
       {
         path: 'resultat-typologie',
-        name: 'TypologyResult',
+        name: 'IdentificationTypologyResult',
         meta: {
           reload: true,
         },
-        component: TypologyResult,
+        component: IdentificationTypologyResult,
       },
       {
         path: 'informations-complementaires',
-        name: 'FurtherInformations',
+        name: 'IdentificationFurtherInformations',
         meta: {
           reload: true,
         },
-        component: FurtherInformations,
+        component: IdentificationFurtherInformations,
       },
       {
         path: 'munition-type',
-        name: 'SelectAmmo',
+        name: 'IdentificationSelectAmmo',
         meta: {
           reload: true,
         },
-        component: SelectAmmo,
+        component: IdentificationSelectAmmo,
       },
       {
         path: 'resultat-final',
-        name: 'FinalResult',
+        name: 'IdentificationFinalResult',
         meta: {
           reload: true,
         },
-        component: FinalResult,
+        component: IdentificationFinalResult,
       },
     ],
   },
   {
     path: '/a-propos',
-    name: 'About',
-    component: About,
+    name: 'AboutPage',
+    component: AboutPage,
     meta: {
       wholeLogo: true,
     },
   },
   {
     path: '/mentions-legales',
-    name: 'Legal',
+    name: 'LegalPage',
     meta: {
       wholeLogo: true,
     },
-    component: Legal,
+    component: LegalPage,
   },
   {
     path: '/contact',
-    name: 'Contact',
+    name: 'ContactPage',
     meta: {
       wholeLogo: true,
     },
-    component: Contact,
+    component: ContactPage,
   },
   {
     path: '/erreur',
-    name: 'Error',
+    name: 'ErrorPage',
     meta: {
       wholeLogo: true,
     },
-    component: Error,
+    component: ErrorPage,
   },
   {
     path: '/:pathMach(.*)*',

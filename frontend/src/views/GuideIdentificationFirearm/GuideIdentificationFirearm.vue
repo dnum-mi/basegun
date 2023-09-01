@@ -1,11 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { identificationRoutePaths, identificationGuideSteps } from '@/utils/firearms-utils.js'
-import StepsGuide from '../GuideFactice/StepsGuide.vue'
+import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index.js'
+import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
-import { resultats } from '@/utils/securing-firearms-utils.js'
 import axios from 'axios'
 
 const stepsStore = useStepsStore()
@@ -25,7 +24,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = resultats[resultStore.typology].isDummyTypology ||
+const steps = resultTree[resultStore.typology].isDummyTypology ||
   !confidenceLevel.value === 'low'
   ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
   : ['Résultat final']
@@ -63,16 +62,13 @@ async function sendLogsIdentificationDummy () {
     tutorial_option: stepsStore.selectedOptionStep2,
     is_dummy: stepsStore.isDummy,
   }
-  await axios.post('/identification-dummy', json)
-    .then(async res => {
-      console.log(res)
-    })
-    .catch(async err => {
-      console.log(err)
-    })
-    // .finally(async res => {
-    //   router.push({ name: 'FinalResult' }).catch(() => {})
-    // })
+  try {
+    await axios.post('/identification-dummy', json)
+  } catch (err) {
+    console.log(err)
+  // } finally {
+  //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
+  }
 }
 
 </script>
@@ -91,7 +87,7 @@ async function sendLogsIdentificationDummy () {
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !resultats[typology]?.isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || !resultTree[typology]?.isDummyTypology"
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -108,22 +104,8 @@ async function sendLogsIdentificationDummy () {
           @click="navigate()"
         />
       </router-link>
-      <!-- <router-link
-        v-if="!resultats[typology]?.isDummyTypology"
-        v-slot="{navigate}"
-        :to="{name:'StartPage'}"
-      >
-        <DsfrButton
-          v-if="confidenceLevel !== 'low'"
-          class="mt-3 flex justify-center w-full"
-          label="Retour à l'accueil"
-          icon="ri-home-4-line"
-          :icon-right="true"
-          @click="navigate()"
-        />
-      </router-link> -->
       <DsfrButton
-        v-if="resultats[typology]?.isDummyTypology"
+        v-if="resultTree[typology]?.isDummyTypology"
         class="mt-3 flex justify-center w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
@@ -144,7 +126,7 @@ async function sendLogsIdentificationDummy () {
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'Instructions'}"
+        :to="{name: 'InstructionsPage'}"
       >
         <DsfrButton
           class="flex justify-center !w-full"

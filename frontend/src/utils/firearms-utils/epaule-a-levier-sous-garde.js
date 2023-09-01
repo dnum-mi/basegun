@@ -8,7 +8,7 @@ Armes d’épaule à levier de sous-garde
   Magasin fixe
 */
 export const epaule_a_levier_sous_garde = {
-  displayLabel: "arme d'épaule à levier de sous-garde",
+  displayLabel: "Arme d'épaule à levier de sous-garde",
   category: 'B ou C',
   mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,
@@ -19,11 +19,11 @@ export const epaule_a_levier_sous_garde = {
       label: 'Embout rugueux',
       value: 'front_magazine',
       text_steps: {
-        1: 'Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
-        2: 'Faites très attention à ne pas déclencher l’arme durant cette manipulation. Dévisser la baguette à l’avant du tube magasin',
+        1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
+        2: '<span class="font-bold">Faites très attention à ne pas déclencher l’arme durant cette manipulation</span>. Dévisser la baguette à l’avant du tube magasin',
         3: 'Retirer complètement la baguette du magasin',
         4: 'Vider le magasin en tapotant l’arme orientée légèrement vers le bas',
-        5: 'Actionner le levier de sous garde jusqu’en position basse et retirer la munition éventuelle de la chambre',
+        5: 'Actionner le levier de sous garde jusqu’en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre',
         6: 'Contrôler visuellement que la chambre est vide',
       },
       img: levierSousGardeMagasinAvantImg,
@@ -33,8 +33,8 @@ export const epaule_a_levier_sous_garde = {
       label: 'Pas d’embout',
       value: 'fixed_magazine',
       text_steps: {
-        1: 'Observer l’arme en l’orientant dans une direction sans risque, en manipulant avec précaution',
-        2: 'Abaisser le levier de sous garde en position basse et retirer la munition éventuelle de la chambre',
+        1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
+        2: 'Abaisser le levier de sous garde en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre',
         3: '<span class="font-bold" style="color:red">[ Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation ! ]</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin',
         4: 'Contrôler visuellement que la chambre est vide',
       },
