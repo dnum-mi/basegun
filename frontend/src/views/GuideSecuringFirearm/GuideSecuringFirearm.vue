@@ -40,9 +40,9 @@ const goToNextStep = () => (
           :steps="steps"
           :current-step="currentStep"
         />
-        <h4 class="m-2.5">
+        <h2 class="m-2.5">
           Mettre en sécurité mon arme
-        </h4>
+        </h2>
         <RouterView />
       </div>
     </div>

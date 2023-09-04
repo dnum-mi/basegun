@@ -75,24 +75,24 @@ function sendFeedback (isCorrect) {
 <template>
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
-      <h4
+      <h2
         v-if="route.name === 'IdentificationTypologyResult' && isDummyTypology === true"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
-      </h4>
-      <h4
+      </h2>
+      <h2
         v-else
         class="typology-title bg-white py-4"
       >
         Résultat Final
-      </h4>
+      </h2>
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
       <div class="fr-tile fr-enlarge-link mb-3">
-        <h4 class="fr-tile__title px-2">
+        <h2 class="fr-tile__title px-2">
           <div v-if="confidenceLevel === 'low'">
             <div class="fr-tile__body">
               <DsfrTag
@@ -180,7 +180,7 @@ function sendFeedback (isCorrect) {
               </div>
             </div>
           </div>
-        </h4>
+        </h2>
       </div>
       <div
         v-if="route.name === 'IdentificationTypologyResult' && confidenceLevel !== 'low' && resultTree[typology]?.isDummyTypology"

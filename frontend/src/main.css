@@ -2,6 +2,19 @@ html {
   --select-option-image-width: 13rem;
 }
 
+h1 {
+  font-size: 1.75rem
+}
+
+h2 {
+  font-size: 1.3rem 
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: var(--blue-france-sun-113-625)
+}
+
 #app {
   position: absolute;
   inset: 0;

@@ -42,40 +42,16 @@ const openNextAccordion = (currentIndex) => {
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
-      <h4 class="mt-3 text-center">
+      <h2 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
-      </h4>
-      <h5 class="text-center my-auto">
+      </h2>
+      <h3 class="text-center my-auto">
         Manipulations
-      </h5>
+      </h3>
       <div v-if="typology === 'revolver'">
         <div
           v-if="selectedOptionStep2 === 'revolver_1873_fr'"
         >
-          <!-- <div
-            class="fr-col-sm-6 fr-col-lg-12 mx-auto"
-          >
-            <div class="fr-content-media relative">
-              <video
-                controls
-                playsinline
-                loop
-                muted
-                :src="resultTree[typology]?.options_step_3[selectedOptionStep3].video"
-              />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
-            </div>
-          </div>
-          <p class="manipulations -mx-8 p-8">
-            <ul class="list-none text-sm">
-              <li
-                v-for="option in resultTree[typology].options_step_3[selectedOptionStep3].text_steps"
-                :key="option.value"
-                class="list-decimal"
-                v-html="option"
-              />
-            </ul>
-          </p> -->
           <div>
             <p class="my-4">
               Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme
@@ -117,6 +93,7 @@ const openNextAccordion = (currentIndex) => {
                     </DsfrButton>
                   </div>
                   <AskingExpert />
+                  <div class="small-blank" />
                 </DsfrAccordion>
               </li>
             </DsfrAccordionsGroup>

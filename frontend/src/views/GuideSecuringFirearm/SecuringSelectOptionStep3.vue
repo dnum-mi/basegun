@@ -13,8 +13,6 @@ const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
 
-const selectedOptionStep1 = computed(() => stepsStore.selectedOptionStep1)
-const selectedOptionStep2 = computed(() => stepsStore.selectedOptionStep2)
 const selectedOptionStep3 = computed({
   get () {
     return stepsStore.selectedOptionStep3
@@ -38,12 +36,12 @@ const zoomOn = (imgValue) => {
     <div
       class="result fr-col-11 fr-col-lg-6 mx-auto"
     >
-      <h4 class="mt-3 text-center">
+      <h2 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
-      </h4>
-      <h5 class="text-center my-auto">
+      </h2>
+      <h3 class="text-center my-auto">
         Choix du type d'arme
-      </h5>
+      </h3>
       <div class="instructions">
         <p
           class="leading-7 mt-3"

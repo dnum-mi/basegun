@@ -12,9 +12,9 @@ const typology = computed(() => resultStore.typology)
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
       <div v-if="!resultTree[typology]?.isSecuringOptions">
-        <h4 class="mt-5 text-center">
+        <h2 class="mt-5 text-center">
           Pas de guide de mise en sécurité pour votre arme
-        </h4>
+        </h2>
         <div
 
           class="text-center"
@@ -24,25 +24,32 @@ const typology = computed(() => resultStore.typology)
           </p>
           <p>Souhaitez-vous l'identifier quand même ? <br> Sinon vous pouvez retourner au menu.</p>
         </div>
+        <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
+          <img
+            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-nok.jpg"
+            alt="alt"
+            class="img-deco"
+          >
+        </div>
       </div>
       <div v-else>
-        <h4 class="mt-5 text-center">
+        <h2 class="mt-5 text-center">
           Fin de la mise en sécurité de l’arme
-        </h4>
+        </h2>
         <p class="ending font-600 text-center">
           Vous venez de sécuriser votre arme !
         </p>
         <p>
           La manipulation étant terminée, vous pouvez identifier votre arme ou retourner au menu.
         </p>
+        <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
+          <img
+            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.jpg"
+            alt="alt"
+            class="img-deco"
+          >
+        </div>
       </div>
-    </div>
-    <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
-      <img
-        src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite.jpg"
-        alt="alt"
-        class="img-deco"
-      >
     </div>
   </div>
   <div class="footer">

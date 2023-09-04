@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="fr-container mt-4">
-      <h2>ContactPage</h2>
+      <h1>Contact</h1>
       <div>
         <p class="title-space">
           Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a

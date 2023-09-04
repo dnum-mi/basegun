@@ -33,7 +33,7 @@ const imgs = ref([
 <template>
   <div>
     <div class="fr-container mt-4">
-      <h2>À propos</h2>
+      <h1>À propos</h1>
       <div>
         <p class="title-space">
           Basegun est un projet d'application par apprentissage automatique capable
@@ -83,52 +83,52 @@ const imgs = ref([
 </template>
 
 <style scoped>
-    .content {
-      margin: min(5vw, 10rem);
-    }
+.content {
+  margin: min(5vw, 10rem);
+}
 
-    .contact-list {
-      margin-left: 2rem;
-    }
+.contact-list {
+  margin-left: 2rem;
+}
 
-    .small-text {
-      font-size: 10pt;
-      margin-bottom: 0;
-    }
+.small-text {
+  font-size: 10pt;
+  margin-bottom: 0;
+}
 
-    .small-link {
-      color: var(--blue-france-sun-113-625);
-    }
+.small-link {
+  color: var(--blue-france-sun-113-625);
+}
 
-    .small-link:hover {
-      color: #1212ff
-    }
+.small-link:hover {
+  color: #1212ff
+}
 
-     .title-space {
-    margin-top: 20px;
-  }
+  .title-space {
+margin-top: 20px;
+}
 
-  .container-img {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+.container-img {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
-  .img {
-    margin: 2em;
-    width: 6em;
-    height: auto;
-  }
+.img {
+  margin: 2em;
+  width: 6em;
+  height: auto;
+}
 
-  .list {
-    margin-left: 2em;
-    list-style: square;
-  }
+.list {
+  margin-left: 2em;
+  list-style: square;
+}
 
-  :deep(.fr-icon-alert-fill) {
-    padding-right: .1em;
-  }
+:deep(.fr-icon-alert-fill) {
+  padding-right: .1em;
+}
 
 </style>
