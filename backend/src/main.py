@@ -1,5 +1,6 @@
 
 import os
+import sys
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
@@ -54,19 +55,10 @@ def setup_logs(log_dir: str) -> logging.Logger:
         logging.Logger: logger object
     """
     print(">>> Reload logs config")
-    # clear previous logs
-    for f in os.listdir(log_dir):
-        os.remove(os.path.join(log_dir, f))
     # configure new logs
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
-    # new log file at midnight
-    log_file = os.path.join(log_dir, "log.json")
-    handler = TimedRotatingFileHandler(
-        log_file,
-        when="midnight",
-        interval=1,
-        backupCount=7)
+    handler = logging.StreamHandler(sys.stdout)
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
