@@ -1,5 +1,18 @@
 FROM python:3.9-slim-buster as base
+
 WORKDIR /app
+
+# Create a non-privileged user that the app will run under.
+# See https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
 
 # certificates config
 ARG CACERT_LOCATION
@@ -32,13 +45,13 @@ RUN mkdir -p src/weights \
 # launch website
 FROM base as dev
 RUN pip --default-timeout=300 install --no-cache-dir -r requirements/dev.txt
-CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
 
 FROM base as test
 RUN pip install -r requirements/dev.txt && pip install requests && rm -r /root/.cache
 COPY tests/ tests/
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 FROM base as prod
 RUN pip install --no-cache-dir -r requirements/prod.txt
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

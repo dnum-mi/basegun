@@ -11,8 +11,9 @@ services:
       context: ./backend
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
+    user: appuser
     environment:
-      - PATH_LOGS=/app/logs
+      - PATH_LOGS=/tmp/logs
       - OS_USERNAME
       - OS_PASSWORD
       - OS_PROJECT_NAME
@@ -25,11 +26,11 @@ services:
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
     image: basegun-backend:${TAG:-2.0}-dev
     ports:
-      - 5000:5000
+      - 8000:8000
     volumes:
       - $PWD/backend/src:/app/src
       - $PWD/backend/tests:/app/tests
-      - $PWD/backend/logs:/app/logs
+      - $PWD/backend/logs:/tmp/logs
       - /app/src/weights
 
   frontend:

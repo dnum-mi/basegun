@@ -9,7 +9,7 @@ from PIL import Image, ImageChops
 class TestModel(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(TestModel, self).__init__(*args, **kwargs)
-        self.url = "http://localhost:5000"
+        self.url = "http://localhost:8000"
 
     def test_home(self):
         """Checks that the route / is alive"""
@@ -59,21 +59,6 @@ class TestModel(unittest.TestCase):
                 self.assertEqual(image_one.size, image_two.size)
                 diff = ImageChops.difference(image_one, image_two)
                 self.assertFalse(diff.getbbox())
-        # checks that the result is written in logs
-        r = requests.get(self.url + "/logs")
-        self.assertEqual(r.status_code, 200)
-        # checks the latest log "Upload to OVH"
-        self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
-        self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
-        # checks the previous log "Identification request"
-        log = r.json()[1]
-        self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification request")
-        self.assertTrue("-" in log["_bg_user_id"])
-        self.assertEqual(log["_bg_geolocation"], geoloc)
-        self.assertEqual(log["_bg_label"], "revolver")
-        self.assertAlmostEqual(log["_bg_confidence"], 98.43, places=1)
-        self.assertTrue(log["_bg_upload_time"]>=0)
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
@@ -83,18 +68,7 @@ class TestModel(unittest.TestCase):
         image_url = "https://storage.gra.cloud.ovh.net/v1/test"
         r = requests.post(self.url + "/identification-feedback",
                 json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
-
         self.assertEqual(r.status_code, 200)
-        r = requests.get(self.url + "/logs")
-        self.assertEqual(r.status_code, 200)
-        log = r.json()[0]
-        self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification feedback")
-        self.assertEqual(log["_bg_image_url"], image_url)
-        self.assertTrue(log["_bg_feedback_bool"])
-        self.assertEqual(log["_bg_confidence"], confidence)
-        self.assertEqual(log["_bg_label"], label)
-        self.assertEqual(log["_bg_confidence_level"], confidence_level)
 
     def test_geoloc_api(self):
         """Checks that the geolocation api works properly"""

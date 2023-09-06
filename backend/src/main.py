@@ -1,5 +1,6 @@
 
 import os
+import sys
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
@@ -45,28 +46,17 @@ def init_variable(var_name: str, path: str) -> str:
     return VAR
 
 
-def setup_logs(log_dir: str) -> logging.Logger:
+def setup_logs() -> logging.Logger:
     """Setup environment for logs
 
     Args:
-        log_dir (str): folder for log storage
-
         logging.Logger: logger object
     """
     print(">>> Reload logs config")
-    # clear previous logs
-    for f in os.listdir(log_dir):
-        os.remove(os.path.join(log_dir, f))
     # configure new logs
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
-    # new log file at midnight
-    log_file = os.path.join(log_dir, "log.json")
-    handler = TimedRotatingFileHandler(
-        log_file,
-        when="midnight",
-        interval=1,
-        backupCount=7)
+    handler = logging.StreamHandler(sys.stdout)
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
@@ -168,8 +158,7 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger = setup_logs(PATH_LOGS)
+logger = setup_logs()
 
 # Load model
 MODEL_PATH = os.path.join(
@@ -225,18 +214,6 @@ def home():
 @app.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
-
-
-@app.get("/logs")
-def logs():
-    if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
-        with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
-            lines = f.readlines()
-            res = [json.loads(l) for l in lines]
-            res.reverse()
-            return res
-    else:
-        return PlainTextResponse("Forbidden")
 
 
 @app.post("/upload")

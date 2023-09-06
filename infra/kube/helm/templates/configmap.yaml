@@ -5,7 +5,6 @@ metadata:
 data:
   WORKSPACE: {{ .Values.backend.config.workspace }}
   PATH_IMGS: {{ .Values.backend.config.path_imgs }}
-  PATH_LOGS: /tmp/log/basegun/
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -29,10 +29,10 @@ endif
 check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} -f docker-compose-$*.yml config -q
 
-build-%: check-dc-config-% show-current-tag
+build-%: check-dc-config-%
 	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
 
-up-%: check-dc-config-% show-current-tag
+up-%: check-dc-config-%
 ifeq ("$(WORKSPACE)","preprod")
 	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-$*.yml up -d
 else
