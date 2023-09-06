@@ -46,12 +46,10 @@ def init_variable(var_name: str, path: str) -> str:
     return VAR
 
 
-def setup_logs(log_dir: str) -> logging.Logger:
+def setup_logs() -> logging.Logger:
     """Setup environment for logs
 
     Args:
-        log_dir (str): folder for log storage
-
         logging.Logger: logger object
     """
     print(">>> Reload logs config")
@@ -160,8 +158,7 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
-logger = setup_logs(PATH_LOGS)
+logger = setup_logs()
 
 # Load model
 MODEL_PATH = os.path.join(

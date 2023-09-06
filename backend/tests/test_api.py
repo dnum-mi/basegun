@@ -68,7 +68,6 @@ class TestModel(unittest.TestCase):
         image_url = "https://storage.gra.cloud.ovh.net/v1/test"
         r = requests.post(self.url + "/identification-feedback",
                 json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
-
         self.assertEqual(r.status_code, 200)
 
     def test_geoloc_api(self):

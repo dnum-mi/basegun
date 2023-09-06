@@ -25,10 +25,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: make CONTINUE=y build-prod
+      run: make build-prod
     - name: Test running the docker containers
       run: |
-        make CONTINUE=y up-prod
+        make up-prod
         ./infra/scripts/test-alive.sh localhost
         make down-prod
     - name: Login to GHCR
