@@ -105,6 +105,7 @@ const zoomOn = (imgValue) => {
           v-html="resultTree[typology].options_step_2_text"
         />
       </div>
+
       <div
         v-for="option of resultTree[typology]?.options_step_2"
         :key="option.value"
@@ -170,6 +171,7 @@ const zoomOn = (imgValue) => {
 }
 
 :deep(.fr-label) {
+  word-wrap: anywhere !important;
   font-size: small;
 }
 

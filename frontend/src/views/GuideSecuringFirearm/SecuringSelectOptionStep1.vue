@@ -117,6 +117,7 @@ function updateTypology () {
 }
 
 :deep(.fr-label) {
+  word-wrap: anywhere !important;
   font-size: small;
 }
 

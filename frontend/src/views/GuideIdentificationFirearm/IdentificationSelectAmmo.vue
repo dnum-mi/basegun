@@ -192,6 +192,11 @@ onMounted(() => {
   margin: 2.5rem .5rem;
 }
 
+:deep(.fr-label) {
+  word-wrap: anywhere !important;
+  font-size: small;
+}
+
 :deep(.fr-radio-rich__pictogram) {
   width: 240% !important;
   height: auto;
