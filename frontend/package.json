@@ -6,6 +6,7 @@
     "preview": "vite preview",
     "build": "vite build",
     "compose:up": "docker compose -f ../docker-compose-dev.yml --profile backend-only up -d",
+    "start": "vite --port 3000",
     "dev": "vite",
     "lint": "eslint src",
     "format": "eslint src --fix",
