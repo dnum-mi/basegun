@@ -34,8 +34,6 @@ const selectedOptionStep3 = computed({
   },
 })
 
-const stepsLength = resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps.length
-
 const openNextAccordion = (currentIndex) => {
   const nextAccordion = document.querySelector(`[aria-controls='accordion-${+currentIndex + 1}-video']`) || document.querySelector('[aria-controls=\'accordion--video\']')
   nextAccordion?.click()
@@ -61,14 +59,13 @@ const openNextAccordion = (currentIndex) => {
                 v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
                 :key="key"
               >
-                {{ stepsLength }}
                 <DsfrAccordion
                   :id="`accordion-${key}-video`"
                   :expanded-id="expandedId"
                   @expand="expandedId = $event"
                 >
                   <template #title>
-                    Etape {{ key }}  <em class="text-gray-400"> - {{ step.time }}</em>
+                    Etape {{ key }} / {{ Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length }}  <em class="text-gray-400"> - {{ step.time }}</em>
                   </template>
                   <video
                     autoplay

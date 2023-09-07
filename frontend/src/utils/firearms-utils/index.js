@@ -28,9 +28,9 @@ export const resultTree = {
 }
 
 // Tuto Mise en sécurité
-const securingIntroduction = 'SecuringIntroduction'
 const securingInstructions = 'SecuringInstructions'
 const securingRecommendations = 'SecuringRecommendations'
+const securingIntroduction = 'SecuringIntroduction'
 
 // Tuto Mise en securité identification
 const IdentificationTypologyResult = 'IdentificationTypologyResult'
@@ -39,9 +39,9 @@ const IdentificationSelectAmmo = 'IdentificationSelectAmmo'
 const IdentificationFinalResult = 'IdentificationFinalResult'
 
 export const securingGuideSteps = [
-  securingIntroduction,
-  securingInstructions,
   securingRecommendations,
+  securingInstructions,
+  securingIntroduction,
 ]
 
 export const identificationGuideSteps = [
@@ -52,9 +52,9 @@ export const identificationGuideSteps = [
 ]
 
 export const securingRoutePaths = [
-  'mise-en-securite-introduction',
-  'mise-en-securite-instructions',
   'mise-en-securite-recommandations',
+  'mise-en-securite-instructions',
+  'mise-en-securite-introduction',
 ]
 
 export const identificationRoutePaths = [

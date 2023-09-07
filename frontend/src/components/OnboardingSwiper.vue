@@ -86,9 +86,9 @@
   list-style-position: inside;
   text-indent: -1em;
   padding-left: 1em;
-  display: inline-block;
   text-align: left;
   max-width: 700px;
+  margin: auto;
   margin-bottom: 12px !important;
 }
 

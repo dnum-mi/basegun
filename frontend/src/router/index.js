@@ -59,11 +59,6 @@ const routes = [
     component: GuideSecuringFirearm,
     children: [
       {
-        path: 'mise-en-securite-introduction',
-        name: 'SecuringIntroduction',
-        component: SecuringIntroduction,
-      },
-      {
         path: 'mise-en-securite-instructions',
         name: 'SecuringInstructions',
         component: SecuringInstructions,
@@ -72,6 +67,11 @@ const routes = [
         path: 'mise-en-securite-recommandations',
         name: 'SecuringRecommendations',
         component: SecuringRecommendations,
+      },
+      {
+        path: 'mise-en-securite-introduction',
+        name: 'SecuringIntroduction',
+        component: SecuringIntroduction,
       },
     ],
   },
@@ -144,6 +144,7 @@ const routes = [
     path: '/a-propos',
     name: 'AboutPage',
     component: AboutPage,
+    beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
@@ -151,34 +152,36 @@ const routes = [
   {
     path: '/mentions-legales',
     name: 'LegalPage',
+    component: LegalPage,
+    beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
-    component: LegalPage,
   },
   {
     path: '/contact',
     name: 'ContactPage',
+    component: ContactPage,
+    beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
-    component: ContactPage,
   },
   {
     path: '/erreur',
     name: 'ErrorPage',
+    component: ErrorPage,
     meta: {
       wholeLogo: true,
     },
-    component: ErrorPage,
   },
   {
     path: '/:pathMach(.*)*',
     name: 'PageNotFound',
+    component: PageNotFound,
     meta: {
       wholeLogo: true,
     },
-    component: PageNotFound,
   },
 ]
 

@@ -13,7 +13,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = ['Introduction', 'Consignes de sécurité', 'Préconisation']
+const steps = ['Mise en garde', 'Consignes de sécurité', 'Photo']
 
 const stepsStore = useStepsStore()
 const router = useRouter()
