@@ -11,7 +11,7 @@ describe('HomePage', () => {
   
   it('should open Menu informations', () => {
     cy.visit('/')
-    // cy.getByDataTestid('header-logo').contains('Ministère')
+    cy.getByDataTestid('header-logo').contains('Ministère')
     cy.get('#button-menu')
       .should('exist')
       .click()
