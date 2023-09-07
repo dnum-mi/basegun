@@ -12,10 +12,10 @@ services:
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
     environment:
-      - PATH_LOGS=/tmp/logs
-      - OS_USERNAME
-      - OS_PASSWORD
-      - OS_PROJECT_NAME
+      - S3_URL_ENDPOINT=http://minio:9000
+      - S3_BUCKET_NAME=basegun-s3
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin
       - http_proxy
       - https_proxy
       - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
@@ -50,3 +50,10 @@ services:
     volumes:
       - $PWD/frontend/src:/app/src
       - /app/node_modules
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - 9000:9000
+      - 9001:9001

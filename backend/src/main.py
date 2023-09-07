@@ -1,10 +1,12 @@
 
 import os
 import logging
-from logging.handlers import TimedRotatingFileHandler
-from datetime import datetime
+import boto3
 import time
 import json
+
+from logging.handlers import TimedRotatingFileHandler
+from datetime import datetime
 from uuid import uuid4
 from typing import Union
 from fastapi import BackgroundTasks, Cookie, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
@@ -12,16 +14,12 @@ from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
 from user_agents import parse
-import swiftclient
 from src.model import load_model_inference, predict_image
+
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE = os.environ.get("WORKSPACE")
-
-CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
-    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
-    f'uploaded-images/{os.environ["WORKSPACE"]}/'
 
 
 def init_variable(var_name: str, path: str) -> str:
@@ -116,48 +114,26 @@ def get_base_logs(user_agent, user_id: str) -> dict:
     return extras_logging
 
 
-def upload_image_ovh(content: bytes, img_name: str):
-    """Uploads an image to basegun ovh swift container
+
+def upload_image(content: bytes, image_key: str):
+    """Uploads an image to s3 bucket
         path uploaded-images/WORKSPACE/img_name
         where WORKSPACE is dev, preprod or prod
 
     Args:
         content (bytes): file content
-        img_name (str): name we want to give on ovh
+        image_key (str): path we want to have
     """
-    num_tries = 0
-    LIMIT_TRIES = 5
-    image_path = os.path.join(CLOUD_PATH, img_name)
     start = time.time()
-
-    if not conn:
-        logger.exception("Variables not set for using OVH swift.", extra={
-            "bg_error_type": "NameError"
-        })
-        return
-
-    while num_tries <= LIMIT_TRIES:
-        num_tries += 1
-        extras_logging = {
-            "bg_date": datetime.now().isoformat(),
-            "bg_upload_time": time.time()-start,
-            "bg_image_url": image_path
-        }
-        try:
-            conn.put_object("basegun-public",
-                            f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
-                            contents=content)
-            # if success, get out of the loop
-            logger.info("Upload to OVH successful", extra=extras_logging)
-            break
-        except Exception as e:
-            if (num_tries <= LIMIT_TRIES and e.__class__.__name__ == "ClientException"):
-                # we try uploading another time
-                time.sleep(30)
-                continue
-            else:
-                extras_logging["bg_error_type"] = e.__class__.__name__
-                logger.exception(e, extra=extras_logging)
+    s3 = boto3.resource('s3', endpoint_url=os.environ["S3_URL_ENDPOINT"])
+    object = s3.Object(os.environ["S3_BUCKET_NAME"], image_key)
+    object.put(Body=content)
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_upload_time": time.time()-start,
+        "bg_image_url": os.environ["S3_URL_ENDPOINT"] + "/" + os.environ["S3_BUCKET_NAME"] +image_key
+    }
+    logger.info("Upload successful", extra=extras_logging)
 
 
 ####################
@@ -209,27 +185,6 @@ else:
     MODEL_VERSION = "-1"
 
 
-conn = None
-if all(var in os.environ for var in ["OS_USERNAME", "OS_PASSWORD", "OS_PROJECT_NAME"]) :
-    try:
-        # Connection to OVH cloud
-        conn = swiftclient.Connection(
-            authurl="https://auth.cloud.ovh.net/v3",
-            user=os.environ["OS_USERNAME"],
-            key=os.environ["OS_PASSWORD"],
-            os_options={
-                "project_name": os.environ["OS_PROJECT_NAME"],
-                "region_name": "GRA"
-            },
-            auth_version='3'
-        )
-        conn.get_account()
-    except Exception as e:
-        logger.exception(e)
-else:
-    logger.warn('Variables necessary for OVH connection not set !')
-
-
 ####################
 #     ROUTES       #
 ####################
@@ -276,8 +231,8 @@ async def imageupload(
         img_bytes = image.file.read()
 
         # upload image to OVH Cloud
-        background_tasks.add_task(upload_image_ovh, img_bytes, img_name)
-        image_path = os.path.join(CLOUD_PATH, img_name)
+        background_tasks.add_task(upload_image, img_bytes, f"/uploaded-images/{os.environ['WORKSPACE']}/{img_name}")
+        image_path = f"{os.environ['S3_URL_ENDPOINT']}/{os.environ['S3_BUCKET_NAME']}/uploaded-images/{os.environ['WORKSPACE']}/{img_name}"
         extras_logging["bg_image_url"] = image_path
 
         # set user id
