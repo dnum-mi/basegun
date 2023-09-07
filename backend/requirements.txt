@@ -10,3 +10,4 @@ python-openstackclient==5.8.0
 python-swiftclient==4.0.0
 torch==1.13.0
 torchvision==0.14.0
+boto3==1.28.39
