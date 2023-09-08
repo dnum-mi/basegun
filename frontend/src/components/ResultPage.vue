@@ -132,7 +132,7 @@ function sendFeedback (isCorrect) {
                 </p>
               </div>
               <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
-                <p class="category fr-callout__title mt-3">
+                <p data-testid="arm-category" class="category fr-callout__title mt-3">
                   <img
                     class="px-2"
                     src="@/assets/guide-identification/icones/gun.jpg"
@@ -148,7 +148,7 @@ function sendFeedback (isCorrect) {
                 </div>
               </div>
               <div v-if="isDummy === true">
-                <p class="category fr-callout__title mt-3">
+                <p data-testid="arm-category" class="category fr-callout__title mt-3">
                   <img
                     class="px-2"
                     src="@/assets/guide-identification/icones/gun.jpg"
