@@ -38,6 +38,6 @@ describe('HomePage', () => {
     //   .should('exist')
     //   .click()
     // cy.url().should('contain','/')
-    })
-  }
+  })
+},
 )

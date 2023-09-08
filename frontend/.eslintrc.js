@@ -30,7 +30,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/src/**/*.e2e.js*'],
+      files: ['**/src/**/*.e2e.js*', '**/src/**/*.cy.js'],
       globals: {
         cy: true,
       },
