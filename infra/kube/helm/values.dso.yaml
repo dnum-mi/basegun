@@ -1,0 +1,130 @@
+# Default values for basegun.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+ingress:
+  enabled: true
+  className: ""
+  #annotations:
+  #traefik.ingress.kubernetes.io/router.tls: "true"
+  #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+  hosts:
+    - host: http://basegun.dev.numerique-interieur.com/  
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+# Config for backend
+backend:
+  replicaCount: 1
+  image:
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "3.2"
+    imagePullSecrets: []
+  podAnnotations: {}
+  podSecurityContext: {}
+  # fsGroup: 2000
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+  logs:
+    repository: ghcr.io/datalab-mi/basegun/filebeat-rootless
+    tag: 6.5.4
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8000
+    containerPort: 8000
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  config:
+    # Where images are stored locally
+    path_imgs: /app/images
+    # Used for showing current workspace in app
+    workspace: preprod
+  secret:
+    create: false
+    # If create is true, you can provide values else it use existing secret
+    #values:
+    #  OS_PASSWORD: ""
+    #  OS_PROJECT_NAME: ""
+    #  OS_USERNAME: ""
+    #  X_OVH_TOKEN: "test"
+    #  API_OVH_TOKEN: "test"
+    secretName: "basegun-secret"
+  resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+# Config for frontend
+frontend:
+  replicaCount: 1
+  image:
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-frontend
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "3.2"
+    imagePullSecrets: []
+  podAnnotations: {}
+  podSecurityContext: {}
+  # fsGroup: 2000
+
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 8080
+    containerPort: 8080
+  resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
