@@ -1,82 +1,44 @@
 include:
-  - local: '/templates/docker.yml'
-  - local: '/templates/vault.yml'
+  - project: $CATALOG_PATH
+    file: vault-ci.yml
+    ref: main
+  - project: $CATALOG_PATH
+    file: kaniko-ci.yml
+    ref: main
 
 default:
-  image: python:3.9-slim-buster
-
+  image: alpine:latest
 
 variables:
-  http_proxy: $http_proxy
-  https_proxy: $http_proxy
-  no_proxy: $no_proxy
-  HTTP_PROXY: $http_proxy
-  HTTPS_PROXY: $http_proxy
-  NO_PROXY: $no_proxy
-  PROJECT_NAME: "basegun"
-  PROJECT_REPOSITORY: "basegun"
-  PROJECT_ORGANISATION: "ministere-interieur"
-  BUILD_CONFIG_FILE: $BUILD_CONFIG
-  REGISTRY_URL: "${QUAY_ROOT_URL}/${PROJECT_ORGANISATION}-${PROJECT_NAME}"
-  TAG: "1.5"
-  #TAG: "${CI_COMMIT_REF_SLUG}"
-  DOCKERFILE: 'Dockerfile'
-
-# GIT_CURL_VERBOSE: "1"
-# GIT_DEBUG_LOOKUP: "1"
-# GIT_TRANSLOOP_DEBUG: "1"
-# GIT_TRANSPORT_HELPER_DEBUG: "1"
+  TAG: "${CI_COMMIT_REF_SLUG}"
+  DOCKERFILE: Dockerfile
+  REGISTRY_URL: "${REGISTRY_HOST}/${PROJECT_PATH}"
 
 stages:
   - read-secret
-  - test-app
-  - build-docker
+  - docker-build
 
 read_secret:
   stage: read-secret
   extends:
     - .vault:read_secret
 
-test:
-  image: python:3.9-slim-buster
-  stage: test-app
+docker-build-frontend:
   variables:
-    OS_USERNAME: data
-    OS_PASSWORD: data
-    OS_PROJECT_NAME: data
-  script:
-    - pip install --upgrade pip && pip install --no-cache-dir -f https://download.pytorch.org/whl/cpu/torch_stable.html -r backend/requirements.txt
-    - python -m unittest discover -v -s ./backend
-  allow_failure: true
-
-build_docker_front:
-  variables:
-    WORKING_DIR: 'frontend'
-    IMAGE_NAME: 'frontend'
-    DOCKERFILE: 'Dockerfile-dso'
-  stage: build-docker
+    WORKING_DIR: "frontend"
+    IMAGE_NAMES: basegun-frontend:${CI_COMMIT_REF_SLUG} basegun-frontend:${CI_COMMIT_SHORT_SHA}
+    DOCKERFILE: "frontend/Dockerfile"
+    BUILD_ARGS: --build-arg=VERSION=1.1.1
+  stage: docker-build
   extends:
-    - .kaniko:build
+    - .kaniko:build-push
 
-build_docker_back:
+docker-build-backend:
   variables:
-    WORKING_DIR: 'backend'
-    IMAGE_NAME: 'backend'
-    DOCKERFILE: 'Dockerfile-dso'
-  stage: build-docker
+    WORKING_DIR: "backend"
+    IMAGE_NAMES: basegun-backend:${CI_COMMIT_REF_SLUG} basegun-backend:${CI_COMMIT_SHORT_SHA}
+    DOCKERFILE: "backend/Dockerfile"
+    BUILD_ARGS: --build-arg=VERSION=1.1.1
+  stage: docker-build
   extends:
-    - .kaniko:build
-
-build_docker_logs:
-  variables:
-    WORKING_DIR: 'logs'
-    IMAGE_NAME: 'logs'
-    DOCKERFILE: 'Dockerfile-dso'
-    NO_PROXY: "*,gitlab-op.apps.ocp4-8.infocepo.com,dindservice,quay.apps.ocp4-8.infocepo.com"
-    no_proxy: "*,gitlab-op.apps.ocp4-8.infocepo.com,dindservice,quay.apps.ocp4-8.infocepo.com"
-  stage: build-docker
-  extends:
-    - .docker:build
-  tags:
-    - docker
-    - vms
+    - .kaniko:build-push
