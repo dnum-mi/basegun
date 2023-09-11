@@ -34,6 +34,7 @@ const securingTutorial = computed({
       >
         <DsfrButton
           class=" w-14rem mb-4 p-2 whitespace-pre-line"
+          data-testid="secure-firearm"
           label="Je veux mettre en sécurité mon arme"
           size="small"
           @click="navigate(); securingTutorial = true"

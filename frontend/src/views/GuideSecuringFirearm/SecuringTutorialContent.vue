@@ -158,7 +158,8 @@ const openNextAccordion = (currentIndex) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.options[selectedOptionStep]?.video"
+                :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
+                data-testid="video-tutoriel"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
             </div>
@@ -184,6 +185,7 @@ const openNextAccordion = (currentIndex) => {
                 playsinline
                 muted
                 :src="resultTree[typology]?.video"
+                data-testid="video-tutoriel"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
@@ -215,6 +217,7 @@ const openNextAccordion = (currentIndex) => {
         <DsfrButton
           class="m-1 flex justify-center"
           icon="ri-arrow-right-line"
+          data-testid="button-next"
           label="Suivant"
           :icon-right="true"
           @click="router.push({ name:'SecuringAchievement'})"
