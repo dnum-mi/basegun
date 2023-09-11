@@ -4,7 +4,6 @@ import '@gouvminint/vue-dsfr/styles' // Import des styles globaux
 import 'uno.css'
 import '@/main.css'
 
-
 import axios from 'axios'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

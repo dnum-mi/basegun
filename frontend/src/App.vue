@@ -1,10 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { registerSW } from 'virtual:pwa-register'
-import { useAppStore } from './stores/app.js'
-import HeaderMain from './components/HeaderMain.vue'
-
-const appStore = useAppStore()
+import HeaderMain from '@/components/HeaderMain.vue'
 
 const online = ref(navigator.onLine)
 
