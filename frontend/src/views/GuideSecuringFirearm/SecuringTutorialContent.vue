@@ -167,7 +167,7 @@ const openNextAccordion = (currentIndex) => {
                 muted
                 :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">
