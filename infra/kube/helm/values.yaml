@@ -52,8 +52,8 @@ backend:
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
-    port: 5000
-    containerPort: 5000
+    port: 8000
+    containerPort: 8000
   autoscaling:
     enabled: false
     minReplicas: 1
