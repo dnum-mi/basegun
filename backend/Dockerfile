@@ -2,18 +2,6 @@ FROM python:3.9-slim-buster as base
 
 WORKDIR /app
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
-
 # certificates config
 ARG CACERT_LOCATION
 COPY ./cert/. /etc/ssl/certs/

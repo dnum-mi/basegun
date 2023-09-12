@@ -1,6 +1,5 @@
 
 import os
-import sys
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
@@ -46,17 +45,27 @@ def init_variable(var_name: str, path: str) -> str:
     return VAR
 
 
-def setup_logs() -> logging.Logger:
-    """Setup environment for logs
+def setup_logs(log_dir: str) -> logging.Logger:
+    """Setups environment for logs
 
     Args:
+        log_dir (str): folder for log storage
         logging.Logger: logger object
     """
     print(">>> Reload logs config")
+    # clear previous logs
+    for f in os.listdir(log_dir):
+        os.remove(os.path.join(log_dir, f))
     # configure new logs
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
-    handler = logging.StreamHandler(sys.stdout)
+    # new log file at midnight
+    log_file = os.path.join(log_dir, "log.json")
+    handler = TimedRotatingFileHandler(
+        log_file,
+        when="midnight",
+        interval=1,
+        backupCount=7)
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
@@ -64,7 +73,13 @@ def setup_logs() -> logging.Logger:
 
 
 def get_device(user_agent) -> str:
-    """Explicitly give the device of a user-agent object
+    """Explicitly gives the device of a user-agent object
+
+    Args:
+        user_agent: info given by the user browser
+
+    Returns:
+        str: mobile, pc, tablet or other
     """
     if user_agent.is_mobile:
         return "mobile"
@@ -76,7 +91,18 @@ def get_device(user_agent) -> str:
         return "other"
 
 
-def get_base_logs(user_agent, user_id) -> dict:
+def get_base_logs(user_agent, user_id: str) -> dict:
+    """Generates the common information for custom logs in basegun.
+        Each function can add some info specific to the current process,
+        then we insert these custom logs as extra
+
+    Args:
+        user_agent: user agent object
+        user_id (str): UUID identifying a unique user
+
+    Returns:
+        dict: the base custom information
+    """
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_user_id": user_id,
@@ -91,7 +117,7 @@ def get_base_logs(user_agent, user_id) -> dict:
 
 
 def upload_image_ovh(content: bytes, img_name: str):
-    """ Uploads an image to owh swift container basegun-public
+    """Uploads an image to basegun ovh swift container
         path uploaded-images/WORKSPACE/img_name
         where WORKSPACE is dev, preprod or prod
 
@@ -158,7 +184,8 @@ app.add_middleware(
 )
 
 # Logs
-logger = setup_logs()
+PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+logger = setup_logs(PATH_LOGS)
 
 # Load model
 MODEL_PATH = os.path.join(
@@ -214,6 +241,18 @@ def home():
 @app.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
+
+
+@app.get("/logs")
+def logs():
+    if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
+        with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
+            lines = f.readlines()
+            res = [json.loads(l) for l in lines]
+            res.reverse()
+            return res
+    else:
+        return PlainTextResponse("Forbidden")
 
 
 @app.post("/upload")
