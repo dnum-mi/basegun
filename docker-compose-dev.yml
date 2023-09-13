@@ -25,7 +25,7 @@ services:
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
     image: basegun-backend:${TAG:-2.0}-dev
     ports:
-      - 8000:8000
+      - 5000:5000
     volumes:
       - $PWD/backend/src:/app/src
       - $PWD/backend/tests:/app/tests

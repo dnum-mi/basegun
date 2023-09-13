@@ -17,7 +17,7 @@ services:
       - WORKSPACE=${WORKSPACE:-prod}
     image: basegun-backend:${TAG}-prod
     ports:
-      - 8000:8000
+      - 5000:5000
 
   frontend:
     build:

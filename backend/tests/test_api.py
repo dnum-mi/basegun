@@ -9,7 +9,7 @@ from PIL import Image, ImageChops
 class TestModel(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(TestModel, self).__init__(*args, **kwargs)
-        self.url = "http://localhost:8000"
+        self.url = "http://localhost:5000"
 
     def test_home(self):
         """Checks that the route / is alive"""

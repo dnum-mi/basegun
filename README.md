@@ -61,7 +61,7 @@ If your network imposes you to use a custom certicifate (error "SSL" at build), 
 ### The website sends an error
 Try to find error log
 * In terminal, run `docker logs basegun-backend`
-* If you cannot access terminal or don't see anything, go to `localhost:8000/logs` or `preprod.basegun.fr/logs` to see latest logs.
+* If you cannot access terminal or don't see anything, go to `localhost:5000/logs` or `preprod.basegun.fr/logs` to see latest logs.
 
 => Error "missing model": Download model from the url specified in the [backend Dockerfile](https://github.com/datalab-mi/Basegun/blob/develop/backend/Dockerfile).
 
