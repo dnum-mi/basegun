@@ -139,8 +139,8 @@ function updateTypology () {
   background-color: #eee9;
   cursor: zoom-in;
   position: absolute;
-  bottom: 0.25rem;
-  right: 4.5rem;
+  bottom: 0.5rem;
+  right: .5rem;
 }
 
 .zoom-label {

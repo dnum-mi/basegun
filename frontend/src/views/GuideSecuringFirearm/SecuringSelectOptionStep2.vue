@@ -195,7 +195,7 @@ const zoomOn = (imgValue) => {
   cursor: zoom-in;
   position: absolute;
   bottom: 0.5rem;
-  right: 6.75rem;
+  right: .5rem;
 }
 
 .zoom-label {

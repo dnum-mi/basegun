@@ -57,7 +57,6 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultTree[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
@@ -132,7 +131,6 @@ const openNextAccordion = (currentIndex) => {
                 <video
                   controls
                   playsinline
-                  loop
                   muted
                   :src="resultTree[typology]?.options_step_3['revolver_verrou_1892']?.video"
                 />
@@ -163,7 +161,6 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
               />
@@ -189,7 +186,6 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultTree[typology]?.video"
               />

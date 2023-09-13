@@ -174,8 +174,8 @@ onMounted(() => {
   background-color: #eee9;
   cursor: zoom-in;
   position: absolute;
-  bottom: 1.5rem;
-  right: 4.5rem;
+  bottom: 1.6rem;
+  right: .5rem;
 }
 
 .zoom-label {
