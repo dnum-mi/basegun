@@ -170,7 +170,7 @@ async function sendLogsIdentificationDummy () {
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
-        data-testid="go-on-and-follow"
+        data-testid="next-step"
         @click="goToNextStep(); goToNewRoute()"
       />
     </div>

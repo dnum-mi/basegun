@@ -20,6 +20,8 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/a-propos')
+    cy.contains('p', 'Basegun est un projet')
+
     cy.get('#button-menu')
       .click()
     cy.getByRole('navigation')
@@ -27,6 +29,8 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/mentions-legales')
+    cy.contains('p', 'basegun.fr')
+
     cy.get('#button-menu')
       .click()
     cy.getByRole('navigation')
@@ -34,6 +38,10 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/contact')
+    cy.contains('a', 'basegun@interieur.gouv.fr')
+    cy.getByRole('navigation')
+      .contains('a', 'Important')
+      .click({ force: true })
   })
 },
 )
