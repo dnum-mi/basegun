@@ -20,12 +20,12 @@ If you are in a network blocked with proxy, remember to add arg `--build_arg htt
 
 ### Without Docker
 ```bash
-uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
 ```
 
 ### With Docker
 ```bash
-docker run --rm -d -p 8000:8000 --name basegun_back -e VERSION=1.2 basegun-back:dev
+docker run --rm -d -p 5000:5000 --name basegun_back -e VERSION=1.2 basegun-back:dev
 ```
 Remember afterwards to stop container `docker stop basegun_back`
 
