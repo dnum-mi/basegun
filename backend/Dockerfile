@@ -1,5 +1,4 @@
 FROM python:3.9-slim-buster as base
-
 WORKDIR /app
 
 # certificates config
