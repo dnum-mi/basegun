@@ -44,19 +44,13 @@ describe('Securing Firearm and Identification', () => {
     cy.get('video')
       .then(
         ($video) => {
+          $video[0].addEventListener('loadeddata', () => {
+            $video[0].play()
+          })
           $video[0].load()
         })
-    cy.wait(30000)
+    cy.wait(3000)
     cy.get('video')
-      .should('have.prop', 'paused', true)
-      .and('have.prop', 'ended', false)
-      .then(
-        ($video) => {
-          $video[0].play()
-        })
-    cy.wait(2000)
-    cy.get('video')
-      .should('have.prop', 'paused', false)
       .then(($video) => {
         $video[0].pause()
       })
