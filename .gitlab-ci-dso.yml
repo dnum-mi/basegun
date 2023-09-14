@@ -11,13 +11,6 @@ default:
 
 
 variables:
-  http_proxy: $http_proxy
-  https_proxy: $http_proxy
-  no_proxy: $no_proxy
-  HTTP_PROXY: $http_proxy
-  HTTPS_PROXY: $http_proxy
-  NO_PROXY: $no_proxy
-  TAG: "${CI_COMMIT_REF_SLUG}"
   REGISTRY_URL: "${REGISTRY_HOST}/${PROJECT_PATH}"
 
 stages:
