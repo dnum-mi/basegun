@@ -18,7 +18,7 @@ spec:
       labels:
         {{- include "basegun.FrontSelectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.frontend.imagePullSecrets }}
+      {{- with .Values.frontend.image.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -31,6 +31,7 @@ spec:
             {{- toYaml .Values.frontend.securityContext | nindent 12 }}
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          resources: {{- toYaml .Values.backend.resources | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.frontend.service.containerPort }}

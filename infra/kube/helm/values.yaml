@@ -11,7 +11,7 @@ ingress:
   #traefik.ingress.kubernetes.io/router.tls: "true"
   #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
-    - host: basegun.fr
+    - host: basegun.d231.dev.forge.minint.fr
       paths:
         - path: /
           pathType: Prefix
@@ -31,11 +31,12 @@ serviceAccount:
 backend:
   replicaCount: 1
   image:
-    repository: ghcr.io/datalab-mi/basegun/basegun-backend
+    repository: registry.dso.interieur.rie.gouv.fr/dso-basegun/backend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "3.2"
-    imagePullSecrets: []
+    tag: "latest"
+    imagePullSecrets:
+    - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
@@ -66,7 +67,7 @@ backend:
     # Used for showing current workspace in app
     workspace: preprod
   secret:
-    create: false
+    create: true
     # If create is true, you can provide values else it use existing secret
     #values:
     #  OS_PASSWORD: ""
@@ -75,17 +76,17 @@ backend:
     #  X_OVH_TOKEN: "test"
     #  API_OVH_TOKEN: "test"
     secretName: "basegun-secret"
-  resources: {}
+  resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+    limits:
+      memory: "1024Mi"
+      cpu: "800m"
+    requests:
+      memory: "512Mi"
+      cpu: "400m"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -93,11 +94,12 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: ghcr.io/datalab-mi/basegun/basegun-frontend
+    repository: registry.dso.interieur.rie.gouv.fr/dso-basegun/frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "3.2"
-    imagePullSecrets: []
+    tag: "latest"
+    imagePullSecrets:
+    - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
@@ -114,17 +116,17 @@ frontend:
     type: ClusterIP
     port: 8080
     containerPort: 8080
-  resources: {}
+  resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+    limits:
+      memory: "512Mi"
+      cpu: "400m"
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
   nodeSelector: {}
   tolerations: []
   affinity: {}
