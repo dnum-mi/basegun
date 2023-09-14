@@ -42,16 +42,26 @@ describe('Securing Firearm and Identification', () => {
     cy.getByDataTestid('button-next').click()
     cy.url().should('contain', '/mise-en-securite-tutoriel')
     cy.get('video')
+      .then(
+        ($video) => {
+          $video[0].load()
+        })
+    cy.wait(30000)
+    cy.get('video')
       .should('have.prop', 'paused', true)
       .and('have.prop', 'ended', false)
+      .then(
+        ($video) => {
+          $video[0].play()
+        })
+    cy.wait(2000)
+    cy.get('video')
+      .should('have.prop', 'paused', false)
       .then(($video) => {
-        $video[0].play()
+        $video[0].pause()
       })
     cy.wait(2000)
-    cy.get('video').then(($video) => {
-      $video[0].pause()
-    })
-    cy.wait(2000)
+    cy.get('video').should('have.prop', 'paused', true)
     cy.contains('h2', 'Mettre en sécurité mon arme')
     cy.contains('li', 'Actionner la culasse')
     cy.getByDataTestid('button-next').click()
