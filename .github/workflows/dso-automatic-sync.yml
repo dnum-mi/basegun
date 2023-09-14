@@ -1,11 +1,6 @@
 name: Sync DSO gitlab repository
 
-on:
-  push:
-    branches:
-      - main
-      - develop
-      - feature/adapt-infra-for-dso-env
+on: workflow_dispatch
 
 jobs:
   sync:
