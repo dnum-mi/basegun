@@ -10,8 +10,8 @@ jobs:
           curl "https://gitlab.apps.c6.numerique-interieur.com/api/v4/projects/62/trigger/pipeline" \
             -X POST \
             --fail \
-            -F token=glptt-d4c40b4d02672a1edad35acd909b8f73d4a46fef \
-            -F ref=${{ github.GITHUB_REF_NAME }} \
+            -F token=${{ secrets.DSO_TOKEN }} \
+            -F ref=main \
             -F variables[GIT_BRANCH_DEPLOY]=${{ github.GITHUB_REF_NAME }} \
             -F variables[PROJECT_NAME]=basegun-test/infra
           
