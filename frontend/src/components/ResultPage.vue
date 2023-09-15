@@ -231,8 +231,6 @@ function sendFeedback (isCorrect) {
           </div>
         </div>
       </div>
-      </h2>
-      </h2>
     </div>
     <div
       v-if="isFeedbackDone"

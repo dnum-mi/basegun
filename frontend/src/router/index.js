@@ -18,6 +18,7 @@ const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/Securing
 const SecuringSelectOptionStep1 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep1.vue')
 const SecuringSelectOptionStep3 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep3.vue')
 const SecuringSelectOptionStep2 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep2.vue')
+const SecuringSelectOptionContent = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionContent.vue')
 const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
@@ -74,6 +75,12 @@ const routes = [
         component: SecuringIntroduction,
       },
     ],
+  },
+  {
+    path: '/mise-en-securite-choix-option-etape/:step',
+    name: 'SecuringSelectOption',
+    component: SecuringSelectOptionContent,
+    props: true,
   },
   {
     path: '/mise-en-securite-choix-option-etape-1',

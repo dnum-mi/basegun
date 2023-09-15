@@ -5,6 +5,7 @@ import { serializer } from '@/utils/storage-utils.js'
 
 export const useStepsStore = defineStore('steps', () => {
   const currentStep = useLocalStorage('currentStep', 1)
+  const currentOptionStep = useLocalStorage('currentOptionStep', {})
 
   const selectedOptionStep2 = useLocalStorage('selectedOptionStep2', undefined, { serializer })
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
@@ -24,10 +25,13 @@ export const useStepsStore = defineStore('steps', () => {
     selectedAmmo.value = ammo
   }
 
+  function setOptionStep (step, value) {
+    currentOptionStep.value = { ...currentOptionStep, [step]: value }
+  }
+
   function setOptionStep1 (selection) {
     selectedOptionStep1.value = selection
   }
-
   function setOptionStep2 (option) {
     selectedOptionStep2.value = option
   }
@@ -37,11 +41,13 @@ export const useStepsStore = defineStore('steps', () => {
 
   return {
     currentStep,
+    currentOptionStep,
     selectedOptionStep2,
     selectedAmmo,
     selectedOptionStep1,
     selectedOptionStep3,
     tutorialFeedback,
+    setOptionStep,
     isDummy,
     isModalTransparentAmmoOpened,
     setCurrentStep,
