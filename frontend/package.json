@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
-    "@unocss/transformer-directives": "^0.56.4",
-    "@unocss/transformer-variant-group": "^0.56.4",
+    "@unocss/transformer-directives": "^0.55.7",
+    "@unocss/transformer-variant-group": "^0.55.7",
     "@vitejs/plugin-vue": "^4.3.4",
     "cypress": "^13.3.0",
     "eslint": "^8.50.0",
