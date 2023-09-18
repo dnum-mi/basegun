@@ -4,13 +4,12 @@ import revolver21873USImg from '@/assets/guide-mise-en-securite/photos/revolver/
 import revolver21873USVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_US.mp4'
 import revolver2AxeBarilletImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_axe_barillet.jpg'
 import revolver2AxeBarilletVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_axe_barillet.mp4'
-import revolver2BoutoneBarilletImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_bouton_cote_barillet.jpg'
-import revolver2BoutoneBarilletVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_bouton_cote_barillet.mp4'
+import revolver2BoutoneBarilletImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_bouton_barillet.jpg'
+import revolver2BoutoneBarilletVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_bouton_barillet.mp4'
 import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg'
 import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
 import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
-// import revolverBasculantImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_basculant.jpg'
-// import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
+import revolver3PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1873_FR.jpg'
 import revolver2PortiereP1Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p1.mp4'
 import revolver2PortiereP2Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p2.mp4'
 import revolver2PortiereP3Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_montage_p3.mp4'
@@ -183,7 +182,7 @@ export const revolver = {
         //   video: revolver2PortiereVideo,
         // },
       },
-      img: revolver2PortiereImg,
+      img: revolver3PortiereImg,
     },
     revolver_verrou_1892: {
       label: 'Le barillet bascule',

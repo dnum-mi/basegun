@@ -49,55 +49,7 @@ const openNextAccordion = (currentIndex) => {
         Manipulations
       </h3>
       <div v-if="typology === 'revolver'">
-        <div v-if="selectedOptionStep3 === 'revolver_1873_fr'">
-          <div>
-            <p class="my-4">
-              Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme
-            </p>
-            <DsfrAccordionsGroup>
-              <li
-                v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
-                :key="key"
-              >
-                <DsfrAccordion
-                  :id="`accordion-${key}-video`"
-                  :expanded-id="expandedId"
-                  @expand="expandedId = $event"
-                >
-                  <template #title>
-                    Etape {{ key }} / {{ Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length }}  <em class="text-gray-400"> - {{ step.time }}</em>
-                  </template>
-                  <video
-                    autoplay
-                    controls
-                    playsinline
-                    loop
-                    muted
-                    :src="step.video"
-                  />
-                  <p
-                    class="manipulations -mt-2 p-6"
-                    v-html="step.content"
-                  />
-                  <div class="flex justify-end my-4">
-                    <DsfrButton
-                      v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length"
-                      @click="openNextAccordion(key)"
-                    >
-                      Etape {{ +key + 1 }}
-                      <VIcon
-                        name="ri-arrow-right-s-line"
-                      />
-                    </DsfrButton>
-                  </div>
-                  <AskingExpert />
-                  <div class="small-blank" />
-                </DsfrAccordion>
-              </li>
-            </DsfrAccordionsGroup>
-          </div>
-        </div>
-        <div v-if="selectedOptionStep3 === 'revolver_verrou_1892'">
+        <div v-if="selectedOptionStep2 !== 'revolver_1873_fr'">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -105,25 +57,99 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
-                :src="resultTree[typology]?.options_step_3['revolver_verrou_1892']?.video"
+                :src="resultTree[typology]?.options_step_2[selectedOptionStep2]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
             </div>
           </div>
-          <p class="manipulations -mx-8 p-8">
+          <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultTree[typology]?.options_step_3['revolver_verrou_1892']?.text_steps"
+                v-for="option in resultTree[typology].options_step_2[selectedOptionStep2]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
               />
             </ul>
-          </p>
-          <div class="small-blank" />
-          <AskingExpert />
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="selectedOptionStep3 === 'revolver_1873_fr'">
+            <div>
+              <p class="my-4">
+                Veuillez suivre les indications dans l'ordre afin de mettre en sécurité votre arme
+              </p>
+              <DsfrAccordionsGroup>
+                <li
+                  v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps"
+                  :key="key"
+                >
+                  <DsfrAccordion
+                    :id="`accordion-${key}-video`"
+                    :expanded-id="expandedId"
+                    @expand="expandedId = $event"
+                  >
+                    <template #title>
+                      Etape {{ key }} / {{ Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length }}  <em class="text-gray-400"> - {{ step.time }}</em>
+                    </template>
+                    <video
+                      autoplay
+                      controls
+                      playsinline
+                      loop
+                      muted
+                      :src="step.video"
+                    />
+                    <p
+                      class="manipulations -mt-2 p-6"
+                      v-html="step.content"
+                    />
+                    <div class="flex justify-end my-4">
+                      <DsfrButton
+                        v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep3].text_steps).length"
+                        @click="openNextAccordion(key)"
+                      >
+                        Etape {{ +key + 1 }}
+                        <VIcon
+                          name="ri-arrow-right-s-line"
+                        />
+                      </DsfrButton>
+                    </div>
+                    <AskingExpert />
+                    <div class="small-blank" />
+                  </DsfrAccordion>
+                </li>
+              </DsfrAccordionsGroup>
+            </div>
+          </div>
+          <div v-if="selectedOptionStep3 === 'revolver_verrou_1892'">
+            <div
+              class="fr-col-sm-6 fr-col-lg-12 mx-auto"
+            >
+              <div class="fr-content-media relative">
+                <video
+                  controls
+                  playsinline
+                  muted
+                  :src="resultTree[typology]?.options_step_3['revolver_verrou_1892']?.video"
+                />
+                <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              </div>
+            </div>
+            <p class="manipulations -mx-8 p-8">
+              <ul class="list-none text-sm">
+                <li
+                  v-for="option in resultTree[typology]?.options_step_3['revolver_verrou_1892']?.text_steps"
+                  :key="option.value"
+                  class="list-decimal"
+                  v-html="option"
+                />
+              </ul>
+            </p>
+            <div class="small-blank" />
+            <AskingExpert />
+          </div>
         </div>
       </div>
       <div v-else>
@@ -135,11 +161,10 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">
@@ -161,7 +186,6 @@ const openNextAccordion = (currentIndex) => {
               <video
                 controls
                 playsinline
-                loop
                 muted
                 :src="resultTree[typology]?.video"
               />
@@ -171,7 +195,7 @@ const openNextAccordion = (currentIndex) => {
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultTree[typology].text_steps"
+                v-for="option in resultTree[typology]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
