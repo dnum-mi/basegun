@@ -12,10 +12,9 @@ services:
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-backend
     environment:
-      - S3_URL_ENDPOINT=http://minio:9000
-      - S3_BUCKET_NAME=basegun-s3
-      - AWS_ACCESS_KEY_ID=minioadmin
-      - AWS_SECRET_ACCESS_KEY=minioadmin
+      - S3_URL_ENDPOINT=${S3_URL_ENDPOINT:-http://minio:9000}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-minioadmin}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-minioadmin}
       - http_proxy
       - https_proxy
       - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
