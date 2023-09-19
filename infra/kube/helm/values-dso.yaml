@@ -61,8 +61,6 @@ backend:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
   config:
-    # Where images are stored locally
-    path_imgs: /app/images
     # Used for showing current workspace in app
     workspace: preprod
   secret:
