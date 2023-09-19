@@ -17,30 +17,12 @@ from user_agents import parse
 from src.model import load_model_inference, predict_image
 
 
-
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-WORKSPACE = os.environ.get("WORKSPACE")
+S3_URL_ENDPOINT = os.environ["S3_URL_ENDPOINT"] if "S3_URL_ENDPOINT" in os.environ else "https://s3.gra.io.cloud.ovh.net/"
+S3_BUCKET_NAME = "basegun-s3"
+S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
+s3 = boto3.resource('s3', endpoint_url=S3_URL_ENDPOINT)
 
-
-def init_variable(var_name: str, path: str) -> str:
-    """Inits global variable for folder path
-
-    Args:
-        var_name (str): variable name in environ
-        path (str): folder path
-
-    Returns:
-        str: final variable value
-    """
-    if var_name in os.environ:
-        VAR = os.environ[var_name]
-    else:
-        VAR = os.path.abspath(os.path.join(
-                CURRENT_DIR,
-                path))
-        print("WARNING: The variable "+var_name+" is not set. Using", VAR)
-    os.makedirs(VAR, exist_ok = True)
-    return VAR
 
 
 def setup_logs(log_dir: str) -> logging.Logger:
@@ -125,13 +107,12 @@ def upload_image(content: bytes, image_key: str):
         image_key (str): path we want to have
     """
     start = time.time()
-    s3 = boto3.resource('s3', endpoint_url=os.environ["S3_URL_ENDPOINT"])
-    object = s3.Object(os.environ["S3_BUCKET_NAME"], image_key)
+    object = s3.Object(S3_BUCKET_NAME, image_key)
     object.put(Body=content)
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_upload_time": time.time()-start,
-        "bg_image_url": os.environ["S3_URL_ENDPOINT"] + "/" + os.environ["S3_BUCKET_NAME"] +image_key
+        "bg_image_url": os.path.join(S3_URL_ENDPOINT, S3_BUCKET_NAME, image_key)
     }
     logger.info("Upload successful", extra=extras_logging)
 
@@ -227,13 +208,13 @@ async def imageupload(
     extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
-        img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
+        img_key = os.path.join(S3_PREFIX, str(uuid4()) + os.path.splitext(image.filename)[1])
         img_bytes = image.file.read()
 
         # upload image to OVH Cloud
-        background_tasks.add_task(upload_image, img_bytes, f"/uploaded-images/{os.environ['WORKSPACE']}/{img_name}")
-        image_path = f"{os.environ['S3_URL_ENDPOINT']}/{os.environ['S3_BUCKET_NAME']}/uploaded-images/{os.environ['WORKSPACE']}/{img_name}"
-        extras_logging["bg_image_url"] = image_path
+        background_tasks.add_task(upload_image, img_bytes, img_key)
+        img_path = os.path.join(S3_URL_ENDPOINT, S3_BUCKET_NAME, img_key)
+        extras_logging["bg_image_url"] = img_path
 
         # set user id
         if not user_id:
@@ -257,7 +238,7 @@ async def imageupload(
         logger.info("Identification request", extra=extras_logging)
 
         return {
-            "path": image_path,
+            "path": img_path,
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"]
