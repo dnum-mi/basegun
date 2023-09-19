@@ -14,10 +14,10 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries (except torch)
-COPY requirements/ requirements/
+COPY requirements.txt .
 ENV PIP_CERT=$CACERT_LOCATION
 RUN pip --default-timeout=300 install --upgrade pip \
-    && pip --default-timeout=300 install --no-cache-dir -r requirements/common.txt \
+    && pip --default-timeout=300 install --no-cache-dir -r requirements.txt \
     && rm -r /root/.cache
 
 ARG VERSION
@@ -31,14 +31,14 @@ RUN mkdir -p src/weights \
 
 # launch website
 FROM base as dev
-RUN pip --default-timeout=300 install --no-cache-dir -r requirements/dev.txt
 CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]
 
 FROM base as test
-RUN pip install -r requirements/dev.txt && pip install requests && rm -r /root/.cache
+RUN pip install requests && rm -r /root/.cache
 COPY tests/ tests/
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
 
 FROM base as prod
-RUN pip install --no-cache-dir -r requirements/prod.txt
+RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu \
+    torch==1.13.0+cpu torchvision==0.14.0+cpu && rm -r /root/.cache
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]

@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 fastapi==0.68.0
 uvicorn==0.14.0
 python-multipart>=0.0.5
@@ -7,3 +8,5 @@ user-agents==2.2.0
 ua-parser==0.10.0
 python-openstackclient==5.8.0
 python-swiftclient==4.0.0
+torch==1.13.0
+torchvision==0.14.0
