@@ -33,6 +33,7 @@ spec:
             {{- toYaml .Values.backend.securityContext | nindent 12 }}
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          resources: {{- toYaml .Values.backend.resources | nindent 12 }}
           envFrom:
           - configMapRef:
               name: {{ include "basegun.name" . }}-config
@@ -60,7 +61,7 @@ spec:
           image: "{{ .Values.backend.logs.repository }}:{{ .Values.backend.logs.tag }}"
           command: ["/bin/bash"]
           args: ["-c", "filebeat -e -c /tmp/filebeat/filebeat.yml --strict.perms=false"]
-          resources: {}
+          resources: {{- toYaml .Values.backend.logs.resources | nindent 12 }}
           env:
             - name: X_OVH_TOKEN
               valueFrom:
