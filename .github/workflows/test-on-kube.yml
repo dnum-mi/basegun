@@ -5,11 +5,9 @@ on:
     secrets:
       API_OVH_TOKEN:
         required: true
-      OS_PASSWORD:
+      AWS_ACCESS_KEY_ID:
         required: true
-      OS_PROJECT_NAME:
-        required: true
-      OS_USERNAME:
+      AWS_SECRET_ACCESS_KEY:
         required: true
       X_OVH_TOKEN:
         required: true
@@ -64,9 +62,8 @@ jobs:
             --set frontend.image.repository="basegun-frontend" \
             --set frontend.image.tag="$(make get-current-tag)-prod" \
             --set backend.secret.create="true" \
-            --set-string backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
-            --set-string backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
-            --set-string backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
+            --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_IDD }}" \
+            --set-string backend.secret.values.AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
             --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.X_OVH_TOKEN }}" \
             --set-string backend.secret.values.API_OVH_TOKEN="${{ secrets.API_OVH_TOKEN }}"
           for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done

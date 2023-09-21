@@ -69,12 +69,11 @@ jobs:
       domain: basegun.fr
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-      OS_USERNAME: ${{ secrets.OS_USERNAME }}
-      X_OVH_TOKEN: ${{ secrets.PROD_OVH_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       JOB_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      KUBECONFIG: ${{ secrets.PROD_K8_CONFIG }}
+      KUBECONFIG: ${{ secrets.PREPROD_K8_CONFIG }}
+      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
