@@ -11,7 +11,7 @@ ingress:
   #traefik.ingress.kubernetes.io/router.tls: "true"
   #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
-    - host: http://basegun.dev.numerique-interieur.com/
+    - host: basegun.dev.numerique-interieur.com
       paths:
         - path: /
           pathType: Prefix
