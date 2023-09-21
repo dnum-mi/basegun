@@ -11,9 +11,8 @@ services:
     container_name: basegun-backend
     environment:
       - PATH_LOGS=/tmp/logs
-      - OS_USERNAME
-      - OS_PASSWORD
-      - OS_PROJECT_NAME
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
       - WORKSPACE=${WORKSPACE:-prod}
     image: basegun-backend:${TAG}-prod
     ports:
