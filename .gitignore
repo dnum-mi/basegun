@@ -11,7 +11,7 @@ logs/
 temp/
 *openrc.sh
 .terraform*
-.secrets
+*.secrets*
 version.txt
 *.crt
 *.pem
