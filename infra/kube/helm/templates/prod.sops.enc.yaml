@@ -1,0 +1,33 @@
+apiVersion: isindir.github.com/v1alpha3
+kind: SopsSecret
+metadata:
+    name: basegun-prod-secret
+spec:
+    secretTemplates:
+        - name: ENC[AES256_GCM,data:MGF+Cg8jPcly/TGzE2R9H6zYoA==,iv:gSqKhBxRSMu5vrHX1gPQX94zoDgjvAjCX6yqHFB53Hs=,tag:Wr2WLdGddVy10gMgkL1BTg==,type:str]
+          stringData:
+            API_OVH_TOKEN: ENC[AES256_GCM,data:CGNiLb8gWQy5kovokidV85GMyM3XEGOb4u3BH+yVYWjuENcoFcEL5BnBbLlYXtuCFPxSig==,iv:ZeSpZhtxQZPcGCUvtXD7u/hXAlpdf0EDCYfBBOZLE6g=,tag:tfRdSR1t3oxqbrMC0FKjAQ==,type:str]
+            OS_PASSWORD: ENC[AES256_GCM,data:SdgWAzfqfnjObwlEbSHWtYRZMdlUDp3wx2O0mNK8vaM=,iv:Ue3Woy+djv0nrtQxGV/ujK7+zyGSt4cnwFamLR2gQ7o=,tag:c40Tr9OA7jT3bHYupjF/qg==,type:str]
+            OS_PROJECT_NAME: ENC[AES256_GCM,data:H8F/HDm/ghnVe+VWZ3QZkw==,iv:gCP7Wxj2vdoMvxC7tHdOYkdtSUs1cGn94/3QmO8X6FI=,tag:3FRKS3zNY71IMYZobq61tQ==,type:int]
+            OS_USERNAME: ENC[AES256_GCM,data:pR09XJZt7TychLv4W1OFQyA=,iv:PEeEy1L0EpFq59eAyZra5Ld2FSoj2BHfpI7DL3zJFMM=,tag:I1kGN5PZ7asFXe/sC/45kw==,type:str]
+            X_OVH_TOKEN: ENC[AES256_GCM,data:GAxiBcS/wXuDJm+jOLaU4jNX5ZNRa9ncJqHEi0Y/QstlmT2S,iv:gkNFkWhbAiEFmmLw28a2fZLXRPFaY22es8QD3F8vUlA=,tag:7KRs5F5jhtbO/Tba7ODo5Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1g867s7tcftkgkdraz3ezs8xk5c39x6l4thhekhp9s63qxz0m7cgs5kan9a
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvTnhvai8wcEo5RGQ1NUtx
+            cWFwNUQ2ZjdmOW9lUEVocHZuM0NpTlBqRHdvClRXRit3aFNPY2VwS25mODJCZ3BV
+            QklrNFpycm5meWhLSTZyc2JaU0g3MUkKLS0tIEtnUDByREVkQkdpWFhEV2RLZVdY
+            amtnbGxjaEJRalZobGdBRmxHYkRKMzQKjcK2A73GNRD3aJP9dB5QNT86UTNZM+7G
+            Z3D7m2hkGMQ+p8CMeJ3HxF2SxTbAI904rp/W0wOgiDC7THR/gb3KZQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-09-21T16:01:45Z"
+    mac: ENC[AES256_GCM,data:pv1Ry8cpIP9kiB4zVaXJJj+bfWUXp5Yf6Kw3AVO3hW85B+w2nk9s7MuiEeRiAhwzm1jxwqVhamCw8Z3A1h6xUhPz+fmJNOP+euDgY60lz+ZCkkQyjfMe5ehwatG65W7mx5ubhVU4dfmVMZ1MsECJx5FkIfGqP7biq4PmYLf29lo=,iv:4pen5TU+kAtLdBc/F7gsi0YKgYsIcK/PfTf3ceJfEBk=,tag:K7TK8jbEUV3wRy/uYhq3mg==,type:str]
+    pgp: []
+    encrypted_suffix: Templates
+    version: 3.7.1
