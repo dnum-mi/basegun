@@ -1,14 +1,15 @@
 
 import os
 import logging
-import boto3
 import time
 import json
-
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
 from uuid import uuid4
 from typing import Union
+
+import boto3
+from botocore.client import ClientError
 from fastapi import BackgroundTasks, Cookie, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
 from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,11 +19,26 @@ from src.model import load_model_inference, predict_image
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-S3_URL_ENDPOINT = os.environ["S3_URL_ENDPOINT"] if "S3_URL_ENDPOINT" in os.environ else "https://s3.gra.io.cloud.ovh.net/"
-S3_BUCKET_NAME = "basegun-s3"
-S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
-s3 = boto3.resource('s3', endpoint_url=S3_URL_ENDPOINT)
 
+
+def init_variable(key: str, value: str) -> str:
+    """Inits global variable for folder path
+
+    Args:
+        key (str): variable key in environ
+        value (str): value to give if variable does not exist yet
+
+    Returns:
+        str: final variable value
+    """
+    if key in os.environ:
+        VAR = os.environ[key]
+    else:
+        VAR = value
+        print("WARNING: The variable "+key+" is not set. Using", VAR)
+        if os.path.isabs(VAR):
+            os.makedirs(VAR, exist_ok = True)
+    return VAR
 
 
 def setup_logs(log_dir: str) -> logging.Logger:
@@ -112,7 +128,7 @@ def upload_image(content: bytes, image_key: str):
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_upload_time": time.time()-start,
-        "bg_image_url": os.path.join(S3_URL_ENDPOINT, S3_BUCKET_NAME, image_key)
+        "bg_image_url": os.path.join(S3_URL_VISUALIZE, image_key)
     }
     logger.info("Upload successful", extra=extras_logging)
 
@@ -141,7 +157,8 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+PATH_LOGS = init_variable("PATH_LOGS",
+    os.path.abspath(os.path.join(CURRENT_DIR,"/tmp/logs")))
 logger = setup_logs(PATH_LOGS)
 
 # Load model
@@ -153,6 +170,19 @@ if os.path.exists(MODEL_PATH):
     model = load_model_inference(MODEL_PATH)
 if not model:
     raise RuntimeError("Model not found")
+
+# Object storage
+S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
+S3_URL_VISUALIZE = "https://basegun-s3.s3.gra.io.cloud.ovh.net/"
+S3_BUCKET_NAME = "basegun-s3"
+S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
+s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
+""" TODO : check if connection successful
+try:
+    s3.meta.client.head_bucket(Bucket=S3_BUCKET_NAME)
+except ClientError:
+    logger.exception("Cannot find s3 bucket ! Are you sure your credentials are correct ?")
+"""
 
 # Versions
 if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
@@ -208,12 +238,13 @@ async def imageupload(
     extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
-        img_key = os.path.join(S3_PREFIX, str(uuid4()) + os.path.splitext(image.filename)[1])
+        img_key = os.path.join(S3_PREFIX,
+                    str(uuid4()) + os.path.splitext(image.filename)[1].lower())
         img_bytes = image.file.read()
 
         # upload image to OVH Cloud
         background_tasks.add_task(upload_image, img_bytes, img_key)
-        img_path = os.path.join(S3_URL_ENDPOINT, S3_BUCKET_NAME, img_key)
+        img_path = os.path.join(S3_URL_VISUALIZE, img_key)
         extras_logging["bg_image_url"] = img_path
 
         # set user id
