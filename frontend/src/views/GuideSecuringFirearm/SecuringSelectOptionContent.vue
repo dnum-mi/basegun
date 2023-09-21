@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -20,19 +19,12 @@ const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
 
-// const selectedOptionStep1 = computed(() => { return stepsStore.selectedOptionStep1 })
-// const selectedOptionStep2 = computed(() => { return stepsStore.selectedOptionStep2 })
-// const selectedOptionStep3 = computed(() => { return stepsStore.selectedOptionStep3 })
-
 const selectedOptionStep = computed({
   get () {
     return stepsStore.currentOptionStep[props.step]
   },
   set (option) {
     stepsStore.setOptionStep(props.step, option)
-    if (props.step === '1') useLocalStorage('selectedOptionStep1', stepsStore.setOptionStep1(selectedOptionStep.value))
-    if (typology.value === 'revolver' && props.step === '2') useLocalStorage('selectedOptionStep2', stepsStore.setOptionStep2(selectedOptionStep.value))
-    if (typology.value === 'revolver' && props.step === '3') useLocalStorage('selectedOptionStep3', stepsStore.setOptionStep3(selectedOptionStep.value))
   },
 })
 
@@ -52,25 +44,32 @@ function updateTypology () {
   if (props.step === '1' && selectedOptionStep.value === 'revolver_black_powder') {
     // Remember if it is a revolver with black powder
     resultStore.updateTypology(selectedOptionStep.value)
-    console.log('typology updated')
   }
 }
 
 const nextTo = computed(() => {
   if (typology.value === 'revolver') {
-    if (props.step === '1' && stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
+    if (props.step === '1') {
+      if (stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
+        return {
+          name: 'SecuringAchievement',
+        }
+      }
       return {
-        name: 'SecuringAchievement',
+        name: 'SecuringSelectOption',
+        params: { step: '2' },
       }
     }
-    if (((props.step === '2' || props.step === '3') && stepsStore.currentOptionStep['2'] !== 'revolver_portiere')) {
-      return {
-        name: 'SecuringTutorialContent',
+    if (props.step === '2') {
+      if (stepsStore.currentOptionStep['2'] !== 'revolver_portiere') {
+        return {
+          name: 'SecuringTutorialContent',
+        }
       }
-    }
-    return {
-      name: 'SecuringSelectOption',
-      params: { step: Number(props.step) + 1 },
+      return {
+        name: 'SecuringSelectOption',
+        params: { step: '3' },
+      }
     }
   }
   return {
@@ -83,20 +82,12 @@ const backTo = computed(() => {
     return { name: 'InstructionsPage' }
   }
   if (props.step === '2') {
-    console.log('localStorage:', useLocalStorage('selectedOptionStep1').value)
-    console.log('localStorage:', useLocalStorage('selectedOptionStep2').value)
-    console.log('localStorage:', useLocalStorage('selectedOptionStep3').value)
-    console.log('selectedOptionStep :', selectedOptionStep.value)
     return {
       name: 'SecuringSelectOption',
       params: { step: '1' },
     }
   }
   if (props.step === '3') {
-    console.log('localStorage:', useLocalStorage('selectedOptionStep1').value)
-    console.log('localStorage:', useLocalStorage('selectedOptionStep2').value)
-    console.log('localStorage:', useLocalStorage('selectedOptionStep3').value)
-    console.log('selectedOptionStep :', selectedOptionStep.value)
     return {
       name: 'SecuringSelectOption',
       params: { step: '2' },
