@@ -31,8 +31,8 @@ export const useResultStore = defineStore('result', () => {
     geolocation.value = geoloc
   }
 
-  const updateTypology = (selectedOptionStep1) => {
-    typology.value = typology.value + (selectedOptionStep1 === 'revolver_black_powder' ? '_black_powder' : '')
+  const updateTypology = (selectedOptionStep) => {
+    typology.value = typology.value + (selectedOptionStep === 'revolver_black_powder' ? '_black_powder' : '')
   }
 
   return {

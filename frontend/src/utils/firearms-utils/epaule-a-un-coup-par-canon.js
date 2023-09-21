@@ -1,4 +1,6 @@
-import epauleAUnCoupParCanonCleDarne from '@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/ep_un_coup_cle_oreilles.jpg'
+import epauleAUnCoupParCanonCleDarneImg from '@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_darne.jpg'
+import epauleAUnCoupParCanonClePouceImg from '@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_pouce.jpg'
+import epauleAUnCoupParCanonCleLechaufeuxImg from '@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_lefaucheux.jpg'
 import epauleAUnCoupParCanonCleDarneVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-darne.mp4'
 import epauleAUnCoupParCanonClePouceVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-pouce.mp4'
 import epauleAUnCoupParCanonCleLefaucheuxVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-lefaucheux.mp4'
@@ -25,7 +27,7 @@ export const epaule_a_un_coup_par_canon = {
         3: '<span class="font-bold">Retirer les munitions</span> éventuelles',
         4: 'Contrôler visuellement les chambres',
       },
-      img: epauleAUnCoupParCanonCleDarne,
+      img: epauleAUnCoupParCanonClePouceImg,
       video: epauleAUnCoupParCanonClePouceVideo,
     },
     cle_lefaucheux: {
@@ -39,7 +41,7 @@ export const epaule_a_un_coup_par_canon = {
         5: '<span class="font-bold">Retirer les munitions</span> éventuelles',
         6: 'Contrôler visuellement les chambres',
       },
-      img: epauleAUnCoupParCanonCleDarne,
+      img: epauleAUnCoupParCanonCleLechaufeuxImg,
       video: epauleAUnCoupParCanonCleLefaucheuxVideo,
     },
     cle_darne: {
@@ -52,7 +54,7 @@ export const epaule_a_un_coup_par_canon = {
         4: '<span class="font-bold">Retirer les munitions</span> éventuelles',
         5: 'Contrôler visuellement que la chambre est vide',
       },
-      img: epauleAUnCoupParCanonCleDarne,
+      img: epauleAUnCoupParCanonCleDarneImg,
       video: epauleAUnCoupParCanonCleDarneVideo,
     },
   },

@@ -59,7 +59,7 @@ async function sendLogsIdentificationDummy () {
     confidence: confidence.value,
     label: typology.value,
     confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.selectedOptionStep2,
+    tutorial_option: stepsStore.selectedOptionStep,
     is_dummy: stepsStore.isDummy,
   }
   try {

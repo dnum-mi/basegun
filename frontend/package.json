@@ -29,11 +29,11 @@
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/cypress": "^10.0.1",
     "@unocss/transformer-directives": "^0.55.7",
     "@unocss/transformer-variant-group": "^0.55.7",
     "@vitejs/plugin-vue": "^4.3.4",
-    "cypress": "^12.17.4",
+    "cypress": "^13.2.0",
     "eslint": "^8.48.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-cypress": "^2.14.0",

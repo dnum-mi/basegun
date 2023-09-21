@@ -70,9 +70,9 @@ export const revolver = {
       img: revolver2BoutoneBarilletImg,
       video: revolver2BoutoneBarilletVideo,
     },
-    revolver_1873_fr: {
+    revolver_portiere: {
       label: 'Portière qui cache le côté droit du barillet',
-      value: 'revolver_1873_fr',
+      value: 'revolver_portiere',
       img: revolver2PortiereImg,
     },
     revolver_1873_us: {

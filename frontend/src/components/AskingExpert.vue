@@ -31,7 +31,7 @@ async function sendTutorialFeedback () {
     image_url: imgUrl.value,
     tutorial_feedback: stepsStore.tutorialFeedback,
     label: typology.value,
-    tutorial_option: stepsStore.selectedOptionStep2 || null,
+    tutorial_option: stepsStore.selectedOptionStep || null,
     route_name: route.name,
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,

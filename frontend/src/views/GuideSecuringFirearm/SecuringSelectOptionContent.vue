@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
 
 import { useStepsStore } from '@/stores/steps.js'
 import { useResultStore } from '@/stores/result.js'
@@ -19,12 +20,19 @@ const stepsStore = useStepsStore()
 
 const typology = computed(() => resultStore.typology)
 
+// const selectedOptionStep1 = computed(() => { return stepsStore.selectedOptionStep1 })
+// const selectedOptionStep2 = computed(() => { return stepsStore.selectedOptionStep2 })
+// const selectedOptionStep3 = computed(() => { return stepsStore.selectedOptionStep3 })
+
 const selectedOptionStep = computed({
   get () {
     return stepsStore.currentOptionStep[props.step]
   },
   set (option) {
     stepsStore.setOptionStep(props.step, option)
+    if (props.step === '1') useLocalStorage('selectedOptionStep1', stepsStore.setOptionStep1(selectedOptionStep.value))
+    if (typology.value === 'revolver' && props.step === '2') useLocalStorage('selectedOptionStep2', stepsStore.setOptionStep2(selectedOptionStep.value))
+    if (typology.value === 'revolver' && props.step === '3') useLocalStorage('selectedOptionStep3', stepsStore.setOptionStep3(selectedOptionStep.value))
   },
 })
 
@@ -48,48 +56,53 @@ function updateTypology () {
   }
 }
 
-const backTo = computed(() => {
-  if (props.step === '2') {
-    if (!stepsStore.currentOptionStep['1']) {
-      return { name: 'InstructionsPage' }
+const nextTo = computed(() => {
+  if (typology.value === 'revolver') {
+    if (props.step === '1' && stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
+      return {
+        name: 'SecuringAchievement',
+      }
+    }
+    if (((props.step === '2' || props.step === '3') && stepsStore.currentOptionStep['2'] !== 'revolver_portiere')) {
+      return {
+        name: 'SecuringTutorialContent',
+      }
     }
     return {
       name: 'SecuringSelectOption',
-      step: '2',
+      params: { step: Number(props.step) + 1 },
     }
-  }
-  if (props.step === '3') {
-    return { name: 'SecuringSelectOption' }
-  }
-  return { name: 'InstructionsPage' }
-})
-
-const nextTo = computed(() => {
-  console.log('props.step', props.step)
-  console.log('selectedOptionStep.value', selectedOptionStep.value)
-  if (props.step === '2') {
-    return {
-      name: (selectedOptionStep.value === 'revolver_1873_fr')
-        ? 'SecuringSelectOption'
-        : 'SecuringTutorialContent',
-      ...(selectedOptionStep.value === 'revolver_1873_fr' ? { params: { step: 3 } } : {}),
-    }
-  }
-  if (props.step === '3') {
-    return { name: 'SecuringTutorialContent' }
-  }
-  if (selectedOptionStep.value === 'revolver_black_powder') {
-    return {
-      name: 'SecuringAchievement',
-    }
-  }
-  if (selectedOptionStep.value === undefined) {
-    return '#'
   }
   return {
-    name: 'SecuringSelectOption',
-    params: { step: 2 },
+    name: 'SecuringTutorialContent',
   }
+})
+
+const backTo = computed(() => {
+  if (props.step === '1') {
+    return { name: 'InstructionsPage' }
+  }
+  if (props.step === '2') {
+    console.log('localStorage:', useLocalStorage('selectedOptionStep1').value)
+    console.log('localStorage:', useLocalStorage('selectedOptionStep2').value)
+    console.log('localStorage:', useLocalStorage('selectedOptionStep3').value)
+    console.log('selectedOptionStep :', selectedOptionStep.value)
+    return {
+      name: 'SecuringSelectOption',
+      params: { step: '1' },
+    }
+  }
+  if (props.step === '3') {
+    console.log('localStorage:', useLocalStorage('selectedOptionStep1').value)
+    console.log('localStorage:', useLocalStorage('selectedOptionStep2').value)
+    console.log('localStorage:', useLocalStorage('selectedOptionStep3').value)
+    console.log('selectedOptionStep :', selectedOptionStep.value)
+    return {
+      name: 'SecuringSelectOption',
+      params: { step: '2' },
+    }
+  }
+  return { name: 'InstructionsPage' }
 })
 </script>
 
@@ -105,11 +118,11 @@ const nextTo = computed(() => {
       <div class="instructions">
         <p
           class="leading-7 mt-3"
-          v-html="resultTree[typology]?.options_text || resultTree[typology]?.[`options_step_${step}_text`]"
+          v-html="typology !== 'revolver' ? resultTree[typology]?.options_text : resultTree[typology]?.[`options_step_${step}_text`]"
         />
       </div>
       <div
-        v-for="option of (resultTree[typology]?.options || resultTree[typology]?.[`options_step_${step}`])"
+        v-for="option of (typology !== 'revolver' ? resultTree[typology]?.options : resultTree[typology]?.[`options_step_${step}`])"
         :key="option.value"
       >
         <div class="item">

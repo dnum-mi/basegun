@@ -7,9 +7,9 @@ export const useStepsStore = defineStore('steps', () => {
   const currentStep = useLocalStorage('currentStep', 1)
   const currentOptionStep = useLocalStorage('currentOptionStep', {})
 
-  const selectedOptionStep2 = useLocalStorage('selectedOptionStep2', undefined, { serializer })
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
   const selectedOptionStep1 = useLocalStorage('selectedOptionStep1', undefined, { serializer })
+  const selectedOptionStep2 = useLocalStorage('selectedOptionStep2', undefined, { serializer })
   const selectedOptionStep3 = useLocalStorage('selectedOptionStep3', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
@@ -29,22 +29,22 @@ export const useStepsStore = defineStore('steps', () => {
     currentOptionStep.value = { ...currentOptionStep, [step]: value }
   }
 
-  function setOptionStep1 (selection) {
-    selectedOptionStep1.value = selection
+  function setOptionStep1 (option) {
+    selectedOptionStep1.value = option
   }
   function setOptionStep2 (option) {
     selectedOptionStep2.value = option
   }
-  function setOptionStep3 (selection) {
-    selectedOptionStep3.value = selection
+  function setOptionStep3 (option) {
+    selectedOptionStep3.value = option
   }
 
   return {
     currentStep,
     currentOptionStep,
-    selectedOptionStep2,
     selectedAmmo,
     selectedOptionStep1,
+    selectedOptionStep2,
     selectedOptionStep3,
     tutorialFeedback,
     setOptionStep,

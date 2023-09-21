@@ -15,9 +15,6 @@ const ContactPage = () => import('@/views/ContactPage.vue')
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
 const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
-const SecuringSelectOptionStep1 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep1.vue')
-const SecuringSelectOptionStep3 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep3.vue')
-const SecuringSelectOptionStep2 = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionStep2.vue')
 const SecuringSelectOptionContent = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionContent.vue')
 const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
 const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
@@ -81,21 +78,6 @@ const routes = [
     name: 'SecuringSelectOption',
     component: SecuringSelectOptionContent,
     props: true,
-  },
-  {
-    path: '/mise-en-securite-choix-option-etape-1',
-    name: 'SecuringSelectOptionStep1',
-    component: SecuringSelectOptionStep1,
-  },
-  {
-    path: '/mise-en-securite-choix-option-etape-2',
-    name: 'SecuringSelectOptionStep2',
-    component: SecuringSelectOptionStep2,
-  },
-  {
-    path: '/mise-en-securite-choix-option-etape-3',
-    name: 'SecuringSelectOptionStep3',
-    component: SecuringSelectOptionStep3,
   },
   {
     path: '/mise-en-securite-tutoriel',
