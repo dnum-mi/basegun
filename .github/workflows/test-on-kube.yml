@@ -62,7 +62,7 @@ jobs:
             --set frontend.image.repository="basegun-frontend" \
             --set frontend.image.tag="$(make get-current-tag)-prod" \
             --set backend.secret.create="true" \
-            --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_IDD }}" \
+            --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
             --set-string backend.secret.values.AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
             --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.X_OVH_TOKEN }}" \
             --set-string backend.secret.values.API_OVH_TOKEN="${{ secrets.API_OVH_TOKEN }}"
