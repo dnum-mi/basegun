@@ -1,6 +1,6 @@
 name: Sync DSO gitlab repository
 
-on: 
+on:
   workflow_dispatch:
   push:
     branches:
@@ -16,6 +16,5 @@ jobs:
             --fail \
             -F token=${{ secrets.DSO_TOKEN }} \
             -F ref=main \
-            -F variables[GIT_BRANCH_DEPLOY]=${{ github.GITHUB_REF_NAME }} \
-            -F variables[PROJECT_NAME]=basegun-test/infra
-          
+            -F variables[GIT_BRANCH_DEPLOY]=${{ github.ref_name }} \
+            -F variables[PROJECT_NAME]=infra
