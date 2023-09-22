@@ -1,23 +1,24 @@
+{{- if .Values.backend.secret.sops -}}
 apiVersion: isindir.github.com/v1alpha3
 kind: SopsSecret
 metadata:
-    name: basegun-secret
+    name: sops-secret
 spec:
     secretTemplates:
-        - name: ENC[AES256_GCM,data:1ZVVbDmj5i+r+av13XfioxgPob5+qQ==,iv:G+9020/Elg9I/vibSbY2PqtuU20P4zmHoy36n5oyFMs=,tag:wZzhqetYFjjAZWgyHGPorg==,type:str]
+        - name: ENC[AES256_GCM,data:C7eCSGXEdWtuVa+WYplXamERpCuF2A==,iv:oDDv384GFK0ynFybO0GJXKPjXPUe/++jxUh6oPgSROI=,tag:7auyaf2Pk1gUNCKI+lQjxA==,type:str]
           stringData:
-            API_OVH_TOKEN: ENC[AES256_GCM,data:HKZrlxJAnNjavhsWs600eVz7AZMJTs/U44d3FcL2NZGLzjTwk5oIFqD/oA9vjpm97gMMHg==,iv:NZ4Jyd5DYgrkdaLWZpqrNNjnmMGQzQMzrY84mMaOx8k=,tag:uwr0mqOtslR9TPVcZuAl/g==,type:str]
-            OS_PASSWORD: ENC[AES256_GCM,data:9GZZczK/pnc12dg/Xu6qXiiWh2Yrk9gPzNDHnq5HHqU=,iv:Lez5jeuALUgKKhsDsETdCBMLXJZb3/gBKjrekO2ouyE=,tag:firbyiIG7zjmeIaFgzz3lw==,type:str]
-            OS_PROJECT_NAME: ENC[AES256_GCM,data:OP2sH/0PNPTw8M0bgVanxQ==,iv:neIdYvAMV38nZzqIyp+OOf86QO96GG0Nlq2wNme/5GM=,tag:4GAkiT3ZzDZwzOIxkTTSBw==,type:str]
-            OS_USERNAME: ENC[AES256_GCM,data:W/2F5zRt8ZZVB/JWgGfurSg=,iv:EfrkEn7tGC8R6Wq9VcziLAlaY1jUYCE4z4wBM3+l0tU=,tag:V+Ao+Y1zL3EEgTnAFe2nkA==,type:str]
-            X_OVH_TOKEN: ENC[AES256_GCM,data:guzE1OgwWmfQ8K002SSIePIvx1dYyats4RnHxVwew5iIFHBd,iv:J29ZUWFtu9O4ygzMuhOFGjoEi5XCeuBe+s63pD1mCX0=,tag:q/PAqU+IX10BN/QoyQoROA==,type:str]
-        - name: ENC[AES256_GCM,data:Y8lMlflbQgX5PKV7sIGE5sIKsw==,iv:PTQFWABaFa4TAxsxeIOHkNN4+qh2W/VP7MbfrkrADpA=,tag:HBUl3hmG2dlW3DMTXidtVw==,type:str]
+            API_OVH_TOKEN: ENC[AES256_GCM,data:9fDrMsKCWW4qU5EFsaWhQdA6TIWNueA5sSknmUydichzF1zczSj3nrPtfF7O+dwuWqXUxg==,iv:E8vw8EdDzAigbonjNa57RfTfVpGG9K/Xil+yIAAxPSE=,tag:4qqNEc5RJb1w/WL2dIvt+w==,type:str]
+            OS_PASSWORD: ENC[AES256_GCM,data:vGHEXzNVjviNsyOam48tvdLbvM+XGBwo204jiH6AruY=,iv:4QXRGhyRjQYyovR68tJzbhzzBiOPHsyNBvruCtk8pl0=,tag:snlHGsj+i5nEIV4aeFz2nQ==,type:str]
+            OS_PROJECT_NAME: ENC[AES256_GCM,data:Oe4oIqDnNMxjBA1xAHDuSQ==,iv:3pfX8fZ/3hy5LAP0Z0C+joleY33WnXAHUKa377rObto=,tag:CGqewlAyweMW5BSB80qVrg==,type:str]
+            OS_USERNAME: ENC[AES256_GCM,data:T1BTSS3/nRKMTS7Nk5ZCYi4=,iv:BtWpyd/zxiQPogucbpSzrR6Nn6oIHdbCCpkNhXYzxo8=,tag:mnd+6VxolKMO0vUR/acy4Q==,type:str]
+            X_OVH_TOKEN: ENC[AES256_GCM,data:Qz1uggOKElNvNBS9qxDfybUMBYEIOfuppySaoXEBx00jWv0u,iv:+cklaR+WWjjJLnD1gmZ38atrqCPNrje0BWofWJstIWA=,tag:czA3G3fU4VC7njajF7xaRw==,type:str]
+        - name: ENC[AES256_GCM,data:N8b/GxqS/MdpK/ZH1cFzYyppfw==,iv:HIKkI1y6FIVP323NhZMjrf1Ulp7N29jQ0zlMIv3Y7gg=,tag:ZVG+z7ncvoNsi47lofXjZw==,type:str]
           stringData:
-            API_OVH_TOKEN: ENC[AES256_GCM,data:4fKk+Dyr0UZu9Yt9ImATQISNdLo1J3cIbdK71Jj+YSleI1mz3n53upVunqh7cZfpD1za2Q==,iv:kCHkM3ZxDpXOLS0poBBmmyfoJdF9dPlw5x39HZXmp9c=,tag:Go07oKCOAWydBK7WzSTK6A==,type:str]
-            OS_PASSWORD: ENC[AES256_GCM,data:Z79SFvSc8Xpf/BoHD0K2tj/PdPgrErvTriEGpERTd8k=,iv:MzMQOP31o9U4CmtX8bZoJD4nDw75J5Mfnza6ZXIbb00=,tag:3e9kmSrmn/NOcQ9jz4h23A==,type:str]
-            OS_PROJECT_NAME: ENC[AES256_GCM,data:TiWAobmoZz2BLB/kLoibQQ==,iv:QN3j1/IY5KBTI6WQntGo8LcHnGHpq3GSwHC14lxxKpQ=,tag:UL2mTaTCYPbS5drPY8Dm+w==,type:str]
-            OS_USERNAME: ENC[AES256_GCM,data:hGE3/vJuVgWgdRo6YKXq2xw=,iv:Fldxv4POaB+l80jhuTT7K6dHuce7OjhOFBaA+9pnxic=,tag:4m4aGs9tQKMzJL3BFQ5BJw==,type:str]
-            X_OVH_TOKEN: ENC[AES256_GCM,data:xtHI61wsw/OeLhdXse9M8ZSHM2Zekl/LZ7Wl+XxmCs2Lre5j,iv:dQicS9TRt2utUyjKmJwWkmEl4lCUEgBno7TGPMCXwGY=,tag:gsaLeKh6/NCsUHF3+0Plvg==,type:str]
+            API_OVH_TOKEN: ENC[AES256_GCM,data:T9TY8BUSKH2fJfhcSX71mD+kpB7Ac9WVNyYOIV1FQpumc5XNsVFad015f3MizRn+rJiHkQ==,iv:bZ74ywut3HGCMbb+9US8n9VWQt5YJmPY1hN1+PefoJY=,tag:0cRa6vMOyWOx5Dd1sqigtg==,type:str]
+            OS_PASSWORD: ENC[AES256_GCM,data:uT2J6nJyIZEpXwN9L4lvpoMDv/hZXkIbfyZQK5qVRaM=,iv:ZwgDZOaS7Pt4+/1XBZ4sOshuyuSMIkvSPeadZMk2OSQ=,tag:n3djDDeafNArb+p+nF1pGg==,type:str]
+            OS_PROJECT_NAME: ENC[AES256_GCM,data:TXud2R//KeDgYY1NUH8NnQ==,iv:MydfYwEV58wNKpSn9Mj7tP40RDdOhini4zbByNdvf00=,tag:wI0c8ZCjTQiqmvDRj3p9/A==,type:str]
+            OS_USERNAME: ENC[AES256_GCM,data:Qule8RjaVy5+zfAtdhxYEQM=,iv:8qPLyyjn1Vr+TgM5Vp9lXLsI8MGExXXecScWaRXeSE0=,tag:j2dcIrxE8fecfr31Rtq3SQ==,type:str]
+            X_OVH_TOKEN: ENC[AES256_GCM,data:5Zsze+3JSqxle08ePuvHyHDfTelvnrQ2/INbbbwcvOHvPu/9,iv:xlcyVOkwGl0QGAFlWUT+/2LR4lGLcAGDzswkuq6cDUU=,tag:UviczjiBLQ61jEbpbE9YXA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -27,14 +28,15 @@ sops:
         - recipient: age1g867s7tcftkgkdraz3ezs8xk5c39x6l4thhekhp9s63qxz0m7cgs5kan9a
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBnT0VaSmUwQ3FvaXM0N2hB
-            M1RodXRFMTExZ2pjWC91cGFZdGpJVzBRNzFnCjlXN2YvcHlRcW1OTTdGR3M0a3Rk
-            NWdGSE9LYzB5c0F4RGVicWFKMXJiVDQKLS0tIDlCKzR3ZGVrS082UGlRbEQvMExn
-            ZlVyaVM4Sml5Tm0rcnlUR0Rob01YSFkKznVB850hTwq756oEhCZr3lZ1rMeYMFTJ
-            4M4s3VU271XjM336M3Yk2wG3WlSKzI4NSMfrv5zJL6mWDO+SoFO9Tw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoRG5XVTJTR3NPOVp6dWtX
+            d2NrNXZybGc2akUzQ1NpbEh1OWlWK2VZd3ljCko0SStxRWZpdVNjNXFmdDdDRlRX
+            N0ZBckFUNlRjRTNqdU1sVGgza2J5WTgKLS0tIGdycXh2QWZIWFJXVjZBY29xM2xk
+            eU4vU29uaFdjdk5xQklJanBuUWFkbFUKaZYD36McjUvedtf6vsjDJPlseiYmcPhu
+            4sQPd4kORdtquDoDFD76y/aY2Rna2XlVd8jMUDyFYssudKjik3y4AQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-22T15:37:24Z"
-    mac: ENC[AES256_GCM,data:Xmx2WR0+a/n1zz6FB8nzMTCwqjpal8DcT8PmHqUPswKKFVDqqh5mZMZru2CFBS4vG5jJ4j+DOA6uAxW+p5R0hRz6y6To43ZWc5olHmbjgpjdEWHZrdXTOx9N86DxPRfp4qFR5pEcp9gSrWSSmSKYV/IKl+Aw8dfWKy27UV1nBnc=,iv:rMI2UepCiiRXXjYQfcETfE2siqAio9T2k0ErYO2Li8E=,tag:pTCeYPM+CM6HQ3+vuEik7w==,type:str]
+    lastmodified: "2023-09-22T15:49:44Z"
+    mac: ENC[AES256_GCM,data:m7h+73fmAbnb8R2xyytB7kA1gdVmoxOg2rTPSDPbsX0lL5dLay4Jljbz7VvrAnq0DoxJj0AOX/XOopkTnBDGaVUxiPTrzwrZUQQCO/IEB4Tor46EKSKDiglNqPziFuvwBW0Y7UFkBXj2dv8E9YJRk8fFJLHRhgsXiYEeKR+AzNQ=,iv:kx1yeNgJyycWVl+pb1bU+P9dNc1mxs3mRq/E6f2BWUw=,tag:VyD4mDjY24AKEbHZNHoE8w==,type:str]
     pgp: []
     encrypted_suffix: Templates
     version: 3.7.1
+{{- end }}

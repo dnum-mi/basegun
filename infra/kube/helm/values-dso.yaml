@@ -65,6 +65,7 @@ backend:
     workspace: preprod
   secret:
     create: false
+    sops: true
     secretName: basegun-preprod-secret
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
