@@ -66,12 +66,12 @@ spec:
             - name: X_OVH_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "basegun.name" . }}-secret
+                  name: {{ .Values.backend.secret.secretName }}
                   key: X_OVH_TOKEN
             - name: API_OVH_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "basegun.name" . }}-secret
+                  name: {{ .Values.backend.secret.secretName }}
                   key: API_OVH_TOKEN
           volumeMounts:
             - name: {{ include "basegun.name" . }}-filebeat-conf

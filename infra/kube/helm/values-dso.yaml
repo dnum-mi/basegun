@@ -34,7 +34,7 @@ backend:
     repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: use-rootless-dockerfiles
+    tag: feature-adapt-infra-for-dso-env
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
@@ -88,7 +88,7 @@ frontend:
     repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "3.2"
+    tag: feature-adapt-infra-for-dso-env
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
