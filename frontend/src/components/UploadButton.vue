@@ -53,13 +53,13 @@ async function submitUpload (base64, fileName) {
     // TODO: Afficher l’erreur à l’utilisateur
     router.push({ name: 'ErrorPage', meta: { error } })
   } finally {
-    router.push({
-      name: getNextRouteAfterResult({
-        securingTutorial: resultStore.securingTutorial,
-        confidenceLevel: resultStore.confidenceLevel,
-        typology: resultStore.typology,
-      }),
+    const nextRoute = getNextRouteAfterResult({
+      securingTutorial: resultStore.securingTutorial,
+      confidenceLevel: resultStore.confidenceLevel,
+      typology: resultStore.typology,
     })
+    console.log('nextRoute', nextRoute)
+    router.push(nextRoute)
   }
 }
 

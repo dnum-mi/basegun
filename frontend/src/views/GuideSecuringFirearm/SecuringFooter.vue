@@ -34,7 +34,7 @@ const backClick = (navigate) => {
           class="flex  justify-center  w-full"
           :secondary="true"
           label="Précédent"
-          @click="backClick(navigate)"
+          @click.stop.prevent="backClick(navigate)"
         />
       </RouterLink>
       <RouterLink
@@ -48,7 +48,7 @@ const backClick = (navigate) => {
           :disabled="nextDisabled"
           label="Suivant"
           :icon-right="true"
-          @click="nextClick(navigate)"
+          @click.stop.prevent="nextClick(navigate)"
         />
       </RouterLink>
     </div>
