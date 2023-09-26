@@ -23,14 +23,14 @@ BUCKET_POLICY = {
         'Effect': 'Allow',
         'Principal': '*',
         'Action': ['s3:GetObject'],
-        'Resource': f"arn:aws:s3:::{'S3_BUCKET_NAME'}/*"
+        'Resource': f"arn:aws:s3:::{S3_BUCKET_NAME}/*"
     }]
 }
 
 
 def create_bucket():
-    s3 = boto3.resource("s3", endpoint_url="S3_URL_ENDPOINT")
-    bucket = s3.Bucket("S3_BUCKET_NAME")
+    s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
+    bucket = s3.Bucket(S3_BUCKET_NAME)
     if bucket.creation_date is None:
         bucket.create()
         bucket.Policy().put(Policy=json.dumps(BUCKET_POLICY))
