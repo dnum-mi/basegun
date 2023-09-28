@@ -128,7 +128,7 @@ def upload_image(content: bytes, image_key: str):
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_upload_time": time.time()-start,
-        "bg_image_url": os.path.join(S3_URL_VISUALIZE, image_key)
+        "bg_image_url": image_key
     }
     logger.info("Upload successful", extra=extras_logging)
 
@@ -173,7 +173,6 @@ if not model:
 
 # Object storage
 S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
-S3_URL_VISUALIZE = "https://basegun-s3.s3.gra.io.cloud.ovh.net/"
 S3_BUCKET_NAME = "basegun-s3"
 S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
 s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
@@ -244,8 +243,7 @@ async def imageupload(
 
         # upload image to OVH Cloud
         background_tasks.add_task(upload_image, img_bytes, img_key)
-        img_path = os.path.join(S3_URL_VISUALIZE, img_key)
-        extras_logging["bg_image_url"] = img_path
+        extras_logging["bg_image_url"] = img_key
 
         # set user id
         if not user_id:
@@ -269,7 +267,7 @@ async def imageupload(
         logger.info("Identification request", extra=extras_logging)
 
         return {
-            "path": img_path,
+            "path": img_key,
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"]

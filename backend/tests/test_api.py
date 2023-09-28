@@ -77,15 +77,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 98.43, places=1)
         self.assertTrue(res["confidence_level"], "high")
-        """
-        # checks that written file is exactly the same as input file
-        response = requests.get(res["path"])
-        with Image.open(path) as image_one:
-            with Image.open(BytesIO(response.content)) as image_two:
-                self.assertEqual(image_one.size, image_two.size)
-                diff = ImageChops.difference(image_one, image_two)
-                self.assertFalse(diff.getbbox())
-        """
         # checks that the result is written in logs
         r = client.get("/logs")
         self.assertEqual(r.status_code, 200)
