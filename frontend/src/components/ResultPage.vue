@@ -412,4 +412,3 @@ h4 {
 }
 
 </style>
-@/utils/firearms-utils.js

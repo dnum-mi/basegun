@@ -82,13 +82,4 @@ const quickLinks = [
   bottom: 1rem;
 }
 
-.information {
-    position: absolute;
-    top: 12%;
-    right: 12%;
-    z-index: 999;
-    color: var(--blue-france-sun-113-625);
-    cursor: pointer;
-  }
-
 </style>

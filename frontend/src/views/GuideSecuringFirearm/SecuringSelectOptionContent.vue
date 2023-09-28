@@ -208,10 +208,6 @@ const backTo = computed(() => {
   padding: .5rem;
 }
 
-:deep(.fr-radio-rich__pictogram) {
-  width: auto;
-}
-
 :deep(.fr-col-md-8),
 :deep(.fr-col-lg-6) {
   flex: 0 0 100%;
