@@ -113,6 +113,30 @@ const backTo = computed(() => {
         />
       </div>
       <div
+        v-if="resultTree[typology]?.[`options_step_${step}_video`]"
+      >
+        <p v-html="resultTree[typology]?.[`options_step_${step}_video_pre_text`]" />
+        <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
+          <div class="fr-content-media relative">
+            <video
+              class="fr-container video-container"
+              autoplay
+              controls
+              playsinline
+              loop
+              muted
+              :title="resultTree[typology]?.[`options_step_${step}_video_title`]"
+              :src="resultTree[typology]?.[`options_step_${step}_video`]"
+            />
+          </div>
+          <p
+            class="manipulations -mt-2 p-6"
+            v-html="resultTree[typology]?.[`options_step_${step}_video_caption`]"
+          />
+        </div>
+        <p v-html="resultTree[typology]?.[`options_step_${step}_video_post_text`]" />
+      </div>
+      <div
         v-for="option of (typology !== 'revolver' ? resultTree[typology]?.options : resultTree[typology]?.[`options_step_${step}`])"
         :key="option.value"
       >
@@ -169,6 +193,19 @@ const backTo = computed(() => {
 
 .ov-icon {
   vertical-align: -.39rem;
+}
+
+.fr-content-media {
+  margin-block: 0.5rem;
+}
+
+.video-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.manipulations {
+  background-color: #E3E3FD;
 }
 
 :deep(.fr-container) {
