@@ -8,7 +8,7 @@ describe('Securing Firearm and Identification', () => {
     cy.wait('@upload').then(({ response }) => {
       expect(response.statusCode).to.eq(200)
     })
-    cy.url().should('contain', '/mise-en-securite-choix-option-etape-2')
+    cy.url().should('contain', '/mise-en-securite-choix-option-etape/1')
     cy.getByDataTestid('button-next').should('have.attr', 'disabled')
     cy.contains('bouton pontet').first().click()
     cy.getByDataTestid('button-next').should('not.have.attr', 'disabled')

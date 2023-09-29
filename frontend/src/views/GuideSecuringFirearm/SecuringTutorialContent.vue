@@ -80,7 +80,9 @@ const openNextAccordion = (currentIndex) => {
                   <div class="flex justify-end my-4">
                     <DsfrButton
                       v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep].text_steps).length"
-                      @click="openNextAccordion(key)"
+                      @click="openNextAccordion(key)
+                      "
+                      data-testid="button-step-mes"
                     >
                       Etape {{ +key + 1 }}
                       <VIcon
