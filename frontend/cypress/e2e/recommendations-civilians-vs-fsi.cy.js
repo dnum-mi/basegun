@@ -1,12 +1,6 @@
 describe('Recommendations Civilians vs FSI', () => {
   it('should show application version FSI', () => {
-    cy.visit('/')
-    cy.getByDataTestid('basegun-logo').should('exist')
-    cy.contains('li', 'Basegun est une application')
-    cy.get('swiper-container').shadow().find('.swiper-button-next').click()
-    cy.contains('li', 'ne remplace en aucun cas l\'avis d\'un expert')
-    cy.get('#agree-button').contains('J\'ai compris').click()
-    cy.url().should('contain', '/accueil')
+    cy.accueil()
     cy.getByDataTestid('secure-firearm')
       .contains('Je veux mettre en sécurité mon arme')
       .click()

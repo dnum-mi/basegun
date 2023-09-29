@@ -100,3 +100,10 @@ Cypress.Commands.add('Identification', () => {
   cy.url().should('contain', '/guide-identification/munition-type')
   cy.getByDataTestid('next-step').should('have.attr', 'disabled')
 })
+
+Cypress.Commands.add('pasDeGuide', () => {
+  cy.contains('h2', 'Pas de guide de mise en sécurité pour votre arme')
+  cy.url().should('contain', '/fin-mise-en-securite')
+  cy.getByDataTestid('go-to-identification').click()
+  cy.url().should('contain', '/guide-identification/resultat-typologie')
+})

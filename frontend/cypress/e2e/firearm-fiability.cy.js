@@ -1,6 +1,6 @@
 describe('Firearm Fiability', () => {
   it('should identificate firearm with high fiability', () => {
-    cy.visit('/accueil')
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()
@@ -31,7 +31,7 @@ describe('Firearm Fiability', () => {
   })
 
   it('should identificate firearm with medium fiability', () => {
-    cy.visit('/accueil')
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()
@@ -46,14 +46,14 @@ describe('Firearm Fiability', () => {
       expect(response.statusCode).to.eq(200)
     })
     cy.url().should('contain', '/guide-identification/resultat-typologie')
-    cy.contains('p', 'arme semi-automatique ou automatique')
+    cy.contains('p', 'Arme semi-automatique ou automatique')
     cy.get('h2').should(() => {
       expect(localStorage.getItem('confidenceLevel')).to.eq('"medium"')
     })
   })
 
-  it.only('should identificate firearm with low fiability', () => {
-    cy.visit('/accueil')
+  it('should identificate firearm with low fiability', () => {
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()

@@ -1,12 +1,6 @@
 describe('Typology Revolver Identification', () => {
   it('should identificate revolver typology', () => {
-    cy.visit('/')
-    cy.getByDataTestid('basegun-logo').should('exist')
-    cy.contains('li', 'Basegun est une application')
-    cy.get('swiper-container').shadow().find('.swiper-button-next').click()
-    cy.contains('li', 'ne remplace en aucun cas l\'avis d\'un expert')
-    cy.get('#agree-button').contains('J\'ai compris').click()
-    cy.url().should('contain', '/accueil')
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()

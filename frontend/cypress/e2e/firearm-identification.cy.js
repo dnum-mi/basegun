@@ -1,6 +1,6 @@
 describe('Firearm Identification', () => {
   it('should identificate real firearm', () => {
-    cy.visit('/accueil')
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()
@@ -30,7 +30,7 @@ describe('Firearm Identification', () => {
   })
 
   it('should identificate dummy firearm', () => {
-    cy.visit('/accueil')
+    cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
       .click()
