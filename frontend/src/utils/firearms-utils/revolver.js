@@ -129,10 +129,10 @@ export const revolver = {
     },
   },
   options_step_3_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span>, tirez la portière vers l’arrière avec le pouce, puis essayez de pousser sur un côté du barillet pour le faire basculer.',
-  options_step_3_video_pre_text: 'Texte à afficher avant la vidéo',
-  options_step_3_video_post_text: 'Texte à afficher après la vidéo',
+  // options_step_3_video_pre_text: 'Texte à afficher avant la vidéo',
+  options_step_3_video_post_text: 'Sélectionnez ce que vous voyez sur votre arme : le barillet <span class="font-bold"> ne bascule pas</span>, ou le barillet <span class="font-bold">bascule.</span>',
   options_step_3_video_title: 'Titre de la vidéo',
-  options_step_3_video_caption: 'Légende de la vidéo',
+  options_step_3_video_caption: 'Veuillez suivre la vidéo afin de réaliser les instructions ci-dessus',
   options_step_3_video: revolver2PortiereVideo,
   options_step_3: {
     revolver_1873_fr: {
