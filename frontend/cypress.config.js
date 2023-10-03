@@ -9,8 +9,8 @@ module.exports = defineConfig({
     baseUrl: `http://${frontendHost}:${frontendPort}`,
     // NEO - Crosscall X4 - Résolution : 18:9
     // Iphone XR
-    viewportWidth: 414, 
-    viewportHeight: 896, 
+    viewportWidth: 414,
+    viewportHeight: 896,
     video: false,
-  }
+  },
 })

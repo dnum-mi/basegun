@@ -64,6 +64,7 @@ const typology = computed(() => resultStore.typology)
           label="Je veux identifier mon arme"
           icon="ri-arrow-right-line"
           :icon-right="true"
+          data-testid="go-to-identification"
           @click="navigate()"
         />
       </router-link>

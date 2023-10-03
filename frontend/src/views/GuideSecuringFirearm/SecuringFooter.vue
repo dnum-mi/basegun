@@ -46,6 +46,7 @@ const backClick = (navigate) => {
           class="flex  justify-center  w-full"
           icon="ri-arrow-right-line"
           :disabled="nextDisabled"
+          data-testid="button-next"
           label="Suivant"
           :icon-right="true"
           @click.stop.prevent="nextClick(navigate)"

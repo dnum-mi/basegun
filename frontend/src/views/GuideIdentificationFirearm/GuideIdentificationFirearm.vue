@@ -100,6 +100,7 @@ async function sendLogsIdentificationDummy () {
           class="flex justify-center w-full"
           label="Retour à l'accueil"
           icon="ri-home-4-line"
+          data-testid="return-to-home-end"
           :icon-right="true"
           @click="navigate()"
         />
@@ -169,6 +170,7 @@ async function sendLogsIdentificationDummy () {
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
+        data-testid="next-step"
         @click="goToNextStep(); goToNewRoute()"
       />
     </div>

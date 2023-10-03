@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p class="leading-7 mt-3">
+    <p
+      class="leading-7 mt-3"
+      data-testid="explanation"
+    >
       A présent, veuillez répondre à quelques <span class="font-bold">questions supplémentaires</span> dépendant de la typologie
       dont le but est de finaliser l’<span class="font-bold">identification </span>totale de votre arme.
     </p>

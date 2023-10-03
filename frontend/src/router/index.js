@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import { useAppStore } from '@/stores/app.js'
 import { clearLocalStorage } from '@/utils/storage-utils.js'
 
 const HomePage = () => import('@/views/HomePage.vue')
@@ -177,11 +176,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-})
-
-router.beforeEach((to) => {
-  const appStore = useAppStore()
-  appStore.setDisplayHeader(to.meta.displayHeader)
 })
 
 export default router
