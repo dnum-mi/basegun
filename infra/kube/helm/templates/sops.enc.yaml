@@ -8,17 +8,15 @@ spec:
         - name: ENC[AES256_GCM,data:C7eCSGXEdWtuVa+WYplXamERpCuF2A==,iv:oDDv384GFK0ynFybO0GJXKPjXPUe/++jxUh6oPgSROI=,tag:7auyaf2Pk1gUNCKI+lQjxA==,type:str]
           stringData:
             API_OVH_TOKEN: ENC[AES256_GCM,data:9fDrMsKCWW4qU5EFsaWhQdA6TIWNueA5sSknmUydichzF1zczSj3nrPtfF7O+dwuWqXUxg==,iv:E8vw8EdDzAigbonjNa57RfTfVpGG9K/Xil+yIAAxPSE=,tag:4qqNEc5RJb1w/WL2dIvt+w==,type:str]
-            OS_PASSWORD: ENC[AES256_GCM,data:vGHEXzNVjviNsyOam48tvdLbvM+XGBwo204jiH6AruY=,iv:4QXRGhyRjQYyovR68tJzbhzzBiOPHsyNBvruCtk8pl0=,tag:snlHGsj+i5nEIV4aeFz2nQ==,type:str]
-            OS_PROJECT_NAME: ENC[AES256_GCM,data:Oe4oIqDnNMxjBA1xAHDuSQ==,iv:3pfX8fZ/3hy5LAP0Z0C+joleY33WnXAHUKa377rObto=,tag:CGqewlAyweMW5BSB80qVrg==,type:str]
-            OS_USERNAME: ENC[AES256_GCM,data:T1BTSS3/nRKMTS7Nk5ZCYi4=,iv:BtWpyd/zxiQPogucbpSzrR6Nn6oIHdbCCpkNhXYzxo8=,tag:mnd+6VxolKMO0vUR/acy4Q==,type:str]
             X_OVH_TOKEN: ENC[AES256_GCM,data:Qz1uggOKElNvNBS9qxDfybUMBYEIOfuppySaoXEBx00jWv0u,iv:+cklaR+WWjjJLnD1gmZ38atrqCPNrje0BWofWJstIWA=,tag:czA3G3fU4VC7njajF7xaRw==,type:str]
+            AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:v/11MAFHVjkdMst9ehcniM/8rPelArIoA7gbCuoj/8w=,iv:XNJV0ULPpOTrqtbSKx0nsB6wqdCSrzuXEjJfqa/+mbc=,tag:gakaj3onimHoywKl36BjaQ==,type:str]
+            AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:HFoCNvfwGovBX5dqPTo2Oq4XvL6rnZh7CuX6rOsSaOA=,iv:Oha7tkWiS3catm7xrzWl0qJUOfS6N8EHyW0VDSB6RLA=,tag:pIDqH6Y2E1qIyjnlyYypOw==,type:str]
         - name: ENC[AES256_GCM,data:N8b/GxqS/MdpK/ZH1cFzYyppfw==,iv:HIKkI1y6FIVP323NhZMjrf1Ulp7N29jQ0zlMIv3Y7gg=,tag:ZVG+z7ncvoNsi47lofXjZw==,type:str]
           stringData:
             API_OVH_TOKEN: ENC[AES256_GCM,data:T9TY8BUSKH2fJfhcSX71mD+kpB7Ac9WVNyYOIV1FQpumc5XNsVFad015f3MizRn+rJiHkQ==,iv:bZ74ywut3HGCMbb+9US8n9VWQt5YJmPY1hN1+PefoJY=,tag:0cRa6vMOyWOx5Dd1sqigtg==,type:str]
-            OS_PASSWORD: ENC[AES256_GCM,data:uT2J6nJyIZEpXwN9L4lvpoMDv/hZXkIbfyZQK5qVRaM=,iv:ZwgDZOaS7Pt4+/1XBZ4sOshuyuSMIkvSPeadZMk2OSQ=,tag:n3djDDeafNArb+p+nF1pGg==,type:str]
-            OS_PROJECT_NAME: ENC[AES256_GCM,data:TXud2R//KeDgYY1NUH8NnQ==,iv:MydfYwEV58wNKpSn9Mj7tP40RDdOhini4zbByNdvf00=,tag:wI0c8ZCjTQiqmvDRj3p9/A==,type:str]
-            OS_USERNAME: ENC[AES256_GCM,data:Qule8RjaVy5+zfAtdhxYEQM=,iv:8qPLyyjn1Vr+TgM5Vp9lXLsI8MGExXXecScWaRXeSE0=,tag:j2dcIrxE8fecfr31Rtq3SQ==,type:str]
             X_OVH_TOKEN: ENC[AES256_GCM,data:5Zsze+3JSqxle08ePuvHyHDfTelvnrQ2/INbbbwcvOHvPu/9,iv:xlcyVOkwGl0QGAFlWUT+/2LR4lGLcAGDzswkuq6cDUU=,tag:UviczjiBLQ61jEbpbE9YXA==,type:str]
+            AWS_ACCESS_KEY_ID: ENC[AES256_GCM,data:v/11MAFHVjkdMst9ehcniM/8rPelArIoA7gbCuoj/8w=,iv:XNJV0ULPpOTrqtbSKx0nsB6wqdCSrzuXEjJfqa/+mbc=,tag:gakaj3onimHoywKl36BjaQ==,type:str]
+            AWS_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:HFoCNvfwGovBX5dqPTo2Oq4XvL6rnZh7CuX6rOsSaOA=,iv:Oha7tkWiS3catm7xrzWl0qJUOfS6N8EHyW0VDSB6RLA=,tag:pIDqH6Y2E1qIyjnlyYypOw==,type:str]
 sops:
     kms: []
     gcp_kms: []
