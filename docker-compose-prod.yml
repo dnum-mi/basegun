@@ -14,7 +14,7 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - WORKSPACE=${WORKSPACE:-prod}
-    image: basegun-backend:${TAG}-prod
+    image: basegun-backend:${TAG}
     ports:
       - 5000:5000
 
@@ -23,6 +23,6 @@ services:
       context: ./frontend
       target: prod
     container_name: basegun-frontend
-    image: basegun-frontend:${TAG}-prod
+    image: basegun-frontend:${TAG}
     ports:
       - ${PORT_PROD:-80}:8080
