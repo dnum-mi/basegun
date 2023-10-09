@@ -2,7 +2,7 @@
 # Launch a cluster like the one in CI
 kind delete cluster
 
-TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build
+TAG=$(make get-current-tag) BUILD_TARGET=dev docker-compose -f docker-compose.yml build
 kind create cluster --config ./infra/kube/kind/kind-config.yml
 
 helm repo add traefik https://traefik.github.io/charts && helm repo update
