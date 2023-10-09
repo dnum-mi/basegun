@@ -5,7 +5,7 @@
   "scripts": {
     "preview": "vite preview",
     "build": "vite build",
-    "compose:up": "docker compose -f ../docker-compose-dev.yml --profile backend-only up -d",
+    "compose:up": "docker compose -f ../docker-compose.yml --profile backend-only up -d",
     "dev": "vite",
     "lint": "eslint src",
     "format": "eslint src --fix",

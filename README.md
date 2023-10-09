@@ -28,27 +28,16 @@ See also [Debugging](https://github.com/datalab-mi/Basegun/blob/develop/backend/
 
 ```bash
 # install in dev mode
-make build-dev
-
-# install for prod/preprod
-make build-prod
+make build
 ```
 
 ### Launch the website
 ```bash
-# run in dev mode
-make up-dev
+# run
+make up
 
-# run prod mode on localhost
-WORKSPACE=preprod make up-prod
-
-# run in prod
-make up-prod
-
-# stop in dev
-make down-dev
-# stop in prod/preprod
-make down-prod
+# stop
+make down
 ```
 ## Debugging
 
@@ -68,7 +57,7 @@ Try to find error log
 ### The website runs the analysis, but no image shows up
 Use browser html inspector to find the url given in the image src.
 * If it starts with `https://storage.gra.cloud.ovh.net` then the website tried to upload the input image to OVH but it failed. Have you set properly in your env the variables OS_USERNAME, OS_PASSWORD and OS_PROJECT ?
-* If it starts with `https://localhost` then the website tried to store the input image locally. Have you synchronised the mounts for frontend and backend in [docker-compose-dev](https://github.com/datalab-mi/Basegun/blob/develop/backend/docker-compose-dev.yml) ? (uncomment the `/tmp/basegun` lines in the volumes sections)
+* If it starts with `https://localhost` then the website tried to store the input image locally. Have you synchronised the mounts for frontend and backend in [docker-compose](https://github.com/datalab-mi/Basegun/blob/develop/backend/docker-compose.yml) ? (uncomment the `/tmp/basegun` lines in the volumes sections)
 
 ### Logs are not sent to the endpoint
 The variables `X_OVH_TOKEN` and `API_OVH_TOKEN` must en set in your env. See [Infra README](https://github.com/datalab-mi/Basegun/blob/develop/infra/README.md) for more details.
