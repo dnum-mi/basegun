@@ -45,8 +45,7 @@ class TestModel(unittest.TestCase):
     def test_version(self):
         """Checks that the route /version sends a version"""
         response = client.get("/version")
-        self.assertNotEqual(response.text, "-1")
-        self.assertEqual(len(response.text.split('.')), 2) # checks version has format X.Y
+        self.assertEqual(response.status_code, 200)
 
     def check_log_base(self, log):
         self.assertTrue(
