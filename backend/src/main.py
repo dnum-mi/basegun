@@ -1,56 +1,51 @@
 
 import os
 import logging
-from logging.handlers import TimedRotatingFileHandler
-from datetime import datetime
 import time
 import json
+from logging.handlers import TimedRotatingFileHandler
+from datetime import datetime
 from uuid import uuid4
 from typing import Union
+
+import boto3
+from botocore.client import ClientError
 from fastapi import BackgroundTasks, Cookie, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
 from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
 from user_agents import parse
-import swiftclient
 from src.model import load_model_inference, predict_image
 
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-WORKSPACE = os.environ.get("WORKSPACE")
-
-CLOUD_PATH = f'https://storage.gra.cloud.ovh.net/v1/' + \
-    'AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/' + \
-    f'uploaded-images/{os.environ["WORKSPACE"]}/'
 
 
-def init_variable(var_name: str, path: str) -> str:
+def init_variable(key: str, value: str) -> str:
     """Inits global variable for folder path
 
     Args:
-        var_name (str): variable name in environ
-        path (str): folder path
+        key (str): variable key in environ
+        value (str): value to give if variable does not exist yet
 
     Returns:
         str: final variable value
     """
-    if var_name in os.environ:
-        VAR = os.environ[var_name]
+    if key in os.environ:
+        VAR = os.environ[key]
     else:
-        VAR = os.path.abspath(os.path.join(
-                CURRENT_DIR,
-                path))
-        print("WARNING: The variable "+var_name+" is not set. Using", VAR)
-    os.makedirs(VAR, exist_ok = True)
+        VAR = value
+        print("WARNING: The variable "+key+" is not set. Using", VAR)
+        if os.path.isabs(VAR):
+            os.makedirs(VAR, exist_ok = True)
     return VAR
 
 
 def setup_logs(log_dir: str) -> logging.Logger:
-    """Setup environment for logs
+    """Setups environment for logs
 
     Args:
         log_dir (str): folder for log storage
-
         logging.Logger: logger object
     """
     print(">>> Reload logs config")
@@ -74,7 +69,13 @@ def setup_logs(log_dir: str) -> logging.Logger:
 
 
 def get_device(user_agent) -> str:
-    """Explicitly give the device of a user-agent object
+    """Explicitly gives the device of a user-agent object
+
+    Args:
+        user_agent: info given by the user browser
+
+    Returns:
+        str: mobile, pc, tablet or other
     """
     if user_agent.is_mobile:
         return "mobile"
@@ -86,7 +87,18 @@ def get_device(user_agent) -> str:
         return "other"
 
 
-def get_base_logs(user_agent, user_id) -> dict:
+def get_base_logs(user_agent, user_id: str) -> dict:
+    """Generates the common information for custom logs in basegun.
+        Each function can add some info specific to the current process,
+        then we insert these custom logs as extra
+
+    Args:
+        user_agent: user agent object
+        user_id (str): UUID identifying a unique user
+
+    Returns:
+        dict: the base custom information
+    """
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
         "bg_user_id": user_id,
@@ -100,48 +112,25 @@ def get_base_logs(user_agent, user_id) -> dict:
     return extras_logging
 
 
-def upload_image_ovh(content: bytes, img_name: str):
-    """ Uploads an image to owh swift container basegun-public
+
+def upload_image(content: bytes, image_key: str):
+    """Uploads an image to s3 bucket
         path uploaded-images/WORKSPACE/img_name
         where WORKSPACE is dev, preprod or prod
 
     Args:
         content (bytes): file content
-        img_name (str): name we want to give on ovh
+        image_key (str): path we want to have
     """
-    num_tries = 0
-    LIMIT_TRIES = 5
-    image_path = os.path.join(CLOUD_PATH, img_name)
     start = time.time()
-
-    if not conn:
-        logger.exception("Variables not set for using OVH swift.", extra={
-            "bg_error_type": "NameError"
-        })
-        return
-
-    while num_tries <= LIMIT_TRIES:
-        num_tries += 1
-        extras_logging = {
-            "bg_date": datetime.now().isoformat(),
-            "bg_upload_time": time.time()-start,
-            "bg_image_url": image_path
-        }
-        try:
-            conn.put_object("basegun-public",
-                            f'uploaded-images/{os.environ["WORKSPACE"]}/{img_name}',
-                            contents=content)
-            # if success, get out of the loop
-            logger.info("Upload to OVH successful", extra=extras_logging)
-            break
-        except Exception as e:
-            if (num_tries <= LIMIT_TRIES and e.__class__.__name__ == "ClientException"):
-                # we try uploading another time
-                time.sleep(30)
-                continue
-            else:
-                extras_logging["bg_error_type"] = e.__class__.__name__
-                logger.exception(e, extra=extras_logging)
+    object = s3.Object(S3_BUCKET_NAME, image_key)
+    object.put(Body=content)
+    extras_logging = {
+        "bg_date": datetime.now().isoformat(),
+        "bg_upload_time": time.time()-start,
+        "bg_image_url": image_key
+    }
+    logger.info("Upload successful", extra=extras_logging)
 
 
 ####################
@@ -168,7 +157,8 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable("PATH_LOGS", "../logs")
+PATH_LOGS = init_variable("PATH_LOGS",
+    os.path.abspath(os.path.join(CURRENT_DIR,"/tmp/logs")))
 logger = setup_logs(PATH_LOGS)
 
 # Load model
@@ -181,6 +171,18 @@ if os.path.exists(MODEL_PATH):
 if not model:
     raise RuntimeError("Model not found")
 
+# Object storage
+S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
+S3_BUCKET_NAME = "basegun-s3"
+S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
+s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
+""" TODO : check if connection successful
+try:
+    s3.meta.client.head_bucket(Bucket=S3_BUCKET_NAME)
+except ClientError:
+    logger.exception("Cannot find s3 bucket ! Are you sure your credentials are correct ?")
+"""
+
 # Versions
 if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
     with open("versions.json", "r") as f:
@@ -191,27 +193,6 @@ else:
     logger.warn("File versions.json not found")
     APP_VERSION = "-1"
     MODEL_VERSION = "-1"
-
-
-conn = None
-if all(var in os.environ for var in ["OS_USERNAME", "OS_PASSWORD", "OS_PROJECT_NAME"]) :
-    try:
-        # Connection to OVH cloud
-        conn = swiftclient.Connection(
-            authurl="https://auth.cloud.ovh.net/v3",
-            user=os.environ["OS_USERNAME"],
-            key=os.environ["OS_PASSWORD"],
-            os_options={
-                "project_name": os.environ["OS_PROJECT_NAME"],
-                "region_name": "GRA"
-            },
-            auth_version='3'
-        )
-        conn.get_account()
-    except Exception as e:
-        logger.exception(e)
-else:
-    logger.warn('Variables necessary for OVH connection not set !')
 
 
 ####################
@@ -256,13 +237,13 @@ async def imageupload(
     extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
-        img_name = str(uuid4()) + os.path.splitext(image.filename)[1]
+        img_key = os.path.join(S3_PREFIX,
+                    str(uuid4()) + os.path.splitext(image.filename)[1].lower())
         img_bytes = image.file.read()
 
         # upload image to OVH Cloud
-        background_tasks.add_task(upload_image_ovh, img_bytes, img_name)
-        image_path = os.path.join(CLOUD_PATH, img_name)
-        extras_logging["bg_image_url"] = image_path
+        background_tasks.add_task(upload_image, img_bytes, img_key)
+        extras_logging["bg_image_url"] = img_key
 
         # set user id
         if not user_id:
@@ -286,7 +267,7 @@ async def imageupload(
         logger.info("Identification request", extra=extras_logging)
 
         return {
-            "path": image_path,
+            "path": img_key,
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"]

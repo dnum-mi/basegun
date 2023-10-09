@@ -22,7 +22,6 @@ jobs:
     needs: tag-pr
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      OS_PASSWORD: ${{ secrets.OS_PASSWORD }}
-      OS_PROJECT_NAME: ${{ secrets.OS_PROJECT_NAME }}
-      OS_USERNAME: ${{ secrets.OS_USERNAME }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}

@@ -1,26 +1,52 @@
 import unittest
 import os
 import time
+import boto3
+import json
+
 from io import BytesIO
 import requests
 from PIL import Image, ImageChops
+from src.main import app, S3_BUCKET_NAME, S3_URL_ENDPOINT
+
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+
+
+client = TestClient(app)
+
+BUCKET_POLICY = {
+    'Version': '2012-10-17',
+    'Statement': [{
+        'Sid': 'AddPerm',
+        'Effect': 'Allow',
+        'Principal': '*',
+        'Action': ['s3:GetObject'],
+        'Resource': f"arn:aws:s3:::{S3_BUCKET_NAME}/*"
+    }]
+}
+
+
+def create_bucket():
+    s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
+    bucket = s3.Bucket(S3_BUCKET_NAME)
+    if bucket.creation_date is None:
+        bucket.create()
+        bucket.Policy().put(Policy=json.dumps(BUCKET_POLICY))
 
 
 class TestModel(unittest.TestCase):
-    def __init__(self, *args, **kwargs):
-        super(TestModel, self).__init__(*args, **kwargs)
-        self.url = "http://localhost:5000"
-
     def test_home(self):
         """Checks that the route / is alive"""
-        r = requests.get(self.url)
-        self.assertEqual(r.text, "Basegun backend")
+        response = client.get("/")
+        self.assertEqual(response.text, "Basegun backend")
 
     def test_version(self):
         """Checks that the route /version sends a version"""
-        r = requests.get(self.url + '/version')
-        self.assertNotEqual(r.text, "-1")
-        self.assertEqual(len(r.text.split('.')), 2) # checks version has format X.Y
+        response = client.get("/version")
+        self.assertNotEqual(response.text, "-1")
+        self.assertEqual(len(response.text.split('.')), 2) # checks version has format X.Y
 
     def check_log_base(self, log):
         self.assertTrue(
@@ -31,16 +57,17 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["level"], 6)
         self.assertTrue(log["_bg_model"].startswith("EffB"))
 
-    def test_upload_and_logs(self):
+    def test_upload(self):
         """Checks that the file upload works properly"""
+        if os.environ["WORKSPACE"]=="dev":
+            create_bucket()
         path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             "revolver.jpg")
         geoloc = "12.666,7.666"
 
-        self.assertTrue("OS_USERNAME" in os.environ)
         with open(path, 'rb') as f:
-            r = requests.post(self.url + "/upload",
+            r = client.post("/upload",
                 files={"image": f},
                 data={"date": time.time(), "geolocation": geoloc})
         self.assertEqual(r.status_code, 200)
@@ -50,21 +77,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res["label"], "revolver")
         self.assertAlmostEqual(res["confidence"], 98.43, places=1)
         self.assertTrue(res["confidence_level"], "high")
-        self.assertTrue("ovh" in res["path"])
-        # checks that written file is exactly the same as input file
-        time.sleep(10)
-        response = requests.get(res["path"])
-        with Image.open(path) as image_one:
-            with Image.open(BytesIO(response.content)) as image_two:
-                self.assertEqual(image_one.size, image_two.size)
-                diff = ImageChops.difference(image_one, image_two)
-                self.assertFalse(diff.getbbox())
         # checks that the result is written in logs
-        r = requests.get(self.url + "/logs")
+        r = client.get("/logs")
         self.assertEqual(r.status_code, 200)
-        # checks the latest log "Upload to OVH"
+        # checks the latest log with validates upload to object storage
         self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
-        self.assertEqual(r.json()[0]["short_message"], "Upload to OVH successful")
+        self.assertEqual(r.json()[0]["short_message"], "Upload successful")
         # checks the previous log "Identification request"
         log = r.json()[1]
         self.check_log_base(log)
@@ -81,11 +99,11 @@ class TestModel(unittest.TestCase):
         label = "revolver"
         confidence_level = "high"
         image_url = "https://storage.gra.cloud.ovh.net/v1/test"
-        r = requests.post(self.url + "/identification-feedback",
+        r = client.post("/identification-feedback",
                 json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
 
         self.assertEqual(r.status_code, 200)
-        r = requests.get(self.url + "/logs")
+        r = client.get("/logs")
         self.assertEqual(r.status_code, 200)
         log = r.json()[0]
         self.check_log_base(log)

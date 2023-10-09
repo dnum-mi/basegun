@@ -10,34 +10,19 @@ services:
       target: ${BUILD_TARGET:-prod}
     container_name: basegun-backend
     environment:
-      - PATH_LOGS=/app/logs
-      - OS_USERNAME
-      - OS_PASSWORD
-      - OS_PROJECT_NAME
+      - PATH_LOGS=/tmp/logs
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
       - WORKSPACE=${WORKSPACE:-prod}
-    image: basegun-backend:${TAG}-prod
+    image: basegun-backend:${TAG}
     ports:
       - 5000:5000
-    volumes:
-      - /var/log/basegun:/app/logs
 
   frontend:
     build:
       context: ./frontend
       target: prod
     container_name: basegun-frontend
-    image: basegun-frontend:${TAG}-prod
+    image: basegun-frontend:${TAG}
     ports:
       - ${PORT_PROD:-80}:8080
-
-  filebeat:
-    image: elastic/filebeat:6.5.4
-    user: root
-    container_name: filebeat
-    environment:
-      - X_OVH_TOKEN
-      - API_OVH_TOKEN
-    volumes:
-      - $PWD/infra/kube/helm/configs/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - /var/log/basegun:/var/log/basegun
-    command: bash -c "sleep 30 && filebeat -e --strict.perms=false"

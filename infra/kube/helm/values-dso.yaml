@@ -11,7 +11,7 @@ ingress:
   #traefik.ingress.kubernetes.io/router.tls: "true"
   #traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
   hosts:
-    - host: basegun.fr
+    - host: basegun.dev.numerique-interieur.com
       paths:
         - path: /
           pathType: Prefix
@@ -31,10 +31,10 @@ serviceAccount:
 backend:
   replicaCount: 1
   image:
-    repository: ghcr.io/datalab-mi/basegun/basegun-backend
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "3.2"
+    tag: feature-adapt-infra-for-dso-env
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
@@ -47,16 +47,9 @@ backend:
   # runAsNonRoot: true
   # runAsUser: 1000
   logs:
-    repository: elastic/filebeat
+    repository: ghcr.io/datalab-mi/basegun/filebeat-rootless
     tag: 6.5.4
     pullPolicy: IfNotPresent
-    resources:
-      limits:
-        cpu: 250m
-        memory: 512Mi
-      requests:
-        cpu: 100m
-        memory: 256Mi
   service:
     type: ClusterIP
     port: 5000
@@ -72,19 +65,19 @@ backend:
     workspace: preprod
   secret:
     create: false
-    sops: false
-    secretName: basegun-secret
-  resources:
+    sops: true
+    secretName: basegun-preprod-secret
+  resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    limits:
-      cpu: 250m
-      memory: 1Gi
-    requests:
-      cpu: 100m
-      memory: 512Mi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -92,10 +85,10 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: ghcr.io/datalab-mi/basegun/basegun-frontend
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-frontend
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "3.2"
+    tag: feature-adapt-infra-for-dso-env
     imagePullSecrets: []
   podAnnotations: {}
   podSecurityContext: {}
@@ -113,17 +106,17 @@ frontend:
     type: ClusterIP
     port: 8080
     containerPort: 8080
-  resources:
+  resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 50m
-      memory: 64Mi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}

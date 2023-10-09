@@ -5,11 +5,9 @@ on:
     secrets:
       API_OVH_TOKEN:
         required: true
-      OS_PASSWORD:
+      AWS_ACCESS_KEY_ID:
         required: true
-      OS_PROJECT_NAME:
-        required: true
-      OS_USERNAME:
+      AWS_SECRET_ACCESS_KEY:
         required: true
       X_OVH_TOKEN:
         required: true
@@ -32,11 +30,6 @@ jobs:
           wait: 60s
           verbosity: 2
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.11.2
-
       - name: Set up ingress controller 
         run: |
           helm repo add traefik https://traefik.github.io/charts && helm repo update
@@ -52,21 +45,20 @@ jobs:
         run: |
           TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build
           kind load docker-image \
-            basegun-backend:$(make get-current-tag)-prod \
-            basegun-frontend:$(make get-current-tag)-prod \
+            basegun-backend:$(make get-current-tag) \
+            basegun-frontend:$(make get-current-tag) \
             --name basegun-testing
           helm upgrade --install basegun ./infra/kube/helm/  \
             --set ingress.hosts[0].host="$LOCAL_DOMAIN" \
             --set ingress.hosts[0].paths[0].path="/" \
             --set ingress.hosts[0].paths[0].pathType="Prefix"  \
             --set backend.image.repository="basegun-backend" \
-            --set backend.image.tag="$(make get-current-tag)-prod" \
+            --set backend.image.tag="$(make get-current-tag)" \
             --set frontend.image.repository="basegun-frontend" \
-            --set frontend.image.tag="$(make get-current-tag)-prod" \
+            --set frontend.image.tag="$(make get-current-tag)" \
             --set backend.secret.create="true" \
-            --set-string backend.secret.values.OS_USERNAME="${{ secrets.OS_USERNAME }}" \
-            --set-string backend.secret.values.OS_PASSWORD="${{ secrets.OS_PASSWORD }}" \
-            --set-string backend.secret.values.OS_PROJECT_NAME="${{ secrets.OS_PROJECT_NAME }}" \
+            --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            --set-string backend.secret.values.AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
             --set-string backend.secret.values.X_OVH_TOKEN="${{ secrets.X_OVH_TOKEN }}" \
             --set-string backend.secret.values.API_OVH_TOKEN="${{ secrets.API_OVH_TOKEN }}"
           for i in $(kubectl get deploy -o name); do kubectl rollout status $i -w --timeout=130s; done
