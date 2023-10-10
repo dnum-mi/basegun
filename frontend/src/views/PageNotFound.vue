@@ -5,7 +5,7 @@
       <p>Vous avez saisi ou suivi un lien vers une page qui n'existe pas.</p>
       <router-link
         v-slot="{navigate}"
-        :to="{name: 'Start'}"
+        :to="{name: 'StartPage'}"
       >
         <DsfrButton
           label="Retour"

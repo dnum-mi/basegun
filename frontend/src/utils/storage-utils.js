@@ -3,16 +3,18 @@ import { useStepsStore } from '@/stores/steps.js'
 
 export const serializer = {
   read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-  write: (v) => v === undefined ? 'null' : JSON.stringify(v),
+  write: (v) => v == null ? 'null' : JSON.stringify(v),
 }
 
 export const clearLocalStorage = (to, from, next) => {
-  const { setOption, setAmmo, setCurrentStep } = useStepsStore()
+  const { setAmmo, setOptionStep, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 
   useStepsStore.isModalTransparentAmmoOpened = undefined
-  setOption(undefined)
   setAmmo(undefined)
+  setOptionStep(1, undefined)
+  setOptionStep(2, undefined)
+  setOptionStep(3, undefined)
   setCurrentStep(0)
 
   setResult({

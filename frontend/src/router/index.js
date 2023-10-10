@@ -1,164 +1,181 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import { useAppStore } from '@/stores/app.js'
 import { clearLocalStorage } from '@/utils/storage-utils.js'
-import { useResultStore } from '@/stores/result.js'
-import { useStepsStore } from '@/stores/steps.js'
 
-const Home = () => import('@/views/Home.vue')
-const Start = () => import('@/views/Start.vue')
-const Instructions = () => import('@/views/Instructions.vue')
-const Result = () => import('@/views/Result.vue')
-const Error = () => import('@/views/Error.vue')
+const HomePage = () => import('@/views/HomePage.vue')
+const StartPage = () => import('@/views/StartPage.vue')
+const InstructionsPage = () => import('@/views/InstructionsPage.vue')
+const ErrorPage = () => import('@/views/ErrorPage.vue')
 const PageNotFound = () => import('@/views/PageNotFound.vue')
-const About = () => import('@/views/About.vue')
-const Legal = () => import('@/views/Legal.vue')
-const Contact = () => import('@/views/Contact.vue')
+const AboutPage = () => import('@/views/AboutPage.vue')
+const LegalPage = () => import('@/views/LegalPage.vue')
+const ContactPage = () => import('@/views/ContactPage.vue')
 
-const GuideFactice = () => import('@/views/GuideFactice/GuideFactice.vue')
-const FirearmDirection = () => import('@/views/GuideFactice/FirearmDirection.vue')
-const SafetyRecommendation = () => import('@/views/SafetyRecommendation.vue')
-const SelectOption = () => import('@/views/GuideFactice/SelectOption.vue')
-const ExtractMag = () => import('@/views/GuideFactice/ExtractMag.vue')
-const SelectAmmo = () => import('@/views/GuideFactice/SelectAmmo.vue')
+const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
+const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
+const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
+const SecuringSelectOptionContent = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionContent.vue')
+const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
+const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
+const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
+const GuideIdentificationFirearm = () => import('@/views/GuideIdentificationFirearm/GuideIdentificationFirearm.vue')
+const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFirearm/IdentificationTypologyResult.vue')
+const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
+const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
+const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      displayHeader: true,
-    },
+    name: 'HomePage',
+    component: HomePage,
     beforeEnter: clearLocalStorage,
+    meta: {
+      wholeLogo: true,
+    },
   },
   {
     path: '/accueil',
-    name: 'Start',
-    component: Start,
-    meta: {
-      displayHeader: true,
-    },
+    name: 'StartPage',
+    component: StartPage,
     beforeEnter: clearLocalStorage,
+    meta: {
+      wholeLogo: true,
+    },
   },
   {
     path: '/instructions',
-    name: 'Instructions',
-    component: Instructions,
-    meta: {
-      displayHeader: true,
-    },
+    name: 'InstructionsPage',
+    component: InstructionsPage,
     beforeEnter: clearLocalStorage,
   },
+  // tutorial to secure a firearm
   {
-    path: '/consignes-de-securite',
-    name: 'SafetyRecommendation',
-    component: SafetyRecommendation,
-    beforeEnter (to) {
-      const stepsStore = useStepsStore()
-      stepsStore.currentStep = 0
-    },
-  },
-  {
-    path: '/guide-factice',
-    name: 'GuideFactice',
-    component: GuideFactice,
-    beforeEnter (to) {
-      const stepsStore = useStepsStore()
-      const resultStore = useResultStore()
-      if (stepsStore.currentStep !== 0 && resultStore.img) {
-        return true
-      }
-      return { name: 'Start' }
-    },
+    path: '/guide-mise-en-securite',
+    name: 'GuideSecuringFirearm',
+    component: GuideSecuringFirearm,
     children: [
       {
-        path: 'consignes-arme',
-        name: 'FirearmDirection',
-        component: FirearmDirection,
+        path: 'mise-en-securite-instructions',
+        name: 'SecuringInstructions',
+        component: SecuringInstructions,
       },
       {
-        path: 'option-arme',
-        name: 'SelectOption',
-        component: SelectOption,
+        path: 'mise-en-securite-recommandations',
+        name: 'SecuringRecommendations',
+        component: SecuringRecommendations,
       },
       {
-        path: 'extract-mag',
-        name: 'ExtractMag',
-        component: ExtractMag,
-      },
-      {
-        path: 'munition-type',
-        name: 'SelectAmmo',
-        component: SelectAmmo,
+        path: 'mise-en-securite-introduction',
+        name: 'SecuringIntroduction',
+        component: SecuringIntroduction,
       },
     ],
   },
   {
-    path: '/resultat',
-    name: 'Result',
-    meta: {
-      reload: true,
-    },
-    component: Result,
-    beforeEnter (to) {
-      const resultStore = useResultStore()
-      if (resultStore.img) {
-        return true
-      }
-      return { name: 'Start' }
-    },
+    path: '/mise-en-securite-choix-option-etape/:step',
+    name: 'SecuringSelectOption',
+    component: SecuringSelectOptionContent,
+    props: true,
+  },
+  {
+    path: '/mise-en-securite-tutoriel',
+    name: 'SecuringTutorialContent',
+    component: SecuringTutorialContent,
+  },
+  {
+    path: '/fin-mise-en-securite',
+    name: 'SecuringAchievement',
+    component: SecuringAchievement,
+  },
+  // Tutorial to identificate a firearm
+  {
+    path: '/guide-identification',
+    name: 'GuideIdenticationFirearm',
+    component: GuideIdentificationFirearm,
+    children: [
+      {
+        path: 'resultat-typologie',
+        name: 'IdentificationTypologyResult',
+        meta: {
+          reload: true,
+        },
+        component: IdentificationTypologyResult,
+      },
+      {
+        path: 'informations-complementaires',
+        name: 'IdentificationFurtherInformations',
+        meta: {
+          reload: true,
+        },
+        component: IdentificationFurtherInformations,
+      },
+      {
+        path: 'munition-type',
+        name: 'IdentificationSelectAmmo',
+        meta: {
+          reload: true,
+        },
+        component: IdentificationSelectAmmo,
+      },
+      {
+        path: 'resultat-final',
+        name: 'IdentificationFinalResult',
+        meta: {
+          reload: true,
+        },
+        component: IdentificationFinalResult,
+      },
+    ],
   },
   {
     path: '/a-propos',
-    name: 'About',
+    name: 'AboutPage',
+    component: AboutPage,
+    beforeEnter: clearLocalStorage,
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
-    component: About,
   },
   {
     path: '/mentions-legales',
-    name: 'Legal',
+    name: 'LegalPage',
+    component: LegalPage,
+    beforeEnter: clearLocalStorage,
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
-    component: Legal,
   },
   {
     path: '/contact',
-    name: 'Contact',
+    name: 'ContactPage',
+    component: ContactPage,
+    beforeEnter: clearLocalStorage,
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
-    component: Contact,
   },
   {
     path: '/erreur',
-    name: 'Error',
+    name: 'ErrorPage',
+    component: ErrorPage,
     meta: {
-      displayHeader: true,
+      wholeLogo: true,
     },
-    component: Error,
   },
   {
     path: '/:pathMach(.*)*',
     name: 'PageNotFound',
-    meta: {
-      displayHeader: true,
-    },
     component: PageNotFound,
+    meta: {
+      wholeLogo: true,
+    },
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-})
-
-router.beforeEach((to) => {
-  const appStore = useAppStore()
-  appStore.setDisplayHeader(to.meta.displayHeader)
 })
 
 export default router

@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import { useResultStore } from '@/stores/result.js'
 import { useRouter } from 'vue-router'
+import { useLocalStorage } from '@vueuse/core'
+
+import { useResultStore } from '@/stores/result.js'
+import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result.js'
 
 const resultStore = useResultStore()
 const router = useRouter()
@@ -27,30 +30,37 @@ defineExpose({
 
 const emit = defineEmits(['file-selected'])
 
-function submitUpload (base64, fileName) {
-  srcToFile(base64, fileName, 'image/jpeg').then(file => {
-    const fd = new FormData()
-    fd.append('image', file, file.name)
-    fd.append('date', Date.now() / 1000) // date.now gives in milliseconds, convert to seconds
-    fd.append('geolocation', resultStore.geolocation)
+async function submitUpload (base64, fileName) {
+  const file = await srcToFile(base64, fileName, 'image/jpeg')
 
-    axios.post('/upload', fd)
-      .then(res => {
-        resultStore.setResult({
-          typology: res.data.label,
-          confidence: res.data.confidence,
-          confidenceLevel: res.data.confidence_level,
-          resultText: "Type d'arme : " + res.data.label + ' ' + res.data.confidence + '%',
-          img: base64,
-          imgUrl: res.data.path,
-        })
-        router.push({ name: 'Result' })
-      })
-      .catch((error) => {
-        // TODO: Afficher l’erreur à l’utilisateur
-        router.push({ name: 'Error', meta: { error } })
-      })
-  })
+  const fd = new FormData()
+  fd.append('image', file, file.name)
+  fd.append('date', Date.now() / 1000) // date.now gives in milliseconds, convert to seconds
+  fd.append('geolocation', resultStore.geolocation)
+
+  try {
+    const { data } = await axios.post('/upload', fd)
+    resultStore.setResult({
+      typology: data.label,
+      confidence: data.confidence,
+      confidenceLevel: data.confidence_level,
+      resultText: "Type d'arme : " + data.label + ' ' + data.confidence + '%',
+      img: base64,
+      imgUrl: data.path,
+    })
+    useLocalStorage('securingTutorial')
+  } catch (error) {
+    // TODO: Afficher l’erreur à l’utilisateur
+    router.push({ name: 'ErrorPage', meta: { error } })
+  } finally {
+    const nextRoute = getNextRouteAfterResult({
+      securingTutorial: resultStore.securingTutorial,
+      confidenceLevel: resultStore.confidenceLevel,
+      typology: resultStore.typology,
+    })
+    console.log('nextRoute', nextRoute)
+    router.push(nextRoute)
+  }
 }
 
 function resizeAndUpload (uploadedFile) {

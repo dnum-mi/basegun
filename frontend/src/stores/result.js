@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
+
 import { serializer } from '@/utils/storage-utils.js'
 
 export const useResultStore = defineStore('result', () => {
@@ -10,6 +11,7 @@ export const useResultStore = defineStore('result', () => {
   const imgUrl = useLocalStorage('imgUrl', null, { serializer })
   const geolocation = useLocalStorage('geolocation', null, { serializer })
   const resultText = useLocalStorage('resultText', null, { serializer })
+  const securingTutorial = useLocalStorage('securingTutorial', false, { serializer })
 
   const setResult = (result) => {
     typology.value = result.typology
@@ -21,19 +23,30 @@ export const useResultStore = defineStore('result', () => {
     resultText.value = result.resultText
   }
 
+  const setSecuringTutorial = (newValue) => {
+    securingTutorial.value = newValue
+  }
+
   const setGeolocation = (geoloc) => {
     geolocation.value = geoloc
   }
 
+  const updateTypology = (selectedOptionStep) => {
+    typology.value = typology.value + (selectedOptionStep === 'revolver_black_powder' ? '_black_powder' : '')
+  }
+
   return {
     typology,
+    updateTypology,
     confidence,
     confidenceLevel,
     img,
     imgUrl,
     geolocation,
     resultText,
+    securingTutorial,
     setResult,
+    setSecuringTutorial,
     setGeolocation,
   }
 })

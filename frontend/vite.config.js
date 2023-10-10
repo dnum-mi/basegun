@@ -5,7 +5,7 @@ import UnoCSS from 'unocss/vite'
 import transformerDirectives from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
-const path = require("path");
+const path = require('path')
 const apiHost = process.env.API_HOST || 'basegun-backend'
 
 // https://vitejs.dev/config/
@@ -20,13 +20,13 @@ export default defineConfig({
     vue(),
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
-      base: "/",
-      srcDir: "src",
+      base: '/',
+      srcDir: 'src',
       manifest: {
         name: 'Basegun - beta',
         short_name: 'Basegun',
         description: 'Identification des armes à feu',
-        theme_color: '#000091',
+        theme_color: 'var(--blue-france-sun-113-625)',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -43,18 +43,18 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
-          }
-        ]
+          },
+        ],
       },
       registerType: 'autoUpdate',
       devOptions: {
-        enabled: true
+        enabled: true,
       },
-    })
+    }),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   server: {
@@ -63,8 +63,8 @@ export default defineConfig({
       '^/api': {
         target: `http://${apiHost}:5000`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

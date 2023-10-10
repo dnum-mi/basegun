@@ -1,14 +1,14 @@
 describe('HomePage', () => {
-    it('shoud visit HomePage', () => {
-      cy.visit('/')
-      cy.getByDataTestid('basegun-logo').should('exist')
-      cy.contains('li', 'Basegun est une application')
-      cy.get('.swiper-button-next').click()
-      cy.contains('li', 'Une arme doit toujours être')
-      cy.get('#position-button').contains('J\'ai compris').click()
-      cy.url().should('contain', '/accueil')
-    })
-  
+  it('shoud visit HomePage', () => {
+    cy.visit('/')
+    cy.getByDataTestid('basegun-logo').should('exist')
+    cy.contains('li', 'Basegun est une application')
+    cy.get('swiper-container').shadow().find('.swiper-button-next').click()
+    cy.contains('li', 'ne remplace en aucun cas l\'avis d\'un expert')
+    cy.get('#agree-button').contains('J\'ai compris').click()
+    cy.url().should('contain', '/accueil')
+  })
+
   it('should open Menu informations', () => {
     cy.visit('/')
     cy.getByDataTestid('header-logo').contains('Ministère')
@@ -20,6 +20,8 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/a-propos')
+    cy.contains('p', 'Basegun est un projet')
+
     cy.get('#button-menu')
       .click()
     cy.getByRole('navigation')
@@ -27,6 +29,8 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/mentions-legales')
+    cy.contains('p', 'basegun.fr')
+
     cy.get('#button-menu')
       .click()
     cy.getByRole('navigation')
@@ -34,10 +38,10 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/contact')
-    cy.get('.information')
-      .should('exist')
-      .click()
-    cy.url().should('contain','/')
-    })
-  }
+    cy.contains('a', 'basegun@interieur.gouv.fr')
+    cy.getByRole('navigation')
+      .contains('a', 'Important')
+      .click({ force: true })
+  })
+},
 )

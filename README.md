@@ -52,7 +52,7 @@ Try to find error log
 * In terminal, run `docker logs basegun-backend`
 * If you cannot access terminal or don't see anything, go to `localhost:5000/logs` or `preprod.basegun.fr/logs` to see latest logs.
 
-=> Error "missing model": Download model from the url specified in the [backend Dockerfile](https://github.com/datalab-mi/Basegun/blob/develop/backend/Dockerfile).
+=> ErrorPage "missing model": Download model from the url specified in the [backend Dockerfile](https://github.com/datalab-mi/Basegun/blob/develop/backend/Dockerfile).
 
 ### The website runs the analysis, but no image shows up
 Use browser html inspector to find the url given in the image src.

@@ -2,9 +2,26 @@ html {
   --select-option-image-width: 13rem;
 }
 
+h1 {
+  font-size: 1.75rem
+}
+
+h2 {
+  font-size: 1.3rem 
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: var(--blue-france-sun-113-625)
+}
+
 #app {
   position: absolute;
   inset: 0;
+}
+
+a {
+  background-image: none !important;
 }
 
 .fr-container {
@@ -45,7 +62,7 @@ button {
 .footer-actions {
   display: flex;
   justify-content: space-around;
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
   z-index: 1;
   margin: auto;
 }
@@ -77,12 +94,23 @@ button {
 }
 
 .img-deco {
-  margin-bottom: 1em;
-  margin-top: 33%;
-  width: 100%;
+  margin-bottom: 2.5em;
+  width: 100%
+}
+
+h4 {
+  font-size: 1.3rem;
+  margin: 0.75rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+  color: var(--blue-france-sun-113-625)
 }
 
 .help {
-  color: #000091;
+  color: var(--blue-france-sun-113-625);
   background-image: var(--underline-img), var(--underline-img) !important;
 }
+
+

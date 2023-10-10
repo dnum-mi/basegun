@@ -1,16 +1,24 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
 const route = useRoute()
 
-const logoText = [
-  'Ministère',
-  'de l’intérieur',
-  'et des Outre-Mer',
-]
+const wholeLogo = computed(() => route.meta.wholeLogo)
+
+const isMobile = window.innerWidth <= 640
+
+const logoText = computed(() => (!isMobile || wholeLogo.value)
+  ? ['Ministère',
+      'de l’intérieur',
+      'et des Outre-Mer']
+  : [])
 
 const quickLinks = [
+  {
+    label: 'Important',
+    to: '/',
+  },
   {
     label: 'A propos',
     to: '/a-propos',
@@ -25,54 +33,53 @@ const quickLinks = [
   },
 ]
 
-function onClickOnLogo () {
-  router.push({ name: 'Start' })
-}
-
-function onClickOnInfo (event) {
-  event.stopPropagation()
-  router.push({ name: 'Home' })
-}
-
 </script>
 
 <template>
   <DsfrHeader
+    :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
+    :show-beta="true"
+    service-title=" "
+    :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
-    @click="onClickOnLogo"
-  >
-    <span
-      v-if="route.name !== 'Home'"
-      class="information fr-icon-info-line"
-      aria-hidden="true"
-      @click="onClickOnInfo"
-    />
-  </DsfrHeader>
+  />
 </template>
 
 <style scoped>
-  :deep(.fr-container) {
-    position: relative;
-  }
+:deep(.fr-container) {
+  position: relative;
+}
 
-  :deep(.fr-header__navbar .fr-btn--menu) {
-    color : var(--text-action-high-blue-france);
+@screen lt-sm {
+  .marianne-only :deep(.fr-logo::after) {
+    display: none;
   }
+}
 
-.information {
-    position: absolute;
-    top: 12%;
-    right: 12%;
-    z-index: 999;
-    color: #000091;
-    cursor: pointer;
-  }
+:deep(.fr-header__navbar .fr-btn--menu) {
+  color : var(--text-action-high-blue-france);
+}
 
-@screen lg {
-  .information {
-    --uno: top-4\/10 right-3.5\/10;
-  }
+.marianne-only :deep(.fr-header__logo .fr-logo::before) {
+  background-size: cover;
+  background-position: inherit;
+  height: 1.2rem;
+  margin-bottom: .25rem;
+  width: 3rem;
+}
+
+:deep(.fr-header__service) {
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+
+:deep(.fr-badge) {
+  position: absolute;
+  left: 4.25rem;
+  bottom: 1rem;
 }
 
 </style>

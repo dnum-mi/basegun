@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+        - VERSION=${TAG:-2.0}
+        - CACERT_LOCATION
+      context: ./backend
+      target: ${BUILD_TARGET:-dev}
+    container_name: basegun-backend
+    environment:
+      - PATH_LOGS=/app/logs
+      - OS_USERNAME
+      - OS_PASSWORD
+      - OS_PROJECT_NAME
+      - http_proxy
+      - https_proxy
+      - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
+      - LOG_LEVEL=${UVICORN_LOG_LEVEL}
+      - no_proxy
+      - WORKSPACE=dev
+      - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
+    image: basegun-backend:${TAG:-2.0}-dev
+    ports:
+      - 5000:5000
+    volumes:
+      - $PWD/backend/src:/app/src
+      - $PWD/backend/tests:/app/tests
+      - $PWD/backend/logs:/app/logs
+      - /app/src/weights

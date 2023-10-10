@@ -7,7 +7,7 @@ ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
 COPY ./package.json ./package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 COPY src ./src
 COPY public ./public
