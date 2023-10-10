@@ -48,9 +48,9 @@ jobs:
             --set ingress.hosts[0].paths[0].path="/" \
             --set ingress.hosts[0].paths[0].pathType="Prefix"  \
             --set backend.image.repository="ghcr.io/datalab-mi/basegun/basegun-backend" \
-            --set backend.image.tag="${{ github.head_ref }}" \
+            --set backend.image.tag="${{ github.sha }}" \
             --set frontend.image.repository="ghcr.io/datalab-mi/basegun/basegun-frontend" \
-            --set frontend.image.tag="${{ github.head_ref }}" \
+            --set frontend.image.tag="${{ github.sha }}" \
             --set backend.secret.create="true" \
             --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
             --set-string backend.secret.values.AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
