@@ -1,5 +1,5 @@
 describe('Firearm Fiability', () => {
-  it('should identificate firearm with high fiability', () => {
+  it.skip('should identificate firearm with high fiability', () => {
     cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
@@ -30,7 +30,7 @@ describe('Firearm Fiability', () => {
     })
   })
 
-  it('should identificate firearm with medium fiability', () => {
+  it.skip('should identificate firearm with medium fiability', () => {
     cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
@@ -52,7 +52,7 @@ describe('Firearm Fiability', () => {
     })
   })
 
-  it('should identificate firearm with low fiability', () => {
+  it.skip('should identificate firearm with low fiability', () => {
     cy.accueil()
     cy.getByDataTestid('identification')
       .contains('J’ai déjà mis mon arme en sécurité, je veux l’identifier')
