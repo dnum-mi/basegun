@@ -5,8 +5,7 @@
   "scripts": {
     "preview": "vite preview",
     "build": "vite build",
-    "compose:up": "TAG=3.2 docker compose -f ../docker-compose-backend.yml up -d",
-    "start": "API_HOST=localhost vite --port 3000",
+    "compose:up": "docker compose -f ../docker-compose.yml --profile backend-only up -d",
     "dev": "vite",
     "lint": "eslint . --ignore-path ../.gitignore",
     "format": "eslint . --fix --ignore-path ../.gitignore",

@@ -27,20 +27,20 @@ ifeq ("$(wildcard ${DC})","")
 endif
 
 check-dc-config-%: check-prerequisites ## Check docker-compose syntax
-	${DC} -f docker-compose-$*.yml config -q
+	${DC} -f docker-compose.yml config -q
 
-build-%: check-dc-config-%
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml build
+build: check-dc-config-%
+	TAG=${TAG} ${DC} -f docker-compose.yml build
 
-up-%: check-dc-config-%
+up: check-dc-config-%
 ifeq ("$(WORKSPACE)","preprod")
-	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose-$*.yml up -d
+	TAG=${TAG} PORT_PROD=8080 ${DC} -f docker-compose.yml up -d
 else
-	TAG=${TAG} ${DC} -f docker-compose-$*.yml up -d
+	TAG=${TAG} ${DC} -f docker-compose.yml up -d
 endif
 
-down-%:
-	${DC} -f docker-compose-$*.yml down
+down:
+	${DC} -f docker-compose.yml down
 
 tag: show-current-tag
 	git tag -a v${TAG}

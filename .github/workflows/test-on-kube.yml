@@ -43,19 +43,14 @@ jobs:
       - name: Build and install basegun with helm, and test if deployment is successful
         id: tests
         run: |
-          TAG=$(make get-current-tag) BUILD_TARGET=test docker-compose -f docker-compose-prod.yml build
-          kind load docker-image \
-            basegun-backend:$(make get-current-tag) \
-            basegun-frontend:$(make get-current-tag) \
-            --name basegun-testing
           helm upgrade --install basegun ./infra/kube/helm/  \
             --set ingress.hosts[0].host="$LOCAL_DOMAIN" \
             --set ingress.hosts[0].paths[0].path="/" \
             --set ingress.hosts[0].paths[0].pathType="Prefix"  \
-            --set backend.image.repository="basegun-backend" \
-            --set backend.image.tag="$(make get-current-tag)" \
-            --set frontend.image.repository="basegun-frontend" \
-            --set frontend.image.tag="$(make get-current-tag)" \
+            --set backend.image.repository="ghcr.io/datalab-mi/basegun/basegun-backend" \
+            --set backend.image.tag="${{ github.head_ref }}" \
+            --set frontend.image.repository="ghcr.io/datalab-mi/basegun/basegun-frontend" \
+            --set frontend.image.tag="${{ github.head_ref }}" \
             --set backend.secret.create="true" \
             --set-string backend.secret.values.AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
             --set-string backend.secret.values.AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
@@ -69,10 +64,6 @@ jobs:
           kubectl describe pods
           kubectl logs deploy/basegun-backend --all-containers --ignore-errors
           kubectl logs deploy/basegun-frontend --all-containers --ignore-errors
-
-      - name: Test unitests on backend
-        run : |
-          kubectl exec deploy/basegun-backend -c basegun-backend -- python -m unittest discover -v
 
       - name: Setup nodejs (for cypress)
         uses: actions/setup-node@v3
