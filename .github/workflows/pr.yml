@@ -34,7 +34,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.sha }}
+          tags: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.head_ref }}
           target: dev
 
   build-frontend:
@@ -54,7 +54,7 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/datalab-mi/basegun/basegun-frontend:${{ github.sha }}
+          tags: ghcr.io/datalab-mi/basegun/basegun-frontend:${{ github.head_ref }}
           target: prod
   
   test-backend:
@@ -62,7 +62,7 @@ jobs:
     needs: build-backend
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.sha }}
+      image: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.head_ref }}
       env:
         WORKSPACE: dev
         AWS_REGION: gra
