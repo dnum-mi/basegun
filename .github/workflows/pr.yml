@@ -74,7 +74,7 @@ jobs:
 
   test-e2e:
     name: Run E2E tests
-    needs: [tag-pr, build-backend]
+    needs: [build-backend, build-frontend]
     uses: ./.github/workflows/test-on-kube.yml
     secrets:
       API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}

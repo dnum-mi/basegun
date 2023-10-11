@@ -9,8 +9,6 @@ spec:
   ports:
     - port: {{ .Values.frontend.service.port }}
       targetPort: {{ .Values.frontend.service.containerPort }}
-      protocol: TCP
-      name: http
   selector:
     {{- include "basegun.FrontSelectorLabels" . | nindent 4 }}
 ---
@@ -25,7 +23,5 @@ spec:
   ports:
     - port: {{ .Values.backend.service.port }}
       targetPort: {{ .Values.backend.service.containerPort }}
-      protocol: TCP
-      name: http
   selector:
     {{- include "basegun.BackSelectorLabels" . | nindent 4 }}
