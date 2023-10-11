@@ -39,12 +39,12 @@ def create_bucket():
 class TestModel(unittest.TestCase):
     def test_home(self):
         """Checks that the route / is alive"""
-        response = client.get("/")
+        response = client.get("/api/")
         self.assertEqual(response.text, "Basegun backend")
 
     def test_version(self):
         """Checks that the route /version sends a version"""
-        response = client.get("/version")
+        response = client.get("/api/version")
         self.assertEqual(response.status_code, 200)
 
     def check_log_base(self, log):
@@ -66,7 +66,7 @@ class TestModel(unittest.TestCase):
         geoloc = "12.666,7.666"
 
         with open(path, 'rb') as f:
-            r = client.post("/upload",
+            r = client.post("/api/upload",
                 files={"image": f},
                 data={"date": time.time(), "geolocation": geoloc})
         self.assertEqual(r.status_code, 200)
@@ -77,7 +77,7 @@ class TestModel(unittest.TestCase):
         self.assertAlmostEqual(res["confidence"], 98.43, places=1)
         self.assertTrue(res["confidence_level"], "high")
         # checks that the result is written in logs
-        r = client.get("/logs")
+        r = client.get("/api/logs")
         self.assertEqual(r.status_code, 200)
         # checks the latest log with validates upload to object storage
         self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
@@ -98,11 +98,11 @@ class TestModel(unittest.TestCase):
         label = "revolver"
         confidence_level = "high"
         image_url = "https://storage.gra.cloud.ovh.net/v1/test"
-        r = client.post("/identification-feedback",
+        r = client.post("/api/identification-feedback",
                 json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
 
         self.assertEqual(r.status_code, 200)
-        r = client.get("/logs")
+        r = client.get("/api/logs")
         self.assertEqual(r.status_code, 200)
         log = r.json()[0]
         self.check_log_base(log)
