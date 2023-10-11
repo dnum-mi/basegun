@@ -9,8 +9,7 @@ from uuid import uuid4
 from typing import Union
 
 import boto3
-from botocore.client import ClientError
-from fastapi import BackgroundTasks, Cookie, FastAPI, File, Form, HTTPException, Request, Response, UploadFile
+from fastapi import BackgroundTasks, Cookie, FastAPI, APIRouter, File, Form, HTTPException, Request, Response, UploadFile
 from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from gelfformatter import GelfFormatter
@@ -138,7 +137,9 @@ def upload_image(content: bytes, image_key: str):
 ####################
 
 # FastAPI Setup
-app = FastAPI()
+app = FastAPI(docs_url="/api/docs")
+router = APIRouter(prefix="/api")
+
 origins = [ # allow requests from front-end
     "http://basegun.fr",
     "https://basegun.fr",
@@ -198,17 +199,17 @@ else:
 ####################
 #     ROUTES       #
 ####################
-@app.get("/", response_class=PlainTextResponse)
+@router.get("/", response_class=PlainTextResponse)
 def home():
     return "Basegun backend"
 
 
-@app.get("/version", response_class=PlainTextResponse)
+@router.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
 
 
-@app.get("/logs")
+@router.get("/logs")
 def logs():
     if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
         with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
@@ -220,7 +221,7 @@ def logs():
         return PlainTextResponse("Forbidden")
 
 
-@app.post("/upload")
+@router.post("/upload")
 async def imageupload(
     request: Request,
     response: Response,
@@ -279,7 +280,7 @@ async def imageupload(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/identification-feedback")
+@router.post("/identification-feedback")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
 
@@ -294,7 +295,7 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
     return
 
 
-@app.post("/tutorial-feedback")
+@router.post("/tutorial-feedback")
 async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
 
@@ -309,7 +310,7 @@ async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Co
     return
 
 
-@app.post("/identification-dummy")
+@router.post("/identification-dummy")
 async def log_identification_dummy(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
 
@@ -323,3 +324,5 @@ async def log_identification_dummy(request: Request, user_id: Union[str, None] =
 
     logger.info("Identification dummy", extra=extras_logging)
     return
+
+app.include_router(router)

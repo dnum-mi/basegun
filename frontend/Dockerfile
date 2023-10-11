@@ -9,9 +9,7 @@ COPY ./cert/. /etc/ssl/certs/
 COPY ./package.json ./package-lock.json ./
 RUN npm ci --legacy-peer-deps
 
-COPY src ./src
-COPY public ./public
-COPY vite.config.js index.html ./
+COPY . .
 
 FROM base as dev
 

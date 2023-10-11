@@ -45,13 +45,13 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/
               port: api
             initialDelaySeconds: 10
             periodSeconds: 60
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/
               port: api
           volumeMounts:
             - name: logs
