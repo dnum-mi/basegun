@@ -7,4 +7,4 @@ export const epaule_mecanisme_ancien = {
   mention: "Libre d'acquisition et de détention",
   isDummyTypology: false,
   isSecuringOptions: false,
-}
+} as const

@@ -59,4 +59,4 @@ export const pistolet_semi_auto_moderne = {
       img_ammo: pistoletSemiAutoModerneBalls,
     },
   },
-}
+} as const

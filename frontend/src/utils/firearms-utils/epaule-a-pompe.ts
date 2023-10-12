@@ -30,4 +30,4 @@ export const epaule_a_pompe = {
   //   8: 'Verrouiller l’arme en actionnant la pompe vers l’avant',
   // },
   // video: epaulePompeCompliqueVideo,
-}
+} as const

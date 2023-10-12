@@ -31,4 +31,4 @@ export const epaule_a_verrou = {
       img_ammo: epauleAVerrouBalls,
     },
   },
-}
+} as const

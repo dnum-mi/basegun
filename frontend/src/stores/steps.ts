@@ -3,9 +3,11 @@ import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import { serializer } from '@/utils/storage-utils'
 
+type Step = Record<'1' | '2' | '3', Record<string, unknown>>
+
 export const useStepsStore = defineStore('steps', () => {
   const currentStep = useLocalStorage<number>('currentStep', 1)
-  const currentOptionStep = useLocalStorage<Partial<Record<'1' | '2' | '3', {}>>>('currentOptionStep', {})
+  const currentOptionStep = useLocalStorage<Partial<Step>>('currentOptionStep', {})
 
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
