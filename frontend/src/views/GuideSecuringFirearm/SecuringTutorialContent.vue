@@ -1,11 +1,11 @@
 <script setup>
 import { computed, ref } from 'vue'
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 
 import { useRouter } from 'vue-router'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
@@ -80,9 +80,9 @@ const openNextAccordion = (currentIndex) => {
                   <div class="flex justify-end my-4">
                     <DsfrButton
                       v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep].text_steps).length"
+                      data-testid="button-step-mes"
                       @click="openNextAccordion(key)
                       "
-                      data-testid="button-step-mes"
                     >
                       Etape {{ +key + 1 }}
                       <VIcon

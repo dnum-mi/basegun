@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { DsfrStepper } from '@gouvminint/vue-dsfr'
 
 defineProps({

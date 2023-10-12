@@ -1,12 +1,14 @@
-import { useResultStore } from '@/stores/result.js'
-import { useStepsStore } from '@/stores/steps.js'
+import type { NavigationGuardWithThis } from 'vue-router'
+import { useResultStore } from '@/stores/result'
+import { useStepsStore } from '@/stores/steps'
 
 export const serializer = {
-  read: (v) => (v == null || v === 'null') ? undefined : JSON.parse(v),
-  write: (v) => v == null ? 'null' : JSON.stringify(v),
+  // @ts-ignore this uses dynamic values
+  read: (v: unknown) => (v == null || v === 'null') ? undefined : JSON.parse(v),
+  write: (v: unknown) => v == null ? 'null' : JSON.stringify(v),
 }
 
-export const clearLocalStorage = (to, from, next) => {
+export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, next) => {
   const { setAmmo, setOptionStep, setCurrentStep } = useStepsStore()
   const { setResult } = useResultStore()
 
