@@ -2,10 +2,10 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { resultTree } from '@/utils/firearms-utils/index'
 import { useSnackbarStore } from '@/stores/snackbar.js'
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 import { useRouter, useRoute } from 'vue-router'
 
 const { setMessage } = useSnackbarStore()

@@ -1,9 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/index.js'
+import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/index'
 import StepsGuide from '@/components/StepsGuide.vue'
-import { useStepsStore } from '@/stores/steps.js'
+import { useStepsStore } from '@/stores/steps'
 
 const currentStep = computed({
   get () {

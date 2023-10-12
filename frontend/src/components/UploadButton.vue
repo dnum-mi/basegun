@@ -1,16 +1,16 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core'
 
-import { useResultStore } from '@/stores/result.js'
-import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result.js'
+import { useResultStore } from '@/stores/result'
+import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
 
 const resultStore = useResultStore()
 const router = useRouter()
 
-const fileInput = ref(null)
+const fileInput = ref<HTMLInputElement | null>(null)
 const handledImageTypes = 'image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif'
 
 function randomCoord (num) {
@@ -21,7 +21,7 @@ function randomCoord (num) {
 }
 
 function click () {
-  fileInput.value.click()
+  fileInput.value?.click()
 }
 
 defineExpose({

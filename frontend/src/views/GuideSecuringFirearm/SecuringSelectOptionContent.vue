@@ -1,19 +1,16 @@
-<script setup>
+<script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 import SecuringFooter from './SecuringFooter.vue'
 
-const props = defineProps({
-  step: {
-    type: String,
-    default: '1',
-  },
-})
+const props = defineProps<{
+  step: '1' | '2' | '3'
+}>()
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
@@ -36,7 +33,7 @@ watchEffect(() => {
 
 const zoom = ref('')
 
-const zoomOn = (imgValue) => {
+const zoomOn = (imgValue: string) => {
   zoom.value = imgValue
 }
 
