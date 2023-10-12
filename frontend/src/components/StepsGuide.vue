@@ -8,7 +8,7 @@ defineProps({
   },
   steps: {
     type: Array,
-    default: [],
+    default: () => [],
   },
 })
 </script>
