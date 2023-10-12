@@ -217,7 +217,7 @@ export const revolver = {
       img_ammo: revolverBalls,
     },
   },
-}
+} as const
 
 export const revolver_black_powder = {
   displayLabel: 'Revolver à poudre noire',
@@ -225,4 +225,4 @@ export const revolver_black_powder = {
   mention: "D - Libre d'acquisition et de détention",
   isDummyTypology: false,
   isSecuringOptions: false,
-}
+} as const

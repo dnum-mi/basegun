@@ -11,6 +11,7 @@ import SecuringFooter from './SecuringFooter.vue'
 const props = defineProps<{
   step: '1' | '2' | '3'
 }>()
+
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
@@ -33,7 +34,7 @@ watchEffect(() => {
 
 const zoom = ref('')
 
-const zoomOn = (imgValue: string) => {
+const zoomOn = (imgValue) => {
   zoom.value = imgValue
 }
 
