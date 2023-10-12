@@ -108,4 +108,4 @@ export const semi_auto_style_militaire_autre = {
       img_ammo: semiAutoMilitaireBalls,
     },
   },
-}
+} as const

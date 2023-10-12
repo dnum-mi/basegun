@@ -75,4 +75,4 @@ export const autre_pistolet = {
       video: autrePistoletFusilScieVideo,
     },
   },
-}
+} as const

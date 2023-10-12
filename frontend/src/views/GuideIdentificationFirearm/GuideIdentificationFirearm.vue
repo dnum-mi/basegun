@@ -1,11 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+
 import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index'
-import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
-import axios from 'axios'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
@@ -24,6 +24,7 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
+
 const steps = resultTree[resultStore.typology].isDummyTypology ||
   !confidenceLevel.value === 'low'
   ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']

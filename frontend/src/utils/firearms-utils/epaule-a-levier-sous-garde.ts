@@ -42,4 +42,4 @@ export const epaule_a_levier_sous_garde = {
       video: levierSousGardePasMagasinVideo,
     },
   },
-}
+} as const
