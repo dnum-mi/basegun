@@ -10,3 +10,10 @@ repos:
     hooks:
     -   id: isort
         args: ["--profile", "black"]
+-   repo: local
+    hooks:
+    -   id: eslint
+        name: eslint
+        entry: bash -c 'cd ./frontend && npm run format'
+        language: system
+        files: ^frontend/
