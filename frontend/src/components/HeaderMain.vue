@@ -1,10 +1,10 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const wholeLogo = computed(() => route.meta.wholeLogo)
+const wholeLogo = computed<boolean>(() => route.meta.wholeLogo as boolean)
 
 const isMobile = window.innerWidth <= 640
 
@@ -32,7 +32,6 @@ const quickLinks = [
     to: '/contact',
   },
 ]
-
 </script>
 
 <template>
@@ -81,5 +80,4 @@ const quickLinks = [
   left: 4.25rem;
   bottom: 1rem;
 }
-
 </style>

@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { serializer } from '@/utils/storage-utils.js'
+import { serializer } from '@/utils/storage-utils'
 
 export const useStepsStore = defineStore('steps', () => {
-  const currentStep = useLocalStorage('currentStep', 1)
-  const currentOptionStep = useLocalStorage('currentOptionStep', {})
+  const currentStep = useLocalStorage<number>('currentStep', 1)
+  const currentOptionStep = useLocalStorage<Partial<Record<'1' | '2' | '3', {}>>>('currentOptionStep', {})
 
   const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')

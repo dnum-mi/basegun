@@ -1,10 +1,10 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index.js'
+import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index'
 import StepsGuide from '@/components/StepsGuide.vue'
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 import axios from 'axios'
 
 const stepsStore = useStepsStore()

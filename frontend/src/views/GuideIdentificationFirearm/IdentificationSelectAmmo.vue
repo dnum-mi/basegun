@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 
 import TransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()

@@ -1,12 +1,12 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from 'vue'
 import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useSnackbarStore } from '@/stores/snackbar.js'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()

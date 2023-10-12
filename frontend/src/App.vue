@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { registerSW } from 'virtual:pwa-register'
+
 import HeaderMain from '@/components/HeaderMain.vue'
 
 const online = ref(navigator.onLine)
@@ -20,7 +21,6 @@ onBeforeUnmount(() => {
 })
 
 registerSW({ immediate: true })
-
 </script>
 
 <template>
