@@ -35,7 +35,8 @@ backend:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: develop
-    imagePullSecrets: []
+    imagePullSecrets:
+      - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
@@ -89,7 +90,8 @@ frontend:
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: develop
-    imagePullSecrets: []
+    imagePullSecrets:
+      - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
