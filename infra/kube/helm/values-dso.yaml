@@ -27,6 +27,8 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+imagePullSecrets:
+  - name: registry-pull-secret
 # Config for backend
 backend:
   replicaCount: 1
@@ -35,8 +37,6 @@ backend:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: develop
-    imagePullSecrets:
-      - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
@@ -90,8 +90,6 @@ frontend:
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: develop
-    imagePullSecrets:
-      - name: registry-pull-secret
   podAnnotations: {}
   podSecurityContext: {}
   # fsGroup: 2000
