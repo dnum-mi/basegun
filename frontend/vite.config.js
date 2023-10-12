@@ -26,7 +26,7 @@ export default defineConfig({
         name: 'Basegun - beta',
         short_name: 'Basegun',
         description: 'Identification des armes à feu',
-        theme_color: 'var(--blue-france-sun-113-625)',
+        theme_color: '#8585f6',
         icons: [
           {
             src: 'pwa-192x192.png',
