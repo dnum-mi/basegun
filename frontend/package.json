@@ -7,6 +7,7 @@
     "build": "vite build",
     "compose:up": "docker compose -f ../docker-compose.yml --profile backend-only up -d",
     "dev": "vite",
+    "start": "API_HOST=localhost vite",
     "lint": "eslint . --ignore-path ../.gitignore",
     "format": "eslint . --fix --ignore-path ../.gitignore",
     "format:css": "stylelint --fix src/**/*.{css,vue}",
