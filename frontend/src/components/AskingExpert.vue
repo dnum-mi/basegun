@@ -3,10 +3,10 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useSnackbarStore } from '@/stores/snackbar.js'
-import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
+import SnackbarAlert from '@/components/SnackbarAlert.vue'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
@@ -46,7 +46,7 @@ async function sendTutorialFeedback () {
       console.log(err)
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
     })
-    .finally(setTimeout(() => {
+    .finally(() => setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
       stepsStore.tutorialFeedback = ''
       router.push({ name: 'ResultPage' })
