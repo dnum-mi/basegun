@@ -1,40 +1,41 @@
 from io import BytesIO
 from typing import Union
-from PIL import Image
+
 import numpy as np
 import torch
 import torchvision.models as Model
+from PIL import Image
 from torchvision import transforms
 
-
-CLASSES = ['autre_pistolet',
-    'epaule_a_levier_sous_garde',
-    'epaule_a_pompe',
-    'epaule_a_un_coup_par_canon',
-    'epaule_a_verrou',
-    'epaule_mecanisme_ancien',
-    'epaule_semi_auto_style_chasse',
-    'epaule_semi_auto_style_militaire_milieu_20e',
-    'pistolet_mecanisme_ancien',
-    'pistolet_semi_auto_moderne',
-    'revolver',
-    'semi_auto_style_militaire_autre']
+CLASSES = [
+    "autre_pistolet",
+    "epaule_a_levier_sous_garde",
+    "epaule_a_pompe",
+    "epaule_a_un_coup_par_canon",
+    "epaule_a_verrou",
+    "epaule_mecanisme_ancien",
+    "epaule_semi_auto_style_chasse",
+    "epaule_semi_auto_style_militaire_milieu_20e",
+    "pistolet_mecanisme_ancien",
+    "pistolet_semi_auto_moderne",
+    "revolver",
+    "semi_auto_style_militaire_autre",
+]
 
 MODEL_TORCH = Model.efficientnet_b7
 INPUT_SIZE = 600
-device = torch.device('cpu')
+device = torch.device("cpu")
 
 
 class ConvertRgb(object):
-    """Converts an image to RGB
-    """
+    """Converts an image to RGB"""
 
     def __init__(self):
         pass
 
     def __call__(self, image):
-        if image.mode != 'RGB':
-            image = image.convert('RGB')
+        if image.mode != "RGB":
+            image = image.convert("RGB")
         return image
 
 
@@ -74,18 +75,23 @@ class RandomPad(object):
 
     def __call__(self, image):
         w, h = image.size
-        pads = {'horiz': [self.output_size - w,0,0],
-        'vert': [self.output_size - h,0,0]}
-        if pads['horiz'][0] >= 0 and pads['vert'][0] >= 0:
-            for direction in ['horiz', 'vert'] :
+        pads = {
+            "horiz": [self.output_size - w, 0, 0],
+            "vert": [self.output_size - h, 0, 0],
+        }
+        if pads["horiz"][0] >= 0 and pads["vert"][0] >= 0:
+            for direction in ["horiz", "vert"]:
                 pads[direction][1] = pads[direction][0] // 2
-                if pads[direction][0] % 2 == 1: # if the size to pad is odd, add a random +1 on one side
-                    pads[direction][1] += np.random.randint(0,1)
+                if (
+                    pads[direction][0] % 2 == 1
+                ):  # if the size to pad is odd, add a random +1 on one side
+                    pads[direction][1] += np.random.randint(0, 1)
                 pads[direction][2] = pads[direction][0] - pads[direction][1]
 
-            return transforms.functional.pad(image,
-                [pads['horiz'][1], pads['vert'][1], pads['horiz'][2], pads['vert'][2]],
-                fill = int(np.random.choice([0, 255])) # border randomly white or black
+            return transforms.functional.pad(
+                image,
+                [pads["horiz"][1], pads["vert"][1], pads["horiz"][2], pads["vert"][2]],
+                fill=int(np.random.choice([0, 255])),  # border randomly white or black
             )
         else:
             return image
@@ -121,7 +127,9 @@ def load_model_inference(state_dict_path: str) -> Model:
     """
     model = build_model(MODEL_TORCH())
     # Initialize model with the pretrained weights
-    model.load_state_dict(torch.load(state_dict_path, map_location=device)['model_state_dict'])
+    model.load_state_dict(
+        torch.load(state_dict_path, map_location=device)["model_state_dict"]
+    )
     model.to(device)
     # set the model to inference mode
     model.eval()
@@ -138,13 +146,15 @@ def prepare_input(image: Image) -> torch.Tensor:
         torch.Tensor: converted image
         (shape (1, 3, size, size), normalized on ImageNet)
     """
-    loader = transforms.Compose([
-        ConvertRgb(),
-        Rescale(INPUT_SIZE),
-        RandomPad(INPUT_SIZE),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ])
+    loader = transforms.Compose(
+        [
+            ConvertRgb(),
+            Rescale(INPUT_SIZE),
+            RandomPad(INPUT_SIZE),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        ]
+    )
     image = loader(image).float()
     return image.unsqueeze(0).to(device)
 
@@ -163,6 +173,6 @@ def predict_image(model: Model, img: bytes) -> Union[str, float]:
     image = prepare_input(im)
     output = model(image)
     probs = torch.nn.functional.softmax(output, dim=1).detach().numpy()[0]
-    res = [(CLASSES[i], round(probs[i]*100,2)) for i in range(len(CLASSES))]
-    res.sort(key=lambda x:x[1], reverse=True)
+    res = [(CLASSES[i], round(probs[i] * 100, 2)) for i in range(len(CLASSES))]
+    res.sort(key=lambda x: x[1], reverse=True)
     return res[0]
