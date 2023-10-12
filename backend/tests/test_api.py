@@ -1,30 +1,29 @@
-import unittest
+import json
 import os
 import time
-import boto3
-import json
-
+import unittest
 from io import BytesIO
-import requests
-from PIL import Image, ImageChops
-from src.main import app, S3_BUCKET_NAME, S3_URL_ENDPOINT
 
+import boto3
+import requests
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-
-
+from PIL import Image, ImageChops
+from src.main import S3_BUCKET_NAME, S3_URL_ENDPOINT, app
 
 client = TestClient(app)
 
 BUCKET_POLICY = {
-    'Version': '2012-10-17',
-    'Statement': [{
-        'Sid': 'AddPerm',
-        'Effect': 'Allow',
-        'Principal': '*',
-        'Action': ['s3:GetObject'],
-        'Resource': f"arn:aws:s3:::{S3_BUCKET_NAME}/*"
-    }]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AddPerm",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": ["s3:GetObject"],
+            "Resource": f"arn:aws:s3:::{S3_BUCKET_NAME}/*",
+        }
+    ],
 }
 
 
@@ -49,26 +48,38 @@ class TestModel(unittest.TestCase):
 
     def check_log_base(self, log):
         self.assertTrue(
-            {'timestamp', 'version', 'host', 'level', 'short_message', '_bg_date', '_bg_user_id',
-                '_bg_device', '_bg_device_os', '_bg_device_family', '_bg_device_browser', '_bg_version',
-                '_bg_model'}.issubset(set(log.keys()))
+            {
+                "timestamp",
+                "version",
+                "host",
+                "level",
+                "short_message",
+                "_bg_date",
+                "_bg_user_id",
+                "_bg_device",
+                "_bg_device_os",
+                "_bg_device_family",
+                "_bg_device_browser",
+                "_bg_version",
+                "_bg_model",
+            }.issubset(set(log.keys()))
         )
         self.assertEqual(log["level"], 6)
         self.assertTrue(log["_bg_model"].startswith("EffB"))
 
     def test_upload(self):
         """Checks that the file upload works properly"""
-        if os.environ["WORKSPACE"]=="dev":
+        if os.environ["WORKSPACE"] == "dev":
             create_bucket()
-        path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "revolver.jpg")
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
         geoloc = "12.666,7.666"
 
-        with open(path, 'rb') as f:
-            r = client.post("/api/upload",
+        with open(path, "rb") as f:
+            r = client.post(
+                "/api/upload",
                 files={"image": f},
-                data={"date": time.time(), "geolocation": geoloc})
+                data={"date": time.time(), "geolocation": geoloc},
+            )
         self.assertEqual(r.status_code, 200)
         res = r.json()
 
@@ -90,7 +101,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(log["_bg_geolocation"], geoloc)
         self.assertEqual(log["_bg_label"], "revolver")
         self.assertAlmostEqual(log["_bg_confidence"], 98.43, places=1)
-        self.assertTrue(log["_bg_upload_time"]>=0)
+        self.assertTrue(log["_bg_upload_time"] >= 0)
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
@@ -98,8 +109,16 @@ class TestModel(unittest.TestCase):
         label = "revolver"
         confidence_level = "high"
         image_url = "https://storage.gra.cloud.ovh.net/v1/test"
-        r = client.post("/api/identification-feedback",
-                json={"image_url": image_url, "feedback": True, "confidence": confidence, "label": label, "confidence_level": confidence_level})
+        r = client.post(
+            "/api/identification-feedback",
+            json={
+                "image_url": image_url,
+                "feedback": True,
+                "confidence": confidence,
+                "label": label,
+                "confidence_level": confidence_level,
+            },
+        )
 
         self.assertEqual(r.status_code, 200)
         r = client.get("/api/logs")
@@ -115,7 +134,9 @@ class TestModel(unittest.TestCase):
 
     def test_geoloc_api(self):
         """Checks that the geolocation api works properly"""
-        r = requests.get("https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1")
+        r = requests.get(
+            "https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1"
+        )
         res = r.json()
         self.assertTrue("latitude" in res.keys())
         self.assertTrue("longitude" in res.keys())

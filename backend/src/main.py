@@ -1,21 +1,30 @@
-
-import os
-import logging
-import time
 import json
-from logging.handlers import TimedRotatingFileHandler
+import logging
+import os
+import time
 from datetime import datetime
-from uuid import uuid4
+from logging.handlers import TimedRotatingFileHandler
 from typing import Union
+from uuid import uuid4
 
 import boto3
-from fastapi import BackgroundTasks, Cookie, FastAPI, APIRouter, File, Form, HTTPException, Request, Response, UploadFile
-from fastapi.responses import PlainTextResponse
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Cookie,
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    Request,
+    Response,
+    UploadFile,
+)
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from gelfformatter import GelfFormatter
-from user_agents import parse
 from src.model import load_model_inference, predict_image
-
+from user_agents import parse
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,9 +43,9 @@ def init_variable(key: str, value: str) -> str:
         VAR = os.environ[key]
     else:
         VAR = value
-        print("WARNING: The variable "+key+" is not set. Using", VAR)
+        print("WARNING: The variable " + key + " is not set. Using", VAR)
         if os.path.isabs(VAR):
-            os.makedirs(VAR, exist_ok = True)
+            os.makedirs(VAR, exist_ok=True)
     return VAR
 
 
@@ -57,10 +66,8 @@ def setup_logs(log_dir: str) -> logging.Logger:
     # new log file at midnight
     log_file = os.path.join(log_dir, "log.json")
     handler = TimedRotatingFileHandler(
-        log_file,
-        when="midnight",
-        interval=1,
-        backupCount=7)
+        log_file, when="midnight", interval=1, backupCount=7
+    )
     logger.setLevel(logging.INFO)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
@@ -111,7 +118,6 @@ def get_base_logs(user_agent, user_id: str) -> dict:
     return extras_logging
 
 
-
 def upload_image(content: bytes, image_key: str):
     """Uploads an image to s3 bucket
         path uploaded-images/WORKSPACE/img_name
@@ -126,8 +132,8 @@ def upload_image(content: bytes, image_key: str):
     object.put(Body=content)
     extras_logging = {
         "bg_date": datetime.now().isoformat(),
-        "bg_upload_time": time.time()-start,
-        "bg_image_url": image_key
+        "bg_upload_time": time.time() - start,
+        "bg_image_url": image_key,
     }
     logger.info("Upload successful", extra=extras_logging)
 
@@ -140,7 +146,7 @@ def upload_image(content: bytes, image_key: str):
 app = FastAPI(docs_url="/api/docs")
 router = APIRouter(prefix="/api")
 
-origins = [ # allow requests from front-end
+origins = [  # allow requests from front-end
     "http://basegun.fr",
     "https://basegun.fr",
     "http://preprod.basegun.fr",
@@ -158,14 +164,13 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable("PATH_LOGS",
-    os.path.abspath(os.path.join(CURRENT_DIR,"/tmp/logs")))
+PATH_LOGS = init_variable(
+    "PATH_LOGS", os.path.abspath(os.path.join(CURRENT_DIR, "/tmp/logs"))
+)
 logger = setup_logs(PATH_LOGS)
 
 # Load model
-MODEL_PATH = os.path.join(
-            CURRENT_DIR,
-            "weights/model.pth")
+MODEL_PATH = os.path.join(CURRENT_DIR, "weights/model.pth")
 model = None
 if os.path.exists(MODEL_PATH):
     model = load_model_inference(MODEL_PATH)
@@ -175,7 +180,7 @@ if not model:
 # Object storage
 S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
 S3_BUCKET_NAME = "basegun-s3"
-S3_PREFIX = os.path.join("uploaded-images/", os.environ['WORKSPACE'])
+S3_PREFIX = os.path.join("uploaded-images/", os.environ["WORKSPACE"])
 s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT)
 """ TODO : check if connection successful
 try:
@@ -229,7 +234,8 @@ async def imageupload(
     image: UploadFile = File(...),
     date: float = Form(...),
     geolocation: str = Form(...),
-    user_id: Union[str, None] = Cookie(None) ):
+    user_id: Union[str, None] = Cookie(None),
+):
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
@@ -238,8 +244,9 @@ async def imageupload(
     extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
-        img_key = os.path.join(S3_PREFIX,
-                    str(uuid4()) + os.path.splitext(image.filename)[1].lower())
+        img_key = os.path.join(
+            S3_PREFIX, str(uuid4()) + os.path.splitext(image.filename)[1].lower()
+        )
         img_bytes = image.file.read()
 
         # upload image to OVH Cloud
@@ -257,7 +264,7 @@ async def imageupload(
         label, confidence = predict_image(model, img_bytes)
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
-        extras_logging["bg_model_time"] = round(time.time()-start, 2)
+        extras_logging["bg_model_time"] = round(time.time() - start, 2)
         if confidence < 46:
             extras_logging["bg_confidence_level"] = "low"
         elif confidence < 76:
@@ -271,7 +278,7 @@ async def imageupload(
             "path": img_key,
             "label": label,
             "confidence": confidence,
-            "confidence_level": extras_logging["bg_confidence_level"]
+            "confidence_level": extras_logging["bg_confidence_level"],
         }
 
     except Exception as e:
@@ -289,29 +296,40 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
 
     extras_logging["bg_feedback_bool"] = res["feedback"]
     for key in ["image_url", "label", "confidence", "confidence_level"]:
-        extras_logging["bg_"+key] = res[key]
+        extras_logging["bg_" + key] = res[key]
 
     logger.info("Identification feedback", extra=extras_logging)
     return
 
 
 @router.post("/tutorial-feedback")
-async def log_tutorial_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
+async def log_tutorial_feedback(
+    request: Request, user_id: Union[str, None] = Cookie(None)
+):
     res = await request.json()
 
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
 
-    for key in ["image_url", "label", "confidence", "confidence_level",
-        "tutorial_feedback", "tutorial_option", "route_name"]:
-        extras_logging["bg_"+key] = res[key]
+    for key in [
+        "image_url",
+        "label",
+        "confidence",
+        "confidence_level",
+        "tutorial_feedback",
+        "tutorial_option",
+        "route_name",
+    ]:
+        extras_logging["bg_" + key] = res[key]
 
     logger.info("Tutorial feedback", extra=extras_logging)
     return
 
 
 @router.post("/identification-dummy")
-async def log_identification_dummy(request: Request, user_id: Union[str, None] = Cookie(None)):
+async def log_identification_dummy(
+    request: Request, user_id: Union[str, None] = Cookie(None)
+):
     res = await request.json()
 
     user_agent = parse(request.headers.get("user-agent"))
@@ -319,10 +337,17 @@ async def log_identification_dummy(request: Request, user_id: Union[str, None] =
 
     # to know if the firearm is dummy or real
     extras_logging["bg_dummy_bool"] = res["is_dummy"]
-    for key in ["image_url", "label", "confidence", "confidence_level", "tutorial_option"]:
-        extras_logging["bg_"+key] = res[key]
+    for key in [
+        "image_url",
+        "label",
+        "confidence",
+        "confidence_level",
+        "tutorial_option",
+    ]:
+        extras_logging["bg_" + key] = res[key]
 
     logger.info("Identification dummy", extra=extras_logging)
     return
+
 
 app.include_router(router)
