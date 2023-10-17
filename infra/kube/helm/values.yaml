@@ -4,6 +4,7 @@
 
 nameOverride: ""
 fullnameOverride: ""
+env: dev
 ingress:
   enabled: true
   className: ""
