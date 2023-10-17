@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim as base
+FROM node:18-slim as base
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
-COPY ./package.json ./package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm ci --legacy-peer-deps
 
 COPY . .
@@ -17,7 +17,6 @@ CMD ["npm", "run", "dev"]
 
 FROM base as build
 
-# RUN npm ci --production
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:1.21.4-alpine as prod
