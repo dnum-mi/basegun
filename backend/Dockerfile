@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as base
+FROM python:3.10-slim as base
 WORKDIR /app
 
 # certificates config
