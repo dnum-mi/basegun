@@ -6,7 +6,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-        - VERSION=${TAG:-2.0}
+        - VERSION=${TAG:-latest}
         - CACERT_LOCATION
       context: ./backend
       target: ${BUILD_TARGET:-dev}
@@ -22,7 +22,6 @@ services:
       - no_proxy
       - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
-    image: basegun-backend:${TAG:-2.0}-dev
     ports:
       - 5000:5000
     volumes:
@@ -40,7 +39,6 @@ services:
         - NODE_EXTRA_CA_CERTS=$CACERT_LOCATION
       context: ./frontend
       target: ${BUILD_TARGET:-dev}
-    image: basegun-frontend:${TAG:-2.0}-dev
     container_name: basegun-frontend
     ports:
       - 8080:80 # if BUILD_TARGET = prod
