@@ -6,8 +6,8 @@ WORKDIR /app
 ARG NODE_EXTRA_CA_CERTS
 COPY ./cert/. /etc/ssl/certs/
 
-COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+COPY ./package.json ./package-lock.json ./
+RUN npm ci
 
 COPY . .
 
