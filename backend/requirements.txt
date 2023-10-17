@@ -1,11 +1,11 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-fastapi==0.68.0
-uvicorn==0.14.0
-python-multipart>=0.0.5
+fastapi==0.103.2
+httpx>=0.25.0
+uvicorn==0.23.2
+python-multipart>=0.0.6
 gelf-formatter==0.2.1
 pyyaml>=5.4.1
 user-agents==2.2.0
-ua-parser==0.10.0
 boto3==1.28.39
 torch==1.13.1
 torchvision==0.14.1
