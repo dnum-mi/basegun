@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import { DsfrStepper } from '@gouvminint/vue-dsfr'
 
-defineProps({
-  currentStep: {
-    type: Number,
-    default: 1,
-  },
-  steps: {
-    type: Array,
-    default: () => [],
-  },
+withDefaults(defineProps<{
+  currentStep: number,
+  steps: string[],
+}>(), {
+  currentStep: 1,
+  steps: () => [],
 })
 </script>
 

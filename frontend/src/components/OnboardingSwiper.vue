@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <swiper-container
     :navigation="true"
@@ -60,6 +57,7 @@
     </swiper-slide>
   </swiper-container>
 </template>
+
 <style scoped>
 .swiper-container {
   width: 100%;
@@ -130,5 +128,4 @@ swiper-container::part(bullet-active) {
   font-weight: bold;
   color: #00c7c8;
 }
-
 </style>

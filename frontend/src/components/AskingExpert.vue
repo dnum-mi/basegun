@@ -27,23 +27,22 @@ function onClose () {
 }
 
 async function sendTutorialFeedback () {
-  const json = {
+  const feedback = {
     image_url: imgUrl.value,
     tutorial_feedback: stepsStore.tutorialFeedback,
     label: typology.value,
-    tutorial_option: stepsStore.selectedOptionStep || null,
+    tutorial_option: stepsStore.currentOptionStep[stepsStore.currentStep] || null,
     route_name: route.name,
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   }
-  await axios.post('/tutorial-feedback', json)
+  await axios.post('/tutorial-feedback', feedback)
     .then(async res => {
-      console.log(res)
-      stepsStore.tutorialFeedback = json.tutorial_feedback
+      stepsStore.tutorialFeedback = feedback.tutorial_feedback
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
     .catch(async (err) => {
-      console.log(err)
+      import.meta.env.DEV && console.log(err)
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
     })
     .finally(() => setTimeout(() => {

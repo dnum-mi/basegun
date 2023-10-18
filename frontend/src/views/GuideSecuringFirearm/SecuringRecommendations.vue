@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const userAgent = window.navigator.userAgent
 const keyWords = ['Mobile', 'Mozilla', 'iPhone']
 
@@ -6,6 +6,7 @@ const foundAllKeyWords = keyWords.every(keyWord => {
   return userAgent.includes(keyWord)
 })
 </script>
+
 <template>
   <div
     v-if="foundAllKeyWords"
