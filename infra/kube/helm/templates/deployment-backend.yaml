@@ -73,6 +73,11 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.backend.secret.secretName }}
                   key: API_OVH_TOKEN
+          livenessProbe:
+            exec:
+              command:
+                - ls
+                - /usr/share/filebeat/data
           volumeMounts:
             - name: {{ include "basegun.name" . }}-filebeat-conf
               mountPath: /tmp/filebeat/
