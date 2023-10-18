@@ -7,7 +7,6 @@
     "build": "vite build",
     "compose:up": "docker compose -f ../docker-compose.yml --profile backend-only up -d",
     "dev": "vite",
-    "dev:e2e": "FRONTEND_HOST=localhost FRONTEND_PORT=5173 cypress open --e2e --browser firefox",
     "start": "API_HOST=http://localhost:5000 vite",
     "lint": "eslint . --ignore-path ../.gitignore",
     "format": "eslint . --fix --ignore-path ../.gitignore",
