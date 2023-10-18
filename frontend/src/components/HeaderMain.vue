@@ -2,19 +2,21 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+import type { DsfrHeader } from '@gouvminint/vue-dsfr'
+
 const route = useRoute()
 
-const wholeLogo = computed<boolean>(() => route.meta.wholeLogo as boolean)
+const wholeLogo = computed(() => route.meta.wholeLogo as boolean)
 
 const isMobile = window.innerWidth <= 640
 
-const logoText = computed(() => (!isMobile || wholeLogo.value)
+const logoText = computed<InstanceType<typeof DsfrHeader>['$props']['logoText']>(() => (!isMobile || wholeLogo.value)
   ? ['Ministère',
       'de l’intérieur',
       'et des Outre-Mer']
   : [])
 
-const quickLinks = [
+const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
   {
     label: 'Important',
     to: '/',

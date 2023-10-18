@@ -10,7 +10,7 @@ import { createPinia } from 'pinia'
 
 import VueDsfr from '@gouvminint/vue-dsfr' // Import (par défaut) de la bibliothèque
 
-import * as icons from './icons.js'
+import * as icons from './icons'
 import App from './App.vue'
 import router from '@/router/index'
 // import function to register Swiper custom elements

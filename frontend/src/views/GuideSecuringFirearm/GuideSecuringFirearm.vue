@@ -5,11 +5,11 @@ import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/i
 import StepsGuide from '@/components/StepsGuide.vue'
 import { useStepsStore } from '@/stores/steps'
 
-const currentStep = computed({
+const currentStep = computed<1 | 2 | 3>({
   get () {
-    return stepsStore.currentStep + 1
+    return stepsStore.currentStep + 1 as 1 | 2 | 3
   },
-  set (value) {
+  set (value: 1 | 2 | 3) {
     stepsStore.setCurrentStep(value)
   },
 })
@@ -23,7 +23,7 @@ const goToNewRoute = () => (
 )
 
 const goToPreviousStep = () => (
-  currentStep.value = currentStep.value - 2
+  currentStep.value = currentStep.value - 2 as 1 | 2 | 3
 )
 
 const goToNextStep = () => (

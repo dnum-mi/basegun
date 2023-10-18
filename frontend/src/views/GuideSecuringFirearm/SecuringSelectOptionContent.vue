@@ -9,7 +9,7 @@ import AskingExpert from '@/components/AskingExpert.vue'
 import SecuringFooter from './SecuringFooter.vue'
 
 const props = defineProps<{
-  step: '1' | '2' | '3'
+  step: 1 | 2 | 3
 }>()
 
 const resultStore = useResultStore()
@@ -34,12 +34,12 @@ watchEffect(() => {
 
 const zoom = ref('')
 
-const zoomOn = (imgValue) => {
+const zoomOn = (imgValue: string) => {
   zoom.value = imgValue
 }
 
 function updateTypology () {
-  if (props.step === '1' && selectedOptionStep.value === 'revolver_black_powder') {
+  if (props.step === 1 && selectedOptionStep.value === 'revolver_black_powder') {
     // Remember if it is a revolver with black powder
     resultStore.updateTypology(selectedOptionStep.value)
   }
@@ -47,7 +47,7 @@ function updateTypology () {
 
 const nextTo = computed(() => {
   if (typology.value === 'revolver') {
-    if (props.step === '1') {
+    if (props.step === 1) {
       if (stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
         return {
           name: 'SecuringAchievement',
@@ -58,7 +58,7 @@ const nextTo = computed(() => {
         params: { step: '2' },
       }
     }
-    if (props.step === '2') {
+    if (props.step === 2) {
       if (stepsStore.currentOptionStep['2'] !== 'revolver_portiere') {
         return {
           name: 'SecuringTutorialContent',
@@ -76,16 +76,16 @@ const nextTo = computed(() => {
 })
 
 const backTo = computed(() => {
-  if (props.step === '1') {
+  if (props.step === 1) {
     return { name: 'InstructionsPage' }
   }
-  if (props.step === '2') {
+  if (props.step === 2) {
     return {
       name: 'SecuringSelectOption',
       params: { step: '1' },
     }
   }
-  if (props.step === '3') {
+  if (props.step === 3) {
     return {
       name: 'SecuringSelectOption',
       params: { step: '2' },

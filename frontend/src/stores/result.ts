@@ -2,9 +2,12 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 
 import { serializer } from '@/utils/storage-utils'
+import type { resultTree } from '@/utils/firearms-utils'
+
+type TypologyKey = keyof typeof resultTree
 
 export const useResultStore = defineStore('result', () => {
-  const typology = useLocalStorage<string>('typology', null, { serializer })
+  const typology = useLocalStorage<TypologyKey>('typology', null, { serializer })
   const confidence = useLocalStorage<number>('confidence', null, { serializer })
   const confidenceLevel = useLocalStorage<string>('confidenceLevel', null, { serializer })
   const img = useLocalStorage<string>('img', null, { serializer })
@@ -14,7 +17,7 @@ export const useResultStore = defineStore('result', () => {
   const securingTutorial = useLocalStorage<boolean>('securingTutorial', false, { serializer })
 
   type FirearmIdentificationResult = {
-    typology?: string
+    typology?: TypologyKey
     confidence?: number
     confidenceLevel?: string
     img?: string
@@ -41,8 +44,9 @@ export const useResultStore = defineStore('result', () => {
     geolocation.value = geoloc
   }
 
-  const updateTypology = (selectedOptionStep: string) => {
-    typology.value = typology.value + (selectedOptionStep === 'revolver_black_powder' ? '_black_powder' : '')
+  const updateTypology = (selectedOptionStep: TypologyKey) => {
+    const extra = (selectedOptionStep === 'revolver_black_powder' ? '_black_powder' : '')
+    typology.value = typology.value + extra as TypologyKey
   }
 
   return {

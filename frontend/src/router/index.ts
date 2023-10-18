@@ -76,7 +76,7 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     path: '/mise-en-securite-choix-option-etape/:step',
     name: 'SecuringSelectOption',
     component: SecuringSelectOptionContent,
-    props: true,
+    props: (route) => ({ step: +route.params.step }),
   },
   {
     path: '/mise-en-securite-tutoriel',

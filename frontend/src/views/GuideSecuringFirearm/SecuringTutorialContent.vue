@@ -1,10 +1,10 @@
-<script setup>
+<script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 
-import { useRouter } from 'vue-router'
 import { resultTree } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
@@ -13,30 +13,26 @@ const router = useRouter()
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
-const expandedId = ref(undefined)
+const expandedId = ref<string>()
 
 const typology = computed(() => resultStore.typology)
 
-const selectedOptionStep = computed({
-  get () {
-    if (typology.value === 'revolver') {
-      if (stepsStore.currentOptionStep['2'] === 'revolver_portiere') {
-        return stepsStore.currentOptionStep['3']
-      }
-      return stepsStore.currentOptionStep['2']
+const selectedOptionStep = computed(() => {
+  if (typology.value === 'revolver') {
+    if (stepsStore.currentOptionStep['2'] === 'revolver_portiere') {
+      return stepsStore.currentOptionStep['3']
     }
-    return stepsStore.currentOptionStep['1']
-  },
-  set (option) {
-    stepsStore.setOptionStep(option)
-  },
+    return stepsStore.currentOptionStep['2']
+  }
+  return stepsStore.currentOptionStep['1']
 })
 
-const openNextAccordion = (currentIndex) => {
-  const nextAccordion = document.querySelector(`[aria-controls='accordion-${+currentIndex + 1}-video']`) || document.querySelector('[aria-controls=\'accordion--video\']')
+const openNextAccordion = (currentIndex: number) => {
+  const nextAccordion = document.querySelector<HTMLElement>(`[aria-controls='accordion-${currentIndex + 1}-video']`) || document.querySelector<HTMLElement>('[aria-controls=\'accordion--video\']')
   nextAccordion?.click()
 }
 </script>
+
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
@@ -81,7 +77,7 @@ const openNextAccordion = (currentIndex) => {
                     <DsfrButton
                       v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep].text_steps).length"
                       data-testid="button-step-mes"
-                      @click="openNextAccordion(key)
+                      @click="openNextAccordion(+key)
                       "
                     >
                       Etape {{ +key + 1 }}
@@ -115,7 +111,7 @@ const openNextAccordion = (currentIndex) => {
             <ul class="list-none text-sm">
               <li
                 v-for="option in resultTree[typology]?.options_step_3['revolver_verrou_1892']?.text_steps"
-                :key="option.value"
+                :key="option"
                 class="list-decimal"
                 v-html="option"
               />
@@ -126,6 +122,7 @@ const openNextAccordion = (currentIndex) => {
         </div>
         <div v-else>
           <div
+            v-if="selectedOptionStep"
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
             <div class="fr-content-media relative">
@@ -139,7 +136,10 @@ const openNextAccordion = (currentIndex) => {
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">
-            <ul class="list-none text-sm">
+            <ul
+              v-if="selectedOptionStep"
+              class="list-none text-sm"
+            >
               <li
                 v-for="option in resultTree[typology].options_step_2[selectedOptionStep]?.text_steps"
                 :key="option.value"

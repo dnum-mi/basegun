@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
@@ -28,26 +28,34 @@ const typology = computed(() => resultStore.typology)
 const isDummy = computed(() => stepsStore.isDummy)
 const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
 
-const isUp = ref(undefined)
-const isDown = ref(undefined)
-const isFeedbackDone = ref(undefined)
+const isUp = ref(false)
+const isDown = ref(false)
+const isFeedbackDone = ref(false)
 
 const securingTutorial = computed(() => resultStore.securingTutorial)
 
 const label = computed(() => resultTree[typology.value]?.displayLabel)
 
 const category = computed(() => resultTree[typology.value]?.category)
-const categoryWithoutSecuring = computed(() => resultTree[typology.value]?.categoryWithoutSecuring)
+const categoryWithoutSecuring = computed(
+  () => typology.value === 'revolver'
+    ? resultTree[typology.value]?.categoryWithoutSecuring
+    : undefined,
+)
 
 const mention = computed(() => isDummy.value === true
   ? mentionIfisDummy.value
-  : (securingTutorial.value === true
-      ? resultTree[typology.value]?.mention
-      : resultTree[typology.value]?.mentionWithoutSecuring))
+  : securingTutorial.value === true
+    ? resultTree[typology.value]?.mention
+    : typology.value === 'revolver'
+      ? resultTree[typology.value]?.mentionWithoutSecuring
+      : undefined,
+
+)
 
 const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
-function sendFeedback (isCorrect) {
+function sendFeedback (isCorrect: boolean) {
   const json = {
     image_url: imgUrl.value,
     feedback: isCorrect,
@@ -55,7 +63,6 @@ function sendFeedback (isCorrect) {
     label: typology.value,
     confidence_level: confidenceLevel.value,
   }
-  isFeedbackDone.value = true
   if (isCorrect) {
     isUp.value = true
   } else {
@@ -70,8 +77,12 @@ function sendFeedback (isCorrect) {
       console.log(err)
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant votre vote.' })
     })
+    .finally(() => {
+      isFeedbackDone.value = true
+    })
 }
 </script>
+
 <template>
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
@@ -132,7 +143,10 @@ function sendFeedback (isCorrect) {
                 </p>
               </div>
               <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
-                <p data-testid="arm-category" class="category fr-callout__title mt-3">
+                <p
+                  data-testid="arm-category"
+                  class="category fr-callout__title mt-3"
+                >
                   <img
                     class="px-2"
                     src="@/assets/guide-identification/icones/gun.jpg"
@@ -148,7 +162,10 @@ function sendFeedback (isCorrect) {
                 </div>
               </div>
               <div v-if="isDummy === true">
-                <p data-testid="arm-category" class="category fr-callout__title mt-3">
+                <p
+                  data-testid="arm-category"
+                  class="category fr-callout__title mt-3"
+                >
                   <img
                     class="px-2"
                     src="@/assets/guide-identification/icones/gun.jpg"

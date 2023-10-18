@@ -1,5 +1,6 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
+
 import { useResultStore } from '@/stores/result'
 import { resultTree } from '@/utils/firearms-utils/index'
 
