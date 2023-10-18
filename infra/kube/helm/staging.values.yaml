@@ -1,0 +1,3 @@
+ingress.hosts[0].host: preprod.basegun.interieur.gouv.fr
+backend.image.repository: registry.dso.interieur.rie.gouv.fr/mi-basegun/basegun-backend
+frontend.image.repository: registry.dso.interieur.rie.gouv.fr/mi-basegun/basegun-frontend
