@@ -34,7 +34,7 @@ backend:
   replicaCount: 1
   image:
     repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: develop
   podAnnotations: {}
