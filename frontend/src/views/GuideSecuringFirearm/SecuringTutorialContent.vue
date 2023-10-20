@@ -160,7 +160,7 @@ const openNextAccordion = (currentIndex) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.options[selectedOptionStep2]?.video"
+                :src="resultTree[typology]?.options[selectedOptionStep]?.video"
                 data-testid="video-tutoriel"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
