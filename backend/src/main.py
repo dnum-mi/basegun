@@ -181,9 +181,9 @@ if not model:
 S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
 S3_BUCKET_NAME = "basegun-s3"
 S3_PREFIX = os.path.join("uploaded-images/", os.environ["WORKSPACE"])
-s3 = boto3.resource(
-    "s3", endpoint_url=S3_URL_ENDPOINT, verify=os.environ.get("VERIFY_SSL", True)
-)
+
+s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT, verify=False)
+
 """ TODO : check if connection successful
 try:
     s3.meta.client.head_bucket(Bucket=S3_BUCKET_NAME)
