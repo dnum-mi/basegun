@@ -71,12 +71,18 @@ Selector labels
 {{- define "basegun.FrontSelectorLabels" -}}
 app.kubernetes.io/name: {{ include "basegun.name" . }}-frontend
 app.kubernetes.io/instance: {{ .Release.Name }}
+app: Basegun
+tier: frontend
+env: {{ .Values.env }}
 {{- end }}
 
 
 {{- define "basegun.BackSelectorLabels" -}}
 app.kubernetes.io/name: {{ include "basegun.name" . }}-backend
 app.kubernetes.io/instance: {{ .Release.Name }}
+app: Basegun
+tier: backend
+env: {{ .Values.env }}
 {{- end }}
 
 {{/*
