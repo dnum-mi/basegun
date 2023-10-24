@@ -29,26 +29,6 @@ from user_agents import parse
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def init_variable(key: str, value: str) -> str:
-    """Inits global variable for folder path
-
-    Args:
-        key (str): variable key in environ
-        value (str): value to give if variable does not exist yet
-
-    Returns:
-        str: final variable value
-    """
-    if key in os.environ:
-        VAR = os.environ[key]
-    else:
-        VAR = value
-        print("WARNING: The variable " + key + " is not set. Using", VAR)
-        if os.path.isabs(VAR):
-            os.makedirs(VAR, exist_ok=True)
-    return VAR
-
-
 def setup_logs(log_dir: str) -> logging.Logger:
     """Setups environment for logs
 
@@ -58,6 +38,7 @@ def setup_logs(log_dir: str) -> logging.Logger:
     """
     print(">>> Reload logs config")
     # clear previous logs
+    os.makedirs(log_dir, exist_ok=True)
     for f in os.listdir(log_dir):
         os.remove(os.path.join(log_dir, f))
     # configure new logs
@@ -164,9 +145,7 @@ app.add_middleware(
 )
 
 # Logs
-PATH_LOGS = init_variable(
-    "PATH_LOGS", os.path.abspath(os.path.join(CURRENT_DIR, "/tmp/logs"))
-)
+PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
 logger = setup_logs(PATH_LOGS)
 
 # Load model
@@ -178,8 +157,8 @@ if not model:
     raise RuntimeError("Model not found")
 
 # Object storage
-S3_URL_ENDPOINT = init_variable("S3_URL_ENDPOINT", "https://s3.gra.io.cloud.ovh.net/")
-S3_BUCKET_NAME = "basegun-s3"
+S3_URL_ENDPOINT = os.environ["S3_URL_ENDPOINT"]
+S3_BUCKET_NAME = os.environ["S3_BUCKET_NAME"]
 S3_PREFIX = os.path.join("uploaded-images/", os.environ["WORKSPACE"])
 
 s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT, verify=False)
