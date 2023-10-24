@@ -5,6 +5,8 @@ metadata:
 data:
   WORKSPACE: {{ .Values.backend.config.workspace }}
   PATH_LOGS: /tmp/log/basegun/
+  S3_URL_ENDPOINT: https://basegun-8b03-s3.s3obj.ecs.objstore.r1.pi2.minint.fr
+  S3_BUCKET_NAME: basegun-s3
 ---
 apiVersion: v1
 kind: ConfigMap
