@@ -1,14 +1,12 @@
 import json
 import os
 import time
-import unittest
 from io import BytesIO
 
 import boto3
+import pytest
 import requests
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from PIL import Image, ImageChops
 from src.main import S3_BUCKET_NAME, S3_URL_ENDPOINT, app
 
 client = TestClient(app)
@@ -35,37 +33,35 @@ def create_bucket():
         bucket.Policy().put(Policy=json.dumps(BUCKET_POLICY))
 
 
-class TestModel(unittest.TestCase):
+class TestApi:
     def test_home(self):
         """Checks that the route / is alive"""
         response = client.get("/api/")
-        self.assertEqual(response.text, "Basegun backend")
+        assert response.text == "Basegun backend"
 
     def test_version(self):
         """Checks that the route /version sends a version"""
         response = client.get("/api/version")
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
     def check_log_base(self, log):
-        self.assertTrue(
-            {
-                "timestamp",
-                "version",
-                "host",
-                "level",
-                "short_message",
-                "_bg_date",
-                "_bg_user_id",
-                "_bg_device",
-                "_bg_device_os",
-                "_bg_device_family",
-                "_bg_device_browser",
-                "_bg_version",
-                "_bg_model",
-            }.issubset(set(log.keys()))
-        )
-        self.assertEqual(log["level"], 6)
-        self.assertTrue(log["_bg_model"].startswith("EffB"))
+        assert {
+            "timestamp",
+            "version",
+            "host",
+            "level",
+            "short_message",
+            "_bg_date",
+            "_bg_user_id",
+            "_bg_device",
+            "_bg_device_os",
+            "_bg_device_family",
+            "_bg_device_browser",
+            "_bg_version",
+            "_bg_model",
+        }.issubset(set(log.keys()))
+        assert log["level"] == 6
+        assert log["_bg_model"].startswith("EffB")
 
     def test_upload(self):
         """Checks that the file upload works properly"""
@@ -80,28 +76,28 @@ class TestModel(unittest.TestCase):
                 files={"image": f},
                 data={"date": time.time(), "geolocation": geoloc},
             )
-        self.assertEqual(r.status_code, 200)
+        assert r.status_code == 200
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(res["label"], "revolver")
-        self.assertAlmostEqual(res["confidence"], 98.43, places=1)
-        self.assertTrue(res["confidence_level"], "high")
+        assert res["label"] == "revolver"
+        assert res["confidence"] == pytest.approx(98.43, 0.1)
+        assert res["confidence_level"] == "high"
         # checks that the result is written in logs
         r = client.get("/api/logs")
-        self.assertEqual(r.status_code, 200)
+        assert r.status_code == 200
         # checks the latest log with validates upload to object storage
-        self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
-        self.assertEqual(r.json()[0]["short_message"], "Upload successful")
+        assert r.json()[0]["_bg_image_url"] == r.json()[1]["_bg_image_url"]
+        assert r.json()[0]["short_message"] == "Upload successful"
         # checks the previous log "Identification request"
         log = r.json()[1]
         self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification request")
-        self.assertTrue("-" in log["_bg_user_id"])
-        self.assertEqual(log["_bg_geolocation"], geoloc)
-        self.assertEqual(log["_bg_label"], "revolver")
-        self.assertAlmostEqual(log["_bg_confidence"], 98.43, places=1)
-        self.assertTrue(log["_bg_upload_time"] >= 0)
+        assert log["short_message"] == "Identification request"
+        assert "-" in log["_bg_user_id"]
+        assert log["_bg_geolocation"] == geoloc
+        assert log["_bg_label"] == "revolver"
+        assert log["_bg_confidence"] == pytest.approx(98.43, 0.1)
+        assert log["_bg_upload_time"] >= 0
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
@@ -120,17 +116,17 @@ class TestModel(unittest.TestCase):
             },
         )
 
-        self.assertEqual(r.status_code, 200)
+        assert r.status_code == 200
         r = client.get("/api/logs")
-        self.assertEqual(r.status_code, 200)
+        assert r.status_code == 200
         log = r.json()[0]
         self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification feedback")
-        self.assertEqual(log["_bg_image_url"], image_url)
-        self.assertTrue(log["_bg_feedback_bool"])
-        self.assertEqual(log["_bg_confidence"], confidence)
-        self.assertEqual(log["_bg_label"], label)
-        self.assertEqual(log["_bg_confidence_level"], confidence_level)
+        assert log["short_message"] == "Identification feedback"
+        assert log["_bg_image_url"] == image_url
+        assert log["_bg_feedback_bool"] is True
+        assert log["_bg_confidence"] == confidence
+        assert log["_bg_label"] == label
+        assert log["_bg_confidence_level"] == confidence_level
 
     def test_geoloc_api(self):
         """Checks that the geolocation api works properly"""
@@ -138,9 +134,9 @@ class TestModel(unittest.TestCase):
             "https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1"
         )
         res = r.json()
-        self.assertTrue("latitude" in res.keys())
-        self.assertTrue("longitude" in res.keys())
+        assert "latitude" in res.keys()
+        assert "longitude" in res.keys()
         lat = float(res["latitude"])
-        self.assertTrue(abs(lat) < 90)
+        assert abs(lat) < 90
         lon = float(res["longitude"])
-        self.assertTrue(abs(lon) < 180)
+        assert abs(lon) < 180
