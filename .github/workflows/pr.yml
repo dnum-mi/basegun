@@ -72,7 +72,7 @@ jobs:
         S3_URL_ENDPOINT: https://s3.gra.io.cloud.ovh.net/
         S3_BUCKET_NAME: basegun-s3
     steps:
-      - run: cd /app && python -m unittest
+      - run: cd /app && pytest
 
   test-e2e:
     name: Run E2E tests
