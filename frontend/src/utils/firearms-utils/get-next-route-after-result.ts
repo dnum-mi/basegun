@@ -1,4 +1,4 @@
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typology }) => {
   const isAbleToWatchTutorial = securingTutorial === true && confidenceLevel !== 'low'

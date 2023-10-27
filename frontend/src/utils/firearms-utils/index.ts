@@ -1,15 +1,15 @@
-import { revolver, revolver_black_powder } from './revolver.js'
-import { pistolet_semi_auto_moderne } from './pistolet-semi-auto-moderne.js'
-import { epaule_a_un_coup_par_canon } from './epaule-a-un-coup-par-canon.js'
-import { epaule_a_verrou } from './epaule-a-verrou.js'
-import { epaule_a_pompe } from './epaule-a-pompe.js'
-import { epaule_a_levier_sous_garde } from './epaule-a-levier-sous-garde.js'
-import { semi_auto_style_militaire_autre } from './semi-auto-style-militaire-autre.js'
-import { epaule_semi_auto_style_militaire_milieu_20e } from './epaule-semi-auto-militaire-milieu-20e.js'
-import { epaule_semi_auto_style_chasse } from './epaule-semi-auto-style-chasse.js'
-import { epaule_mecanisme_ancien } from './epaule_mecanisme_ancien.js'
-import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien.js'
-import { autre_pistolet } from './autre-pistolet.js'
+import { revolver, revolver_black_powder } from './revolver'
+import { pistolet_semi_auto_moderne } from './pistolet-semi-auto-moderne'
+import { epaule_a_un_coup_par_canon } from './epaule-a-un-coup-par-canon'
+import { epaule_a_verrou } from './epaule-a-verrou'
+import { epaule_a_pompe } from './epaule-a-pompe'
+import { epaule_a_levier_sous_garde } from './epaule-a-levier-sous-garde'
+import { semi_auto_style_militaire_autre } from './semi-auto-style-militaire-autre'
+import { epaule_semi_auto_style_militaire_milieu_20e } from './epaule-semi-auto-militaire-milieu-20e'
+import { epaule_semi_auto_style_chasse } from './epaule-semi-auto-style-chasse'
+import { epaule_mecanisme_ancien } from './epaule_mecanisme_ancien'
+import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien'
+import { autre_pistolet } from './autre-pistolet'
 
 export const resultTree = {
   autre_pistolet,
@@ -25,7 +25,7 @@ export const resultTree = {
   revolver,
   revolver_black_powder,
   semi_auto_style_militaire_autre,
-}
+} as const
 
 // Tuto Mise en sécurité
 const securingInstructions = 'SecuringInstructions'
@@ -42,24 +42,24 @@ export const securingGuideSteps = [
   securingRecommendations,
   securingInstructions,
   securingIntroduction,
-]
+] as const
 
 export const identificationGuideSteps = [
   IdentificationTypologyResult,
   IdentificationFurtherInformations,
   IdentificationSelectAmmo,
   IdentificationFinalResult,
-]
+] as const
 
 export const securingRoutePaths = [
   'mise-en-securite-recommandations',
   'mise-en-securite-instructions',
   'mise-en-securite-introduction',
-]
+] as const
 
 export const identificationRoutePaths = [
   'resultat-typologie',
   'informations-complementaires',
   'munition-type',
   'resultat-final',
-]
+] as const

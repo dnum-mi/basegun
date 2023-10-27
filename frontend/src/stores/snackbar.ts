@@ -5,18 +5,19 @@ import { ref } from 'vue'
 const DEFAULT_TIMEOUT = 3000
 
 export const useSnackbarStore = defineStore('snackbar', () => {
-  const timeoutId = ref()
+  const timeoutId = ref<ReturnType<typeof setTimeout>>()
   const currentMessage = ref('')
   const show = ref(false)
 
-  /** @type {import('vue').Ref<'success' | 'warning' | 'error' | 'info' | ''>} */
-  const currentType = ref('')
+  const currentType = ref<'success' | 'warning' | 'error' | 'info' | ''>('')
 
   function hideMessage () {
     show.value = false
   }
 
-  function setMessage ({ message, type = 'info', timeout = DEFAULT_TIMEOUT }) {
+  type SetMessageParam = { message: string, type?: 'success' | 'warning' | 'error' | 'info' | '', timeout?: number }
+
+  function setMessage ({ message, type = 'info', timeout = DEFAULT_TIMEOUT }: SetMessageParam) {
     if (timeoutId.value) {
       clearTimeout(timeoutId.value)
     }

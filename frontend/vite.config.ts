@@ -2,8 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import UnoCSS from 'unocss/vite'
-import transformerDirectives from '@unocss/transformer-directives'
-import transformerVariantGroup from '@unocss/transformer-variant-group'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 
 const path = require('path')
 const apiHost = process.env.API_HOST || 'http://basegun-backend:5000'
@@ -11,13 +11,39 @@ const apiHost = process.env.API_HOST || 'http://basegun-backend:5000'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    UnoCSS({
-      transformers: [
-        transformerDirectives(),
-        transformerVariantGroup(),
-      ],
-    }),
     vue(),
+    // https://github.com/antfu/unplugin-auto-import
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+        // 'vue-i18n',
+        '@vueuse/head',
+        '@vueuse/core',
+      ],
+      dts: 'src/auto-imports.d.ts',
+      dirs: [
+        'src/composables',
+        'src/stores',
+      ],
+      vueTemplate: true,
+      eslintrc: {
+        enabled: true,
+        filepath: './.eslintrc-auto-import.json',
+      },
+    }),
+
+    // https://github.com/antfu/unplugin-vue-components
+    Components({
+      // allow auto load components under `./src/components/`
+      extensions: ['vue'],
+      // allow auto import and register components
+      include: [/\.vue$/, /\.vue\?vue/],
+      dts: 'src/components.d.ts',
+    }),
+
+    UnoCSS(),
+
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       base: '/',

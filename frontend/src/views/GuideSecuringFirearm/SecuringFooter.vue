@@ -1,19 +1,21 @@
-<script setup>
-const props = defineProps({
-  backTo: [Object, String],
-  nextTo: [Object, String],
-  onBackClick: Function,
-  onNextClick: Function,
-  nextDisabled: Boolean,
-})
+<script lang="ts" setup>
+import type { RouteLocationRaw } from 'vue-router'
 
-const nextClick = (navigate) => {
+const props = defineProps<{
+  backTo: RouteLocationRaw
+  nextTo: RouteLocationRaw
+  onBackClick:() => void
+  onNextClick:() => void
+  nextDisabled: boolean
+}>()
+
+const nextClick = (navigate: () => void) => {
   if (props.onNextClick) {
     props.onNextClick()
   }
   navigate()
 }
-const backClick = (navigate) => {
+const backClick = (navigate: () => void) => {
   if (props.onBackClick) {
     props.onBackClick()
   }

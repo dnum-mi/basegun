@@ -1,27 +1,26 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import { useLocalStorage } from '@vueuse/core'
 
-import { useResultStore } from '@/stores/result.js'
-import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result.js'
+import { useResultStore } from '@/stores/result'
+import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
 
 const resultStore = useResultStore()
 const router = useRouter()
 
-const fileInput = ref(null)
+const fileInput = ref<HTMLInputElement | null>(null)
 const handledImageTypes = 'image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif'
 
-function randomCoord (num) {
-  num = parseFloat(num)
+function randomCoord (num: string) {
+  const nb = parseFloat(num)
   const max = 0.1
   const min = -0.1
-  return (Math.random() * (max - min) + min) + num
+  return (Math.random() * (max - min) + min) + nb
 }
 
 function click () {
-  fileInput.value.click()
+  fileInput.value?.click()
 }
 
 defineExpose({
@@ -30,12 +29,12 @@ defineExpose({
 
 const emit = defineEmits(['file-selected'])
 
-async function submitUpload (base64, fileName) {
+async function submitUpload (base64: string, fileName: string) {
   const file = await srcToFile(base64, fileName, 'image/jpeg')
 
   const fd = new FormData()
   fd.append('image', file, file.name)
-  fd.append('date', Date.now() / 1000) // date.now gives in milliseconds, convert to seconds
+  fd.append('date', '' + (Date.now() / 1000)) // date.now gives in milliseconds, convert to seconds
   fd.append('geolocation', resultStore.geolocation)
 
   try {
@@ -48,29 +47,27 @@ async function submitUpload (base64, fileName) {
       img: base64,
       imgUrl: data.path,
     })
-    useLocalStorage('securingTutorial')
   } catch (error) {
     // TODO: Afficher l’erreur à l’utilisateur
-    router.push({ name: 'ErrorPage', meta: { error } })
+    router.push({ name: 'ErrorPage' })
   } finally {
     const nextRoute = getNextRouteAfterResult({
       securingTutorial: resultStore.securingTutorial,
       confidenceLevel: resultStore.confidenceLevel,
       typology: resultStore.typology,
     })
-    console.log('nextRoute', nextRoute)
     router.push(nextRoute)
   }
 }
 
-function resizeAndUpload (uploadedFile) {
+function resizeAndUpload (uploadedFile: File) {
   const reader = new FileReader()
   // convert File object to base64 data
   reader.readAsDataURL(uploadedFile)
 
-  reader.onload = function (event) {
+  reader.onload = function (event: ProgressEvent<FileReader>) {
     const imgElement = document.createElement('img')
-    imgElement.src = event.target.result
+    imgElement.src = event.target?.result as string
 
     imgElement.onload = function (e) {
       const canvas = document.createElement('canvas')
@@ -92,8 +89,8 @@ function resizeAndUpload (uploadedFile) {
       canvas.width = width
       canvas.height = height
       const ctx = canvas.getContext('2d')
-      ctx.drawImage(e.target, 0, 0, width, height)
-      const srcEncoded = ctx.canvas.toDataURL('image/jpeg')
+      ctx?.drawImage(e.target as CanvasImageSource, 0, 0, width, height)
+      const srcEncoded = ctx?.canvas.toDataURL('image/jpeg') as string
       submitUpload(srcEncoded, uploadedFile.name)
     }
 
@@ -104,21 +101,21 @@ function resizeAndUpload (uploadedFile) {
   }
 }
 
-async function srcToFile (src, fileName, mimeType) {
+async function srcToFile (src: string, fileName: string, mimeType: string) {
   const res = await fetch(src)
   const buf = await res.arrayBuffer()
   return new File([buf], fileName, { type: mimeType })
 }
 
-function onFileSelected (event) {
+function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { files: File[] } }) {
   emit('file-selected', event)
-  const uploadedFile = event.target.files[0]
+  const uploadedFile = event.target?.files[0]
 
   // get user geolocation
   axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
     .then(res => {
-      const latitude = randomCoord(res.data.latitude)
-      const longitude = randomCoord(res.data.longitude)
+      const latitude = randomCoord(res.data.latitude as string)
+      const longitude = randomCoord(res.data.longitude as string)
       resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
     })
     .catch(() => {}) // TODO: Gérer l’erreur

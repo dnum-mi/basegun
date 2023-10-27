@@ -1,11 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index.js'
-import StepsGuide from '@/components/StepsGuide.vue'
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
 import axios from 'axios'
+
+import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
@@ -24,8 +24,8 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value)
   },
 })
-const steps = resultTree[resultStore.typology].isDummyTypology ||
-  !confidenceLevel.value === 'low'
+
+const steps = (resultTree[resultStore.typology].isDummyTypology || confidenceLevel.value !== 'low')
   ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
   : ['Résultat final']
 
@@ -54,18 +54,19 @@ const arrowOrCircleIcon = () => (
 )
 
 async function sendLogsIdentificationDummy () {
-  const json = {
+  const identification = {
     image_url: imgUrl.value,
     confidence: confidence.value,
     label: typology.value,
     confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.selectedOptionStep,
+    tutorial_option: stepsStore.currentOptionStep[stepsStore.currentStep] || null,
     is_dummy: stepsStore.isDummy,
   }
+
   try {
-    await axios.post('/identification-dummy', json)
+    await axios.post('/identification-dummy', identification)
   } catch (err) {
-    console.log(err)
+    import.meta.env.DEV && console.warn(err)
   // } finally {
   //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
   }

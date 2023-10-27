@@ -1,28 +1,30 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
-import { serializer } from '@/utils/storage-utils.js'
+import { serializer } from '@/utils/storage-utils'
+
+type Step = Record<'1' | '2' | '3', string>
 
 export const useStepsStore = defineStore('steps', () => {
-  const currentStep = useLocalStorage('currentStep', 1)
-  const currentOptionStep = useLocalStorage('currentOptionStep', {})
+  const currentStep = useLocalStorage<1 | 2 | 3>('currentStep', 1)
+  const currentOptionStep = useLocalStorage<Partial<Step>>('currentOptionStep', {})
 
-  const selectedAmmo = useLocalStorage('selectedAmmo', undefined, { serializer })
+  const selectedAmmo = useLocalStorage<string | undefined>('selectedAmmo', undefined, { serializer })
   const tutorialFeedback = useLocalStorage('tutorialFeedback', '')
 
   const isDummy = useLocalStorage('isDummy', computed(() => !!(selectedAmmo.value === 'billes')), { serializer })
 
-  const isModalTransparentAmmoOpened = useLocalStorage('isModalTransparentAmmoOpened', undefined, { serializer })
+  const isModalTransparentAmmoOpened = useLocalStorage<boolean | undefined>('isModalTransparentAmmoOpened', undefined, { serializer })
 
-  function setCurrentStep (newStep) {
+  function setCurrentStep (newStep: 1 | 2 | 3) {
     currentStep.value = newStep
   }
 
-  function setAmmo (ammo) {
+  function setAmmo (ammo?: string) {
     selectedAmmo.value = ammo
   }
 
-  function setOptionStep (step, value) {
+  function setOptionStep (step: 1 | 2 | 3, value?: string) {
     currentOptionStep.value = { ...currentOptionStep.value, [step]: value }
   }
 

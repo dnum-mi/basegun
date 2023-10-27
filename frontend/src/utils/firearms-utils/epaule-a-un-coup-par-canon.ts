@@ -58,4 +58,4 @@ export const epaule_a_un_coup_par_canon = {
       video: epauleAUnCoupParCanonCleDarneVideo,
     },
   },
-}
+} as const

@@ -1,7 +1,8 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
-import { useResultStore } from '@/stores/result.js'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+
+import { useResultStore } from '@/stores/result'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 const resultStore = useResultStore()
 

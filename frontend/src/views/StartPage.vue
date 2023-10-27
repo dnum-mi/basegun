@@ -1,6 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
-import { useResultStore } from '@/stores/result.js'
+
+import { useResultStore } from '@/stores/result'
 
 const resultStore = useResultStore()
 
@@ -12,7 +13,6 @@ const securingTutorial = computed({
     resultStore.setSecuringTutorial(value)
   },
 })
-
 </script>
 
 <template>

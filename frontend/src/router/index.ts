@@ -24,7 +24,7 @@ const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirea
 const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 
-const routes = [
+const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
     path: '/',
     name: 'HomePage',
@@ -38,7 +38,7 @@ const routes = [
     path: '/accueil',
     name: 'StartPage',
     component: StartPage,
-    beforeEnter: clearLocalStorage,
+    beforeEnter: <Parameters<typeof createRouter> [0]['routes'][number]['beforeEnter']>clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
@@ -76,7 +76,7 @@ const routes = [
     path: '/mise-en-securite-choix-option-etape/:step',
     name: 'SecuringSelectOption',
     component: SecuringSelectOptionContent,
-    props: true,
+    props: (route) => ({ step: +route.params.step }),
   },
   {
     path: '/mise-en-securite-tutoriel',

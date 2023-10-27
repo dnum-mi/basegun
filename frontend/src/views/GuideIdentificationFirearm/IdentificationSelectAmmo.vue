@@ -1,12 +1,12 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue'
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStepsStore } from '@/stores/steps'
+import { useResultStore } from '@/stores/result'
 
 import TransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { resultTree } from '@/utils/firearms-utils/index'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -24,7 +24,7 @@ const selectedAmmo = computed({
 
 const zoom = ref('')
 
-const zoomOn = (imgValue) => {
+const zoomOn = (imgValue: string) => {
   zoom.value = imgValue
 }
 
@@ -38,11 +38,11 @@ function closeModal () {
 
 function openModal () {
   showModal.value = true
-  useStepsStore.isModalTransparentAmmoOpened = true
+  stepsStore.isModalTransparentAmmoOpened = true
 }
 
 onMounted(() => {
-  if (useStepsStore.isModalTransparentAmmoOpened === undefined) {
+  if (stepsStore.isModalTransparentAmmoOpened === undefined) {
     openModal()
   } else { showModal.value = false }
 })
@@ -116,7 +116,7 @@ onMounted(() => {
     </div>
     <div>
       <template
-        v-for="option of resultTree[typology]?.guideFactice"
+        v-for="option of (resultTree[typology])?.guideFactice"
         :key="option.value"
       >
         <div class="item">

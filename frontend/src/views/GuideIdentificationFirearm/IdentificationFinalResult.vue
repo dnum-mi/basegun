@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import ResultPage from '@/components/ResultPage.vue'
 </script>
 

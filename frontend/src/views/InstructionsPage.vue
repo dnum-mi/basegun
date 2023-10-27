@@ -1,15 +1,13 @@
-<script setup>
-import { ref } from 'vue'
-
+<script lang="ts" setup>
 import UploadButton from '@/components/UploadButton.vue'
 import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
 import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
 const uploadMessage = ref('')
-const fileInput = ref(null)
+const fileInput = ref<HTMLInputElement | null>(null)
 
 function readInstruction () {
-  fileInput.value.click()
+  fileInput.value?.click()
 }
 </script>
 
