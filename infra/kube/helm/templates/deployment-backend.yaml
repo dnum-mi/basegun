@@ -25,14 +25,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "basegun.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.backend.podSecurityContext | nindent 8 }}
+      securityContext: {}
       containers:
         - name: {{ include "basegun.BackFullname" . }}
-          securityContext:
-            {{- toYaml .Values.backend.securityContext | nindent 12 }}
+          securityContext: {}
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          imagePullPolicy: Always
           resources: {{- toYaml .Values.backend.resources | nindent 12 }}
           envFrom:
           - configMapRef:
@@ -95,16 +93,3 @@ spec:
             secretName: {{ .Values.backend.secret.secretName }}
         - name: logs
           emptyDir: {}
-
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.backend.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.backend.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
