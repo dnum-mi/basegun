@@ -21,7 +21,6 @@ backend:
     pullPolicy: IfNotPresent
     tag: "3.2"
     imagePullSecrets: []
-  podAnnotations: {}
   logs:
     repository: elastic/filebeat
     tag: 6.5.4
@@ -62,7 +61,6 @@ frontend:
     pullPolicy: IfNotPresent
     tag: "3.2"
     imagePullSecrets: []
-  podAnnotations: {}
   service:
     type: ClusterIP
     port: 80
