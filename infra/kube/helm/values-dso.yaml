@@ -20,7 +20,6 @@ backend:
   image:
     repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
     tag: develop
-  podAnnotations: {}
   logs:
     repository: ghcr.io/datalab-mi/basegun/filebeat-rootless
     tag: 6.5.4
@@ -53,7 +52,6 @@ frontend:
     repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-frontend
     pullPolicy: Always
     tag: develop
-  podAnnotations: {}
   service:
     type: ClusterIP
     port: 8080
