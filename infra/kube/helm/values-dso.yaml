@@ -35,6 +35,7 @@ backend:
     targetCPUUtilizationPercentage: 80
   config:
     workspace: preprod
+    s3_bucket_name: basegun-s3
   secret:
     create: false
     sops: true
