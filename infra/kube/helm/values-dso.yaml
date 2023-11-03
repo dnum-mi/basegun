@@ -18,7 +18,7 @@ imagePullSecrets:
 backend:
   replicaCount: 1
   image:
-    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-backend
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun/basegun-backend
     tag: develop
   logs:
     repository: ghcr.io/datalab-mi/basegun/filebeat-rootless
@@ -50,7 +50,7 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun-test/basegun-frontend
+    repository: harbor.apps.c6.numerique-interieur.com/mi-basegun/basegun-frontend
     pullPolicy: Always
     tag: develop
   service:
