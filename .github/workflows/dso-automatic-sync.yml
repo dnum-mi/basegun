@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl "https://gitlab.apps.c6.numerique-interieur.com/api/v4/projects/62/trigger/pipeline" \
+          curl "https://gitlab.apps.c6.numerique-interieur.com/api/v4/projects/193/trigger/pipeline" \
             -X POST \
             --fail \
             -F token=${{ secrets.DSO_TOKEN }} \
