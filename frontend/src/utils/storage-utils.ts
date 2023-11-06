@@ -25,7 +25,6 @@ export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, 
     confidenceLevel: undefined,
     img: undefined,
     imgUrl: undefined,
-    geolocation: undefined,
     resultText: undefined,
   })
 
