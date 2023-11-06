@@ -204,6 +204,7 @@ const openNextAccordion = (currentIndex: number) => {
           </div>
         </div>
         <div class="small-blank" />
+        <PopupVideo />
         <AskingExpert />
       </div>
     </div>
