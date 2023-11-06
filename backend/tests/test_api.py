@@ -74,7 +74,7 @@ class TestApi:
             r = client.post(
                 "/api/upload",
                 files={"image": f},
-                data={"date": time.time(), "geolocation": geoloc},
+                data={"date": time.time()},
             )
         assert r.status_code == 200
         res = r.json()
@@ -94,7 +94,6 @@ class TestApi:
         self.check_log_base(log)
         assert log["short_message"] == "Identification request"
         assert "-" in log["_bg_user_id"]
-        assert log["_bg_geolocation"] == geoloc
         assert log["_bg_label"] == "revolver"
         assert log["_bg_confidence"] == pytest.approx(98.43, 0.1)
         assert log["_bg_upload_time"] >= 0
@@ -127,16 +126,3 @@ class TestApi:
         assert log["_bg_confidence"] == confidence
         assert log["_bg_label"] == label
         assert log["_bg_confidence_level"] == confidence_level
-
-    def test_geoloc_api(self):
-        """Checks that the geolocation api works properly"""
-        r = requests.get(
-            "https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1"
-        )
-        res = r.json()
-        assert "latitude" in res.keys()
-        assert "longitude" in res.keys()
-        lat = float(res["latitude"])
-        assert abs(lat) < 90
-        lon = float(res["longitude"])
-        assert abs(lon) < 180

@@ -35,7 +35,6 @@ async function submitUpload (base64: string, fileName: string) {
   const fd = new FormData()
   fd.append('image', file, file.name)
   fd.append('date', '' + (Date.now() / 1000)) // date.now gives in milliseconds, convert to seconds
-  fd.append('geolocation', resultStore.geolocation)
 
   try {
     const { data } = await axios.post('/upload', fd)
@@ -110,19 +109,7 @@ async function srcToFile (src: string, fileName: string, mimeType: string) {
 function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { files: File[] } }) {
   emit('file-selected', event)
   const uploadedFile = event.target?.files[0]
-
-  // get user geolocation
-  axios.get('https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1', { withCredentials: false })
-    .then(res => {
-      const latitude = randomCoord(res.data.latitude as string)
-      const longitude = randomCoord(res.data.longitude as string)
-      resultStore.setGeolocation(latitude.toString() + ',' + longitude.toString())
-    })
-    .catch(() => {}) // TODO: Gérer l’erreur
-    .finally(() => {
-      // if geolocation is unavailable or incorrect format
-      resizeAndUpload(uploadedFile)
-    })
+  resizeAndUpload(uploadedFile)
 }
 </script>
 

@@ -214,14 +214,12 @@ async def imageupload(
     background_tasks: BackgroundTasks,
     image: UploadFile = File(...),
     date: float = Form(...),
-    geolocation: str = Form(...),
     user_id: Union[str, None] = Cookie(None),
 ):
 
     # prepare content logs
     user_agent = parse(request.headers.get("user-agent"))
     extras_logging = get_base_logs(user_agent, user_id)
-    extras_logging["bg_geolocation"] = geolocation
     extras_logging["bg_upload_time"] = round(time.time() - date, 2)
 
     try:
