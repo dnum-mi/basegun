@@ -87,10 +87,10 @@ const openNextAccordion = (currentIndex: number) => {
                     </DsfrButton>
                   </div>
                   <AskingExpert />
-                  <div class="small-blank" />
                 </DsfrAccordion>
               </li>
             </DsfrAccordionsGroup>
+            <FooterMES />
           </div>
         </div>
         <div v-else-if="selectedOptionStep === 'revolver_verrou_1892'">
@@ -119,6 +119,7 @@ const openNextAccordion = (currentIndex: number) => {
           </p>
           <div class="small-blank" />
           <AskingExpert />
+          <FooterMES />
         </div>
         <div v-else>
           <div
