@@ -148,6 +148,7 @@ const openNextAccordion = (currentIndex: number) => {
               />
             </ul>
           </div>
+          <FooterMES />
         </div>
       </div>
       <div v-else>
