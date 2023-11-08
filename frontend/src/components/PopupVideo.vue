@@ -1,6 +1,10 @@
 <script lang="ts" setup>
+import { useResultStore } from '@/stores/result'
 import semiAutoMilitairePistoletMitralleurVideoS from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi_surete.mp4'
+import epauleAVerrouVideoS from '@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_surete.mp4'
 
+const resultStore = useResultStore()
+const typology = computed(() => resultStore.typology)
 const showModal = ref(false)
 
 function onClose () {
@@ -33,24 +37,41 @@ function onClose () {
             />
             Le levier est bloqué ?
           </h2>
-
-          <div class="fr-content-media relative">
-            <video
-              controls
-              playsinline
-              muted
-              :src="semiAutoMilitairePistoletMitralleurVideoS"
-              data-testid="video-tutoriel"
-            />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 12 sec</span>
+          <div v-if="typology === 'semi_auto_style_militaire_autre'">
+            <div class="fr-content-media relative">
+              <video
+                controls
+                playsinline
+                muted
+                :src="semiAutoMilitairePistoletMitralleurVideoS"
+                data-testid="video-tutoriel"
+              />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 12 sec</span>
+            </div>
+            <div class="manipulations -mx-1 p-5">
+              <ol class="list text-sm">
+                <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
+                <li> <span class="font-bold">Appuyer sur la pédale de sûreté</span> située sur l'arrière afin de pouvoir manipuler le levier</li>
+              </ol>
+            </div>
           </div>
-          <div class="manipulations -mx-3 p-8">
-            <ol class="list text-sm">
-              <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
-              <li> <span class="font-bold">Appuyer sur la pédale de sûreté</span> située sur l'arrière afin de pouvoir manipuler l'arme</li>
-              <li> Tirer le levier d’armement situé sur le dessus de l’arme vers l’arrière et <span class="font-bold">retirer la munition</span> éventuelle de la chambre </li>
-              <li> <span class="font-bold">Tout en maintenant le levier d’armement vers l’arrière</span>, contrôler visuellement que la chambre est vide</li>
-            </ol>
+          <div v-else>
+            <div class="fr-content-media relative">
+              <video
+                controls
+                playsinline
+                muted
+                :src="epauleAVerrouVideoS"
+                data-testid="video-tutoriel"
+              />
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 15 sec</span>
+            </div>
+            <div class="manipulations -mx-1 p-5">
+              <ol class="list text-sm">
+                <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
+                <li> <span class="font-bold">Faites basculer le levier de sûreté</span> situé à la base du levier de culasse pour le débloquer</li>
+              </ol>
+            </div>
           </div>
           <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
             <DsfrButton
@@ -103,5 +124,6 @@ video {
   background-color: #E3E3FD;
   margin-top: 40px;
   margin-bottom: 24px;
+  margin-right: 0;
 }
 </style>
