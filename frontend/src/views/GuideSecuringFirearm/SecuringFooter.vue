@@ -25,15 +25,15 @@ const backClick = (navigate: () => void) => {
 
 <template>
   <div class="footer">
-    <div class="fr-col-11  fr-col-lg-6  footer-actions  mx-auto">
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <RouterLink
         v-slot="{ navigate }"
         class="m-1"
         :to="backTo"
       >
         <DsfrButton
+          class="flex justify-center w-full"
           icon="ri-arrow-left-line"
-          class="flex  justify-center  w-full"
           :secondary="true"
           label="Précédent"
           @click.stop.prevent="backClick(navigate)"
@@ -45,7 +45,7 @@ const backClick = (navigate: () => void) => {
         :to="nextTo"
       >
         <DsfrButton
-          class="flex  justify-center  w-full"
+          class="flex justify-center w-full"
           icon="ri-arrow-right-line"
           :disabled="nextDisabled"
           data-testid="button-next"
@@ -62,4 +62,5 @@ const backClick = (navigate: () => void) => {
 .footer a {
   width: 50%;
 }
+
 </style>

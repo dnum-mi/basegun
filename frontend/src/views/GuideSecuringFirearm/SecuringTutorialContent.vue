@@ -87,10 +87,10 @@ const openNextAccordion = (currentIndex: number) => {
                     </DsfrButton>
                   </div>
                   <AskingExpert />
-                  <div class="small-blank" />
                 </DsfrAccordion>
               </li>
             </DsfrAccordionsGroup>
+            <FooterMES />
           </div>
         </div>
         <div v-else-if="selectedOptionStep === 'revolver_verrou_1892'">
@@ -119,6 +119,7 @@ const openNextAccordion = (currentIndex: number) => {
           </p>
           <div class="small-blank" />
           <AskingExpert />
+          <FooterMES />
         </div>
         <div v-else>
           <div
@@ -148,6 +149,7 @@ const openNextAccordion = (currentIndex: number) => {
               />
             </ul>
           </div>
+          <FooterMES />
         </div>
       </div>
       <div v-else>
@@ -175,7 +177,12 @@ const openNextAccordion = (currentIndex: number) => {
                 v-html="option"
               />
             </ul>
+            <div v-if="typology === `semi_auto_style_militaire_autre` && stepsStore.currentOptionStep['1'] === 'uzi'">
+              <PopupVideo />
+            </div>
           </div>
+          <div class="small-blank" />
+          <AskingExpert />
         </div>
         <div v-else>
           <div
@@ -201,29 +208,32 @@ const openNextAccordion = (currentIndex: number) => {
                 v-html="option"
               />
             </ul>
+            <div v-if="typology === 'epaule_a_verrou'">
+              <PopupVideo />
+            </div>
+          </div>
+          <div class="small-blank" />
+          <AskingExpert />
+        </div>
+        <div class="footer">
+          <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+            <DsfrButton
+              class="m-1 flex justify-center"
+              icon="ri-arrow-left-line"
+              :secondary="true"
+              label="Précédent"
+              @click="router.back()"
+            />
+            <DsfrButton
+              class="m-1 flex justify-center"
+              icon="ri-arrow-right-line"
+              data-testid="button-next"
+              label="Suivant"
+              :icon-right="true"
+              @click="router.push({ name:'SecuringAchievement'})"
+            />
           </div>
         </div>
-        <div class="small-blank" />
-        <AskingExpert />
-      </div>
-    </div>
-    <div class="footer">
-      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-left-line"
-          :secondary="true"
-          label="Précédent"
-          @click="router.back()"
-        />
-        <DsfrButton
-          class="m-1 flex justify-center"
-          icon="ri-arrow-right-line"
-          data-testid="button-next"
-          label="Suivant"
-          :icon-right="true"
-          @click="router.push({ name:'SecuringAchievement'})"
-        />
       </div>
     </div>
   </div>
