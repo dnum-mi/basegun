@@ -29,11 +29,11 @@ const router = useRouter()
 
 <style>
 .footer {
-background-color: #fff;
-box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  background-color: #fff;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
 
 .footer button {
-width: 50%;
+  width: 50%;
 }
 </style>
