@@ -104,7 +104,7 @@ const openNextAccordion = (currentIndex: number) => {
                 muted
                 :src="resultTree[typology]?.options_step_3['revolver_verrou_1892']?.video"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
             </div>
           </div>
           <p class="manipulations -mx-8 p-8">
@@ -133,7 +133,7 @@ const openNextAccordion = (currentIndex: number) => {
                 muted
                 :src="resultTree[typology]?.options_step_2[selectedOptionStep]?.video"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">
@@ -167,7 +167,7 @@ const openNextAccordion = (currentIndex: number) => {
                 :src="resultTree[typology]?.options[selectedOptionStep]?.video"
                 data-testid="video-tutoriel"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">
@@ -198,7 +198,7 @@ const openNextAccordion = (currentIndex: number) => {
                 :src="resultTree[typology]?.video"
                 data-testid="video-tutoriel"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 3 min</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
             </div>
           </div>
           <div class="manipulations -mx-8 p-8">

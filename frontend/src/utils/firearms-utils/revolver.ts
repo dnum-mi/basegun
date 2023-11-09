@@ -58,7 +58,7 @@ export const revolver = {
   options_step_2_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span>, tournez-la pour observer l’arrière du barillet. Sélectionnez ce que vous voyez.',
   options_step_2: {
     revolver_bouton_barillet: {
-      label: 'Revolver bouton barillet',
+      label: 'Bouton à côté du barillet',
       value: 'revolver_bouton_barillet',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -207,12 +207,12 @@ export const revolver = {
   },
   guideFactice: {
     cartouches: {
-      label: 'balles',
+      label: 'Balles',
       value: 'cartouches',
       img_ammo: revolverCartridges,
     },
     billes: {
-      label: 'bille ou trou pour billes',
+      label: 'Billes ou trou pour billes',
       value: 'billes',
       img_ammo: revolverBalls,
     },

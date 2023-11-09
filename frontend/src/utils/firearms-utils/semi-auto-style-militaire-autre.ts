@@ -27,7 +27,7 @@ export const semi_auto_style_militaire_autre = {
   options_text: 'Observez la position du chargeur et sélectionnez ce que vous voyez :',
   options: {
     ar15: {
-      label: 'bouton au-dessus chargeur',
+      label: 'Bouton au-dessus du chargeur',
       value: 'ar15',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -40,7 +40,7 @@ export const semi_auto_style_militaire_autre = {
       video: semiAutoMilitaireAr15Video,
     },
     kalash: {
-      label: 'levier derrière chargeur',
+      label: 'Levier derrière le chargeur',
       value: 'kalash',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -54,7 +54,7 @@ export const semi_auto_style_militaire_autre = {
       video: semiAutoMilitaireAkVideo,
     },
     sten: {
-      label: 'chargeur à angle droit',
+      label: 'Chargeur à angle droit',
       value: 'sten',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -67,7 +67,7 @@ export const semi_auto_style_militaire_autre = {
       video: semiAutoMilitaireStenVideo,
     },
     thompson: {
-      label: 'levier au-dessus pontet',
+      label: 'Levier au-dessus du pontet',
       value: 'thompson',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -82,7 +82,7 @@ export const semi_auto_style_militaire_autre = {
       video: semiAutoMilitaireThompsonVideo,
     },
     uzi: {
-      label: 'bouton poussoir à base poignée',
+      label: 'Bouton poussoir à la base de la poignée',
       value: 'uzi',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
@@ -98,12 +98,12 @@ export const semi_auto_style_militaire_autre = {
   },
   guideFactice: {
     cartouches: {
-      label: 'cartouches',
+      label: 'Cartouches',
       value: 'cartouches',
       img_ammo: semiAutoMilitaireCartridges,
     },
     billes: {
-      label: 'billes',
+      label: 'Billes',
       value: 'billes',
       img_ammo: semiAutoMilitaireBalls,
     },
