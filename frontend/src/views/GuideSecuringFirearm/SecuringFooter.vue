@@ -32,7 +32,7 @@ const backClick = (navigate: () => void) => {
         :to="backTo"
       >
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center !w-full"
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
@@ -45,7 +45,7 @@ const backClick = (navigate: () => void) => {
         :to="nextTo"
       >
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center !w-full"
           icon="ri-arrow-right-line"
           :disabled="nextDisabled"
           data-testid="button-next"

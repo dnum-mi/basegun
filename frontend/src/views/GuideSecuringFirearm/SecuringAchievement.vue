@@ -61,7 +61,7 @@ const typology = computed(() => resultStore.typology)
         :to="{name: 'IdentificationTypologyResult'}"
       >
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center !w-full"
           label="Je veux identifier mon arme"
           icon="ri-arrow-right-line"
           :icon-right="true"
@@ -74,7 +74,7 @@ const typology = computed(() => resultStore.typology)
         :to="{name:'StartPage'}"
       >
         <DsfrButton
-          class="mt-3 flex justify-center w-full"
+          class="mt-3 flex justify-center !w-full"
           label="Retour à l'accueil"
           icon="ri-home-4-line"
           :icon-right="true"
