@@ -149,6 +149,8 @@ const openNextAccordion = (currentIndex: number) => {
               />
             </ul>
           </div>
+          <div class="small-blank" />
+          <AskingExpert />
           <FooterMES />
         </div>
       </div>

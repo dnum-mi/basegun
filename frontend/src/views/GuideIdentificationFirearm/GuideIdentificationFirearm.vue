@@ -98,7 +98,7 @@ async function sendLogsIdentificationDummy () {
         :to="{name: 'StartPage'}"
       >
         <DsfrButton
-          class="flex justify-center w-full"
+          class="flex justify-center !w-full"
           label="Retour à l'accueil"
           icon="ri-home-4-line"
           data-testid="return-to-home-end"
@@ -108,7 +108,7 @@ async function sendLogsIdentificationDummy () {
       </router-link>
       <DsfrButton
         v-if="resultTree[typology]?.isDummyTypology"
-        class="mt-3 flex justify-center w-full"
+        class="mt-3 flex justify-center !w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
         :icon-right="true"
