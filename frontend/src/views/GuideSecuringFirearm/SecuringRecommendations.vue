@@ -11,7 +11,7 @@ const foundAllKeyWords = keyWords.every(keyWord => {
   <div
     v-if="foundAllKeyWords"
   >
-    <p class="leading-7 mt-3">
+    <p class="leading-7 mt-3 pb-4">
       Vous allez recevoir des instructions pour <span class="font-bold">extraire des munitions</span> de l’arme. Si vous avez
       le <span class="font-bold">moindre doute</span> quant à votre capacité à effectuer en toute sécurité les manœuvres
       qui suivent, <span class="font-bold">n’essayez pas de suivre les étapes suivantes</span>.

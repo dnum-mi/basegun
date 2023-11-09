@@ -126,7 +126,7 @@ const backTo = computed(() => {
               :title="resultTree[typology]?.[`options_step_${step}_video_title`]"
               :src="resultTree[typology]?.[`options_step_${step}_video`]"
             />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
+            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
           </div>
           <!-- <p
             class="manipulations -mt-2 p-6"

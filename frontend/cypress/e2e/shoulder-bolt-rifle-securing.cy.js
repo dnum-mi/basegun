@@ -14,7 +14,7 @@ describe('Shoulder Bolt Rifle Securing', () => {
     cy.contains('li', 'Ouvrez la culasse')
     cy.getByDataTestid('button-next').click()
     cy.Identification()
-    cy.contains('balles').first().click()
+    cy.contains('Balles').first().click()
     cy.getByDataTestid('next-step').should('not.have.attr', 'disabled')
     cy.getByDataTestid('next-step').click()
     cy.url().should('contain', '/guide-identification/resultat-final')

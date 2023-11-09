@@ -21,12 +21,12 @@ export const epaule_a_verrou = {
   video: epauleAVerrouVideo,
   guideFactice: {
     cartouches: {
-      label: 'balles',
+      label: 'Balles',
       value: 'cartouches',
       img_ammo: epauleAVerrouCartridges,
     },
     billes: {
-      label: 'bille ou trou pour billes',
+      label: 'Billes ou trou pour billes',
       value: 'billes',
       img_ammo: epauleAVerrouBalls,
     },

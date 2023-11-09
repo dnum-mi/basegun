@@ -19,7 +19,7 @@ export const pistolet_semi_auto_moderne = {
   textOptions: '',
   options: {
     bouton_pontet: {
-      label: 'bouton pontet',
+      label: 'Bouton à côté du pontet',
       value: 'bouton_pontet',
       text_steps: {
         1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
@@ -33,7 +33,7 @@ export const pistolet_semi_auto_moderne = {
       video: pistoletSemiAutoPontetVideo,
     },
     poussoir_talon: {
-      label: 'poussoir talon',
+      label: 'Poussoir sous le talon',
       value: 'poussoir_talon',
       text_steps: {
         1: 'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
@@ -49,12 +49,12 @@ export const pistolet_semi_auto_moderne = {
   },
   guideFactice: {
     cartouche: {
-      label: 'cartouches',
+      label: 'Cartouches',
       value: 'cartouches',
       img_ammo: pistoletSemiAutoModerneCartridges,
     },
     billes: {
-      label: 'billes',
+      label: 'Billes',
       value: 'billes',
       img_ammo: pistoletSemiAutoModerneBalls,
     },

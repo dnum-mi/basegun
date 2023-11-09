@@ -117,7 +117,7 @@ function sendFeedback (isCorrect: boolean) {
                 src="@/assets/guide-identification/icones/gun.jpg"
                 alt=""
               >
-              Catégorie Non déterminée
+              Catégorie non déterminée
             </p>
             <p class="text-sm font-normal m-4 text-left text-current">
               Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.

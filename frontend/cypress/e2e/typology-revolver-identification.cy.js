@@ -20,7 +20,7 @@ describe('Typology Revolver Identification', () => {
     cy.getByDataTestid('next-step').click()
     cy.url().should('contain', '/guide-identification/munition-type')
     cy.getByDataTestid('next-step').should('have.attr', 'disabled')
-    cy.contains('balles').first().click()
+    cy.contains('Balles').first().click()
     cy.getByDataTestid('next-step').should('not.have.attr', 'disabled')
     cy.getByDataTestid('next-step').click()
     cy.url().should('contain', '/guide-identification/resultat-final')
