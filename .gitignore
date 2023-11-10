@@ -6,8 +6,12 @@ dev-dist/
 env/
 .env
 __pycache__
+weights/
 logs/
+temp/
 *openrc.sh
+.terraform*
 *.secrets*
+version.txt
 *.crt
 *.pem
