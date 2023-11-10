@@ -83,20 +83,6 @@ class TestApi:
         assert res["label"] == "revolver"
         assert res["confidence"] == pytest.approx(98.43, 0.1)
         assert res["confidence_level"] == "high"
-        # checks that the result is written in logs
-        r = client.get("/api/logs")
-        assert r.status_code == 200
-        # checks the latest log with validates upload to object storage
-        assert r.json()[0]["_bg_image_url"] == r.json()[1]["_bg_image_url"]
-        assert r.json()[0]["short_message"] == "Upload successful"
-        # checks the previous log "Identification request"
-        log = r.json()[1]
-        self.check_log_base(log)
-        assert log["short_message"] == "Identification request"
-        assert "-" in log["_bg_user_id"]
-        assert log["_bg_label"] == "revolver"
-        assert log["_bg_confidence"] == pytest.approx(98.43, 0.1)
-        assert log["_bg_upload_time"] >= 0
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
@@ -116,13 +102,3 @@ class TestApi:
         )
 
         assert r.status_code == 200
-        r = client.get("/api/logs")
-        assert r.status_code == 200
-        log = r.json()[0]
-        self.check_log_base(log)
-        assert log["short_message"] == "Identification feedback"
-        assert log["_bg_image_url"] == image_url
-        assert log["_bg_feedback_bool"] is True
-        assert log["_bg_confidence"] == confidence
-        assert log["_bg_label"] == label
-        assert log["_bg_confidence_level"] == confidence_level

@@ -195,18 +195,6 @@ def version():
     return APP_VERSION
 
 
-@router.get("/logs")
-def logs():
-    if "WORKSPACE" in os.environ and os.environ["WORKSPACE"] != "prod":
-        with open(os.path.join(PATH_LOGS, "log.json"), "r") as f:
-            lines = f.readlines()
-            res = [json.loads(l) for l in lines]
-            res.reverse()
-            return res
-    else:
-        return PlainTextResponse("Forbidden")
-
-
 @router.post("/upload")
 async def imageupload(
     request: Request,
