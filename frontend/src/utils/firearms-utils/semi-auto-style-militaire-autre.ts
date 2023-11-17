@@ -90,7 +90,6 @@ export const semi_auto_style_militaire_autre = {
         3: 'Appuyer sur le <span class="font-bold">bouton de verrouillage du chargeur</span> en bas de la poignée',
         4: 'Retirer le chargeur',
         5: 'Tirer le levier d’armement situé sur le dessus de l’arme vers l’arrière et <span class="font-bold">retirer la munition</span> éventuelle de la chambre',
-        6: '<span class="font-bold">Tout en maintenant le levier d’armement vers l’arrière</span>, contrôler visuellement que la chambre est vide',
       },
       img: semiAutoMilitairePistoletMitralleurImg,
       video: semiAutoMilitairePistoletMitralleurVideo,

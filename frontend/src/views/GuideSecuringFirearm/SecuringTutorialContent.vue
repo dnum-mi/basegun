@@ -179,9 +179,15 @@ const openNextAccordion = (currentIndex: number) => {
                 v-html="option"
               />
             </ul>
-            <div v-if="typology === `semi_auto_style_militaire_autre` && stepsStore.currentOptionStep['1'] === 'uzi'">
+            <div
+              v-if="typology === `semi_auto_style_militaire_autre` && stepsStore.currentOptionStep['1'] === 'uzi'"
+              class="mb-2"
+            >
               <PopupVideo />
             </div>
+            <p class="text-sm">
+              6. <span class="font-bold">Tout en maintenant le levier d’armement vers l’arrière</span>, contrôler visuellement que la chambre est vide
+            </p>
           </div>
           <div class="small-blank" />
           <AskingExpert />
@@ -210,8 +216,22 @@ const openNextAccordion = (currentIndex: number) => {
                 v-html="option"
               />
             </ul>
-            <div v-if="typology === 'epaule_a_verrou'">
+            <div
+              v-if="typology === 'epaule_a_verrou'"
+              class="text-sm mb-2"
+            >
               <PopupVideo />
+            </div>
+            <div>
+              <p class="text-sm mb-2">
+                3. Retourner l’arme et chercher la présence éventuelle de levier ou bouton devant le pontet en indiquant la présence d’un chargeur externe. Si tel est le cas, <span class="font-bold">extraire le chargeur</span> en appuyant ou en tirant sur ces derniers<br>
+              </p>
+              <p class="text-sm mb-2">
+                4. Si vous n’avez pas enlevé de chargeur, <span class="font-bold">vider le magasin des munitions</span> éventuelles en les faisant glisser vers l’avant à l’aide de votre pouce<br>
+              </p>
+              <p class="text-sm mb-2">
+                5. Contrôler visuellement la chambre
+              </p>
             </div>
           </div>
           <div class="small-blank" />
