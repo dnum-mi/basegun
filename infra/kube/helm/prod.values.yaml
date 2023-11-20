@@ -1,4 +1,0 @@
-ingress.hosts[0].host: basegun.interieur.gouv.fr
-backend.image.repository: registry.dso.interieur.rie.gouv.fr/mi-basegun/basegun-backend
-frontend.image.repository: registry.dso.interieur.rie.gouv.fr/mi-basegun/basegun-frontend
-backend.config.s3_bucket_name: basegun-s3

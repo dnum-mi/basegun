@@ -77,9 +77,4 @@ jobs:
   test-e2e:
     name: Run E2E tests
     needs: [build-backend, build-frontend]
-    uses: ./.github/workflows/test-on-kube.yml
-    secrets:
-      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
+    uses: ./.github/workflows/test-e2e.yml
