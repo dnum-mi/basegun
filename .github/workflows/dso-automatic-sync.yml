@@ -15,4 +15,4 @@ jobs:
             -F token=${{ secrets.DSO_TOKEN }} \
             -F ref=main \
             -F variables[GIT_BRANCH_DEPLOY]=${{ github.ref_name }} \
-            -F variables[PROJECT_NAME]=basegun
+            -F variables[PROJECT_NAME]=app
