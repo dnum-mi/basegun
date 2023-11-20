@@ -1,0 +1,37 @@
+name: Test E2E
+
+on:
+  workflow_call:
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start stack using docker compose
+        run: docker compose up -d
+
+      - name: Setup nodejs (for cypress)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          check-latest: true
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+      
+      - name: Install npm packages (for cypress)
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Test end to end (cypress)
+        run: FRONTEND_HOST=localhost FRONTEND_PORT=3000 npm run test:e2e-ci
+        working-directory: ./frontend
+
+      - name: Send artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: cypress-screenshots
+          path: |
+            ./frontend/cypress/screenshots/
