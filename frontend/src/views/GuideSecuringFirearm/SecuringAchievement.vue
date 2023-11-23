@@ -1,10 +1,20 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
 import { resultTree } from '@/utils/firearms-utils/index'
+import { DsfrButton } from '@gouvminint/vue-dsfr'
+
+const router = useRouter()
 
 const resultStore = useResultStore()
+
+const showModal = ref(false)
+
+function onClose () {
+  showModal.value = false
+}
 
 const typology = computed(() => resultStore.typology)
 </script>
@@ -32,6 +42,7 @@ const typology = computed(() => resultStore.typology)
             class="img-deco"
           >
         </div>
+        <ContactExpert />
       </div>
       <div v-else>
         <h2 class="mt-5 text-center">
