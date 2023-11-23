@@ -23,6 +23,8 @@ const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFi
 const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
 const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
+const ExpertSituationPN = () => import('@/views/GuideContactExpert/ExpertSituationPN.vue')
+const ExpertSituationGN = () => import('@/views/GuideContactExpert/ExpertSituationGN.vue')
 
 const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
@@ -170,6 +172,18 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     meta: {
       wholeLogo: true,
     },
+  },
+
+  // tutorial to contact expert
+  {
+    path: '/guide-contact-pn',
+    name: 'ExpertSituationPN',
+    component: ExpertSituationPN,
+  },
+  {
+    path: '/guide-contact-gn',
+    name: 'ExpertSituationGN',
+    component: ExpertSituationGN,
   },
 ]
 
