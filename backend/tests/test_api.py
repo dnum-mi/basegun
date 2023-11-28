@@ -102,3 +102,18 @@ class TestApi:
         )
 
         assert r.status_code == 200
+
+    def test_headers(self):
+        HEADERS_TO_ADD = requests.get(
+            "https://owasp.org/www-project-secure-headers/ci/headers_add.json"
+        ).json()["headers"]
+        HEADERS_TO_REMOVE = requests.get(
+            "https://owasp.org/www-project-secure-headers/ci/headers_remove.json"
+        ).json()["headers"]
+        CURRENT_HEADERS = client.get("/api/version").headers
+
+        for header_to_remove in HEADERS_TO_REMOVE:
+            assert header_to_remove.lower() not in CURRENT_HEADERS
+
+        for header_to_add in HEADERS_TO_ADD:
+            assert header_to_add["name"].lower() in CURRENT_HEADERS
