@@ -25,8 +25,10 @@ function onClose () {
       Contact à un expert arme
     </h2>
     <p>
-      Vous rencontrez une situation et souhaitez contacter un expert arme ? <br>
-      <br>Sélectionnez tout d'abord votre situation actuelle ci-dessous
+      Vous rencontrez une situation et souhaitez contacter un expert arme ?
+    </p> <br>
+    <p>
+      Sélectionnez tout d'abord votre situation actuelle ci-dessous
     </p>
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <DsfrButton
@@ -54,12 +56,15 @@ function onClose () {
               />
               Contact à un expert arme
             </h2>
-            <p>
-              Vous trouverez ci-dessous le numéro de téléphone de la permanance, ainsi que l'adresse mail de l'IRGCN <br>
-            </p>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                <p>ircgn@mail.com</p>
+                <p>
+                  Vous trouverez ci-dessous le numéro de téléphone de la permanance, ainsi que l'adresse mail de l'IRGCN <br>
+                </p>
+                <p class="flex justify-center">
+                  01 00 00 00 00 <br>
+                  ircgn@mail.com
+                </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
                 <DsfrButton
@@ -88,12 +93,14 @@ function onClose () {
               />
               Contact à un expert arme
             </h2>
-            <p>
-              Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRGCN <br>
-            </p>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                <p>ircgn@mail.com</p>
+                <p>
+                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRGCN <br>
+                </p>
+                <p class="flex justify-center">
+                  ircgn@mail.com
+                </p>
                 <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
                   <DsfrButton
                     class="m-1 flex justify-center"
@@ -129,6 +136,18 @@ function onClose () {
         label="Précédent"
         @click="router.back()"
       />
+      <router-link
+        v-slot="{navigate}"
+        class="navigate"
+        :to="{name: 'StartPage'}"
+      >
+        <DsfrButton
+          class="m-1 flex justify-center"
+          icon="ri-home-4-line"
+          label="Retour à l'accueil"
+          @click="navigate()"
+        />
+      </router-link>
     </div>
   </div>
 </template>

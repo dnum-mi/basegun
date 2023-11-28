@@ -1,17 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
-const showModal = ref(false)
-const showModal2 = ref(false)
-
-function onClose () {
-  showModal.value = false
-  showModal2.value = false
-}
 
 </script>
 
@@ -25,72 +16,22 @@ function onClose () {
       Contact à un expert arme
     </h2>
     <p>
-      Vous rencontrez une situation et souhaitez contacter un expert arme ? <br>
-      <br>Sélectionnez tout d'abord votre situation actuelle ci-dessous
+      Vous rencontrez une situation et souhaitez contacter un expert arme ?
+    </p> <br>
+    <p>
+      Sélectionnez tout d'abord votre situation actuelle ci-dessous
     </p>
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
       <DsfrButton
         class="m-1 flex justify-center w-80"
         label="Situation urgente"
-        @click="showModal = true"
+        @click="router.push({ name:'ExpertPTS'})"
       />
       <DsfrButton
         class="m-1 flex justify-center w-80"
         label="Situation non urgente"
-        @click="showModal2 = true"
+        @click="router.push({ name:'ExpertPTSNU'})"
       />
-      <Teleport to="body">
-        <DsfrModal
-          title=""
-          :opened="showModal"
-          @close="onClose()"
-        >
-          <div class="modal">
-            <div class="modal-content" />
-            <h2>
-              <VIcon
-                name="ri-arrow-right-line"
-                scale="1.5"
-              />
-              Contact à un expert arme
-            </h2>
-            <p>
-              Vous trouverez ci-dessous le numéro de téléphone de la permanance, ainsi que l'adresse mail de votre PTS <br>
-            </p>
-            <div>
-              <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                <p>pts@mail.com</p>
-              </div>
-            </div>
-          </div>
-        </DsfrModal>
-      </Teleport>
-      <Teleport to="body">
-        <DsfrModal
-          title=""
-          :opened="showModal2"
-          @close="onClose()"
-        >
-          <div class="modal">
-            <div class="modal-content" />
-            <h2>
-              <VIcon
-                name="ri-arrow-right-line"
-                scale="1.5"
-              />
-              Contact à un expert arme
-            </h2>
-            <p>
-              Vous trouverez ci-dessous l'adresse mail de la permanence de votre PTS <br>
-            </p>
-            <div>
-              <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                <p>pts@mail.com</p>
-              </div>
-            </div>
-          </div>
-        </DsfrModal>
-      </Teleport>
     </div>
     <div class="manipulations -mx-8 p-8">
       <p>
