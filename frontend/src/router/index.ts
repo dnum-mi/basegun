@@ -25,6 +25,8 @@ const IdentificationFurtherInformations = () => import('@/views/GuideIdentificat
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 const ExpertSituationPN = () => import('@/views/GuideContactExpert/ExpertSituationPN.vue')
 const ExpertSituationGN = () => import('@/views/GuideContactExpert/ExpertSituationGN.vue')
+const ExpertPTS = () => import('@/views/GuideContactExpert/ExpertPTS.vue')
+const ExpertPTSNU = () => import('@/views/GuideContactExpert/ExpertPTSNU.vue')
 
 const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
@@ -184,6 +186,16 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     path: '/guide-contact-gn',
     name: 'ExpertSituationGN',
     component: ExpertSituationGN,
+  },
+  {
+    path: '/guide-contact-pn/urgence',
+    name: 'ExpertPTS',
+    component: ExpertPTS,
+  },
+  {
+    path: '/guide-contact-pn/non-urgence',
+    name: 'ExpertPTSNU',
+    component: ExpertPTSNU,
   },
 ]
 

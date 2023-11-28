@@ -1,22 +1,20 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
 import { resultTree } from '@/utils/firearms-utils/index'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
-const router = useRouter()
-
 const resultStore = useResultStore()
 
-const showModal = ref(false)
-
-function onClose () {
-  showModal.value = false
-}
-
 const typology = computed(() => resultStore.typology)
+
+const userAgent = window.navigator.userAgent
+const keyWords = ['Mobile', 'Mozilla', 'Crosscall']
+
+const foundAllKeyWords = keyWords.every(keyWord => {
+  return userAgent.includes(keyWord)
+})
 </script>
 
 <template>
@@ -42,7 +40,9 @@ const typology = computed(() => resultStore.typology)
             class="img-deco"
           >
         </div>
-        <ContactExpert />
+        <div v-if="foundAllKeyWords">
+          <ContactExpert />
+        </div>
       </div>
       <div v-else>
         <h2 class="mt-5 text-center">
