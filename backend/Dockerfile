@@ -31,9 +31,9 @@ RUN mkdir -p src/weights \
 
 FROM base as dev
 COPY tests/ tests/
-CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000", "--no-server-header"]
 
 FROM base as prod
 RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu \
     torch==1.13.1+cpu torchvision==0.14.1+cpu && rm -r /root/.cache
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000", "--no-server-header"]
