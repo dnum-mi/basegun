@@ -6,6 +6,7 @@ import { resultTree } from '@/utils/firearms-utils/index'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const resultStore = useResultStore()
+const router = useRouter()
 
 const typology = computed(() => resultStore.typology)
 
@@ -15,6 +16,8 @@ const keyWords = ['Mobile', 'Mozilla', 'Crosscall']
 const foundAllKeyWords = keyWords.every(keyWord => {
   return userAgent.includes(keyWord)
 })
+
+const bypassCrosscall = true
 </script>
 
 <template>
@@ -40,7 +43,10 @@ const foundAllKeyWords = keyWords.every(keyWord => {
             class="img-deco"
           >
         </div>
-        <div v-if="foundAllKeyWords">
+        <div
+          v-if="foundAllKeyWords ||
+            bypassCrosscall"
+        >
           <ContactExpert />
         </div>
       </div>
