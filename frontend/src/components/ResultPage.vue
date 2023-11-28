@@ -81,6 +81,15 @@ function sendFeedback (isCorrect: boolean) {
       isFeedbackDone.value = true
     })
 }
+
+const userAgent = window.navigator.userAgent
+const keyWords = ['Mobile', 'Mozilla', 'Crosscall']
+
+const foundAllKeyWords = keyWords.every(keyWord => {
+  return userAgent.includes(keyWord)
+})
+
+const bypassCrosscall = true
 </script>
 
 <template>
@@ -122,6 +131,18 @@ function sendFeedback (isCorrect: boolean) {
             <p class="text-sm font-normal m-4 text-left text-current">
               Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
             </p>
+            <div
+              v-if="foundAllKeyWords ||
+                bypassCrosscall"
+              class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center"
+            >
+              <DsfrButton
+                class="m-1 flex justify-center"
+                icon="ri-alert-line"
+                label="Contacter un spécialiste"
+                @click="router.push({ name:'ExpertiseFormInformations'})"
+              />
+            </div>
           </div>
           <div v-else>
             <div class="fr-tile__body">
@@ -194,6 +215,18 @@ function sendFeedback (isCorrect: boolean) {
                   > Typologie : </span>
                   {{ label }}
                 </p>
+                <div
+                  v-if="foundAllKeyWords ||
+                    bypassCrosscall"
+                  class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center"
+                >
+                  <DsfrButton
+                    class="m-1 flex justify-center"
+                    icon="ri-alert-line"
+                    label="Contacter un spécialiste"
+                    @click="router.push({ name:'ExpertiseFormInformations'})"
+                  />
+                </div>
               </div>
             </div>
           </div>
