@@ -23,6 +23,7 @@ from fastapi import (
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from gelfformatter import GelfFormatter
+from src.constants import HEADERS
 from src.model import load_model_inference, predict_image
 from user_agents import parse
 
@@ -143,6 +144,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("OWASPHeadersMiddleware")
+async def add_owasp_middleware(request: Request, call_next):
+    response = await call_next(request)
+    for header in HEADERS:
+        response.headers[header["name"]] = header["value"]
+    return response
+
 
 # Logs
 PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
