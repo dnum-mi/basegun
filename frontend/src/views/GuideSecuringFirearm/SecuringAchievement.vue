@@ -46,8 +46,15 @@ const bypassCrosscall = true
         <div
           v-if="foundAllKeyWords ||
             bypassCrosscall"
+          class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center"
         >
           <ContactExpert />
+          <DsfrButton
+            class="m-1 flex justify-center"
+            icon="ri-alert-line"
+            label="Contacter un spécialiste"
+            @click="router.push({ name:'ExpertiseFormInformations'})"
+          />
         </div>
       </div>
       <div v-else>
