@@ -271,7 +271,7 @@ function onClose () {
   </div>
 </template>
 
-<style>
+<style scoped>
 .manipulations {
   background-color: #E3E3FD;
   margin-top: 40px;
