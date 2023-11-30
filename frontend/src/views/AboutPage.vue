@@ -37,7 +37,7 @@ const imgs = ref([
       <div>
         <p class="title-space">
           Basegun est un projet d'application par apprentissage automatique capable
-          d'identifier et de classifier de manière fiable et rapide une arme à feu.
+          d'identifier et de classer de manière fiable et rapide une arme à feu.
         </p>
         <p>
           Le projet a été initié en 2021 dans le contexte du programme
@@ -47,9 +47,12 @@ const imgs = ref([
           >Entrepreneurs d’Intérêt Général</a>.
         </p>
         <p>
-          Il est actuellement piloté par le Datalab de la Direction du Numérique du Ministère de l'Intérieur et des Outre-Mer,
-          en partenariat avec le Service Central des Armes et Explosifs. La Direction Générale de la Police Nationale
-          et la Direction Générale de la Gendarmerie Nationale sont associées pour les tests et le suivi de l'application.
+          Il est actuellement piloté par <span class="font-bold">la Fabrique Numérique de la Direction de la Transformation Numérique</span> du Ministère de l'Intérieur et des Outre-Mer,
+          en partenariat avec le <span class="font-bold">Service Central des Armes et Explosifs.</span>
+        </p>
+        <p>
+          <span class="font-bold">La Direction Générale de la Police Nationale</span>
+          et <span class="font-bold">la Direction Générale de la Gendarmerie Nationale</span> sont associées pour les tests et le suivi de l'application.
         </p>
         <div />
         <p>
