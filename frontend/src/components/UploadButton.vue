@@ -48,6 +48,19 @@ async function submitUpload (base64: string, fileName: string) {
     })
   } catch (error) {
     // TODO: Afficher l’erreur à l’utilisateur
+    axios.get('/upload')
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data)
+          console.log('Erreur', error.response.status)
+          console.log(error.response.headers)
+        } else if (error.request) {
+          console.log(error.request)
+        } else {
+          console.log('Erreur', error.message)
+        }
+        console.log(error.config)
+      })
     router.push({ name: 'ErrorPage' })
   } finally {
     const nextRoute = getNextRouteAfterResult({
