@@ -29,7 +29,7 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/mentions-legales')
-    cy.contains('p', 'basegun.fr')
+    cy.contains('p', 'Basegun')
 
     cy.get('#button-menu')
       .click()
@@ -38,7 +38,7 @@ describe('HomePage', () => {
       .click()
     cy.url()
       .should('contain', '/contact')
-    cy.contains('a', 'basegun@interieur.gouv.fr')
+    cy.contains('a', 'support.basegun@interieur.gouv.fr')
     cy.getByRole('navigation')
       .contains('a', 'Important')
       .click({ force: true })

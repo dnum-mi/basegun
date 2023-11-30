@@ -4,7 +4,14 @@
       <h1>Contact</h1>
       <div>
         <p class="title-space">
-          Toute question, remarque ou contribution concernant le projet Basegun est à adresser par email à <a
+          Pour toute question ou problème lié au fonctionnement de l'application, veuillez contacter le support utilisateurs : <a
+            class="underline"
+            href="mailto:support.basegun@interieur.gouv.fr"
+          >support.basegun@interieur.gouv.fr</a>.
+        </p>
+
+        <p class="title-space">
+          Pour toute question ou remarque liée au projet Basegun ou proposition d'amélioration, veuillez contacter : <a
             class="underline"
             href="mailto:basegun@interieur.gouv.fr"
           >basegun@interieur.gouv.fr</a>.
