@@ -1,4 +1,4 @@
-FROM python:3.10-slim as base
+FROM python:3.11-slim as base
 WORKDIR /app
 
 # certificates config
@@ -35,5 +35,5 @@ CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000
 
 FROM base as prod
 RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch==1.13.1+cpu torchvision==0.14.1+cpu && rm -r /root/.cache
+    torch==2.1.1+cpu torchvision==0.16.1+cpu && rm -r /root/.cache
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000", "--no-server-header"]
