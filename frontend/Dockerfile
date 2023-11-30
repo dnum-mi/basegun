@@ -1,4 +1,4 @@
-FROM node:18-slim as base
+FROM node:20-slim as base
 
 WORKDIR /app
 
@@ -19,10 +19,8 @@ FROM base as build
 
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:1.21.4-alpine as prod
+FROM nginxinc/nginx-unprivileged:1.24-alpine as prod
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build /app/dist /usr/share/nginx/html/
-
-FROM prod as test
