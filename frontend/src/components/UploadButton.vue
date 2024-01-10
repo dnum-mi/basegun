@@ -46,16 +46,15 @@ async function submitUpload (base64: string, fileName: string) {
       img: base64,
       imgUrl: data.path,
     })
-  } catch (error) {
-    // TODO: Afficher l’erreur à l’utilisateur
-    router.push({ name: 'ErrorPage' })
-  } finally {
     const nextRoute = getNextRouteAfterResult({
       securingTutorial: resultStore.securingTutorial,
       confidenceLevel: resultStore.confidenceLevel,
       typology: resultStore.typology,
     })
     router.push(nextRoute)
+  } catch (error) {
+    console.log(error)
+    router.push({ name: 'ErrorPage' })
   }
 }
 
