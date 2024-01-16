@@ -10,6 +10,7 @@ services:
         - CACERT_LOCATION
       context: ./backend
       target: ${BUILD_TARGET:-dev}
+    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000 --no-server-header
     container_name: basegun-backend
     environment:
       - S3_URL_ENDPOINT=http://minio:9000
