@@ -159,7 +159,7 @@ PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
 logger = setup_logs(PATH_LOGS)
 
 # Load model
-MODEL_PATH = os.path.join(CURRENT_DIR, "weights/model.pth")
+MODEL_PATH = os.path.join(CURRENT_DIR, "../model.pt")
 model = None
 if os.path.exists(MODEL_PATH):
     model = load_model_inference(MODEL_PATH)
@@ -242,9 +242,9 @@ async def imageupload(
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time() - start, 2)
-        if confidence < 46:
+        if confidence < 0.46:
             extras_logging["bg_confidence_level"] = "low"
-        elif confidence < 76:
+        elif confidence < 0.76:
             extras_logging["bg_confidence_level"] = "medium"
         else:
             extras_logging["bg_confidence_level"] = "high"

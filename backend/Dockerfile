@@ -21,13 +21,9 @@ RUN pip --default-timeout=300 install --upgrade pip \
     && rm -r /root/.cache
 
 ARG VERSION
-ARG MODEL="EffB7_2023-03-06_08"
 ENV SSL_CERT_FILE=$CACERT_LOCATION
-RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-models/${MODEL}.pth
 COPY src/ src/
-RUN mkdir -p src/weights \
-    && mv model.pth src/weights/model.pth \
-    && echo '{"app": "'${VERSION}'", "model": "'${MODEL}'"}' > versions.json
+COPY model.pt .
 
 FROM base as dev
 COPY tests/ tests/

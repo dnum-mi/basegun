@@ -81,7 +81,7 @@ class TestApi:
 
         # checks that the json result is as expected
         assert res["label"] == "revolver"
-        assert res["confidence"] == pytest.approx(98.43, 0.1)
+        assert res["confidence"] == pytest.approx(1, 0.1)
         assert res["confidence_level"] == "high"
 
     def test_feedback_and_logs(self):
