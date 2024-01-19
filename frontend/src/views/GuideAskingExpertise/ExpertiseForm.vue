@@ -1,10 +1,7 @@
 <template>
   <div>
-    <h2 class="m-2.5 flex justify-center">
-      Questionnaire demande
-    </h2>
-    <h2 class="flex justify-center">
-      <span style="color: blue"> d'expertise</span>
+    <h2 class="m-2.5 flex justify-center questionnaire-title">
+      <div>Questionnaire demande</div> <div><span style="color: blue"> d'avis</span></div>
     </h2>
 
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -36,7 +33,7 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const formDataCollection = ref([])
-    const steps = ['Informations', 'Saisie de l\'arme', 'Détails de l\'arme', 'Contact avec un spécialiste']
+    const steps = ['Identification du demandeur', 'Informations sur l\'arme', 'Photos complémentaires']
     const stepsStore = useStepsStore()
 
     const currentStep = computed<1 | 2 | 3>({
@@ -75,7 +72,14 @@ export default defineComponent({
 
 </script>
 
-<style>
+<style scoped>
+.questionnaire-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .footer {
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);

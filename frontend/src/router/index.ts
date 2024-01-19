@@ -29,9 +29,8 @@ const ExpertPTS = () => import('@/views/GuideContactExpert/ExpertPTS.vue')
 const ExpertPTSNU = () => import('@/views/GuideContactExpert/ExpertPTSNU.vue')
 const ExpertiseForm = () => import('@/views/GuideAskingExpertise/ExpertiseForm.vue')
 const ExpertiseFormFirearm = () => import('@/views/GuideAskingExpertise/ExpertiseFormFirearm.vue')
-const ExpertiseFormDetails = () => import('@/views/GuideAskingExpertise/ExpertiseFormDetails.vue')
-const ExpertiseFormSpecialist = () => import('@/views/GuideAskingExpertise/ExpertiseFormSpecialist.vue')
 const ExpertiseFormInformations = () => import('@/views/GuideAskingExpertise/ExpertiseFormInformations.vue')
+const ExpertiseFormPhotos = () => import('@/views/GuideAskingExpertise/ExpertiseFormPhotos.vue')
 
 const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
@@ -221,15 +220,9 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
       },
 
       {
-        path: 'details-arme',
-        name: 'ExpertiseFormDetails',
-        component: ExpertiseFormDetails,
-      },
-
-      {
-        path: 'specialiste-arme',
-        name: 'ExpertiseFormSpecialist',
-        component: ExpertiseFormSpecialist,
+        path: 'photos-arme',
+        name: 'ExpertiseFormPhotos',
+        component: ExpertiseFormPhotos,
       },
     ],
   },

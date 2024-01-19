@@ -1,6 +1,6 @@
 <template>
   <div class="desc m-1 justify-center">
-    <p>Détails sur la saisie de l'arme :</p>
+    <p>Informations sur l'arme :</p>
   </div>
 
   <div class="m-1 justify-center">
@@ -10,14 +10,9 @@
     >
       <DsfrInput
         v-model="dateSaisie"
+        class="mb-5"
         label="Date de la saisie"
         type="date"
-        label-visible
-        required="true"
-      />
-      <DsfrInput
-        v-model="lieuSaisie"
-        label="Lieu de la saisie"
         label-visible
         required="true"
       />
@@ -31,7 +26,7 @@
         <select
           id="select"
           v-model="typologieArme"
-          class="fr-select"
+          class="fr-select mb-5"
           name="select"
           required="true"
         >
@@ -51,84 +46,20 @@
           </option>
         </select>
       </div>
-      <DsfrInput
-        v-model="descriptionArme"
-        label="Description de l'arme"
-        label-visible
-        required="true"
-      />
 
       <DsfrInput
         v-model="longueurArme"
-        label="Saisir la longueur de l'arme"
+        class="mb-5"
+        label="Saisir la longueur de l'arme (en cm)"
         hint="(optionnel)"
         label-visible
       />
 
       <DsfrInput
         v-model="longueurCanon"
-        label="Saisir la longueur du canon"
+        class="mb-5"
+        label="Saisir la longueur du canon (en cm)"
         hint="(optionnel)"
-        label-visible
-      />
-
-      <fieldset
-        id="radio-hint"
-        class="fr-fieldset"
-        aria-labelledby="radio-hint-legend radio-hint-messages"
-      >
-        <legend
-          id="radio-hint-legend"
-          class="fr-fieldset__legend--regular fr-fieldset__legend"
-          required="true"
-        >
-          Circonstance de la saisie :
-        </legend>
-        <div class="fr-fieldset__element">
-          <div class="fr-radio-group">
-            <input
-              id="perquisition"
-              v-model="circonstanceSaisie"
-              type="radio"
-              name="radio-hint"
-              value="Perquisition"
-            >
-            <label
-              class="fr-label"
-              for="perquisition"
-            >
-              Perquisition
-            </label>
-          </div>
-        </div>
-        <div class="fr-fieldset__element">
-          <div class="fr-radio-group">
-            <input
-              id="trouve"
-              v-model="circonstanceSaisie"
-              type="radio"
-              name="radio-hint"
-              value="Trouvé"
-            >
-            <label
-              class="fr-label"
-              for="trouve"
-            >
-              Trouvé
-            </label>
-          </div>
-        </div>
-        <div
-          id="radio-hint-messages"
-          class="fr-messages-group"
-          aria-live="assertive"
-        />
-      </fieldset>
-
-      <DsfrInput
-        v-model="autresDetails"
-        label="Autres"
-        hint="(à préciser)"
         label-visible
       />
     </DsfrInputGroup>
@@ -198,33 +129,27 @@ const goToNewRoute = () => {
 
 const ExpertiseFormInformationsRoute = 'ExpertiseFormInformations'
 const ExpertiseFormFirearmRoute = 'ExpertiseFormFirearm'
-const ExpertiseFormDetailsRoute = 'ExpertiseFormDetails'
-const ExpertiseFormSpecialistRoute = 'ExpertiseFormSpecialist'
+const ExpertiseFormPhotosRoute = 'ExpertiseFormPhotos'
 
 const expertiseGuideSteps = [
   ExpertiseFormInformationsRoute,
   ExpertiseFormFirearmRoute,
-  ExpertiseFormDetailsRoute,
-  ExpertiseFormSpecialistRoute,
+  ExpertiseFormPhotosRoute,
 ]
 
 const emits = defineEmits('updateFormData')
 
 const dateSaisie = ref('')
-const lieuSaisie = ref('')
 const typologieArme = ref('')
-const descriptionArme = ref('')
-const circonstanceSaisie = ref('')
-const autresDetails = ref('')
+const longueurArme = ref('')
+const longueurCanon = ref('')
 
 const sendData = () => {
   const formData = {
     dateSaisie: dateSaisie.value,
-    lieuSaisie: lieuSaisie.value,
     typologieArme: typologieArme.value,
-    descriptionArme: descriptionArme.value,
-    circonstanceSaisie: circonstanceSaisie.value,
-    autresDetails: autresDetails.value,
+    longueurArme: longueurArme.value,
+    longueurCanon: longueurCanon.value,
   }
 
   console.log('Données du formulaire:', formData)
@@ -234,4 +159,9 @@ const sendData = () => {
 </script>
 
 <style>
+.desc {
+  border-bottom: 1px solid grey;
+  padding-bottom: -4px;
+  font-weight: bold;
+}
 </style>
