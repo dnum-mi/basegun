@@ -1,34 +1,29 @@
 <template>
   <div>
     <div class="desc m-1 justify-center">
-      <p>Informations générales :</p>
+      <p>Identification du demandeur :</p>
     </div>
 
     <div class="m-1 justify-center">
       <form @submit.prevent="submitForm">
         <DsfrInputGroup>
           <DsfrInput
-            v-model="nom"
-            label="Nom"
-            label-visible
-          />
-          <DsfrInput
-            v-model="prenom"
-            label="Prénom"
-            label-visible
-          />
-          <DsfrInput
-            v-model="RIOMatricule"
-            label="RIO / Matricule"
+            v-model="nigendMatricule"
+            class="mb-5"
+            label="NIGEND / Matricule (PN)"
             label-visible
           />
           <DsfrInput
             v-model="serviceAffectation"
+            class="mb-5"
             label="Service d'affectation"
             label-visible
+            hint="(optionnel)"
           />
           <DsfrInput
             v-model="numeroTelephone"
+            class="mb-5"
+
             label="Numéro de téléphone"
             hint="Format attendu : (+33) 1 22 33 44 55"
             label-visible
@@ -36,6 +31,7 @@
           <DsfrInput
             id="adresse"
             v-model="adresseElectronique"
+            class="mb-5"
             label="Adresse électronique"
             hint="Format attendu : nom@domaine.fr"
             label-visible
@@ -53,12 +49,46 @@
   </div>
 </template>
 
-<script setup>
+<script lang=ts setup>
+import { DsfrButton } from '@gouvminint/vue-dsfr'
 import { ref, defineEmits, defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 
-const nom = ref('')
-const prenom = ref('')
-const RIOMatricule = ref('')
+const stepsStore = useStepsStore()
+const router = useRouter()
+
+const currentStep = computed<1 | 2 | 3>({
+  get () {
+    return stepsStore.currentStep + 1 as 1 | 2 | 3
+  },
+  set (value: 1 | 2 | 3) {
+    stepsStore.setCurrentStep(value)
+  },
+})
+
+const goToPreviousStep = () => {
+  currentStep.value = currentStep.value - 2 as 1 | 2 | 3
+}
+
+const goToNextStep = () => {
+  currentStep.value = currentStep.value + 0 as 1 | 2 | 3
+}
+
+const goToNewRoute = () => {
+  router.push({ name: `${expertiseGuideSteps[currentStep.value - 1]}` }).catch(() => { })
+}
+
+const ExpertiseFormInformationsRoute = 'ExpertiseFormInformations'
+const ExpertiseFormFirearmRoute = 'ExpertiseFormFirearm'
+const ExpertiseFormPhotosRoute = 'ExpertiseFormPhotos'
+
+const expertiseGuideSteps = [
+  ExpertiseFormInformationsRoute,
+  ExpertiseFormFirearmRoute,
+  ExpertiseFormPhotosRoute,
+]
+
+const nigendMatricule = ref('')
 const serviceAffectation = ref('')
 const numeroTelephone = ref('')
 const adresseElectronique = ref('')
@@ -67,9 +97,7 @@ const emits = defineEmits('updateFormData')
 
 const sendData = () => {
   const formData = {
-    nom: nom.value,
-    prenom: prenom.value,
-    RIOMatricule: RIOMatricule.value,
+    nigendMatricule: nigendMatricule.value,
     serviceAffectation: serviceAffectation.value,
     numeroTelephone: numeroTelephone.value,
     adresseElectronique: adresseElectronique.value,
@@ -85,5 +113,10 @@ const submitForm = () => {
 }
 </script>
 
-<style scoped>
+<style>
+.desc {
+  border-bottom: 1px solid grey;
+  padding-bottom: -4px;
+  font-weight: bold;
+}
 </style>
