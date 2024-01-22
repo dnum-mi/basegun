@@ -28,9 +28,11 @@ def load_model_inference(model_path: str):
         model_path (str): path to model (.pt file)
 
     Returns:
-        Model: loaded model ready for prediction
+        Model: loaded model ready for prediction and Warmud-up
     """
     model = YOLO(model_path)
+    test = Image.open("./Warmup.jpg") 
+    model(test, verbose=False)
     return model
 
 
