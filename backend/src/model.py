@@ -51,4 +51,4 @@ def predict_image(model, img: bytes) -> Union[str, float]:
     predicted_class = results[0].probs.top5[0]
     label = CLASSES[predicted_class]
     confidence = float(results[0].probs.top5conf[0])
-    return (label, confidence)
+    return (label, 100*confidence)
