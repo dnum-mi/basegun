@@ -28,10 +28,9 @@ def load_model_inference(model_path: str):
         model_path (str): path to model (.pt file)
 
     Returns:
-        Model: loaded model ready for prediction
+        Model: loaded model ready for prediction and Warm-up
     """
-    model = YOLO(model_path)
-    return model
+    return YOLO(model_path)
 
 
 def predict_image(model, img: bytes) -> Union[str, float]:

@@ -129,14 +129,14 @@ function sendFeedback (isCorrect: boolean) {
                 <DsfrTag
                   class="fr-tag--sm success-tag"
                 >
-                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                  Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
                 </DsfrTag>
               </div>
               <div v-else>
                 <DsfrTag
                   class="fr-tag--sm warning-tag"
                 >
-                  Indice de fiabilité : {{ Math.floor(confidence) }}%
+                  Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
                 </DsfrTag>
                 <p class="warning-text">
                   Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
