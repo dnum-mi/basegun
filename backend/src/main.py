@@ -4,6 +4,7 @@ import os
 import time
 from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
+from contextlib import asynccontextmanager
 from typing import Union
 from uuid import uuid4
 
@@ -159,12 +160,7 @@ PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
 logger = setup_logs(PATH_LOGS)
 
 # Load model
-MODEL_PATH = os.path.join(CURRENT_DIR, "../model.pt")
-model = None
-if os.path.exists(MODEL_PATH):
-    model = load_model_inference(MODEL_PATH)
-if not model:
-    raise RuntimeError("Model not found")
+app.model = load_model_inference("./model.pt")
 
 # Object storage
 S3_URL_ENDPOINT = os.environ["S3_URL_ENDPOINT"]
@@ -172,13 +168,6 @@ S3_BUCKET_NAME = os.environ["S3_BUCKET_NAME"]
 S3_PREFIX = os.path.join("uploaded-images/", os.environ["WORKSPACE"])
 
 s3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT, verify=False)
-
-""" TODO : check if connection successful
-try:
-    s3.meta.client.head_bucket(Bucket=S3_BUCKET_NAME)
-except ClientError:
-    logger.exception("Cannot find s3 bucket ! Are you sure your credentials are correct ?")
-"""
 
 # Versions
 if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
@@ -238,13 +227,13 @@ async def imageupload(
 
         # send image to model for prediction
         start = time.time()
-        label, confidence = predict_image(model, img_bytes)
+        label, confidence = predict_image(app.model, img_bytes)
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time() - start, 2)
-        if confidence < 76:
+        if confidence < 0.76:
             extras_logging["bg_confidence_level"] = "low"
-        elif confidence < 99:
+        elif confidence < 0.98:
             extras_logging["bg_confidence_level"] = "medium"
         else:
             extras_logging["bg_confidence_level"] = "high"

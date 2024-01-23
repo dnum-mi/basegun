@@ -28,12 +28,9 @@ def load_model_inference(model_path: str):
         model_path (str): path to model (.pt file)
 
     Returns:
-        Model: loaded model ready for prediction and Warmud-up
+        Model: loaded model ready for prediction and Warm-up
     """
-    model = YOLO(model_path)
-    test = Image.open("./Warmup.jpg") 
-    model(test, verbose=False)
-    return model
+    return YOLO(model_path)
 
 
 def predict_image(model, img: bytes) -> Union[str, float]:
@@ -51,4 +48,4 @@ def predict_image(model, img: bytes) -> Union[str, float]:
     predicted_class = results[0].probs.top5[0]
     label = CLASSES[predicted_class]
     confidence = float(results[0].probs.top5conf[0])
-    return (label, 100*confidence)
+    return (label, confidence)
