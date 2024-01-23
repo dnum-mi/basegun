@@ -27,11 +27,6 @@ const ExpertSituationPN = () => import('@/views/GuideContactExpert/ExpertSituati
 const ExpertSituationGN = () => import('@/views/GuideContactExpert/ExpertSituationGN.vue')
 const ExpertPTS = () => import('@/views/GuideContactExpert/ExpertPTS.vue')
 const ExpertPTSNU = () => import('@/views/GuideContactExpert/ExpertPTSNU.vue')
-const ExpertiseForm = () => import('@/views/GuideAskingExpertise/ExpertiseForm.vue')
-const ExpertiseFormFirearm = () => import('@/views/GuideAskingExpertise/ExpertiseFormFirearm.vue')
-const ExpertiseFormDetails = () => import('@/views/GuideAskingExpertise/ExpertiseFormDetails.vue')
-const ExpertiseFormSpecialist = () => import('@/views/GuideAskingExpertise/ExpertiseFormSpecialist.vue')
-const ExpertiseFormInformations = () => import('@/views/GuideAskingExpertise/ExpertiseFormInformations.vue')
 
 const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
@@ -202,38 +197,6 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     name: 'ExpertPTSNU',
     component: ExpertPTSNU,
   },
-
-  // asking expertise
-  {
-    path: '/guide-demande-expertise',
-    name: 'ExpertiseForm',
-    component: ExpertiseForm,
-    children: [
-      {
-        path: 'informations',
-        name: 'ExpertiseFormInformations',
-        component: ExpertiseFormInformations,
-      },
-      {
-        path: 'arme',
-        name: 'ExpertiseFormFirearm',
-        component: ExpertiseFormFirearm,
-      },
-
-      {
-        path: 'details-arme',
-        name: 'ExpertiseFormDetails',
-        component: ExpertiseFormDetails,
-      },
-
-      {
-        path: 'specialiste-arme',
-        name: 'ExpertiseFormSpecialist',
-        component: ExpertiseFormSpecialist,
-      },
-    ],
-  },
-
 ]
 
 const router = createRouter({
