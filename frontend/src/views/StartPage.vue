@@ -1,18 +1,9 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 
 import { useResultStore } from '@/stores/result'
 
 const resultStore = useResultStore()
 
-const securingTutorial = computed({
-  get () {
-    return resultStore.securingTutorial
-  },
-  set (value) {
-    resultStore.setSecuringTutorial(value)
-  },
-})
 </script>
 
 <template>
@@ -37,7 +28,7 @@ const securingTutorial = computed({
           data-testid="secure-firearm"
           label="Je veux mettre en sécurité mon arme"
           size="small"
-          @click="navigate(); securingTutorial = true"
+          @click="navigate(); resultStore.$patch({ securingTutorial: true})"
         />
       </router-link>
       <router-link
@@ -49,7 +40,7 @@ const securingTutorial = computed({
           data-testid="identification"
           label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
           size="small"
-          @click="navigate(); securingTutorial = false"
+          @click="navigate(); resultStore.$patch({ securingTutorial: false})"
         />
       </router-link>
     </div>

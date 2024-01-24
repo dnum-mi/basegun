@@ -13,29 +13,7 @@ export const useResultStore = defineStore('result', () => {
   const img = useLocalStorage<string>('img', null, { serializer })
   const imgUrl = useLocalStorage<string>('imgUrl', null, { serializer })
   const resultText = useLocalStorage<string>('resultText', null, { serializer })
-  const securingTutorial = useLocalStorage<boolean>('securingTutorial', false, { serializer })
-
-  type FirearmIdentificationResult = {
-    typology?: TypologyKey
-    confidence?: number
-    confidenceLevel?: string
-    img?: string
-    imgUrl?: string
-    resultText?: string
-  }
-
-  const setResult = (result: FirearmIdentificationResult) => {
-    typology.value = result.typology
-    confidence.value = result.confidence
-    confidenceLevel.value = result.confidenceLevel
-    img.value = result.img
-    imgUrl.value = result.imgUrl
-    resultText.value = result.resultText
-  }
-
-  const setSecuringTutorial = (newValue: boolean) => {
-    securingTutorial.value = newValue
-  }
+  const securingTutorial = ref(false)
 
   const updateTypology = (selectedOptionStep: TypologyKey) => {
     const extra = (selectedOptionStep === 'revolver_black_powder' ? '_black_powder' : '')
@@ -51,7 +29,5 @@ export const useResultStore = defineStore('result', () => {
     imgUrl,
     resultText,
     securingTutorial,
-    setResult,
-    setSecuringTutorial,
   }
 })
