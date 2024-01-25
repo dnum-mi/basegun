@@ -77,14 +77,13 @@ async function sendLogsIdentificationDummy () {
 <template>
   <div class="mt-5 fr-container">
     <div class="result  fr-col-11 fr-col-lg-6 mx-auto">
-      <div class="">
-        <StepsGuide
-          class="!fr-container steps-guide"
-          :steps="steps"
-          :current-step="currentStep"
-        />
-        <RouterView />
-      </div>
+      <StepsGuide
+        v-if="resultTree[typology]?.isDummyTypology"
+        class="!fr-container steps-guide"
+        :steps="steps"
+        :current-step="currentStep"
+      />
+      <RouterView />
     </div>
   </div>
   <div
