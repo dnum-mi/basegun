@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
 import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
+import { uploadPhotoForDetection } from '@/api/api-client'
 
 const resultStore = useResultStore()
 const router = useRouter()
@@ -27,17 +27,15 @@ defineExpose({
   click,
 })
 
-const emit = defineEmits(['file-selected'])
+const emit = defineEmits<{
+  'file-selected': [],
+}>()
 
 async function submitUpload (base64: string, fileName: string) {
   const file = await srcToFile(base64, fileName, 'image/jpeg')
 
-  const fd = new FormData()
-  fd.append('image', file, file.name)
-  fd.append('date', '' + (Date.now() / 1000)) // date.now gives in milliseconds, convert to seconds
-
   try {
-    const { data } = await axios.post('/upload', fd)
+    const data = await uploadPhotoForDetection(file)
     resultStore.setResult({
       typology: data.label,
       confidence: data.confidence,
@@ -106,7 +104,7 @@ async function srcToFile (src: string, fileName: string, mimeType: string) {
 }
 
 function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { files: File[] } }) {
-  emit('file-selected', event)
+  emit('file-selected')
   const uploadedFile = event.target?.files[0]
   resizeAndUpload(uploadedFile)
 }

@@ -34,7 +34,7 @@
 
     <DsfrButton
       class="m-1 flex justify-center w-80"
-      label="Validez"
+      label="Valider"
       @click="sendData"
     />
   </div>
@@ -75,7 +75,7 @@
 </template>
 
 <script lang=ts setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 
 import { useRouter } from 'vue-router'
 
@@ -113,12 +113,15 @@ const expertiseGuideSteps = [
   ExpertiseFormPhotosRoute,
 ]
 
-const vueLargeGauche = ref('')
-const vueLargeDroite = ref('')
-const vueRapprochee = ref('')
-const chargeur = ref('')
+const vueLargeGauche = ref()
+const vueLargeDroite = ref()
+const vueRapprochee = ref()
+const chargeur = ref()
 
-const emits = defineEmits('updateFormData')
+const emits = defineEmits<{
+  'updateFormData': [id: Record<string, string | number | File>]
+  'validate': []
+}>()
 
 const sendData = () => {
   const formData = {
@@ -128,13 +131,12 @@ const sendData = () => {
     chargeur: chargeur.value,
   }
 
-  console.log('Données du formulaire:', formData)
-
   emits('updateFormData', formData)
+  emits('validate')
 }
 </script>
 
-<style>
+<style scoped>
 .desc {
   border-bottom: 1px solid grey;
   padding-bottom: -4px;

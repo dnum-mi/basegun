@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import axios from 'axios'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
+import { sendTutorialFeedback } from '@/api/api-client'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
@@ -26,7 +26,7 @@ function onClose () {
   showModal.value = false
 }
 
-async function sendTutorialFeedback () {
+async function submitTutorialFeedback () {
   const feedback = {
     image_url: imgUrl.value,
     tutorial_feedback: stepsStore.tutorialFeedback,
@@ -36,20 +36,20 @@ async function sendTutorialFeedback () {
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   }
-  await axios.post('/tutorial-feedback', feedback)
-    .then(async res => {
-      stepsStore.tutorialFeedback = feedback.tutorial_feedback
-      setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
-    })
-    .catch(async (err) => {
-      import.meta.env.DEV && console.log(err)
-      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
-    })
-    .finally(() => setTimeout(() => {
+  try {
+    await sendTutorialFeedback(feedback)
+    stepsStore.tutorialFeedback = feedback.tutorial_feedback
+    setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
+  } catch (err) {
+    import.meta.env.DEV && console.log(err)
+    setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
+  } finally {
+    setTimeout(() => {
       stepsStore.setCurrentStep(undefined)
       stepsStore.tutorialFeedback = ''
-      router.push({ name: 'ResultPage' })
-    }, 3000))
+      router.push({ name: 'StartPage' })
+    }, 3000)
+  }
 }
 </script>
 <template>
@@ -99,7 +99,7 @@ async function sendTutorialFeedback () {
           <DsfrButton
             label="Valider et retour au résultat"
             :disabled="!stepsStore.tutorialFeedback"
-            @click="sendTutorialFeedback()"
+            @click="submitTutorialFeedback()"
           />
         </div>
       </div>

@@ -158,7 +158,7 @@ const sendData = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .desc {
   border-bottom: 1px solid grey;
   padding-bottom: -4px;

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 
 import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
+import { sendIdentificationDummyFeedback } from '@/api/api-client'
 
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
@@ -64,7 +64,7 @@ async function sendLogsIdentificationDummy () {
   }
 
   try {
-    await axios.post('/identification-dummy', identification)
+    await sendIdentificationDummyFeedback(identification)
   } catch (err) {
     import.meta.env.DEV && console.warn(err)
   // } finally {

@@ -136,10 +136,14 @@ const submitForm = () => {
 }
 </script>
 
-<style>
+<style scoped>
 .desc {
   border-bottom: 1px solid grey;
   padding-bottom: -4px;
   font-weight: bold;
+}
+
+:deep(.required) {
+  color:red;
 }
 </style>

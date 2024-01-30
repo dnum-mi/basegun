@@ -14,62 +14,44 @@
       </div>
 
       <div class="m-1 justify-center pb-30">
-        <component :is="'style'">
-          .required { color: red; }
-        </component>
         <RouterView
-          @updateFormData="handleFormDataUpdate"
+          @update-form-data="handleFormDataUpdate"
+          @validate="sendFormData()"
         />
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { ref, computed, defineComponent } from 'vue'
-import { useRoute } from 'vue-router'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-export default defineComponent({
-  setup () {
-    const route = useRoute()
-    const formDataCollection = ref([])
-    const steps = ['Identification du demandeur', 'Informations sur l\'arme', 'Photos complémentaires']
-    const stepsStore = useStepsStore()
+import { sendExpertiseForm } from '@/api/api-client'
 
-    const currentStep = computed<1 | 2 | 3>({
-      get () {
-        return stepsStore.currentStep + 1 as 1 | 2 | 3
-      },
-      set (value: 1 | 2 | 3) {
-        stepsStore.setCurrentStep(value)
-      },
-    })
+const formData = new FormData()
+const steps = ['Identification du demandeur', 'Informations sur l\'arme', 'Photos complémentaires']
+const stepsStore = useStepsStore()
 
-    const goToPreviousStep = () => {
-      currentStep.value = currentStep.value - 2 as 1 | 2 | 3
-    }
-
-    const goToNextStep = () => {
-      currentStep.value = currentStep.value + 0 as 1 | 2 | 3
-    }
-
-    const handleFormDataUpdate = (formData) => {
-      console.log('Données mises à jour:', formData)
-      formDataCollection.value.push(formData)
-      console.log('Toutes les données:', formDataCollection.value)
-    }
-
-    return {
-      currentStep,
-      steps,
-      goToPreviousStep,
-      goToNextStep,
-      handleFormDataUpdate,
-      route,
-    }
+const currentStep = computed<1 | 2 | 3>({
+  get () {
+    return stepsStore.currentStep + 1 as 1 | 2 | 3
+  },
+  set (value: 1 | 2 | 3) {
+    stepsStore.setCurrentStep(value)
   },
 })
 
+const handleFormDataUpdate = (form: Record<string, number | string | File>) => {
+  console.log('Données mises à jour:', form)
+  Object.entries(form).map(([key, value]) =>
+    formData.append(key, value),
+  )
+  console.log('Toutes les données:', formData)
+}
+
+const sendFormData = () => {
+  sendExpertiseForm(formData)
+}
 </script>
 
 <style scoped>
