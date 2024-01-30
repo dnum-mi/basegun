@@ -185,9 +185,6 @@ const openNextAccordion = (currentIndex: number) => {
             >
               <PopupVideo />
             </div>
-            <p class="text-sm">
-              6. <span class="font-bold">Tout en maintenant le levier d’armement vers l’arrière</span>, contrôler visuellement que la chambre est vide
-            </p>
           </div>
           <div class="small-blank" />
           <AskingExpert />
