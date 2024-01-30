@@ -35,7 +35,7 @@ export const epaule_a_levier_sous_garde = {
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
         2: 'Abaisser le levier de sous garde en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre',
-        3: '<span class="font-bold" style="color:red">[ Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation ! ]</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin',
+        3: '<span class="font-bold" style="color:red">Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation !</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin',
         4: 'Contrôler visuellement que la chambre est vide',
       },
       img: levierSousGardePasMagasinImg,
