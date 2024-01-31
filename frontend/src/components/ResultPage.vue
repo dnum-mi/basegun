@@ -3,6 +3,7 @@ import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { resultTree } from '@/utils/firearms-utils/index'
+import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
@@ -122,6 +123,7 @@ function sendFeedback (isCorrect: boolean) {
             <p class="text-sm font-normal m-4 text-left text-current">
               Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
             </p>
+            <ContactExpert v-if="isUserUsingCrosscall()" />
           </div>
           <div v-else>
             <div class="fr-tile__body">
@@ -141,6 +143,7 @@ function sendFeedback (isCorrect: boolean) {
                 <p class="warning-text">
                   Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
                 </p>
+                <ContactExpert v-if="isUserUsingCrosscall()" />
               </div>
               <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
                 <p

@@ -3,18 +3,12 @@ import { computed } from 'vue'
 
 import { useResultStore } from '@/stores/result'
 import { resultTree } from '@/utils/firearms-utils/index'
+import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const resultStore = useResultStore()
 
 const typology = computed(() => resultStore.typology)
-
-const userAgent = window.navigator.userAgent
-const keyWords = ['Mobile', 'Mozilla', 'Crosscall']
-
-const foundAllKeyWords = keyWords.every(keyWord => {
-  return userAgent.includes(keyWord)
-})
 </script>
 
 <template>
@@ -40,9 +34,7 @@ const foundAllKeyWords = keyWords.every(keyWord => {
             class="img-deco"
           >
         </div>
-        <div v-if="foundAllKeyWords">
-          <ContactExpert />
-        </div>
+        <ContactExpert v-if="isUserUsingCrosscall()" />
       </div>
       <div v-else>
         <h2 class="mt-5 text-center">
