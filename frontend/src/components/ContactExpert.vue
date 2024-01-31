@@ -22,31 +22,27 @@ function onClose () {
   </div>
   <Teleport to="body">
     <DsfrModal
-      title=""
       :opened="showModal"
       @close="onClose()"
     >
       <div class="modal">
-        <div class="modal-content" />
-        <h2>
-          <VIcon
-            name="ri-arrow-right-line"
-            scale="1.5"
-          />
-          Contact à un expert arme
-        </h2>
-        <p>
-          Sélectionnez ci-dessous votre corps de métier <br>
-        </p>
-        <div>
-          <div class="fr-col-11 fr-col-lg-6 mx-auto">
+        <div class="modal-content">
+          <h2>
+            <VIcon
+              name="ri-arrow-right-line"
+              scale="1.5"
+            />
+            Contacter un expert arme
+          </h2>
+          <p>Sélectionnez ci-dessous votre corps de métier.</p>
+          <div>
             <DsfrButton
-              class="m-1 flex justify-center w-80"
+              class="w-100 m-1"
               label="Police Nationale"
               @click="router.push({ name:'ExpertSituationPN'})"
             />
             <DsfrButton
-              class="m-1 flex justify-center w-80"
+              class="w-100 m-1"
               label="Gendarmerie Nationale"
               @click="router.push({ name:'ExpertSituationGN'})"
             />
@@ -62,27 +58,8 @@ function onClose () {
   margin: auto !important;
 }
 
-.modal {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.modal-footer {
-  position: sticky;
-  bottom: 0;
-  text-align: center;
-  background-color: #f5f5fe;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-  padding: 1rem !important;
-  width: 100%;
-}
-.modal-footer button {
-  width: 100%;
+.w-100 {
+  width: 100% !important;
 }
 
 </style>
