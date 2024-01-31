@@ -181,7 +181,7 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
     path: '/guide-contact-pn',
     name: 'ExpertSituationPN',
-    component: ExpertSituationPN,
+    component: ExpertSituation,
   },
   {
     path: '/guide-contact-gn',
