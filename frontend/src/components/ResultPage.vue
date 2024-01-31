@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { resultTree } from '@/utils/firearms-utils/index'
+import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
