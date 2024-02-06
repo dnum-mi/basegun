@@ -1,11 +1,16 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import {
+  vueDsfrAutoimportPreset,
+  ohVueIconAutoimportPreset,
+  vueDsfrComponentResolver,
+} from '@gouvminint/vue-dsfr'
 
-const path = require('path')
 const apiHost = process.env.API_HOST || 'http://basegun-backend:5000'
 
 // https://vitejs.dev/config/
@@ -14,12 +19,18 @@ export default defineConfig({
     vue(),
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
+      include: [
+        /\.[tj]sx?$/,
+        /\.vue$/, /\.vue\?vue/,
+      ],
       imports: [
         'vue',
         'vue-router',
         // 'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
+        vueDsfrAutoimportPreset,
+        ohVueIconAutoimportPreset,
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
@@ -30,6 +41,7 @@ export default defineConfig({
       eslintrc: {
         enabled: true,
         filepath: './.eslintrc-auto-import.json',
+        globalsPropValue: true,
       },
     }),
 
@@ -37,9 +49,13 @@ export default defineConfig({
     Components({
       // allow auto load components under `./src/components/`
       extensions: ['vue'],
+      dirs: ['src/components'],
       // allow auto import and register components
       include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/components.d.ts',
+      resolvers: [
+        vueDsfrComponentResolver,
+      ],
     }),
 
     UnoCSS(),

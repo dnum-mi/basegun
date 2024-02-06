@@ -2,6 +2,7 @@
   "name": "basegun",
   "version": "3.3.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "preview": "vite preview",
     "build": "vite build",
