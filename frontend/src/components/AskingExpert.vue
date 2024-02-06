@@ -37,7 +37,7 @@ async function sendTutorialFeedback () {
     confidence_level: confidenceLevel.value,
   }
   await axios.post('/tutorial-feedback', feedback)
-    .then(async res => {
+    .then(async () => {
       stepsStore.tutorialFeedback = feedback.tutorial_feedback
       setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
     })
