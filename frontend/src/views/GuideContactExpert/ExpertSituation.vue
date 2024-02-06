@@ -138,6 +138,7 @@ const showIRCGNModal = ref(false)
             <div class="fr-grid-row">
               <div
                 v-for="lps, lps_key in LPS"
+                :key="lps_key"
                 class="fr-col-12 mx-auto"
               >
                 <DsfrButton
@@ -260,6 +261,7 @@ const showIRCGNModal = ref(false)
       class="fr-grid-row"
     >
       <div class="fr-col text-center">
+        <PopupContact />
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
           <ul class="list-none text-sm text-center">
