@@ -21,7 +21,7 @@ const currentStep = computed({
     return stepsStore.currentStep + 1
   },
   set (value) {
-    stepsStore.setCurrentStep(value)
+    stepsStore.setCurrentStep(value as 1 | 2 | 3)
   },
 })
 

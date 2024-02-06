@@ -36,6 +36,17 @@ async function submitTutorialFeedback () {
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   }
+  await axios.post('/tutorial-feedback', feedback)
+    .then(async () => {
+      stepsStore.tutorialFeedback = feedback.tutorial_feedback
+      setMessage({ type: 'success', message: 'Votre message a été pris en compte' })
+    })
+    .catch(async (err) => {
+      import.meta.env.DEV && console.log(err)
+      setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
+    })
+    .finally(() => setTimeout(() => {
+      stepsStore.setCurrentStep(1)
   try {
     await sendTutorialFeedback(feedback)
     stepsStore.tutorialFeedback = feedback.tutorial_feedback
