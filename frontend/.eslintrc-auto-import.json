@@ -291,11 +291,11 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
+    "OhVueIcon": true,
+    "addIcons": true,
     "injectLocal": true,
     "provideLocal": true,
     "useClipboardItems": true,
-    "OhVueIcon": true,
-    "addIcons": true,
     "useScheme": true,
     "useTabs": true
   }

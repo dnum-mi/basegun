@@ -235,11 +235,11 @@ const showIRCGNModal = ref(false)
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
                 <p v-if="priority === 'high'">
-                  Vous trouverez ci-dessous le numéro de téléphone de la permanence de l'IRCGN.<br/><br/>
+                  Vous trouverez ci-dessous le numéro de téléphone de la permanence de l'IRCGN.<br><br>
                   <span class="font-bold">{{ IRCGN.phone }}</span>
                 </p>
                 <p v-if="priority === 'low'">
-                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br/><br/>
+                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br><br>
                   <span class="font-bold">{{ IRCGN.email }}</span>
                 </p>
               </div>
@@ -269,7 +269,6 @@ const showIRCGNModal = ref(false)
             <li>Mise en sécurité d'une arme potentiellement dangereuse (arme ancienne)</li>
             <li>Une procédure en temps contraint (garde à vue)</li>
           </ul>
-
         </div>
         <div class="footer">
           <DsfrButton
