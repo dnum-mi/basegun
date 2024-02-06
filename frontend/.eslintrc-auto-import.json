@@ -296,6 +296,8 @@
     "injectLocal": true,
     "provideLocal": true,
     "useClipboardItems": true,
+    "OhVueIcon": true,
+    "addIcons": true,
     "useScheme": true,
     "useTabs": true
   }
