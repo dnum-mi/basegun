@@ -35,6 +35,9 @@ export const useStepsStore = defineStore('steps', () => {
     tutorialFeedback,
     setOptionStep,
     isDummy,
+    setModalTransparentAmmoOpened (val?: boolean) {
+      isModalTransparentAmmoOpened.value = val
+    },
     isModalTransparentAmmoOpened,
     setCurrentStep,
     setAmmo,

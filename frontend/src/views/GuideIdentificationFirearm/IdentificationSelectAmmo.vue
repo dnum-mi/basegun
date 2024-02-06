@@ -7,6 +7,10 @@ import { useResultStore } from '@/stores/result'
 import TransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg'
 import { resultTree } from '@/utils/firearms-utils/index'
+import { epaule_a_verrou } from '@/utils/firearms-utils/epaule-a-verrou' // eslint-disable-line camelcase
+import type { pistolet_semi_auto_moderne } from '@/utils/firearms-utils/pistolet-semi-auto-moderne' // eslint-disable-line camelcase
+import type { semi_auto_style_militaire_autre } from '@/utils/firearms-utils/semi-auto-style-militaire-autre' // eslint-disable-line camelcase
+import type { revolver } from '@/utils/firearms-utils/revolver'
 
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
@@ -46,6 +50,9 @@ onMounted(() => {
     openModal()
   } else { showModal.value = false }
 })
+
+// eslint-disable-next-line camelcase
+type HasGuideFactice = typeof epaule_a_verrou | typeof pistolet_semi_auto_moderne | typeof semi_auto_style_militaire_autre | typeof revolver
 </script>
 
 <template>
@@ -116,7 +123,7 @@ onMounted(() => {
     </div>
     <div>
       <template
-        v-for="option of (resultTree[typology])?.guideFactice"
+        v-for="option of (resultTree[typology] as HasGuideFactice)?.guideFactice"
         :key="option.value"
       >
         <div class="item">

@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter, type RouteRecordRaw, type RouteLocation } from 'vue-router'
 
 import { clearLocalStorage } from '@/utils/storage-utils.js'
 
@@ -25,7 +25,7 @@ const IdentificationFurtherInformations = () => import('@/views/GuideIdentificat
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 const ExpertSituation = () => import('@/views/GuideContactExpert/ExpertSituation.vue')
 
-const routes: Parameters<typeof createRouter> [0]['routes'] = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'HomePage',
@@ -39,7 +39,7 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     path: '/accueil',
     name: 'StartPage',
     component: StartPage,
-    beforeEnter: <Parameters<typeof createRouter> [0]['routes'][number]['beforeEnter']>clearLocalStorage,
+    beforeEnter: <RouteRecordRaw['beforeEnter']>clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
@@ -77,7 +77,7 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     path: '/mise-en-securite-choix-option-etape/:step',
     name: 'SecuringSelectOption',
     component: SecuringSelectOptionContent,
-    props: (route) => ({ step: +route.params.step }),
+    props: (route: RouteLocation) => ({ step: +route.params.step }),
   },
   {
     path: '/mise-en-securite-tutoriel',
