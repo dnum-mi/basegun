@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-
 import { useResultStore } from '@/stores/result'
 
 const resultStore = useResultStore()
-
 </script>
 
 <template>

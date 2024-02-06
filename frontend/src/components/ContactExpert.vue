@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { DsfrButton } from '@gouvminint/vue-dsfr'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -8,8 +7,8 @@ const showModal = ref(false)
 function onClose () {
   showModal.value = false
 }
-
 </script>
+
 <template>
   <div class="text-center">
     <DsfrButton

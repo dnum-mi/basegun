@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
@@ -27,10 +27,6 @@ const selectedOptionStep = computed({
 })
 
 const disabledValidation = computed(() => stepsStore.currentOptionStep[props.step] === undefined)
-
-watchEffect(() => {
-  console.log(`stepsStore.currentOptionStep[${props.step}]`, stepsStore.currentOptionStep[props.step])
-})
 
 const zoom = ref('')
 

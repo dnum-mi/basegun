@@ -46,7 +46,7 @@ async function sendTutorialFeedback () {
       setMessage({ type: 'error', message: 'Une erreur a eu lieu en enregistrant de votre message.' })
     })
     .finally(() => setTimeout(() => {
-      stepsStore.setCurrentStep(undefined)
+      stepsStore.setCurrentStep(1)
       stepsStore.tutorialFeedback = ''
       router.push({ name: 'ResultPage' })
     }, 3000))
