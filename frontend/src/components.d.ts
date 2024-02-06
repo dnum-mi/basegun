@@ -9,6 +9,16 @@ declare module 'vue' {
   export interface GlobalComponents {
     AskingExpert: typeof import('./components/AskingExpert.vue')['default']
     ContactExpert: typeof import('./components/ContactExpert.vue')['default']
+    DsfrAccordion: typeof import('@gouvminint/vue-dsfr')['DsfrAccordion']
+    DsfrAccordionsGroup: typeof import('@gouvminint/vue-dsfr')['DsfrAccordionsGroup']
+    DsfrAlert: typeof import('@gouvminint/vue-dsfr')['DsfrAlert']
+    DsfrButton: typeof import('@gouvminint/vue-dsfr')['DsfrButton']
+    DsfrHeader: typeof import('@gouvminint/vue-dsfr')['DsfrHeader']
+    DsfrInput: typeof import('@gouvminint/vue-dsfr')['DsfrInput']
+    DsfrModal: typeof import('@gouvminint/vue-dsfr')['DsfrModal']
+    DsfrPicture: typeof import('@gouvminint/vue-dsfr')['DsfrPicture']
+    DsfrRadioButton: typeof import('@gouvminint/vue-dsfr')['DsfrRadioButton']
+    DsfrTag: typeof import('@gouvminint/vue-dsfr')['DsfrTag']
     FooterMES: typeof import('./components/FooterMES.vue')['default']
     HeaderMain: typeof import('./components/HeaderMain.vue')['default']
     OnboardingSwiper: typeof import('./components/OnboardingSwiper.vue')['default']
@@ -20,5 +30,6 @@ declare module 'vue' {
     SnackbarAlert: typeof import('./components/SnackbarAlert.vue')['default']
     StepsGuide: typeof import('./components/StepsGuide.vue')['default']
     UploadButton: typeof import('./components/UploadButton.vue')['default']
+    VIcon: typeof import('oh-vue-icons')['OhVueIcon']
   }
 }

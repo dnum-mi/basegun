@@ -8,8 +8,6 @@ import axios from 'axios'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import VueDsfr from '@gouvminint/vue-dsfr' // Import (par défaut) de la bibliothèque
-
 import * as icons from './icons'
 import App from './App.vue'
 import router from '@/router/index'
@@ -23,10 +21,12 @@ const pinia = createPinia()
 // the FastAPI backend
 axios.defaults.baseURL = '/api/'
 
+// Register all icons
+addIcons(...Object.values(icons))
+
 const app = createApp(App)
 
 app
   .use(pinia)
-  .use(VueDsfr, { icons: Object.values(icons) })
   .use(router)
   .mount('#app')
