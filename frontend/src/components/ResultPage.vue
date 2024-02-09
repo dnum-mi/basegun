@@ -202,7 +202,7 @@ const bypassCrosscall = true
                 </div>
                 <p class="mt-2 text-left text-base fr-callout__text">
                   <span class="font-normal">Typologie : </span>
-                  <span>Objet, arme factice de type </span>
+                  <span>Arme factice de type </span>
                   <span class="typo">
                     {{ label }}
                   </span>
