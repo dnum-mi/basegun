@@ -13,7 +13,7 @@ const resultStore = useResultStore()
       alt=""
     >
     <h1 class="accueil-title">
-      Basegun <label class="fr-tag fr-tag--sm">beta</label>
+      Basegun
     </h1>
     <p class="accueil-subtitle">
       Outil d'identification rapide et <br> de mise en sécurité des armes à feu

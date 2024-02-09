@@ -40,7 +40,7 @@ const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
   <DsfrHeader
     :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
-    :show-beta="true"
+    :show-beta="false"
     service-title=" "
     :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
