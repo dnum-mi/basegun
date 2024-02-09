@@ -66,16 +66,16 @@ onMounted(() => {
             <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
-                alt="exemple de magasin transparent factice"
+                alt="Exemple de magasin transparent factice"
                 title="title"
-                legend="exemple de magasin transparent factice"
+                legend="Exemple de magasin transparent factice"
                 ratio="3x4"
               />
               <DsfrPicture
                 :src="FocusTransparentMagazine"
-                alt="focus sur la zone à vérifier"
+                alt="Focus sur la zone à vérifier"
                 title="title"
-                legend="focus sur la zone à vérifier"
+                legend="Focus sur la zone à vérifier"
                 ratio="3x4"
               />
             </div>

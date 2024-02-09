@@ -215,8 +215,7 @@ function sendFeedback (isCorrect: boolean) {
               alt="alt"
             >
             <p class="text-sm text-justify">
-              Basegun a identifié votre arme mais a encore <span class="font-bold">besoin d’informations supplémentaires</span>
-              pour vous donner le résultat final.
+              Basegun a identifié votre arme mais a besoin <span class="font-bold">d’informations complémentaires</span> pour vous donner sa catégorie légale.
             </p>
           </div>
         </div>
