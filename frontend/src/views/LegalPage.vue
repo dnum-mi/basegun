@@ -24,7 +24,6 @@
           <li>Photo soumise</li>
           <li>Résultat obtenu (label et taux de fiabilité)</li>
           <li>Temps de traitement de la requête</li>
-          <li>Géolocalisation approximative de l’utilisateur (zone d’environ 10km de rayon)</li>
           <li>Identification unique et chiffrée (cookie uuid) de l’utilisateur</li>
           <li>Type d’appareil (mobile, tablette, ordinateur), système d’exploitation (iOS, Android, Windows...) et navigateur (Chrome, Firefox, Safari...) utilisés</li>
           <li>Evaluation (positive ou négative) par l’utilisateur du résultat obtenu</li>
