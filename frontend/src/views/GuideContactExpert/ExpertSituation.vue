@@ -34,8 +34,8 @@ const LPS = {
 }
 
 const IRCGN = {
-  email: 'snps-lps69@interieur.gouv.fr',
-  phone: '04 72 86 89 70',
+  email: 'db.dcpc.ircgn@gendarmerie.interieur.gouv.fr',
+  phone: '01 78 47 31 46 ',
 }
 const shownLPS = ref<null | string>(null)
 const showIRCGNModal = ref(false)
@@ -54,16 +54,48 @@ const showIRCGNModal = ref(false)
             />
             Contacter un expert arme {{ lawEnforcementType }}
           </h2>
-          <p>
-            Vous rencontrez une situation et souhaitez contacter un expert arme ?
-          </p>
-          <p>
-            Sélectionnez tout d'abord votre situation actuelle ci-dessous.
-          </p>
+          <div v-if="lawEnforcementType === 'gendarmerie'">
+            <p>
+              Vous rencontrez une situation et souhaitez contacter un expert arme ?
+            </p>
+            <p>
+              Sélectionnez tout d'abord votre situation actuelle ci-dessous.
+            </p>
+          </div>
+
+          <div
+            v-if="lawEnforcementType === 'police'"
+            class="fr-alert fr-alert--warning"
+          >
+            <h3>
+              <VIcon
+                name="ri-error-warning-line"
+                scale="1.5"
+              />
+              Avertissement
+            </h3>
+            <div class="flex justify-content">
+              <p>
+                Cette fonctionnalité est <span class="font-bold">en cours de développement </span> <br>
+                <br>
+                Les contacts des laboratoires de police scientifique seront mis à jour prochainement.
+              </p>
+            </div>
+
+            <div class="footer">
+              <DsfrButton
+                class="m-1 flex justify-center"
+                icon="ri-arrow-left-line"
+                :secondary="true"
+                label="Précédent"
+                @click="router.back()"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div v-if="lawEnforcementType === 'police'">
+    <!-- <div v-if="lawEnforcementType === 'police'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -164,7 +196,7 @@ const showIRCGNModal = ref(false)
           </DsfrModal>
         </Teleport>
       </div>
-    </div>
+    </div> -->
     <div v-if="lawEnforcementType === 'gendarmerie'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
@@ -227,7 +259,10 @@ const showIRCGNModal = ref(false)
         </DsfrModal>
       </Teleport>
     </div>
-    <div class="fr-grid-row">
+    <div
+      v-if="lawEnforcementType === 'gendarmerie'"
+      class="fr-grid-row"
+    >
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
           <p>Situation pouvant faire office d'urgence :</p>
