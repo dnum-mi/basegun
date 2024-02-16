@@ -65,3 +65,13 @@ function onClose () {
     </a>
   </div>
 </template>
+
+<style scoped>
+
+@media only screen and (max-width: 600px) {
+  .confirm-button {
+    font-size: 12px; /* Réduisez la taille pour les écrans mobiles */
+  }
+}
+
+</style>
