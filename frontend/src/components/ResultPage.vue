@@ -140,7 +140,7 @@ const bypassCrosscall = true
                 class="m-1 flex justify-center"
                 icon="ri-alert-line"
                 label="Contacter un spécialiste"
-                @click="router.push({ name:'ExpertiseFormInformations'})"
+                @click="router.push({ name:'ExpertiseForm'})"
               />
             </div>
           </div>
@@ -224,7 +224,7 @@ const bypassCrosscall = true
                     class="m-1 flex justify-center"
                     icon="ri-alert-line"
                     label="Contacter un spécialiste"
-                    @click="router.push({ name:'ExpertiseFormInformations'})"
+                    @click="router.push({ name:'ExpertiseForm'})"
                   />
                 </div>
               </div>

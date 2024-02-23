@@ -28,9 +28,6 @@ const ExpertSituationGN = () => import('@/views/GuideContactExpert/ExpertSituati
 const ExpertPTS = () => import('@/views/GuideContactExpert/ExpertPTS.vue')
 const ExpertPTSNU = () => import('@/views/GuideContactExpert/ExpertPTSNU.vue')
 const ExpertiseForm = () => import('@/views/GuideAskingExpertise/ExpertiseForm.vue')
-const ExpertiseFormFirearm = () => import('@/views/GuideAskingExpertise/ExpertiseFormFirearm.vue')
-const ExpertiseFormInformations = () => import('@/views/GuideAskingExpertise/ExpertiseFormInformations.vue')
-const ExpertiseFormPhotos = () => import('@/views/GuideAskingExpertise/ExpertiseFormPhotos.vue')
 
 const routes: Parameters<typeof createRouter> [0]['routes'] = [
   {
@@ -207,26 +204,7 @@ const routes: Parameters<typeof createRouter> [0]['routes'] = [
     path: '/guide-demande-expertise',
     name: 'ExpertiseForm',
     component: ExpertiseForm,
-    children: [
-      {
-        path: 'informations',
-        name: 'ExpertiseFormInformations',
-        component: ExpertiseFormInformations,
-      },
-      {
-        path: 'arme',
-        name: 'ExpertiseFormFirearm',
-        component: ExpertiseFormFirearm,
-      },
-
-      {
-        path: 'photos-arme',
-        name: 'ExpertiseFormPhotos',
-        component: ExpertiseFormPhotos,
-      },
-    ],
   },
-
 ]
 
 const router = createRouter({
