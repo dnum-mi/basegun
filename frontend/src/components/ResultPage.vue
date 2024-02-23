@@ -132,18 +132,13 @@ const bypassCrosscall = true
             <p class="text-sm font-normal m-4 text-left text-current">
               Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
             </p>
-            <div
-              v-if="foundAllKeyWords ||
-                bypassCrosscall"
-              class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center"
-            >
-              <DsfrButton
-                class="m-1 flex justify-center"
-                icon="ri-alert-line"
-                label="Contacter un spécialiste"
-                @click="router.push({ name:'ExpertiseForm'})"
-              />
-            </div>
+            <ContactExpert v-if="isUserUsingCrosscall()" />
+            <DsfrButton
+              class="m-1 flex justify-center"
+              icon="ri-alert-line"
+              label="Contacter un spécialiste"
+              @click="router.push({ name:'ExpertiseForm'})"
+            />
           </div>
           <div v-else>
             <div class="fr-tile__body">
@@ -163,6 +158,13 @@ const bypassCrosscall = true
                 <p class="warning-text">
                   Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
                 </p>
+                <ContactExpert v-if="isUserUsingCrosscall()" />
+                <DsfrButton
+                  class="m-1 flex justify-center"
+                  icon="ri-alert-line"
+                  label="Contacter un spécialiste"
+                  @click="router.push({ name:'ExpertiseForm'})"
+                />
               </div>
               <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
                 <p
@@ -225,6 +227,7 @@ const bypassCrosscall = true
                     class="m-1 flex justify-center"
                     icon="ri-alert-line"
                     label="Contacter un spécialiste"
+                    @click="router.push({ name:'ExpertiseForm'})"
                     @click="router.push({ name:'ExpertiseForm'})"
                   />
                 </div>

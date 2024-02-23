@@ -23,10 +23,7 @@ const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFi
 const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
 const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
-const ExpertSituationPN = () => import('@/views/GuideContactExpert/ExpertSituationPN.vue')
-const ExpertSituationGN = () => import('@/views/GuideContactExpert/ExpertSituationGN.vue')
-const ExpertPTS = () => import('@/views/GuideContactExpert/ExpertPTS.vue')
-const ExpertPTSNU = () => import('@/views/GuideContactExpert/ExpertPTSNU.vue')
+const ExpertSituation = () => import('@/views/GuideContactExpert/ExpertSituation.vue')
 const ExpertiseForm = () => import('@/views/GuideAskingExpertise/ExpertiseForm.vue')
 
 const routes: RouteRecordRaw[] = [
@@ -186,20 +183,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/guide-contact-gn',
     name: 'ExpertSituationGN',
-    component: ExpertSituationGN,
-  },
-  {
-    path: '/guide-contact-pn/urgence',
-    name: 'ExpertPTS',
-    component: ExpertPTS,
-  },
-  {
-    path: '/guide-contact-pn/non-urgence',
-    name: 'ExpertPTSNU',
-    component: ExpertPTSNU,
+    component: ExpertSituation,
   },
 
-  // asking expertise
   {
     path: '/guide-demande-expertise',
     name: 'ExpertiseForm',
