@@ -19,8 +19,6 @@ services:
       - AWS_SECRET_ACCESS_KEY=minioadmin
       - http_proxy
       - https_proxy
-      - UVICORN_LOG_LEVEL=${UVICORN_LOG_LEVEL}
-      - LOG_LEVEL=${UVICORN_LOG_LEVEL}
       - no_proxy
       - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
