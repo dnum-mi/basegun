@@ -1,6 +1,6 @@
 export function isUserUsingCrosscall () {
   const userAgent = window.navigator.userAgent
-  const keyWords = ['Mobile', 'Mozilla', 'Crosscall']
+  const keyWords = ['Mobile', 'Crosscall']
 
   const isUsingCrosscall = keyWords.every(keyWord => {
     return userAgent.includes(keyWord)
