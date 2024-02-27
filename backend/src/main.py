@@ -1,9 +1,9 @@
 import json
+import sys
 import logging
 import os
 import time
 from datetime import datetime
-from logging.handlers import TimedRotatingFileHandler
 from contextlib import asynccontextmanager
 from typing import Union
 from uuid import uuid4
@@ -30,7 +30,6 @@ from user_agents import parse
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
 def setup_logs(log_dir: str) -> logging.Logger:
     """Setups environment for logs
 
@@ -38,20 +37,10 @@ def setup_logs(log_dir: str) -> logging.Logger:
         log_dir (str): folder for log storage
         logging.Logger: logger object
     """
-    print(">>> Reload logs config")
-    # clear previous logs
-    os.makedirs(log_dir, exist_ok=True)
-    for f in os.listdir(log_dir):
-        os.remove(os.path.join(log_dir, f))
-    # configure new logs
     formatter = GelfFormatter()
     logger = logging.getLogger("Basegun")
-    # new log file at midnight
-    log_file = os.path.join(log_dir, "log.json")
-    handler = TimedRotatingFileHandler(
-        log_file, when="midnight", interval=1, backupCount=7
-    )
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
