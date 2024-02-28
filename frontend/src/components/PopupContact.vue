@@ -43,6 +43,7 @@ function onClose () {
         <div class="small-blank" />
         <div class="modal-footer fr-col-11 fr-col-lg-6 footer-actions mx-auto">
           <DsfrButton
+            class="confirm-button"
             icon="ri-checkbox-circle-line"
             label="Je confirme avoir pris connaissances des consignes"
             @click="showModal = false"
@@ -70,7 +71,7 @@ function onClose () {
 
 @media only screen and (max-width: 600px) {
   .confirm-button {
-    font-size: 12px; /* Réduisez la taille pour les écrans mobiles */
+    font-size: 12px;
   }
 }
 
