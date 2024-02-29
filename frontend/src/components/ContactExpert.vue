@@ -32,7 +32,7 @@ function onClose () {
               name="ri-arrow-right-line"
               scale="1.5"
             />
-            Contacter un expert arme
+            Contacter un expert
           </h2>
           <p>Sélectionnez ci-dessous votre corps de métier.</p>
           <div>

@@ -52,14 +52,12 @@ const showIRCGNModal = ref(false)
               name="ri-arrow-right-line"
               scale="1.5"
             />
-            Contacter un expert arme {{ lawEnforcementType }}
+            <span v-if="lawEnforcementType === 'gendarmerie'">Contacter un expert de l'IRCGN</span>
+            <span v-if="lawEnforcementType === 'police'">Contacter un expert en armes</span>
           </h2>
           <div v-if="lawEnforcementType === 'gendarmerie'">
             <p>
-              Vous rencontrez une situation et souhaitez contacter un expert arme ?
-            </p>
-            <p>
-              Sélectionnez tout d'abord votre situation actuelle ci-dessous.
+              Sélectionnez votre situation actuelle :
             </p>
           </div>
 
@@ -74,9 +72,9 @@ const showIRCGNModal = ref(false)
               />
               Avertissement
             </h3>
-            <div class="flex justify-content">
+            <div class="justify-content">
               <p>
-                Cette fonctionnalité est <span class="font-bold">en cours de développement </span> <br>
+                Cette fonctionnalité est <span class="font-bold">en cours de développement</span>.<br>
                 <br>
                 Les contacts des laboratoires de police scientifique seront mis à jour prochainement.
               </p>
@@ -125,13 +123,13 @@ const showIRCGNModal = ref(false)
               v-if="priority === 'high'"
               class="fr-mt-5v"
             >
-              Sélectionnez ci-dessous votre PTS afin d'avoir le numéro de téléphone de la permanance, ainsi que son adresse mail.
+              Sélectionnez ci-dessous votre PTS afin d'avoir le numéro de téléphone de la permanence, ainsi que son adresse mail.
             </p>
             <p
               v-if="priority === 'low'"
               class="fr-mt-5v"
             >
-              Sélectionnez ci-dessous votre PTS afin d'avoir l'adresse email de la permanance.
+              Sélectionnez ci-dessous votre PTS afin d'avoir l'adresse email de la permanence.
             </p>
           </div>
         </div>
@@ -170,13 +168,13 @@ const showIRCGNModal = ref(false)
                     v-if="priority == 'high'"
                     class="fr-mt-5v"
                   >
-                    Ci-dessous le numéro de téléphone de la permanance, ainsi que l'adresse mail de votre PTS.
+                    Ci-dessous le numéro de téléphone de la permanence, ainsi que l'adresse mail de votre PTS.
                   </p>
                   <p
                     v-if="priority === 'low'"
                     class="fr-mt-5v"
                   >
-                    Ci-dessous l'adresse email de la permanance de votre PTS.
+                    Ci-dessous l'adresse email de la permanence de votre PTS.
                   </p>
                   <p>
                     <span v-if="priority === 'high'">{{ LPS[shownLPS].phone }}</span><br>
@@ -231,19 +229,17 @@ const showIRCGNModal = ref(false)
                 name="ri-arrow-right-line"
                 scale="1.5"
               />
-              Contact à un expert arme
+              Contacter un expert de l'IRCGN
             </h2>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
                 <p v-if="priority === 'high'">
-                  Vous trouverez ci-dessous le numéro de téléphone de la permanance, ainsi que l'adresse mail de l'IRGCN
+                  Vous trouverez ci-dessous le numéro de téléphone de la permanence de l'IRCGN.<br/><br/>
+                  <span class="font-bold">{{ IRCGN.phone }}</span>
                 </p>
                 <p v-if="priority === 'low'">
-                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRGCN
-                </p>
-                <p>
-                  <span v-if="priority === 'high'">{{ IRCGN.phone }}<br></span>
-                  {{ IRCGN.email }}
+                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br/><br/>
+                  <span class="font-bold">{{ IRCGN.email }}</span>
                 </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
@@ -265,10 +261,13 @@ const showIRCGNModal = ref(false)
     >
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
-          <p>Situation pouvant faire office d'urgence :</p>
-          <ul class="list-none text-sm">
-            <li>Garde à vue</li>
+          <p>Exemple de cas d'urgences :</p>
+          <ul class="list-none text-sm text-center">
+            <li>Mise en sécurité d'une arme dans des conditions dégradées (scènes de crimes, ...)</li>
+            <li>Mise en sécurité d'une arme potentiellement dangereuse (arme ancienne)</li>
+            <li>Une procédure en temps contraint (garde à vue)</li>
           </ul>
+
         </div>
         <div class="footer">
           <DsfrButton
