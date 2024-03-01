@@ -21,20 +21,21 @@ function onClose () {
                 name="ri-arrow-right-line"
                 scale="1.5"
               />
-              Consignes pour l'envoi de mail
+              Consignes d'envoi de mail
             </h3>
             <div class="flex justify-content">
               <p>
-                Pour l'envoi d'un mail, vous devrez transmettre plusieurs informations dont des photos de l'arme. Assurez-vous d'une qualité optimale de celles-ci : <span class="font-bold">netteté, exposition, orientation, sans perspective.</span>  <br>
+                Pour que votre demande puisse être traitée, vous devrez transmettre plusieurs informations dont des photos de l'arme. Assurez-vous de la qualité de celles-ci : <span class="font-bold">netteté, exposition, orientation, sans perspective.</span>  <br>
               </p>
             </div>
-            <br><p>Envoyer les prises de vue suivante à votre mail :</p>
-            <li><span class="font-bold">Une vue d'ensemble de l'arme côté gauche</span></li>
-            <li><span class="font-bold">Une vue d'ensemble de l'arme côté droite</span></li>
-            <li><span class="font-bold">Une ou plusieurs vue(s) rapprochée(s) avec les marquages / poinçon(s)</span></li>
+            <br><p>Renseigner "Basegun" dans l'objet de votre mail.</p>
+            <br><p>Veuillez ajouter les prises de vue suivantes à votre mail :</p>
+            <li><span class="font-bold">Vue d'ensemble de l'arme côté gauche</span></li>
+            <li><span class="font-bold">Vue d'ensemble de l'arme côté droite</span></li>
+            <li><span class="font-bold">Vue(s) rapprochée(s) des marquages / poinçon(s)</span></li>
             <li><span class="font-bold">Une photo du chargeur</span></li>
-            <p>Décrivez aussi les marquages et autres informations visibles sur l'arme</p>
-            <br>Cela facilite l'analyse pour <span class="font-bold">des résultats précis</span>. Merci pour votre attention à ces détails importants.
+            <p>Décrivez les marquages et autres informations visibles sur l'arme.</p>
+            <br>Le respect de ces consignes permet de vous donner <span class="font-bold">des résultats précis</span>. Merci pour votre attention à ces détails importants.
           </div>
         </div>
         <div>
