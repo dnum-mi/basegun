@@ -30,20 +30,44 @@ from user_agents import parse
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def setup_logs(log_dir: str) -> logging.Logger:
-    """Setups environment for logs
 
-    Args:
-        log_dir (str): folder for log storage
-        logging.Logger: logger object
-    """
-    formatter = GelfFormatter()
-    logger = logging.getLogger("Basegun")
-    logger.setLevel(logging.DEBUG)
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    return logger
+def setup_logs(log_dir: str):
+    os.makedirs(log_dir, exist_ok=True)
+
+    logging_config = {
+        "version": 1,
+        'disable_existing_loggers': False,
+        "formatters": {
+            'standard': {
+                '()': lambda: GelfFormatter()
+            }
+        },
+        "handlers": {
+            'default': {
+                'class': 'logging.StreamHandler',
+                'formatter': 'standard',
+                'level': "INFO",
+                'stream': 'ext://sys.stdout'
+            },
+            'file': {
+                'class': 'logging.handlers.TimedRotatingFileHandler',
+                'when': 'midnight',
+                'utc': True,
+                'backupCount': 5,
+                'level': "INFO",
+                'filename': f'{log_dir}/log.json',
+                'formatter': 'standard',
+            },
+        },
+        "loggers": {
+            "": {
+                'handlers': ['default', 'file'],
+                'level': "DEBUG"
+            }
+        }
+    }
+
+    logging.config.dictConfig(logging_config)
 
 
 def get_device(user_agent) -> str:
@@ -107,7 +131,7 @@ def upload_image(content: bytes, image_key: str):
         "bg_upload_time": time.time() - start,
         "bg_image_url": image_key,
     }
-    logger.info("Upload successful", extra=extras_logging)
+    logging.info("Upload successful", extra=extras_logging)
 
 
 ####################
@@ -146,7 +170,7 @@ async def add_owasp_middleware(request: Request, call_next):
 
 # Logs
 PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
-logger = setup_logs(PATH_LOGS)
+setup_logs(PATH_LOGS)
 
 # Load model
 app.model = load_model_inference("./model.pt")
@@ -165,7 +189,7 @@ if "versions.json" in os.listdir(os.path.dirname(CURRENT_DIR)):
         APP_VERSION = versions["app"]
         MODEL_VERSION = versions["model"]
 else:
-    logger.warn("File versions.json not found")
+    logging.warn("File versions.json not found")
     APP_VERSION = "-1"
     MODEL_VERSION = "-1"
 
@@ -227,7 +251,7 @@ async def imageupload(
         else:
             extras_logging["bg_confidence_level"] = "high"
 
-        logger.info("Identification request", extra=extras_logging)
+        logging.info("Identification request", extra=extras_logging)
 
         return {
             "path": img_key,
@@ -238,7 +262,7 @@ async def imageupload(
 
     except Exception as e:
         extras_logging["bg_error_type"] = e.__class__.__name__
-        logger.exception(e, extra=extras_logging)
+        logging.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -253,7 +277,7 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
     for key in ["image_url", "label", "confidence", "confidence_level"]:
         extras_logging["bg_" + key] = res[key]
 
-    logger.info("Identification feedback", extra=extras_logging)
+    logging.info("Identification feedback", extra=extras_logging)
     return
 
 
@@ -277,7 +301,7 @@ async def log_tutorial_feedback(
     ]:
         extras_logging["bg_" + key] = res[key]
 
-    logger.info("Tutorial feedback", extra=extras_logging)
+    logging.info("Tutorial feedback", extra=extras_logging)
     return
 
 
@@ -301,7 +325,7 @@ async def log_identification_dummy(
     ]:
         extras_logging["bg_" + key] = res[key]
 
-    logger.info("Identification dummy", extra=extras_logging)
+    logging.info("Identification dummy", extra=extras_logging)
     return
 
 
