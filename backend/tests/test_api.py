@@ -68,7 +68,6 @@ class TestApi:
         if os.environ["WORKSPACE"] == "dev":
             create_bucket()
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
-        geoloc = "12.666,7.666"
 
         with open(path, "rb") as f:
             r = client.post(
