@@ -159,7 +159,9 @@ const calculateRoute = (stepsStore) => {
       >
         <DsfrButton
           class="m-1 flex justify-center"
+          :disabled="disabledValidation"
           label="Suivant"
+          data-testid="next-step"
           icon="ri-arrow-right-line"
           :icon-right="true"
           @click="navigate(); goToNextStep()"

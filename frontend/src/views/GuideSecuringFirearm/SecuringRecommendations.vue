@@ -5,8 +5,7 @@ import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 </script>
 
 <template>
-
-<div v-if="isUserUsingCrosscall()">
+  <div v-if="isUserUsingCrosscall()">
     <p class="leading-7 mt-3">
       Vous allez recevoir des <span class="font-bold">instructions</span> pour <span class="font-bold">extraire des munitions</span> de l’arme.
       En cas de doute, <span class="font-bold">arrêtez vous et faites appel à un expert</span>.
