@@ -3,7 +3,13 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
-import { identificationRoutePaths, identificationGuideSteps, resultTree } from '@/utils/firearms-utils/index'
+import {
+  identificationRoutePaths,
+  identificationRoutePathsWithArmeAlarme,
+  identificationGuideSteps,
+  identificationGuideStepsWithArmeAlarme,
+  resultTree,
+} from '@/utils/firearms-utils/index'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 
@@ -15,6 +21,7 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const typology = computed(() => resultStore.typology)
+const selectedArmeAlarme = computed(() => stepsStore.selectedArmeAlarme)
 
 const currentStep = computed({
   get () {
@@ -25,22 +32,33 @@ const currentStep = computed({
   },
 })
 
-const steps = (resultTree[resultStore.typology].isDummyTypology || confidenceLevel.value !== 'low')
-  ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
-  : ['Résultat final']
-
+const steps = computed(() => (resultTree[resultStore.typology].isDummyTypology || confidenceLevel.value !== 'low')
+  ? resultStore.typology === 'pistolet_semi_auto_moderne' && stepsStore.selectedAmmo === 'cartouches'
+    ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Sélection arme alarme', 'Résultat final']
+    : ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
+  : ['Résultat final'],
+)
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
 
 const goToNewRoute = () => (
   router.push({ name: `${identificationGuideSteps[currentStep.value - 1]}` }).catch(() => { })
 )
 
+const goToNewRouteWithArmeAlarme = () => (
+  router.push({ name: `${identificationGuideStepsWithArmeAlarme[currentStep.value - 1]}` }).catch(() => { })
+)
+
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 2
 )
 
+const stepsNumber = computed(() => resultStore.typology === 'pistolet_semi_auto_moderne'
+  ? identificationRoutePaths.length
+  : identificationRoutePathsWithArmeAlarme.length,
+)
+
 const goToNextStep = () => (
-  currentStep.value = currentStep.value < identificationRoutePaths.length ? currentStep.value : identificationRoutePaths.length
+  currentStep.value = currentStep.value < stepsNumber.value ? currentStep.value : stepsNumber.value
 )
 
 const goOnAndFollow = computed(() => (
@@ -50,7 +68,7 @@ const goOnAndFollow = computed(() => (
 ))
 
 const arrowOrCircleIcon = () => (
-  currentStep.value === 3 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
+  currentStep.value === 4 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
 )
 
 async function sendLogsIdentificationDummy () {
@@ -72,11 +90,17 @@ async function sendLogsIdentificationDummy () {
   }
 }
 
+const calculateRoute = (stepsStore) => {
+  return stepsStore.selectedAmmo === 'billes'
+    ? { name: 'IdentificationFinalResult' }
+    : { name: 'IdentificationBlankGun' }
+}
+
 </script>
 
 <template>
   <div class="mt-5 fr-container">
-    <div class="result  fr-col-11 fr-col-lg-6 mx-auto">
+    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
         v-if="resultTree[typology]?.isDummyTypology"
         class="!fr-container steps-guide"
@@ -116,6 +140,58 @@ async function sendLogsIdentificationDummy () {
       />
     </div>
   </div>
+  <div
+    v-else-if="$route.path === '/guide-identification/munition-type' && typology === `pistolet_semi_auto_moderne`"
+    class="footer end z-1"
+  >
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+      <DsfrButton
+        v-if="currentStep > 1"
+        class="m-1 flex justify-center"
+        icon="ri-arrow-left-line"
+        :secondary="true"
+        label="Précédent"
+        @click="goToPreviousStep(); goToNewRoute()"
+      />
+      <router-link
+        v-slot="{navigate}"
+        :to="calculateRoute(stepsStore)"
+      >
+        <DsfrButton
+          class="m-1 flex justify-center"
+          label="Suivant"
+          icon="ri-arrow-right-line"
+          :icon-right="true"
+          @click="navigate(); goToNextStep()"
+        />
+      </router-link>
+    </div>
+  </div>
+
+  <div
+    v-else-if="$route.path === '/guide-identification/armes-alarme'"
+    class="footer end z-1"
+  >
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+      <DsfrButton
+        v-if="currentStep > 1"
+        class="m-1 flex justify-center"
+        icon="ri-arrow-left-line"
+        :secondary="true"
+        label="Précédent"
+        @click="goToPreviousStep(); goToNewRouteWithArmeAlarme()"
+      />
+      <DsfrButton
+        class="m-1 flex justify-center"
+        :icon="arrowOrCircleIcon()"
+        :label="goOnAndFollow"
+        :icon-right="true"
+        data-testid="next-step"
+        @click="goToNextStep(); goToNewRouteWithArmeAlarme()"
+      />
+    </div>
+  </div>
+
   <div
     v-else
     class="footer content z-1"

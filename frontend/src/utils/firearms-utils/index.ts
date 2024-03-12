@@ -10,6 +10,7 @@ import { epaule_semi_auto_style_chasse } from './epaule-semi-auto-style-chasse'
 import { epaule_mecanisme_ancien } from './epaule_mecanisme_ancien'
 import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien'
 import { autre_pistolet } from './autre-pistolet'
+import { arme_alarme } from './arme-alarme'
 
 export const resultTree = {
   autre_pistolet,
@@ -25,6 +26,7 @@ export const resultTree = {
   revolver,
   revolver_black_powder,
   semi_auto_style_militaire_autre,
+  arme_alarme,
 } as const
 
 // Tuto Mise en sécurité
@@ -36,6 +38,7 @@ const securingIntroduction = 'SecuringIntroduction'
 const IdentificationTypologyResult = 'IdentificationTypologyResult'
 const IdentificationFurtherInformations = 'IdentificationFurtherInformations'
 const IdentificationSelectAmmo = 'IdentificationSelectAmmo'
+const IdentificationBlankGun = 'IdentificationBlankGun'
 const IdentificationFinalResult = 'IdentificationFinalResult'
 
 export const securingGuideSteps = [
@@ -51,6 +54,14 @@ export const identificationGuideSteps = [
   IdentificationFinalResult,
 ] as const
 
+export const identificationGuideStepsWithArmeAlarme = [
+  IdentificationTypologyResult,
+  IdentificationFurtherInformations,
+  IdentificationSelectAmmo,
+  IdentificationBlankGun,
+  IdentificationFinalResult,
+] as const
+
 export const securingRoutePaths = [
   'mise-en-securite-recommandations',
   'mise-en-securite-instructions',
@@ -61,5 +72,13 @@ export const identificationRoutePaths = [
   'resultat-typologie',
   'informations-complementaires',
   'munition-type',
+  'resultat-final',
+] as const
+
+export const identificationRoutePathsWithArmeAlarme = [
+  'resultat-typologie',
+  'informations-complementaires',
+  'munition-type',
+  'armes-alarme',
   'resultat-final',
 ] as const
