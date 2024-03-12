@@ -22,7 +22,10 @@ const resetSelectedArmeAlarme = () => {
 </script>
 
 <template>
-  <h2 class="mt-3 mb-1 text-center">
+  <h2
+    class="mt-3 mb-1 text-center"
+    data-testid="arm-category"
+  >
     Identification d'une arme d'alarme
   </h2>
 
@@ -81,6 +84,7 @@ const resetSelectedArmeAlarme = () => {
       class="m-1 mb-8 flex justify-center !w-full"
       icon="ri-alert-line"
       label="Aucune correspondance"
+      data-testid="aucune-correspondance"
       :icon-right="true"
       @click="router.push({ name:'IdentificationFinalResult'}); resetSelectedArmeAlarme()"
     />
