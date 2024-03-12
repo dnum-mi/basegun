@@ -23,6 +23,7 @@ const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFi
 const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirearm/IdentificationFinalResult.vue')
 const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
+const IdentificationBlankGun = () => import('@/views/GuideIdentificationFirearm/IdentificationBlankGun.vue')
 const ExpertSituation = () => import('@/views/GuideContactExpert/ExpertSituation.vue')
 const ExpertLogIn = () => import('@/views/GuideContactExpert/ExpertLogIn.vue')
 const ExpertSignUp = () => import('@/views/GuideContactExpert/ExpertSignUp.vue')
@@ -123,6 +124,14 @@ const routes: RouteRecordRaw[] = [
           reload: true,
         },
         component: IdentificationSelectAmmo,
+      },
+      {
+        path: 'armes-alarme',
+        name: 'IdentificationBlankGun',
+        meta: {
+          reload: true,
+        },
+        component: IdentificationBlankGun,
       },
       {
         path: 'resultat-final',
