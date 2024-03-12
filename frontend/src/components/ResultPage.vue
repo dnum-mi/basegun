@@ -24,7 +24,14 @@ const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const img = computed(() => resultStore.img)
 const imgUrl = computed(() => resultStore.imgUrl)
 
-const typology = computed(() => resultStore.typology)
+const typology = computed(() => {
+  if (selectedArmeAlarme.value && selectedArmeAlarme.value.startsWith('arme_')) {
+    return 'arme_alarme'
+  } else {
+    return resultStore.typology
+  }
+})
+const selectedArmeAlarme = computed(() => stepsStore.selectedArmeAlarme)
 
 const isDummy = computed(() => stepsStore.isDummy)
 const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
@@ -82,6 +89,11 @@ function sendFeedback (isCorrect: boolean) {
       isFeedbackDone.value = true
     })
 }
+
+onUnmounted(() => {
+  stepsStore.selectedArmeAlarme = undefined
+})
+
 </script>
 
 <template>

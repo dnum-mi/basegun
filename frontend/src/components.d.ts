@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AskingExpert: typeof import('./components/AskingExpert.vue')['default']
     ContactExpert: typeof import('./components/ContactExpert.vue')['default']
+    DsfrAccordion: typeof import('@gouvminint/vue-dsfr')['DsfrAccordion']
+    DsfrAccordionsGroup: typeof import('@gouvminint/vue-dsfr')['DsfrAccordionsGroup']
     DsfrAlert: typeof import('@gouvminint/vue-dsfr')['DsfrAlert']
     DsfrButton: typeof import('@gouvminint/vue-dsfr')['DsfrButton']
     DsfrCheckbox: typeof import('@gouvminint/vue-dsfr')['DsfrCheckbox']
