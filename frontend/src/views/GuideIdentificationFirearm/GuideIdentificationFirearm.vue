@@ -39,6 +39,7 @@ const steps = computed(() => (resultTree[resultStore.typology].isDummyTypology |
   : ['Résultat final'],
 )
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
+const disabledValidationArmesAlarme = computed(() => currentStep.value === 4 && stepsStore.selectedArmeAlarme === undefined)
 
 const goToNewRoute = () => (
   router.push({ name: `${identificationGuideSteps[currentStep.value - 1]}` }).catch(() => { })
@@ -142,9 +143,11 @@ const calculateRoute = (stepsStore) => {
   </div>
   <div
     v-else-if="$route.path === '/guide-identification/munition-type' && typology === `pistolet_semi_auto_moderne`"
-    class="footer end z-1"
+    class="footer content z-1"
   >
-    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+    <div
+      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
+    >
       <DsfrButton
         v-if="currentStep > 1"
         class="m-1 flex justify-center"
@@ -158,11 +161,11 @@ const calculateRoute = (stepsStore) => {
         :to="calculateRoute(stepsStore)"
       >
         <DsfrButton
-          class="m-1 flex justify-center"
+          class="m-1 flex justify-center !w-full"
           :disabled="disabledValidation"
-          label="Suivant"
           data-testid="next-step"
-          icon="ri-arrow-right-line"
+          :icon="arrowOrCircleIcon()"
+          :label="goOnAndFollow"
           :icon-right="true"
           @click="navigate(); goToNextStep()"
         />
@@ -172,7 +175,7 @@ const calculateRoute = (stepsStore) => {
 
   <div
     v-else-if="$route.path === '/guide-identification/armes-alarme'"
-    class="footer end z-1"
+    class="footer content z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
@@ -185,6 +188,7 @@ const calculateRoute = (stepsStore) => {
       />
       <DsfrButton
         class="m-1 flex justify-center"
+        :disabled="disabledValidationArmesAlarme"
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"

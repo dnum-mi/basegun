@@ -81,7 +81,7 @@ const resetSelectedArmeAlarme = () => {
       </template>
     </DsfrRadioButtonSet>
     <DsfrButton
-      class="m-1 mb-8 flex justify-center !w-full"
+      class="m-1 mb-20 flex justify-center w-80"
       icon="ri-alert-line"
       label="Aucune correspondance"
       data-testid="aucune-correspondance"
