@@ -40,6 +40,12 @@ const IRCGN = {
 const shownLPS = ref<null | string>(null)
 const showIRCGNModal = ref(false)
 
+function buildMailto(email: string) {
+  const subject = "[Basegun] Demande d'identification"
+  const body = "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A"
+  return `mailto:${email}?subject=${subject}&body=${body}`
+}
+
 </script>
 
 <template>
@@ -179,7 +185,7 @@ const showIRCGNModal = ref(false)
                   </p>
                   <p>
                     <span v-if="priority === 'high'">{{ LPS[shownLPS].phone }}</span><br>
-                    {{ LPS[shownLPS].email }}
+                    <a :href="buildMailto(LPS[shownLPS].email)">{{ LPS[shownLPS].email }}</a>
                   </p>
                 </div>
               </div>
@@ -240,7 +246,7 @@ const showIRCGNModal = ref(false)
                 </p>
                 <p v-if="priority === 'low'">
                   Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br><br>
-                  <span class="font-bold">{{ IRCGN.email }}</span>
+                  <span class="font-bold"><a :href="buildMailto(IRCGN.email)">{{ IRCGN.email }}</a></span>
                 </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
