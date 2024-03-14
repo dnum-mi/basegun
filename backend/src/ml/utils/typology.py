@@ -1,7 +1,6 @@
 from io import BytesIO
 from typing import Union
 
-import numpy as np
 from PIL import Image
 from ultralytics import YOLO
 
@@ -20,20 +19,10 @@ CLASSES = [
     "semi_auto_style_militaire_autre",
 ]
 
-
-def load_model_inference(model_path: str):
-    """Load model structure and weights
-
-    Args:
-        model_path (str): path to model (.pt file)
-
-    Returns:
-        Model: loaded model ready for prediction and Warm-up
-    """
-    return YOLO(model_path)
+MODEL = YOLO("./src/ml/models/typology.pt")
 
 
-def predict_image(model, img: bytes) -> Union[str, float]:
+def get_typology_from_image(img: bytes) -> Union[str, float]:
     """Run the model prediction on an image
 
     Args:
@@ -44,7 +33,7 @@ def predict_image(model, img: bytes) -> Union[str, float]:
         Union[str, float]: (label, confidence) of best class predicted
     """
     im = Image.open(BytesIO(img))
-    results = model(im, verbose=False)
+    results = MODEL(im, verbose=False)
     predicted_class = results[0].probs.top5[0]
     label = CLASSES[predicted_class]
     confidence = float(results[0].probs.top5conf[0])

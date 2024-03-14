@@ -22,12 +22,4 @@ RUN pip --default-timeout=300 install --upgrade pip \
 
 ARG VERSION
 ENV SSL_CERT_FILE=$CACERT_LOCATION
-COPY src/ src/
-COPY model.pt .
-
-FROM base as dev
-COPY tests/ tests/
-
-FROM base as prod
-RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch==2.1.1+cpu torchvision==0.16.1+cpu && rm -r /root/.cache
+COPY . .
