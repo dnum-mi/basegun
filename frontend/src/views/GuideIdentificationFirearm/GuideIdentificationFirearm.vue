@@ -34,7 +34,7 @@ const currentStep = computed({
 
 const steps = computed(() => (resultTree[resultStore.typology].isDummyTypology || confidenceLevel.value !== 'low')
   ? resultStore.typology === 'pistolet_semi_auto_moderne' && stepsStore.selectedAmmo === 'cartouches'
-    ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Sélection arme alarme', 'Résultat final']
+    ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
     : ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
   : ['Résultat final'],
 )

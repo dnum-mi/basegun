@@ -123,9 +123,6 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'armes-alarme',
         name: 'IdentificationBlankGun',
-        meta: {
-          reload: true,
-        },
         component: IdentificationBlankGun,
       },
       {
