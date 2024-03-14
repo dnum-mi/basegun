@@ -1,37 +1,35 @@
-import pistoletAlarmeImg1 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI R2.jpg'
-import pistoletAlarmeImg2 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 925.jpg'
-import pistoletAlarmeImg3 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 906.jpg'
-import pistoletAlarmeImg4 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 2906.jpg'
-import pistoletAlarmeImg5 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 918.jpg'
-import pistoletAlarmeImg6 from '@/assets/guide-identification/photos/arme_alarme/KIMAR 911.jpg'
-import pistoletAlarmeImg7 from '@/assets/guide-identification/photos/arme_alarme/KIMAR 75 AUTO.jpg'
-import pistoletAlarmeImg8 from '@/assets/guide-identification/photos/arme_alarme/KIMAR 92 AUTO.jpg'
-import pistoletAlarmeImg9 from '@/assets/guide-identification/photos/arme_alarme/KIMAR Competitive Alarm.jpg'
-import pistoletAlarmeImg10 from '@/assets/guide-identification/photos/arme_alarme/KIMAR Power Alarm.jpg'
-import pistoletAlarmeImg11 from '@/assets/guide-identification/photos/arme_alarme/BLOW F92.jpg'
-import pistoletAlarmeImg12 from '@/assets/guide-identification/photos/arme_alarme/BLOW F92 AUTO.jpg'
-import pistoletAlarmeImg13 from '@/assets/guide-identification/photos/arme_alarme/BLOW C75.jpg'
+import pistoletAlarmeImg1 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_R2.jpg'
+import pistoletAlarmeImg2 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_925.jpg'
+import pistoletAlarmeImg3 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_906.jpg'
+import pistoletAlarmeImg4 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_2906.jpg'
+import pistoletAlarmeImg5 from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_918.jpg'
+import pistoletAlarmeImg6 from '@/assets/guide-identification/photos/arme_alarme/KIMAR_911.jpg'
+import pistoletAlarmeImg7 from '@/assets/guide-identification/photos/arme_alarme/KIMAR_75_AUTO.jpg'
+import pistoletAlarmeImg8 from '@/assets/guide-identification/photos/arme_alarme/KIMAR_92_AUTO.jpg'
+import pistoletAlarmeImg9 from '@/assets/guide-identification/photos/arme_alarme/KIMAR_CA.jpg'
+import pistoletAlarmeImg10 from '@/assets/guide-identification/photos/arme_alarme/KIMAR_PA.jpg'
+import pistoletAlarmeImg11 from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92.jpg'
+import pistoletAlarmeImg12 from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_AUTO.jpg'
+import pistoletAlarmeImg13 from '@/assets/guide-identification/photos/arme_alarme/BLOW_C75.jpg'
 
-import pistoletAlarmeImg1Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI R2 Zoom.png'
-import pistoletAlarmeImg2Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 925 Zoom.png'
-import pistoletAlarmeImg3Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 906 Zoom.png'
-import pistoletAlarmeImg4Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 2906 Zoom.png'
-import pistoletAlarmeImg5Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI 918 Zoom.png'
-import pistoletAlarmeImg6Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR 911 Zoom.png'
-import pistoletAlarmeImg7Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR 75 AUTO Zoom.png'
-import pistoletAlarmeImg8Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR 92 AUTO Zoom.png'
-import pistoletAlarmeImg9Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR CA Zoom.png'
-import pistoletAlarmeImg10Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR PA Zoom.png'
-import pistoletAlarmeImg11Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW F92 Zoom.png'
-import pistoletAlarmeImg12Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW F92 AUTO Zoom.png'
-import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW C75 Zoom.png'
+import pistoletAlarmeImg1Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_R2_Zoom.png'
+import pistoletAlarmeImg2Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_925_Zoom.png'
+import pistoletAlarmeImg3Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_906_Zoom.png'
+import pistoletAlarmeImg4Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_2906_Zoom.png'
+import pistoletAlarmeImg5Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_918_Zoom.png'
+import pistoletAlarmeImg6Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_911_Zoom.png'
+import pistoletAlarmeImg7Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_75_AUTO_Zoom.png'
+import pistoletAlarmeImg8Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_92_AUTO_Zoom.png'
+import pistoletAlarmeImg9Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_CA_Zoom.png'
+import pistoletAlarmeImg10Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_PA_Zoom.png'
+import pistoletAlarmeImg11Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_Zoom.png'
+import pistoletAlarmeImg12Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_AUTO_Zoom.png'
+import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_C75_Zoom.png'
 
 export const arme_alarme = {
   displayLabel: 'Arme d\'alarme',
   category: 'C',
   mention: 'Soumise à déclaration',
-  isDummyTypology: false,
-  isSecuringOptions: false,
   options: {
     arme_1: {
       label: '1. ZORAKI R2',
