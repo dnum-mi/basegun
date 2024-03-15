@@ -10,6 +10,7 @@ from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
 from .config import APP_VERSION, S3_PREFIX, get_base_logs
+from .ml.measure.measure import get_lengths_from_image
 from .ml.utils.typology import get_typology_from_image
 from .utils import upload_image
 
@@ -56,9 +57,11 @@ async def imageupload(
             response.set_cookie(key="user_id", value=user_id)
             extras_logging["bg_user_id"] = user_id
 
-        # send image to model for prediction
         start = time.time()
+        # Process image with ML models
         label, confidence = get_typology_from_image(img_bytes)
+        gun_length, gun_barrel_length, conf_card = get_lengths_from_image(img_bytes)
+
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_model_time"] = round(time.time() - start, 2)
@@ -76,6 +79,9 @@ async def imageupload(
             "label": label,
             "confidence": confidence,
             "confidence_level": extras_logging["bg_confidence_level"],
+            "gun_length": gun_length,
+            "gun_barrel_length": gun_barrel_length,
+            "conf_card": conf_card,
         }
 
     except Exception as e:
