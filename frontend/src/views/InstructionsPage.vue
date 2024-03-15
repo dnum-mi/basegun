@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GoodExamplePhoto from '@/assets/good-photo-example.jpg'
+import GoodExamplePhoto from '@/assets/new-good-photo-example.png'
 import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
 import { ref } from 'vue'
@@ -105,67 +105,58 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
   <div
     class="lg:absolute  lg:inset-y-1\/3  lg:inset-x-0  fr-col-lg-6  fr-col-sm-9  mx-auto"
   >
-    <div class="fr-notice fr-notice--info">
-      <div class="fr-container">
-        <div class="fr-notice__body">
-          <h3 class="fr-notice__title">
-            Pour un résultat optimal
-          </h3>
-          <p>1 - Présenter le <span class="font-bold">canon vers la droite</span>.</p>
-          <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
-          <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>
-        </div>
-      </div>
+    <div class="fr-alert fr-alert--info mt-15 mr-5 ml-5">
+      <h3 class="fr-alert__title mb-8">
+        <span class="font-bold">Pour un résultat optimal</span>
+      </h3>
+      <p>1 - Présenter le <span class="font-bold">canon vers la droite</span>.</p>
+      <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
+      <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>
+      <p>4 - Placer <span class="font-bold">une carte à côté de l'arme</span> (n'importe quelle carte au format standard).</p>
     </div>
 
-    <div class="text-center  lg:flex">
+    <div class="mt-5 text-center lg:flex">
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
-        alt="photo d'une arme tournée vers la droite et centrée"
-        legend="Exemple d'une bonne photo"
-      />
-      <DsfrPicture
-        :src="BadExamplePhoto"
-        alt="photo d'une arme tournée vers la gauche et partiellement coupée"
-        legend="Exemple d'une mauvaise photo"
+        alt="photo d'une carte posée au sol et arme tournée vers la droite et centrée"
       />
     </div>
-  </div>
-  <div class="big-blank" />
-  <div class="footer">
-    <div
-      v-if="!loading"
-      class="btn-read-instruction text-center"
-    >
+    <div class="big-blank" />
+    <div class="footer">
       <div
-        class="fr-col-11 fr-col-lg-6 mx-auto"
+        v-if="!loading"
+        class="btn-read-instruction text-center"
       >
-        <input
-          ref="fileInput"
-          data-testid="select-file"
-          type="file"
-          style="width: 0; height: 1px"
-          :accept="handledImageTypes"
-          @change="onFileSelected($event)"
+        <div
+          class="fr-col-11 fr-col-lg-6 mx-auto"
         >
-        <DsfrButton
-          class="flex justify-center"
-          data-testid="take-a-picture"
-          label="Prendre la photo"
-          icon="ri-camera-fill"
-          :icon-right="true"
-          @click="$refs.fileInput.click()"
-        />
+          <input
+            ref="fileInput"
+            data-testid="select-file"
+            type="file"
+            style="width: 0; height: 1px"
+            :accept="handledImageTypes"
+            @change="onFileSelected($event)"
+          >
+          <DsfrButton
+            class="flex justify-center"
+            data-testid="take-a-picture"
+            label="Prendre la photo"
+            icon="ri-camera-fill"
+            :icon-right="true"
+            @click="$refs.fileInput.click()"
+          />
+        </div>
       </div>
-    </div>
-    <div
-      v-else
-      class="text-center bold"
-    >
-      <p class="loading font-bold">
-        Analyse en cours
-      </p>
+      <div
+        v-else
+        class="text-center bold"
+      >
+        <p class="loading font-bold">
+          Analyse en cours
+        </p>
+      </div>
     </div>
   </div>
 </template>
