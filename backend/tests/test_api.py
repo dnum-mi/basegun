@@ -7,7 +7,6 @@ import boto3
 import pytest
 import requests
 from fastapi.testclient import TestClient
-
 from src.config import S3_BUCKET_NAME, S3_URL_ENDPOINT
 from src.main import app
 
@@ -84,6 +83,8 @@ class TestApi:
         assert res["label"] == "revolver"
         assert res["confidence"] == pytest.approx(1, 0.1)
         assert res["confidence_level"] == "high"
+        assert "gun_length" in res
+        assert "gun_barrel_length" in res
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
