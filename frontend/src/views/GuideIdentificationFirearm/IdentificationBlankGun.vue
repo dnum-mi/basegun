@@ -27,11 +27,6 @@ const resetSelectedArmeAlarme = () => {
     :pagination="{ clickable: true }"
   >
     <swiper-slide>
-      <img
-        src="@/assets/basegun_red.png"
-        alt=""
-        class="swiper-logo"
-      >
       <div class="swiper-content">
         <p
           data-testid="instruction-armeAlarme"
@@ -43,6 +38,11 @@ const resetSelectedArmeAlarme = () => {
           Veuillez <span class="swiper-red-highlight">sélectionner le modèle correspondant à votre arme</span>, ou bien <span class="swiper-red-highlight">sélectionner "Aucune correspondance"</span>.
         </p>
       </div>
+      <img
+        src="@/assets/guide-identification/photos/arme_alarme/picto.png"
+        alt=""
+        class="swiper-logo"
+      >
     </swiper-slide>
 
     <swiper-slide>
