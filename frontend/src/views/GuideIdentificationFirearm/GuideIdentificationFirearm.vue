@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
 import {
@@ -16,6 +16,7 @@ import { useResultStore } from '@/stores/result'
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
 const router = useRouter()
+const route = useRoute()
 
 const imgUrl = computed(() => resultStore.imgUrl)
 const confidence = computed(() => resultStore.confidence)
@@ -48,6 +49,9 @@ const goToNewRoute = () => (
 const goToNewRouteWithArmeAlarme = () => (
   router.push({ name: `${identificationGuideStepsWithArmeAlarme[currentStep.value - 1]}` }).catch(() => { })
 )
+
+const isSemiAutoModerne = computed(() => route.path === '/guide-identification/munition-type' && typology.value === 'pistolet_semi_auto_moderne')
+const isArmeAlarme = computed(() => route.path === '/guide-identification/armes-alarme')
 
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 2
@@ -142,7 +146,7 @@ const calculateRoute = (stepsStore) => {
     </div>
   </div>
   <div
-    v-else-if="$route.path === '/guide-identification/munition-type' && typology === `pistolet_semi_auto_moderne`"
+    v-else-if="isSemiAutoModerne"
     class="footer content z-1"
   >
     <div
@@ -174,7 +178,7 @@ const calculateRoute = (stepsStore) => {
   </div>
 
   <div
-    v-else-if="$route.path === '/guide-identification/armes-alarme'"
+    v-else-if="isArmeAlarme"
     class="footer content z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
