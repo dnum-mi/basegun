@@ -12,24 +12,24 @@ import pistoletAlarmeImg11 from '@/assets/guide-identification/photos/arme_alarm
 import pistoletAlarmeImg12 from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_AUTO.jpg'
 import pistoletAlarmeImg13 from '@/assets/guide-identification/photos/arme_alarme/BLOW_C75.jpg'
 
-import pistoletAlarmeImg1Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_R2_Zoom.png'
-import pistoletAlarmeImg2Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_925_Zoom.png'
-import pistoletAlarmeImg3Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_906_Zoom.png'
-import pistoletAlarmeImg4Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_2906_Zoom.png'
-import pistoletAlarmeImg5Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_918_Zoom.png'
-import pistoletAlarmeImg6Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_911_Zoom.png'
-import pistoletAlarmeImg7Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_75_AUTO_Zoom.png'
-import pistoletAlarmeImg8Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_92_AUTO_Zoom.png'
-import pistoletAlarmeImg9Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_CA_Zoom.png'
-import pistoletAlarmeImg10Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_PA_Zoom.png'
-import pistoletAlarmeImg11Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_Zoom.png'
-import pistoletAlarmeImg12Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_AUTO_Zoom.png'
-import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_C75_Zoom.png'
+import pistoletAlarmeImg1Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_R2_Zoom.jpg'
+import pistoletAlarmeImg2Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_925_Zoom.jpg'
+import pistoletAlarmeImg3Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_906_Zoom.jpg'
+import pistoletAlarmeImg4Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_2906_Zoom.jpg'
+import pistoletAlarmeImg5Zoom from '@/assets/guide-identification/photos/arme_alarme/ZORAKI_918_Zoom.jpg'
+import pistoletAlarmeImg6Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_911_Zoom.jpg'
+import pistoletAlarmeImg7Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_75_AUTO_Zoom.jpg'
+import pistoletAlarmeImg8Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_92_AUTO_Zoom.jpg'
+import pistoletAlarmeImg9Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_CA_Zoom.jpg'
+import pistoletAlarmeImg10Zoom from '@/assets/guide-identification/photos/arme_alarme/KIMAR_PA_Zoom.jpg'
+import pistoletAlarmeImg11Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_Zoom.jpg'
+import pistoletAlarmeImg12Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_F92_AUTO_Zoom.jpg'
+import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_alarme/BLOW_C75_Zoom.jpg'
 
 export const arme_alarme = {
   displayLabel: 'Arme d\'alarme',
-  category: 'C',
-  mention: 'Soumise à déclaration',
+  category: 'D',
+  mention: 'Libre d\'acquisition et de détention',
   options: {
     arme_1: {
       label: '1. ZORAKI R2',
