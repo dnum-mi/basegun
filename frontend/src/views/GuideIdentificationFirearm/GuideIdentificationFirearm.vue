@@ -101,6 +101,8 @@ const calculateRoute = (stepsStore) => {
     : { name: 'IdentificationBlankGun' }
 }
 
+const showDiv = ref(false)
+
 </script>
 
 <template>
@@ -112,7 +114,7 @@ const calculateRoute = (stepsStore) => {
         :steps="steps"
         :current-step="currentStep"
       />
-      <RouterView />
+      <RouterView :show-div="showDiv" />
     </div>
   </div>
   <div
@@ -165,7 +167,7 @@ const calculateRoute = (stepsStore) => {
         :to="calculateRoute(stepsStore)"
       >
         <DsfrButton
-          class="m-1 flex justify-center !w-full"
+          class="fr-btn--md m-1 flex justify-center !w-full"
           :disabled="disabledValidation"
           data-testid="next-step"
           :icon="arrowOrCircleIcon()"
@@ -181,7 +183,10 @@ const calculateRoute = (stepsStore) => {
     v-else-if="isArmeAlarme"
     class="footer content z-1"
   >
-    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+    <div
+      v-if="showDiv === false"
+      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
+    >
       <DsfrButton
         v-if="currentStep > 1"
         class="m-1 flex justify-center"
@@ -189,6 +194,27 @@ const calculateRoute = (stepsStore) => {
         :secondary="true"
         label="Précédent"
         @click="goToPreviousStep(); goToNewRouteWithArmeAlarme()"
+      />
+      <DsfrButton
+        class="m-1 flex justify-center"
+        icon="ri-arrow-right-line"
+        :label="goOnAndFollow"
+        :icon-right="true"
+        data-testid="next-step"
+        @click="showDiv = true"
+      />
+    </div>
+    <div
+      v-else
+      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
+    >
+      <DsfrButton
+        v-if="currentStep > 1"
+        class="m-1 flex justify-center"
+        icon="ri-arrow-left-line"
+        :secondary="true"
+        label="Précédent"
+        @click="showDiv = false"
       />
       <DsfrButton
         class="m-1 flex justify-center"
