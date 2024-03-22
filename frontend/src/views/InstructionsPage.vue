@@ -30,6 +30,8 @@ async function uploadImage (base64: string, fileName: string) {
       typology: data.label,
       confidence: data.confidence,
       confidenceLevel: data.confidence_level,
+      gunLength: data.gun_length,
+      gunBarrelLength: data.gun_barrel_length,
       resultText: "Type d'arme : " + data.label + ' ' + data.confidence + '%',
       img: base64,
       imgUrl: data.path,
