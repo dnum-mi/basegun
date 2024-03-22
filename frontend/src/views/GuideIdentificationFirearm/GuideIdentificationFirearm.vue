@@ -137,7 +137,16 @@ const showDiv = ref(false)
         />
       </router-link>
       <DsfrButton
-        v-if="resultTree[typology]?.isDummyTypology"
+        v-if="typology === 'pistolet_semi_auto_moderne'"
+        class="mt-3 flex justify-center !w-full"
+        label="Retourner à l'étape précédente"
+        icon="ri-arrow-go-back-fill"
+        :icon-right="true"
+        secondary
+        @click="goToPreviousStep(); goToNewRouteWithArmeAlarme(); sendLogsIdentificationDummy()"
+      />
+      <DsfrButton
+        v-else-if="resultTree[typology]?.isDummyTypology"
         class="mt-3 flex justify-center !w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
