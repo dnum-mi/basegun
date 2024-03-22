@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import GoodExamplePhoto from '@/assets/new-good-photo-example.png'
-import BadExamplePhoto from '@/assets/bad-photo-example.jpg'
 
 import { ref } from 'vue'
 import axios from 'axios'
@@ -113,6 +112,8 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
       <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
       <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>
       <p>4 - Placer <span class="font-bold">une carte à côté de l'arme</span> (n'importe quelle carte au format standard).</p>
+      <br>
+      <p>En présence d'une crosse rétractable sur l'arme : <span class="font-bold">mettre la crosse dans sa configuration la plus courte.</span></p>
     </div>
 
     <div class="mt-5 text-center lg:flex">
