@@ -40,6 +40,8 @@ async function uploadImage (base64: string, fileName: string) {
       securingTutorial: resultStore.securingTutorial,
       confidenceLevel: resultStore.confidenceLevel,
       typology: resultStore.typology,
+      gunLength: resultStore.gunLength,
+      gunBarrelLength: resultStore.gunBarrelLength,
     })
     router.push(nextRoute)
   } catch (error) {
