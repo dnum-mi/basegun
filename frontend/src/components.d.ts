@@ -18,6 +18,8 @@ declare module 'vue' {
     DsfrInputGroup: typeof import('@gouvminint/vue-dsfr')['DsfrInputGroup']
     DsfrModal: typeof import('@gouvminint/vue-dsfr')['DsfrModal']
     DsfrPicture: typeof import('@gouvminint/vue-dsfr')['DsfrPicture']
+    DsfrRadioButton: typeof import('@gouvminint/vue-dsfr')['DsfrRadioButton']
+    DsfrRadioButtonSet: typeof import('@gouvminint/vue-dsfr')['DsfrRadioButtonSet']
     DsfrSelect: typeof import('@gouvminint/vue-dsfr')['DsfrSelect']
     DsfrTag: typeof import('@gouvminint/vue-dsfr')['DsfrTag']
     FooterMES: typeof import('./components/FooterMES.vue')['default']

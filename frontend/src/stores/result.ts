@@ -10,6 +10,8 @@ export const useResultStore = defineStore('result', () => {
   const typology = useLocalStorage<TypologyKey>('typology', null, { serializer })
   const confidence = useLocalStorage<number>('confidence', null, { serializer })
   const confidenceLevel = useLocalStorage<string>('confidenceLevel', null, { serializer })
+  const gunLength = useLocalStorage<number>('gunLength', null, { serializer })
+  const gunBarrelLength = useLocalStorage<number>('gunBarrelLength', null, { serializer })
   const img = useLocalStorage<string>('img', null, { serializer })
   const imgUrl = useLocalStorage<string>('imgUrl', null, { serializer })
   const resultText = useLocalStorage<string>('resultText', null, { serializer })
@@ -25,6 +27,8 @@ export const useResultStore = defineStore('result', () => {
     updateTypology,
     confidence,
     confidenceLevel,
+    gunLength,
+    gunBarrelLength,
     img,
     imgUrl,
     resultText,
