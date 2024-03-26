@@ -1,7 +1,7 @@
 const { defineConfig } = require('cypress')
 
 const frontendHost = process.env.FRONTEND_HOST || 'localhost'
-const frontendPort = process.env.FRONTEND_PORT || '5173'
+const frontendPort = process.env.FRONTEND_PORT || '3000'
 
 module.exports = defineConfig({
   e2e: {
