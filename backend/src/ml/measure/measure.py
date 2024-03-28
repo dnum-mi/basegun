@@ -207,9 +207,6 @@ def load_models(model_card_path, model_weapon_path):
     """
     model_card = YOLOv5_OBB(model_path=model_card_path, stride=32)
 
-    model_weapon = YOLO(
-        "yolov8n-pose.pt"
-    )  # necessary to load the base model before the pretrained weights
     model_weapon = YOLO(model_weapon_path)
 
     # warmup
