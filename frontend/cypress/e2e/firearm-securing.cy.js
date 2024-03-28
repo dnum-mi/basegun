@@ -24,7 +24,7 @@ describe('Securing Firearm and Identification', () => {
     cy.getByDataTestid('next-step').click()
     cy.url().should('contain', '/guide-identification/armes-alarme')
     cy.getByDataTestid('instruction-armeAlarme').should('contain', 'Votre arme')
-    cy.get('swiper-container').shadow().find('.swiper-button-next').click()
+    cy.getByDataTestid('next-step').click()
     cy.getByDataTestid('aucune-correspondance').click()
     cy.url().should('contain', '/guide-identification/resultat-final')
     cy.getByDataTestid('arm-category').should('contain', 'Catégorie B')
