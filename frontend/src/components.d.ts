@@ -11,6 +11,8 @@ declare module 'vue' {
     ContactExpert: typeof import('./components/ContactExpert.vue')['default']
     DsfrAccordion: typeof import('@gouvminint/vue-dsfr')['DsfrAccordion']
     DsfrAccordionsGroup: typeof import('@gouvminint/vue-dsfr')['DsfrAccordionsGroup']
+    DsfrAccordion: typeof import('@gouvminint/vue-dsfr')['DsfrAccordion']
+    DsfrAccordionsGroup: typeof import('@gouvminint/vue-dsfr')['DsfrAccordionsGroup']
     DsfrAlert: typeof import('@gouvminint/vue-dsfr')['DsfrAlert']
     DsfrBadge: typeof import('@gouvminint/vue-dsfr')['DsfrBadge']
     DsfrButton: typeof import('@gouvminint/vue-dsfr')['DsfrButton']
