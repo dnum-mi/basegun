@@ -24,6 +24,11 @@ const IdentificationFinalResult = () => import('@/views/GuideIdentificationFirea
 const IdentificationFurtherInformations = () => import('@/views/GuideIdentificationFirearm/IdentificationFurtherInformations.vue')
 const IdentificationSelectAmmo = () => import('@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue')
 const ExpertSituation = () => import('@/views/GuideContactExpert/ExpertSituation.vue')
+const ExpertLogIn = () => import('@/views/GuideContactExpert/ExpertLogIn.vue')
+const ExpertSignUp = () => import('@/views/GuideContactExpert/ExpertSignUp.vue')
+const ExpertForgetPassword = () => import('@/views/GuideContactExpert/ExpertForgetPassword.vue')
+const ExpertAccount = () => import('@/views/GuideContactExpert/ExpertAccount.vue')
+const ExpertAccountList = () => import('@/views/GuideContactExpert/ExpertAccountList.vue')
 
 const routes: RouteRecordRaw[] = [
   {
@@ -183,6 +188,31 @@ const routes: RouteRecordRaw[] = [
     path: '/guide-contact-gn',
     name: 'ExpertSituationGN',
     component: ExpertSituation,
+  },
+  {
+    path: '/acces-expert',
+    name: 'ExpertLogIn',
+    component: ExpertLogIn,
+  },
+  {
+    path: '/sign-up',
+    name: 'ExpertSignUp',
+    component: ExpertSignUp,
+  },
+  {
+    path: '/forget-password',
+    name: 'ExpertForgetPassword',
+    component: ExpertForgetPassword,
+  },
+  {
+    path: '/expert-account',
+    name: 'ExpertAccount',
+    component: ExpertAccount,
+  },
+  {
+    path: '/expert-account-list',
+    name: 'ExpertAccountList',
+    component: ExpertAccountList,
   },
 ]
 

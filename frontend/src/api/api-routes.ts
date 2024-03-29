@@ -1,0 +1,8 @@
+export const UPLOAD_PHOTO_FOR_DETECTION_ROUTE = '/analyses/'
+export const TUTORIAL_FEEDBACK_ROUTE = '/tutorial-feedback'
+export const IDENTIFICATION_FEEDBACK_ROUTE = '/identification-feedback'
+export const IDENTIFICATION_DUMMY_ROUTE = '/identification-dummy'
+export const LOG_IN_ROUTE = '/login/'
+export const SIGN_UP_ROUTE = '/sign-up/'
+export const ACCOUNT_ROUTE = '/accounts/'
+export const FORGET_PASSWORD_ROUTE = '/new-password/'
