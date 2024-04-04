@@ -9,7 +9,7 @@ from fastapi import (APIRouter, BackgroundTasks, Cookie, File, Form,
 from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
-from .config import APP_VERSION, S3_PREFIX, get_base_logs
+from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
 from .ml.measure.measure import get_lengths_from_image
 from .ml.utils.typology import get_typology_from_image
 from .utils import upload_image
@@ -60,10 +60,16 @@ async def imageupload(
         start = time.time()
         # Process image with ML models
         label, confidence = get_typology_from_image(img_bytes)
-        gun_length, gun_barrel_length, conf_card = get_lengths_from_image(img_bytes)
+
+        gun_length, gun_barrel_length, conf_card = None, None, None
+        if label in TYPOLOGIES_MEASURED:
+            gun_length, gun_barrel_length, conf_card = get_lengths_from_image(img_bytes)
 
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
+        extras_logging["bg_gun_length"] = gun_length
+        extras_logging["bg_gun_barrel_length"] = gun_barrel_length
+        extras_logging["bg_conf_card"] = conf_card
         extras_logging["bg_model_time"] = round(time.time() - start, 2)
         if confidence < 0.76:
             extras_logging["bg_confidence_level"] = "low"

@@ -119,3 +119,36 @@ class TestApi:
 
         for header_to_add in HEADERS_TO_ADD:
             assert header_to_add["name"].lower() in CURRENT_HEADERS
+
+class TestUpload:
+    def test_revolver_without_card(self):
+        with open("./tests/revolver.jpg", "rb") as f:
+            response = client.post(
+                "/api/upload",
+                files={"image": f},
+                data={"date": time.time()},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["label"] == "revolver"
+        assert response.data["confidence"] == pytest.approx(1, 0.1)
+        assert response.data["confidence_level"] == "high"
+        assert response.data["gun_length"] is None
+        assert response.data["gun_barrel_length"] is None
+        assert response.data["conf_card"] is None
+
+    def test_semi_auto_without_card(self):
+        with open("./tests/epaule_a_levier_sous_garde.jpg", "rb") as f:
+            response = client.post(
+                "/api/upload",
+                files={"image": f},
+                data={"date": time.time()},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["label"] == "epaule_a_levier_sous_garde"
+        assert response.data["confidence"] == pytest.approx(1, 0.1)
+        assert response.data["confidence_level"] == "high"
+        assert response.data["gun_length"] is not None
+        assert response.data["gun_barrel_length"] is not None
+        assert response.data["conf_card"] is not None

@@ -18,7 +18,7 @@ describe('Shoulder Bolt Rifle Securing', () => {
     cy.getByDataTestid('next-step').should('not.have.attr', 'disabled')
     cy.getByDataTestid('next-step').click()
     cy.url().should('contain', '/guide-identification/resultat-final')
-    cy.getByDataTestid('arm-category').should('contain', 'Catégorie B ou C')
+    cy.getByDataTestid('arm-category').should('contain', 'Catégorie B')
     cy.getByDataTestid('return-to-home-end').click()
     cy.url().should('contain', '/accueil')
   })

@@ -15,6 +15,28 @@ const resultStore = useResultStore()
 const router = useRouter()
 const route = useRoute()
 
+function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number, gunBarrelLength: number) {
+  if (gunLength !== null && gunBarrelLength !== null) {
+    switch (typology) {
+      case 'epaule_a_pompe':
+        if (gunLength > 75 && gunBarrelLength > 55) { return 'C' } else { return 'B' }
+      case 'epaule_a_un_coup_par_canon':
+        if (gunLength > 75 && gunBarrelLength > 40) { return 'C' } else { return 'B' }
+      case 'epaule_a_levier_sous_garde': case 'epaule_a_verrou': case 'epaule_semi_auto_style_chasse':
+        if (gunLength > 75 || gunBarrelLength < 40) { return 'B' }
+        if (gunLength > 75 && gunBarrelLength < 55) { return 'C' }
+    }
+  }
+  return resultTree[typology]?.category
+}
+
+function getDisclaimer (typology: string, category: string) {
+  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology) && ['B ou C', 'C'].includes(category)) { return 'Si la <strong>capacité est supérieure à 11 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.' }
+  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) { return 'Si la <strong>capacité est supérieure à 3 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.' }
+  if (typology === 'epaule_a_pompe' && category === 'C') { return 'Attention : Si la <strong>capacité maximale (chambre comprise) est supérieure à 5</strong>, ou si <strong>la crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>.' }
+  if (['epaule_semi_auto_style_militaire_milieu_20e', 'semi_auto_style_militaire_autre'].includes(typology)) { return 'Attention : Si à l’origine l’arme était à répétition automatique puis a été transformée en arme semi automatique, alors elle est de catégorie A. Si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle mesure <strong>moins de 60 cm</strong> : <strong>Catégorie A</strong>.' }
+}
+
 watchEffect(() => {
   if (!resultStore.img) router.push({ name: 'StartPage' })
 })
@@ -44,7 +66,8 @@ const securingTutorial = computed(() => resultStore.securingTutorial)
 
 const label = computed(() => resultTree[typology.value]?.displayLabel)
 
-const category = computed(() => resultTree[typology.value]?.category)
+const category = computed(() => getCategoryFromTypologyAndMeasures(typology.value, resultStore.gunLength, resultStore.gunBarrelLength))
+const disclaimer = computed(() => getDisclaimer(typology.value, category.value))
 const categoryWithoutSecuring = computed(
   () => typology.value === 'revolver'
     ? resultTree[typology.value]?.categoryWithoutSecuring
@@ -167,7 +190,15 @@ onUnmounted(() => {
                     src="@/assets/guide-identification/icones/gun.jpg"
                     alt=""
                   >
-                  <span v-if="securingTutorial || typology !== 'revolver'"> Catégorie {{ category }}</span>
+                  <span v-if="securingTutorial || typology !== 'revolver'"> Catégorie {{ category }}
+                    <p
+                      v-if="disclaimer"
+                      class="disclaimer"
+                    ><span
+                      class="fr-icon-warning-fill text-blue"
+                      aria-hidden="true"
+                    /><span v-html="disclaimer" /></p>
+                  </span>
                   <span v-else> Catégorie {{ categoryWithoutSecuring }}</span>
                 </p>
                 <div
@@ -233,25 +264,18 @@ onUnmounted(() => {
         </div>
       </div>
       <div v-else>
-        <div
-          v-if="confidenceLevel !== 'low'"
-          class="fr-tile fr-enlarge-link"
-        >
-          <div
-            class="fr-tile__body pt-0"
-          >
+        <template v-if="confidenceLevel !== 'low'">
+          <div class="fr-tile fr-enlarge-link fr-tile__body pt-0">
             <h3 class="fr-tile__title" />
             <div class="block">
               <div class="flex">
-                <img
-                  class="w-5 h-5 mx-2"
-                  src="@/assets/guide-identification/icones/warning.jpg"
-                  alt="alt"
-                ><span>Attention</span> <img
-                  class="w-5 h-5  mx-2"
-                  src="@/assets/guide-identification/icones/warning.jpg"
-                  alt="alt"
-                >
+                <span><span
+                  class="fr-icon-warning-fill text-blue mx-1"
+                  aria-hidden="true"
+                />Attention<span
+                  class="fr-icon-warning-fill text-blue mx-1"
+                  aria-hidden="true"
+                /></span>
               </div>
               <p class="text-sm text-justify">
                 Le résultat donné par Basegun n’emporte qu’une simple <span class="font-bold">valeur de renseignement</span>.
@@ -260,7 +284,7 @@ onUnmounted(() => {
               </p>
             </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
     <div
@@ -357,16 +381,6 @@ onUnmounted(() => {
   font-weight: initial;
 }
 
-.warning-msg {
-  line-height: 1.3rem !important;
-  margin-bottom: 1rem;
-}
-
-.callout-head {
-  display: flex;
-  align-items: center;
-}
-
 .callout-mention {
   font-weight: normal;
   margin-top: 10px;
@@ -403,11 +417,6 @@ onUnmounted(() => {
   text-shadow: 0 0 0 #1212ff;
 }
 
-h4 {
-  color: unset;
-  margin: var(--title-spacing);;
-}
-
 [aria-disabled="true"] .feedback-click {
   pointer-events: none;
   cursor: not-allowed;
@@ -440,6 +449,16 @@ h4 {
 
 .typo::first-letter {
   text-transform: uppercase;
+}
+
+.disclaimer {
+  font-size: smaller;
+  font-weight: 500;
+  color: black;
+}
+
+.text-blue {
+  color: var(--blue-france-sun-113-625);
 }
 
 </style>
