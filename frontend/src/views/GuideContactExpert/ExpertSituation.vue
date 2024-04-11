@@ -40,7 +40,7 @@ const IRCGN = {
 const shownLPS = ref<null | string>(null)
 const showIRCGNModal = ref(false)
 
-function buildMailto(email: string) {
+function buildMailto (email: string) {
   const subject = "[Basegun] Demande d'identification"
   const body = "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A"
   return `mailto:${email}?subject=${subject}&body=${body}`

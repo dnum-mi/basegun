@@ -121,7 +121,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
         alt="photo d'une carte posée au sol et arme tournée vers la droite et centrée"
       />
     </div>
-    <div class="big-blank"></div>
+    <div class="big-blank" />
     <div class="footer">
       <div
         v-if="!loading"

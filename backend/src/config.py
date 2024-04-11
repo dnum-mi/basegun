@@ -112,3 +112,11 @@ S3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT, verify=False)
 # Versions
 APP_VERSION = "-1"
 MODEL_VERSION = "-1"
+
+TYPOLOGIES_MEASURED = [
+    "epaule_a_levier_sous_garde",
+    "epaule_a_pompe",
+    "epaule_a_un_coup_par_canon",
+    "epaule_a_verrou",
+    "epaule_semi_auto_style_chasse",
+]
