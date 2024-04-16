@@ -14,46 +14,44 @@ const resultStore = useResultStore()
       Basegun
     </h1>
     <p class="accueil-subtitle">
-      Outil d'identification rapide et <br> de mise en sécurité des armes à feu
+      Outil d'identification rapide et <br>
+      de mise en sécurité des armes à feu
     </p>
-    <div class="inline-grid">
-      <router-link
-        v-slot="{navigate}"
-        :to="{name:'SecuringRecommendations'}"
-      >
-        <DsfrButton
-          class=" w-14rem mb-4 p-2 whitespace-pre-line"
-          data-testid="secure-firearm"
-          label="Je veux mettre en sécurité mon arme"
-          size="small"
-          @click="navigate(); resultStore.$patch({ securingTutorial: true})"
-        />
-      </router-link>
-      <router-link
-        v-slot="{navigate}"
-        :to="{name:'InstructionsPage'}"
-      >
-        <DsfrButton
-          class=" w-14rem mb-4 p-2 whitespace-pre-line"
-          data-testid="identification"
-          label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
-          size="small"
-          @click="navigate(); resultStore.$patch({ securingTutorial: false})"
-        />
-      </router-link>
+    <div>
+      <DsfrButton
+        class="w-14rem mb-4 p-2 whitespace-pre-line"
+        data-testid="secure-firearm"
+        label="Je veux mettre en sécurité mon arme"
+        size="small"
+        @click="
+          $router.push({ name: 'SecuringRecommendations'});
+          resultStore.$patch({ securingTutorial: true });
+        "
+      />
+    </div>
+    <div>
+      <DsfrButton
+        class="w-14rem mb-4 p-2 whitespace-pre-line"
+        data-testid="identification"
+        label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
+        size="small"
+        @click="
+          $router.push({ name: 'InstructionsPage'});
+          resultStore.$patch({ securingTutorial: false });
+        "
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-  .accueil-title {
-    font-size: 28px;
-    margin-top: -20px;
-    margin-bottom: 0;
-  }
+.accueil-title {
+  margin-top: -20px;
+  margin-bottom: 0;
+}
 
-  .accueil-subtitle {
-    font-size: 14px;
-    line-height: normal;
-  }
+.accueil-subtitle {
+  font-size: 14px;
+  line-height: normal;
+}
 </style>

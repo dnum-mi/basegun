@@ -33,6 +33,10 @@ const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
     label: 'Contact',
     to: '/contact',
   },
+  {
+    label: 'Accessibilité : partiellement conforme',
+    to: '/accessibilite',
+  },
 ]
 </script>
 

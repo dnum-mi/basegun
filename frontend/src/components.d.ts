@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AccessibilityPage: typeof import('./components/AccessibilityPage.vue')['default']
     AskingExpert: typeof import('./components/AskingExpert.vue')['default']
     ContactExpert: typeof import('./components/ContactExpert.vue')['default']
     DsfrAccordion: typeof import('@gouvminint/vue-dsfr')['DsfrAccordion']

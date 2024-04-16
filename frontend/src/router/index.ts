@@ -10,6 +10,7 @@ const PageNotFound = () => import('@/views/PageNotFound.vue')
 const AboutPage = () => import('@/views/AboutPage.vue')
 const LegalPage = () => import('@/views/LegalPage.vue')
 const ContactPage = () => import('@/views/ContactPage.vue')
+const AccessibilityPage = () => import('@/views/AccessibilityPage.vue')
 
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
 const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
@@ -166,6 +167,15 @@ const routes: RouteRecordRaw[] = [
     path: '/erreur',
     name: 'ErrorPage',
     component: ErrorPage,
+    meta: {
+      wholeLogo: true,
+    },
+  },
+  {
+    path: '/accessibilite',
+    name: 'AccessibilityPage',
+    component: AccessibilityPage,
+    beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
     },
