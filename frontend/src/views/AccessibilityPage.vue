@@ -1,120 +1,128 @@
 <template>
   <div class="fr-container mt-4">
     <h1>Déclaration d’accessibilité</h1>
-    <p>Établie le <span>11 avril 2024</span>.</p>
+    <p>Établie le <span>16 avril 2024</span>.</p>
     <p>
-      <span>Ministère de l'Intérieur et des Outre-Mer</span> s’engage à rendre
-      son service accessible, conformément à l’article 47 de la loi n° 2005-102
-      du 11 février 2005.
+      <strong>Ministère de l'Intérieur et des Outre-Mer</strong> s’engage à
+      rendre ses sites internet, intranet, extranet et ses progiciels
+      accessibles (et ses applications mobiles et mobilier urbain numérique)
+      conformément à l’article 47 de la loi n°2005-102 du 11 février 2005.
     </p>
-    <p>
-      À cette fin, nous mettons en œuvre la stratégie et les actions
-      suivantes&nbsp;:
-      <a
-        href="https://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdfhttps://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdfhttps://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdfhttps://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdfhttps://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdf"
-      >https://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdf</a>.
-    </p>
-    <p>
-      Cette déclaration d’accessibilité s’applique à <strong>Basegun</strong><span> (<span>https://basegun.interieur.gouv.fr</span>)</span>.
-    </p>
-    <h2>État de conformité</h2>
-    <p>
-      <strong>Basegun</strong> est
-      <strong><span data-printfilter="lowercase">non conforme</span></strong>
-      avec le
-      <abbr title="Référentiel général d’amélioration de l’accessibilité">RGAA</abbr>. <span>Le site n’a encore pas été audité.</span>
-    </p>
-    <h2>Résultats des tests</h2>
-    <p>
-      L’audit de conformité réalisé <span>en auto-évaluation</span> révèle que
-      <span>0</span>% des critères sont respectés.
-    </p>
-    <h2>Contenus non accessibles</h2>
-    <p>
-      Les contenus listés ci-dessous ne sont pas accessibles pour les raisons
-      suivantes.
-    </p>
-    <h3>Non conformité</h3>
-    <p>
-      Malgré nos efforts, certains contenus sont inaccessibles. Vous trouverez
-      ci-dessous une liste des limitations connues et des solutions
-      potentielles&nbsp;:
-    </p>
-    <ol class="technical-information accessibility-limitations">
-      <li>
-        <strong>Présentation des modèles possibles lors de la mise en sécurité d'une
-          arme </strong>: Dans le cadre de la mise en sécurité d'une arme, les images des
-        modèles proposés par l'application ne sont pas toujours accompagnés de
-        textes auto porteur pour trouver le mécanisme. parce que l'affichage
-        mobile nous contraint à rester très concis en termes de nombre de mots..
-        . Merci d’utiliser le lien "je n'arrive pas à réaliser cette étape".
-        Vous pourrez nous décrire le problème rencontré, pour que nous puissions
-        améliorer la foncitonnalité.
-      </li>
-    </ol>
-    <h2>Établissement de cette déclaration d’accessibilité</h2>
-    <p>Cette déclaration a été établie le <span>11 avril 2024</span>.</p>
-    <h3>Technologies utilisées</h3>
-    <p>
-      L’accessibilité de <span>Basegun</span> s’appuie sur les technologies
-      suivantes&nbsp;:
-    </p>
-    <ul class="technical-information technologies-used">
-      <li>CSS</li>
-      <li>JavaScript</li>
-    </ul>
-    <h2>Amélioration et contact</h2>
-    <p>
-      Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez
-      contacter le responsable de <span>Basegun</span> pour être orienté vers
-      une alternative accessible ou obtenir le contenu sous une autre forme.
-    </p>
-    <ul class="basic-information feedback h-card">
-      <li>
-        E-mail&nbsp;:
-        <a
-          href="mailto:basegun@interieur.gouv.frbasegun@interieur.gouv.frbasegun@interieur.gouv.frbasegun@interieur.gouv.frbasegun@interieur.gouv.fr"
-        >basegun@interieur.gouv.fr</a>
-      </li>
 
-      <li>Adresse&nbsp;: <span>Paris</span></li>
-    </ul>
-    <p>Nous essayons de répondre dans les <span>5 jours ouvrés</span>.</p>
-    <h2>Voie de recours</h2>
     <p>
-      Cette procédure est à utiliser dans le cas suivant&nbsp;: vous avez
-      signalé au responsable du site internet un défaut d’accessibilité qui vous
-      empêche d’accéder à un contenu ou à un des services du portail et vous
-      n’avez pas obtenu de réponse satisfaisante.
+      Cette déclaration d’accessibilité s’applique à
+      <strong>https://basegun.interieur.gouv.fr/</strong>.
     </p>
-    <p>Vous pouvez&nbsp;:</p>
+
+    <h2>État de conformité</h2>
+
+    <p>
+      <strong
+        >Basegun
+        <a target="_blank" href="https://basegun.interieur.gouv.fr/"
+          >https://basegun.interieur.gouv.fr/</a
+        ></strong
+      >
+      est <strong>partiellement</strong> conforme avec le référentiel général
+      d’amélioration de l’accessibilité (RGAA), version 4 en raison des
+      non-conformités et des dérogations énumérées ci-dessous.
+    </p>
+
+    <h2>Résultats des tests</h2>
+
+    <p>
+      L’audit de conformité réalisé par <strong>Basegun</strong> révèle que
+      <strong>71%</strong> des critères du RGAA version 4 sont respectés.<br/>
+      Lien vers le rapport d'audit : <a href="https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt" class="underline">https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt</a>
+    </p>
+
+    <h2>Établissement de cette déclaration d’accessibilité</h2>
+
+    <h3>Technologies utilisées pour la réalisation de l’audit</h3>
+
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>Javascript</li>
+    </ul>
+
+    <h3>Environnement de test</h3>
+
+    <p>
+      Les vérifications de restitution de contenus ont été réalisées sur la base
+      de la combinaison fournie par la base de référence du RGAA, avec les
+      versions suivantes :
+    </p>
+
+    <ul></ul>
+
+    <h3>Outils pour évaluer l’accessibilité</h3>
+
+    <ul>
+      <li>Validateur HTML du W3C</li>
+      <li>Web Developer Toolbar</li>
+    </ul>
+
+    <h3>Pages du site ayant fait l’objet de la vérification de conformité</h3>
+
     <ul>
       <li>
-        Écrire un message au
-        <a href="https://formulaire.defenseurdesdroits.fr/">Défenseur des droits</a>
+        Accueil <strong>https://basegun.interieur.gouv.fr/accueil</strong>
       </li>
       <li>
-        Contacter
-        <a href="https://www.defenseurdesdroits.fr/saisir/delegues">le délégué du Défenseur des droits dans votre région</a>
+        Contact <strong>https://basegun.interieur.gouv.fr/contact</strong>
       </li>
       <li>
-        Envoyer un courrier par la poste (gratuit, ne pas mettre de
-        timbre)&nbsp;:<br>
-        Défenseur des droits<br>
-        Libre réponse 71120 75342 Paris CEDEX 07
+        Mentions légales
+        <strong>https://basegun.interieur.gouv.fr/contact</strong>
+      </li>
+      <li>
+        Accessibilité
+        <strong>https://basegun.interieur.gouv.fr/accessibilite</strong>
+      </li>
+      <li>
+        A Propos <strong>https://basegun.interieur.gouv.fr/a-propos</strong>
       </li>
     </ul>
-    <hr>
+
+    <h2>Retour d’information et contact</h2>
+
     <p>
-      Cette déclaration d’accessibilité a été créé le
-      <span>11 avril 2024</span> grâce au
-      <a href="https://betagouv.github.io/a11y-generateur-declaration/#create">Générateur de Déclaration d’Accessibilité de BetaGouv</a>.
+      Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez
+      contacter le responsable de Basegun pour être orienté vers une alternative
+      accessible ou obtenir le contenu sous une autre forme.
     </p>
-    <h1>Plan d'action de l'année en cours</h1>
-    <ol>
-      <li>Analyse de la conformité du site</li>
-      <li>Evaluation de l'écart à la cible d'accessibilité</li>
-      <li>Mise en place des mesures correctives pour atteindre la cible d'accessibilité</li>
-    </ol>
+
+    <ul>
+      <li>
+        Contacter
+        <strong
+          >Ministère de l'Intérieur et des Outre-Mer :
+          basegun@interieur.gouv.fr</strong
+        >
+      </li>
+    </ul>
+
+    <h2>Voies de recours</h2>
+
+    <p>
+      Si vous constatez un défaut d’accessibilité vous empêchant d’accéder à un
+      contenu ou une fonctionnalité du site, que vous nous le signalez et que
+      vous ne parvenez pas à obtenir une réponse de notre part, vous êtes en
+      droit de faire parvenir vos doléances ou une demande de saisine au
+      Défenseur des droits.
+    </p>
+
+    <p>Plusieurs moyens sont à votre disposition :</p>
+
+    <ul>
+      <li>Écrire un message au Défenseur des droits</li>
+      <li>Contacter le délégué du Défenseur des droits dans votre région</li>
+    </ul>
+
+    <p>
+      Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre)
+      Défenseur des droits Libre réponse 71120 75342 Paris CEDEX 07
+    </p>
   </div>
 </template>
