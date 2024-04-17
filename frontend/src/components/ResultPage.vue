@@ -8,6 +8,7 @@ import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 import { useRouter, useRoute } from 'vue-router'
+import { getMentionsFromCategories } from '@/utils/mentions'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
@@ -46,14 +47,7 @@ const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const img = computed(() => resultStore.img)
 const imgUrl = computed(() => resultStore.imgUrl)
 
-const typology = computed(() => {
-  if (selectedArmeAlarme.value && selectedArmeAlarme.value.startsWith('arme_')) {
-    return 'arme_alarme'
-  } else {
-    return resultStore.typology
-  }
-})
-const selectedArmeAlarme = computed(() => stepsStore.selectedArmeAlarme)
+const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
 const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
@@ -66,25 +60,24 @@ const securingTutorial = computed(() => resultStore.securingTutorial)
 
 const label = computed(() => resultTree[typology.value]?.displayLabel)
 
-const category = computed(() => getCategoryFromTypologyAndMeasures(typology.value, resultStore.gunLength, resultStore.gunBarrelLength))
+const category = computed(() => {
+  if (stepsStore.selectedAlarmGun && stepsStore.selectedAlarmGun !== '') {
+    return 'D'
+  } else if (isDummy.value) {
+    return 'Non Classée'
+  } else if (typology.value === 'revolver') {
+    return resultTree[typology.value]?.categoryWithoutSecuring
+  } else {
+    return getCategoryFromTypologyAndMeasures(typology.value, resultStore.gunLength, resultStore.gunBarrelLength)
+  }
+})
+
 const disclaimer = computed(() => getDisclaimer(typology.value, category.value))
 const categoryWithoutSecuring = computed(
   () => typology.value === 'revolver'
     ? resultTree[typology.value]?.categoryWithoutSecuring
     : undefined,
 )
-
-const mention = computed(() => isDummy.value === true
-  ? mentionIfisDummy.value
-  : securingTutorial.value === true
-    ? resultTree[typology.value]?.mention
-    : typology.value === 'revolver'
-      ? resultTree[typology.value]?.mentionWithoutSecuring
-      : undefined,
-
-)
-
-const mentionIfisDummy = ref("Libre d'acquisition et de détention")
 
 function sendFeedback (isCorrect: boolean) {
   const json = {
@@ -112,11 +105,6 @@ function sendFeedback (isCorrect: boolean) {
       isFeedbackDone.value = true
     })
 }
-
-onUnmounted(() => {
-  stepsStore.selectedArmeAlarme = undefined
-})
-
 </script>
 
 <template>
@@ -180,7 +168,7 @@ onUnmounted(() => {
                 </p>
                 <ContactExpert v-if="isUserUsingCrosscall()" />
               </div>
-              <div v-if="isDummy === false && (route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true)">
+              <div v-if="route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true">
                 <p
                   data-testid="arm-category"
                   class="category fr-callout__title mt-3"
@@ -190,7 +178,7 @@ onUnmounted(() => {
                     src="@/assets/guide-identification/icones/gun.jpg"
                     alt=""
                   >
-                  <span v-if="securingTutorial || typology !== 'revolver'"> Catégorie {{ category }}
+                  <span>Catégorie {{ category }}
                     <p
                       v-if="disclaimer"
                       class="disclaimer"
@@ -199,46 +187,23 @@ onUnmounted(() => {
                       aria-hidden="true"
                     /><span v-html="disclaimer" /></p>
                   </span>
-                  <span v-else> Catégorie {{ categoryWithoutSecuring }}</span>
                 </p>
                 <div
                   class="callout-mention"
                 >
-                  <p v-html="mention" />
+                  <p v-for="mention in getMentionsFromCategories(category)">
+                    {{ mention }}
+                  </p>
                 </div>
               </div>
-              <div v-if="isDummy === true">
-                <p
-                  data-testid="arm-category"
-                  class="category fr-callout__title mt-3"
-                >
-                  <img
-                    class="px-2"
-                    src="@/assets/guide-identification/icones/gun.jpg"
-                    alt=""
-                  >
-                  Catégorie Non Classée
-                </p>
-                <div
-                  class="callout-mention"
-                >
-                  <span v-html="mention" />
-                </div>
+              <div>
                 <p class="mt-2 text-left text-base fr-callout__text">
                   <span class="font-normal">Typologie : </span>
-                  <span>Arme factice de type </span>
+                  <span v-if="isDummy">Arme factice de type </span>
+                  <span v-else-if="stepsStore.selectedAlarmGun">Arme d'alarme de type </span>
                   <span class="typo">
                     {{ label }}
                   </span>
-                </p>
-              </div>
-              <div v-else>
-                <p class="mt-2 text-left text-base fr-callout__text">
-                  <span
-                    v-if="route.name !== 'IdentificationTypologyResult'"
-                    class="font-normal typo"
-                  > Typologie : </span>
-                  {{ label }}
                 </p>
               </div>
             </div>

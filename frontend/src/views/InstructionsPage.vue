@@ -6,12 +6,14 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
+import { useStepsStore } from '@/stores/steps'
 import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
 
 const loading = ref(false)
 const fileInput = ref<HTMLInputElement | null>(null)
 
 const resultStore = useResultStore()
+const stepsStore = useStepsStore()
 const router = useRouter()
 
 const handledImageTypes = 'image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif'
@@ -144,7 +146,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
             label="Prendre la photo"
             icon="ri-camera-fill"
             :icon-right="true"
-            @click="$refs.fileInput.click()"
+            @click="$refs.fileInput.click(); stepsStore.$reset()"
           />
         </div>
       </div>

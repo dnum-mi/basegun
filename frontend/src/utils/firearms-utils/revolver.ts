@@ -38,8 +38,6 @@ export const revolver = {
   displayLabel: 'Revolver',
   category: 'B',
   categoryWithoutSecuring: 'B ou D',
-  mention: 'B - Soumise à autorisation',
-  mentionWithoutSecuring: "B - Soumise à autorisation<br>D - Libre d'acquisition et de détention",
   isDummyTypology: true,
   isSecuringOptions: true,
   options_step_1_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
@@ -222,7 +220,6 @@ export const revolver = {
 export const revolver_black_powder = {
   displayLabel: 'Revolver à poudre noire',
   category: 'D',
-  mention: "D - Libre d'acquisition et de détention",
   isDummyTypology: false,
   isSecuringOptions: false,
 } as const

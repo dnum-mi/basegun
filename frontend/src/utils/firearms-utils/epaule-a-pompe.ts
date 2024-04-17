@@ -6,7 +6,6 @@ import epaulePompeSimpleVideo from '@/assets/guide-mise-en-securite/videos/epaul
 export const epaule_a_pompe = {
   displayLabel: "Arme d'épaule à pompe",
   category: 'B ou C',
-  mention: 'B - Soumise à autorisation<br>C - Soumise à déclaration',
   isDummyTypology: false,
   isSecuringOptions: true,
   options_text: '',

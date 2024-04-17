@@ -16,7 +16,19 @@
             Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur et des Outre-Mer.
           </li>
           <li class="swiper-li">
-            A ce jour, Basegun <span class="swiper-green-highlight">prend en compte uniquement </span> l'identification d'<span class="swiper-green-highlight">armes à feu létales</span> et d'<span class="swiper-green-highlight">armes factices type airsoft</span>.
+            A ce jour, Basegun <span
+              data-v-f74c6fe1=""
+              class="swiper-green-highlight"
+            >prend en compte uniquement </span> l'identification d'<span
+              data-v-f74c6fe1=""
+              class="swiper-green-highlight"
+            >armes à feu létales</span>, d'<span
+              data-v-f74c6fe1=""
+              class="swiper-green-highlight"
+            >armes d'alarme</span> et d'<span
+              data-v-f74c6fe1=""
+              class="swiper-green-highlight"
+            >armes factices type airsoft</span>
           </li>
           <li>
             Basegun propose également de les <span class="swiper-green-highlight">mettre en sécurité</span> grâce à des <span class="swiper-green-highlight">tutoriels personnalisés</span>.

@@ -22,7 +22,6 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const typology = computed(() => resultStore.typology)
-const selectedArmeAlarme = computed(() => stepsStore.selectedArmeAlarme)
 
 const currentStep = computed({
   get () {
@@ -33,31 +32,40 @@ const currentStep = computed({
   },
 })
 
-const steps = computed(() => (resultTree[resultStore.typology].isDummyTypology || confidenceLevel.value !== 'low')
-  ? resultStore.typology === 'pistolet_semi_auto_moderne' && stepsStore.selectedAmmo === 'cartouches'
-    ? ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
-    : ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
-  : ['Résultat final'],
-)
+const ALARM_GUNS_TYPOLOGIES = ['pistolet_semi_auto_moderne', 'revolver']
+
+const isDummyTypology = resultTree[resultStore.typology].isDummyTypology
+const isLowConfidence = confidenceLevel.value === 'low'
+
+const steps = computed(() => {
+  if (isDummyTypology || !isLowConfidence) {
+    if (ALARM_GUNS_TYPOLOGIES.includes(resultStore.typology) && stepsStore.selectedAmmo === 'cartouches') {
+      return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
+    } else {
+      return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
+    }
+  } else {
+    return ['Résultat final']
+  }
+})
+
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
-const disabledValidationArmesAlarme = computed(() => currentStep.value === 4 && stepsStore.selectedArmeAlarme === undefined)
 
 const goToNewRoute = () => (
   router.push({ name: `${identificationGuideSteps[currentStep.value - 1]}` }).catch(() => { })
 )
 
 const goToNewRouteWithArmeAlarme = () => (
-  router.push({ name: `${identificationGuideStepsWithArmeAlarme[currentStep.value - 1]}` }).catch(() => { })
+  router.push({ name: `${identificationGuideStepsWithArmeAlarme[currentStep.value - 1]}` })
 )
 
-const isSemiAutoModerne = computed(() => route.path === '/guide-identification/munition-type' && typology.value === 'pistolet_semi_auto_moderne')
 const isArmeAlarme = computed(() => route.path === '/guide-identification/armes-alarme')
 
 const goToPreviousStep = () => (
   currentStep.value = currentStep.value - 2
 )
 
-const stepsNumber = computed(() => resultStore.typology === 'pistolet_semi_auto_moderne'
+const stepsNumber = computed(() => ALARM_GUNS_TYPOLOGIES.includes(resultStore.typology)
   ? identificationRoutePaths.length
   : identificationRoutePathsWithArmeAlarme.length,
 )
@@ -101,6 +109,24 @@ const calculateRoute = (stepsStore) => {
     : { name: 'IdentificationBlankGun' }
 }
 
+// showDiv is used to create a mini steper for alarm guns. Need to be reworked.
+const backStepButtonAction = () => {
+  if (showDiv.value === false) {
+    goToPreviousStep()
+    goToNewRouteWithArmeAlarme()
+  } else {
+    showDiv.value = false
+  }
+}
+
+const nextStepButtonAction = () => {
+  if (showDiv.value === false) {
+    showDiv.value = true
+  } else {
+    goToNextStep(); goToNewRouteWithArmeAlarme()
+  }
+}
+
 const showDiv = ref(false)
 
 </script>
@@ -137,7 +163,7 @@ const showDiv = ref(false)
         />
       </router-link>
       <DsfrButton
-        v-if="typology === 'pistolet_semi_auto_moderne'"
+        v-if="ALARM_GUNS_TYPOLOGIES.includes(typology)"
         class="mt-3 flex justify-center !w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
@@ -157,7 +183,7 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-else-if="isSemiAutoModerne"
+    v-else-if="ALARM_GUNS_TYPOLOGIES.includes(typology) && route.path === '/guide-identification/munition-type'"
     class="footer content z-1"
   >
     <div
@@ -165,7 +191,7 @@ const showDiv = ref(false)
     >
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center"
+        class="m-1 flex justify-center w-50"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
@@ -174,6 +200,7 @@ const showDiv = ref(false)
       <router-link
         v-slot="{navigate}"
         :to="calculateRoute(stepsStore)"
+        class="w-50"
       >
         <DsfrButton
           class="fr-btn--md m-1 flex justify-center !w-full"
@@ -190,56 +217,31 @@ const showDiv = ref(false)
 
   <div
     v-else-if="isArmeAlarme"
-    class="footer content z-1"
+    class="footer z-1"
   >
-    <div
-      v-if="showDiv === false"
-      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
-    >
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center"
+        class="m-1 flex justify-center w-50"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
-        @click="goToPreviousStep(); goToNewRouteWithArmeAlarme()"
+        @click="backStepButtonAction"
       />
       <DsfrButton
-        class="m-1 flex justify-center"
+        class="m-1 flex justify-center w-50"
         icon="ri-arrow-right-line"
         :label="goOnAndFollow"
         :icon-right="true"
         data-testid="next-step"
-        @click="showDiv = true"
-      />
-    </div>
-    <div
-      v-else
-      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
-    >
-      <DsfrButton
-        v-if="currentStep > 1"
-        class="m-1 flex justify-center"
-        icon="ri-arrow-left-line"
-        :secondary="true"
-        label="Précédent"
-        @click="showDiv = false"
-      />
-      <DsfrButton
-        class="m-1 flex justify-center"
-        :disabled="disabledValidationArmesAlarme"
-        :icon="arrowOrCircleIcon()"
-        :label="goOnAndFollow"
-        :icon-right="true"
-        data-testid="next-step"
-        @click="goToNextStep(); goToNewRouteWithArmeAlarme()"
+        @click="nextStepButtonAction"
       />
     </div>
   </div>
 
   <div
     v-else
-    class="footer content z-1"
+    class="footer z-1"
   >
     <div
       v-if="confidenceLevel === 'low'"
@@ -278,7 +280,7 @@ const showDiv = ref(false)
     >
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center"
+        class="m-1 flex justify-center w-50"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
@@ -287,7 +289,7 @@ const showDiv = ref(false)
       <DsfrButton
         v-if="confidenceLevel !== 'low'"
         :disabled="disabledValidation"
-        class="m-1 flex justify-center"
+        class="m-1 flex justify-center w-50"
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
@@ -348,7 +350,7 @@ height: 3em;
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
-.content button {
+.w-50 {
   width: 50%;
 }
 </style>
