@@ -58,7 +58,7 @@ const imgs = ref([
       à laquelle l'arme appartient.
     </p>
     <div class="fr-callout fr-icon-alert-fill">
-      Basegun prend en compte uniquement l'identification d'armes à feu létales et d'armes factices type airsoft.<br/>
+      Basegun prend en compte uniquement l'identification d'armes à feu létales, d'armes d'alarme et d'armes factices type airsoft.<br>
       Elle ne permet donc pas encore de distinguer les armes à air comprimé > 2 joules, les armes à blanc ou neutralisées.
     </div>
 

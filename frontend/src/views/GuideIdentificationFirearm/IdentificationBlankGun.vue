@@ -3,21 +3,17 @@ import { ref, defineProps } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps'
-import { arme_alarme as armeAlarme } from '@/utils/firearms-utils/arme-alarme'
+import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
+
+import { useResultStore } from '@/stores/result'
+const resultStore = useResultStore()
 
 const stepsStore = useStepsStore()
 const router = useRouter()
 
 const legend = 'Sélectionner le modèle correspondant à votre arme ou cliquer sur "Aucune correspondance"  :'
 
-const zoom = ref('')
-const zoomOn = (imgValue: string) => {
-  zoom.value = imgValue
-}
-
-const resetSelectedArmeAlarme = () => {
-  stepsStore.selectedArmeAlarme = undefined
-}
+const zoom = ref<number|null>(null)
 
 const props = defineProps({
   showDiv: {
@@ -29,16 +25,16 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="!showDiv">
-    <p
-      data-testid="instruction-armeAlarme"
-      class="my-4"
-    >
+  <div
+    v-if="!showDiv"
+    data-testid="instruction-armeAlarme"
+  >
+    <p class="my-4">
       Votre arme<span class="font-bold"> pourrait être une arme d'alarme</span>, nous allons vous guider pour déterminer si c'en est une,
       et ce, <span class="font-bold">grâce aux marquages présents sur l'arme</span>. En cliquant sur le bouton suivant, vous trouverez les <span class="font-bold">13 modèles d'armes d'alarmes reconnues par arrêté</span>.
       Vous pouvez obtenir une vue rapprochée des marquages de chaque modèle en cliquant sur le bouton de zoom.
-      <br>
-      <br>
+    </p>
+    <p>
       Veuillez <span class="font-bold">sélectionner le modèle correspondant à votre arme</span>, ou bien <span class="font-bold">sélectionner "Aucune correspondance"</span>.
     </p>
     <img
@@ -55,39 +51,38 @@ const props = defineProps({
       :legend="legend"
     >
       <template
-        v-for="option in armeAlarme.options"
-        :key="option.value"
+        v-for="gun, gunIndex in alarmGuns.options.filter(gun => gun.typology == resultStore.typology)"
+        :key="gunIndex"
       >
         <div class="relative">
           <DsfrRadioButton
-            v-model="stepsStore.selectedArmeAlarme"
+            v-model="stepsStore.selectedAlarmGun"
+            v-bind="gun"
             class="radio"
-            v-bind="option"
-            :img="option.img"
+            :img="gun.img"
             required
             name="armeAlarme"
           />
           <div
             class="zoom"
-            @click="zoomOn(option.value)"
+            @click="zoom = gunIndex"
           >
             <VIcon
               name="ri-zoom-in-line"
               scale="1.25"
-              @click="zoomOn(option.value)"
+              @click="zoom = gunIndex"
             />
             <span class="zoom-label">zoomer</span>
           </div>
           <Teleport to="body">
             <DsfrModal
               title=""
-              class="test"
-              :opened="zoom === option.value"
-              @close="zoom = ''"
+              :opened="zoom === gunIndex"
+              @close="zoom = null"
             >
               <img
-                v-if="zoom === option.value"
-                :src="option.imgZoom"
+                v-if="zoom === gunIndex"
+                :src="gun.imgZoom"
                 :style="{'max-width': '100%'}"
               >
             </DsfrModal>
@@ -101,7 +96,7 @@ const props = defineProps({
       label="Aucune correspondance"
       data-testid="aucune-correspondance"
       :icon-right="true"
-      @click="router.push({ name:'IdentificationFinalResult'}); resetSelectedArmeAlarme()"
+      @click="router.push({ name:'IdentificationFinalResult'}); stepsStore.selectedAlarmGun = ''"
     />
   </div>
 </template>
@@ -156,23 +151,6 @@ const props = defineProps({
 :deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
   max-height: 95%;
   max-width: 95%;
-}
-
-.instructions {
-  padding-bottom: .5em;
-}
-
-.transparent-mag {
-  width: 50%;
-  padding: 1rem;
-}
-
-.open-info {
-  justify-content: end;
-}
-
-.warning {
-  cursor: pointer;
 }
 
 .modal {

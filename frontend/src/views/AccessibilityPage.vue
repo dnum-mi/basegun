@@ -17,12 +17,11 @@
     <h2>État de conformité</h2>
 
     <p>
-      <strong
-        >Basegun
-        <a target="_blank" href="https://basegun.interieur.gouv.fr/"
-          >https://basegun.interieur.gouv.fr/</a
-        ></strong
-      >
+      <strong>Basegun
+        <a
+          target="_blank"
+          href="https://basegun.interieur.gouv.fr/"
+        >https://basegun.interieur.gouv.fr/</a></strong>
       est <strong>partiellement</strong> conforme avec le référentiel général
       d’amélioration de l’accessibilité (RGAA), version 4 en raison des
       non-conformités et des dérogations énumérées ci-dessous.
@@ -32,8 +31,11 @@
 
     <p>
       L’audit de conformité réalisé par <strong>Basegun</strong> révèle que
-      <strong>71%</strong> des critères du RGAA version 4 sont respectés.<br/>
-      Lien vers le rapport d'audit : <a href="https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt" class="underline">https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt</a>
+      <strong>71%</strong> des critères du RGAA version 4 sont respectés.<br>
+      Lien vers le rapport d'audit : <a
+        href="https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt"
+        class="underline"
+      >https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt</a>
     </p>
 
     <h2>Établissement de cette déclaration d’accessibilité</h2>
@@ -54,7 +56,7 @@
       versions suivantes :
     </p>
 
-    <ul></ul>
+    <ul />
 
     <h3>Outils pour évaluer l’accessibilité</h3>
 
@@ -96,10 +98,8 @@
     <ul>
       <li>
         Contacter
-        <strong
-          >Ministère de l'Intérieur et des Outre-Mer :
-          basegun@interieur.gouv.fr</strong
-        >
+        <strong>Ministère de l'Intérieur et des Outre-Mer :
+          basegun@interieur.gouv.fr</strong>
       </li>
     </ul>
 

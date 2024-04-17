@@ -21,7 +21,6 @@ Armes d’épaule semi-automatiques ou automatiques type militaire moderne
 export const semi_auto_style_militaire_autre = {
   displayLabel: 'Arme semi-automatique ou automatique',
   category: 'A ou B',
-  mention: 'A - Interdite<br>B - Soumise à autorisation<br>',
   isDummyTypology: true,
   isSecuringOptions: true,
   options_text: 'Observez la position du chargeur et sélectionnez ce que vous voyez :',

@@ -29,85 +29,97 @@ import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_a
 export const arme_alarme = {
   displayLabel: 'Arme d\'alarme',
   category: 'D',
-  mention: 'Libre d\'acquisition et de détention',
-  options: {
-    arme_1: {
-      label: '1. ZORAKI R2',
-      value: 'arme_1',
+  options: [
+    {
+      label: 'ZORAKI R2',
+      value: 'zoraki_r2',
       img: pistoletAlarmeImg1,
       imgZoom: pistoletAlarmeImg1Zoom,
+      typology: 'revolver',
     },
-    arme_2: {
-      label: '2. ZORAKI 925',
-      value: 'arme_2',
+    {
+      label: 'ZORAKI 925',
+      value: 'zoraki_925',
       img: pistoletAlarmeImg2,
       imgZoom: pistoletAlarmeImg2Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_3: {
-      label: '3. ZORAKI 906',
-      value: 'arme_3',
+    {
+      label: 'ZORAKI 906',
+      value: 'zoraki_906',
       img: pistoletAlarmeImg3,
       imgZoom: pistoletAlarmeImg3Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_4: {
-      label: '4. ZORAKI 2906',
-      value: 'arme_4',
+    {
+      label: 'ZORAKI 2906',
+      value: 'zoraki_2906',
       img: pistoletAlarmeImg4,
       imgZoom: pistoletAlarmeImg4Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_5: {
-      label: '5. ZORAKI 918',
-      value: 'arme_5',
+    {
+      label: 'ZORAKI 918',
+      value: 'zoraki_918',
       img: pistoletAlarmeImg5,
       imgZoom: pistoletAlarmeImg5Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_6: {
-      label: '6. KIMAR 911',
-      value: 'arme_6',
+    {
+      label: 'KIMAR 911',
+      value: 'kimar_911',
       img: pistoletAlarmeImg6,
       imgZoom: pistoletAlarmeImg6Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_7: {
-      label: '7. KIMAR 75 AUTO',
-      value: 'arme_7',
+    {
+      label: 'KIMAR 75 AUTO',
+      value: 'kimar_75_auto',
       img: pistoletAlarmeImg7,
       imgZoom: pistoletAlarmeImg7Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_8: {
-      label: '8. KIMAR 92 AUTO',
-      value: 'arme_8',
+    {
+      label: 'KIMAR 92 AUTO',
+      value: 'kimar_92_auto',
       img: pistoletAlarmeImg8,
       imgZoom: pistoletAlarmeImg8Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_9: {
-      label: '9. KIMAR Competitive Alarm',
-      value: 'arme_9',
+    {
+      label: 'KIMAR Competitive Alarm',
+      value: 'kimar_competitive_alarm',
       img: pistoletAlarmeImg9,
       imgZoom: pistoletAlarmeImg9Zoom,
+      typology: 'revolver',
     },
-    arme_10: {
-      label: '10. KIMAR Power Alarm',
-      value: 'arme_10',
+    {
+      label: 'KIMAR Power Alarm',
+      value: 'kimar_power_alarm',
       img: pistoletAlarmeImg10,
       imgZoom: pistoletAlarmeImg10Zoom,
+      typology: 'revolver',
     },
-    arme_11: {
-      label: '11. BLOW F92',
-      value: 'arme_11',
+    {
+      label: 'BLOW F92',
+      value: 'blow_f92',
       img: pistoletAlarmeImg11,
       imgZoom: pistoletAlarmeImg11Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_12: {
-      label: '12. BLOW F92 AUTO',
-      value: 'arme_12',
+    {
+      label: 'BLOW F92 AUTO',
+      value: 'blow_f92_auto',
       img: pistoletAlarmeImg12,
       imgZoom: pistoletAlarmeImg12Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-    arme_13: {
-      label: '13. BLOW C75',
-      value: 'arme_13',
+    {
+      label: 'BLOW C75',
+      value: 'blow_c75',
       img: pistoletAlarmeImg13,
       imgZoom: pistoletAlarmeImg13Zoom,
+      typology: 'pistolet_semi_auto_moderne',
     },
-  },
+  ],
 } as const
