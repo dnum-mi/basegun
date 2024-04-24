@@ -84,25 +84,6 @@ const arrowOrCircleIcon = () => (
   currentStep.value === 4 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
 )
 
-async function sendLogsIdentificationDummy () {
-  const identification = {
-    image_url: imgUrl.value,
-    confidence: confidence.value,
-    label: typology.value,
-    confidence_level: confidenceLevel.value,
-    tutorial_option: stepsStore.currentOptionStep[stepsStore.currentStep] || null,
-    is_dummy: stepsStore.isDummy,
-  }
-
-  try {
-    await axios.post('/identification-dummy', identification)
-  } catch (err) {
-    import.meta.env.DEV && console.warn(err)
-  // } finally {
-  //   router.push({ name: 'IdentificationFinalResult' }).catch(() => {})
-  }
-}
-
 const calculateRoute = (stepsStore) => {
   return stepsStore.selectedAmmo === 'billes'
     ? { name: 'IdentificationFinalResult' }
@@ -127,6 +108,16 @@ const nextStepButtonAction = () => {
   }
 }
 
+function handlePreviousButtonClick() {
+  goToPreviousStep();
+  if (ALARM_GUNS_TYPOLOGIES.includes(typology.value)) {
+    goToNewRouteWithArmeAlarme();
+  }
+  else if (resultTree[typology]?.isDummyTypology) {
+    goToNewRoute();
+  }
+}
+
 const showDiv = ref(false)
 
 </script>
@@ -148,37 +139,21 @@ const showDiv = ref(false)
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
-      <router-link
-        v-slot="{navigate}"
-        class="navigate"
-        :to="{name: 'StartPage'}"
-      >
-        <DsfrButton
-          class="flex justify-center !w-full"
-          label="Retour à l'accueil"
-          icon="ri-home-4-line"
-          data-testid="return-to-home-end"
-          :icon-right="true"
-          @click="navigate()"
-        />
-      </router-link>
       <DsfrButton
-        v-if="ALARM_GUNS_TYPOLOGIES.includes(typology)"
-        class="mt-3 flex justify-center !w-full"
-        label="Retourner à l'étape précédente"
-        icon="ri-arrow-go-back-fill"
+        class="flex justify-center !w-full"
+        label="Retour à l'accueil"
+        icon="ri-home-4-line"
+        data-testid="return-to-home-end"
         :icon-right="true"
-        secondary
-        @click="goToPreviousStep(); goToNewRouteWithArmeAlarme(); sendLogsIdentificationDummy()"
+        @click="$router.push({name: 'StartPage'})"
       />
       <DsfrButton
-        v-else-if="resultTree[typology]?.isDummyTypology"
         class="mt-3 flex justify-center !w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
         :icon-right="true"
         secondary
-        @click="goToPreviousStep(); goToNewRoute(); sendLogsIdentificationDummy()"
+        @click="handlePreviousButtonClick"
       />
     </div>
   </div>
@@ -191,27 +166,21 @@ const showDiv = ref(false)
     >
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center w-50"
+        class="m-1 flex justify-center !w-full"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
         @click="goToPreviousStep(); goToNewRoute()"
       />
-      <router-link
-        v-slot="{navigate}"
-        :to="calculateRoute(stepsStore)"
-        class="w-50"
-      >
-        <DsfrButton
-          class="fr-btn--md m-1 flex justify-center !w-full"
-          :disabled="disabledValidation"
-          data-testid="next-step"
-          :icon="arrowOrCircleIcon()"
-          :label="goOnAndFollow"
-          :icon-right="true"
-          @click="navigate(); goToNextStep()"
-        />
-      </router-link>
+      <DsfrButton
+        class="fr-btn--md m-1 flex justify-center !w-full"
+        :disabled="disabledValidation"
+        data-testid="next-step"
+        :icon="arrowOrCircleIcon()"
+        :label="goOnAndFollow"
+        :icon-right="true"
+        @click="$router.push(calculateRoute(stepsStore)); goToNextStep()"
+      />
     </div>
   </div>
 
@@ -222,14 +191,14 @@ const showDiv = ref(false)
     <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center w-50"
+        class="m-1 flex justify-center !w-full"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
         @click="backStepButtonAction"
       />
       <DsfrButton
-        class="m-1 flex justify-center w-50"
+        class="m-1 flex justify-center !w-full"
         icon="ri-arrow-right-line"
         :label="goOnAndFollow"
         :icon-right="true"
@@ -247,32 +216,21 @@ const showDiv = ref(false)
       v-if="confidenceLevel === 'low'"
       class="fr-col-11 fr-col-lg-6 mx-auto"
     >
-      <router-link
-        v-slot="{navigate}"
-        class="navigate"
-        :to="{name: 'InstructionsPage'}"
-      >
-        <DsfrButton
-          class="flex justify-center !w-full"
-          label="Identifier une nouvelle arme"
-          icon="ri-camera-fill"
-          :icon-right="true"
-          @click="navigate()"
-        />
-      </router-link>
-      <router-link
-        v-slot="{navigate}"
-        :to="{name:'StartPage'}"
-      >
-        <DsfrButton
-          class="mt-3 flex justify-center !w-full"
-          label="Retour à l'accueil"
-          icon="ri-home-4-line"
-          :icon-right="true"
-          secondary
-          @click="navigate()"
-        />
-      </router-link>
+      <DsfrButton
+        class="flex justify-center !w-full"
+        label="Identifier une nouvelle arme"
+        icon="ri-camera-fill"
+        :icon-right="true"
+        @click="$router.push({name: 'InstructionsPage'})"
+      />
+      <DsfrButton
+        class="mt-3 flex justify-center !w-full"
+        label="Retour à l'accueil"
+        icon="ri-home-4-line"
+        :icon-right="true"
+        secondary
+        @click="$router.push({name: 'StartPage'})"
+      />
     </div>
     <div
       v-else
