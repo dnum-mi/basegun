@@ -124,5 +124,28 @@
       Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre)
       Défenseur des droits Libre réponse 71120 75342 Paris CEDEX 07
     </p>
+
+    <h2>Schéma pluriannuel de mise en accessibilité</h2>
+    <p><a href="https://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdf">https://www.interieur.gouv.fr/sites/minint/files/medias/documents/2023-10/Schema%20pluriannuel%20Accessibilit%C3%A9-ministere-interieur-et-outre-mer-2022%202024-accessible.pdf</a></p>
+
+    <h2>Plan d'action de l'année en cours</h2>
+    <h3>T1 2024</h3>
+    <ul>
+      <li>Mise en place de la rubrique d'accessibilité sur le site basegun</li>
+      <li>Publication de la déclaration d'accessibilité</li>
+      <li>Publication du Schéma pluriannuel de mise en accessibilité</li>
+      <li>Évaluation du niveau de conformité actuel du site et publication du score</li>
+    </ul>
+    <h3>T2 2024</h3>
+    <ul>
+      <li>Auto audit de notre site avec les outils d'analyse mis à disposition</li>
+      <li>Analyse des résultats de l'audit</li>
+    </ul>
+    <h3>T3 2024</h3>
+    <ul>
+      <li>Evaluation des correctifs à mettre en place par critère non respecté</li>
+      <li>Mise en place des correctifs</li>
+      <li>Ré Evaluation du niveau de conformité du site</li>
+    </ul>
   </div>
 </template>
