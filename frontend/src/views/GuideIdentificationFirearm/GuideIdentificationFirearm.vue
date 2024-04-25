@@ -8,6 +8,7 @@ import {
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
   resultTree,
+  ALARM_GUNS_TYPOLOGIES,
 } from '@/utils/firearms-utils/index'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
@@ -28,8 +29,6 @@ const currentStep = computed({
     stepsStore.setCurrentStep(value as 1 | 2 | 3)
   },
 })
-
-const ALARM_GUNS_TYPOLOGIES = ['pistolet_semi_auto_moderne', 'revolver']
 
 const isDummyTypology = resultTree[resultStore.typology].isDummyTypology
 const isLowConfidence = confidenceLevel.value === 'low'
@@ -105,13 +104,12 @@ const nextStepButtonAction = () => {
   }
 }
 
-function handlePreviousButtonClick() {
-  goToPreviousStep();
+function handlePreviousButtonClick () {
+  goToPreviousStep()
   if (ALARM_GUNS_TYPOLOGIES.includes(typology.value)) {
-    goToNewRouteWithArmeAlarme();
-  }
-  else if (resultTree[typology]?.isDummyTypology) {
-    goToNewRoute();
+    goToNewRouteWithArmeAlarme()
+  } else if (resultTree[typology]?.isDummyTypology) {
+    goToNewRoute()
   }
 }
 

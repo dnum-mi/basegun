@@ -82,3 +82,12 @@ export const identificationRoutePathsWithArmeAlarme = [
   'armes-alarme',
   'resultat-final',
 ] as const
+
+export const ALARM_GUNS_TYPOLOGIES = ['pistolet_semi_auto_moderne', 'revolver']
+export const DISCLAIMERS = {
+  epaule_a_levier_verrou: 'Si la <strong>capacité est supérieure à 11 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.',
+  semi_auto_style_chasse: 'Si la <strong>capacité est supérieure à 3 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.',
+  epaule_a_pompe: 'Attention : Si la <strong>capacité maximale (chambre comprise) est supérieure à 5</strong>, ou si <strong>la crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>.',
+  epaule_semi_auto_style_militaire: 'Attention : Si à l’origine l’arme était à répétition automatique puis a été transformée en arme semi automatique, alors elle est de catégorie A. Si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle mesure <strong>moins de 60 cm</strong> : <strong>Catégorie A</strong>.',
+  alarm_guns: 'Les armes d’alarmes sont susceptibles d’être modifiées pour tirer des munitions létales. Pour des raisons de sécurité, faites si possible expertiser l’arme.',
+}

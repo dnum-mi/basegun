@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { resultTree } from '@/utils/firearms-utils/index'
+import { resultTree, ALARM_GUNS_TYPOLOGIES, DISCLAIMERS } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
@@ -32,10 +32,11 @@ function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number
 }
 
 function getDisclaimer (typology: string, category: string) {
-  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology) && ['B ou C', 'C'].includes(category)) { return 'Si la <strong>capacité est supérieure à 11 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.' }
-  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) { return 'Si la <strong>capacité est supérieure à 3 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.' }
-  if (typology === 'epaule_a_pompe' && category === 'C') { return 'Attention : Si la <strong>capacité maximale (chambre comprise) est supérieure à 5</strong>, ou si <strong>la crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>.' }
-  if (['epaule_semi_auto_style_militaire_milieu_20e', 'semi_auto_style_militaire_autre'].includes(typology)) { return 'Attention : Si à l’origine l’arme était à répétition automatique puis a été transformée en arme semi automatique, alors elle est de catégorie A. Si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle mesure <strong>moins de 60 cm</strong> : <strong>Catégorie A</strong>.' }
+  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology) && ['B ou C', 'C'].includes(category)) { return DISCLAIMERS.epaule_a_levier_verrou }
+  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) { return DISCLAIMERS.semi_auto_style_chasse }
+  if (typology === 'epaule_a_pompe' && category === 'C') { return DISCLAIMERS.epaule_a_pompe }
+  if (['epaule_semi_auto_style_militaire_milieu_20e', 'semi_auto_style_militaire_autre'].includes(typology)) { return DISCLAIMERS.epaule_semi_auto_style_militaire }
+  if (ALARM_GUNS_TYPOLOGIES.includes(typology) && category === 'D') { return DISCLAIMERS.alarm_guns }
 }
 
 watchEffect(() => {
@@ -55,8 +56,6 @@ const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypolo
 const isUp = ref(false)
 const isDown = ref(false)
 const isFeedbackDone = ref(false)
-
-const securingTutorial = computed(() => resultStore.securingTutorial)
 
 const label = computed(() => resultTree[typology.value]?.displayLabel)
 
