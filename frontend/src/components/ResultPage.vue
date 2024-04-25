@@ -73,11 +73,6 @@ const category = computed(() => {
 })
 
 const disclaimer = computed(() => getDisclaimer(typology.value, category.value))
-const categoryWithoutSecuring = computed(
-  () => typology.value === 'revolver'
-    ? resultTree[typology.value]?.categoryWithoutSecuring
-    : undefined,
-)
 
 function sendFeedback (isCorrect: boolean) {
   const json = {
