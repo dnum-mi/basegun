@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import axios from 'axios'
 
 import {
   identificationRoutePaths,
@@ -18,8 +17,6 @@ const resultStore = useResultStore()
 const router = useRouter()
 const route = useRoute()
 
-const imgUrl = computed(() => resultStore.imgUrl)
-const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const typology = computed(() => resultStore.typology)
 
