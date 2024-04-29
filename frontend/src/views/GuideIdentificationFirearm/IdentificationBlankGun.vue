@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref, defineProps } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps'
 import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
@@ -9,7 +8,6 @@ import { useResultStore } from '@/stores/result'
 const resultStore = useResultStore()
 
 const stepsStore = useStepsStore()
-const router = useRouter()
 
 const legend = 'Sélectionner le modèle correspondant à votre arme ou cliquer sur "Aucune correspondance"  :'
 
@@ -21,6 +19,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === resultStore.typology)
 
 </script>
 
@@ -45,13 +45,13 @@ const props = defineProps({
   </div>
   <div
     v-else
-    class="my-12 relative pb-4"
+    class="mt-3 relative pb-20"
   >
     <DsfrRadioButtonSet
       :legend="legend"
     >
       <template
-        v-for="gun, gunIndex in alarmGuns.options.filter(gun => gun.typology == resultStore.typology)"
+        v-for="gun, gunIndex in alarmGunsOptions"
         :key="gunIndex"
       >
         <div class="relative">
@@ -89,15 +89,26 @@ const props = defineProps({
           </Teleport>
         </div>
       </template>
+      <div class="relative w-100">
+        <div class="fr-fieldset__element">
+          <div class="fr-radio-group fr-radio-rich">
+            <input
+              id="radio-rich-2"
+              type="radio"
+              name="armeAlarme"
+              @input="stepsStore.selectedAlarmGun = ''"
+              >
+              <label
+              class="fr-label"
+              for="radio-rich-2"
+              data-testid="aucune-correspondance"
+            >
+              Aucune correspondance
+            </label>
+          </div>
+        </div>
+      </div>
     </DsfrRadioButtonSet>
-    <DsfrButton
-      class="m-1 mb-15 flex justify-center !w-full"
-      icon="ri-alert-line"
-      label="Aucune correspondance"
-      data-testid="aucune-correspondance"
-      :icon-right="true"
-      @click="router.push({ name:'IdentificationFinalResult'}); stepsStore.selectedAlarmGun = ''"
-    />
   </div>
 </template>
 
@@ -124,16 +135,6 @@ const props = defineProps({
   padding: .5rem;
 }
 
-:deep(.fr-container) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-:deep(.fr-content-media) {
-  margin: 2.5rem .5rem;
-}
-
 :deep(.fr-label) {
   word-wrap: anywhere !important;
   font-size: small;
@@ -153,23 +154,8 @@ const props = defineProps({
   max-width: 95%;
 }
 
-.modal {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.modal-footer {
-  position: sticky;
-  bottom: 0;
-  background-color: #f5f5fe;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-  padding: 1rem !important;
-  margin: auto;
+.w-100 {
+  width: 100%;
 }
 
 </style>
