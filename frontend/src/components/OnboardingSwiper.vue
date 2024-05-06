@@ -28,7 +28,7 @@
             >armes d'alarme</span> et d'<span
               data-v-f74c6fe1=""
               class="swiper-green-highlight"
-            >armes factices type airsoft</span>
+            >armes factices type airsoft</span>.
           </li>
           <li>
             Basegun propose également de les <span class="swiper-green-highlight">mettre en sécurité</span> grâce à des <span class="swiper-green-highlight">tutoriels personnalisés</span>.

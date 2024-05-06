@@ -10,11 +10,6 @@ h2 {
   font-size: 1.3rem 
 }
 
-h3 {
-  font-size: 1.1rem;
-  color: var(--blue-france-sun-113-625)
-}
-
 #app {
   position: absolute;
   inset: 0;
@@ -45,7 +40,6 @@ a {
 }
 
 button {
-  border-radius: 3px;
   white-space: nowrap;
   display: inline-flex;
   width: fit-content;

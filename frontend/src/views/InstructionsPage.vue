@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GoodExamplePhoto from '@/assets/new-good-photo-example.png'
+import GoodExamplePhoto from '@/assets/instruction-screen-gun.webp'
 
 import { ref } from 'vue'
 import axios from 'axios'
