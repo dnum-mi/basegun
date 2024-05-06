@@ -24,8 +24,8 @@ function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number
       case 'epaule_a_un_coup_par_canon':
         if (gunLength > 75 && gunBarrelLength > 40) { return 'C' } else { return 'B' }
       case 'epaule_a_levier_sous_garde': case 'epaule_a_verrou': case 'epaule_semi_auto_style_chasse':
-        if (gunLength > 75 || gunBarrelLength < 40) { return 'B' }
-        if (gunLength > 75 && gunBarrelLength < 55) { return 'C' }
+        if (gunLength < 75 || gunBarrelLength < 40) { return 'B' }
+        if (gunLength > 75 && gunBarrelLength > 55) { return 'C' }
     }
   }
   return resultTree[typology]?.category
