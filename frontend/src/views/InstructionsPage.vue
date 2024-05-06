@@ -107,13 +107,12 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
     class="lg:absolute lg:inset-x-0  fr-col-lg-6  fr-col-sm-9  mx-auto"
   >
     <div class="fr-alert fr-alert--info mt-5 mx-5">
-      <h3 class="fr-alert__title mb-8">
-        <span class="font-bold">Pour un résultat optimal :</span>
-      </h3>
+      <h3 class="fr-alert__title mb-8">Pour un résultat optimal :</h3>
       <p>1 - Présenter le <span class="font-bold">canon vers la droite</span>.</p>
       <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
       <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>
-      <p>4 - Placer <span class="font-bold">une carte à côté de l'arme</span> (n'importe quelle carte au format standard).</p>
+      <p class="mt-3">Pour les armes d'épaule :</p>
+      <p>4 - Placer <span class="font-bold">une carte à côté de l'arme</span> pour permettre de la mesurer.</p>
     </div>
 
     <div class="mt-5 text-center lg:flex">
