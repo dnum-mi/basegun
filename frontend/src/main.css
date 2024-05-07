@@ -1,7 +1,3 @@
-html {
-  --select-option-image-width: 13rem;
-}
-
 h1 {
   font-size: 1.75rem
 }
@@ -35,18 +31,6 @@ a {
   width: 100%;
 }
 
-.footer-up {
-  top: 97%;
-}
-
-button {
-  white-space: nowrap;
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .footer-text {
   padding: 10px;
   text-align: center;
@@ -71,22 +55,6 @@ button {
   z-index: 1
 }
 
-.action-group {
-  text-align: center;
-  cursor: pointer;
-  margin: 8px 0;
-}
-
-.action-group:hover {
-  color: #1212ff;
-}
-
-.action-group-text {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0
-}
-
 .img-deco {
   margin-bottom: 2.5em;
   width: 100%
@@ -107,4 +75,6 @@ h5 {
   background-image: var(--underline-img), var(--underline-img) !important;
 }
 
-
+.w-100 {
+  width: 100% !important;
+}

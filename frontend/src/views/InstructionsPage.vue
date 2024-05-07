@@ -126,7 +126,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
     <div class="footer">
       <div
         v-if="!loading"
-        class="btn-read-instruction text-center"
+        class="text-center"
       >
         <div
           class="fr-col-11 fr-col-lg-6 mx-auto"
@@ -140,7 +140,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
             @change="onFileSelected($event)"
           >
           <DsfrButton
-            class="flex justify-center"
+            class="flex justify-center w-100"
             data-testid="take-a-picture"
             label="Prendre la photo"
             icon="ri-camera-fill"
@@ -151,7 +151,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
       </div>
       <div
         v-else
-        class="text-center bold"
+        class="text-center"
       >
         <p class="loading font-bold">
           Analyse en cours
