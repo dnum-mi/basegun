@@ -27,6 +27,7 @@ declare module 'vue' {
     DsfrTag: typeof import('@gouvminint/vue-dsfr')['DsfrTag']
     FooterMES: typeof import('./components/FooterMES.vue')['default']
     HeaderMain: typeof import('./components/HeaderMain.vue')['default']
+    MissingCardAlert: typeof import('./components/MissingCardAlert.vue')['default']
     OnboardingSwiper: typeof import('./components/OnboardingSwiper.vue')['default']
     PopupContact: typeof import('./components/PopupContact.vue')['default']
     PopupVideo: typeof import('./components/PopupVideo.vue')['default']
