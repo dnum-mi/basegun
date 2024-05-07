@@ -259,25 +259,15 @@ const openNextAccordion = (currentIndex: number) => {
 </template>
 
 <style scoped>
-.img-deco {
-  margin-bottom: 1em;
-  margin-top: 0;
-  width: 75%;
-}
-
-.warning {
-  color : var(--red-marianne-425-625)
-}
-
 :deep(.fr-icon-home-3-line) {
   color: var(--blue-france-sun-113-625);
 }
 .footer {
-background-color: #fff;
-box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  background-color: #fff;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
 .footer button {
-width: 50%;
+  width: 50%;
 }
 
 :deep(.fr-container) {

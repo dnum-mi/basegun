@@ -154,8 +154,4 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
   max-width: 95%;
 }
 
-.w-100 {
-  width: 100%;
-}
-
 </style>

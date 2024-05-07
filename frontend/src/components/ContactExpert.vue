@@ -57,8 +57,4 @@ function onClose () {
   margin: auto !important;
 }
 
-.w-100 {
-  width: 100% !important;
-}
-
 </style>

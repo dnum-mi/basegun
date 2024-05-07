@@ -300,8 +300,4 @@ function buildMailto (email: string) {
   background-color: #E3E3FD;
 }
 
-.w-100 {
-  width: 100% !important;
-}
-
 </style>
