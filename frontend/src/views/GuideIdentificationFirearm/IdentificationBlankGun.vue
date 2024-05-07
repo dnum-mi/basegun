@@ -97,8 +97,8 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
               type="radio"
               name="armeAlarme"
               @input="stepsStore.selectedAlarmGun = ''"
-              >
-              <label
+            >
+            <label
               class="fr-label"
               for="radio-rich-2"
               data-testid="aucune-correspondance"

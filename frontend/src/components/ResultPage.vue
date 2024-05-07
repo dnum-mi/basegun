@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { resultTree, ALARM_GUNS_TYPOLOGIES, DISCLAIMERS } from '@/utils/firearms-utils/index'
+import { resultTree, ALARM_GUNS_TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES, DISCLAIMERS } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
@@ -52,6 +52,7 @@ const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
 const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
+const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
 
 const isUp = ref(false)
 const isDown = ref(false)
@@ -119,131 +120,111 @@ function sendFeedback (isCorrect: boolean) {
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
-      />
+      ></div>
       <div class="fr-tile fr-enlarge-link mb-3">
-        <h2 class="fr-tile__title px-2">
-          <div v-if="confidenceLevel === 'low'">
-            <div class="fr-tile__body">
-              <DsfrTag
-                class="fr-tag--sm error-tag"
-                label="Indice de fiabilité insuffisant"
-              />
-            </div>
-            <p class="category fr-callout__title mt-3">
-              <img
-                class="px-2"
-                src="@/assets/guide-identification/icones/gun.jpg"
-                alt=""
-              >
-              Catégorie non déterminée
-            </p>
-            <p class="text-sm font-normal m-4 text-left text-current">
-              Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.
-            </p>
-            <ContactExpert v-if="isUserUsingCrosscall()" />
+        <h2 class="fr-tile__title px-2" />
+        <div v-if="confidenceLevel === 'low'">
+          <div class="fr-tile__body">
+            <DsfrTag
+              class="fr-tag--sm error-tag"
+              label="Indice de fiabilité insuffisant"
+            />
           </div>
-          <div v-else>
-            <div class="fr-tile__body">
-              <div v-if="confidenceLevel === 'high'">
-                <DsfrTag
-                  class="fr-tag--sm success-tag"
-                >
-                  Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
-                </DsfrTag>
-              </div>
-              <div v-else>
-                <DsfrTag
-                  class="fr-tag--sm warning-tag"
-                >
-                  Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
-                </DsfrTag>
-                <p class="warning-text">
-                  Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
-                </p>
-                <ContactExpert v-if="isUserUsingCrosscall()" />
-              </div>
-              <div v-if="route.name !== 'IdentificationTypologyResult'|| isDummyTypology !== true">
-                <p
-                  data-testid="arm-category"
-                  class="category fr-callout__title mt-3"
-                >
-                  <img
-                    class="px-2"
-                    src="@/assets/guide-identification/icones/gun.jpg"
-                    alt=""
-                  >
-                  <span>Catégorie {{ category }}
-                    <p
-                      v-if="disclaimer"
-                      class="disclaimer"
-                    ><span
-                      class="fr-icon-warning-fill text-blue"
-                      aria-hidden="true"
-                    /><span v-html="disclaimer" /></p>
-                  </span>
-                </p>
-                <div
-                  class="callout-mention"
-                >
-                  <p v-for="mention in getMentionsFromCategories(category)">
-                    {{ mention }}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <p class="mt-2 text-left text-base fr-callout__text">
-                  <span class="font-normal">Typologie : </span>
-                  <span v-if="isDummy">Arme factice de type </span>
-                  <span v-else-if="stepsStore.selectedAlarmGun">Arme d'alarme de type </span>
-                  <span class="typo">
-                    {{ label }}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </h2>
-      </div>
-      <div
-        v-if="route.name === 'IdentificationTypologyResult' && confidenceLevel !== 'low' && resultTree[typology]?.isDummyTypology"
-        class="fr-tile fr-enlarge-link  p-4"
-      >
-        <div class="fr-tile__body pt-0">
-          <h3 class="fr-tile__title" />
-          <div class="flex">
+          <p class="category fr-callout__title mt-3">
             <img
-              class="h-24"
-              src="@/assets/guide-identification/icones/warning.jpg"
-              alt="alt"
+              class="px-2"
+              src="@/assets/guide-identification/icones/gun.jpg"
+              alt=""
             >
-            <p class="text-sm text-justify">
-              Basegun a identifié votre arme mais a besoin <span class="font-bold">d’informations complémentaires</span> pour vous donner sa catégorie légale.
-            </p>
-          </div>
+            Catégorie non déterminée
+          </p>
+          <p class="text-sm font-normal m-4 text-left text-current">
+            Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire
+            appel à un expert.
+          </p>
+          <ContactExpert v-if="isUserUsingCrosscall()" />
         </div>
-      </div>
-      <div v-else>
-        <template v-if="confidenceLevel !== 'low'">
-          <div class="fr-tile fr-enlarge-link fr-tile__body pt-0">
-            <h3 class="fr-tile__title" />
-            <div class="block">
-              <div class="flex">
-                <span><span
-                  class="fr-icon-warning-fill text-blue mx-1"
-                  aria-hidden="true"
-                />Attention<span
-                  class="fr-icon-warning-fill text-blue mx-1"
-                  aria-hidden="true"
-                /></span>
-              </div>
-              <p class="text-sm text-justify">
-                Le résultat donné par Basegun n’emporte qu’une simple <span class="font-bold">valeur de renseignement</span>.
-                Pour faire référence dans une procédure, il <span class="font-bold">doit impérativement et réglementairement être validé</span>
+        <div v-else>
+          <div class="fr-tile__body">
+            <div v-if="confidenceLevel === 'high'">
+              <DsfrTag class="fr-tag--sm success-tag">
+                Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
+              </DsfrTag>
+            </div>
+            <div v-else>
+              <DsfrTag class="fr-tag--sm warning-tag">
+                Indice de fiabilité : {{ Math.floor(confidence * 100) }}%
+              </DsfrTag>
+              <p class="warning-text">
+                Nous vous conseillons de faire appel à un expert pour confirmer cette réponse.
+              </p>
+              <ContactExpert v-if="isUserUsingCrosscall()" />
+            </div>
+            <div class="fr-alert fr-alert--info mt-3">
+              <h3
+                v-if="isDummy"
+                class="fr-alert__title"
+              >
+                Arme factice de type {{ label }}
+              </h3>
+              <h3
+                v-else-if="stepsStore.selectedAlarmGun"
+                class="fr-alert__title"
+              >
+                Arme d'alarme de type {{ label }}
+              </h3>
+              <h3
+                v-else
+                class="fr-alert__title"
+              >
+                {{ label }}
+              </h3>
+              <template v-if="confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)">
+                <h3
+                  class="fr-alert__title"
+                  data-testid="arm-category"
+                >
+                  Catégorie {{ category }}
+                </h3>
+                <p v-for="mention in getMentionsFromCategories(category)">
+                  {{ mention }}
+                </p>
+              </template>
+            </div>
+            <div
+              v-if="disclaimer && confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
+              class="fr-alert fr-alert--warning"
+            >
+              <p v-html="disclaimer" />
+            </div>
+            <MissingCardAlert v-if="MEASURED_GUNS_TYPOLOGIES.includes(typology) && isCardDetected === false" />
+            <div
+              v-if="confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
+              class="fr-callout mt-3"
+            >
+              <p class="fr-callout__text">
+                Le résultat donné par Basegun n’emporte qu’une simple <span
+                  class="font-bold"
+                >valeur de
+                  renseignement</span>.
+                Pour faire référence dans une procédure, il <span class="font-bold">doit impérativement et
+                  règlementairement être validé</span>
                 par le biais d'un examen scientifique ou technique prévu par le code de procédure pénale.
               </p>
             </div>
+            <div
+              v-if="confidenceLevel !== 'low' && route.name === 'IdentificationTypologyResult' && isDummyTypology"
+              class="fr-alert fr-alert--warning"
+            >
+              <p>
+                Basegun a identifié votre arme mais a besoin <span
+                  class="font-bold"
+                >d’informations complémentaires</span>
+                pour vous donner sa catégorie légale.
+              </p>
+            </div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
     <div
@@ -340,13 +321,6 @@ function sendFeedback (isCorrect: boolean) {
   font-weight: initial;
 }
 
-.callout-mention {
-  font-weight: normal;
-  margin-top: 10px;
-  font-style: italic;
-  line-height: 1.3rem;
-}
-
 .feedback {
   display: flex;
   align-items: center;
@@ -414,10 +388,6 @@ function sendFeedback (isCorrect: boolean) {
   font-size: smaller;
   font-weight: 500;
   color: black;
-}
-
-.text-blue {
-  color: var(--blue-france-sun-113-625);
 }
 
 </style>

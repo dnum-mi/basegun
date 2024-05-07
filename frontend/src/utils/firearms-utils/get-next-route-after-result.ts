@@ -1,24 +1,27 @@
-import { resultTree } from '@/utils/firearms-utils/index'
+import { resultTree, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typology, gunLength, gunBarrelLength }) => {
-  const noCardDetected = computed(() => gunLength === undefined || gunBarrelLength === undefined)
+  const isCardDetected = gunLength !== null && gunBarrelLength !== null
+  const isMeasuredGun = MEASURED_GUNS_TYPOLOGIES.includes(typology)
 
-  const isAbleToWatchTutorial = securingTutorial === true && confidenceLevel !== 'low' && noCardDetected
+  const isAbleToWatchTutorial = securingTutorial === true && confidenceLevel !== 'low'
   if (!isAbleToWatchTutorial) {
-    return { name: 'IdentificationTypologyResult' }
+    console.log(isAbleToWatchTutorial)
+    console.log(isCardDetected)
+    if (isCardDetected === false && isMeasuredGun === true) { return { name: 'MissingCard' } } else { return { name: 'IdentificationTypologyResult' } }
   }
 
-  const hasNoSecuringOptions = !resultTree[typology].isSecuringOptions && noCardDetected
+  const hasNoSecuringOptions = !resultTree[typology].isSecuringOptions && !isCardDetected
   if (hasNoSecuringOptions) {
     return { name: 'SecuringAchievement' }
   }
 
-  const hasMoreThanOneOptions = resultTree[typology]?.options_step_1 && noCardDetected
+  const hasMoreThanOneOptions = resultTree[typology]?.options_step_1 && !isCardDetected
   if (hasMoreThanOneOptions) {
     return { name: 'SecuringSelectOption', params: { step: 1 } }
   }
 
-  const hasSecuringOptions = resultTree[typology]?.options && noCardDetected
+  const hasSecuringOptions = resultTree[typology]?.options && !isCardDetected
   return {
     name: hasSecuringOptions ? 'SecuringSelectOption' : 'SecuringTutorialContent',
     ...(hasSecuringOptions ? { params: { step: 1 } } : {}),

@@ -2,6 +2,8 @@ import { createWebHistory, createRouter, type RouteRecordRaw, type RouteLocation
 
 import { clearLocalStorage } from '@/utils/storage-utils.js'
 
+import MissingCardPage from '@/views/MissingCardPage.vue'
+
 const HomePage = () => import('@/views/HomePage.vue')
 const StartPage = () => import('@/views/StartPage.vue')
 const InstructionsPage = () => import('@/views/InstructionsPage.vue')
@@ -36,6 +38,11 @@ const routes: RouteRecordRaw[] = [
     meta: {
       wholeLogo: true,
     },
+  },
+  {
+    path: '/carte-manquante',
+    name: 'MissingCard',
+    component: MissingCardPage,
   },
   {
     path: '/accueil',
