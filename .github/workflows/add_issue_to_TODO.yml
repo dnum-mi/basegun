@@ -1,0 +1,10 @@
+# Auto add "Todo" label to new issue
+name: Add issue to TODO
+on:
+  issues:
+    types : [created]
+jobs:
+  status_issue:
+    runs-on: ubuntu-latest
+     --add-status "Todo"
+     
