@@ -1,0 +1,12 @@
+# Auto add new created issue to "Basegun Backlog V2" project
+name : Add issue do project
+on:
+  issues: 
+    types: [created]
+jobs:
+  add-to-ptoject:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v1.0.1
+        with:
+          project-url: https://github.com/orgs/datalab-mi/projects/5
