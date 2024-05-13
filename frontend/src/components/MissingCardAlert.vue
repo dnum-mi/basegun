@@ -1,5 +1,5 @@
 <template>
-  <div class="fr-alert fr-alert--warning">
+  <div class="fr-alert fr-alert--error">
     <h3 class="fr-alert__title">
       Absence de carte
     </h3>
