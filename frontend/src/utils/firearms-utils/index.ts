@@ -92,9 +92,18 @@ export const MEASURED_GUNS_TYPOLOGIES = [
   'epaule_semi_auto_style_chasse',
 ]
 export const DISCLAIMERS = {
-  epaule_a_levier_verrou: '<ul><li>Catégorie B : si la capacité > 11 munitions OU si le canon est lisse</li><li>Catégorie C : si la capacité < 11 munitions ET le canon est rayé</li></ul>',
-  semi_auto_style_chasse: 'Si la <strong>capacité est supérieure à 3 munitions</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>. Si le <strong>canon est rayé</strong> : <strong>Catégorie C</strong>.',
-  epaule_a_pompe: 'Attention : Si la <strong>capacité maximale (chambre comprise) est supérieure à 5</strong>, ou si <strong>la crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong> : <strong>Catégorie B</strong>.',
-  epaule_semi_auto_style_militaire: 'Attention : Si à l’origine l’arme était à répétition automatique puis a été transformée en arme semi automatique, alors elle est de catégorie A. Si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle mesure <strong>moins de 60 cm</strong> : <strong>Catégorie A</strong>.',
+  epaule_a_levier_verrou: {
+    short: '<strong>Catégorie B</strong> si la capacité > 11 munitions.</li></ul>',
+    long: '<ul><li><strong>Catégorie B</strong> : si la capacité > 11 munitions ou si le <strong>canon est lisse</strong></li><li><strong>Catégorie C</strong> : si la capacité < 11 munitions et le <strong>canon est rayé</strong></li></ul>',
+  },
+  semi_auto_style_chasse: {
+    short: '<strong>Catégorie B</strong> si la <strong>capacité > à 3 munitions</strong>, ou si le <strong>chargeur est amovible</strong>.',
+    long: '<ul><li><strong>Catégorie B</strong> si la <strong>capacité > à 3 munitions</strong>, ou si le <strong>canon est lisse</strong>, ou si le <strong>chargeur est amovible</strong>.</li><li><strong>Catégorie C</strong> si le <strong>canon est rayé</strong>.</li></ul>',
+  },
+  epaule_a_pompe: {
+    short: '<strong>Catégorie B</strong> si la <strong>capacité maximale</strong> (chambre comprise) est <strong>supérieure à 5</strong>, ou si la <strong>crosse n’est pas fixe</strong>.',
+    long: '<strong>Catégorie B</strong> si la <strong>capacité maximale</strong> (chambre comprise) est <strong>supérieure à 5</strong>, ou si la <strong>crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong>.',
+  },
+  epaule_semi_auto_style_militaire: "<strong>Catégorie A</strong> si à l'origine l’arme était à <strong>répétition automatique</strong> puis a été <strong>transformée</strong> en arme <strong>semi automatique</strong>, ou si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle <strong>mesure moins de 60 cm</strong>.",
   alarm_guns: 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>',
 }

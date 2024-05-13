@@ -32,9 +32,37 @@ function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number
 }
 
 function getDisclaimer (typology: string, category: string) {
-  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology) && ['B ou C', 'C'].includes(category)) { return DISCLAIMERS.epaule_a_levier_verrou }
-  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) { return DISCLAIMERS.semi_auto_style_chasse }
-  if (typology === 'epaule_a_pompe' && category === 'C') { return DISCLAIMERS.epaule_a_pompe }
+  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology)) {
+    if (isCardDetected.value === false) {
+      if (['B ou C', 'C'].includes(category)) {
+        return DISCLAIMERS.epaule_a_levier_verrou.short
+      }
+    }
+    else
+    {
+      if (['C'].includes(category)) {
+        return DISCLAIMERS.epaule_a_levier_verrou.short
+      }
+      if (['B ou C'].includes(category)) {
+        return DISCLAIMERS.epaule_a_levier_verrou.long
+      }
+    }
+  }
+  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) {
+    if (isCardDetected.value === false) {
+      return DISCLAIMERS.semi_auto_style_chasse.short
+    }
+    else {
+      if (['C'].includes(category)) {
+        return DISCLAIMERS.semi_auto_style_chasse.short
+      }
+      if (['B ou C'].includes(category)) {
+        return DISCLAIMERS.semi_auto_style_chasse.long
+      }
+    }
+  }
+  if (typology === 'epaule_a_pompe' && category === 'B ou C') { return DISCLAIMERS.epaule_a_pompe.short }
+  if (typology === 'epaule_a_pompe' && category === 'C') { return DISCLAIMERS.epaule_a_pompe.long }
   if (['epaule_semi_auto_style_militaire_milieu_20e', 'semi_auto_style_militaire_autre'].includes(typology)) { return DISCLAIMERS.epaule_semi_auto_style_militaire }
   if (ALARM_GUNS_TYPOLOGIES.includes(typology) && category === 'D') { return DISCLAIMERS.alarm_guns }
 }
