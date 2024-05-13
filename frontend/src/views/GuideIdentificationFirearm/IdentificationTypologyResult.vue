@@ -3,7 +3,7 @@ import ResultPage from '@/components/ResultPage.vue'
 </script>
 
 <template>
-  <div class="text-center mt-5">
+  <div class="mt-5">
     <ResultPage />
   </div>
 </template>

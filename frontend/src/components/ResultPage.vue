@@ -37,9 +37,7 @@ function getDisclaimer (typology: string, category: string) {
       if (['B ou C', 'C'].includes(category)) {
         return DISCLAIMERS.epaule_a_levier_verrou.short
       }
-    }
-    else
-    {
+    } else {
       if (['C'].includes(category)) {
         return DISCLAIMERS.epaule_a_levier_verrou.short
       }
@@ -51,8 +49,7 @@ function getDisclaimer (typology: string, category: string) {
   if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) {
     if (isCardDetected.value === false) {
       return DISCLAIMERS.semi_auto_style_chasse.short
-    }
-    else {
+    } else {
       if (['C'].includes(category)) {
         return DISCLAIMERS.semi_auto_style_chasse.short
       }
@@ -148,7 +145,7 @@ function sendFeedback (isCorrect: boolean) {
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
-      ></div>
+      />
       <div class="fr-tile fr-enlarge-link mb-3">
         <h2 class="fr-tile__title px-2" />
         <div v-if="confidenceLevel === 'low'">
@@ -158,18 +155,14 @@ function sendFeedback (isCorrect: boolean) {
               label="Indice de fiabilité insuffisant"
             />
           </div>
-          <p class="category fr-callout__title mt-3">
-            <img
-              class="px-2"
-              src="@/assets/guide-identification/icones/gun.jpg"
-              alt=""
-            >
-            Catégorie non déterminée
-          </p>
-          <p class="text-sm font-normal m-4 text-left text-current">
-            Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire
-            appel à un expert.
-          </p>
+          <div class="fr-alert fr-alert--info mt-3">
+            <h3 class="fr-alert__title">
+              Catégorie non déterminée
+            </h3>
+          </div>
+          <div class="fr-alert fr-alert--warning mt-3">
+            <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
+          </div>
           <ContactExpert v-if="isUserUsingCrosscall()" />
         </div>
         <div v-else>
@@ -401,21 +394,8 @@ function sendFeedback (isCorrect: boolean) {
   display: flex;
 }
 
-.category {
-  border: solid 1px var(--blue-france-sun-113-625);
-  padding: .5rem;
-  color: var(--blue-france-sun-113-625);
-  font-size: medium;
-}
-
 .typo::first-letter {
   text-transform: uppercase;
-}
-
-.disclaimer {
-  font-size: smaller;
-  font-weight: 500;
-  color: black;
 }
 
 </style>
