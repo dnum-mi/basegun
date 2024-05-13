@@ -225,7 +225,7 @@ function sendFeedback (isCorrect: boolean) {
             >
               <p v-html="disclaimer" />
             </div>
-            <MissingCardAlert v-if="MEASURED_GUNS_TYPOLOGIES.includes(typology) && isCardDetected === false" />
+            <MissingCardAlert v-if="MEASURED_GUNS_TYPOLOGIES.includes(typology) && isCardDetected === false && isDummy == false" />
             <div
               v-if="confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
               class="fr-callout mt-3"
