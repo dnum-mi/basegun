@@ -2,13 +2,21 @@
 import { computed } from 'vue'
 
 import { useResultStore } from '@/stores/result'
-import { resultTree } from '@/utils/firearms-utils/index'
+import { resultTree, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
 const resultStore = useResultStore()
 
 const typology = computed(() => resultStore.typology)
+const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
+
+function goToMissingCardPageIfMissing () {
+  if (isCardDetected.value === false && MEASURED_GUNS_TYPOLOGIES.includes(typology.value)) {
+    return 'MissingCard'
+  }
+  return 'IdentificationTypologyResult'
+}
 </script>
 
 <template>
@@ -61,7 +69,7 @@ const typology = computed(() => resultStore.typology)
       <router-link
         v-slot="{navigate}"
         class="navigate"
-        :to="{name: 'IdentificationTypologyResult'}"
+        :to="{name: goToMissingCardPageIfMissing()}"
       >
         <DsfrButton
           class="flex justify-center !w-full"

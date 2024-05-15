@@ -6,24 +6,18 @@ export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typ
 
   const isAbleToWatchTutorial = securingTutorial === true && confidenceLevel !== 'low'
   if (!isAbleToWatchTutorial) {
-    console.log(isAbleToWatchTutorial)
-    console.log(isCardDetected)
     if (isCardDetected === false && isMeasuredGun === true) { return { name: 'MissingCard' } } else { return { name: 'IdentificationTypologyResult' } }
   }
 
-  const hasNoSecuringOptions = !resultTree[typology].isSecuringOptions && !isCardDetected
+  const hasNoSecuringOptions = !resultTree[typology].isSecuringOptions
   if (hasNoSecuringOptions) {
     return { name: 'SecuringAchievement' }
   }
 
-  const hasMoreThanOneOptions = resultTree[typology]?.options_step_1 && !isCardDetected
+  const hasMoreThanOneOptions = resultTree[typology]?.options_step_1 || resultTree[typology]?.options
   if (hasMoreThanOneOptions) {
     return { name: 'SecuringSelectOption', params: { step: 1 } }
   }
 
-  const hasSecuringOptions = resultTree[typology]?.options && !isCardDetected
-  return {
-    name: hasSecuringOptions ? 'SecuringSelectOption' : 'SecuringTutorialContent',
-    ...(hasSecuringOptions ? { params: { step: 1 } } : {}),
-  }
+  return { name: 'SecuringTutorialContent' }
 }

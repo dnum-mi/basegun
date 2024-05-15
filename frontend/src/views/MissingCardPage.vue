@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import { useResultStore } from '@/stores/result'
+const resultStore = useResultStore()
+
+</script>
+
 <template>
   <div class="fr-container my-5">
     <div class="fr-grid-row">
@@ -24,7 +30,7 @@
       <div class="fr-col">
         <button
           class="fr-btn w-100 text-center"
-          @click="$router.push({ name: 'InstructionsPage'})"
+          @click="resultStore.$patch({ securingTutorial: false }); $router.push({ name: 'InstructionsPage'})"
         >
           Reprendre la photo <span
             class="fr-icon-camera-fill mx-1"
