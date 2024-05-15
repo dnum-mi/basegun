@@ -42,6 +42,15 @@ describe('HomePage', () => {
     cy.getByRole('navigation')
       .contains('a', 'Important')
       .click({ force: true })
+
+    cy.get('#button-menu')
+      .click()
+    cy.getByRole('navigation')
+      .contains('a', 'Accessibilité : partiellement conforme')
+      .click()
+    cy.url()
+      .should('contain', '/accessibilite')
+    cy.contains('h1', 'Déclaration d’accessibilité')
   })
 },
 )

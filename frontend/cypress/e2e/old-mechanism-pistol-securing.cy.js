@@ -1,6 +1,5 @@
 describe('Old Mechanism Pistol Securing', () => {
   it('should secure and identificate old mechanism pistol', () => {
-    cy.accueil()
     cy.miseEnSecurite()
     cy.getByDataTestid('select-file').as('fileInput')
     cy.intercept('POST', '/api/upload').as('upload')
