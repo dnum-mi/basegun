@@ -9,7 +9,7 @@ export const serializer = {
 }
 
 export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, next) => {
-  const { setAmmo, setOptionStep, setCurrentStep, setModalTransparentAmmoOpened } = useStepsStore()
+  const { setAmmo, setOptionStep, setModalTransparentAmmoOpened } = useStepsStore()
   const resultStore = useResultStore()
 
   setModalTransparentAmmoOpened(undefined)
@@ -17,7 +17,6 @@ export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, 
   setOptionStep(1, undefined)
   setOptionStep(2, undefined)
   setOptionStep(3, undefined)
-  setCurrentStep(0)
 
   resultStore.$patch({
     typology: undefined,
