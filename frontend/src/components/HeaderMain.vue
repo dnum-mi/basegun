@@ -62,8 +62,13 @@ const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
   }
 }
 
+:deep(.fr-header__navbar) {
+  margin-top: 0 !important;
+}
+
 :deep(.fr-header__navbar .fr-btn--menu) {
   color : var(--text-action-high-blue-france);
+  box-shadow: none;
 }
 
 .marianne-only :deep(.fr-header__logo .fr-logo::before) {

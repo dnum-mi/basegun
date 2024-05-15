@@ -6,7 +6,6 @@ import { serializer } from '@/utils/storage-utils'
 type Step = Record<'1' | '2' | '3', string>
 
 export const useStepsStore = defineStore('steps', () => {
-  const currentStep = useLocalStorage<1 | 2 | 3>('currentStep', 1)
   const currentOptionStep = useLocalStorage<Partial<Step>>('currentOptionStep', {})
 
   const selectedAmmo = useLocalStorage<string | undefined>('selectedAmmo', undefined, { serializer })
@@ -16,10 +15,6 @@ export const useStepsStore = defineStore('steps', () => {
   const isDummy = useLocalStorage('isDummy', computed(() => !!(selectedAmmo.value === 'billes')), { serializer })
 
   const isModalTransparentAmmoOpened = useLocalStorage<boolean | undefined>('isModalTransparentAmmoOpened', undefined, { serializer })
-
-  function setCurrentStep (newStep: 1 | 2 | 3) {
-    currentStep.value = newStep
-  }
 
   function setAmmo (ammo?: string) {
     selectedAmmo.value = ammo
@@ -34,7 +29,6 @@ export const useStepsStore = defineStore('steps', () => {
   }
 
   return {
-    currentStep,
     currentOptionStep,
     selectedAmmo,
     selectedAlarmGun,
@@ -45,7 +39,6 @@ export const useStepsStore = defineStore('steps', () => {
       isModalTransparentAmmoOpened.value = val
     },
     isModalTransparentAmmoOpened,
-    setCurrentStep,
     setAmmo,
     $reset,
   }

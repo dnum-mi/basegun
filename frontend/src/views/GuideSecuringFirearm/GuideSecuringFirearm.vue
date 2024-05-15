@@ -1,35 +1,24 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { securingRoutePaths, securingGuideSteps } from '@/utils/firearms-utils/index'
+import { securingGuideSteps } from '@/utils/firearms-utils/index'
 import StepsGuide from '@/components/StepsGuide.vue'
-import { useStepsStore } from '@/stores/steps'
 
-const currentStep = computed<1 | 2 | 3>({
-  get () {
-    return stepsStore.currentStep + 1 as 1 | 2 | 3
-  },
-  set (value: 1 | 2 | 3) {
-    stepsStore.setCurrentStep(value)
-  },
-})
 const steps = ['Mise en garde', 'Consignes de sécurité', 'Photo']
+const currentStep = ref(0)
 
-const stepsStore = useStepsStore()
 const router = useRouter()
 
-const goToNewRoute = () => (
-  router.push({ name: `${securingGuideSteps[currentStep.value - 1]}` }).catch(() => { })
-)
+const getNextRoute = () => {
+  if (currentStep.value < 0) {
+    router.push({ name: 'StartPage' })
+  } else if (currentStep.value >= steps.length) {
+    router.push({ name: 'InstructionsPage' })
+  } else {
+    router.push({ name: securingGuideSteps[currentStep.value] })
+  }
+}
 
-const goToPreviousStep = () => (
-  currentStep.value = currentStep.value - 2 as 1 | 2 | 3
-)
-
-const goToNextStep = () => (
-  currentStep.value = currentStep.value < securingRoutePaths.length ? currentStep.value : securingRoutePaths.length
-)
 </script>
 
 <template>
@@ -37,9 +26,9 @@ const goToNextStep = () => (
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <div>
         <StepsGuide
-          class="steps-guide"
+          class="my-auto"
           :steps="steps"
-          :current-step="currentStep"
+          :current-step="currentStep + 1"
         />
         <h2 class="m-2.5">
           Mettre en sécurité mon arme
@@ -52,29 +41,19 @@ const goToNextStep = () => (
         class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
       >
         <DsfrButton
-          class="m-1 flex justify-center"
+          class="m-1 flex justify-center w-100"
           icon="ri-arrow-left-line"
           :secondary="true"
           label="Précédent"
-          @click="goToPreviousStep(); router.back()"
+          @click="currentStep--; getNextRoute()"
         />
         <DsfrButton
-          v-if="currentStep < steps.length"
-          class="m-1 flex justify-center"
+          class="m-1 flex justify-center w-100"
           icon="ri-arrow-right-line"
           data-testid="button-next"
           label="Suivant"
           :icon-right="true"
-          @click="goToNextStep(); goToNewRoute()"
-        />
-        <DsfrButton
-          v-if="currentStep === steps.length"
-          class="m-1 flex justify-center"
-          icon="ri-arrow-right-line"
-          data-testid="button-next"
-          label="Suivant"
-          :icon-right="true"
-          @click="router.push({ name:'InstructionsPage'})"
+          @click="currentStep++; getNextRoute()"
         />
       </div>
     </div>
@@ -82,24 +61,16 @@ const goToNextStep = () => (
 </template>
 
 <style scoped>
-.steps-guide {
-margin: auto;
-}
 
 .result {
-margin: 0 auto;
-max-width: 1000px;
-}
-
-.go-home {
-width: 3em;
-height: 3em;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .go-result {
-font-size: 0.9em;
-color: #080894;
-background-image: none !important;
+  font-size: 0.9em;
+  color: #080894;
+  background-image: none !important;
 }
 
 h4 {
@@ -118,23 +89,8 @@ h4 {
   color: var(--blue-france-sun-113-625);
 }
 
-.fr-link--close {
-visibility: hidden;
-}
-
-.wrapper-btn {
-margin: 0.8em;
-padding: 0;
-display: flex;
-justify-content: center;
-flex-direction: column;
-}
-
 .footer {
-background-color: #fff;
-box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
+  background-color: #fff;
+  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
 }
-.footer button {
-width: 50%;
-}
-  </style>
+</style>

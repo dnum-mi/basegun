@@ -3,8 +3,6 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import {
-  identificationRoutePaths,
-  identificationRoutePathsWithArmeAlarme,
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
   resultTree,
@@ -21,14 +19,7 @@ const route = useRoute()
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const typology = computed(() => resultStore.typology)
 
-const currentStep = computed({
-  get () {
-    return stepsStore.currentStep + 1
-  },
-  set (value) {
-    stepsStore.setCurrentStep(value as 1 | 2 | 3)
-  },
-})
+const currentStep = ref(1)
 
 const isDummyTypology = resultTree[resultStore.typology].isDummyTypology
 const isLowConfidence = confidenceLevel.value === 'low'
@@ -47,28 +38,15 @@ const steps = computed(() => {
 
 const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
 
-const goToNewRoute = () => (
-  router.push({ name: `${identificationGuideSteps[currentStep.value - 1]}` }).catch(() => { })
-)
+const goToNewRoute = () => {
+  router.push({ name: identificationGuideSteps[currentStep.value - 1] })
+}
 
 const goToNewRouteWithArmeAlarme = () => (
-  router.push({ name: `${identificationGuideStepsWithArmeAlarme[currentStep.value - 1]}` })
+  router.push({ name: identificationGuideStepsWithArmeAlarme[currentStep.value - 1] })
 )
 
 const isArmeAlarme = computed(() => route.path === '/guide-identification/armes-alarme')
-
-const goToPreviousStep = () => (
-  currentStep.value = currentStep.value - 2
-)
-
-const stepsNumber = computed(() => ALARM_GUNS_TYPOLOGIES.includes(resultStore.typology)
-  ? identificationRoutePaths.length
-  : identificationRoutePathsWithArmeAlarme.length,
-)
-
-const goToNextStep = () => (
-  currentStep.value = currentStep.value < stepsNumber.value ? currentStep.value : stepsNumber.value
-)
 
 const goOnAndFollow = computed(() => (
   currentStep.value === 1
@@ -89,7 +67,7 @@ const calculateRoute = (stepsStore) => {
 // showDiv is used to create a mini steper for alarm guns. Need to be reworked.
 const backStepButtonAction = () => {
   if (showDiv.value === false) {
-    goToPreviousStep()
+    currentStep.value--
     goToNewRouteWithArmeAlarme()
   } else {
     showDiv.value = false
@@ -100,15 +78,15 @@ const nextStepButtonAction = () => {
   if (showDiv.value === false) {
     showDiv.value = true
   } else {
-    goToNextStep(); goToNewRouteWithArmeAlarme()
+    currentStep.value++; goToNewRouteWithArmeAlarme()
   }
 }
 
 function handlePreviousButtonClick () {
-  goToPreviousStep()
+  currentStep.value--
   if (ALARM_GUNS_TYPOLOGIES.includes(typology.value)) {
     goToNewRouteWithArmeAlarme()
-  } else if (resultTree[typology]?.isDummyTypology) {
+  } else {
     goToNewRoute()
   }
 }
@@ -122,7 +100,7 @@ const showDiv = ref(false)
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
         v-if="resultTree[typology]?.isDummyTypology"
-        class="!fr-container steps-guide"
+        class="!fr-container my-auto"
         :steps="steps"
         :current-step="currentStep"
       />
@@ -160,12 +138,12 @@ const showDiv = ref(false)
       class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
     >
       <DsfrButton
-        v-if="currentStep > 1"
+        v-if="currentStep > 0"
         class="m-1 flex justify-center !w-full"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
-        @click="goToPreviousStep(); goToNewRoute()"
+        @click="currentStep--; goToNewRoute()"
       />
       <DsfrButton
         class="fr-btn--md m-1 flex justify-center !w-full"
@@ -174,7 +152,7 @@ const showDiv = ref(false)
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
-        @click="$router.push(calculateRoute(stepsStore)); goToNextStep()"
+        @click="$router.push(calculateRoute(stepsStore)); currentStep++"
       />
     </div>
   </div>
@@ -185,15 +163,15 @@ const showDiv = ref(false)
   >
     <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
-        v-if="currentStep > 1"
-        class="m-1 flex justify-center !w-full"
+        v-if="currentStep > 0"
+        class="m-1 flex justify-center w-100"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
         @click="backStepButtonAction"
       />
       <DsfrButton
-        class="m-1 flex justify-center !w-full"
+        class="m-1 flex justify-center w-100"
         icon="ri-arrow-right-line"
         :label="goOnAndFollow"
         :icon-right="true"
@@ -212,14 +190,14 @@ const showDiv = ref(false)
       class="fr-col-11 fr-col-lg-6 mx-auto"
     >
       <DsfrButton
-        class="flex justify-center !w-full"
+        class="flex justify-center w-100"
         label="Identifier une nouvelle arme"
         icon="ri-camera-fill"
         :icon-right="true"
         @click="$router.push({name: 'InstructionsPage'})"
       />
       <DsfrButton
-        class="mt-3 flex justify-center !w-full"
+        class="mt-3 flex justify-center w-100"
         label="Retour à l'accueil"
         icon="ri-home-4-line"
         :icon-right="true"
@@ -233,45 +211,31 @@ const showDiv = ref(false)
     >
       <DsfrButton
         v-if="currentStep > 1"
-        class="m-1 flex justify-center w-50"
+        class="m-1 flex justify-center w-100"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
-        @click="goToPreviousStep(); goToNewRoute()"
+        @click="currentStep--; goToNewRoute()"
       />
       <DsfrButton
         v-if="confidenceLevel !== 'low'"
         :disabled="disabledValidation"
-        class="m-1 flex justify-center w-50"
+        class="m-1 flex justify-center w-100"
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
         data-testid="next-step"
-        @click="goToNextStep(); goToNewRoute()"
+        @click="currentStep++; goToNewRoute()"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.steps-guide {
-  margin: auto;
-}
 
 .result {
-margin: 0 auto;
-max-width: 1000px;
-}
-
-.go-home {
-width: 3em;
-height: 3em;
-}
-
-.go-result {
-  font-size: 0.9em;
-  color:  080894;
-  background-image: none !important;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 :deep(div.fr-stepper__steps) {
@@ -286,24 +250,9 @@ height: 3em;
   color: var(--blue-france-sun-113-625);
 }
 
-.fr-link--close {
-  visibility: hidden;
-}
-
-.wrapper-btn {
-  margin: 0.8em;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
 .footer {
   text-align: center;
   background-color: #fff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-}
-.w-50 {
-  width: 50%;
 }
 </style>
