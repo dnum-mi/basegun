@@ -7,12 +7,11 @@ const resultStore = useResultStore()
 <template>
   <div class="text-center relative top-1/8">
     <img
-      src="@/assets/basegun.png"
+      src="@/assets/basegun_long.png"
+      class="mb-10"
+      height="55"
       alt=""
     >
-    <h1 class="accueil-title">
-      Basegun
-    </h1>
     <p class="accueil-subtitle">
       Outil d'identification rapide et <br>
       de mise en sécurité des armes à feu
@@ -45,11 +44,6 @@ const resultStore = useResultStore()
 </template>
 
 <style scoped>
-.accueil-title {
-  margin-top: -20px;
-  margin-bottom: 0;
-}
-
 .accueil-subtitle {
   font-size: 14px;
   line-height: normal;
