@@ -7,6 +7,7 @@
       <img
         src="@/assets/basegun_green.png"
         alt=""
+        height="250"
         class="swiper-logo"
         data-testid="basegun-logo"
       >
@@ -38,8 +39,9 @@
     </swiper-slide>
     <swiper-slide>
       <img
-        src="@/assets/basegun_red.png"
+        src="@/assets/basegun.png"
         alt=""
+        height="250"
         class="swiper-logo"
       >
       <div class="swiper-content">
