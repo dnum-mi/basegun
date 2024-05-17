@@ -12,7 +12,7 @@ import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien'
 import { autre_pistolet } from './autre-pistolet'
 import { arme_alarme } from './arme-alarme'
 
-export const resultTree = {
+export const TYPOLOGIES = {
   autre_pistolet,
   epaule_a_levier_sous_garde,
   epaule_a_pompe,
@@ -91,19 +91,12 @@ export const MEASURED_GUNS_TYPOLOGIES = [
   'epaule_a_verrou',
   'epaule_semi_auto_style_chasse',
 ]
-export const DISCLAIMERS = {
-  epaule_a_levier_verrou: {
-    short: '<strong>Catégorie B</strong> si la capacité > 11 munitions.</li></ul>',
-    long: '<ul><li><strong>Catégorie B</strong> : si la capacité > 11 munitions ou si le <strong>canon est lisse</strong></li><li><strong>Catégorie C</strong> : si la capacité < 11 munitions et le <strong>canon est rayé</strong></li></ul>',
-  },
-  semi_auto_style_chasse: {
-    short: '<strong>Catégorie B</strong> si la <strong>capacité > à 3 munitions</strong>, ou si le <strong>chargeur est amovible</strong>.',
-    long: '<ul><li><strong>Catégorie B</strong> si la <strong>capacité > à 3 munitions</strong>, ou si le <strong>canon est lisse</strong>, ou si le <strong>chargeur est amovible</strong>.</li><li><strong>Catégorie C</strong> si le <strong>canon est rayé</strong>.</li></ul>',
-  },
-  epaule_a_pompe: {
-    short: '<strong>Catégorie B</strong> si la <strong>capacité maximale</strong> (chambre comprise) est <strong>supérieure à 5</strong>, ou si la <strong>crosse n’est pas fixe</strong>.',
-    long: '<strong>Catégorie B</strong> si la <strong>capacité maximale</strong> (chambre comprise) est <strong>supérieure à 5</strong>, ou si la <strong>crosse n’est pas fixe</strong>, ou si le <strong>canon est lisse</strong>.',
-  },
-  epaule_semi_auto_style_militaire: "<strong>Catégorie A</strong> si à l'origine l’arme était à <strong>répétition automatique</strong> puis a été <strong>transformée</strong> en arme <strong>semi automatique</strong>, ou si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle <strong>mesure moins de 60 cm</strong>.",
-  alarm_guns: 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>',
+
+export function getEpaulLevierVerrouDisclaimer (category: string, isCardDetected: boolean) {
+  if ((isCardDetected === false && ['B ou C', 'C'].includes(category)) || (isCardDetected && ['C'].includes(category))) {
+    return '<strong>Catégorie B</strong> si la capacité > 11 munitions.</li></ul>'
+  }
+  if (isCardDetected && ['B ou C'].includes(category)) {
+    return '<ul><li><strong>Catégorie B</strong> : si la capacité > 11 munitions ou si le <strong>canon est lisse</strong></li><li><strong>Catégorie C</strong> : si la capacité < 11 munitions et le <strong>canon est rayé</strong></li></ul>'
+  }
 }

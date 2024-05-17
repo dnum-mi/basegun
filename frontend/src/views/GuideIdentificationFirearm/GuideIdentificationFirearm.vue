@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import {
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
-  resultTree,
+  TYPOLOGIES,
   ALARM_GUNS_TYPOLOGIES,
 } from '@/utils/firearms-utils/index'
 import { useStepsStore } from '@/stores/steps'
@@ -21,7 +21,7 @@ const typology = computed(() => resultStore.typology)
 
 const currentStep = ref(1)
 
-const isDummyTypology = resultTree[resultStore.typology].isDummyTypology
+const isDummyTypology = TYPOLOGIES[resultStore.typology].isDummyTypology
 const isLowConfidence = confidenceLevel.value === 'low'
 
 const steps = computed(() => {
@@ -99,7 +99,7 @@ const showDiv = ref(false)
   <div class="mt-5 fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
-        v-if="resultTree[typology]?.isDummyTypology"
+        v-if="TYPOLOGIES[typology]?.isDummyTypology"
         class="!fr-container my-auto"
         :steps="steps"
         :current-step="currentStep"
@@ -108,7 +108,7 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !resultTree[typology]?.isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || !TYPOLOGIES[typology]?.isDummyTypology"
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">

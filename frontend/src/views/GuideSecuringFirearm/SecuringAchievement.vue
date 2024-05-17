@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 import { useResultStore } from '@/stores/result'
-import { resultTree, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
@@ -22,7 +22,7 @@ function goToMissingCardPageIfMissing () {
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
-      <div v-if="resultTree[typology]?.options_step_1 || resultTree[typology]?.options || resultTree[typology]?.text_steps">
+      <div v-if="TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options || TYPOLOGIES[typology]?.text_steps">
         <h2 class="mt-5 text-center">
           Fin de la mise en sécurité de l’arme
         </h2>

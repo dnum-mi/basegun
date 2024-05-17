@@ -2,7 +2,7 @@
 import { ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { resultTree, ALARM_GUNS_TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES, DISCLAIMERS } from '@/utils/firearms-utils/index'
+import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
@@ -28,40 +28,7 @@ function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number
         if (gunLength > 75 && gunBarrelLength > 55) { return 'C' }
     }
   }
-  return resultTree[typology]?.category
-}
-
-function getDisclaimer (typology: string, category: string) {
-  if (['epaule_a_levier_sous_garde', 'epaule_a_verrou'].includes(typology)) {
-    if (isCardDetected.value === false) {
-      if (['B ou C', 'C'].includes(category)) {
-        return DISCLAIMERS.epaule_a_levier_verrou.short
-      }
-    } else {
-      if (['C'].includes(category)) {
-        return DISCLAIMERS.epaule_a_levier_verrou.short
-      }
-      if (['B ou C'].includes(category)) {
-        return DISCLAIMERS.epaule_a_levier_verrou.long
-      }
-    }
-  }
-  if (typology === 'epaule_semi_auto_style_chasse' && ['B ou C', 'C'].includes(category)) {
-    if (isCardDetected.value === false) {
-      return DISCLAIMERS.semi_auto_style_chasse.short
-    } else {
-      if (['C'].includes(category)) {
-        return DISCLAIMERS.semi_auto_style_chasse.short
-      }
-      if (['B ou C'].includes(category)) {
-        return DISCLAIMERS.semi_auto_style_chasse.long
-      }
-    }
-  }
-  if (typology === 'epaule_a_pompe' && category === 'B ou C') { return DISCLAIMERS.epaule_a_pompe.short }
-  if (typology === 'epaule_a_pompe' && category === 'C') { return DISCLAIMERS.epaule_a_pompe.long }
-  if (['epaule_semi_auto_style_militaire_milieu_20e', 'semi_auto_style_militaire_autre'].includes(typology)) { return DISCLAIMERS.epaule_semi_auto_style_militaire }
-  if (ALARM_GUNS_TYPOLOGIES.includes(typology) && category === 'D') { return DISCLAIMERS.alarm_guns }
+  return TYPOLOGIES[typology]?.category
 }
 
 watchEffect(() => {
@@ -76,14 +43,14 @@ const imgUrl = computed(() => resultStore.imgUrl)
 const typology = computed(() => resultStore.typology)
 
 const isDummy = computed(() => stepsStore.isDummy)
-const isDummyTypology = computed(() => resultTree[typology.value]?.isDummyTypology === true)
+const isDummyTypology = computed(() => TYPOLOGIES[typology.value]?.isDummyTypology === true)
 const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
 
 const isUp = ref(false)
 const isDown = ref(false)
 const isFeedbackDone = ref(false)
 
-const label = computed(() => resultTree[typology.value]?.displayLabel)
+const label = computed(() => TYPOLOGIES[typology.value]?.displayLabel)
 
 const category = computed(() => {
   if (stepsStore.selectedAlarmGun && stepsStore.selectedAlarmGun !== '') {
@@ -91,13 +58,13 @@ const category = computed(() => {
   } else if (isDummy.value) {
     return 'Non Classée'
   } else if (typology.value === 'revolver') {
-    return resultTree[typology.value]?.categoryWithoutSecuring
+    return TYPOLOGIES[typology.value]?.categoryWithoutSecuring
   } else {
     return getCategoryFromTypologyAndMeasures(typology.value, resultStore.gunLength, resultStore.gunBarrelLength)
   }
 })
 
-const disclaimer = computed(() => getDisclaimer(typology.value, category.value))
+const disclaimer = computed(() => TYPOLOGIES[typology.value] && Object.hasOwn(TYPOLOGIES[typology.value], 'getDisclaimer') ? TYPOLOGIES[typology.value].getDisclaimer(category.value, isCardDetected.value) : null)
 
 function sendFeedback (isCorrect: boolean) {
   const json = {

@@ -214,6 +214,11 @@ export const revolver = {
       img_ammo: revolverBalls,
     },
   },
+  getDisclaimer: (category: string) => {
+    if (category === 'D') {
+      return 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>'
+    }
+  },
 } as const
 
 export const revolver_black_powder = {
