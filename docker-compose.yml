@@ -19,7 +19,6 @@ services:
       - http_proxy
       - https_proxy
       - no_proxy
-      - WORKSPACE=dev
       - REQUESTS_CA_BUNDLE=$CACERT_LOCATION
     ports:
       - 5000:5000

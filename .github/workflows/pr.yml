@@ -62,7 +62,6 @@ jobs:
     container:
       image: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.head_ref }}
       env:
-        WORKSPACE: dev
         AWS_REGION: gra
         AWS_DEFAULT_REGION: gra
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

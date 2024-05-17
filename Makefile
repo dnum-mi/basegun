@@ -29,14 +29,10 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} config -q
 
 build: check-dc-config-%
-	TAG=${TAG} ${DC} build
+	${DC} build
 
 up: check-dc-config-%
-ifeq ("$(WORKSPACE)","preprod")
-	TAG=${TAG} PORT_PROD=8080 ${DC} up -d
-else
-	TAG=${TAG} ${DC} up -d
-endif
+	${DC} up -d
 
 down:
 	${DC} down

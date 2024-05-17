@@ -7,9 +7,7 @@ from .config import S3, S3_BUCKET_NAME
 
 def upload_image(content: bytes, image_key: str):
     """Uploads an image to s3 bucket
-        path uploaded-images/WORKSPACE/img_name
-        where WORKSPACE is dev, preprod or prod
-
+        path uploaded-images/img_name
     Args:
         content (bytes): file content
         image_key (str): path we want to have
