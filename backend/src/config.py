@@ -105,7 +105,7 @@ def get_base_logs(user_agent, user_id: str) -> dict:
 # Object storage
 S3_URL_ENDPOINT = os.environ["S3_URL_ENDPOINT"]
 S3_BUCKET_NAME = os.environ["S3_BUCKET_NAME"]
-S3_PREFIX = os.path.join("uploaded-images/", os.environ["WORKSPACE"])
+S3_PREFIX = os.path.join("uploaded-images/")
 
 S3 = boto3.resource("s3", endpoint_url=S3_URL_ENDPOINT, verify=False)
 

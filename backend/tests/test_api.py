@@ -66,8 +66,7 @@ class TestApi:
 
     def test_upload(self):
         """Checks that the file upload works properly"""
-        if os.environ["WORKSPACE"] == "dev":
-            create_bucket()
+        create_bucket()
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
 
         with open(path, "rb") as f:
