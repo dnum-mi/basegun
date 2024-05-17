@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 
 import { serializer } from '@/utils/storage-utils'
-import type { resultTree } from '@/utils/firearms-utils'
+import type { TYPOLOGIES } from '@/utils/firearms-utils'
 
-type TypologyKey = keyof typeof resultTree
+type TypologyKey = keyof typeof TYPOLOGIES
 
 export const useResultStore = defineStore('result', () => {
   const typology = useLocalStorage<TypologyKey>('typology', null, { serializer })

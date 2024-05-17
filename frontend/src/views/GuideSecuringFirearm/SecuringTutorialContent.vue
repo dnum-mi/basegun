@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 
-import { resultTree } from '@/utils/firearms-utils/index'
+import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
@@ -50,7 +50,7 @@ const openNextAccordion = (currentIndex: number) => {
             </p>
             <DsfrAccordionsGroup>
               <li
-                v-for="(step, key) in resultTree[typology]?.options_step_3[selectedOptionStep].text_steps"
+                v-for="(step, key) in TYPOLOGIES[typology]?.options_step_3[selectedOptionStep].text_steps"
                 :key="key"
               >
                 <DsfrAccordion
@@ -59,7 +59,7 @@ const openNextAccordion = (currentIndex: number) => {
                   @expand="expandedId = $event"
                 >
                   <template #title>
-                    Etape {{ key }} / {{ Object.values(resultTree[typology]?.options_step_3[selectedOptionStep].text_steps).length }}  <em class="text-gray-400"> - {{ step.time }}</em>
+                    Etape {{ key }} / {{ Object.values(TYPOLOGIES[typology]?.options_step_3[selectedOptionStep].text_steps).length }}  <em class="text-gray-400"> - {{ step.time }}</em>
                   </template>
                   <video
                     autoplay
@@ -75,7 +75,7 @@ const openNextAccordion = (currentIndex: number) => {
                   />
                   <div class="flex justify-end my-4">
                     <DsfrButton
-                      v-if="Number(key) < Object.values(resultTree[typology]?.options_step_3[selectedOptionStep].text_steps).length"
+                      v-if="Number(key) < Object.values(TYPOLOGIES[typology]?.options_step_3[selectedOptionStep].text_steps).length"
                       data-testid="button-step-mes"
                       @click="openNextAccordion(+key)
                       "
@@ -102,7 +102,7 @@ const openNextAccordion = (currentIndex: number) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.options_step_3['revolver_verrou_1892']?.video"
+                :src="TYPOLOGIES[typology]?.options_step_3['revolver_verrou_1892']?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
             </div>
@@ -110,7 +110,7 @@ const openNextAccordion = (currentIndex: number) => {
           <p class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultTree[typology]?.options_step_3['revolver_verrou_1892']?.text_steps"
+                v-for="option in TYPOLOGIES[typology]?.options_step_3['revolver_verrou_1892']?.text_steps"
                 :key="option"
                 class="list-decimal"
                 v-html="option"
@@ -131,7 +131,7 @@ const openNextAccordion = (currentIndex: number) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.options_step_2[selectedOptionStep]?.video"
+                :src="TYPOLOGIES[typology]?.options_step_2[selectedOptionStep]?.video"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
             </div>
@@ -142,7 +142,7 @@ const openNextAccordion = (currentIndex: number) => {
               class="list-none text-sm"
             >
               <li
-                v-for="option in resultTree[typology].options_step_2[selectedOptionStep]?.text_steps"
+                v-for="option in TYPOLOGIES[typology].options_step_2[selectedOptionStep]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -155,7 +155,7 @@ const openNextAccordion = (currentIndex: number) => {
         </div>
       </div>
       <div v-else>
-        <div v-if="resultTree[typology]?.options">
+        <div v-if="TYPOLOGIES[typology]?.options">
           <div
             class="fr-col-sm-6 fr-col-lg-12 mx-auto"
           >
@@ -164,7 +164,7 @@ const openNextAccordion = (currentIndex: number) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.options[selectedOptionStep]?.video"
+                :src="TYPOLOGIES[typology]?.options[selectedOptionStep]?.video"
                 data-testid="video-tutoriel"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
@@ -173,7 +173,7 @@ const openNextAccordion = (currentIndex: number) => {
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultTree[typology].options[selectedOptionStep]?.text_steps"
+                v-for="option in TYPOLOGIES[typology].options[selectedOptionStep]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"
@@ -198,7 +198,7 @@ const openNextAccordion = (currentIndex: number) => {
                 controls
                 playsinline
                 muted
-                :src="resultTree[typology]?.video"
+                :src="TYPOLOGIES[typology]?.video"
                 data-testid="video-tutoriel"
               />
               <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
@@ -207,7 +207,7 @@ const openNextAccordion = (currentIndex: number) => {
           <div class="manipulations -mx-8 p-8">
             <ul class="list-none text-sm">
               <li
-                v-for="option in resultTree[typology]?.text_steps"
+                v-for="option in TYPOLOGIES[typology]?.text_steps"
                 :key="option.value"
                 class="list-decimal"
                 v-html="option"

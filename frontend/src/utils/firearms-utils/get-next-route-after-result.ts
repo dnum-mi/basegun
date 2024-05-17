@@ -1,4 +1,4 @@
-import { resultTree, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typology, gunLength, gunBarrelLength }) => {
   const isCardDetected = gunLength !== null && gunBarrelLength !== null
@@ -9,12 +9,12 @@ export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typ
     if (isCardDetected === false && isMeasuredGun === true) { return { name: 'MissingCard' } } else { return { name: 'IdentificationTypologyResult' } }
   }
 
-  const hasSecuringOptions = resultTree[typology]?.options_step_1 || resultTree[typology]?.options || resultTree[typology]?.text_steps
+  const hasSecuringOptions = TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options || TYPOLOGIES[typology]?.text_steps
   if (!hasSecuringOptions) {
     return { name: 'SecuringAchievement' }
   }
 
-  const hasMoreThanOneOptions = resultTree[typology]?.options_step_1 || resultTree[typology]?.options
+  const hasMoreThanOneOptions = TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options
   if (hasMoreThanOneOptions) {
     return { name: 'SecuringSelectOption', params: { step: 1 } }
   }
