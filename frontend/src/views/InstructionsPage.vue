@@ -181,25 +181,6 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
   margin: -.5rem 0 0 0;
 }
 
-:deep(.fr-notice) {
-  margin-top: 1.5rem;
-}
-
-:deep(.fr-notice__body) {
-  padding: 0 .5rem 0 2.5rem;
-}
-
-:deep(.fr-notice__title) {
-  color: var(--text-default-info);
-  font-size: 1.1rem;
-}
-
-img {
-  max-width: 100%;
-  max-height: 200px;
-  padding: 0 0.5rem;
-}
-
 /* upload loading dots */
 .loading {
   color: var(--blue-france-sun-113-625);

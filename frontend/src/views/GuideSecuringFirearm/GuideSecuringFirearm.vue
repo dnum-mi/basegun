@@ -67,12 +67,6 @@ const getNextRoute = () => {
   max-width: 1000px;
 }
 
-.go-result {
-  font-size: 0.9em;
-  color: #080894;
-  background-image: none !important;
-}
-
 h4 {
   color: unset;
 }

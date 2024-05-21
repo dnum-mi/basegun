@@ -100,12 +100,6 @@ const backTo = computed(() => {
       <h3 class="text-center my-auto">
         Choix du type d'arme
       </h3>
-      <div class="instructions">
-        <!-- <p
-          class="leading-7 mt-3"
-          v-html="typology !== 'revolver' ? resultTree[typology]?.options_text : resultTree[typology]?.[`options_step_${step}_text`]"
-        /> -->
-      </div>
       <div
         v-if="resultTree[typology]?.[`options_step_${step}_video`]"
       >
@@ -124,10 +118,6 @@ const backTo = computed(() => {
             />
             <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
           </div>
-          <!-- <p
-            class="manipulations -mt-2 p-6"
-            v-html="resultTree[typology]?.[`options_step_${step}_video_caption`]"
-          /> -->
 
           <div class="manipulations -mx-8 p-8">
             <ol class="list text-sm">
@@ -256,9 +246,6 @@ const backTo = computed(() => {
   flex: 0 0 100%;
   max-width: 100%;
   width: 100%;
-}
-.instructions {
-  padding-bottom: .5em;
 }
 .footer button {
 width: 50%;

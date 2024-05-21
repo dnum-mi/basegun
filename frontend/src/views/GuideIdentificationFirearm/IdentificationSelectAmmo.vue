@@ -218,19 +218,6 @@ type HasGuideFactice = typeof epaule_a_verrou | typeof pistolet_semi_auto_modern
   max-width: 95%;
 }
 
-.instructions {
-  padding-bottom: .5em;
-}
-
-.transparent-mag {
-  width: 50%;
-  padding: 1rem;
-}
-
-.open-info {
-  justify-content: end;
-}
-
 .warning {
   cursor: pointer;
 }
