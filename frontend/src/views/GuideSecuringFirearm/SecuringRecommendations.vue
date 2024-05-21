@@ -30,7 +30,7 @@ import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
       <img
         src="@/assets/guide-mise-en-securite/icones/take-care.jpg"
         alt="alt"
-        class="img-deco take-care"
+        class="take-care"
       >
     </div>
   </div>
