@@ -9,7 +9,6 @@ export const epaule_a_verrou = {
   displayLabel: 'Arme d’épaule à verrou',
   category: 'B ou C',
   isDummyTypology: true,
-  isSecuringOptions: true,
   text_steps: {
     1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
     2: 'Ouvrez la culasse en tirant le levier vers le haut puis en la tirant la culasse vers l’arrière',

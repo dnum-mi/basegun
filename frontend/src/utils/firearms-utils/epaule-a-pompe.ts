@@ -7,7 +7,6 @@ export const epaule_a_pompe = {
   displayLabel: "Arme d'épaule à pompe",
   category: 'B ou C',
   isDummyTypology: false,
-  isSecuringOptions: true,
   options_text: '',
   text_steps: {
     1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',

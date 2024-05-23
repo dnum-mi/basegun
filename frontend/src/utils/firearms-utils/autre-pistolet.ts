@@ -18,7 +18,6 @@ export const autre_pistolet = {
   displayLabel: 'Pistolet divers',
   category: 'A, B ou D',
   isDummyTypology: false,
-  isSecuringOptions: true,
   options_text: '',
   options: {
     drulov: {

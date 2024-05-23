@@ -5,5 +5,4 @@ export const epaule_mecanisme_ancien = {
   displayLabel: "Arme d'épaule à mécanisme ancien",
   category: 'D',
   isDummyTypology: false,
-  isSecuringOptions: false,
 } as const

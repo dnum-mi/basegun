@@ -9,8 +9,8 @@ export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typ
     if (isCardDetected === false && isMeasuredGun === true) { return { name: 'MissingCard' } } else { return { name: 'IdentificationTypologyResult' } }
   }
 
-  const hasNoSecuringOptions = !resultTree[typology].isSecuringOptions
-  if (hasNoSecuringOptions) {
+  const hasSecuringOptions = resultTree[typology]?.options_step_1 || resultTree[typology]?.options || resultTree[typology]?.text_steps
+  if (!hasSecuringOptions) {
     return { name: 'SecuringAchievement' }
   }
 
