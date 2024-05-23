@@ -14,7 +14,6 @@ export const epaule_a_un_coup_par_canon = {
   displayLabel: "Arme d'épaule à un coup par canon",
   category: 'B ou C',
   isDummyTypology: false,
-  isSecuringOptions: true,
   options_text: 'Sélectionnez ce que vous voyez sur la <span class="font-bold">zone centrale de l’arme</span>',
   options: {
     cle_pouce: {

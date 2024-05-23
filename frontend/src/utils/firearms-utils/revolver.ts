@@ -39,7 +39,6 @@ export const revolver = {
   category: 'B',
   categoryWithoutSecuring: 'B ou D',
   isDummyTypology: true,
-  isSecuringOptions: true,
   options_step_1_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
   options_step_1: {
     black_powder: {
@@ -221,5 +220,4 @@ export const revolver_black_powder = {
   displayLabel: 'Revolver à poudre noire',
   category: 'D',
   isDummyTypology: false,
-  isSecuringOptions: false,
 } as const

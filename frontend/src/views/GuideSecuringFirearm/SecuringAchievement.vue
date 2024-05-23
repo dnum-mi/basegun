@@ -22,7 +22,25 @@ function goToMissingCardPageIfMissing () {
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
-      <div v-if="!resultTree[typology]?.isSecuringOptions">
+      <div v-if="resultTree[typology]?.options_step_1 || resultTree[typology]?.options || resultTree[typology]?.text_steps">
+        <h2 class="mt-5 text-center">
+          Fin de la mise en sécurité de l’arme
+        </h2>
+        <p class="ending font-600 text-center">
+          Vous venez de sécuriser votre arme !
+        </p>
+        <p>
+          La manipulation étant terminée, vous pouvez identifier votre arme ou retourner au menu.
+        </p>
+        <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
+          <img
+            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.jpg"
+            alt="alt"
+            class="img-deco"
+          >
+        </div>
+      </div>
+      <div v-else>
         <h2 class="mt-5 text-center">
           Pas de guide de mise en sécurité pour votre arme
         </h2>
@@ -43,24 +61,6 @@ function goToMissingCardPageIfMissing () {
           >
         </div>
         <ContactExpert v-if="isUserUsingCrosscall()" />
-      </div>
-      <div v-else>
-        <h2 class="mt-5 text-center">
-          Fin de la mise en sécurité de l’arme
-        </h2>
-        <p class="ending font-600 text-center">
-          Vous venez de sécuriser votre arme !
-        </p>
-        <p>
-          La manipulation étant terminée, vous pouvez identifier votre arme ou retourner au menu.
-        </p>
-        <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
-          <img
-            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.jpg"
-            alt="alt"
-            class="img-deco"
-          >
-        </div>
       </div>
     </div>
   </div>
