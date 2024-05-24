@@ -9,13 +9,13 @@ export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typ
     if (isCardDetected === false && isMeasuredGun === true) { return { name: 'MissingCard' } } else { return { name: 'IdentificationTypologyResult' } }
   }
 
-  const hasSecuringOptions = TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options || TYPOLOGIES[typology]?.text_steps
+  const hasSecuringOptions = TYPOLOGIES[typology]?.securingSteps
   if (!hasSecuringOptions) {
     return { name: 'SecuringAchievement' }
   }
 
-  const hasMoreThanOneOptions = TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options
-  if (hasMoreThanOneOptions) {
+  const hasMoreThanOneSteps = TYPOLOGIES[typology].securingSteps?.step_1 || !TYPOLOGIES[typology].securingSteps?.text_steps
+  if (hasMoreThanOneSteps) {
     return { name: 'SecuringSelectOption', params: { step: 1 } }
   }
 

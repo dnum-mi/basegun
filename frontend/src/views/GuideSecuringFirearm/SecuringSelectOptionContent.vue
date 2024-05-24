@@ -89,6 +89,21 @@ const backTo = computed(() => {
   }
   return { name: 'InstructionsPage' }
 })
+
+function getOptions (step, typology, TYPOLOGIES) {
+  if (step === 3) {
+    return TYPOLOGIES[typology]?.securingSteps?.steps[2]?.options || []
+  } else if (step === 2) {
+    return TYPOLOGIES[typology]?.securingSteps?.steps[1]?.options || []
+  } else {
+    if (typology !== 'revolver') {
+      return TYPOLOGIES[typology]?.securingSteps || []
+    } else {
+      return TYPOLOGIES[typology]?.securingSteps?.steps[0]?.options || []
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -101,9 +116,8 @@ const backTo = computed(() => {
         Choix du type d'arme
       </h3>
       <div
-        v-if="TYPOLOGIES[typology]?.[`options_step_${step}_video`]"
+        v-if="step === 3"
       >
-        <p v-html="TYPOLOGIES[typology]?.[`options_step_${step}_video_pre_text`]" />
         <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
           <div class="fr-content-media relative">
             <video
@@ -113,8 +127,8 @@ const backTo = computed(() => {
               playsinline
               loop
               muted
-              :title="TYPOLOGIES[typology]?.[`options_step_${step}_video_title`]"
-              :src="TYPOLOGIES[typology]?.[`options_step_${step}_video`]"
+              :title="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video_title"
+              :src="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video"
             />
             <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
           </div>
@@ -128,10 +142,11 @@ const backTo = computed(() => {
             </ol>
           </div>
         </div>
-        <p v-html="TYPOLOGIES[typology]?.[`options_step_${step}_video_post_text`]" />
+        <p v-html="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video_post_text" />
       </div>
+
       <div
-        v-for="option of (typology !== 'revolver' ? TYPOLOGIES[typology]?.options : TYPOLOGIES[typology]?.[`options_step_${step}`])"
+        v-for="(option) in getOptions(step, typology, TYPOLOGIES)"
         :key="option.value"
       >
         <div class="item">

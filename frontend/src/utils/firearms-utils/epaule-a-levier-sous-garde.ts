@@ -13,30 +13,30 @@ export const epaule_a_levier_sous_garde = {
   getCategory: getCommonCategory,
   isDummyTypology: false,
   options_text: 'En manipulant l’arme avec précaution dans une <span class="font-bold">direction sans risque</span>, inspectez l’<span class="font-bold">extrémité du tube sous le canon</span>. Sélectionnez ce que vous voyez :',
-  options: {
+  securingSteps: {
     front_magazine: {
       label: 'Embout rugueux',
       value: 'front_magazine',
-      text_steps: {
-        1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution.',
-        2: '<span class="font-bold">Faites très attention à ne pas déclencher l’arme durant cette manipulation</span>. Dévisser la baguette à l’avant du tube magasin.',
-        3: 'Retirer complètement la baguette du magasin.',
-        4: 'Vider le magasin en tapotant l’arme orientée légèrement vers le bas.',
-        5: 'Actionner le levier de sous garde jusqu’en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre.',
-        6: 'Contrôler visuellement que la chambre est vide.',
-      },
+      text_steps: [
+        'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution.',
+        '<span class="font-bold">Faites très attention à ne pas déclencher l’arme durant cette manipulation</span>. Dévisser la baguette à l’avant du tube magasin.',
+        'Retirer complètement la baguette du magasin.',
+        'Vider le magasin en tapotant l’arme orientée légèrement vers le bas.',
+        'Actionner le levier de sous garde jusqu’en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre.',
+        'Contrôler visuellement que la chambre est vide.',
+      ],
       img: levierSousGardeMagasinAvantImg,
       video: levierSousGardeMagasinAvantVideo,
     },
     fixed_magazine: {
       label: 'Pas d’embout',
       value: 'fixed_magazine',
-      text_steps: {
-        1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution.',
-        2: 'Abaisser le levier de sous garde en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre.',
-        3: '<span class="font-bold" style="color:red">Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation !</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin.',
-        4: 'Contrôler visuellement que la chambre est vide.',
-      },
+      text_steps: [
+        'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution.',
+        'Abaisser le levier de sous garde en position basse et <span class="font-bold">retirer la munition</span> éventuelle de la chambre.',
+        '<span class="font-bold" style="color:red">Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation !</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin.',
+        'Contrôler visuellement que la chambre est vide.',
+      ],
       img: levierSousGardePasMagasinImg,
       video: levierSousGardePasMagasinVideo,
     },
