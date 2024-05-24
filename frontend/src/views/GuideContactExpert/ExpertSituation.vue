@@ -35,7 +35,8 @@ const LPS = {
 
 const IRCGN = {
   email: 'db.dcpc.ircgn@gendarmerie.interieur.gouv.fr',
-  phone: '01 78 47 31 46 ',
+  fixe: '01 78 47 31 46',
+  phone: '06 07 98 40 09',
 }
 const shownLPS = ref<null | string>(null)
 const showIRCGNModal = ref(false)
@@ -45,6 +46,15 @@ function buildMailto (email: string) {
   const body = "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A"
   return `mailto:${email}?subject=${subject}&body=${body}`
 }
+
+const currentPhone = computed(() => {
+  const currentHour = new Date().getHours()
+  if (currentHour >= 8 && currentHour < 18) {
+    return IRCGN.fixe
+  } else {
+    return IRCGN.phone
+  }
+})
 
 </script>
 
@@ -242,7 +252,7 @@ function buildMailto (email: string) {
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
                 <p v-if="priority === 'high'">
                   Vous trouverez ci-dessous le numéro de téléphone de la permanence de l'IRCGN.<br><br>
-                  <span class="font-bold">{{ IRCGN.phone }}</span>
+                  <span class="font-bold">{{ currentPhone }}</span>
                 </p>
                 <p v-if="priority === 'low'">
                   Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br><br>
