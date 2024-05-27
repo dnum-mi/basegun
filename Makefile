@@ -1,6 +1,6 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
-DC		:= $(shell type -p docker-compose)
+DC		:= ${DOCKER} compose
 TAG		:= 3.3
 APP_NAME	:= basegun
 REG		:= ghcr.io
