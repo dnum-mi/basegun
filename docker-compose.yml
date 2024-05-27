@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   backend:
     build:
@@ -23,10 +22,9 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - $PWD/backend/src:/app/src
-      - $PWD/backend/tests:/app/tests
-      - $PWD/backend/logs:/tmp/logs
-      - /app/src/weights
+      - ./backend/src:/app/src
+      - ./backend/tests:/app/tests
+      - ./backend/logs:/tmp/logs
 
   frontend:
     build:
@@ -42,7 +40,7 @@ services:
       - 8080:80 # if BUILD_TARGET = prod
       - 3000:5173
     volumes:
-      - $PWD/frontend/src:/app/src
+      - ./frontend/src:/app/src
       - /app/node_modules
 
   minio:
