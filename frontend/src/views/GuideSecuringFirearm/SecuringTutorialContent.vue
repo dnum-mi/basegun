@@ -206,19 +206,6 @@ const selectedOptionStep = computed(() => {
 :deep(.fr-icon-home-3-line) {
   color: var(--blue-france-sun-113-625);
 }
-.footer {
-  background-color: #fff;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-}
-.footer button {
-  width: 50%;
-}
-
-:deep(.fr-container) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 :deep(.fr-col-md-8),
 :deep(.fr-col-lg-6) {

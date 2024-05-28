@@ -29,23 +29,12 @@ export const TYPOLOGIES = {
   arme_alarme,
 } as const
 
-// Tuto Mise en sécurité
-const securingInstructions = 'SecuringInstructions'
-const securingRecommendations = 'SecuringRecommendations'
-const securingIntroduction = 'SecuringIntroduction'
-
 // Tuto Mise en securité identification
 const IdentificationTypologyResult = 'IdentificationTypologyResult'
 const IdentificationFurtherInformations = 'IdentificationFurtherInformations'
 const IdentificationSelectAmmo = 'IdentificationSelectAmmo'
 const IdentificationBlankGun = 'IdentificationBlankGun'
 const IdentificationFinalResult = 'IdentificationFinalResult'
-
-export const securingGuideSteps = [
-  securingRecommendations,
-  securingInstructions,
-  securingIntroduction,
-] as const
 
 export const identificationGuideSteps = [
   IdentificationTypologyResult,

@@ -23,7 +23,7 @@ const resultStore = useResultStore()
         label="Je veux mettre en sécurité mon arme"
         size="small"
         @click="
-          $router.push({ name: 'SecuringRecommendations'});
+          $router.push({ name: 'GuideSecuringFirearm'});
           resultStore.$patch({ securingTutorial: true });
         "
       />
