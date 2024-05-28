@@ -15,11 +15,8 @@ const ContactPage = () => import('@/views/ContactPage.vue')
 const AccessibilityPage = () => import('@/views/AccessibilityPage.vue')
 
 const GuideSecuringFirearm = () => import('@/views/GuideSecuringFirearm/GuideSecuringFirearm.vue')
-const SecuringIntroduction = () => import('@/views/GuideSecuringFirearm/SecuringIntroduction.vue')
-const SecuringInstructions = () => import('@/views/GuideSecuringFirearm/SecuringInstructions.vue')
 const SecuringSelectOptionContent = () => import('@/views/GuideSecuringFirearm/SecuringSelectOptionContent.vue')
 const SecuringTutorialContent = () => import('@/views/GuideSecuringFirearm/SecuringTutorialContent.vue')
-const SecuringRecommendations = () => import('@/views/GuideSecuringFirearm/SecuringRecommendations.vue')
 const SecuringAchievement = () => import('@/views/GuideSecuringFirearm/SecuringAchievement.vue')
 const GuideIdentificationFirearm = () => import('@/views/GuideIdentificationFirearm/GuideIdentificationFirearm.vue')
 const IdentificationTypologyResult = () => import('@/views/GuideIdentificationFirearm/IdentificationTypologyResult.vue')
@@ -64,23 +61,6 @@ const routes: RouteRecordRaw[] = [
     path: '/guide-mise-en-securite',
     name: 'GuideSecuringFirearm',
     component: GuideSecuringFirearm,
-    children: [
-      {
-        path: 'mise-en-securite-instructions',
-        name: 'SecuringInstructions',
-        component: SecuringInstructions,
-      },
-      {
-        path: 'mise-en-securite-recommandations',
-        name: 'SecuringRecommendations',
-        component: SecuringRecommendations,
-      },
-      {
-        path: 'mise-en-securite-introduction',
-        name: 'SecuringIntroduction',
-        component: SecuringIntroduction,
-      },
-    ],
   },
   {
     path: '/mise-en-securite-choix-option-etape/:step',

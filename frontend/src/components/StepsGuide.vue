@@ -16,18 +16,3 @@ withDefaults(defineProps<{
     :steps="steps"
   />
 </template>
-
-<style scoped>
-
-:deep(.fr-stepper__state) {
-  display: inline flow-root !important;
-  color: var(--default-grey);
-  font-size: .9rem;
-}
-
-:deep(.fr-stepper__title) {
-  font-weight: normal;
-  color: var(--default-grey);
-  font-size: .9rem;
-}
-</style>

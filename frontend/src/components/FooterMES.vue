@@ -21,10 +21,6 @@
 </template>
 
 <style>
-.footer {
-  background-color: #fff;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-}
 
 .footer button {
   width: 50%;

@@ -238,21 +238,8 @@ const showDiv = ref(false)
   max-width: 1000px;
 }
 
-:deep(div.fr-stepper__steps) {
-  border-radius: 5px 5px 5px 5px;
-}
-
-:deep(.fr-stepper__state::after) {
-  content: " :\a";
-}
-
 :deep(.fr-icon-home-3-line) {
   color: var(--blue-france-sun-113-625);
 }
 
-.footer {
-  text-align: center;
-  background-color: #fff;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-}
 </style>
