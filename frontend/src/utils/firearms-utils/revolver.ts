@@ -10,7 +10,8 @@ import revolver2EwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolv
 import revolver2EwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4'
 import revolver2PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg'
 import revolver3PortiereImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1873_FR.jpg'
-import revolver2PortiereVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR.mp4'
+import revolver2PortiereVideoDebut from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_debut.mp4'
+import revolver2PortiereVideoFin from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_fin.mp4'
 import revolver2SwBrisureImg from '@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg'
 import revolver2SwBrisureVideo from '@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4'
 import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg'
@@ -97,9 +98,10 @@ export const revolver = {
       value: 'revolver_ancien_brisure',
       text_steps: {
         1: 'Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution',
-        2: 'Soulever le verrou en appuyant sur son petit bouton poussoir et casser/basculer l’ensemble canon et barillet',
-        3: 'Retourner l’arme afin de disposer l’arrière du barillet vers le bas et <span class="font-bold">vider les munitions</span>',
-        4: 'Contrôler visuellement les chambres du barillet',
+        2: 'Tirer le chien légèrement vers l’arrière jusqu’à entendre un clic',
+        3: 'Soulever le verrou en appuyant sur son petit bouton poussoir et casser/basculer l’ensemble canon et barillet',
+        4: 'Retourner l’arme afin de disposer l’arrière du barillet vers le bas et <span class="font-bold">vider les munitions</span> éventuelles',
+        5: 'Contrôler visuellement les chambres du barillet',
       },
       img: revolver2SwBrisureImg,
       video: revolver2SwBrisureVideo,
@@ -122,7 +124,7 @@ export const revolver = {
   // options_step_3_video_pre_text: 'Texte à afficher avant la vidéo',
   options_step_3_video_post_text: 'Sélectionner le comportement de votre barillet : le barillet <span class="font-bold"> ne bascule pas</span>, ou le barillet <span class="font-bold">bascule.</span>',
   options_step_3_video_title: 'Titre de la vidéo',
-  options_step_3_video: revolver2PortiereVideo,
+  options_step_3_video: revolver2PortiereVideoDebut,
   options_step_3: {
     revolver_1873_fr: {
       label: 'Le barillet ne bascule pas',
@@ -134,7 +136,7 @@ export const revolver = {
         4: 'Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
       },
       img: revolver3PortiereImg,
-      video: revolver2PortiereVideo,
+      video: revolver2PortiereVideoFin,
     },
     revolver_verrou_1892: {
       label: 'Le barillet bascule',
