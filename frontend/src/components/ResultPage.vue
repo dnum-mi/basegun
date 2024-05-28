@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
@@ -7,38 +7,15 @@ import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
-import { useRouter, useRoute } from 'vue-router'
 import { getMentionsFromCategories } from '@/utils/mentions'
 
 const { setMessage } = useSnackbarStore()
 const stepsStore = useStepsStore()
 const resultStore = useResultStore()
-const router = useRouter()
-const route = useRoute()
-
-function getCategoryFromTypologyAndMeasures (typology: string, gunLength: number, gunBarrelLength: number) {
-  if (gunLength !== null && gunBarrelLength !== null) {
-    switch (typology) {
-      case 'epaule_a_pompe':
-        if (gunLength > 75 && gunBarrelLength > 55) { return 'C' } else { return 'B' }
-      case 'epaule_a_un_coup_par_canon':
-        if (gunLength > 75 && gunBarrelLength > 40) { return 'C' } else { return 'B' }
-      case 'epaule_a_levier_sous_garde': case 'epaule_a_verrou': case 'epaule_semi_auto_style_chasse':
-        if (gunLength < 75 || gunBarrelLength < 40) { return 'B' }
-        if (gunLength > 75 && gunBarrelLength > 55) { return 'C' }
-    }
-  }
-  return TYPOLOGIES[typology]?.category
-}
-
-watchEffect(() => {
-  if (!resultStore.img) router.push({ name: 'StartPage' })
-})
 
 const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const img = computed(() => resultStore.img)
-const imgUrl = computed(() => resultStore.imgUrl)
 
 const typology = computed(() => resultStore.typology)
 
@@ -60,7 +37,7 @@ const category = computed(() => {
   } else if (typology.value === 'revolver') {
     return TYPOLOGIES[typology.value]?.categoryWithoutSecuring
   } else {
-    return getCategoryFromTypologyAndMeasures(typology.value, resultStore.gunLength, resultStore.gunBarrelLength)
+    return TYPOLOGIES[typology.value]?.getCategory(resultStore.gunLength, resultStore.gunBarrelLength)
   }
 })
 
@@ -68,7 +45,7 @@ const disclaimer = computed(() => TYPOLOGIES[typology.value] && Object.hasOwn(TY
 
 function sendFeedback (isCorrect: boolean) {
   const json = {
-    image_url: imgUrl.value,
+    image_url: resultStore.imgUrl,
     feedback: isCorrect,
     confidence: confidence.value,
     label: typology.value,
@@ -98,7 +75,7 @@ function sendFeedback (isCorrect: boolean) {
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
       <h2
-        v-if="route.name === 'IdentificationTypologyResult' && isDummyTypology === true"
+        v-if="$route.name === 'IdentificationTypologyResult' && isDummyTypology === true"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
@@ -167,7 +144,7 @@ function sendFeedback (isCorrect: boolean) {
               >
                 {{ label }}
               </h3>
-              <template v-if="confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)">
+              <template v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)">
                 <h3
                   class="fr-alert__title"
                   data-testid="arm-category"
@@ -180,14 +157,14 @@ function sendFeedback (isCorrect: boolean) {
               </template>
             </div>
             <div
-              v-if="disclaimer && confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
+              v-if="disclaimer && confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
               class="fr-alert fr-alert--warning"
             >
               <p v-html="disclaimer" />
             </div>
             <MissingCardAlert v-if="MEASURED_GUNS_TYPOLOGIES.includes(typology) && isCardDetected === false && isDummy == false" />
             <div
-              v-if="confidenceLevel !== 'low' && (route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
+              v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || isDummyTypology !== true)"
               class="fr-callout mt-3"
             >
               <p class="fr-callout__text">
@@ -201,7 +178,7 @@ function sendFeedback (isCorrect: boolean) {
               </p>
             </div>
             <div
-              v-if="confidenceLevel !== 'low' && route.name === 'IdentificationTypologyResult' && isDummyTypology"
+              v-if="confidenceLevel !== 'low' && $route.name === 'IdentificationTypologyResult' && isDummyTypology"
               class="fr-alert fr-alert--warning"
             >
               <p>
@@ -222,7 +199,7 @@ function sendFeedback (isCorrect: boolean) {
       <SnackbarAlert class="text-center" />
     </div>
     <div
-      v-if="confidenceLevel !== 'low' && route.name !== 'IdentificationFinalResult'"
+      v-if="confidenceLevel !== 'low' && $route.name !== 'IdentificationFinalResult'"
       :aria-disabled="isFeedbackDone"
       class="feedback"
     >

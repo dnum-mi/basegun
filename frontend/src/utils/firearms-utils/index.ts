@@ -100,3 +100,11 @@ export function getEpaulLevierVerrouDisclaimer (category: string, isCardDetected
     return '<ul><li><strong>Catégorie B</strong> : si la capacité > 11 munitions ou si le <strong>canon est lisse</strong></li><li><strong>Catégorie C</strong> : si la capacité < 11 munitions et le <strong>canon est rayé</strong></li></ul>'
   }
 }
+
+export function getCommonCategory (gunLength: number, gunBarrelLength: number) {
+  if (gunLength && gunBarrelLength) {
+    if (gunLength < 75 || gunBarrelLength < 40) { return 'B' }
+    if (gunLength > 75 && gunBarrelLength > 55) { return 'C' }
+  }
+  return 'B ou C'
+}

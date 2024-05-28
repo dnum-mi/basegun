@@ -16,7 +16,7 @@ Autre pistolet
 export const autre_pistolet = {
   typologie: 'autre_pistolet',
   displayLabel: 'Pistolet divers',
-  category: 'A, B ou D',
+  getCategory: () => 'A, B ou D',
   isDummyTypology: false,
   options_text: '',
   options: {

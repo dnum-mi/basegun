@@ -12,7 +12,9 @@ Armes d’épaule à un coup par canon
   */
 export const epaule_a_un_coup_par_canon = {
   displayLabel: "Arme d'épaule à un coup par canon",
-  category: 'B ou C',
+  getCategory: (gunLength: number, gunBarrelLength: number) => {
+    if (gunLength && gunBarrelLength) { return (gunLength > 75 && gunBarrelLength > 40) ? 'C' : 'B' } else { return 'B ou C' }
+  },
   isDummyTypology: false,
   options_text: 'Sélectionnez ce que vous voyez sur la <span class="font-bold">zone centrale de l’arme</span>',
   options: {

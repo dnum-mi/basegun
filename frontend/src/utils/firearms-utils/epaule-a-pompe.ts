@@ -2,10 +2,13 @@ import epaulePompeSimpleVideo from '@/assets/guide-mise-en-securite/videos/epaul
 // import epaulePompeCompliqueVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_pompe/epaule_pompe_complique.mp4'
 /*
 3 - Armes d’épaule à pompe
+
 */
 export const epaule_a_pompe = {
   displayLabel: "Arme d'épaule à pompe",
-  category: 'B ou C',
+  getCategory: (gunLength: number, gunBarrelLength: number) => {
+    if (gunLength && gunBarrelLength) { return gunLength > 75 && gunBarrelLength > 55 ? 'C' : 'B' } else { return 'B ou C' }
+  },
   isDummyTypology: false,
   options_text: '',
   text_steps: {
