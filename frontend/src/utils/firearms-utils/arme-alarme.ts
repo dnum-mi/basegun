@@ -28,7 +28,7 @@ import pistoletAlarmeImg13Zoom from '@/assets/guide-identification/photos/arme_a
 
 export const arme_alarme = {
   displayLabel: 'Arme d\'alarme',
-  category: 'D',
+  getCategory: () => 'D',
   options: [
     {
       label: 'ZORAKI R2',

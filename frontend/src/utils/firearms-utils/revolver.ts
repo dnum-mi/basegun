@@ -29,7 +29,7 @@ Revolvers
 */
 export const revolver = {
   displayLabel: 'Revolver',
-  category: 'B',
+  getCategory: () => 'B',
   categoryWithoutSecuring: 'B ou D',
   isDummyTypology: true,
   options_step_1_text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
@@ -170,6 +170,6 @@ export const revolver = {
 
 export const revolver_black_powder = {
   displayLabel: 'Revolver à poudre noire',
-  category: 'D',
+  getCategory: () => 'D',
   isDummyTypology: false,
 } as const

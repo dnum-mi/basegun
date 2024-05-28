@@ -3,6 +3,6 @@ Pistolet à mécanisme ancien
 */
 export const pistolet_mecanisme_ancien = {
   displayLabel: 'Pistolet à mécanisme ancien',
-  category: 'D',
+  getCategory: () => 'D',
   isDummyTypology: false,
 } as const

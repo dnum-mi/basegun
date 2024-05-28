@@ -2,7 +2,7 @@ import levierSousGardeMagasinAvantImg from '@/assets/guide-mise-en-securite/phot
 import levierSousGardePasMagasinImg from '@/assets/guide-mise-en-securite/photos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.jpg'
 import levierSousGardeMagasinAvantVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_avant.mp4'
 import levierSousGardePasMagasinVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.mp4'
-import { getEpaulLevierVerrouDisclaimer } from '@/utils/firearms-utils/index'
+import { getEpaulLevierVerrouDisclaimer, getCommonCategory } from '@/utils/firearms-utils/index'
 /*
 Armes d’épaule à levier de sous-garde
   Magasin avant
@@ -10,7 +10,7 @@ Armes d’épaule à levier de sous-garde
 */
 export const epaule_a_levier_sous_garde = {
   displayLabel: "Arme d'épaule à levier de sous-garde",
-  category: 'B ou C',
+  getCategory: getCommonCategory,
   isDummyTypology: false,
   options_text: 'En manipulant l’arme avec précaution dans une <span class="font-bold">direction sans risque</span>, inspectez l’<span class="font-bold">extrémité du tube sous le canon</span>. Sélectionnez ce que vous voyez :',
   options: {
