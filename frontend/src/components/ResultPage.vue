@@ -17,31 +17,31 @@ const confidence = computed(() => resultStore.confidence)
 const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const img = computed(() => resultStore.img)
 
-const typology = computed(() => resultStore.typology)
+const typology = TYPOLOGIES[resultStore.typology]
 
 const isDummy = computed(() => stepsStore.isDummy)
-const isDummyTypology = computed(() => TYPOLOGIES[typology.value]?.isDummyTypology === true)
+const isDummyTypology = computed(() => typology?.isDummyTypology === true)
 const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
 
 const isUp = ref(false)
 const isDown = ref(false)
 const isFeedbackDone = ref(false)
 
-const label = computed(() => TYPOLOGIES[typology.value]?.displayLabel)
+const label = computed(() => typology?.displayLabel)
 
 const category = computed(() => {
   if (stepsStore.selectedAlarmGun && stepsStore.selectedAlarmGun !== '') {
     return 'D'
   } else if (isDummy.value) {
     return 'Non Classée'
-  } else if (typology.value === 'revolver') {
-    return TYPOLOGIES[typology.value]?.categoryWithoutSecuring
+  } else if (typology.displayLabel === 'Revolver') {
+    return typology?.categoryWithoutSecuring
   } else {
-    return TYPOLOGIES[typology.value]?.getCategory(resultStore.gunLength, resultStore.gunBarrelLength)
+    return typology?.getCategory(resultStore.gunLength, resultStore.gunBarrelLength)
   }
 })
 
-const disclaimer = computed(() => TYPOLOGIES[typology.value] && Object.hasOwn(TYPOLOGIES[typology.value], 'getDisclaimer') ? TYPOLOGIES[typology.value].getDisclaimer(category.value, isCardDetected.value) : null)
+const disclaimer = computed(() => typology && Object.hasOwn(typology, 'getDisclaimer') ? typology.getDisclaimer(category.value, isCardDetected.value) : null)
 
 function sendFeedback (isCorrect: boolean) {
   const json = {
