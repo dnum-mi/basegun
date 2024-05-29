@@ -105,4 +105,5 @@ export const semi_auto_style_militaire_autre = {
       img_ammo: semiAutoMilitaireBalls,
     },
   },
+  getDisclaimer: () => "<strong>Catégorie A</strong> si à l'origine l’arme était à <strong>répétition automatique</strong> puis a été <strong>transformée</strong> en arme <strong>semi automatique</strong>, ou si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle <strong>mesure moins de 60 cm</strong>.",
 } as const
