@@ -129,7 +129,7 @@ export const revolver = {
         text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span>, tirez la portière vers l’arrière avec le pouce, puis essayez de pousser sur un côté du barillet pour le faire basculer.',
         video_post_text: 'Sélectionner le comportement de votre barillet : le barillet <span class="font-bold"> ne bascule pas</span>, ou le barillet <span class="font-bold">bascule.</span>',
         video_title: 'Titre de la vidéo',
-        video: revolver2PortiereVideo,
+        video: revolver2PortiereVideoDebut,
         options: [
           {
             label: 'Le barillet ne bascule pas',
@@ -141,7 +141,7 @@ export const revolver = {
               'Contrôler que chaque chambre est bien vide en faisant tourner le barillet',
             ],
             img: revolver3PortiereImg,
-            video: revolver2PortiereVideo,
+            video: revolver2PortiereVideoFin,
           },
           {
             label: 'Le barillet bascule',

@@ -22,7 +22,7 @@ function goToMissingCardPageIfMissing () {
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
-      <div v-if="TYPOLOGIES[typology]?.options_step_1 || TYPOLOGIES[typology]?.options || TYPOLOGIES[typology]?.text_steps">
+      <div v-if="TYPOLOGIES[typology]?.securingSteps">
         <h2 class="mt-5 text-center">
           Fin de la mise en sécurité de l’arme
         </h2>
