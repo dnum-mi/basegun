@@ -48,7 +48,7 @@ function buildMailto (email: string) {
 }
 
 const currentPhone = computed(() => {
-  const currentHour = new Date().getHours()
+  const currentHour = new Date().getUTCHours() + 1
   if (currentHour >= 8 && currentHour < 18) {
     return IRCGN.fixe
   } else {
