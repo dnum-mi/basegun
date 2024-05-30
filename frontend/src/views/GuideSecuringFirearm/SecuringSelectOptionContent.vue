@@ -117,7 +117,7 @@ const backTo = computed(() => {
               :title="typology.securingSteps.at(-1).video_title"
               :src="typology.securingSteps.at(-1).video"
             />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
+            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
           </div>
 
           <div class="manipulations -mx-8 p-8">
