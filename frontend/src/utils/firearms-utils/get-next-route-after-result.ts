@@ -14,7 +14,7 @@ export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typ
     return { name: 'SecuringAchievement' }
   }
 
-  const hasMoreThanOneSteps = TYPOLOGIES[typology].securingSteps?.step_1 || !TYPOLOGIES[typology].securingSteps?.text_steps
+  const hasMoreThanOneSteps = TYPOLOGIES[typology].securingSteps[0].options.length > 1
   if (hasMoreThanOneSteps) {
     return { name: 'SecuringSelectOption', params: { step: 1 } }
   }

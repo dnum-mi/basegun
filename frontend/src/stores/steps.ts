@@ -3,10 +3,8 @@ import { computed } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import { serializer } from '@/utils/storage-utils'
 
-type Step = Record<'1' | '2' | '3', string>
-
 export const useStepsStore = defineStore('steps', () => {
-  const currentOptionStep = useLocalStorage<Partial<Step>>('currentOptionStep', {})
+  const selectedOptions = useLocalStorage<Array<string>>('selectedOptions', [])
 
   const selectedAmmo = useLocalStorage<string | undefined>('selectedAmmo', undefined, { serializer })
   const selectedAlarmGun = useLocalStorage<string | undefined>('selectedAlarmGun', undefined, { serializer })
@@ -20,20 +18,15 @@ export const useStepsStore = defineStore('steps', () => {
     selectedAmmo.value = ammo
   }
 
-  function setOptionStep (step: 1 | 2 | 3, value?: string) {
-    currentOptionStep.value = { ...currentOptionStep.value, [step]: value }
-  }
-
   function $reset () {
     selectedAlarmGun.value = ''
   }
 
   return {
-    currentOptionStep,
+    selectedOptions,
     selectedAmmo,
     selectedAlarmGun,
     tutorialFeedback,
-    setOptionStep,
     isDummy,
     setModalTransparentAmmoOpened (val?: boolean) {
       isModalTransparentAmmoOpened.value = val
