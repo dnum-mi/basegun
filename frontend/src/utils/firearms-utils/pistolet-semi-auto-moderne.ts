@@ -15,36 +15,40 @@ export const pistolet_semi_auto_moderne = {
   isDummyTypology: true,
   pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
   textOptions: '',
-  securingSteps: {
-    bouton_pontet: {
-      label: 'Bouton à côté du pontet',
-      value: 'bouton_pontet',
-      text_steps: [
-        'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
-        '<span class="font-bold">Appuyer sur le bouton de déverrouillage</span> de chargeur situé à l’arrière du pontet',
-        '<span class="font-bold">Retirer le chargeur de l’arme</span>',
-        'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
-        'Actionner la culasse d’avant en arrière',
-        'Contrôler visuellement que la chambre est vide',
+  securingSteps: [
+    {
+      options: [
+        {
+          label: 'Bouton à côté du pontet',
+          value: 'bouton_pontet',
+          text_steps: [
+            'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
+            '<span class="font-bold">Appuyer sur le bouton de déverrouillage</span> de chargeur situé à l’arrière du pontet',
+            '<span class="font-bold">Retirer le chargeur de l’arme</span>',
+            'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
+            'Actionner la culasse d’avant en arrière',
+            'Contrôler visuellement que la chambre est vide',
+          ],
+          img: pistoletSemiAutoPontetImg,
+          video: pistoletSemiAutoPontetVideo,
+        },
+        {
+          label: 'Poussoir sous le talon',
+          value: 'poussoir_talon',
+          text_steps: [
+            'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
+            '<span class="font-bold">Appuyer sur le bouton de déverrouillage de chargeur</span> situé sous la poignée',
+            '<span class="font-bold">Retirer le chargeur de l’arme</span>',
+            'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
+            'Actionner la culasse d’avant en arrière',
+            'Contrôler visuellement que la chambre est vide',
+          ],
+          img: pistoletSemiAutoTalonImg,
+          video: pistoletSemiAutoTalonVideo,
+        },
       ],
-      img: pistoletSemiAutoPontetImg,
-      video: pistoletSemiAutoPontetVideo,
     },
-    poussoir_talon: {
-      label: 'Poussoir sous le talon',
-      value: 'poussoir_talon',
-      text_steps: [
-        'Analyser l’arme en  <span class="font-bold">direction sécurisée</span> ',
-        '<span class="font-bold">Appuyer sur le bouton de déverrouillage de chargeur</span> situé sous la poignée',
-        '<span class="font-bold">Retirer le chargeur de l’arme</span>',
-        'Tirer la glissière vers l’arrière pour <span class="font-bold">extraire la munition</span> éventuelle',
-        'Actionner la culasse d’avant en arrière',
-        'Contrôler visuellement que la chambre est vide',
-      ],
-      img: pistoletSemiAutoTalonImg,
-      video: pistoletSemiAutoTalonVideo,
-    },
-  },
+  ],
   guideFactice: {
     cartouche: {
       label: 'Cartouches',

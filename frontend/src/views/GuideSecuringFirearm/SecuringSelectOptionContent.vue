@@ -15,18 +15,18 @@ const props = defineProps<{
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
-const typology = computed(() => resultStore.typology)
+const typology = TYPOLOGIES[resultStore.typology]
 
-const selectedOptionStep = computed({
+const selectedOptionValue = computed({
   get () {
-    return stepsStore.currentOptionStep[props.step]
+    return stepsStore.selectedOptions[props.step - 1]
   },
   set (option) {
-    stepsStore.setOptionStep(props.step, option)
+    if (stepsStore.selectedOptions[props.step - 1]) { stepsStore.selectedOptions[props.step - 1] = option || '' } else { stepsStore.selectedOptions.push(option || '') }
   },
 })
 
-const disabledValidation = computed(() => stepsStore.currentOptionStep[props.step] === undefined)
+const disabledValidation = computed(() => stepsStore.selectedOptions[props.step - 1] === undefined)
 
 const zoom = ref('')
 
@@ -35,16 +35,16 @@ const zoomOn = (imgValue: string) => {
 }
 
 function updateTypology () {
-  if (props.step === 1 && selectedOptionStep.value === 'revolver_black_powder') {
+  if (props.step === 1 && selectedOptionValue.value === 'revolver_black_powder') {
     // Remember if it is a revolver with black powder
-    resultStore.updateTypology(selectedOptionStep.value)
+    resultStore.updateTypology(selectedOptionValue.value)
   }
 }
 
 const nextTo = computed(() => {
-  if (typology.value === 'revolver') {
+  if (typology.displayLabel === 'Revolver') {
     if (props.step === 1) {
-      if (stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
+      if (stepsStore.selectedOptions.at(-1) === 'revolver_black_powder') {
         return {
           name: 'SecuringAchievement',
         }
@@ -55,7 +55,7 @@ const nextTo = computed(() => {
       }
     }
     if (props.step === 2) {
-      if (stepsStore.currentOptionStep['2'] !== 'revolver_portiere') {
+      if (stepsStore.selectedOptions.at(-1) !== 'revolver_portiere') {
         return {
           name: 'SecuringTutorialContent',
         }
@@ -90,31 +90,18 @@ const backTo = computed(() => {
   return { name: 'InstructionsPage' }
 })
 
-function getOptions (step, typology, TYPOLOGIES) {
-  if (step === 3) {
-    return TYPOLOGIES[typology]?.securingSteps?.steps[2]?.options || []
-  } else if (step === 2) {
-    return TYPOLOGIES[typology]?.securingSteps?.steps[1]?.options || []
-  } else {
-    if (typology !== 'revolver') {
-      return TYPOLOGIES[typology]?.securingSteps || []
-    } else {
-      return TYPOLOGIES[typology]?.securingSteps?.steps[0]?.options || []
-    }
-  }
-}
-
 </script>
 
 <template>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
+    <div class="fr-col-12 fr-col-lg-6 mx-auto">
       <h2 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
       </h2>
-      <h3 class="text-center my-auto">
+      <h3 class="text-center my-auto fr-mb-2w">
         Choix du type d'arme
       </h3>
+      <!-- Custom for revolver -->
       <div
         v-if="step === 3"
       >
@@ -127,8 +114,8 @@ function getOptions (step, typology, TYPOLOGIES) {
               playsinline
               loop
               muted
-              :title="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video_title"
-              :src="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video"
+              :title="typology.securingSteps.at(-1).video_title"
+              :src="typology.securingSteps.at(-1).video"
             />
             <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
           </div>
@@ -142,20 +129,20 @@ function getOptions (step, typology, TYPOLOGIES) {
             </ol>
           </div>
         </div>
-        <p v-html="TYPOLOGIES[typology]?.securingSteps?.steps[2]?.video_post_text" />
+        <p v-html="typology.securingSteps.at(-1).video_post_text" />
       </div>
 
       <div
-        v-for="(option) in getOptions(step, typology, TYPOLOGIES)"
+        v-for="(option) in typology.securingSteps[step - 1].options"
         :key="option.value"
       >
         <div class="item">
           <DsfrRadioButton
-            v-model="selectedOptionStep"
+            v-model="selectedOptionValue"
             v-bind="option"
             :img="option.img"
             required
-            name="selectedOptionStep"
+            name="selectedOptionValue"
           />
           <div
             class="zoom"
@@ -200,10 +187,6 @@ function getOptions (step, typology, TYPOLOGIES) {
   margin-bottom: 1rem;
 }
 
-.ov-icon {
-  vertical-align: -.39rem;
-}
-
 .fr-content-media {
   margin-block: 0.5rem;
 }
@@ -217,12 +200,6 @@ function getOptions (step, typology, TYPOLOGIES) {
   background-color: #E3E3FD;
   margin-top: 40px;
   margin-bottom: 24px;
-}
-
-:deep(.fr-container) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 :deep(.fr-label) {
@@ -256,12 +233,6 @@ function getOptions (step, typology, TYPOLOGIES) {
   padding: .5rem;
 }
 
-:deep(.fr-col-md-8),
-:deep(.fr-col-lg-6) {
-  flex: 0 0 100%;
-  max-width: 100%;
-  width: 100%;
-}
 .footer button {
 width: 50%;
 }
