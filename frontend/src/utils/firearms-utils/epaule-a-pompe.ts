@@ -19,6 +19,7 @@ export const epaule_a_pompe = {
             '<span class="font-bold">Verrouiller l’arme</span> en avançant légèrement la pompe vers l’avant',
             '<span class="font-bold">Contrôler l’orifice du tube magasin</span> et constater que celui-ci est bien vide',
           ],
+          timeVideo: '45 sec',
           video: epaulePompeSimpleVideo,
         },
       ],

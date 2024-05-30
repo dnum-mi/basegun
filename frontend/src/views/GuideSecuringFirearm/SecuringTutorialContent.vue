@@ -44,7 +44,7 @@ const selectedOption = computed(() => {
               :src="selectedOption.video"
               data-testid="video-tutoriel"
             />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 30 sec</span>
+            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ {{ selectedOption.timeVideo }}</span>
           </div>
         </div>
         <div class="manipulations -mx-8 p-8 fr-mb-1w">

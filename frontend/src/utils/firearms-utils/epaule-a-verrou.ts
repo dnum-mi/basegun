@@ -23,6 +23,7 @@ export const epaule_a_verrou = {
             'Si vous n’avez pas enlevé de chargeur, <span class="font-bold">vider le magasin des munitions</span> éventuelles en les faisant glisser vers l’avant à l’aide de votre pouce<br>',
             'Contrôler visuellement la chambre',
           ],
+          timeVideo: '1 min',
           video: epauleAVerrouVideo,
         },
       ],
