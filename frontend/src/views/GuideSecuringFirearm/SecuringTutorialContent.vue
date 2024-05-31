@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
+import SecuringFooter from '@/views/GuideSecuringFirearm/SecuringFooter.vue'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
-const router = useRouter()
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 
@@ -27,7 +26,7 @@ const selectedOption = computed(() => {
 
 <template>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
+    <div class="fr-col-12 fr-col-lg-6 mx-auto">
       <h2 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
       </h2>
@@ -68,26 +67,11 @@ const selectedOption = computed(() => {
         </div>
         <AskingExpert />
       </div>
-      <div class="footer">
-        <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-          <DsfrButton
-            class="m-1 flex justify-center"
-            icon="ri-arrow-left-line"
-            :secondary="true"
-            label="Précédent"
-            @click="router.back()"
-          />
-          <DsfrButton
-            class="m-1 flex justify-center"
-            icon="ri-arrow-right-line"
-            data-testid="button-next"
-            label="Suivant"
-            :icon-right="true"
-            @click="router.push({ name: 'SecuringAchievement' })"
-          />
-        </div>
-      </div>
     </div>
+    <SecuringFooter
+      @back-click="$router.back()"
+      @next-click="$router.push({ name: 'SecuringAchievement' })"
+    />
   </div>
 </template>
 

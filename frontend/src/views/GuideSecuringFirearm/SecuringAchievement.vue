@@ -66,33 +66,22 @@ function goToMissingCardPageIfMissing () {
   </div>
   <div class="footer">
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
-      <router-link
-        v-slot="{navigate}"
-        class="navigate"
-        :to="{name: goToMissingCardPageIfMissing()}"
-      >
-        <DsfrButton
-          class="flex justify-center !w-full"
-          label="Je veux identifier mon arme"
-          icon="ri-arrow-right-line"
-          :icon-right="true"
-          data-testid="go-to-identification"
-          @click="navigate()"
-        />
-      </router-link>
-      <router-link
-        v-slot="{navigate}"
-        :to="{name:'StartPage'}"
-      >
-        <DsfrButton
-          class="mt-3 flex justify-center !w-full"
-          label="Retour à l'accueil"
-          icon="ri-home-4-line"
-          :icon-right="true"
-          secondary
-          @click="navigate()"
-        />
-      </router-link>
+      <DsfrButton
+        class="flex justify-center !w-full"
+        label="Je veux identifier mon arme"
+        icon="ri-arrow-right-line"
+        :icon-right="true"
+        data-testid="go-to-identification"
+        @click="$router.push({name: goToMissingCardPageIfMissing()})"
+      />
+      <DsfrButton
+        class="mt-3 flex justify-center !w-full"
+        label="Retour à l'accueil"
+        icon="ri-home-4-line"
+        :icon-right="true"
+        secondary
+        @click="$router.push({name:'StartPage'})"
+      />
     </div>
   </div>
 </template>

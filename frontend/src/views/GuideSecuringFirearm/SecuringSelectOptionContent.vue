@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
+import { useRouter } from 'vue-router'
+
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
@@ -8,6 +10,7 @@ import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 import AskingExpert from '@/components/AskingExpert.vue'
 import SecuringFooter from './SecuringFooter.vue'
 
+const router = useRouter()
 const props = defineProps<{
   step: 1 | 2 | 3
 }>()
@@ -71,24 +74,10 @@ const nextTo = computed(() => {
   }
 })
 
-const backTo = computed(() => {
-  if (props.step === 1) {
-    return { name: 'InstructionsPage' }
-  }
-  if (props.step === 2) {
-    return {
-      name: 'SecuringSelectOption',
-      params: { step: '1' },
-    }
-  }
-  if (props.step === 3) {
-    return {
-      name: 'SecuringSelectOption',
-      params: { step: '2' },
-    }
-  }
-  return { name: 'InstructionsPage' }
-})
+function nextClick () {
+  updateTypology()
+  router.push(nextTo.value)
+}
 
 </script>
 
@@ -173,10 +162,9 @@ const backTo = computed(() => {
       <div class="big-blank" />
     </div>
     <SecuringFooter
-      :back-to="backTo"
-      :next-to="nextTo"
       :next-disabled="disabledValidation"
-      @next-click="updateTypology()"
+      @back-click="$router.back()"
+      @next-click="nextClick"
     />
   </div>
 </template>
@@ -185,10 +173,6 @@ const backTo = computed(() => {
 .item {
   position: relative;
   margin-bottom: 1rem;
-}
-
-.fr-content-media {
-  margin-block: 0.5rem;
 }
 
 .video-container {
@@ -234,6 +218,6 @@ const backTo = computed(() => {
 }
 
 .footer button {
-width: 50%;
+  width: 50%;
 }
 </style>

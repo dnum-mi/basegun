@@ -1,6 +1,6 @@
 import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 
-export const getNextRouteAfterResult = ({ securingTutorial, confidenceLevel, typology, gunLength, gunBarrelLength }) => {
+export const getNextRouteAfterResult = (securingTutorial: boolean, confidenceLevel: string, typology: string, gunLength: number, gunBarrelLength: number) => {
   const isCardDetected = gunLength !== null && gunBarrelLength !== null
   const isMeasuredGun = MEASURED_GUNS_TYPOLOGIES.includes(typology)
 

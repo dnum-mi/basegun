@@ -2,6 +2,7 @@
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 
 import StepsGuide from '@/components/StepsGuide.vue'
+import SecuringFooter from './SecuringFooter.vue'
 
 const steps = ['Mise en garde', 'Consignes de sécurité', 'Photo']
 const currentStep = ref(0)
@@ -79,24 +80,9 @@ const currentStep = ref(0)
         </div>
       </template>
     </div>
-    <div class="footer">
-      <div class="fr-col-12 fr-col-lg-6 footer-actions mx-auto">
-        <DsfrButton
-          class="m-1 flex justify-center w-100"
-          icon="ri-arrow-left-line"
-          :secondary="true"
-          label="Précédent"
-          @click="currentStep > 0 ? currentStep-- : $router.push({ name: 'StartPage' })"
-        />
-        <DsfrButton
-          class="m-1 flex justify-center w-100"
-          icon="ri-arrow-right-line"
-          data-testid="button-next"
-          label="Suivant"
-          :icon-right="true"
-          @click="currentStep < 2 ? currentStep++ : $router.push({ name: 'InstructionsPage' })"
-        />
-      </div>
-    </div>
+    <SecuringFooter
+      @back-click="currentStep > 0 ? currentStep-- : $router.push({ name: 'StartPage' })"
+      @next-click="currentStep < 2 ? currentStep++ : $router.push({ name: 'InstructionsPage', query: { securingTutorial: 'true' } })"
+    />
   </div>
 </template>

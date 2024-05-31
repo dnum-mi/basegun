@@ -3,7 +3,7 @@ import GoodExamplePhoto from '@/assets/instruction-screen-gun.webp'
 
 import { ref } from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
 import { useStepsStore } from '@/stores/steps'
@@ -15,6 +15,7 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const resultStore = useResultStore()
 const stepsStore = useStepsStore()
 const router = useRouter()
+const route = useRoute()
 
 const handledImageTypes = 'image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif'
 
@@ -37,13 +38,14 @@ async function uploadImage (base64: string, fileName: string) {
       img: base64,
       imgUrl: data.path,
     })
-    const nextRoute = getNextRouteAfterResult({
-      securingTutorial: resultStore.securingTutorial,
-      confidenceLevel: resultStore.confidenceLevel,
-      typology: resultStore.typology,
-      gunLength: resultStore.gunLength,
-      gunBarrelLength: resultStore.gunBarrelLength,
-    })
+    console.log(route.params)
+    const nextRoute = getNextRouteAfterResult(
+      Boolean(route.query.securingTutorial),
+      resultStore.confidenceLevel,
+      resultStore.typology,
+      resultStore.gunLength,
+      resultStore.gunBarrelLength,
+    )
     router.push(nextRoute)
   } catch (error) {
     console.log(error)
@@ -126,7 +128,6 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
         alt="photo d'une carte posée au sol et arme tournée vers la droite et centrée"
       />
     </div>
-    <div class="big-blank" />
     <div class="footer">
       <div
         v-if="!loading"
