@@ -21,7 +21,6 @@ Armes d’épaule semi-automatiques ou automatiques type militaire moderne
 export const semi_auto_style_militaire_autre = {
   displayLabel: 'Arme semi-automatique ou automatique',
   getCategory: () => 'A ou B',
-  isDummyTypology: true,
   securingSteps: [
     {
       text: 'Observez la position du chargeur et sélectionnez ce que vous voyez :',
@@ -102,17 +101,21 @@ export const semi_auto_style_militaire_autre = {
       ],
     },
   ],
-  guideFactice: {
-    cartouches: {
-      label: 'Cartouches',
-      value: 'cartouches',
-      img_ammo: semiAutoMilitaireCartridges,
+  guideDummy: [
+    {
+      options: [
+        {
+          label: 'Cartouches',
+          value: 'cartouches',
+          img_ammo: semiAutoMilitaireCartridges,
+        },
+        {
+          label: 'Billes',
+          value: 'billes',
+          img_ammo: semiAutoMilitaireBalls,
+        },
+      ],
     },
-    billes: {
-      label: 'Billes',
-      value: 'billes',
-      img_ammo: semiAutoMilitaireBalls,
-    },
-  },
+  ],
   getDisclaimer: () => "<strong>Catégorie A</strong> si à l'origine l’arme était à <strong>répétition automatique</strong> puis a été <strong>transformée</strong> en arme <strong>semi automatique</strong>, ou si l’arme possède <strong>une crosse rétractable / pliable</strong> et qu’en configuration la plus courte elle <strong>mesure moins de 60 cm</strong>.",
 } as const
