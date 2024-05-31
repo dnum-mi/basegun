@@ -50,20 +50,16 @@ export const pistolet_semi_auto_moderne = {
       ],
     },
   ],
-  guideDummy: [
+  dummyOptions: [
     {
-      options: [
-        {
-          label: 'Cartouches',
-          value: 'cartouches',
-          img_ammo: pistoletSemiAutoModerneCartridges,
-        },
-        {
-          label: 'Billes',
-          value: 'billes',
-          img_ammo: pistoletSemiAutoModerneBalls,
-        },
-      ],
+      label: 'Cartouches',
+      value: 'cartouches',
+      img_ammo: pistoletSemiAutoModerneCartridges,
+    },
+    {
+      label: 'Billes',
+      value: 'billes',
+      img_ammo: pistoletSemiAutoModerneBalls,
     },
   ],
   getDisclaimer: (category: string) => {

@@ -20,7 +20,7 @@ const img = computed(() => resultStore.img)
 const typology = TYPOLOGIES[resultStore.typology]
 
 const isDummy = computed(() => stepsStore.isDummy)
-const hasGuideDummy = typology?.guideDummy !== undefined
+const hasDummyOptions = typology?.dummyOptions !== undefined
 const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
 
 const isUp = ref(false)
@@ -75,7 +75,7 @@ function sendFeedback (isCorrect: boolean) {
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
       <h2
-        v-if="$route.name === 'IdentificationTypologyResult' && hasGuideDummy"
+        v-if="$route.name === 'IdentificationTypologyResult' && hasDummyOptions"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
@@ -144,7 +144,7 @@ function sendFeedback (isCorrect: boolean) {
               >
                 {{ label }}
               </h3>
-              <template v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasGuideDummy)">
+              <template v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasDummyOptions)">
                 <h3
                   class="fr-alert__title"
                   data-testid="arm-category"
@@ -157,14 +157,14 @@ function sendFeedback (isCorrect: boolean) {
               </template>
             </div>
             <div
-              v-if="disclaimer && confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasGuideDummy)"
+              v-if="disclaimer && confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasDummyOptions)"
               class="fr-alert fr-alert--warning"
             >
               <p v-html="disclaimer" />
             </div>
             <MissingCardAlert v-if="MEASURED_GUNS_TYPOLOGIES.includes(typology) && isCardDetected === false && isDummy == false" />
             <div
-              v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasGuideDummy)"
+              v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasDummyOptions)"
               class="fr-callout mt-3"
             >
               <p class="fr-callout__text">
@@ -178,7 +178,7 @@ function sendFeedback (isCorrect: boolean) {
               </p>
             </div>
             <div
-              v-if="confidenceLevel !== 'low' && $route.name === 'IdentificationTypologyResult' && hasGuideDummy"
+              v-if="confidenceLevel !== 'low' && $route.name === 'IdentificationTypologyResult' && hasDummyOptions"
               class="fr-alert fr-alert--warning"
             >
               <p>
