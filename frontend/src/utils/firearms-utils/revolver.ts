@@ -163,20 +163,16 @@ export const revolver = {
       ],
     },
   ],
-  guideDummy: [
+  dummyOptions: [
     {
-      options: [
-        {
-          label: 'Balles',
-          value: 'cartouches',
-          img_ammo: revolverCartridges,
-        },
-        {
-          label: 'Billes ou trou pour billes',
-          value: 'billes',
-          img_ammo: revolverBalls,
-        },
-      ],
+      label: 'Balles',
+      value: 'cartouches',
+      img_ammo: revolverCartridges,
+    },
+    {
+      label: 'Billes ou trou pour billes',
+      value: 'billes',
+      img_ammo: revolverBalls,
     },
   ],
   getDisclaimer: (category: string) => {

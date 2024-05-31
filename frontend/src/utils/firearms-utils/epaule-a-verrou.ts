@@ -28,20 +28,16 @@ export const epaule_a_verrou = {
       ],
     },
   ],
-  guideDummy: [
+  dummyOptions: [
     {
-      options: [
-        {
-          label: 'Balles',
-          value: 'cartouches',
-          img_ammo: epauleAVerrouCartridges,
-        },
-        {
-          label: 'Billes ou trou pour billes',
-          value: 'billes',
-          img_ammo: epauleAVerrouBalls,
-        },
-      ],
+      label: 'Balles',
+      value: 'cartouches',
+      img_ammo: epauleAVerrouCartridges,
+    },
+    {
+      label: 'Billes ou trou pour billes',
+      value: 'billes',
+      img_ammo: epauleAVerrouBalls,
     },
   ],
   getDisclaimer: getEpaulLevierVerrouDisclaimer,

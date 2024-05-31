@@ -52,7 +52,7 @@ onMounted(() => {
 })
 
 // eslint-disable-next-line camelcase
-type HasGuideDummy = typeof epaule_a_verrou | typeof pistolet_semi_auto_moderne | typeof semi_auto_style_militaire_autre | typeof revolver
+type HasDummyOptions = typeof epaule_a_verrou | typeof pistolet_semi_auto_moderne | typeof semi_auto_style_militaire_autre | typeof revolver
 </script>
 
 <template>
@@ -123,7 +123,7 @@ type HasGuideDummy = typeof epaule_a_verrou | typeof pistolet_semi_auto_moderne 
     </div>
     <div>
       <template
-        v-for="(option) in (TYPOLOGIES[typology] as HasGuideDummy)?.guideDummy[0].options"
+        v-for="(option) in (TYPOLOGIES[typology] as HasDummyOptions)?.dummyOptions"
         :key="option.value"
       >
         <div class="item">
