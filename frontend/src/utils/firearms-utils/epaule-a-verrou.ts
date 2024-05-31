@@ -10,7 +10,6 @@ Armes d’épaule à verrou
 export const epaule_a_verrou = {
   displayLabel: 'Arme d’épaule à verrou',
   getCategory: getCommonCategory,
-  isDummyTypology: true,
   securingSteps: [
     {
       options: [
@@ -29,17 +28,21 @@ export const epaule_a_verrou = {
       ],
     },
   ],
-  guideFactice: {
-    cartouches: {
-      label: 'Balles',
-      value: 'cartouches',
-      img_ammo: epauleAVerrouCartridges,
+  guideDummy: [
+    {
+      options: [
+        {
+          label: 'Balles',
+          value: 'cartouches',
+          img_ammo: epauleAVerrouCartridges,
+        },
+        {
+          label: 'Billes ou trou pour billes',
+          value: 'billes',
+          img_ammo: epauleAVerrouBalls,
+        },
+      ],
     },
-    billes: {
-      label: 'Billes ou trou pour billes',
-      value: 'billes',
-      img_ammo: epauleAVerrouBalls,
-    },
-  },
+  ],
   getDisclaimer: getEpaulLevierVerrouDisclaimer,
 } as const

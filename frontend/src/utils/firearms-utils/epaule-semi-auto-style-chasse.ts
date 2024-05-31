@@ -11,7 +11,6 @@ Armes d’épaule semi-automatiques ou automatiques type chasse
 export const epaule_semi_auto_style_chasse = {
   displayLabel: 'Arme d’épaule semi-automatique',
   getCategory: getCommonCategory,
-  isDummyTypology: false,
   getDisclaimer: (category: string, isCardDetected: boolean) => {
     if (['B ou C', 'C'].includes(category)) {
       if (isCardDetected === false) {

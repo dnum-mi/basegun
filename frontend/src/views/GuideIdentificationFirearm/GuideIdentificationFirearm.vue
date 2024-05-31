@@ -20,12 +20,10 @@ const confidenceLevel = computed(() => resultStore.confidenceLevel)
 const typology = computed(() => resultStore.typology)
 
 const currentStep = ref(1)
-
-const isDummyTypology = TYPOLOGIES[resultStore.typology].isDummyTypology
 const isLowConfidence = confidenceLevel.value === 'low'
 
 const steps = computed(() => {
-  if (isDummyTypology || !isLowConfidence) {
+  if (TYPOLOGIES[typology]?.guideDummy || !isLowConfidence) {
     if (ALARM_GUNS_TYPOLOGIES.includes(resultStore.typology) && stepsStore.selectedAmmo === 'cartouches') {
       return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
     } else {
@@ -99,7 +97,7 @@ const showDiv = ref(false)
   <div class="mt-5 fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
-        v-if="TYPOLOGIES[typology]?.isDummyTypology"
+        v-if="TYPOLOGIES[typology]?.guideDummy"
         class="!fr-container my-auto"
         :steps="steps"
         :current-step="currentStep"
@@ -108,7 +106,7 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || !TYPOLOGIES[typology]?.isDummyTypology"
+    v-if="$route.path === '/guide-identification/resultat-final' || TYPOLOGIES[typology]?.guideDummy == undefined"
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">

@@ -12,7 +12,6 @@ Pistolets semi-auto modernes
 export const pistolet_semi_auto_moderne = {
   displayLabel: 'Pistolet semi-automatique',
   getCategory: () => 'B',
-  isDummyTypology: true,
   pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
   textOptions: '',
   securingSteps: [
@@ -51,18 +50,22 @@ export const pistolet_semi_auto_moderne = {
       ],
     },
   ],
-  guideFactice: {
-    cartouche: {
-      label: 'Cartouches',
-      value: 'cartouches',
-      img_ammo: pistoletSemiAutoModerneCartridges,
+  guideDummy: [
+    {
+      options: [
+        {
+          label: 'Cartouches',
+          value: 'cartouches',
+          img_ammo: pistoletSemiAutoModerneCartridges,
+        },
+        {
+          label: 'Billes',
+          value: 'billes',
+          img_ammo: pistoletSemiAutoModerneBalls,
+        },
+      ],
     },
-    billes: {
-      label: 'Billes',
-      value: 'billes',
-      img_ammo: pistoletSemiAutoModerneBalls,
-    },
-  },
+  ],
   getDisclaimer: (category: string) => {
     if (category === 'D') {
       return 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>'

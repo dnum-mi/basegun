@@ -32,7 +32,6 @@ export const revolver = {
   displayLabel: 'Revolver',
   getCategory: () => 'B',
   categoryWithoutSecuring: 'B ou D',
-  isDummyTypology: true,
   securingSteps: [
     {
       text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
@@ -164,18 +163,22 @@ export const revolver = {
       ],
     },
   ],
-  guideFactice: {
-    cartouches: {
-      label: 'Balles',
-      value: 'cartouches',
-      img_ammo: revolverCartridges,
+  guideDummy: [
+    {
+      options: [
+        {
+          label: 'Balles',
+          value: 'cartouches',
+          img_ammo: revolverCartridges,
+        },
+        {
+          label: 'Billes ou trou pour billes',
+          value: 'billes',
+          img_ammo: revolverBalls,
+        },
+      ],
     },
-    billes: {
-      label: 'Billes ou trou pour billes',
-      value: 'billes',
-      img_ammo: revolverBalls,
-    },
-  },
+  ],
   getDisclaimer: (category: string) => {
     if (category === 'D') {
       return 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>'
@@ -186,5 +189,4 @@ export const revolver = {
 export const revolver_black_powder = {
   displayLabel: 'Revolver à poudre noire',
   getCategory: () => 'D',
-  isDummyTypology: false,
 } as const
