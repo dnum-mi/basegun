@@ -17,5 +17,13 @@
         href="mailto:basegun@interieur.gouv.fr"
       >basegun@interieur.gouv.fr</a>.
     </p>
+    <p>
+      Pour toute question ou problème lié à l'accessibilité sur l'application,
+      veuillez contacter :
+      <a
+        class="underline"
+        href="mailto:basegun@interieur.gouv.fr"
+      >basegun@interieur.gouv.fr</a>.
+    </p>
   </div>
 </template>
