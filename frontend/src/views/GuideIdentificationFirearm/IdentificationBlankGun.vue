@@ -5,20 +5,19 @@ import { useStepsStore } from '@/stores/steps'
 import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
 
 import { useResultStore } from '@/stores/result'
+
+import { TYPOLOGIES } from '@/utils/firearms-utils/index'
+
 const resultStore = useResultStore()
+const typology = TYPOLOGIES[resultStore.typology]
 
 const stepsStore = useStepsStore()
 
-const legend = 'Sélectionner le modèle correspondant à votre arme ou cliquer sur "Aucune correspondance"  :'
-
 const zoom = ref<number|null>(null)
 
-const props = defineProps({
-  showDiv: {
-    type: Boolean as PropType<boolean>,
-    required: true,
-  },
-})
+defineProps<{
+  showDiv: boolean
+}>()
 
 const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === resultStore.typology)
 
@@ -31,7 +30,7 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
   >
     <p class="my-4">
       Votre arme<span class="font-bold"> pourrait être une arme d'alarme</span>, nous allons vous guider pour déterminer si c'en est une,
-      et ce, <span class="font-bold">grâce aux marquages présents sur l'arme</span>. En cliquant sur le bouton suivant, vous trouverez les <span class="font-bold">13 modèles d'armes d'alarmes reconnues par arrêté</span>.
+      et ce, <span class="font-bold">grâce aux marquages présents sur l'arme</span>. En cliquant sur le bouton suivant, vous trouverez les <span class="font-bold">{{ alarmGunsOptions.length }} modèles de {{ typology.displayLabel.toLowerCase() }} d'alarmes reconnus par arrêté</span>.
       Vous pouvez obtenir une vue rapprochée des marquages de chaque modèle en cliquant sur le bouton de zoom.
     </p>
     <p>
@@ -47,48 +46,44 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
     v-else
     class="mt-3 relative pb-20"
   >
-    <DsfrRadioButtonSet
-      :legend="legend"
-    >
-      <template
+    <DsfrRadioButtonSet legend="Sélectionner le modèle correspondant à votre arme ou cliquer sur &quot;Aucune correspondance&quot; :">
+      <div
         v-for="gun, gunIndex in alarmGunsOptions"
         :key="gunIndex"
+        class="relative"
       >
-        <div class="relative">
-          <DsfrRadioButton
-            v-model="stepsStore.selectedAlarmGun"
-            v-bind="gun"
-            class="radio"
-            :img="gun.img"
-            required
-            name="armeAlarme"
+        <DsfrRadioButton
+          v-model="stepsStore.selectedAlarmGun"
+          v-bind="gun"
+          class="radio"
+          :img="gun.img"
+          required
+          name="armeAlarme"
+        />
+        <div
+          class="zoom"
+          @click="zoom = gunIndex"
+        >
+          <VIcon
+            name="ri-zoom-in-line"
+            scale="1.25"
           />
-          <div
-            class="zoom"
-            @click="zoom = gunIndex"
-          >
-            <VIcon
-              name="ri-zoom-in-line"
-              scale="1.25"
-              @click="zoom = gunIndex"
-            />
-            <span class="zoom-label">zoomer</span>
-          </div>
-          <Teleport to="body">
-            <DsfrModal
-              title=""
-              :opened="zoom === gunIndex"
-              @close="zoom = null"
-            >
-              <img
-                v-if="zoom === gunIndex"
-                :src="gun.imgZoom"
-                :style="{'max-width': '100%'}"
-              >
-            </DsfrModal>
-          </Teleport>
+          <span class="zoom-label">zoomer</span>
         </div>
-      </template>
+        <Teleport to="body">
+          <DsfrModal
+            title=""
+            :opened="zoom === gunIndex"
+            @close="zoom = null"
+          >
+            <img
+              v-if="zoom === gunIndex"
+              :src="gun.imgZoom"
+              :style="{'max-width': '100%'}"
+            >
+          </DsfrModal>
+        </Teleport>
+      </div>
       <div class="relative w-100">
         <div class="fr-fieldset__element">
           <div class="fr-radio-group fr-radio-rich">
