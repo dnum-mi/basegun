@@ -4,7 +4,7 @@ DC		:= ${DOCKER} compose
 TAG		:= 3.3
 APP_NAME	:= basegun
 REG		:= ghcr.io
-ORG		:= datalab-mi
+ORG		:= dnum-mi
 
 export
 
@@ -54,9 +54,9 @@ pull-%:
 push: push-${TAG}
 
 push-%:
-	docker tag basegun-frontend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-frontend:$*
-	docker tag basegun-backend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-backend:$*
-	docker push ghcr.io/datalab-mi/basegun/basegun-frontend:$*
-	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
+	docker tag basegun-frontend:${TAG}-prod ghcr.io/dnum-mi/basegun/basegun-frontend:$*
+	docker tag basegun-backend:${TAG}-prod ghcr.io/dnum-mi/basegun/basegun-backend:$*
+	docker push ghcr.io/dnum-mi/basegun/basegun-frontend:$*
+	docker push ghcr.io/dnum-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod

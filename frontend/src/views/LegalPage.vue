@@ -68,9 +68,9 @@
     <p>
       Le code source du projet est disponible publiquement à l'adresse
       <a
-        href="https://github.com/datalab-mi/Basegun"
+        href="https://github.com/dnum-mi/Basegun"
         target="blank"
-      >https://github.com/datalab-mi/Basegun</a>
+      >https://github.com/dnum-mi/Basegun</a>
     </p>
 
     <h2>Hébergement</h2>
