@@ -46,7 +46,7 @@ const imgs = ref([
     </p>
     <p>
       Il est actuellement piloté par <span class="font-bold">la Fabrique Numérique de la Direction de la Transformation Numérique</span> du Ministère de l'Intérieur et des Outre-Mer,
-      en partenariat avec le <span class="font-bold">Service Central des Armes et Explosifs.</span>
+      en partenariat avec le <span class="font-bold">Service Central des Armes et Explosifs de la DEPSA.</span>
     </p>
     <p>
       <span class="font-bold">La Direction Générale de la Police Nationale</span>
