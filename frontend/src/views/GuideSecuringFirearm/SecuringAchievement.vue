@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 import { useResultStore } from '@/stores/result'
-import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { MEASURED_GUNS_TYPOLOGIES, TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 

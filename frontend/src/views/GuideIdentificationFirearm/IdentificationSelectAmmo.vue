@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'

@@ -2,7 +2,7 @@ import levierSousGardeMagasinAvantImg from '@/assets/guide-mise-en-securite/phot
 import levierSousGardePasMagasinImg from '@/assets/guide-mise-en-securite/photos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.jpg'
 import levierSousGardeMagasinAvantVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_avant.mp4'
 import levierSousGardePasMagasinVideo from '@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.mp4'
-import { getEpaulLevierVerrouDisclaimer, getCommonCategory } from '@/utils/firearms-utils/index'
+import { getCommonCategory, getEpaulLevierVerrouDisclaimer } from '@/utils/firearms-utils/index'
 /*
 Armes d’épaule à levier de sous-garde
   Magasin avant

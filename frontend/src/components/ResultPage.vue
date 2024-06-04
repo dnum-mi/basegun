@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { MEASURED_GUNS_TYPOLOGIES, TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { computed, ref } from 'vue'
 import axios from 'axios'
 import SnackbarAlert from '@/components/SnackbarAlert.vue'
-import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
 import { useStepsStore } from '@/stores/steps'

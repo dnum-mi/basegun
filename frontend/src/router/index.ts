@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter, type RouteRecordRaw, type RouteLocation } from 'vue-router'
+import { type RouteLocation, type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 
 import { clearLocalStorage } from '@/utils/storage-utils.js'
 

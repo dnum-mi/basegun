@@ -3,10 +3,10 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import {
+  ALARM_GUNS_TYPOLOGIES,
+  TYPOLOGIES,
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
-  TYPOLOGIES,
-  ALARM_GUNS_TYPOLOGIES,
 } from '@/utils/firearms-utils/index'
 import { useStepsStore } from '@/stores/steps'
 import { useResultStore } from '@/stores/result'

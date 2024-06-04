@@ -76,7 +76,7 @@
       </li>
       <li>
         Mentions légales
-        <strong>https://basegun.interieur.gouv.fr/contact</strong>
+        <strong>https://basegun.interieur.gouv.fr/mentions-legales</strong>
       </li>
       <li>
         Accessibilité

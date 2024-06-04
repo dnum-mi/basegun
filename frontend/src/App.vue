@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { registerSW } from 'virtual:pwa-register'
 
 import HeaderMain from '@/components/HeaderMain.vue'

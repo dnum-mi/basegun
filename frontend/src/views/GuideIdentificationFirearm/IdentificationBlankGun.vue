@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { ref, defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
 
 import { useStepsStore } from '@/stores/steps'
-import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
-
 import { useResultStore } from '@/stores/result'
-
+import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 const resultStore = useResultStore()

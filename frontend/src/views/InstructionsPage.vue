@@ -3,7 +3,7 @@ import GoodExamplePhoto from '@/assets/instruction-screen-gun.webp'
 
 import { ref } from 'vue'
 import axios from 'axios'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { useResultStore } from '@/stores/result'
 import { useStepsStore } from '@/stores/steps'

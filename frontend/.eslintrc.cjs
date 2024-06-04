@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/comma-dangle': [2, 'always-multiline'],
     'vue/no-v-html': 0,
     'no-irregular-whitespace': 0,
+    'sort-imports': 1
   },
   overrides: [
     {
