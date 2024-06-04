@@ -17,9 +17,9 @@ const currentStep = ref(0)
         :steps="steps"
         :current-step="currentStep + 1"
       />
-      <h2 class="fr-mt-2w">
+      <h1 class="fr-mt-2w">
         Mettre en sécurité mon arme
-      </h2>
+      </h1>
 
       <template v-if="currentStep === 0">
         <div v-if="isUserUsingCrosscall()">

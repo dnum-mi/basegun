@@ -1,9 +1,14 @@
-h1 {
-  font-size: 1.75rem
-}
+@screen lt-sm {
+  h1 {
+    font-size: 1.75rem
+  }
 
-h2 {
-  font-size: 1.3rem 
+  h2 {
+    font-size: 1.3rem
+  }
+}
+.text-blue {
+  color: var(--blue-france-sun-113-625);
 }
 
 #app {
@@ -58,16 +63,6 @@ a {
 .img-deco {
   margin-bottom: 2.5em;
   width: 100%
-}
-
-h4 {
-  font-size: 1.3rem;
-  margin: 0.75rem;
-}
-
-h5 {
-  font-size: 1.1rem;
-  color: var(--blue-france-sun-113-625)
 }
 
 .help {

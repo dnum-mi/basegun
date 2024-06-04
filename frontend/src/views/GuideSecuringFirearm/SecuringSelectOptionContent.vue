@@ -84,12 +84,12 @@ function nextClick () {
 <template>
   <div class="fr-container">
     <div class="fr-col-12 fr-col-lg-6 mx-auto">
-      <h2 class="mt-3 mb-1 text-center">
+      <h1 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
-      </h2>
-      <h3 class="text-center my-auto fr-mb-2w">
+      </h1>
+      <h2 class="text-center my-auto fr-mb-2w text-blue">
         Choix du type d'arme
-      </h3>
+      </h2>
       <!-- Custom for revolver -->
       <div
         v-if="step === 3"

@@ -16,13 +16,13 @@ function onClose () {
       <div class="modal">
         <div class="modal-content">
           <div class="fr-alert fr-alert--warning">
-            <h3>
+            <div class="fr-modal__title fr-mb-2w">
               <VIcon
                 name="ri-arrow-right-line"
                 scale="1.5"
               />
               Consignes d'envoi de mail
-            </h3>
+            </div>
             <div class="flex justify-content">
               <p>
                 Pour que votre demande puisse être traitée, vous devrez transmettre plusieurs informations dont des photos de l'arme. Assurez-vous de la qualité de celles-ci : <span class="font-bold">netteté, exposition, orientation, sans perspective.</span>  <br>

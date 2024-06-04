@@ -72,13 +72,13 @@ async function sendTutorialFeedback () {
     >
       <div class="modal">
         <div class="modal-content">
-          <h2>
+          <div class="fr-modal__title fr-mb-2w">
             <VIcon
               name="ri-arrow-right-line"
               scale="1.5"
             />
             Je n'arrive pas à compléter une étape
-          </h2>
+          </div>
           <p>
             Si vous rencontrez une difficulté pour poursuivre ce tutoriel, nous vous conseillons de faire appel à un expert. <br>
             <br>En attendant, vous pouvez nous permettre d'améliorer le contenu de ce tutoriel en nous décrivant votre problème ci-dessous.

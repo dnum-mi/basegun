@@ -63,14 +63,14 @@ const currentPhone = computed(() => {
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="text-center mt-5">
-          <h2>
+          <h1>
             <VIcon
               name="ri-arrow-right-line"
-              scale="1.5"
+              scale="2"
             />
             <span v-if="lawEnforcementType === 'gendarmerie'">Contacter un expert de l'IRCGN</span>
             <span v-if="lawEnforcementType === 'police'">Contacter un expert en armes</span>
-          </h2>
+          </h1>
           <div v-if="lawEnforcementType === 'gendarmerie'">
             <p>
               Sélectionnez votre situation actuelle :
@@ -81,13 +81,13 @@ const currentPhone = computed(() => {
             v-if="lawEnforcementType === 'police'"
             class="fr-alert fr-alert--warning"
           >
-            <h3>
+            <h2>
               <VIcon
                 name="ri-error-warning-line"
                 scale="1.5"
               />
               Avertissement
-            </h3>
+            </h2>
             <div class="justify-content">
               <p>
                 Cette fonctionnalité est <span class="font-bold">en cours de développement</span>.<br>
@@ -241,13 +241,13 @@ const currentPhone = computed(() => {
           @close="showIRCGNModal = false; priority = ''"
         >
           <div class="modal">
-            <h2>
+            <div class="fr-modal__title fr-mb-2w">
               <VIcon
                 name="ri-arrow-right-line"
                 scale="1.5"
               />
               Contacter un expert de l'IRCGN
-            </h2>
+            </div>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
                 <p v-if="priority === 'high'">

@@ -74,24 +74,23 @@ function sendFeedback (isCorrect: boolean) {
 <template>
   <div class="result-frame -mx-8 py-5 px-8">
     <div class="result">
-      <h2
+      <h1
         v-if="$route.name === 'IdentificationTypologyResult' && hasDummyOptions"
         class="typology-title bg-white py-4"
       >
         Typologie de l'arme
-      </h2>
-      <h2
+      </h1>
+      <h1
         v-else
         class="typology-title bg-white py-4"
       >
         Résultat Final
-      </h2>
+      </h1>
       <div
         class="result-image"
         :style="{backgroundImage:`url(${img})`}"
       />
       <div class="fr-tile fr-enlarge-link mb-3">
-        <h2 class="fr-tile__title px-2" />
         <div v-if="confidenceLevel === 'low'">
           <div class="fr-tile__body">
             <DsfrTag
@@ -100,9 +99,9 @@ function sendFeedback (isCorrect: boolean) {
             />
           </div>
           <div class="fr-alert fr-alert--info mt-3">
-            <h3 class="fr-alert__title">
+            <h2 class="fr-alert__title">
               Catégorie non déterminée
-            </h3>
+            </h2>
           </div>
           <div class="fr-alert fr-alert--warning mt-3">
             <p>Nous n'avons pas suffisamment d'éléments pour fournir une réponse fiable. Nous vous conseillons de faire appel à un expert.</p>
@@ -126,24 +125,24 @@ function sendFeedback (isCorrect: boolean) {
               <ContactExpert v-if="isUserUsingCrosscall()" />
             </div>
             <div class="fr-alert fr-alert--info mt-3">
-              <h3
+              <h2
                 v-if="isDummy"
                 class="fr-alert__title"
               >
                 Arme factice de type {{ label }}
-              </h3>
-              <h3
+              </h2>
+              <h2
                 v-else-if="stepsStore.selectedAlarmGun"
                 class="fr-alert__title"
               >
                 Arme d'alarme de type {{ label }}
-              </h3>
-              <h3
+              </h2>
+              <h2
                 v-else
                 class="fr-alert__title"
               >
                 {{ label }}
-              </h3>
+              </h2>
               <template v-if="confidenceLevel !== 'low' && ($route.name !== 'IdentificationTypologyResult' || !hasDummyOptions)">
                 <h3
                   class="fr-alert__title"

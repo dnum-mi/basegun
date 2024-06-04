@@ -109,9 +109,9 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
     class="lg:absolute lg:inset-x-0  fr-col-lg-6  fr-col-sm-9  mx-auto"
   >
     <div class="fr-alert fr-alert--info mt-5 mx-5">
-      <h3 class="fr-alert__title mb-8">
+      <h1 class="fr-alert__title mb-8">
         Pour un résultat optimal :
-      </h3>
+      </h1>
       <p>1 - Présenter le <span class="font-bold">canon vers la droite</span>.</p>
       <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
       <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>

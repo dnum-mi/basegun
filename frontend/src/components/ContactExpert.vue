@@ -26,13 +26,13 @@ function onClose () {
     >
       <div class="modal">
         <div class="modal-content">
-          <h2>
+          <div class="fr-modal__title fr-mb-2w">
             <VIcon
               name="ri-arrow-right-line"
               scale="1.5"
             />
             Contacter un expert
-          </h2>
+          </div>
           <p>Sélectionnez ci-dessous votre corps de métier.</p>
           <div>
             <DsfrButton
