@@ -23,9 +23,9 @@ function goToMissingCardPageIfMissing () {
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
       <div v-if="TYPOLOGIES[typology]?.securingSteps">
-        <h2 class="mt-5 text-center">
+        <h1 class="mt-5 text-center">
           Fin de la mise en sécurité de l’arme
-        </h2>
+        </h1>
         <p class="ending font-600 text-center">
           Vous venez de sécuriser votre arme !
         </p>
@@ -41,9 +41,9 @@ function goToMissingCardPageIfMissing () {
         </div>
       </div>
       <div v-else>
-        <h2 class="mt-5 text-center">
+        <h1 class="mt-5 text-center">
           Pas de guide de mise en sécurité pour votre arme
-        </h2>
+        </h1>
         <div
 
           class="text-center"

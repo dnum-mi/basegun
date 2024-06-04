@@ -27,12 +27,12 @@ const selectedOption = computed(() => {
 <template>
   <div class="fr-container">
     <div class="fr-col-12 fr-col-lg-6 mx-auto">
-      <h2 class="mt-3 mb-1 text-center">
+      <h1 class="mt-3 mb-1 text-center">
         Mettre en sécurité mon arme
-      </h2>
-      <h3 class="text-center my-auto">
+      </h1>
+      <h2 class="text-center my-auto text-blue">
         Manipulations
-      </h3>
+      </h2>
       <div>
         <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
           <div class="fr-content-media relative">

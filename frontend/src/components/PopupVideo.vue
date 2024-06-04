@@ -30,13 +30,13 @@ function onClose () {
     >
       <div class="modal">
         <div class="modal-content">
-          <h2>
+          <div class="fr-modal__title fr-mb-2w">
             <VIcon
               name="ri-arrow-right-line"
               scale="1.5"
             />
             Le levier est bloqué ?
-          </h2>
+          </div>
           <div v-if="typology === 'semi_auto_style_militaire_autre'">
             <div class="fr-content-media relative">
               <video

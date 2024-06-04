@@ -43,7 +43,7 @@ describe('Firearm Fiability', () => {
       expect(response.statusCode).to.eq(200)
     })
     cy.url().should('contain', '/guide-identification/resultat-typologie')
-    cy.contains('h3', 'Catégorie non déterminée')
+    cy.contains('h2', 'Catégorie non déterminée')
     cy.get('h2').should(() => {
       expect(localStorage.getItem('confidenceLevel')).to.eq('"low"')
     })

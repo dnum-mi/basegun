@@ -11,7 +11,7 @@ describe('Recommendations Civilians vs FSI', () => {
     cy.getByDataTestid('secure-firearm')
       .contains('Je veux mettre en sécurité mon arme')
       .click()
-    cy.contains('h2', 'Mettre en sécurité mon arme')
+    cy.contains('h1', 'Mettre en sécurité mon arme')
     cy.contains('p', 'En cas de doute,')
   })
 
@@ -27,7 +27,7 @@ describe('Recommendations Civilians vs FSI', () => {
     cy.getByDataTestid('secure-firearm')
       .contains('Je veux mettre en sécurité mon arme')
       .click()
-    cy.contains('h2', 'Mettre en sécurité mon arme')
+    cy.contains('h1', 'Mettre en sécurité mon arme')
     cy.contains('span', 'extraire des munitions')
   })
 })

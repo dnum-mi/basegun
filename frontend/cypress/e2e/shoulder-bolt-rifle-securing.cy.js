@@ -9,7 +9,7 @@ describe('Shoulder Bolt Rifle Securing', () => {
     })
     cy.getVideo()
     cy.url().should('contain', '/mise-en-securite-tutoriel')
-    cy.contains('h2', 'Mettre en sécurité mon arme')
+    cy.contains('h1', 'Mettre en sécurité mon arme')
     cy.contains('li', 'Ouvrez la culasse')
     cy.getByDataTestid('button-next').click()
     cy.IdentificationShoulderBoltRifle()

@@ -9,9 +9,9 @@ const resultStore = useResultStore()
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="fr-alert fr-alert--error">
-          <h3 class="fr-alert__title">
+          <h1 class="fr-alert__title">
             Aucune carte détectée
-          </h3>
+          </h1>
           <p>Pour obtenir un résultat plus précis sur la catégorie légale de l’arme, <strong>nous vous invitons à reprendre la photo en ajoutant une carte à côté de l’arme</strong>.</p>
         </div>
       </div>
