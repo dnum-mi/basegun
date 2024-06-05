@@ -6,7 +6,7 @@ import {
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
   TYPOLOGIES,
-  ALARM_GUNS_TYPOLOGIES,
+  isAlarmGun,
 } from '@/utils/firearms-utils/index'
 import { useStore } from '@/stores/result'
 
@@ -22,7 +22,7 @@ const isLowConfidence = confidenceLevel.value === 'low'
 
 const steps = computed(() => {
   if (TYPOLOGIES[typology]?.dummyOptions || !isLowConfidence) {
-    if (ALARM_GUNS_TYPOLOGIES.includes(store.typology) && store.selectedAmmo === 'cartouches') {
+    if (isAlarmGun() !== false) {
       return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
     } else {
       return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
@@ -80,7 +80,7 @@ const nextStepButtonAction = () => {
 
 function handlePreviousButtonClick () {
   currentStep.value--
-  if (ALARM_GUNS_TYPOLOGIES.includes(typology.value)) {
+  if (isAlarmGun() !== false) {
     goToNewRouteWithArmeAlarme()
   } else {
     goToNewRoute()
@@ -95,7 +95,7 @@ const showDiv = ref(false)
   <div class="mt-5 fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
-        v-if="TYPOLOGIES[typology]?.dummyOptions"
+        v-if="TYPOLOGIES[typology]?.dummyOptions && store.selectedOptions[0] !== 'revolver_black_powder'"
         class="!fr-container my-auto"
         :steps="steps"
         :current-step="currentStep"
@@ -117,6 +117,7 @@ const showDiv = ref(false)
         @click="$router.push({name: 'StartPage'})"
       />
       <DsfrButton
+        v-if="store.selectedOptions[0] !== 'revolver_black_powder'"
         class="mt-3 flex justify-center !w-full"
         label="Retourner à l'étape précédente"
         icon="ri-arrow-go-back-fill"
@@ -127,7 +128,7 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-else-if="ALARM_GUNS_TYPOLOGIES.includes(typology) && route.path === '/guide-identification/munition-type'"
+    v-else-if="isAlarmGun() !== false && route.path === '/guide-identification/munition-type'"
     class="footer content z-1"
   >
     <div

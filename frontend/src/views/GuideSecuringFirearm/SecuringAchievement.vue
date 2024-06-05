@@ -15,14 +15,14 @@ function goToMissingCardPageIfMissing () {
   if (isCardDetected.value === false && MEASURED_GUNS_TYPOLOGIES.includes(typology.value)) {
     return 'MissingCard'
   }
-  return 'IdentificationTypologyResult'
+  return store.selectedOptions[0] !== 'revolver_black_powder' ? 'IdentificationTypologyResult' : 'IdentificationFinalResult'
 }
 </script>
 
 <template>
   <div class="fr-container">
     <div class="result fr-col-11 fr-col-lg-6 m-auto">
-      <div v-if="TYPOLOGIES[typology]?.securingSteps">
+      <div v-if="TYPOLOGIES[typology]?.securingSteps && store.selectedOptions[0] !== 'revolver_black_powder'">
         <h1 class="mt-5 text-center">
           Fin de la mise en sécurité de l’arme
         </h1>

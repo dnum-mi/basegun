@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-import { useRouter } from 'vue-router'
-
 import { useStore } from '@/stores/result'
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 import SecuringFooter from './SecuringFooter.vue'
 
-const router = useRouter()
 const props = defineProps<{
   step: 1 | 2 | 3
 }>()
@@ -33,13 +30,6 @@ const zoom = ref('')
 
 const zoomOn = (imgValue: string) => {
   zoom.value = imgValue
-}
-
-function updateTypology () {
-  if (props.step === 1 && selectedOptionValue.value === 'revolver_black_powder') {
-    // Remember if it is a revolver with black powder
-    store.typology = selectedOptionValue.value
-  }
 }
 
 const nextTo = computed(() => {
@@ -71,11 +61,6 @@ const nextTo = computed(() => {
     name: 'SecuringTutorialContent',
   }
 })
-
-function nextClick () {
-  updateTypology()
-  router.push(nextTo.value)
-}
 
 </script>
 
@@ -162,7 +147,7 @@ function nextClick () {
     <SecuringFooter
       :next-disabled="disabledValidation"
       @back-click="$router.back()"
-      @next-click="nextClick"
+      @next-click="$router.push(nextTo)"
     />
   </div>
 </template>

@@ -27,17 +27,7 @@ const isFeedbackDone = ref(false)
 
 const label = computed(() => typology?.displayLabel)
 
-const category = computed(() => {
-  if (store.selectedAlarmGun && store.selectedAlarmGun !== '') {
-    return 'D'
-  } else if (isDummy.value) {
-    return 'Non Classée'
-  } else if (typology.displayLabel === 'Revolver') {
-    return typology?.categoryWithoutSecuring
-  } else {
-    return typology?.getCategory(store.gunLength, store.gunBarrelLength)
-  }
-})
+const category = computed(() => isDummy.value ? 'Non Classée' : typology?.getCategory(store.gunLength, store.gunBarrelLength))
 
 const disclaimer = computed(() => typology && Object.hasOwn(typology, 'getDisclaimer') ? typology.getDisclaimer(category.value, isCardDetected.value) : null)
 
@@ -134,6 +124,12 @@ function sendFeedback (isCorrect: boolean) {
                 class="fr-alert__title"
               >
                 Arme d'alarme de type {{ label }}
+              </h2>
+              <h2
+                v-else-if="store.selectedOptions[0] === 'revolver_black_powder'"
+                class="fr-alert__title"
+              >
+                Revolver à poudre noire
               </h2>
               <h2
                 v-else

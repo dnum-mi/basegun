@@ -15,7 +15,7 @@ const typology = TYPOLOGIES[store.typology]
 // Tutorial object from last selected option
 const selectedOption = computed(() => {
   if (typology.securingSteps[0].text) {
-    return typology.securingSteps.at(store.selectedOptions.length - 1).options.find((option) => option.value === store.selectedOptions.at(-1))
+    return typology.securingSteps[store.selectedOptions.length - 1].options.find((option) => option.value === store.selectedOptions.at(-1))
   }
   return typology.securingSteps[0].options[0]
 })
