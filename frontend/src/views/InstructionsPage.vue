@@ -5,15 +5,13 @@ import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter, useRoute } from 'vue-router'
 
-import { useResultStore } from '@/stores/result'
-import { useStepsStore } from '@/stores/steps'
+import { useStore } from '@/stores/result'
 import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
 
 const loading = ref(false)
 const fileInput = ref<HTMLInputElement | null>(null)
 
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
+const store = useStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -28,7 +26,7 @@ async function uploadImage (base64: string, fileName: string) {
 
   try {
     const { data } = await axios.post('/upload', fd)
-    resultStore.$patch({
+    store.$patch({
       typology: data.label,
       confidence: data.confidence,
       confidenceLevel: data.confidence_level,
@@ -41,10 +39,10 @@ async function uploadImage (base64: string, fileName: string) {
     console.log(route.params)
     const nextRoute = getNextRouteAfterResult(
       Boolean(route.query.securingTutorial),
-      resultStore.confidenceLevel,
-      resultStore.typology,
-      resultStore.gunLength,
-      resultStore.gunBarrelLength,
+      store.confidenceLevel,
+      store.typology,
+      store.gunLength,
+      store.gunBarrelLength,
     )
     router.push(nextRoute)
   } catch (error) {
@@ -150,7 +148,7 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
             label="Prendre la photo"
             icon="ri-camera-fill"
             :icon-right="true"
-            @click="$refs.fileInput.click(); stepsStore.$reset()"
+            @click="$refs.fileInput.click(); store.$reset()"
           />
         </div>
       </div>

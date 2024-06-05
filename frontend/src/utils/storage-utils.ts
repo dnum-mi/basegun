@@ -1,6 +1,5 @@
 import type { NavigationGuardWithThis } from 'vue-router'
-import { useResultStore } from '@/stores/result'
-import { useStepsStore } from '@/stores/steps'
+import { useStore } from '@/stores/result'
 
 export const serializer = {
   // @ts-ignore this uses dynamic values
@@ -9,13 +8,9 @@ export const serializer = {
 }
 
 export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, next) => {
-  const { setAmmo, setModalTransparentAmmoOpened } = useStepsStore()
-  const resultStore = useResultStore()
+  const store = useStore()
 
-  setModalTransparentAmmoOpened(undefined)
-  setAmmo(undefined)
-
-  resultStore.$patch({
+  store.$patch({
     typology: undefined,
     confidence: undefined,
     confidenceLevel: undefined,
@@ -24,6 +19,8 @@ export const clearLocalStorage: NavigationGuardWithThis<undefined> = (to, from, 
     img: undefined,
     imgUrl: undefined,
     resultText: undefined,
+    isModalTransparentAmmoOpened: undefined,
+    selectedAmmo: undefined,
   })
 
   next()

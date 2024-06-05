@@ -8,23 +8,21 @@ import {
   TYPOLOGIES,
   ALARM_GUNS_TYPOLOGIES,
 } from '@/utils/firearms-utils/index'
-import { useStepsStore } from '@/stores/steps'
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 
-const stepsStore = useStepsStore()
-const resultStore = useResultStore()
+const store = useStore()
 const router = useRouter()
 const route = useRoute()
 
-const confidenceLevel = computed(() => resultStore.confidenceLevel)
-const typology = computed(() => resultStore.typology)
+const confidenceLevel = computed(() => store.confidenceLevel)
+const typology = computed(() => store.typology)
 
 const currentStep = ref(1)
 const isLowConfidence = confidenceLevel.value === 'low'
 
 const steps = computed(() => {
   if (TYPOLOGIES[typology]?.dummyOptions || !isLowConfidence) {
-    if (ALARM_GUNS_TYPOLOGIES.includes(resultStore.typology) && stepsStore.selectedAmmo === 'cartouches') {
+    if (ALARM_GUNS_TYPOLOGIES.includes(store.typology) && store.selectedAmmo === 'cartouches') {
       return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
     } else {
       return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
@@ -34,7 +32,7 @@ const steps = computed(() => {
   }
 })
 
-const disabledValidation = computed(() => currentStep.value === 3 && stepsStore.selectedAmmo === undefined)
+const disabledValidation = computed(() => currentStep.value === 3 && store.selectedAmmo === undefined)
 
 const goToNewRoute = () => {
   router.push({ name: identificationGuideSteps[currentStep.value - 1] })
@@ -56,8 +54,8 @@ const arrowOrCircleIcon = () => (
   currentStep.value === 4 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
 )
 
-const calculateRoute = (stepsStore) => {
-  return stepsStore.selectedAmmo === 'billes'
+const calculateRoute = (store) => {
+  return store.selectedAmmo === 'billes'
     ? { name: 'IdentificationFinalResult' }
     : { name: 'IdentificationBlankGun' }
 }
@@ -150,7 +148,7 @@ const showDiv = ref(false)
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
-        @click="$router.push(calculateRoute(stepsStore)); currentStep++"
+        @click="$router.push(calculateRoute(store)); currentStep++"
       />
     </div>
   </div>

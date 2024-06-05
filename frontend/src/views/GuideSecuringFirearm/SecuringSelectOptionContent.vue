@@ -3,8 +3,7 @@ import { computed, ref } from 'vue'
 
 import { useRouter } from 'vue-router'
 
-import { useStepsStore } from '@/stores/steps'
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 
 import AskingExpert from '@/components/AskingExpert.vue'
@@ -15,21 +14,20 @@ const props = defineProps<{
   step: 1 | 2 | 3
 }>()
 
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
+const store = useStore()
 
-const typology = TYPOLOGIES[resultStore.typology]
+const typology = TYPOLOGIES[store.typology]
 
 const selectedOptionValue = computed({
   get () {
-    return stepsStore.selectedOptions[props.step - 1]
+    return store.selectedOptions[props.step - 1]
   },
   set (option) {
-    if (stepsStore.selectedOptions[props.step - 1]) { stepsStore.selectedOptions[props.step - 1] = option || '' } else { stepsStore.selectedOptions.push(option || '') }
+    if (store.selectedOptions[props.step - 1]) { store.selectedOptions[props.step - 1] = option || '' } else { store.selectedOptions.push(option || '') }
   },
 })
 
-const disabledValidation = computed(() => stepsStore.selectedOptions[props.step - 1] === undefined)
+const disabledValidation = computed(() => store.selectedOptions[props.step - 1] === undefined)
 
 const zoom = ref('')
 
@@ -40,14 +38,14 @@ const zoomOn = (imgValue: string) => {
 function updateTypology () {
   if (props.step === 1 && selectedOptionValue.value === 'revolver_black_powder') {
     // Remember if it is a revolver with black powder
-    resultStore.updateTypology(selectedOptionValue.value)
+    store.typology = selectedOptionValue.value
   }
 }
 
 const nextTo = computed(() => {
   if (typology.displayLabel === 'Revolver') {
     if (props.step === 1) {
-      if (stepsStore.selectedOptions.at(-1) === 'revolver_black_powder') {
+      if (store.selectedOptions[0] === 'revolver_black_powder') {
         return {
           name: 'SecuringAchievement',
         }
@@ -58,7 +56,7 @@ const nextTo = computed(() => {
       }
     }
     if (props.step === 2) {
-      if (stepsStore.selectedOptions.at(-1) !== 'revolver_portiere') {
+      if (store.selectedOptions.at(-1) !== 'revolver_portiere') {
         return {
           name: 'SecuringTutorialContent',
         }

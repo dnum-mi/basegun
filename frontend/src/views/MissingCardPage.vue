@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useResultStore } from '@/stores/result'
-const resultStore = useResultStore()
+import { useStore } from '@/stores/result'
+const store = useStore()
 
 </script>
 
@@ -31,7 +31,7 @@ const resultStore = useResultStore()
         <div class="fr-col">
           <button
             class="fr-btn w-100 text-center"
-            @click="resultStore.$patch({ securingTutorial: false }); $router.push({ name: 'InstructionsPage'})"
+            @click="store.$patch({ securingTutorial: false }); $router.push({ name: 'InstructionsPage'})"
           >
             Reprendre la photo <span
               class="fr-icon-camera-fill mx-1"

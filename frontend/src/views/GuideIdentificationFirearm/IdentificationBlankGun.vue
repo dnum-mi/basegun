@@ -1,17 +1,13 @@
 <script lang="ts" setup>
 import { ref, defineProps } from 'vue'
 
-import { useStepsStore } from '@/stores/steps'
+import { useStore } from '@/stores/result'
 import { arme_alarme as alarmGuns } from '@/utils/firearms-utils/arme-alarme'
-
-import { useResultStore } from '@/stores/result'
 
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 
-const resultStore = useResultStore()
-const typology = TYPOLOGIES[resultStore.typology]
-
-const stepsStore = useStepsStore()
+const store = useStore()
+const typology = TYPOLOGIES[store.typology]
 
 const zoom = ref<number|null>(null)
 
@@ -19,7 +15,7 @@ defineProps<{
   showDiv: boolean
 }>()
 
-const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === resultStore.typology)
+const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === store.typology)
 
 </script>
 
@@ -53,7 +49,7 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
         class="relative"
       >
         <DsfrRadioButton
-          v-model="stepsStore.selectedAlarmGun"
+          v-model="store.selectedAlarmGun"
           v-bind="gun"
           class="radio"
           :img="gun.img"
@@ -91,7 +87,7 @@ const alarmGunsOptions = alarmGuns.options.filter(gun => gun.typology === result
               id="radio-rich-2"
               type="radio"
               name="armeAlarme"
-              @input="stepsStore.selectedAlarmGun = ''"
+              @input="store.selectedAlarmGun = ''"
             >
             <label
               class="fr-label"

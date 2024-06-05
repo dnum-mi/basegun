@@ -238,7 +238,6 @@
     "useSpeechRecognition": true,
     "useSpeechSynthesis": true,
     "useStepper": true,
-    "useStepsStore": true,
     "useStorage": true,
     "useStorageAsync": true,
     "useStyleTag": true,

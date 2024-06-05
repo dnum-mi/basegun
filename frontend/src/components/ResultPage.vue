@@ -5,23 +5,21 @@ import SnackbarAlert from '@/components/SnackbarAlert.vue'
 import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { useSnackbarStore } from '@/stores/snackbar'
-import { useStepsStore } from '@/stores/steps'
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 import { getMentionsFromCategories } from '@/utils/mentions'
 
 const { setMessage } = useSnackbarStore()
-const stepsStore = useStepsStore()
-const resultStore = useResultStore()
+const store = useStore()
 
-const confidence = computed(() => resultStore.confidence)
-const confidenceLevel = computed(() => resultStore.confidenceLevel)
-const img = computed(() => resultStore.img)
+const confidence = computed(() => store.confidence)
+const confidenceLevel = computed(() => store.confidenceLevel)
+const img = computed(() => store.img)
 
-const typology = TYPOLOGIES[resultStore.typology]
+const typology = TYPOLOGIES[store.typology]
 
-const isDummy = computed(() => stepsStore.isDummy)
+const isDummy = computed(() => store.isDummy)
 const hasDummyOptions = typology?.dummyOptions !== undefined
-const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
+const isCardDetected = computed(() => store.gunLength !== null && store.gunBarrelLength !== null)
 
 const isUp = ref(false)
 const isDown = ref(false)
@@ -30,14 +28,14 @@ const isFeedbackDone = ref(false)
 const label = computed(() => typology?.displayLabel)
 
 const category = computed(() => {
-  if (stepsStore.selectedAlarmGun && stepsStore.selectedAlarmGun !== '') {
+  if (store.selectedAlarmGun && store.selectedAlarmGun !== '') {
     return 'D'
   } else if (isDummy.value) {
     return 'Non Classée'
   } else if (typology.displayLabel === 'Revolver') {
     return typology?.categoryWithoutSecuring
   } else {
-    return typology?.getCategory(resultStore.gunLength, resultStore.gunBarrelLength)
+    return typology?.getCategory(store.gunLength, store.gunBarrelLength)
   }
 })
 
@@ -45,7 +43,7 @@ const disclaimer = computed(() => typology && Object.hasOwn(typology, 'getDiscla
 
 function sendFeedback (isCorrect: boolean) {
   const json = {
-    image_url: resultStore.imgUrl,
+    image_url: store.imgUrl,
     feedback: isCorrect,
     confidence: confidence.value,
     label: typology.value,
@@ -132,7 +130,7 @@ function sendFeedback (isCorrect: boolean) {
                 Arme factice de type {{ label }}
               </h2>
               <h2
-                v-else-if="stepsStore.selectedAlarmGun"
+                v-else-if="store.selectedAlarmGun"
                 class="fr-alert__title"
               >
                 Arme d'alarme de type {{ label }}

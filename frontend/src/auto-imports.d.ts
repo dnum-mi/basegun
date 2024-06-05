@@ -238,9 +238,9 @@ declare global {
   const useSpeechRecognition: typeof import('@vueuse/core')['useSpeechRecognition']
   const useSpeechSynthesis: typeof import('@vueuse/core')['useSpeechSynthesis']
   const useStepper: typeof import('@vueuse/core')['useStepper']
-  const useStepsStore: typeof import('./stores/steps')['useStepsStore']
   const useStorage: typeof import('@vueuse/core')['useStorage']
   const useStorageAsync: typeof import('@vueuse/core')['useStorageAsync']
+  const useStore: typeof import('./stores/result')['useStore']
   const useStyleTag: typeof import('@vueuse/core')['useStyleTag']
   const useSupported: typeof import('@vueuse/core')['useSupported']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
@@ -519,7 +519,6 @@ declare module 'vue' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useResultStore: UnwrapRef<typeof import('./stores/result')['useResultStore']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useScheme: UnwrapRef<typeof import('@gouvminint/vue-dsfr')['useScheme']>
@@ -537,9 +536,9 @@ declare module 'vue' {
     readonly useSpeechRecognition: UnwrapRef<typeof import('@vueuse/core')['useSpeechRecognition']>
     readonly useSpeechSynthesis: UnwrapRef<typeof import('@vueuse/core')['useSpeechSynthesis']>
     readonly useStepper: UnwrapRef<typeof import('@vueuse/core')['useStepper']>
-    readonly useStepsStore: UnwrapRef<typeof import('./stores/steps')['useStepsStore']>
     readonly useStorage: UnwrapRef<typeof import('@vueuse/core')['useStorage']>
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
+    readonly useStore: UnwrapRef<typeof import('./stores/result')['useStore']>
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
@@ -811,7 +810,6 @@ declare module '@vue/runtime-core' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useResultStore: UnwrapRef<typeof import('./stores/result')['useResultStore']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useScheme: UnwrapRef<typeof import('@gouvminint/vue-dsfr')['useScheme']>
@@ -829,9 +827,9 @@ declare module '@vue/runtime-core' {
     readonly useSpeechRecognition: UnwrapRef<typeof import('@vueuse/core')['useSpeechRecognition']>
     readonly useSpeechSynthesis: UnwrapRef<typeof import('@vueuse/core')['useSpeechSynthesis']>
     readonly useStepper: UnwrapRef<typeof import('@vueuse/core')['useStepper']>
-    readonly useStepsStore: UnwrapRef<typeof import('./stores/steps')['useStepsStore']>
     readonly useStorage: UnwrapRef<typeof import('@vueuse/core')['useStorage']>
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
+    readonly useStore: UnwrapRef<typeof import('./stores/result')['useStore']>
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>

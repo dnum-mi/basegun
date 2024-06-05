@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { useResultStore } from '@/stores/result'
-import { TYPOLOGIES, MEASURED_GUNS_TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { useStore } from '@/stores/result'
+import { MEASURED_GUNS_TYPOLOGIES, TYPOLOGIES } from '@/utils/firearms-utils/index'
 import { isUserUsingCrosscall } from '@/utils/isUserUsingCrosscall'
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 
-const resultStore = useResultStore()
+const store = useStore()
 
-const typology = computed(() => resultStore.typology)
-const isCardDetected = computed(() => resultStore.gunLength !== null && resultStore.gunBarrelLength !== null)
+const typology = computed(() => store.typology)
+const isCardDetected = computed(() => store.gunLength !== null && store.gunBarrelLength !== null)
 
 function goToMissingCardPageIfMissing () {
   if (isCardDetected.value === false && MEASURED_GUNS_TYPOLOGIES.includes(typology.value)) {

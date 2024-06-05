@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 
-const resultStore = useResultStore()
+const store = useStore()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const resultStore = useResultStore()
         size="small"
         @click="
           $router.push({ name: 'GuideSecuringFirearm'});
-          resultStore.$patch({ securingTutorial: true });
+          store.$patch({ securingTutorial: true });
         "
       />
     </div>
@@ -36,7 +36,7 @@ const resultStore = useResultStore()
         size="small"
         @click="
           $router.push({ name: 'InstructionsPage'});
-          resultStore.$patch({ securingTutorial: false });
+          store.$patch({ securingTutorial: false });
         "
       />
     </div>

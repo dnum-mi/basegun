@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue'
 
-import { useStepsStore } from '@/stores/steps'
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 
 import TransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg'
 import FocusTransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg'
@@ -12,17 +11,16 @@ import type { pistolet_semi_auto_moderne } from '@/utils/firearms-utils/pistolet
 import type { semi_auto_style_militaire_autre } from '@/utils/firearms-utils/semi-auto-style-militaire-autre' // eslint-disable-line camelcase
 import type { revolver } from '@/utils/firearms-utils/revolver'
 
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
+const store = useStore()
 
-const typology = computed(() => resultStore.typology)
+const typology = computed(() => store.typology)
 
 const selectedAmmo = computed({
   get  () {
-    return stepsStore.selectedAmmo
+    return store.selectedAmmo
   },
   set (ammo) {
-    stepsStore.setAmmo(ammo)
+    store.selectedAmmo = ammo
   },
 })
 
@@ -42,11 +40,11 @@ function closeModal () {
 
 function openModal () {
   showModal.value = true
-  stepsStore.isModalTransparentAmmoOpened = true
+  store.isModalTransparentAmmoOpened = true
 }
 
 onMounted(() => {
-  if (stepsStore.isModalTransparentAmmoOpened === undefined) {
+  if (store.isModalTransparentAmmoOpened === undefined) {
     openModal()
   } else { showModal.value = false }
 })
