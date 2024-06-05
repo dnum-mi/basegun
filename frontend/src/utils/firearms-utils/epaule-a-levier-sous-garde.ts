@@ -14,6 +14,7 @@ export const epaule_a_levier_sous_garde = {
   options_text: 'En manipulant l’arme avec précaution dans une <span class="font-bold">direction sans risque</span>, inspectez l’<span class="font-bold">extrémité du tube sous le canon</span>. Sélectionnez ce que vous voyez :',
   securingSteps: [
     {
+      text: 'Observez l\'embout du magasin et sélectionnez ce que vous voyez :',
       options: [
         {
           label: 'Embout rugueux',
@@ -39,7 +40,7 @@ export const epaule_a_levier_sous_garde = {
             '<span class="font-bold" style="color:red">Veiller à ne pas appuyer sur la queue de détente pendant cette manipulation !</span> <br> Relever et abaisser le levier de sous garde tout en extrayant les munitions tant qu’il y a toujours des munitions présentes dans le tube magasin.',
             'Contrôler visuellement que la chambre est vide.',
           ],
-          timeVideo: '35 sec',
+          timeVideo: '40 sec',
           img: levierSousGardePasMagasinImg,
           video: levierSousGardePasMagasinVideo,
         },
