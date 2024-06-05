@@ -16,7 +16,7 @@ describe('Typology Revolver Securing', () => {
     cy.contains('h1', 'mise en sécurité')
     cy.contains('p', 'les manipulations sont complexes')
     cy.getByDataTestid('go-to-identification').click()
-    cy.url().should('contain', '/guide-identification/resultat-typologie')
+    cy.url().should('contain', '/guide-identification/resultat-final')
     cy.getByDataTestid('arm-category').should('contain', 'Catégorie D')
   })
 

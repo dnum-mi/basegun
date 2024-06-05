@@ -4,6 +4,8 @@ import pistoletSemiAutoTalonImg from '@/assets/guide-mise-en-securite/photos/pis
 import pistoletSemiAutoTalonVideo from '@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4'
 import pistoletSemiAutoModerneCartridges from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_cartouche.jpg'
 import pistoletSemiAutoModerneBalls from '@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_bille.jpg'
+
+import { isAlarmGun } from '@/utils/firearms-utils/index'
 /*
 Pistolets semi-auto modernes
   Bouton pontet
@@ -11,7 +13,7 @@ Pistolets semi-auto modernes
 */
 export const pistolet_semi_auto_moderne = {
   displayLabel: 'Pistolet semi-automatique',
-  getCategory: () => 'B',
+  getCategory: () => isAlarmGun() ? 'D' : 'B',
   pistolet_semi_auto_moderne_text_option: 'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
   textOptions: '',
   securingSteps: [

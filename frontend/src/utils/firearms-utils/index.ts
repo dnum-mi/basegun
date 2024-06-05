@@ -1,4 +1,4 @@
-import { revolver, revolver_black_powder } from './revolver'
+import { revolver } from './revolver'
 import { pistolet_semi_auto_moderne } from './pistolet-semi-auto-moderne'
 import { epaule_a_un_coup_par_canon } from './epaule-a-un-coup-par-canon'
 import { epaule_a_verrou } from './epaule-a-verrou'
@@ -11,6 +11,8 @@ import { epaule_mecanisme_ancien } from './epaule_mecanisme_ancien'
 import { pistolet_mecanisme_ancien } from './pistolet-mecanisme-ancien'
 import { autre_pistolet } from './autre-pistolet'
 import { arme_alarme } from './arme-alarme'
+import { useStore } from '@/stores/result'
+const store = useStore()
 
 export const TYPOLOGIES = {
   autre_pistolet,
@@ -24,7 +26,6 @@ export const TYPOLOGIES = {
   pistolet_mecanisme_ancien,
   pistolet_semi_auto_moderne,
   revolver,
-  revolver_black_powder,
   semi_auto_style_militaire_autre,
   arme_alarme,
 } as const
@@ -72,7 +73,13 @@ export const identificationRoutePathsWithArmeAlarme = [
   'resultat-final',
 ] as const
 
-export const ALARM_GUNS_TYPOLOGIES = ['pistolet_semi_auto_moderne', 'revolver']
+export function isAlarmGun () {
+  if (store.selectedOptions[0] === 'revolver_black_powder' || !['pistolet_semi_auto_moderne', 'revolver'].includes(store.typology) || store.selectedAmmo === 'billes') {
+    return false
+  }
+  return store.selectedAlarmGun ? true : undefined
+}
+
 export const MEASURED_GUNS_TYPOLOGIES = [
   'epaule_a_levier_sous_garde',
   'epaule_a_pompe',

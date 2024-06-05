@@ -18,6 +18,11 @@ import revolver31892Img from '@/assets/guide-mise-en-securite/photos/revolver/re
 import revolver31892Video from '@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4'
 import revolverCartridges from '@/assets/guide-identification/photos/revolver/revolver_cartouche_pleine.jpg'
 import revolverBalls from '@/assets/guide-identification/photos/revolver/revolver_cartouche_bille.jpg'
+
+import { isAlarmGun } from '@/utils/firearms-utils/index'
+import { useStore } from '@/stores/result'
+const store = useStore()
+
 /*
 Revolvers
   Revolver Enfield - Webley - brisure
@@ -30,8 +35,7 @@ Revolvers
 */
 export const revolver = {
   displayLabel: 'Revolver',
-  getCategory: () => 'B',
-  categoryWithoutSecuring: 'B ou D',
+  getCategory: () => isAlarmGun() || store.selectedOptions[0] === 'revolver_black_powder' ? 'D' : 'B ou D',
   securingSteps: [
     {
       text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
@@ -175,14 +179,9 @@ export const revolver = {
       img_ammo: revolverBalls,
     },
   ],
-  getDisclaimer: (category: string) => {
-    if (category === 'D') {
+  getDisclaimer: () => {
+    if (isAlarmGun()) {
       return 'Les <strong>armes d’alarmes</strong> sont susceptibles d’être <strong>modifiées pour tirer des munitions létales</strong>. Pour des raisons de sécurité, <strong>faites si possible expertiser l’arme.</strong>'
     }
   },
-} as const
-
-export const revolver_black_powder = {
-  displayLabel: 'Revolver à poudre noire',
-  getCategory: () => 'D',
 } as const
