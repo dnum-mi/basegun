@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 import semiAutoMilitairePistoletMitralleurVideoS from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi_surete.mp4'
 import epauleAVerrouVideoS from '@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_surete.mp4'
 
-const resultStore = useResultStore()
-const typology = computed(() => resultStore.typology)
+const store = useStore()
+const typology = computed(() => store.typology)
 const showModal = ref(false)
 
 function onClose () {

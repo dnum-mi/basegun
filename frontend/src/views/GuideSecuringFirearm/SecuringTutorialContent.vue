@@ -1,23 +1,21 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import { useStepsStore } from '@/stores/steps'
-import { useResultStore } from '@/stores/result'
+import { useStore } from '@/stores/result'
 
 import { TYPOLOGIES } from '@/utils/firearms-utils/index'
 import SecuringFooter from '@/views/GuideSecuringFirearm/SecuringFooter.vue'
 
 import AskingExpert from '@/components/AskingExpert.vue'
 
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
+const store = useStore()
 
-const typology = TYPOLOGIES[resultStore.typology]
+const typology = TYPOLOGIES[store.typology]
 
 // Tutorial object from last selected option
 const selectedOption = computed(() => {
   if (typology.securingSteps[0].text) {
-    return typology.securingSteps.at(stepsStore.selectedOptions.length - 1).options.find((option) => option.value === stepsStore.selectedOptions.at(-1))
+    return typology.securingSteps.at(store.selectedOptions.length - 1).options.find((option) => option.value === store.selectedOptions.at(-1))
   }
   return typology.securingSteps[0].options[0]
 })
