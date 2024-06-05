@@ -18,6 +18,7 @@ export const epaule_a_un_coup_par_canon = {
   options_text: 'Sélectionnez ce que vous voyez sur la <span class="font-bold">zone centrale de l’arme</span>',
   securingSteps: [
     {
+      text: 'Observez la position de la clé et sélectionnez ce que vous voyez :',
       options: [
         {
           label: 'Clé supérieure',
@@ -43,7 +44,7 @@ export const epaule_a_un_coup_par_canon = {
             '<span class="font-bold">Retirer les munitions</span> éventuelles',
             'Contrôler visuellement les chambres',
           ],
-          timeVideo: '30 sec',
+          timeVideo: '40 sec',
           img: epauleAUnCoupParCanonCleLechaufeuxImg,
           video: epauleAUnCoupParCanonCleLefaucheuxVideo,
         },

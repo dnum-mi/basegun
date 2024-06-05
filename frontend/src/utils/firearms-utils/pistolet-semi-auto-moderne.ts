@@ -16,6 +16,7 @@ export const pistolet_semi_auto_moderne = {
   textOptions: '',
   securingSteps: [
     {
+      text: 'Observez la position du bouton de déverrouillage du chargeur et sélectionnez ce que vous voyez :',
       options: [
         {
           label: 'Bouton à côté du pontet',
