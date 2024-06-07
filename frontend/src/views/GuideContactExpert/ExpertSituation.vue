@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { DsfrButton } from '@gouvminint/vue-dsfr'
 import { useRouter } from 'vue-router'
+import { DateTime } from 'luxon'
 
 const router = useRouter()
 
@@ -48,14 +49,13 @@ function buildMailto (email: string) {
 }
 
 const currentPhone = computed(() => {
-  const currentHour = new Date().getUTCHours() + 1
+  const currentHour = parseInt(DateTime.now().setZone('Europe/Paris').toFormat('HH'), 10)
   if (currentHour >= 8 && currentHour < 18) {
     return IRCGN.fixe
   } else {
     return IRCGN.phone
   }
 })
-
 </script>
 
 <template>
