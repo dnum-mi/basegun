@@ -1,82 +1,83 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 
-import { useStore } from '@/stores/result'
-import { TYPOLOGIES } from '@/utils/firearms-utils/index'
+import { useStore } from "@/stores/result";
+import { TYPOLOGIES } from "@/utils/firearms-utils/index";
 
-import AskingExpert from '@/components/AskingExpert.vue'
-import SecuringFooter from './SecuringFooter.vue'
+import AskingExpert from "@/components/AskingExpert.vue";
+import SecuringFooter from "./SecuringFooter.vue";
 
 const props = defineProps<{
-  step: 1 | 2 | 3
-}>()
+  step: 1 | 2 | 3;
+}>();
 
-const store = useStore()
+const store = useStore();
 
-const typology = TYPOLOGIES[store.typology]
+const typology = TYPOLOGIES[store.typology];
 
 const selectedOptionValue = computed({
-  get () {
-    return store.selectedOptions[props.step - 1]
+  get() {
+    return store.selectedOptions[props.step - 1];
   },
-  set (option) {
-    if (store.selectedOptions[props.step - 1]) { store.selectedOptions[props.step - 1] = option || '' } else { store.selectedOptions.push(option || '') }
+  set(option) {
+    if (store.selectedOptions[props.step - 1]) {
+      store.selectedOptions[props.step - 1] = option || "";
+    } else {
+      store.selectedOptions.push(option || "");
+    }
   },
-})
+});
 
-const disabledValidation = computed(() => store.selectedOptions[props.step - 1] === undefined)
+const disabledValidation = computed(
+  () => store.selectedOptions[props.step - 1] === undefined,
+);
 
-const zoom = ref('')
+const zoom = ref("");
 
 const zoomOn = (imgValue: string) => {
-  zoom.value = imgValue
-}
+  zoom.value = imgValue;
+};
 
 const nextTo = computed(() => {
-  if (typology.displayLabel === 'Revolver') {
+  if (typology.displayLabel === "Revolver") {
     if (props.step === 1) {
-      if (store.selectedOptions[0] === 'revolver_black_powder') {
+      if (store.selectedOptions[0] === "revolver_black_powder") {
         return {
-          name: 'SecuringAchievement',
-        }
+          name: "SecuringAchievement",
+        };
       }
       return {
-        name: 'SecuringSelectOption',
-        params: { step: '2' },
-      }
+        name: "SecuringSelectOption",
+        params: { step: "2" },
+      };
     }
     if (props.step === 2) {
-      if (store.selectedOptions.at(-1) !== 'revolver_portiere') {
+      if (store.selectedOptions.at(-1) !== "revolver_portiere") {
         return {
-          name: 'SecuringTutorialContent',
-        }
+          name: "SecuringTutorialContent",
+        };
       }
       return {
-        name: 'SecuringSelectOption',
-        params: { step: '3' },
-      }
+        name: "SecuringSelectOption",
+        params: { step: "3" },
+      };
     }
   }
   return {
-    name: 'SecuringTutorialContent',
-  }
-})
-
+    name: "SecuringTutorialContent",
+  };
+});
 </script>
 
 <template>
   <div class="fr-container">
     <div class="fr-col-12 fr-col-lg-6 mx-auto">
-      <h1 class="mt-3 mb-1 text-center">
-        Mettre en sécurité mon arme
-      </h1>
+      <h1 class="mt-3 mb-1 text-center">Mettre en sécurité mon arme</h1>
       <h2 class="text-center my-auto fr-mb-2w text-blue">
         Choix du type d'arme
       </h2>
       <!-- Custom for revolver -->
-      <div
-        v-if="step === 3"
-      >
+      <div v-if="step === 3">
         <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
           <div class="fr-content-media relative">
             <video
@@ -89,15 +90,32 @@ const nextTo = computed(() => {
               :title="typology.securingSteps.at(-1).video_title"
               :src="typology.securingSteps.at(-1).video"
             />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 20 sec</span>
+            <span class="absolute -bottom-1.5rem right-0 text-sm"
+              >Environ 20 sec</span
+            >
           </div>
 
           <div class="manipulations -mx-8 p-8">
             <ol class="list text-sm">
-              <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
-              <li> <span class="font-bold">Tirer le haut du levier de verrouillage</span> du barillet vers l’arrière</li>
-              <li> <span class="font-bold">Tirer légèrement le chien/marteau</span> vers l’arrière jusqu’à entendre un premier clic </li>
-              <li> Essayez de pousser sur un côté du barillet pour le faire basculer.</li>
+              <li>
+                Observer l’arme en l’orientant dans une
+                <span class="font-bold">direction sans risque</span>, en
+                manipulant avec précaution
+              </li>
+              <li>
+                <span class="font-bold"
+                  >Tirer le haut du levier de verrouillage</span
+                >
+                du barillet vers l’arrière
+              </li>
+              <li>
+                <span class="font-bold">Tirer légèrement le chien/marteau</span>
+                vers l’arrière jusqu’à entendre un premier clic
+              </li>
+              <li>
+                Essayez de pousser sur un côté du barillet pour le faire
+                basculer.
+              </li>
             </ol>
           </div>
         </div>
@@ -105,7 +123,7 @@ const nextTo = computed(() => {
       </div>
 
       <div
-        v-for="(option) in typology.securingSteps[step - 1].options"
+        v-for="option in typology.securingSteps[step - 1].options"
         :key="option.value"
       >
         <div class="item">
@@ -116,14 +134,8 @@ const nextTo = computed(() => {
             required
             name="selectedOptionValue"
           />
-          <div
-            class="zoom"
-            @click="zoomOn(option.value)"
-          >
-            <VIcon
-              name="ri-zoom-in-line"
-              scale="1.25"
-            />
+          <div class="zoom" @click="zoomOn(option.value)">
+            <VIcon name="ri-zoom-in-line" scale="1.25" />
             <span class="zoom-label">zoomer</span>
           </div>
           <Teleport to="body">
@@ -135,8 +147,8 @@ const nextTo = computed(() => {
               <img
                 v-if="zoom === option.value"
                 :src="option.img"
-                :style="{'max-width': '100%'}"
-              >
+                :style="{ 'max-width': '100%' }"
+              />
             </DsfrModal>
           </Teleport>
         </div>
@@ -164,7 +176,7 @@ const nextTo = computed(() => {
 }
 
 .manipulations {
-  background-color: #E3E3FD;
+  background-color: #e3e3fd;
   margin-top: 40px;
   margin-bottom: 24px;
 }
@@ -178,7 +190,7 @@ const nextTo = computed(() => {
   width: 150% !important;
   height: 150% !important;
 }
-:deep(.fr-radio-rich__pictogram img){
+:deep(.fr-radio-rich__pictogram img) {
   height: 100%;
   width: 100%;
 }
@@ -193,11 +205,11 @@ const nextTo = computed(() => {
   cursor: zoom-in;
   position: absolute;
   bottom: 0.5rem;
-  right: .5rem;
+  right: 0.5rem;
 }
 
 .zoom-label {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .footer button {

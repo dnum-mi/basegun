@@ -1,61 +1,69 @@
 <script lang="ts" setup>
-import { DsfrButton } from '@gouvminint/vue-dsfr'
-import { useRouter } from 'vue-router'
-import { DateTime } from 'luxon'
+import { DsfrButton } from "@gouvminint/vue-dsfr";
+import { useRouter } from "vue-router";
+import { DateTime } from "luxon";
 
-const router = useRouter()
+const router = useRouter();
 
-let lawEnforcementType: String
-if (router.currentRoute.value.name === 'ExpertSituationPN') { lawEnforcementType = 'police' }
-if (router.currentRoute.value.name === 'ExpertSituationGN') { lawEnforcementType = 'gendarmerie' }
+let lawEnforcementType: String;
+if (router.currentRoute.value.name === "ExpertSituationPN") {
+  lawEnforcementType = "police";
+}
+if (router.currentRoute.value.name === "ExpertSituationGN") {
+  lawEnforcementType = "gendarmerie";
+}
 
-const priority = ref('')
+const priority = ref("");
 
 const LPS = {
   LILLE: {
-    email: 'snps-lps59@interieur.gouv.fr',
-    phone: '03 20 12 89 89',
+    email: "snps-lps59@interieur.gouv.fr",
+    phone: "03 20 12 89 89",
   },
   MARSEILLE: {
-    email: 'snps-lps13@interieur.gouv.fr',
-    phone: '04 91 62 85 00',
+    email: "snps-lps13@interieur.gouv.fr",
+    phone: "04 91 62 85 00",
   },
   TOULOUSE: {
-    email: 'snps-lps31@interieur.gouv.fr',
-    phone: '05 61 12 79 00',
+    email: "snps-lps31@interieur.gouv.fr",
+    phone: "05 61 12 79 00",
   },
   PARIS: {
-    email: 'snps-lps75@interieur.gouv.fr',
-    phone: '01 71 92 65 02',
+    email: "snps-lps75@interieur.gouv.fr",
+    phone: "01 71 92 65 02",
   },
   LYON: {
-    email: 'snps-lps69@interieur.gouv.fr',
-    phone: '04 72 86 89 70',
+    email: "snps-lps69@interieur.gouv.fr",
+    phone: "04 72 86 89 70",
   },
-}
+};
 
 const IRCGN = {
-  email: 'db.dcpc.ircgn@gendarmerie.interieur.gouv.fr',
-  fixe: '01 78 47 31 46',
-  phone: '06 07 98 40 09',
-}
-const shownLPS = ref<null | string>(null)
-const showIRCGNModal = ref(false)
+  email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
+  fixe: "01 78 47 31 46",
+  phone: "06 07 98 40 09",
+};
+const shownLPS = ref<null | string>(null);
+const showIRCGNModal = ref(false);
 
-function buildMailto (email: string) {
-  const subject = "[Basegun] Demande d'identification"
-  const body = "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A"
-  return `mailto:${email}?subject=${subject}&body=${body}`
+function buildMailto(email: string) {
+  const subject = "[Basegun] Demande d'identification";
+  const body =
+    "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A";
+  return `mailto:${email}?subject=${subject}&body=${body}`;
 }
 
 const currentPhone = computed(() => {
-  const currentHour = parseInt(DateTime.now().setZone('Europe/Paris').toFormat('HH'), 10)
+  const currentHour = parseInt(
+    DateTime.now().setZone("Europe/Paris").toFormat("HH"),
+    10,
+  );
   if (currentHour >= 8 && currentHour < 18) {
-    return IRCGN.fixe
+    return IRCGN.fixe;
   } else {
-    return IRCGN.phone
+    return IRCGN.phone;
   }
-})
+});
 </script>
 
 <template>
@@ -64,17 +72,16 @@ const currentPhone = computed(() => {
       <div class="fr-col">
         <div class="text-center mt-5">
           <h1>
-            <VIcon
-              name="ri-arrow-right-line"
-              scale="2"
-            />
-            <span v-if="lawEnforcementType === 'gendarmerie'">Contacter un expert de l'IRCGN</span>
-            <span v-if="lawEnforcementType === 'police'">Contacter un expert en armes</span>
+            <VIcon name="ri-arrow-right-line" scale="2" />
+            <span v-if="lawEnforcementType === 'gendarmerie'"
+              >Contacter un expert de l'IRCGN</span
+            >
+            <span v-if="lawEnforcementType === 'police'"
+              >Contacter un expert en armes</span
+            >
           </h1>
           <div v-if="lawEnforcementType === 'gendarmerie'">
-            <p>
-              Sélectionnez votre situation actuelle :
-            </p>
+            <p>Sélectionnez votre situation actuelle :</p>
           </div>
 
           <div
@@ -82,17 +89,16 @@ const currentPhone = computed(() => {
             class="fr-alert fr-alert--warning"
           >
             <h2>
-              <VIcon
-                name="ri-error-warning-line"
-                scale="1.5"
-              />
+              <VIcon name="ri-error-warning-line" scale="1.5" />
               Avertissement
             </h2>
             <div class="justify-content">
               <p>
-                Cette fonctionnalité est <span class="font-bold">en cours de développement</span>.<br>
-                <br>
-                Les contacts des laboratoires de police scientifique seront mis à jour prochainement.
+                Cette fonctionnalité est
+                <span class="font-bold">en cours de développement</span>.<br />
+                <br />
+                Les contacts des laboratoires de police scientifique seront mis
+                à jour prochainement.
               </p>
             </div>
 
@@ -221,7 +227,10 @@ const currentPhone = computed(() => {
                 class="w-100 mx-auto"
                 label="Situation urgente"
                 :disabled="priority === 'high' ? true : false"
-                @click="priority = 'high'; showIRCGNModal = true"
+                @click="
+                  priority = 'high';
+                  showIRCGNModal = true;
+                "
               />
             </div>
             <div class="fr-col-12 fr-col-lg-6 fr-p-1v">
@@ -229,7 +238,10 @@ const currentPhone = computed(() => {
                 class="w-100 mx-auto"
                 label="Situation non urgente"
                 :disabled="priority === 'low' ? true : false"
-                @click="priority = 'low'; showIRCGNModal = true"
+                @click="
+                  priority = 'low';
+                  showIRCGNModal = true;
+                "
               />
             </div>
           </div>
@@ -238,25 +250,31 @@ const currentPhone = computed(() => {
       <Teleport to="body">
         <DsfrModal
           :opened="showIRCGNModal"
-          @close="showIRCGNModal = false; priority = ''"
+          @close="
+            showIRCGNModal = false;
+            priority = '';
+          "
         >
           <div class="modal">
             <div class="fr-modal__title fr-mb-2w">
-              <VIcon
-                name="ri-arrow-right-line"
-                scale="1.5"
-              />
+              <VIcon name="ri-arrow-right-line" scale="1.5" />
               Contacter un expert de l'IRCGN
             </div>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
                 <p v-if="priority === 'high'">
-                  Vous trouverez ci-dessous le numéro de téléphone de la permanence de l'IRCGN.<br><br>
+                  Vous trouverez ci-dessous le numéro de téléphone de la
+                  permanence de l'IRCGN.<br /><br />
                   <span class="font-bold">{{ currentPhone }}</span>
                 </p>
                 <p v-if="priority === 'low'">
-                  Vous trouverez ci-dessous l'adresse mail de la permanence de l'IRCGN.<br><br>
-                  <span class="font-bold"><a :href="buildMailto(IRCGN.email)">{{ IRCGN.email }}</a></span>
+                  Vous trouverez ci-dessous l'adresse mail de la permanence de
+                  l'IRCGN.<br /><br />
+                  <span class="font-bold"
+                    ><a :href="buildMailto(IRCGN.email)">{{
+                      IRCGN.email
+                    }}</a></span
+                  >
                 </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
@@ -264,7 +282,10 @@ const currentPhone = computed(() => {
                   class="m-1 flex justify-center"
                   icon="ri-arrow-left-line"
                   label="Précédent"
-                  @click="showIRCGNModal = false; priority = ''"
+                  @click="
+                    showIRCGNModal = false;
+                    priority = '';
+                  "
                 />
               </div>
             </div>
@@ -272,17 +293,20 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div
-      v-if="lawEnforcementType === 'gendarmerie'"
-      class="fr-grid-row"
-    >
+    <div v-if="lawEnforcementType === 'gendarmerie'" class="fr-grid-row">
       <div class="fr-col text-center">
         <PopupContact />
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
           <ul class="list-none text-sm text-center">
-            <li>Mise en sécurité d'une arme dans des conditions dégradées (scènes de crimes, ...)</li>
-            <li>Mise en sécurité d'une arme potentiellement dangereuse (arme ancienne)</li>
+            <li>
+              Mise en sécurité d'une arme dans des conditions dégradées (scènes
+              de crimes, ...)
+            </li>
+            <li>
+              Mise en sécurité d'une arme potentiellement dangereuse (arme
+              ancienne)
+            </li>
             <li>Une procédure en temps contraint (garde à vue)</li>
           </ul>
         </div>
@@ -301,13 +325,11 @@ const currentPhone = computed(() => {
 </template>
 
 <style scoped>
-
 :deep(.fr-btn) span {
   margin: auto !important;
 }
 
 .bg-purple {
-  background-color: #E3E3FD;
+  background-color: #e3e3fd;
 }
-
 </style>

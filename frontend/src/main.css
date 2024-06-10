@@ -1,10 +1,10 @@
 @screen lt-sm {
   h1 {
-    font-size: 1.75rem
+    font-size: 1.75rem;
   }
 
   h2 {
-    font-size: 1.3rem
+    font-size: 1.3rem;
   }
 }
 .text-blue {
@@ -52,17 +52,17 @@ a {
 
 .small-blank {
   height: 10vh;
-  z-index: 1
+  z-index: 1;
 }
 
 .big-blank {
   height: 25vh;
-  z-index: 1
+  z-index: 1;
 }
 
 .img-deco {
   margin-bottom: 2.5em;
-  width: 100%
+  width: 100%;
 }
 
 .help {

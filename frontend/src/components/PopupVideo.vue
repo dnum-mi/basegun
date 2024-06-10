@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-import { useStore } from '@/stores/result'
-import semiAutoMilitairePistoletMitralleurVideoS from '@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi_surete.mp4'
-import epauleAVerrouVideoS from '@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_surete.mp4'
+import { useStore } from "@/stores/result";
+import semiAutoMilitairePistoletMitralleurVideoS from "@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi_surete.mp4";
+import epauleAVerrouVideoS from "@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_surete.mp4";
 
-const store = useStore()
-const typology = computed(() => store.typology)
-const showModal = ref(false)
+const store = useStore();
+const typology = computed(() => store.typology);
+const showModal = ref(false);
 
-function onClose () {
-  showModal.value = false
+function onClose() {
+  showModal.value = false;
 }
-
 </script>
 <template>
   <div class="text-center">
@@ -23,18 +22,11 @@ function onClose () {
     />
   </div>
   <Teleport to="body">
-    <DsfrModal
-      title=""
-      :opened="showModal"
-      @close="onClose()"
-    >
+    <DsfrModal title="" :opened="showModal" @close="onClose()">
       <div class="modal">
         <div class="modal-content">
           <div class="fr-modal__title fr-mb-2w">
-            <VIcon
-              name="ri-arrow-right-line"
-              scale="1.5"
-            />
+            <VIcon name="ri-arrow-right-line" scale="1.5" />
             Le levier est bloqué ?
           </div>
           <div v-if="typology === 'semi_auto_style_militaire_autre'">
@@ -46,12 +38,21 @@ function onClose () {
                 :src="semiAutoMilitairePistoletMitralleurVideoS"
                 data-testid="video-tutoriel"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 12 sec</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm"
+                >Environ 12 sec</span
+              >
             </div>
             <div class="manipulations -mx-1 p-5">
               <ol class="list text-sm">
-                <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
-                <li> <span class="font-bold">Appuyer sur la pédale de sûreté</span> située sur l'arrière afin de pouvoir manipuler le levier</li>
+                <li>
+                  Observer l’arme en l’orientant dans une
+                  <span class="font-bold">direction sans risque</span>, en
+                  manipulant avec précaution
+                </li>
+                <li>
+                  <span class="font-bold">Appuyer sur la pédale de sûreté</span>
+                  située sur l'arrière afin de pouvoir manipuler le levier
+                </li>
               </ol>
             </div>
           </div>
@@ -64,12 +65,23 @@ function onClose () {
                 :src="epauleAVerrouVideoS"
                 data-testid="video-tutoriel"
               />
-              <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 15 sec</span>
+              <span class="absolute -bottom-1.5rem right-0 text-sm"
+                >Environ 15 sec</span
+              >
             </div>
             <div class="manipulations -mx-1 p-5">
               <ol class="list text-sm">
-                <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
-                <li> <span class="font-bold">Faites basculer le levier de sûreté</span> situé à la base du levier de culasse pour le débloquer</li>
+                <li>
+                  Observer l’arme en l’orientant dans une
+                  <span class="font-bold">direction sans risque</span>, en
+                  manipulant avec précaution
+                </li>
+                <li>
+                  <span class="font-bold"
+                    >Faites basculer le levier de sûreté</span
+                  >
+                  situé à la base du levier de culasse pour le débloquer
+                </li>
               </ol>
             </div>
           </div>
@@ -87,7 +99,6 @@ function onClose () {
   </Teleport>
 </template>
 <style scoped>
-
 :deep(.fr-btn) span {
   margin: auto !important;
 }
@@ -121,7 +132,7 @@ video {
 }
 
 .manipulations {
-  background-color: #E3E3FD;
+  background-color: #e3e3fd;
   margin-top: 40px;
   margin-bottom: 24px;
   margin-right: 0;
