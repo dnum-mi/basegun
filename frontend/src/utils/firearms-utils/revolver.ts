@@ -34,11 +34,20 @@ Revolvers
   Revolvers verrou MOD 1892
 */
 export const revolver = {
-  displayLabel: 'Revolver',
+  displayLabel: "Revolver",
   getCategory: () => {
-    if (isAlarmGun() || store.selectedOptions[0] === 'revolver_black_powder') return 'D'
-    else if (store.selectedOptions[0] === undefined || ['revolver_ancien_brisure', 'revolver_1873_us', 'revolver_enfield'].includes(store.selectedOptions[1])) return 'B ou D'
-    else return 'B'
+    if (isAlarmGun() || store.selectedOptions[0] === "revolver_black_powder")
+      return "D";
+    else if (
+      store.selectedOptions[0] === undefined ||
+      [
+        "revolver_ancien_brisure",
+        "revolver_1873_us",
+        "revolver_enfield",
+      ].includes(store.selectedOptions[1])
+    )
+      return "B ou D";
+    return "B";
   },
   securingSteps: [
     {
