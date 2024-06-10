@@ -126,12 +126,6 @@ function sendFeedback (isCorrect: boolean) {
                 Arme d'alarme de type {{ label }}
               </h2>
               <h2
-                v-else-if="store.selectedOptions[0] === 'revolver_black_powder'"
-                class="fr-alert__title"
-              >
-                Revolver à poudre noire
-              </h2>
-              <h2
                 v-else
                 class="fr-alert__title"
               >
