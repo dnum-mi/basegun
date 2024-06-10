@@ -35,7 +35,11 @@ Revolvers
 */
 export const revolver = {
   displayLabel: 'Revolver',
-  getCategory: () => isAlarmGun() || store.selectedOptions[0] === 'revolver_black_powder' ? 'D' : 'B ou D',
+  getCategory: () => {
+    if (isAlarmGun() || store.selectedOptions[0] === 'revolver_black_powder') return 'D'
+    else if (store.selectedOptions[0] === undefined || ['revolver_ancien_brisure', 'revolver_1873_us', 'revolver_enfield'].includes(store.selectedOptions[1])) return 'B ou D'
+    else return 'B'
+  },
   securingSteps: [
     {
       text: 'En maintenant l’arme dans une  <span class="font-bold">direction sécurisée</span> , sélectionnez ce que vous voyez.',
