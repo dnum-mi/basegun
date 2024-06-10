@@ -1,101 +1,121 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 import {
   identificationGuideSteps,
   identificationGuideStepsWithArmeAlarme,
   TYPOLOGIES,
   isAlarmGun,
-} from '@/utils/firearms-utils/index'
-import { useStore } from '@/stores/result'
+} from "@/utils/firearms-utils/index";
+import { useStore } from "@/stores/result";
 
-const store = useStore()
-const router = useRouter()
-const route = useRoute()
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
-const confidenceLevel = computed(() => store.confidenceLevel)
-const typology = computed(() => store.typology)
+const confidenceLevel = computed(() => store.confidenceLevel);
+const typology = computed(() => store.typology);
 
-const currentStep = ref(1)
-const isLowConfidence = confidenceLevel.value === 'low'
+const currentStep = ref(1);
+const isLowConfidence = confidenceLevel.value === "low";
 
 const steps = computed(() => {
   if (TYPOLOGIES[typology]?.dummyOptions || !isLowConfidence) {
     if (isAlarmGun() !== false) {
-      return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Identification d\'une arme d\'alarme', 'Résultat final']
+      return [
+        "Typologie de l'arme",
+        "Compléments",
+        "Typologie de munitions",
+        "Identification d'une arme d'alarme",
+        "Résultat final",
+      ];
     } else {
-      return ['Typologie de l\'arme', 'Compléments', 'Typologie de munitions', 'Résultat final']
+      return [
+        "Typologie de l'arme",
+        "Compléments",
+        "Typologie de munitions",
+        "Résultat final",
+      ];
     }
   } else {
-    return ['Résultat final']
+    return ["Résultat final"];
   }
-})
+});
 
-const disabledValidation = computed(() => currentStep.value === 3 && store.selectedAmmo === undefined)
+const disabledValidation = computed(
+  () => currentStep.value === 3 && store.selectedAmmo === undefined,
+);
 
 const goToNewRoute = () => {
-  router.push({ name: identificationGuideSteps[currentStep.value - 1] })
-}
+  router.push({ name: identificationGuideSteps[currentStep.value - 1] });
+};
 
-const goToNewRouteWithArmeAlarme = () => (
-  router.push({ name: identificationGuideStepsWithArmeAlarme[currentStep.value - 1] })
-)
+const goToNewRouteWithArmeAlarme = () =>
+  router.push({
+    name: identificationGuideStepsWithArmeAlarme[currentStep.value - 1],
+  });
 
-const isArmeAlarme = computed(() => route.path === '/guide-identification/armes-alarme')
+const isArmeAlarme = computed(
+  () => route.path === "/guide-identification/armes-alarme",
+);
 
-const goOnAndFollow = computed(() => (
+const goOnAndFollow = computed(() =>
   currentStep.value === 1
-    ? 'Continuer'
-    : currentStep.value === 3 ? 'Valider' : 'Suivant'
-))
+    ? "Continuer"
+    : currentStep.value === 3
+      ? "Valider"
+      : "Suivant",
+);
 
-const arrowOrCircleIcon = () => (
-  currentStep.value === 4 ? 'ri-checkbox-circle-line' : 'ri-arrow-right-line'
-)
+const arrowOrCircleIcon = () =>
+  currentStep.value === 4 ? "ri-checkbox-circle-line" : "ri-arrow-right-line";
 
 const calculateRoute = (store) => {
-  return store.selectedAmmo === 'billes'
-    ? { name: 'IdentificationFinalResult' }
-    : { name: 'IdentificationBlankGun' }
-}
+  return store.selectedAmmo === "billes"
+    ? { name: "IdentificationFinalResult" }
+    : { name: "IdentificationBlankGun" };
+};
 
 // showDiv is used to create a mini steper for alarm guns. Need to be reworked.
 const backStepButtonAction = () => {
   if (showDiv.value === false) {
-    currentStep.value--
-    goToNewRouteWithArmeAlarme()
+    currentStep.value--;
+    goToNewRouteWithArmeAlarme();
   } else {
-    showDiv.value = false
+    showDiv.value = false;
   }
-}
+};
 
 const nextStepButtonAction = () => {
   if (showDiv.value === false) {
-    showDiv.value = true
+    showDiv.value = true;
   } else {
-    currentStep.value++; goToNewRouteWithArmeAlarme()
+    currentStep.value++;
+    goToNewRouteWithArmeAlarme();
   }
-}
+};
 
-function handlePreviousButtonClick () {
-  currentStep.value--
+function handlePreviousButtonClick() {
+  currentStep.value--;
   if (isAlarmGun() !== false) {
-    goToNewRouteWithArmeAlarme()
+    goToNewRouteWithArmeAlarme();
   } else {
-    goToNewRoute()
+    goToNewRoute();
   }
 }
 
-const showDiv = ref(false)
-
+const showDiv = ref(false);
 </script>
 
 <template>
   <div class="mt-5 fr-container">
     <div class="result fr-col-11 fr-col-lg-6 mx-auto">
       <StepsGuide
-        v-if="TYPOLOGIES[typology]?.dummyOptions && store.selectedOptions[0] !== 'revolver_black_powder'"
+        v-if="
+          TYPOLOGIES[typology]?.dummyOptions &&
+          store.selectedOptions[0] !== 'revolver_black_powder'
+        "
         class="!fr-container my-auto"
         :steps="steps"
         :current-step="currentStep"
@@ -104,7 +124,10 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-if="$route.path === '/guide-identification/resultat-final' || TYPOLOGIES[typology]?.dummyOptions == undefined"
+    v-if="
+      $route.path === '/guide-identification/resultat-final' ||
+      TYPOLOGIES[typology]?.dummyOptions == undefined
+    "
     class="footer end z-1"
   >
     <div class="fr-col-11 fr-col-lg-6 mx-auto">
@@ -114,7 +137,7 @@ const showDiv = ref(false)
         icon="ri-home-4-line"
         data-testid="return-to-home-end"
         :icon-right="true"
-        @click="$router.push({name: 'StartPage'})"
+        @click="$router.push({ name: 'StartPage' })"
       />
       <DsfrButton
         v-if="store.selectedOptions[0] !== 'revolver_black_powder'"
@@ -128,19 +151,23 @@ const showDiv = ref(false)
     </div>
   </div>
   <div
-    v-else-if="isAlarmGun() !== false && route.path === '/guide-identification/munition-type'"
+    v-else-if="
+      isAlarmGun() !== false &&
+      route.path === '/guide-identification/munition-type'
+    "
     class="footer content z-1"
   >
-    <div
-      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
-    >
+    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
         v-if="currentStep > 0"
         class="m-1 flex justify-center !w-full"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
-        @click="currentStep--; goToNewRoute()"
+        @click="
+          currentStep--;
+          goToNewRoute();
+        "
       />
       <DsfrButton
         class="fr-btn--md m-1 flex justify-center !w-full"
@@ -149,15 +176,15 @@ const showDiv = ref(false)
         :icon="arrowOrCircleIcon()"
         :label="goOnAndFollow"
         :icon-right="true"
-        @click="$router.push(calculateRoute(store)); currentStep++"
+        @click="
+          $router.push(calculateRoute(store));
+          currentStep++;
+        "
       />
     </div>
   </div>
 
-  <div
-    v-else-if="isArmeAlarme"
-    class="footer z-1"
-  >
+  <div v-else-if="isArmeAlarme" class="footer z-1">
     <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
         v-if="currentStep > 0"
@@ -178,20 +205,14 @@ const showDiv = ref(false)
     </div>
   </div>
 
-  <div
-    v-else
-    class="footer z-1"
-  >
-    <div
-      v-if="confidenceLevel === 'low'"
-      class="fr-col-11 fr-col-lg-6 mx-auto"
-    >
+  <div v-else class="footer z-1">
+    <div v-if="confidenceLevel === 'low'" class="fr-col-11 fr-col-lg-6 mx-auto">
       <DsfrButton
         class="flex justify-center w-100"
         label="Identifier une nouvelle arme"
         icon="ri-camera-fill"
         :icon-right="true"
-        @click="$router.push({name: 'InstructionsPage'})"
+        @click="$router.push({ name: 'InstructionsPage' })"
       />
       <DsfrButton
         class="mt-3 flex justify-center w-100"
@@ -199,20 +220,20 @@ const showDiv = ref(false)
         icon="ri-home-4-line"
         :icon-right="true"
         secondary
-        @click="$router.push({name: 'StartPage'})"
+        @click="$router.push({ name: 'StartPage' })"
       />
     </div>
-    <div
-      v-else
-      class="fr-col-11 fr-col-lg-6 footer-actions mx-auto"
-    >
+    <div v-else class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
       <DsfrButton
         v-if="currentStep > 1"
         class="m-1 flex justify-center w-100"
         icon="ri-arrow-left-line"
         :secondary="true"
         label="Précédent"
-        @click="currentStep--; goToNewRoute()"
+        @click="
+          currentStep--;
+          goToNewRoute();
+        "
       />
       <DsfrButton
         v-if="confidenceLevel !== 'low'"
@@ -222,14 +243,16 @@ const showDiv = ref(false)
         :label="goOnAndFollow"
         :icon-right="true"
         data-testid="next-step"
-        @click="currentStep++; goToNewRoute()"
+        @click="
+          currentStep++;
+          goToNewRoute();
+        "
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .result {
   margin: 0 auto;
   max-width: 1000px;
@@ -238,5 +261,4 @@ const showDiv = ref(false)
 :deep(.fr-icon-home-3-line) {
   color: var(--blue-france-sun-113-625);
 }
-
 </style>

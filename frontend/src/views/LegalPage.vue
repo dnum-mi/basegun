@@ -58,7 +58,9 @@
       des requêtes non pertinentes. Nous pouvons également, sur simple demande
       d’un utilisateur, supprimer les données relatives à une requête
       spécifique. Pour cela, il suffit de nous envoyer une demande à
-      <a href="mailto:support.basegun@interieur.gouv.fr">support.basegun@interieur.gouv.fr</a>, en nous précisant la date et l’heure de la requête.
+      <a href="mailto:support.basegun@interieur.gouv.fr"
+        >support.basegun@interieur.gouv.fr</a
+      >, en nous précisant la date et l’heure de la requête.
     </p>
     <p>
       Les informations collectées ne sont en aucun cas confiées à des tiers.
@@ -67,10 +69,9 @@
     <h2>Code source</h2>
     <p>
       Le code source du projet est disponible publiquement à l'adresse
-      <a
-        href="https://github.com/dnum-mi/Basegun"
-        target="blank"
-      >https://github.com/dnum-mi/Basegun</a>
+      <a href="https://github.com/dnum-mi/Basegun" target="blank"
+        >https://github.com/dnum-mi/Basegun</a
+      >
     </p>
 
     <h2>Hébergement</h2>

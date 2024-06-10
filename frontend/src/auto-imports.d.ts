@@ -220,7 +220,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
-  const useResultStore: typeof import('./stores/result')['useResultStore']
+  const useResultStore: (typeof import("./stores/result"))["useResultStore"]
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
   const useScheme: typeof import('@gouvminint/vue-dsfr')['useScheme']

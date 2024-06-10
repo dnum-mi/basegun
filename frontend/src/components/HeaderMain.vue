@@ -1,43 +1,45 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-import type { DsfrHeader } from '@gouvminint/vue-dsfr'
+import type { DsfrHeader } from "@gouvminint/vue-dsfr";
 
-const route = useRoute()
+const route = useRoute();
 
-const wholeLogo = computed(() => route.meta.wholeLogo as boolean)
+const wholeLogo = computed(() => route.meta.wholeLogo as boolean);
 
-const isMobile = window.innerWidth <= 640
+const isMobile = window.innerWidth <= 640;
 
-const logoText = computed<InstanceType<typeof DsfrHeader>['$props']['logoText']>(() => (!isMobile || wholeLogo.value)
-  ? ['Ministère',
-      'de l’intérieur',
-      'et des Outre-Mer']
-  : [])
+const logoText = computed<
+  InstanceType<typeof DsfrHeader>["$props"]["logoText"]
+>(() =>
+  !isMobile || wholeLogo.value
+    ? ["Ministère", "de l’intérieur", "et des Outre-Mer"]
+    : [],
+);
 
-const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
+const quickLinks: InstanceType<typeof DsfrHeader>["$props"]["quickLinks"] = [
   {
-    label: 'Important',
-    to: '/',
+    label: "Important",
+    to: "/",
   },
   {
-    label: 'A propos',
-    to: '/a-propos',
+    label: "A propos",
+    to: "/a-propos",
   },
   {
-    label: 'Mentions légales',
-    to: '/mentions-legales',
+    label: "Mentions légales",
+    to: "/mentions-legales",
   },
   {
-    label: 'Contact',
-    to: '/contact',
+    label: "Contact",
+    to: "/contact",
   },
   {
-    label: 'Accessibilité : partiellement conforme',
-    to: '/accessibilite',
+    label: "Accessibilité : partiellement conforme",
+    to: "/accessibilite",
   },
-]
+];
 </script>
 
 <template>
@@ -67,7 +69,7 @@ const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
 }
 
 :deep(.fr-header__navbar .fr-btn--menu) {
-  color : var(--text-action-high-blue-france);
+  color: var(--text-action-high-blue-france);
   box-shadow: none;
 }
 
@@ -75,7 +77,7 @@ const quickLinks: InstanceType<typeof DsfrHeader>['$props']['quickLinks'] = [
   background-size: cover;
   background-position: inherit;
   height: 1.2rem;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
   width: 3rem;
 }
 

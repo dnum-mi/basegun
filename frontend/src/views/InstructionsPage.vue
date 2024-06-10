@@ -1,122 +1,130 @@
 <script lang="ts" setup>
-import GoodExamplePhoto from '@/assets/instruction-screen-gun.webp'
+import GoodExamplePhoto from "@/assets/instruction-screen-gun.webp";
 
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRouter, useRoute } from 'vue-router'
+import { ref } from "vue";
+import axios from "axios";
+import { useRouter, useRoute } from "vue-router";
 
-import { useStore } from '@/stores/result'
-import { getNextRouteAfterResult } from '@/utils/firearms-utils/get-next-route-after-result'
+import { useStore } from "@/stores/result";
+import { getNextRouteAfterResult } from "@/utils/firearms-utils/get-next-route-after-result";
 
-const loading = ref(false)
-const fileInput = ref<HTMLInputElement | null>(null)
+const loading = ref(false);
+const fileInput = ref<HTMLInputElement | null>(null);
 
-const store = useStore()
-const router = useRouter()
-const route = useRoute()
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
-const handledImageTypes = 'image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif'
+const handledImageTypes =
+  "image/jpeg, image/png, image/tiff, image/webp, image/bmp, image/gif";
 
-async function uploadImage (base64: string, fileName: string) {
-  const file = await srcToFile(base64, fileName, 'image/jpeg')
+async function uploadImage(base64: string, fileName: string) {
+  const file = await srcToFile(base64, fileName, "image/jpeg");
 
-  const fd = new FormData()
-  fd.append('image', file, file.name)
-  fd.append('date', '' + (Date.now() / 1000)) // date.now gives in milliseconds, convert to seconds
+  const fd = new FormData();
+  fd.append("image", file, file.name);
+  fd.append("date", "" + Date.now() / 1000); // date.now gives in milliseconds, convert to seconds
 
   try {
-    const { data } = await axios.post('/upload', fd)
+    const { data } = await axios.post("/upload", fd);
     store.$patch({
       typology: data.label,
       confidence: data.confidence,
       confidenceLevel: data.confidence_level,
       gunLength: data.gun_length,
       gunBarrelLength: data.gun_barrel_length,
-      resultText: "Type d'arme : " + data.label + ' ' + data.confidence + '%',
+      resultText: "Type d'arme : " + data.label + " " + data.confidence + "%",
       img: base64,
       imgUrl: data.path,
-    })
-    console.log(route.params)
+    });
+    console.log(route.params);
     const nextRoute = getNextRouteAfterResult(
       Boolean(route.query.securingTutorial),
       store.confidenceLevel,
       store.typology,
       store.gunLength,
       store.gunBarrelLength,
-    )
-    router.push(nextRoute)
+    );
+    router.push(nextRoute);
   } catch (error) {
-    console.log(error)
-    router.push({ name: 'ErrorPage' })
+    console.log(error);
+    router.push({ name: "ErrorPage" });
   }
 }
 
-function resizeImage (uploadedFile: File) {
-  const MAX_SIZE = 600
-  const reader = new FileReader()
-  const image = new Image()
-  const canvas = document.createElement('canvas')
+function resizeImage(uploadedFile: File) {
+  const MAX_SIZE = 600;
+  const reader = new FileReader();
+  const image = new Image();
+  const canvas = document.createElement("canvas");
 
-  reader.readAsDataURL(uploadedFile)
+  reader.readAsDataURL(uploadedFile);
   reader.onload = (event: ProgressEvent<FileReader>) => {
-    image.src = event.target?.result as string
-  }
+    image.src = event.target?.result as string;
+  };
   return new Promise<string>((resolve, reject) => {
     image.onload = (e) => {
-      let width = image.width
-      let height = image.height
+      let width = image.width;
+      let height = image.height;
       if (width > height) {
         if (width > MAX_SIZE) {
-          height *= MAX_SIZE / width
-          width = MAX_SIZE
+          height *= MAX_SIZE / width;
+          width = MAX_SIZE;
         }
       } else {
         if (height > MAX_SIZE) {
-          width *= MAX_SIZE / height
-          height = MAX_SIZE
+          width *= MAX_SIZE / height;
+          height = MAX_SIZE;
         }
       }
-      canvas.width = width
-      canvas.height = height
-      const ctx = canvas.getContext('2d')
-      ctx?.drawImage(e.target as CanvasImageSource, 0, 0, width, height)
-      resolve(ctx?.canvas.toDataURL('image/jpeg') as string)
-    }
-    image.onerror = (err) => reject(err)
-  })
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(e.target as CanvasImageSource, 0, 0, width, height);
+      resolve(ctx?.canvas.toDataURL("image/jpeg") as string);
+    };
+    image.onerror = (err) => reject(err);
+  });
 }
 
-async function srcToFile (src: string, fileName: string, mimeType: string) {
-  const res = await fetch(src)
-  const buf = await res.arrayBuffer()
-  return new File([buf], fileName, { type: mimeType })
+async function srcToFile(src: string, fileName: string, mimeType: string) {
+  const res = await fetch(src);
+  const buf = await res.arrayBuffer();
+  return new File([buf], fileName, { type: mimeType });
 }
 
-function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { files: File[] } }) {
-  loading.value = true
-  const uploadedFile = event.target?.files[0]
+function onFileSelected(
+  event: InputEvent & { target: InputEvent["target"] & { files: File[] } },
+) {
+  loading.value = true;
+  const uploadedFile = event.target?.files[0];
 
-  resizeImage(uploadedFile).then((resizedBase64Image) => (
-    uploadImage(resizedBase64Image, uploadedFile.name)
-  ))
+  resizeImage(uploadedFile).then((resizedBase64Image) =>
+    uploadImage(resizedBase64Image, uploadedFile.name),
+  );
 }
 </script>
 
 <template>
-  <div
-    class="lg:absolute lg:inset-x-0  fr-col-lg-6  fr-col-sm-9  mx-auto"
-  >
+  <div class="lg:absolute lg:inset-x-0 fr-col-lg-6 fr-col-sm-9 mx-auto">
     <div class="fr-alert fr-alert--info mt-5 mx-5">
-      <h1 class="fr-alert__title mb-8">
-        Pour un résultat optimal :
-      </h1>
-      <p>1 - Présenter le <span class="font-bold">canon vers la droite</span>.</p>
-      <p>2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.</p>
-      <p>3 - Placer l'arme <span class="font-bold">en entier</span> et <span class="font-bold">au centre de la photo</span>.</p>
-      <p class="mt-3">
-        Pour les armes d'épaule :
+      <h1 class="fr-alert__title mb-8">Pour un résultat optimal :</h1>
+      <p>
+        1 - Présenter le <span class="font-bold">canon vers la droite</span>.
       </p>
-      <p>4 - Placer <span class="font-bold">une carte à côté de l'arme</span> pour permettre de la mesurer.</p>
+      <p>
+        2 - Ne photographier qu'<span class="font-bold">une seule</span> arme.
+      </p>
+      <p>
+        3 - Placer l'arme <span class="font-bold">en entier</span> et
+        <span class="font-bold">au centre de la photo</span>.
+      </p>
+      <p class="mt-3">Pour les armes d'épaule :</p>
+      <p>
+        4 - Placer
+        <span class="font-bold">une carte à côté de l'arme</span> pour permettre
+        de la mesurer.
+      </p>
     </div>
 
     <div class="mt-5 text-center lg:flex">
@@ -127,13 +135,8 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
       />
     </div>
     <div class="footer">
-      <div
-        v-if="!loading"
-        class="text-center"
-      >
-        <div
-          class="fr-col-11 fr-col-lg-6 mx-auto"
-        >
+      <div v-if="!loading" class="text-center">
+        <div class="fr-col-11 fr-col-lg-6 mx-auto">
           <input
             ref="fileInput"
             data-testid="select-file"
@@ -141,31 +144,28 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
             style="width: 0; height: 1px"
             :accept="handledImageTypes"
             @change="onFileSelected($event)"
-          >
+          />
           <DsfrButton
             class="flex justify-center w-100"
             data-testid="take-a-picture"
             label="Prendre la photo"
             icon="ri-camera-fill"
             :icon-right="true"
-            @click="$refs.fileInput.click(); store.$reset()"
+            @click="
+              $refs.fileInput.click();
+              store.$reset();
+            "
           />
         </div>
       </div>
-      <div
-        v-else
-        class="text-center"
-      >
-        <p class="loading font-bold">
-          Analyse en cours
-        </p>
+      <div v-else class="text-center">
+        <p class="loading font-bold">Analyse en cours</p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 :deep([class*=" fr-ratio"]) {
   width: auto !important;
   max-width: 95%;
@@ -173,11 +173,11 @@ function onFileSelected (event: InputEvent & { target: InputEvent['target'] & { 
 }
 
 :deep(.fr-content-media) {
-  margin: .5rem auto;
+  margin: 0.5rem auto;
 }
 
 :deep(.fr-content-media__caption) {
-  margin: -.5rem 0 0 0;
+  margin: -0.5rem 0 0 0;
 }
 
 /* upload loading dots */

@@ -1,33 +1,30 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, watch } from "vue";
+import { useRoute } from "vue-router";
 
-import { useSnackbarStore } from '@/stores/snackbar'
+import { useSnackbarStore } from "@/stores/snackbar";
 
-const route = useRoute()
-const snackbarStore = useSnackbarStore()
+const route = useRoute();
+const snackbarStore = useSnackbarStore();
 
-const message = computed(() => snackbarStore.message)
-const show = computed(() => snackbarStore.show)
-const type = computed(() => snackbarStore.type)
+const message = computed(() => snackbarStore.message);
+const show = computed(() => snackbarStore.show);
+const type = computed(() => snackbarStore.type);
 
-const closeSnackbar = () => snackbarStore.hideMessage()
+const closeSnackbar = () => snackbarStore.hideMessage();
 
-watch(route, closeSnackbar)
+watch(route, closeSnackbar);
 </script>
 
 <template>
   <transition>
-    <div
-      v-show="show"
-      class="mx-auto snackbar"
-    >
+    <div v-show="show" class="mx-auto snackbar">
       <DsfrAlert
         :type="type"
         small
         data-testid="snackbar"
         :description="message"
-        :closeable="type ==='error'"
+        :closeable="type === 'error'"
         @close="closeSnackbar()"
       />
     </div>

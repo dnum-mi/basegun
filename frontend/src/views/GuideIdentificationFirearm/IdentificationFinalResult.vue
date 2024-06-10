@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ResultPage from '@/components/ResultPage.vue'
+import ResultPage from "@/components/ResultPage.vue";
 </script>
 
 <template>

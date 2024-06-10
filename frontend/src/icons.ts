@@ -21,4 +21,4 @@ export {
   RiHome4Line,
   RiCheckboxCircleLine,
   RiLockLine,
-} from 'oh-vue-icons/icons/ri/index.js'
+} from "oh-vue-icons/icons/ri/index.js";

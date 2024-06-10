@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-
 defineProps<{
-  onBackClick?:() => void
-  onNextClick?:() => void
-  nextDisabled?: boolean
-}>()
-
+  onBackClick?: () => void;
+  onNextClick?: () => void;
+  nextDisabled?: boolean;
+}>();
 </script>
 
 <template>

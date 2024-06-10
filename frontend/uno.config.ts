@@ -4,7 +4,7 @@ import {
   presetUno,
   transformerDirectives,
   transformerVariantGroup,
-} from 'unocss'
+} from "unocss";
 
 // import transformerDirectives from '@unocss/transformer-directives'
 
@@ -15,8 +15,5 @@ export default defineConfig({
       scale: 1.2,
     }),
   ],
-  transformers: [
-    transformerDirectives(),
-    transformerVariantGroup(),
-  ],
-})
+  transformers: [transformerDirectives(), transformerVariantGroup()],
+});

@@ -1,19 +1,14 @@
 <script lang="ts" setup>
-import { useStore } from '@/stores/result'
+import { useStore } from "@/stores/result";
 
-const store = useStore()
+const store = useStore();
 </script>
 
 <template>
   <div class="text-center relative top-1/8">
-    <img
-      src="@/assets/basegun_long.png"
-      class="mb-10"
-      height="55"
-      alt=""
-    >
+    <img src="@/assets/basegun_long.png" class="mb-10" height="55" alt="" />
     <p class="accueil-subtitle">
-      Outil d'identification rapide et <br>
+      Outil d'identification rapide et <br />
       de mise en sécurité des armes à feu
     </p>
     <div>
@@ -23,7 +18,7 @@ const store = useStore()
         label="Je veux mettre en sécurité mon arme"
         size="small"
         @click="
-          $router.push({ name: 'GuideSecuringFirearm'});
+          $router.push({ name: 'GuideSecuringFirearm' });
           store.$patch({ securingTutorial: true });
         "
       />
@@ -35,7 +30,7 @@ const store = useStore()
         label="J’ai déjà mis mon arme en sécurité, je veux l’identifier"
         size="small"
         @click="
-          $router.push({ name: 'InstructionsPage'});
+          $router.push({ name: 'InstructionsPage' });
           store.$patch({ securingTutorial: false });
         "
       />

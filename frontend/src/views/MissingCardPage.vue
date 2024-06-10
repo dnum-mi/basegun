@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { useStore } from '@/stores/result'
-const store = useStore()
-
+import { useStore } from "@/stores/result";
+const store = useStore();
 </script>
 
 <template>
@@ -9,19 +8,21 @@ const store = useStore()
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="fr-alert fr-alert--error">
-          <h1 class="fr-alert__title">
-            Aucune carte détectée
-          </h1>
-          <p>Pour obtenir un résultat plus précis sur la catégorie légale de l’arme, <strong>nous vous invitons à reprendre la photo en ajoutant une carte à côté de l’arme</strong>.</p>
+          <h1 class="fr-alert__title">Aucune carte détectée</h1>
+          <p>
+            Pour obtenir un résultat plus précis sur la catégorie légale de
+            l’arme,
+            <strong
+              >nous vous invitons à reprendre la photo en ajoutant une carte à
+              côté de l’arme</strong
+            >.
+          </p>
         </div>
       </div>
     </div>
     <div class="fr-grid-row">
       <div class="fr-col-6 fr-col-lg-3 mx-auto">
-        <img
-          src="@/assets/missing_card.png"
-          alt=""
-        >
+        <img src="@/assets/missing_card.png" alt="" />
       </div>
     </div>
   </div>
@@ -31,12 +32,13 @@ const store = useStore()
         <div class="fr-col">
           <button
             class="fr-btn w-100 text-center"
-            @click="store.$patch({ securingTutorial: false }); $router.push({ name: 'InstructionsPage'})"
+            @click="
+              store.$patch({ securingTutorial: false });
+              $router.push({ name: 'InstructionsPage' });
+            "
           >
-            Reprendre la photo <span
-              class="fr-icon-camera-fill mx-1"
-              aria-hidden="true"
-            />
+            Reprendre la photo
+            <span class="fr-icon-camera-fill mx-1" aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -44,7 +46,7 @@ const store = useStore()
         <div class="fr-col">
           <button
             class="fr-btn w-100 text-center"
-            @click="$router.push({ name: 'IdentificationTypologyResult'})"
+            @click="$router.push({ name: 'IdentificationTypologyResult' })"
           >
             Je souhaite tout de même poursuivre
           </button>
@@ -56,7 +58,7 @@ const store = useStore()
 
 <style scoped>
 .text-center {
-    justify-content: center;
+  justify-content: center;
 }
 img {
   width: 100%;

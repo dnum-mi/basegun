@@ -5,10 +5,8 @@
 </template>
 
 <style scoped>
-
 #agree-button {
   display: block;
   margin: 0 auto;
 }
-
 </style>
