@@ -71,6 +71,17 @@ jobs:
     steps:
       - run: cd /app && pytest
 
+  test-frontend-format:
+    name: Test Frontend Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Prettier check
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run format-check
+
   test-e2e:
     name: Run E2E tests
     needs: [build-backend, build-frontend]
