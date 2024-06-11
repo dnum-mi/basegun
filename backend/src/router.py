@@ -4,14 +4,23 @@ import time
 from typing import Union
 from uuid import uuid4
 
-from fastapi import (APIRouter, BackgroundTasks, Cookie, File, Form,
-                     HTTPException, Request, Response, UploadFile)
+from basegunML.classification import get_typology
+from basegunML.measure import get_lengths
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Cookie,
+    File,
+    Form,
+    HTTPException,
+    Request,
+    Response,
+    UploadFile,
+)
 from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
 from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
-from .ml.measure.measure import get_lengths_from_image
-from .ml.utils.typology import get_typology_from_image
 from .utils import upload_image
 
 router = APIRouter(prefix="/api")
@@ -59,11 +68,11 @@ async def imageupload(
 
         start = time.time()
         # Process image with ML models
-        label, confidence = get_typology_from_image(img_bytes)
+        label, confidence, confidence_level = get_typology(img_bytes)
 
         gun_length, gun_barrel_length, conf_card = None, None, None
         if label in TYPOLOGIES_MEASURED:
-            gun_length, gun_barrel_length, conf_card = get_lengths_from_image(img_bytes)
+            gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
 
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
@@ -71,12 +80,7 @@ async def imageupload(
         extras_logging["bg_gun_barrel_length"] = gun_barrel_length
         extras_logging["bg_conf_card"] = conf_card
         extras_logging["bg_model_time"] = round(time.time() - start, 2)
-        if confidence < 0.76:
-            extras_logging["bg_confidence_level"] = "low"
-        elif confidence < 0.98:
-            extras_logging["bg_confidence_level"] = "medium"
-        else:
-            extras_logging["bg_confidence_level"] = "high"
+        extras_logging["bg_confidence_level"] = confidence_level
 
         logging.info("Identification request", extra=extras_logging)
 
@@ -84,7 +88,7 @@ async def imageupload(
             "path": img_key,
             "label": label,
             "confidence": confidence,
-            "confidence_level": extras_logging["bg_confidence_level"],
+            "confidence_level": confidence_level,
             "gun_length": gun_length,
             "gun_barrel_length": gun_barrel_length,
             "conf_card": conf_card,
