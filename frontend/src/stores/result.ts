@@ -53,6 +53,7 @@ export const useStore = defineStore("result", () => {
 
   function $reset() {
     selectedAlarmGun.value = "";
+    selectedOptions.value = [];
   }
 
   return {
