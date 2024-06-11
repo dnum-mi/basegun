@@ -10,9 +10,7 @@ user-agents==2.2.0
 boto3==1.28.39
 autodynatrace==2.0.0
 # ML
-ultralytics==8.1.2
-opencv-python==4.9.0.80
-onnxruntime==1.17.1
+https://github.com/dnum-mi/basegun-ml/raw/MLPackages/MLpackages/basegun_ml/dist/basegunml-0.1.tar.gz
 # Dev
 pytest==7.4.3
 coverage==7.3.2

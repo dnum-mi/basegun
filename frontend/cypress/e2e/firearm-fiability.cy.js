@@ -1,5 +1,5 @@
 describe("Firearm Fiability", () => {
-  it("should identificate firearm with high fiability", () => {
+  it("should identificate firearm with high confidence", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
@@ -19,7 +19,7 @@ describe("Firearm Fiability", () => {
     });
   });
 
-  it("should identificate firearm with medium fiability", () => {
+  it("should identificate firearm with low confidence", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
@@ -31,9 +31,9 @@ describe("Firearm Fiability", () => {
       expect(response.statusCode).to.eq(200);
     });
     cy.url().should("contain", "/guide-identification/resultat-typologie");
-    cy.contains("h3", "Catégorie A, B ou D");
+    cy.contains("h2", "Catégorie non déterminée");
     cy.get("h2").should(() => {
-      expect(localStorage.getItem("confidenceLevel")).to.eq('"medium"');
+      expect(localStorage.getItem("confidenceLevel")).to.eq('"low"');
     });
   });
 

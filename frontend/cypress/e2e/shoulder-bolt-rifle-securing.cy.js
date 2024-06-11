@@ -16,7 +16,7 @@ describe("Shoulder Bolt Rifle Securing", () => {
     cy.getByDataTestid("button-next").click();
     cy.IdentificationShoulderBoltRifle();
     cy.url().should("contain", "/guide-identification/resultat-final");
-    cy.getByDataTestid("arm-category").should("contain", "Catégorie C");
+    cy.getByDataTestid("arm-category").should("contain", "Catégorie B ou C");
     cy.getByDataTestid("return-to-home-end").click();
     cy.url().should("contain", "/accueil");
   });
