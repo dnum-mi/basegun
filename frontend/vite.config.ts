@@ -24,8 +24,6 @@ export default defineConfig({
         "vue",
         "vue-router",
         // 'vue-i18n',
-        "@vueuse/head",
-        "@vueuse/core",
         vueDsfrAutoimportPreset,
         ohVueIconAutoimportPreset,
       ],

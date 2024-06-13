@@ -1,77 +1,58 @@
 import { defineStore } from "pinia";
-import { useLocalStorage } from "@vueuse/core";
 import { computed } from "vue";
 
-import { serializer } from "@/utils/storage-utils";
-import type { TYPOLOGIES } from "@/utils/firearms-utils";
+export const useStore = defineStore("result", {
+  state: () => {
+    const typology = ref(null);
+    const confidence = ref(null);
+    const confidenceLevel = ref(null);
+    const gunLength = ref(null);
+    const gunBarrelLength = ref(null);
+    const img = ref(null);
+    const imgUrl = ref(null);
+    const securingTutorial = ref(false);
 
-type TypologyKey = keyof typeof TYPOLOGIES;
+    const selectedOptions = ref([]);
+    const selectedAmmo = ref(undefined);
+    const selectedAlarmGun = ref(undefined);
+    const tutorialFeedback = ref("");
+    const isDummy = computed(() => !!(selectedAmmo.value === "billes"));
+    const isModalTransparentAmmoOpened = ref(null);
 
-export const useStore = defineStore("result", () => {
-  const typology = useLocalStorage<TypologyKey>("typology", null, {
-    serializer,
-  });
-  const confidence = useLocalStorage<number>("confidence", null, {
-    serializer,
-  });
-  const confidenceLevel = useLocalStorage<string>("confidenceLevel", null, {
-    serializer,
-  });
-  const gunLength = useLocalStorage<number>("gunLength", null, { serializer });
-  const gunBarrelLength = useLocalStorage<number>("gunBarrelLength", null, {
-    serializer,
-  });
-  const img = useLocalStorage<string>("img", null, { serializer });
-  const imgUrl = useLocalStorage<string>("imgUrl", null, { serializer });
-  const resultText = useLocalStorage<string>("resultText", null, {
-    serializer,
-  });
-  const securingTutorial = ref(false);
+    function $reset() {
+      typology.value = null;
+      confidence.value = null;
+      confidenceLevel.value = null;
+      gunLength.value = null;
+      gunBarrelLength.value = null;
+      img.value = null;
+      imgUrl.value = null;
+      securingTutorial.value = false;
 
-  const selectedOptions = useLocalStorage<Array<string>>("selectedOptions", []);
-  const selectedAmmo = useLocalStorage<string | undefined>(
-    "selectedAmmo",
-    undefined,
-    { serializer },
-  );
-  const selectedAlarmGun = useLocalStorage<string | undefined>(
-    "selectedAlarmGun",
-    undefined,
-    { serializer },
-  );
-  const tutorialFeedback = useLocalStorage("tutorialFeedback", "");
-  const isDummy = useLocalStorage(
-    "isDummy",
-    computed(() => !!(selectedAmmo.value === "billes")),
-    { serializer },
-  );
-  const isModalTransparentAmmoOpened = useLocalStorage<boolean | undefined>(
-    "isModalTransparentAmmoOpened",
-    undefined,
-    { serializer },
-  );
+      selectedOptions.value = [];
+      selectedAmmo.value = undefined;
+      selectedAlarmGun.value = undefined;
+      tutorialFeedback.value = "";
+      isModalTransparentAmmoOpened.value = null;
+    }
 
-  function $reset() {
-    selectedAlarmGun.value = "";
-    selectedOptions.value = [];
-  }
-
-  return {
-    typology,
-    confidence,
-    confidenceLevel,
-    gunLength,
-    gunBarrelLength,
-    img,
-    imgUrl,
-    resultText,
-    securingTutorial,
-    selectedOptions,
-    selectedAmmo,
-    selectedAlarmGun,
-    tutorialFeedback,
-    isDummy,
-    isModalTransparentAmmoOpened,
-    $reset,
-  };
+    return {
+      typology,
+      confidence,
+      confidenceLevel,
+      gunLength,
+      gunBarrelLength,
+      img,
+      imgUrl,
+      securingTutorial,
+      selectedOptions,
+      selectedAmmo,
+      selectedAlarmGun,
+      tutorialFeedback,
+      isDummy,
+      isModalTransparentAmmoOpened,
+      $reset,
+    };
+  },
+  persist: true,
 });
