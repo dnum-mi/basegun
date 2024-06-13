@@ -7,6 +7,7 @@ import "@/main.css";
 import axios from "axios";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 import * as icons from "./icons";
 import App from "./App.vue";
@@ -17,6 +18,7 @@ import { register } from "swiper/element/bundle";
 register();
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 // the FastAPI backend
 axios.defaults.baseURL = "/api/";

@@ -21,8 +21,11 @@ const selectedOptionValue = computed({
   },
   set(option) {
     if (store.selectedOptions[props.step - 1]) {
+      // If an option is already selected, we update it, then we remove next steps selections
       store.selectedOptions[props.step - 1] = option || "";
+      store.selectedOptions = store.selectedOptions.slice(0, props.step);
     } else {
+      // If no option is selected for that step
       store.selectedOptions.push(option || "");
     }
   },
@@ -52,7 +55,7 @@ const nextTo = computed(() => {
       };
     }
     if (props.step === 2) {
-      if (store.selectedOptions.at(-1) !== "revolver_portiere") {
+      if (store.selectedOptions[1] !== "revolver_portiere") {
         return {
           name: "SecuringTutorialContent",
         };

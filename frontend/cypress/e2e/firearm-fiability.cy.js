@@ -14,9 +14,6 @@ describe("Firearm Fiability", () => {
     cy.IdentificationPistoletSemiAuto();
     cy.url().should("contain", "/guide-identification/resultat-final");
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
-    cy.getByDataTestid("arm-category").should(() => {
-      expect(localStorage.getItem("confidenceLevel")).to.eq('"high"');
-    });
   });
 
   it("should identificate firearm with low confidence", () => {
@@ -32,9 +29,6 @@ describe("Firearm Fiability", () => {
     });
     cy.url().should("contain", "/guide-identification/resultat-typologie");
     cy.contains("h2", "Typologie non déterminée");
-    cy.get("h2").should(() => {
-      expect(localStorage.getItem("confidenceLevel")).to.eq('"low"');
-    });
   });
 
   it("should identificate firearm with low fiability", () => {
@@ -50,8 +44,5 @@ describe("Firearm Fiability", () => {
     });
     cy.url().should("contain", "/guide-identification/resultat-typologie");
     cy.contains("h2", "Typologie non déterminée");
-    cy.get("h2").should(() => {
-      expect(localStorage.getItem("confidenceLevel")).to.eq('"low"');
-    });
   });
 });

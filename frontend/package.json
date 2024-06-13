@@ -17,10 +17,10 @@
   "dependencies": {
     "@gouvfr/dsfr": "~1.11.0",
     "@gouvminint/vue-dsfr": "^5.8.0",
-    "@vueuse/core": "^10.7.2",
     "axios": "^1.6.7",
     "luxon": "^3.4.4",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "swiper": "^11.0.6",
     "vite": "^5.0.12",
     "vue": "^3.4.15",
