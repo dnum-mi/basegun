@@ -99,7 +99,7 @@ function sendFeedback(isCorrect: boolean) {
             />
           </div>
           <div class="fr-alert fr-alert--info mt-3">
-            <h2 class="fr-alert__title">Catégorie non déterminée</h2>
+            <h2 class="fr-alert__title">Typologie non déterminée</h2>
           </div>
           <div class="fr-alert fr-alert--warning mt-3">
             <p>
