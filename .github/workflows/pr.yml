@@ -29,12 +29,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/dnum-mi/basegun/basegun-backend
+          tags: |
+            type=raw,value={{date 'YYYYMMDD'}}
+            type=raw,value=${{ github.head_ref }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
+          tags: ${{ steps.meta.outputs.tags }}
 
   build-frontend:
     name: Build Frontend
@@ -48,12 +56,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/dnum-mi/basegun/basegun-frontend
+          tags: |
+            type=raw,value={{date 'YYYYMMDD'}}
+            type=raw,value=${{ github.head_ref }}
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref }}
+          tags: ${{ steps.meta.outputs.tags }}
   
   test-backend:
     name: Test Backend
