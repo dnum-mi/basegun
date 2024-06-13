@@ -50,9 +50,8 @@ const imgs = ref([
         Numérique</span
       >
       du Ministère de l'Intérieur et des Outre-Mer, en partenariat avec le
-      <span class="font-bold"
-        >Service Central des Armes et Explosifs de la DEPSA.</span
-      >
+      <span class="font-bold">Service Central des Armes et Explosifs</span> de
+      la Direction des entreprises et partenariats de sécurité et des armes
     </p>
     <p>
       <span class="font-bold"
