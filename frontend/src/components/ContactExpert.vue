@@ -32,6 +32,7 @@ function onClose() {
             <DsfrButton
               class="w-100 m-1"
               label="Police Nationale"
+              :disabled="true"
               @click="router.push({ name: 'ExpertSituationPN' })"
             />
             <DsfrButton
