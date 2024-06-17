@@ -27,6 +27,8 @@ describe("Firearm Fiability", () => {
     cy.wait("@upload").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
     });
+    cy.url().should("contain", "/carte-manquante");
+    cy.contains("Je souhaite tout de même poursuivre").click();
     cy.url().should("contain", "/guide-identification/resultat-typologie");
     cy.contains("h2", "Typologie non déterminée");
   });

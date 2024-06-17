@@ -74,6 +74,11 @@ async def imageupload(
         if label in TYPOLOGIES_MEASURED:
             gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
 
+        # Temporary fix while ML package send 0 instead of None
+        # https://github.com/dnum-mi/basegun-ml/issues/14
+        gun_length = None if gun_length == 0 else gun_length
+        gun_barrel_length = None if gun_barrel_length == 0 else gun_barrel_length
+
         extras_logging["bg_label"] = label
         extras_logging["bg_confidence"] = confidence
         extras_logging["bg_gun_length"] = gun_length

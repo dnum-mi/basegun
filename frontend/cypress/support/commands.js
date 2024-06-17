@@ -153,6 +153,8 @@ Cypress.Commands.add("arrierePlatRevolver", () => {
 Cypress.Commands.add("IdentificationShoulderBoltRifle", () => {
   cy.url().should("contain", "/fin-mise-en-securite");
   cy.getByDataTestid("go-to-identification").click();
+  cy.url().should("contain", "/carte-manquante");
+  cy.contains("Je souhaite tout de même poursuivre").click();
   cy.url().should("contain", "/resultat-typologie");
   cy.getByDataTestid("next-step").click();
   cy.url().should(
