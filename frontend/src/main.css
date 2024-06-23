@@ -1,18 +1,14 @@
-html {
-  --select-option-image-width: 13rem;
-}
+@screen lt-sm {
+  h1 {
+    font-size: 1.75rem;
+  }
 
-h1 {
-  font-size: 1.75rem
+  h2 {
+    font-size: 1.3rem;
+  }
 }
-
-h2 {
-  font-size: 1.3rem 
-}
-
-h3 {
-  font-size: 1.1rem;
-  color: var(--blue-france-sun-113-625)
+.text-blue {
+  color: var(--blue-france-sun-113-625);
 }
 
 #app {
@@ -34,23 +30,10 @@ a {
   top: 100%;
   left: 50%;
   transform: translate(-50%, -100%);
-  background-color: #f5f5fe;
+  background-color: #ffffff;
   box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-  padding: 15px !important;
+  padding: 15px;
   width: 100%;
-}
-
-.footer-up {
-  top: 97%;
-}
-
-button {
-  border-radius: 3px;
-  white-space: nowrap;
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .footer-text {
@@ -69,43 +52,17 @@ button {
 
 .small-blank {
   height: 10vh;
-  z-index: 1
+  z-index: 1;
 }
 
 .big-blank {
   height: 25vh;
-  z-index: 1
-}
-
-.action-group {
-  text-align: center;
-  cursor: pointer;
-  margin: 8px 0;
-}
-
-.action-group:hover {
-  color: #1212ff;
-}
-
-.action-group-text {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 0
+  z-index: 1;
 }
 
 .img-deco {
   margin-bottom: 2.5em;
-  width: 100%
-}
-
-h4 {
-  font-size: 1.3rem;
-  margin: 0.75rem;
-}
-
-h5 {
-  font-size: 1.1rem;
-  color: var(--blue-france-sun-113-625)
+  width: 100%;
 }
 
 .help {
@@ -113,4 +70,14 @@ h5 {
   background-image: var(--underline-img), var(--underline-img) !important;
 }
 
+.w-60 {
+  width: 60% !important;
+}
 
+.w-80 {
+  width: 80% !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}

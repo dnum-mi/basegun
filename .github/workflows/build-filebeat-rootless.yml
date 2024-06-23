@@ -22,4 +22,4 @@ jobs:
         with:
           file: ./infra/filebeat.Dockerfile
           push: true
-          tags: ghcr.io/datalab-mi/basegun/filebeat-rootless:6.5.4
+          tags: ghcr.io/dnum-mi/basegun/filebeat-rootless:6.5.4

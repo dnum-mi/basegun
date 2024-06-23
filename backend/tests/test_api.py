@@ -1,15 +1,14 @@
 import json
 import os
 import time
-import unittest
 from io import BytesIO
 
 import boto3
+import pytest
 import requests
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from PIL import Image, ImageChops
-from src.main import S3_BUCKET_NAME, S3_URL_ENDPOINT, app
+from src.config import S3_BUCKET_NAME, S3_URL_ENDPOINT
+from src.main import app
 
 client = TestClient(app)
 
@@ -35,73 +34,56 @@ def create_bucket():
         bucket.Policy().put(Policy=json.dumps(BUCKET_POLICY))
 
 
-class TestModel(unittest.TestCase):
+class TestApi:
     def test_home(self):
         """Checks that the route / is alive"""
         response = client.get("/api/")
-        self.assertEqual(response.text, "Basegun backend")
+        assert response.text == "Basegun backend"
 
     def test_version(self):
         """Checks that the route /version sends a version"""
         response = client.get("/api/version")
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
     def check_log_base(self, log):
-        self.assertTrue(
-            {
-                "timestamp",
-                "version",
-                "host",
-                "level",
-                "short_message",
-                "_bg_date",
-                "_bg_user_id",
-                "_bg_device",
-                "_bg_device_os",
-                "_bg_device_family",
-                "_bg_device_browser",
-                "_bg_version",
-                "_bg_model",
-            }.issubset(set(log.keys()))
-        )
-        self.assertEqual(log["level"], 6)
-        self.assertTrue(log["_bg_model"].startswith("EffB"))
+        assert {
+            "timestamp",
+            "version",
+            "host",
+            "level",
+            "short_message",
+            "_bg_date",
+            "_bg_user_id",
+            "_bg_device",
+            "_bg_device_os",
+            "_bg_device_family",
+            "_bg_device_browser",
+            "_bg_version",
+            "_bg_model",
+        }.issubset(set(log.keys()))
+        assert log["level"] == 6
+        assert log["_bg_model"].startswith("EffB")
 
     def test_upload(self):
         """Checks that the file upload works properly"""
-        if os.environ["WORKSPACE"] == "dev":
-            create_bucket()
+        create_bucket()
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
-        geoloc = "12.666,7.666"
 
         with open(path, "rb") as f:
             r = client.post(
                 "/api/upload",
                 files={"image": f},
-                data={"date": time.time(), "geolocation": geoloc},
+                data={"date": time.time()},
             )
-        self.assertEqual(r.status_code, 200)
+        assert r.status_code == 200
         res = r.json()
 
         # checks that the json result is as expected
-        self.assertEqual(res["label"], "revolver")
-        self.assertAlmostEqual(res["confidence"], 98.43, places=1)
-        self.assertTrue(res["confidence_level"], "high")
-        # checks that the result is written in logs
-        r = client.get("/api/logs")
-        self.assertEqual(r.status_code, 200)
-        # checks the latest log with validates upload to object storage
-        self.assertEqual(r.json()[0]["_bg_image_url"], r.json()[1]["_bg_image_url"])
-        self.assertEqual(r.json()[0]["short_message"], "Upload successful")
-        # checks the previous log "Identification request"
-        log = r.json()[1]
-        self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification request")
-        self.assertTrue("-" in log["_bg_user_id"])
-        self.assertEqual(log["_bg_geolocation"], geoloc)
-        self.assertEqual(log["_bg_label"], "revolver")
-        self.assertAlmostEqual(log["_bg_confidence"], 98.43, places=1)
-        self.assertTrue(log["_bg_upload_time"] >= 0)
+        assert res["label"] == "revolver"
+        assert res["confidence"] == pytest.approx(1, 0.1)
+        assert res["confidence_level"] == "high"
+        assert "gun_length" in res
+        assert "gun_barrel_length" in res
 
     def test_feedback_and_logs(self):
         """Checks that the feedback works properly"""
@@ -120,27 +102,52 @@ class TestModel(unittest.TestCase):
             },
         )
 
-        self.assertEqual(r.status_code, 200)
-        r = client.get("/api/logs")
-        self.assertEqual(r.status_code, 200)
-        log = r.json()[0]
-        self.check_log_base(log)
-        self.assertEqual(log["short_message"], "Identification feedback")
-        self.assertEqual(log["_bg_image_url"], image_url)
-        self.assertTrue(log["_bg_feedback_bool"])
-        self.assertEqual(log["_bg_confidence"], confidence)
-        self.assertEqual(log["_bg_label"], label)
-        self.assertEqual(log["_bg_confidence_level"], confidence_level)
+        assert r.status_code == 200
 
-    def test_geoloc_api(self):
-        """Checks that the geolocation api works properly"""
-        r = requests.get(
-            "https://api.ipgeolocation.io/ipgeo?apiKey=17dc6bed199b45ca92d60079686e03f1"
-        )
-        res = r.json()
-        self.assertTrue("latitude" in res.keys())
-        self.assertTrue("longitude" in res.keys())
-        lat = float(res["latitude"])
-        self.assertTrue(abs(lat) < 90)
-        lon = float(res["longitude"])
-        self.assertTrue(abs(lon) < 180)
+    def test_headers(self):
+        HEADERS_TO_ADD = requests.get(
+            "https://owasp.org/www-project-secure-headers/ci/headers_add.json"
+        ).json()["headers"]
+        HEADERS_TO_REMOVE = requests.get(
+            "https://owasp.org/www-project-secure-headers/ci/headers_remove.json"
+        ).json()["headers"]
+        CURRENT_HEADERS = client.get("/api/version").headers
+
+        for header_to_remove in HEADERS_TO_REMOVE:
+            assert header_to_remove.lower() not in CURRENT_HEADERS
+
+        for header_to_add in HEADERS_TO_ADD:
+            assert header_to_add["name"].lower() in CURRENT_HEADERS
+
+class TestUpload:
+    def test_revolver_without_card(self):
+        with open("./tests/revolver.jpg", "rb") as f:
+            response = client.post(
+                "/api/upload",
+                files={"image": f},
+                data={"date": time.time()},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["label"] == "revolver"
+        assert response.data["confidence"] == pytest.approx(1, 0.1)
+        assert response.data["confidence_level"] == "high"
+        assert response.data["gun_length"] is None
+        assert response.data["gun_barrel_length"] is None
+        assert response.data["conf_card"] is None
+
+    def test_semi_auto_without_card(self):
+        with open("./tests/epaule_a_levier_sous_garde.jpg", "rb") as f:
+            response = client.post(
+                "/api/upload",
+                files={"image": f},
+                data={"date": time.time()},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["label"] == "epaule_a_levier_sous_garde"
+        assert response.data["confidence"] == pytest.approx(1, 0.1)
+        assert response.data["confidence_level"] == "high"
+        assert response.data["gun_length"] is not None
+        assert response.data["gun_barrel_length"] is not None
+        assert response.data["conf_card"] is not None

@@ -47,7 +47,7 @@ jobs:
       uses: vlaurin/action-ghcr-prune@main
       with:
         token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        organization: datalab-mi
+        organization: dnum-mi
         container: basegun/basegun-backend
         dry-run: false
         untagged: true
@@ -55,7 +55,7 @@ jobs:
       uses: vlaurin/action-ghcr-prune@main
       with:
         token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-        organization: datalab-mi
+        organization: dnum-mi
         container: basegun/basegun-frontend
         dry-run: false
         untagged: true

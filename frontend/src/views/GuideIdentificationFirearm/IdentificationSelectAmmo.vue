@@ -1,51 +1,64 @@
-<script setup>
-import { ref, computed, onMounted } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, onMounted } from "vue";
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
+import { useStore } from "@/stores/result";
 
-import TransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg'
-import FocusTransparentMagazine from '@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import TransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg";
+import FocusTransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg";
+import { TYPOLOGIES } from "@/utils/firearms-utils/index";
+import { epaule_a_verrou } from "@/utils/firearms-utils/epaule-a-verrou"; // eslint-disable-line camelcase
+import type { pistolet_semi_auto_moderne } from "@/utils/firearms-utils/pistolet-semi-auto-moderne"; // eslint-disable-line camelcase
+import type { semi_auto_style_militaire_autre } from "@/utils/firearms-utils/semi-auto-style-militaire-autre"; // eslint-disable-line camelcase
+import type { revolver } from "@/utils/firearms-utils/revolver";
 
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
+const store = useStore();
 
-const typology = computed(() => resultStore.typology)
+const typology = computed(() => store.typology);
 
 const selectedAmmo = computed({
-  get  () {
-    return stepsStore.selectedAmmo
+  get() {
+    return store.selectedAmmo;
   },
-  set (ammo) {
-    stepsStore.setAmmo(ammo)
+  set(ammo) {
+    store.selectedAmmo = ammo;
   },
-})
+});
 
-const zoom = ref('')
+const zoom = ref("");
 
-const zoomOn = (imgValue) => {
-  zoom.value = imgValue
+const zoomOn = (imgValue: string) => {
+  zoom.value = imgValue;
+};
+
+const transparentMagazine = [
+  "De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut <b>bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches</b>, comme dans l’exemple ci-dessous.",
+];
+
+const showModal = ref(false);
+
+function closeModal() {
+  showModal.value = false;
 }
 
-const transparentMagazine = ['De nombreuses armes factices utilisent des chargeurs transparents simulant la présence de cartouches. Il faut <b>bien vérifier le haut du chargeur pour voir si l’orifice permet de faire rentrer des billes ou des cartouches</b>, comme dans l’exemple ci-dessous.']
-
-const showModal = ref(false)
-
-function closeModal () {
-  showModal.value = false
-}
-
-function openModal () {
-  showModal.value = true
-  useStepsStore.isModalTransparentAmmoOpened = true
+function openModal() {
+  showModal.value = true;
+  store.isModalTransparentAmmoOpened = true;
 }
 
 onMounted(() => {
-  if (useStepsStore.isModalTransparentAmmoOpened === undefined) {
-    openModal()
-  } else { showModal.value = false }
-})
+  if (store.isModalTransparentAmmoOpened === undefined) {
+    openModal();
+  } else {
+    showModal.value = false;
+  }
+});
+
+// eslint-disable-next-line camelcase
+type HasDummyOptions =
+  | typeof epaule_a_verrou
+  | typeof pistolet_semi_auto_moderne
+  | typeof semi_auto_style_militaire_autre
+  | typeof revolver;
 </script>
 
 <template>
@@ -66,16 +79,16 @@ onMounted(() => {
             <div class="flex">
               <DsfrPicture
                 :src="TransparentMagazine"
-                alt="exemple de magasin transparent factice"
+                alt="Exemple de magasin transparent factice"
                 title="title"
-                legend="exemple de magasin transparent factice"
+                legend="Exemple de magasin transparent factice"
                 ratio="3x4"
               />
               <DsfrPicture
                 :src="FocusTransparentMagazine"
-                alt="focus sur la zone à vérifier"
+                alt="Focus sur la zone à vérifier"
                 title="title"
-                legend="focus sur la zone à vérifier"
+                legend="Focus sur la zone à vérifier"
                 ratio="3x4"
               />
             </div>
@@ -92,31 +105,25 @@ onMounted(() => {
         </div>
       </DsfrModal>
     </Teleport>
-    <p
-      v-if="typology === 'revolver'"
-      class="texte-tuto my-3"
-    >
+    <p v-if="typology === 'revolver'" class="texte-tuto my-3">
       Sélectionner ce que vous voyez en haut des projectiles
     </p>
-    <div
-      v-else
-    >
+    <div v-else>
       <p class="texte-tuto my-3">
-        Sélectionner le <span class="font-bold">type de munitions</span> du chargeur.
+        Sélectionner le <span class="font-bold">type de munitions</span> du
+        chargeur.
         <span
           v-if="typology === 'semi_auto_style_militaire_autre'"
           @click="openModal()"
         >
-          <a
-            class="underline"
-            href="#"
-          > Chargeur transparent ?</a>
+          <a class="underline" href="#"> Chargeur transparent ?</a>
         </span>
       </p>
     </div>
     <div>
       <template
-        v-for="option of resultTree[typology]?.guideFactice"
+        v-for="option in (TYPOLOGIES[typology] as HasDummyOptions)
+          ?.dummyOptions"
         :key="option.value"
       >
         <div class="item">
@@ -128,10 +135,7 @@ onMounted(() => {
             required
             name="selectedAmmo"
           />
-          <div
-            class="zoom"
-            @click="zoomOn(option.value)"
-          >
+          <div class="zoom" @click="zoomOn(option.value)">
             <VIcon
               name="ri-zoom-in-line"
               scale="1.25"
@@ -149,8 +153,8 @@ onMounted(() => {
               <img
                 v-if="zoom === option.value"
                 :src="option.img_ammo"
-                :style="{'max-width': '100%'}"
-              >
+                :style="{ 'max-width': '100%' }"
+              />
             </DsfrModal>
           </Teleport>
         </div>
@@ -161,25 +165,24 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
 .item {
   position: relative;
   padding-bottom: 1em;
 }
 
 .ov-icon {
-  vertical-align: -.39rem;
+  vertical-align: -0.39rem;
 }
 .zoom {
   background-color: #eee9;
   cursor: zoom-in;
   position: absolute;
   bottom: 1.6rem;
-  right: .5rem;
+  right: 0.5rem;
 }
 
 .zoom-label {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 :deep(.fr-container) {
@@ -189,7 +192,7 @@ onMounted(() => {
 }
 
 :deep(.fr-content-media) {
-  margin: 2.5rem .5rem;
+  margin: 2.5rem 0.5rem;
 }
 
 :deep(.fr-label) {
@@ -201,7 +204,7 @@ onMounted(() => {
   width: 240% !important;
   height: auto;
 }
-:deep(.fr-radio-rich__pictogram img){
+:deep(.fr-radio-rich__pictogram img) {
   height: 100%;
   width: 100%;
 }
@@ -209,19 +212,6 @@ onMounted(() => {
 :deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
   max-height: 95%;
   max-width: 95%;
-}
-
-.instructions {
-  padding-bottom: .5em;
-}
-
-.transparent-mag {
-  width: 50%;
-  padding: 1rem;
-}
-
-.open-info {
-  justify-content: end;
 }
 
 .warning {
@@ -246,5 +236,4 @@ onMounted(() => {
   padding: 1rem !important;
   margin: auto;
 }
-
 </style>

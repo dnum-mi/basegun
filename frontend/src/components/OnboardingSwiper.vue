@@ -1,52 +1,64 @@
-<script setup>
-</script>
-
 <template>
-  <swiper-container
-    :navigation="true"
-    :pagination="{ clickable: true }"
-  >
+  <swiper-container :navigation="true" :pagination="{ clickable: true }">
     <swiper-slide>
       <img
         src="@/assets/basegun_green.png"
         alt=""
+        height="250"
         class="swiper-logo"
         data-testid="basegun-logo"
-      >
+      />
       <div class="swiper-content">
         <ul class="swiper-ul fr-text--md">
           <li class="swiper-li">
-            Basegun est une application <span class="swiper-green-highlight">prototype</span> en cours de développement par le Ministère de l’Intérieur et des Outre-Mer.
+            Basegun est une application
+            <span class="swiper-green-highlight">prototype</span> en cours de
+            développement par le Ministère de l’Intérieur et des Outre-Mer.
           </li>
           <li class="swiper-li">
-            A ce jour, Basegun <span class="swiper-green-highlight">prend en compte uniquement </span> l'identification d'<span class="swiper-green-highlight">armes à feu létales</span> et d'<span class="swiper-green-highlight">armes factices type airsoft</span>.
+            A ce jour, Basegun
+            <span data-v-f74c6fe1="" class="swiper-green-highlight"
+              >prend en compte uniquement
+            </span>
+            l'identification d'<span
+              data-v-f74c6fe1=""
+              class="swiper-green-highlight"
+              >armes à feu létales</span
+            >, d'<span data-v-f74c6fe1="" class="swiper-green-highlight"
+              >armes d'alarme</span
+            >
+            et d'<span data-v-f74c6fe1="" class="swiper-green-highlight"
+              >armes factices type airsoft</span
+            >.
           </li>
           <li>
-            Basegun propose également de les <span class="swiper-green-highlight">mettre en sécurité</span> grâce à des <span class="swiper-green-highlight">tutoriels personnalisés</span>.
+            Basegun propose également de les
+            <span class="swiper-green-highlight">mettre en sécurité</span> grâce
+            à des
+            <span class="swiper-green-highlight">tutoriels personnalisés</span>.
           </li>
         </ul>
       </div>
     </swiper-slide>
     <swiper-slide>
-      <img
-        src="@/assets/basegun_red.png"
-        alt=""
-        class="swiper-logo"
-      >
+      <img src="@/assets/basegun.png" alt="" height="250" class="swiper-logo" />
       <div class="swiper-content">
         <ul class="swiper-ul fr-text--md">
           <li class="swiper-li">
-            Basegun <span class="swiper-red-highlight">n’a pas vocation à donner</span> des instructions sur la préservation des traces et indices.
+            Basegun
+            <span class="swiper-red-highlight">n’a pas vocation à donner</span>
+            des instructions sur la préservation des traces et indices.
           </li>
           <li class="swiper-li">
-            Basegun est un <span class="swiper-red-highlight">outil d'aide à la décision</span>.
-            Il <span class="swiper-red-highlight">ne remplace en aucun cas l'avis d'un expert</span>.
+            Basegun est un
+            <span class="swiper-red-highlight">outil d'aide à la décision</span
+            >. Il
+            <span class="swiper-red-highlight"
+              >ne remplace en aucun cas l'avis d'un expert</span
+            >.
           </li>
         </ul>
-        <router-link
-          v-slot="{navigate}"
-          :to="{name:'StartPage'}"
-        >
+        <router-link v-slot="{ navigate }" :to="{ name: 'StartPage' }">
           <DsfrButton
             id="agree-button"
             class="fr-btn fr-btn--sm mt-5"
@@ -60,6 +72,7 @@
     </swiper-slide>
   </swiper-container>
 </template>
+
 <style scoped>
 .swiper-container {
   width: 100%;
@@ -98,7 +111,7 @@ swiper-container::part(button-next) {
   top: 57%;
   right: 3%;
   color: var(--blue-france-sun-113-625) !important;
-  width :1rem;
+  width: 1rem;
 }
 
 .swiper-button-prev {
@@ -114,7 +127,7 @@ swiper-container::part(button-next) {
 }
 
 swiper-container::part(pagination) {
-  bottom: -.35rem;
+  bottom: -0.35rem;
 }
 
 swiper-container::part(bullet-active) {
@@ -130,5 +143,4 @@ swiper-container::part(bullet-active) {
   font-weight: bold;
   color: #00c7c8;
 }
-
 </style>

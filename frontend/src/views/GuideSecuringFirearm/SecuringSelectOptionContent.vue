@@ -1,121 +1,86 @@
-<script setup>
-import { computed, ref, watchEffect } from 'vue'
+<script lang="ts" setup>
+import { computed, ref } from "vue";
 
-import { useStepsStore } from '@/stores/steps.js'
-import { useResultStore } from '@/stores/result.js'
-import { resultTree } from '@/utils/firearms-utils/index.js'
+import { useStore } from "@/stores/result";
+import { TYPOLOGIES } from "@/utils/firearms-utils/index";
 
-import AskingExpert from '@/components/AskingExpert.vue'
-import SecuringFooter from './SecuringFooter.vue'
+import AskingExpert from "@/components/AskingExpert.vue";
+import SecuringFooter from "./SecuringFooter.vue";
 
-const props = defineProps({
-  step: {
-    type: String,
-    default: '1',
+const props = defineProps<{
+  step: 1 | 2 | 3;
+}>();
+
+const store = useStore();
+
+const typology = TYPOLOGIES[store.typology];
+
+const selectedOptionValue = computed({
+  get() {
+    return store.selectedOptions[props.step - 1];
   },
-})
-const resultStore = useResultStore()
-const stepsStore = useStepsStore()
-
-const typology = computed(() => resultStore.typology)
-
-const selectedOptionStep = computed({
-  get () {
-    return stepsStore.currentOptionStep[props.step]
+  set(option) {
+    if (store.selectedOptions[props.step - 1]) {
+      // If an option is already selected, we update it, then we remove next steps selections
+      store.selectedOptions[props.step - 1] = option || "";
+      store.selectedOptions = store.selectedOptions.slice(0, props.step);
+    } else {
+      // If no option is selected for that step
+      store.selectedOptions.push(option || "");
+    }
   },
-  set (option) {
-    stepsStore.setOptionStep(props.step, option)
-  },
-})
+});
 
-const disabledValidation = computed(() => stepsStore.currentOptionStep[props.step] === undefined)
+const disabledValidation = computed(
+  () => store.selectedOptions[props.step - 1] === undefined,
+);
 
-watchEffect(() => {
-  console.log(`stepsStore.currentOptionStep[${props.step}]`, stepsStore.currentOptionStep[props.step])
-})
+const zoom = ref("");
 
-const zoom = ref('')
-
-const zoomOn = (imgValue) => {
-  zoom.value = imgValue
-}
-
-function updateTypology () {
-  if (props.step === '1' && selectedOptionStep.value === 'revolver_black_powder') {
-    // Remember if it is a revolver with black powder
-    resultStore.updateTypology(selectedOptionStep.value)
-  }
-}
+const zoomOn = (imgValue: string) => {
+  zoom.value = imgValue;
+};
 
 const nextTo = computed(() => {
-  if (typology.value === 'revolver') {
-    if (props.step === '1') {
-      if (stepsStore.currentOptionStep['1'] === 'revolver_black_powder') {
+  if (typology.displayLabel === "Revolver") {
+    if (props.step === 1) {
+      if (store.selectedOptions[0] === "revolver_black_powder") {
         return {
-          name: 'SecuringAchievement',
-        }
+          name: "SecuringAchievement",
+        };
       }
       return {
-        name: 'SecuringSelectOption',
-        params: { step: '2' },
-      }
+        name: "SecuringSelectOption",
+        params: { step: "2" },
+      };
     }
-    if (props.step === '2') {
-      if (stepsStore.currentOptionStep['2'] !== 'revolver_portiere') {
+    if (props.step === 2) {
+      if (store.selectedOptions[1] !== "revolver_portiere") {
         return {
-          name: 'SecuringTutorialContent',
-        }
+          name: "SecuringTutorialContent",
+        };
       }
       return {
-        name: 'SecuringSelectOption',
-        params: { step: '3' },
-      }
+        name: "SecuringSelectOption",
+        params: { step: "3" },
+      };
     }
   }
   return {
-    name: 'SecuringTutorialContent',
-  }
-})
-
-const backTo = computed(() => {
-  if (props.step === '1') {
-    return { name: 'InstructionsPage' }
-  }
-  if (props.step === '2') {
-    return {
-      name: 'SecuringSelectOption',
-      params: { step: '1' },
-    }
-  }
-  if (props.step === '3') {
-    return {
-      name: 'SecuringSelectOption',
-      params: { step: '2' },
-    }
-  }
-  return { name: 'InstructionsPage' }
-})
+    name: "SecuringTutorialContent",
+  };
+});
 </script>
 
 <template>
   <div class="fr-container">
-    <div class="result fr-col-11 fr-col-lg-6 mx-auto">
-      <h2 class="mt-3 mb-1 text-center">
-        Mettre en sécurité mon arme
-      </h2>
-      <h3 class="text-center my-auto">
+    <div class="fr-col-12 fr-col-lg-6 mx-auto">
+      <h1 class="mt-3 mb-1 text-center">Mettre en sécurité mon arme</h1>
+      <h2 class="text-center my-auto fr-mb-2w text-blue">
         Choix du type d'arme
-      </h3>
-      <div class="instructions">
-        <!-- <p
-          class="leading-7 mt-3"
-          v-html="typology !== 'revolver' ? resultTree[typology]?.options_text : resultTree[typology]?.[`options_step_${step}_text`]"
-        /> -->
-      </div>
-      <div
-        v-if="resultTree[typology]?.[`options_step_${step}_video`]"
-      >
-        <p v-html="resultTree[typology]?.[`options_step_${step}_video_pre_text`]" />
+      </h2>
+      <!-- Custom for revolver -->
+      <div v-if="step === 3">
         <div class="fr-col-sm-6 fr-col-lg-12 mx-auto">
           <div class="fr-content-media relative">
             <video
@@ -125,47 +90,55 @@ const backTo = computed(() => {
               playsinline
               loop
               muted
-              :title="resultTree[typology]?.[`options_step_${step}_video_title`]"
-              :src="resultTree[typology]?.[`options_step_${step}_video`]"
+              :title="typology.securingSteps.at(-1).video_title"
+              :src="typology.securingSteps.at(-1).video"
             />
-            <span class="absolute -bottom-1.5rem right-0 text-sm">Environ 1 min</span>
+            <span class="absolute -bottom-1.5rem right-0 text-sm"
+              >Environ 20 sec</span
+            >
           </div>
-          <!-- <p
-            class="manipulations -mt-2 p-6"
-            v-html="resultTree[typology]?.[`options_step_${step}_video_caption`]"
-          /> -->
 
           <div class="manipulations -mx-8 p-8">
             <ol class="list text-sm">
-              <li> Observer l’arme en l’orientant dans une <span class="font-bold">direction sans risque</span>, en manipulant avec précaution</li>
-              <li> <span class="font-bold">Tirer le haut du levier de verrouillage</span> du barillet vers l’arrière</li>
-              <li> <span class="font-bold">Tirer légèrement le chien/marteau</span> vers l’arrière jusqu’à entendre un premier clic </li>
-              <li> Essayez de pousser sur un côté du barillet pour le faire basculer.</li>
+              <li>
+                Observer l’arme en l’orientant dans une
+                <span class="font-bold">direction sans risque</span>, en
+                manipulant avec précaution
+              </li>
+              <li>
+                <span class="font-bold"
+                  >Tirer le haut du levier de verrouillage</span
+                >
+                du barillet vers l’arrière
+              </li>
+              <li>
+                <span class="font-bold">Tirer légèrement le chien/marteau</span>
+                vers l’arrière jusqu’à entendre un premier clic
+              </li>
+              <li>
+                Essayez de pousser sur un côté du barillet pour le faire
+                basculer.
+              </li>
             </ol>
           </div>
         </div>
-        <p v-html="resultTree[typology]?.[`options_step_${step}_video_post_text`]" />
+        <p v-html="typology.securingSteps.at(-1).video_post_text" />
       </div>
+
       <div
-        v-for="option of (typology !== 'revolver' ? resultTree[typology]?.options : resultTree[typology]?.[`options_step_${step}`])"
+        v-for="option in typology.securingSteps[step - 1].options"
         :key="option.value"
       >
         <div class="item">
           <DsfrRadioButton
-            v-model="selectedOptionStep"
+            v-model="selectedOptionValue"
             v-bind="option"
             :img="option.img"
             required
-            name="selectedOptionStep"
+            name="selectedOptionValue"
           />
-          <div
-            class="zoom"
-            @click="zoomOn(option.value)"
-          >
-            <VIcon
-              name="ri-zoom-in-line"
-              scale="1.25"
-            />
+          <div class="zoom" @click="zoomOn(option.value)">
+            <VIcon name="ri-zoom-in-line" scale="1.25" />
             <span class="zoom-label">zoomer</span>
           </div>
           <Teleport to="body">
@@ -177,8 +150,8 @@ const backTo = computed(() => {
               <img
                 v-if="zoom === option.value"
                 :src="option.img"
-                :style="{'max-width': '100%'}"
-              >
+                :style="{ 'max-width': '100%' }"
+              />
             </DsfrModal>
           </Teleport>
         </div>
@@ -187,10 +160,9 @@ const backTo = computed(() => {
       <div class="big-blank" />
     </div>
     <SecuringFooter
-      :back-to="backTo"
-      :next-to="nextTo"
       :next-disabled="disabledValidation"
-      @next-click="updateTypology()"
+      @back-click="$router.back()"
+      @next-click="$router.push(nextTo)"
     />
   </div>
 </template>
@@ -201,29 +173,15 @@ const backTo = computed(() => {
   margin-bottom: 1rem;
 }
 
-.ov-icon {
-  vertical-align: -.39rem;
-}
-
-.fr-content-media {
-  margin-block: 0.5rem;
-}
-
 .video-container {
   margin: 0 !important;
   padding: 0 !important;
 }
 
 .manipulations {
-  background-color: #E3E3FD;
+  background-color: #e3e3fd;
   margin-top: 40px;
   margin-bottom: 24px;
-}
-
-:deep(.fr-container) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 :deep(.fr-label) {
@@ -235,7 +193,7 @@ const backTo = computed(() => {
   width: 150% !important;
   height: 150% !important;
 }
-:deep(.fr-radio-rich__pictogram img){
+:deep(.fr-radio-rich__pictogram img) {
   height: 100%;
   width: 100%;
 }
@@ -250,23 +208,14 @@ const backTo = computed(() => {
   cursor: zoom-in;
   position: absolute;
   bottom: 0.5rem;
-  right: .5rem;
+  right: 0.5rem;
 }
 
 .zoom-label {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
-:deep(.fr-col-md-8),
-:deep(.fr-col-lg-6) {
-  flex: 0 0 100%;
-  max-width: 100%;
-  width: 100%;
-}
-.instructions {
-  padding-bottom: .5em;
-}
 .footer button {
-width: 50%;
+  width: 50%;
 }
 </style>

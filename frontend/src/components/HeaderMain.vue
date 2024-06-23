@@ -1,45 +1,52 @@
-<script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+<script lang="ts" setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+import type { DsfrHeader } from "@gouvminint/vue-dsfr";
 
-const wholeLogo = computed(() => route.meta.wholeLogo)
+const route = useRoute();
 
-const isMobile = window.innerWidth <= 640
+const wholeLogo = computed(() => route.meta.wholeLogo as boolean);
 
-const logoText = computed(() => (!isMobile || wholeLogo.value)
-  ? ['Ministère',
-      'de l’intérieur',
-      'et des Outre-Mer']
-  : [])
+const isMobile = window.innerWidth <= 640;
 
-const quickLinks = [
+const logoText = computed<
+  InstanceType<typeof DsfrHeader>["$props"]["logoText"]
+>(() =>
+  !isMobile || wholeLogo.value
+    ? ["Ministère", "de l’intérieur", "et des Outre-Mer"]
+    : [],
+);
+
+const quickLinks: InstanceType<typeof DsfrHeader>["$props"]["quickLinks"] = [
   {
-    label: 'Important',
-    to: '/',
+    label: "Important",
+    to: "/",
   },
   {
-    label: 'A propos',
-    to: '/a-propos',
+    label: "A propos",
+    to: "/a-propos",
   },
   {
-    label: 'Mentions légales',
-    to: '/mentions-legales',
+    label: "Mentions légales",
+    to: "/mentions-legales",
   },
   {
-    label: 'Contact',
-    to: '/contact',
+    label: "Contact",
+    to: "/contact",
   },
-]
-
+  {
+    label: "Accessibilité : partiellement conforme",
+    to: "/accessibilite",
+  },
+];
 </script>
 
 <template>
   <DsfrHeader
     :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
-    :show-beta="true"
+    :show-beta="false"
     service-title=" "
     :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
@@ -57,15 +64,20 @@ const quickLinks = [
   }
 }
 
+:deep(.fr-header__navbar) {
+  margin-top: 0 !important;
+}
+
 :deep(.fr-header__navbar .fr-btn--menu) {
-  color : var(--text-action-high-blue-france);
+  color: var(--text-action-high-blue-france);
+  box-shadow: none;
 }
 
 .marianne-only :deep(.fr-header__logo .fr-logo::before) {
   background-size: cover;
   background-position: inherit;
   height: 1.2rem;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
   width: 3rem;
 }
 
@@ -81,5 +93,4 @@ const quickLinks = [
   left: 4.25rem;
   bottom: 1rem;
 }
-
 </style>

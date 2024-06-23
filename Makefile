@@ -1,11 +1,10 @@
 SHELL	:= /bin/bash
 DOCKER	:= $(shell type -p docker)
-DC		:= $(shell type -p docker-compose)
+DC		:= ${DOCKER} compose
 TAG		:= 3.3
 APP_NAME	:= basegun
 REG		:= ghcr.io
-ORG		:= datalab-mi
-UVICORN_LOG_LEVEL :=  # info, debug, trace
+ORG		:= dnum-mi
 
 export
 
@@ -30,14 +29,10 @@ check-dc-config-%: check-prerequisites ## Check docker-compose syntax
 	${DC} config -q
 
 build: check-dc-config-%
-	TAG=${TAG} ${DC} build
+	${DC} build
 
 up: check-dc-config-%
-ifeq ("$(WORKSPACE)","preprod")
-	TAG=${TAG} PORT_PROD=8080 ${DC} up -d
-else
-	TAG=${TAG} ${DC} up -d
-endif
+	${DC} up -d
 
 down:
 	${DC} down
@@ -59,9 +54,9 @@ pull-%:
 push: push-${TAG}
 
 push-%:
-	docker tag basegun-frontend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-frontend:$*
-	docker tag basegun-backend:${TAG}-prod ghcr.io/datalab-mi/basegun/basegun-backend:$*
-	docker push ghcr.io/datalab-mi/basegun/basegun-frontend:$*
-	docker push ghcr.io/datalab-mi/basegun/basegun-backend:$*
+	docker tag basegun-frontend:${TAG}-prod ghcr.io/dnum-mi/basegun/basegun-frontend:$*
+	docker tag basegun-backend:${TAG}-prod ghcr.io/dnum-mi/basegun/basegun-backend:$*
+	docker push ghcr.io/dnum-mi/basegun/basegun-frontend:$*
+	docker push ghcr.io/dnum-mi/basegun/basegun-backend:$*
 
 deploy-prod: pull up-prod

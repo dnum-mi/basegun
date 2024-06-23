@@ -34,8 +34,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.head_ref }}
-          target: dev
+          tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
 
   build-frontend:
     name: Build Frontend
@@ -54,30 +53,36 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/datalab-mi/basegun/basegun-frontend:${{ github.head_ref }}
-          target: prod
+          tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref }}
   
   test-backend:
     name: Test Backend
     needs: build-backend
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/datalab-mi/basegun/basegun-backend:${{ github.head_ref }}
+      image: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
       env:
-        WORKSPACE: dev
         AWS_REGION: gra
         AWS_DEFAULT_REGION: gra
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        S3_URL_ENDPOINT: https://s3.gra.io.cloud.ovh.net/
+        S3_BUCKET_NAME: basegun-s3
     steps:
-      - run: cd /app && python -m unittest
+      - run: cd /app && pytest
+
+  test-frontend-format:
+    name: Test Frontend Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Prettier check
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run format-check
 
   test-e2e:
     name: Run E2E tests
     needs: [build-backend, build-frontend]
-    uses: ./.github/workflows/test-on-kube.yml
-    secrets:
-      API_OVH_TOKEN: ${{ secrets.API_OVH_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      X_OVH_TOKEN: ${{ secrets.PREPROD_OVH_TOKEN }}
+    uses: ./.github/workflows/test-e2e.yml

@@ -23,7 +23,7 @@ Dependancies:
 * docker
 * docker-compose
 
-See also [Debugging](https://github.com/datalab-mi/Basegun/blob/develop/backend/README.md#debugging) section for all the env variables needed for the website to work fully operationally.
+See also [Debugging](https://github.com/dnum-mi/Basegun/blob/develop/backend/README.md#debugging) section for all the env variables needed for the website to work fully operationally.
 ### Install
 
 ```bash
@@ -52,15 +52,15 @@ Try to find error log
 * In terminal, run `docker logs basegun-backend`
 * If you cannot access terminal or don't see anything, go to `localhost:5000/logs` or `preprod.basegun.fr/logs` to see latest logs.
 
-=> ErrorPage "missing model": Download model from the url specified in the [backend Dockerfile](https://github.com/datalab-mi/Basegun/blob/develop/backend/Dockerfile).
+=> ErrorPage "missing model": Download model from the url specified in the [backend Dockerfile](https://github.com/dnum-mi/Basegun/blob/develop/backend/Dockerfile).
 
 ### The website runs the analysis, but no image shows up
 Use browser html inspector to find the url given in the image src.
 * If it starts with `https://storage.gra.cloud.ovh.net` then the website tried to upload the input image to OVH but it failed. Have you set properly in your env the variables OS_USERNAME, OS_PASSWORD and OS_PROJECT ?
-* If it starts with `https://localhost` then the website tried to store the input image locally. Have you synchronised the mounts for frontend and backend in [docker-compose](https://github.com/datalab-mi/Basegun/blob/develop/backend/docker-compose.yml) ? (uncomment the `/tmp/basegun` lines in the volumes sections)
+* If it starts with `https://localhost` then the website tried to store the input image locally. Have you synchronised the mounts for frontend and backend in [docker-compose](https://github.com/dnum-mi/Basegun/blob/develop/backend/docker-compose.yml) ? (uncomment the `/tmp/basegun` lines in the volumes sections)
 
 ### Logs are not sent to the endpoint
-The variables `X_OVH_TOKEN` and `API_OVH_TOKEN` must en set in your env. See [Infra README](https://github.com/datalab-mi/Basegun/blob/develop/infra/README.md) for more details.
+The variables `X_OVH_TOKEN` and `API_OVH_TOKEN` must en set in your env. See [Infra README](https://github.com/dnum-mi/Basegun/blob/develop/infra/README.md) for more details.
 
 ## Release an official version of code
 1. Update tag in Makefile

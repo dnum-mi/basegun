@@ -1,4 +1,4 @@
-FROM python:3.10-slim as base
+FROM python:3.11-slim as base
 WORKDIR /app
 
 # certificates config
@@ -13,7 +13,7 @@ RUN apt update && apt install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# install python libraries (except torch)
+# install python libraries
 COPY requirements.txt .
 ENV PIP_CERT=$CACERT_LOCATION
 RUN pip --default-timeout=300 install --upgrade pip \
@@ -21,19 +21,5 @@ RUN pip --default-timeout=300 install --upgrade pip \
     && rm -r /root/.cache
 
 ARG VERSION
-ARG MODEL="EffB7_2023-03-06_08"
 ENV SSL_CERT_FILE=$CACERT_LOCATION
-RUN curl -o model.pth https://storage.gra.cloud.ovh.net/v1/AUTH_df731a99a3264215b973b3dee70a57af/basegun-public/models/${MODEL}/${MODEL}.pth
-COPY src/ src/
-RUN mkdir -p src/weights \
-    && mv model.pth src/weights/model.pth \
-    && echo '{"app": "'${VERSION}'", "model": "'${MODEL}'"}' > versions.json
-
-FROM base as dev
-COPY tests/ tests/
-CMD ["uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "5000"]
-
-FROM base as prod
-RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch==1.13.1+cpu torchvision==0.14.1+cpu && rm -r /root/.cache
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "5000"]
+COPY . .
