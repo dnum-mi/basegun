@@ -19,6 +19,7 @@
     "@gouvminint/vue-dsfr": "^5.8.0",
     "axios": "^1.6.7",
     "luxon": "^3.4.4",
+    "oidc-client-ts": "^3.0.1",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "swiper": "^11.0.6",

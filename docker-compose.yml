@@ -37,15 +37,25 @@ services:
       target: ${BUILD_TARGET:-dev}
     container_name: basegun-frontend
     ports:
-      - 8080:80 # if BUILD_TARGET = prod
       - 3000:5173
     volumes:
       - ./frontend/src:/app/src
       - /app/node_modules
 
+  # Mock Cloud Pi S3
   minio:
     image: minio/minio
     command: server /data --console-address ":9001"
     ports:
       - 9000:9000
       - 9001:9001
+  
+  # Mock Passage2 OIDC
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.0
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+    ports:
+      - 8080:8080

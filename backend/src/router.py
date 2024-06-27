@@ -4,8 +4,8 @@ import time
 from typing import Union
 from uuid import uuid4
 
-from basegunML.classification import get_typology
-from basegunML.measure import get_lengths
+from basegun_ml.classification import get_typology
+from basegun_ml.measure import get_lengths
 from fastapi import (
     APIRouter,
     BackgroundTasks,

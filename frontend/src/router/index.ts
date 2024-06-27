@@ -6,6 +6,7 @@ import {
 } from "vue-router";
 
 import { clearLocalStorage } from "@/utils/storage-utils.js";
+import { mgr } from "@/utils/authentication";
 
 import MissingCardPage from "@/views/MissingCardPage.vue";
 
@@ -43,6 +44,8 @@ const IdentificationBlankGun = () =>
   import("@/views/GuideIdentificationFirearm/IdentificationBlankGun.vue");
 const ExpertSituation = () =>
   import("@/views/GuideContactExpert/ExpertSituation.vue");
+
+const User = () => import("@/components/authentication/User.vue");
 
 const routes: RouteRecordRaw[] = [
   {
@@ -204,6 +207,31 @@ const routes: RouteRecordRaw[] = [
     path: "/guide-contact-gn",
     name: "ExpertSituationGN",
     component: ExpertSituation,
+  },
+  {
+    path: "/auth",
+    children: [
+      {
+        path: "redirect",
+        name: "AuthRedirect",
+        beforeEnter: (to, from) => {
+          mgr.signinRedirect();
+        },
+      },
+      {
+        path: "callback",
+        name: "AuthCallback",
+        beforeEnter: (to, from) => {
+          mgr.signinCallback();
+          return { name: "User" };
+        },
+      },
+      {
+        path: "user",
+        name: "User",
+        component: User,
+      },
+    ],
   },
 ];
 
