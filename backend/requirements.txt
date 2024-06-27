@@ -9,8 +9,9 @@ pyyaml>=5.4.1
 user-agents==2.2.0
 boto3==1.28.39
 autodynatrace==2.0.0
+PyJWT==2.8.0
 # ML
-https://github.com/dnum-mi/basegun-ml/raw/MLPackages/MLpackages/basegun_ml/dist/basegunml-0.1.tar.gz
+basegun-ml==1.0.1
 # Dev
 pytest==7.4.3
 coverage==7.3.2
