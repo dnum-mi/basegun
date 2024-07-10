@@ -13,7 +13,7 @@ Pistolets semi-auto modernes
 */
 export const pistolet_semi_auto_moderne = {
   displayLabel: "Pistolet semi-automatique",
-  getCategory: () => (isAlarmGun() ? "D" : "B"),
+  getCategory: () => (isAlarmGun() ? "C" : "B"),
   pistolet_semi_auto_moderne_text_option:
     'Sélectionner ce que vous voyez sur votre arme : <span class="font-bold">bouton à proximité du pontet du côté gauche de la poignée</span>, OU <span class="font-bold">bouton sur le talon</span> de la crosse.',
   textOptions: "",

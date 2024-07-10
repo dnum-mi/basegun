@@ -36,8 +36,8 @@ Revolvers
 export const revolver = {
   displayLabel: "Revolver",
   getCategory: () => {
-    if (isAlarmGun() || store.selectedOptions[0] === "revolver_black_powder")
-      return "D";
+    if (store.selectedOptions[0] === "revolver_black_powder") return "D";
+    else if (isAlarmGun()) return "C";
     else if (
       store.selectedOptions[0] === undefined ||
       [
