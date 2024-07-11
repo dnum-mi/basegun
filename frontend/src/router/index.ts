@@ -45,8 +45,6 @@ const IdentificationBlankGun = () =>
 const ExpertSituation = () =>
   import("@/views/GuideContactExpert/ExpertSituation.vue");
 
-const User = () => import("@/components/authentication/User.vue");
-
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -207,6 +205,12 @@ const routes: RouteRecordRaw[] = [
     path: "/guide-contact-gn",
     name: "ExpertSituationGN",
     component: ExpertSituation,
+    beforeEnter: (to, from) => {
+      mgr.getUser().then((user) => {
+        console.log(user);
+        if (user === null) mgr.signinRedirect();
+      });
+    },
   },
   {
     path: "/auth",
@@ -223,13 +227,9 @@ const routes: RouteRecordRaw[] = [
         name: "AuthCallback",
         beforeEnter: (to, from) => {
           mgr.signinCallback();
-          return { name: "User" };
+          mgr.getUser().then((user) => console.log(user));
+          return { name: "ExpertSituationGN" };
         },
-      },
-      {
-        path: "user",
-        name: "User",
-        component: User,
       },
     ],
   },
