@@ -10,6 +10,7 @@ import semiAutoMilitairePistoletMitralleurImg from "@/assets/guide-mise-en-secur
 import semiAutoMilitairePistoletMitralleurVideo from "@/assets/guide-mise-en-securite/videos/semi_auto_militaire_autre/semi_auto_mil_uzi.mp4";
 import semiAutoMilitaireCartridges from "@/assets/guide-identification/photos/semi_auto_militaire_autre/semi_automatique_militaire_autre_chargeur_cartouche.jpg";
 import semiAutoMilitaireBalls from "@/assets/guide-identification/photos/semi_auto_militaire_autre/semi_automatique_militaire_autre_chargeur_billes.jpg";
+import PopupVideo from "@/components/PopupVideo.vue";
 /*
 Armes d’épaule semi-automatiques ou automatiques type militaire moderne
   AR15
@@ -93,6 +94,7 @@ export const semi_auto_style_militaire_autre = {
             'Appuyer sur le <span class="font-bold">bouton de verrouillage du chargeur</span> en bas de la poignée',
             "Retirer le chargeur",
             'Tirer le levier d’armement situé sur le dessus de l’arme vers l’arrière et <span class="font-bold">retirer la munition</span> éventuelle de la chambre',
+            PopupVideo,
           ],
           timeVideo: "35 sec",
           img: semiAutoMilitairePistoletMitralleurImg,
