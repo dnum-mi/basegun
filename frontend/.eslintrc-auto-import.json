@@ -296,6 +296,7 @@
     "provideLocal": true,
     "useClipboardItems": true,
     "useScheme": true,
-    "useTabs": true
+    "useTabs": true,
+    "useStore": true
   }
 }
