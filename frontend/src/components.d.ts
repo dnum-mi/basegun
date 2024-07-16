@@ -14,11 +14,15 @@ declare module "vue" {
     copy: (typeof import("./components/authentification/AuthRedirect copy.vue"))["default"];
     DsfrAlert: (typeof import("@gouvminint/vue-dsfr"))["DsfrAlert"];
     DsfrButton: (typeof import("@gouvminint/vue-dsfr"))["DsfrButton"];
+    DsfrCheckbox: (typeof import("@gouvminint/vue-dsfr"))["DsfrCheckbox"];
+    DsfrFileUpload: (typeof import("@gouvminint/vue-dsfr"))["DsfrFileUpload"];
     DsfrHeader: (typeof import("@gouvminint/vue-dsfr"))["DsfrHeader"];
     DsfrInput: (typeof import("@gouvminint/vue-dsfr"))["DsfrInput"];
     DsfrModal: (typeof import("@gouvminint/vue-dsfr"))["DsfrModal"];
     DsfrPicture: (typeof import("@gouvminint/vue-dsfr"))["DsfrPicture"];
     DsfrRadioButton: (typeof import("@gouvminint/vue-dsfr"))["DsfrRadioButton"];
+    DsfrSelect: (typeof import("@gouvminint/vue-dsfr"))["DsfrSelect"];
+    DsfrTag: (typeof import("@gouvminint/vue-dsfr"))["DsfrTag"];
     HeaderMain: (typeof import("./components/HeaderMain.vue"))["default"];
     MissingCardAlert: (typeof import("./components/MissingCardAlert.vue"))["default"];
     OnboardingSwiper: (typeof import("./components/OnboardingSwiper.vue"))["default"];
