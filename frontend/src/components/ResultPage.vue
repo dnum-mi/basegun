@@ -155,6 +155,7 @@ function sendFeedback(isCorrect: boolean) {
               v-if="
                 disclaimer &&
                 confidenceLevel !== 'low' &&
+                isDummy == false &&
                 ($route.name !== 'IdentificationTypologyResult' ||
                   !hasDummyOptions)
               "
