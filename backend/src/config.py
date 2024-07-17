@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from smtplib import SMTP
 
 import boto3
 from gelfformatter import GelfFormatter
@@ -120,3 +121,6 @@ TYPOLOGIES_MEASURED = [
     "epaule_a_verrou",
     "epaule_semi_auto_style_chasse",
 ]
+
+# Emails
+SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
