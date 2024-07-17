@@ -268,8 +268,8 @@ const currentPhone = computed(() => {
                   <span class="font-bold">{{ currentPhone }}</span>
                 </p>
                 <p v-if="priority === 'low'">
-                  Vous trouverez ci-dessous l'adresse mail de la permanence de
-                  l'IRCGN.<br /><br />
+                  Veuilez cliquer sur l'adresse mail ci-dessous pour envoyer un
+                  mail pré-rempli à l'IRCGN : <br /><br />
                   <span class="font-bold"
                     ><a :href="buildMailto(IRCGN.email)">{{
                       IRCGN.email
