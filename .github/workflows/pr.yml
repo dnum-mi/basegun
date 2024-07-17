@@ -68,8 +68,18 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         S3_URL_ENDPOINT: https://s3.gra.io.cloud.ovh.net/
         S3_BUCKET_NAME: basegun-s3
+        EMAIL_HOST: mailpit
+        EMAIL_PORT: 1025
     steps:
       - run: cd /app && pytest
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 1025:1025
+        env:
+          MP_SMTP_AUTH_ACCEPT_ANY: 1
+          MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
   test-frontend-format:
     name: Test Frontend Formatting

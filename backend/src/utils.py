@@ -1,6 +1,9 @@
 import logging
 import time
 from datetime import datetime
+from email.message import EmailMessage
+
+from src.config import SMTPClient
 
 from .config import S3, S3_BUCKET_NAME
 
@@ -21,3 +24,12 @@ def upload_image(content: bytes, image_key: str):
         "bg_image_url": image_key,
     }
     logging.info("Upload successful", extra=extras_logging)
+
+
+def send_mail(subject: str, to: str, message: str):
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = "noreply@interieur.gouv.fr"
+    msg["To"] = to
+    msg.set_content(message)
+    SMTPClient.send_message(msg)

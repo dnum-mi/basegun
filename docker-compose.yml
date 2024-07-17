@@ -15,6 +15,8 @@ services:
       - S3_BUCKET_NAME=basegun-s3
       - AWS_ACCESS_KEY_ID=minioadmin
       - AWS_SECRET_ACCESS_KEY=minioadmin
+      - EMAIL_HOST=mailpit
+      - EMAIL_PORT=1025
       - http_proxy
       - https_proxy
       - no_proxy
@@ -59,3 +61,13 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=password
     ports:
       - 8080:8080
+
+  # Mock Email server
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
