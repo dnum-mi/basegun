@@ -45,29 +45,28 @@ const disclaimer = computed(() =>
 );
 
 function sendFeedback(isCorrect: boolean) {
-  const json = {
-    image_url: store.imgUrl,
-    feedback: isCorrect,
-    confidence: confidence.value,
-    label: typology.value,
-    confidence_level: confidenceLevel.value,
-  };
   if (isCorrect) {
     isUp.value = true;
   } else {
     isDown.value = true;
   }
   axios
-    .post("/identification-feedback", json)
-    .then(async (res) => {
-      console.log(res);
+    .post("/identification-feedback", {
+      image_url: store.imgUrl,
+      feedback: isCorrect,
+      confidence: confidence.value,
+      label: label.value,
+      confidence_level: confidenceLevel.value,
+    })
+    .then((data) => {
+      console.log(data);
       setMessage({
         type: "success",
         message: "Votre vote a été pris en compte",
       });
     })
-    .catch(async (err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
       setMessage({
         type: "error",
         message: "Une erreur a eu lieu en enregistrant votre vote.",
