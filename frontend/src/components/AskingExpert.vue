@@ -20,31 +20,32 @@ const imgUrl = computed(() => store.imgUrl);
 const showModal = ref(false);
 
 function onClose() {
-  store.tutorialFeedback = "";
+  tutorialFeedback.value = "";
   showModal.value = false;
 }
+
+const tutorialFeedback = ref("");
 
 async function sendTutorialFeedback() {
   const feedback = {
     image_url: imgUrl.value,
-    tutorial_feedback: store.tutorialFeedback,
+    tutorial_feedback: tutorialFeedback.value,
     label: typology.value,
-    tutorial_option: store.currentOptionStep[store.currentStep] || null,
+    selected_options: store.selectedOptions,
     route_name: route.name,
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   };
   await axios
     .post("/tutorial-feedback", feedback)
-    .then(async () => {
-      store.tutorialFeedback = feedback.tutorial_feedback;
+    .then(() => {
       setMessage({
         type: "success",
         message: "Votre message a été pris en compte",
       });
     })
-    .catch(async (err) => {
-      import.meta.env.DEV && console.log(err);
+    .catch((error) => {
+      console.log(error);
       setMessage({
         type: "error",
         message: "Une erreur a eu lieu en enregistrant de votre message.",
@@ -52,7 +53,6 @@ async function sendTutorialFeedback() {
     })
     .finally(() =>
       setTimeout(() => {
-        store.tutorialFeedback = "";
         router.push({ name: "ResultPage" });
       }, 3000),
     );
@@ -80,20 +80,16 @@ async function sendTutorialFeedback() {
             contenu de ce tutoriel en nous décrivant votre problème ci-dessous.
           </p>
           <DsfrInput
-            v-model="store.tutorialFeedback"
+            v-model="tutorialFeedback"
             label="Décrivez votre problème"
             label-visible
             is-textarea
           />
-        </div>
-        <div>
           <SnackbarAlert class="text-center pt-3" />
-        </div>
-        <div class="small-blank" />
-        <div class="modal-footer">
           <DsfrButton
+            class="mt-5 w-100"
             label="Valider et retour au résultat"
-            :disabled="!store.tutorialFeedback"
+            :disabled="tutorialFeedback === ''"
             @click="sendTutorialFeedback()"
           />
         </div>
@@ -104,28 +100,5 @@ async function sendTutorialFeedback() {
 <style scoped>
 :deep(.fr-btn) span {
   margin: auto !important;
-}
-
-.modal {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.modal-footer {
-  position: sticky;
-  bottom: 0;
-  text-align: center;
-  background-color: #f5f5fe;
-  box-shadow: 0 -4px 16px rgb(0 0 0 / 25%);
-  padding: 1rem !important;
-  width: 100%;
-}
-.modal-footer button {
-  width: 100%;
 }
 </style>
