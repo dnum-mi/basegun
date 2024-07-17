@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from smtplib import SMTP
+from smtplib import SMTP
 
 import boto3
 from fastapi.security import OpenIdConnect
@@ -125,8 +126,3 @@ TYPOLOGIES_MEASURED = [
 
 # Emails
 SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
-
-# Authentication
-PUBLIC_KEY = f"""-----BEGIN PUBLIC KEY-----\n{os.environ.get("PUBLIC_KEY")}\n-----END PUBLIC KEY-----"""
-
-OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OPENIDCONNECT_URL"])
