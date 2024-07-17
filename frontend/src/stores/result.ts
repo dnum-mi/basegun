@@ -15,7 +15,6 @@ export const useStore = defineStore("result", {
     const selectedOptions = ref([]);
     const selectedAmmo = ref(undefined);
     const selectedAlarmGun = ref(undefined);
-    const tutorialFeedback = ref("");
     const isDummy = computed(() => !!(selectedAmmo.value === "billes"));
     const isModalTransparentAmmoOpened = ref(null);
 
@@ -32,7 +31,6 @@ export const useStore = defineStore("result", {
       selectedOptions.value = [];
       selectedAmmo.value = undefined;
       selectedAlarmGun.value = undefined;
-      tutorialFeedback.value = "";
       isModalTransparentAmmoOpened.value = null;
     }
 
@@ -48,7 +46,6 @@ export const useStore = defineStore("result", {
       selectedOptions,
       selectedAmmo,
       selectedAlarmGun,
-      tutorialFeedback,
       isDummy,
       isModalTransparentAmmoOpened,
       $reset,

@@ -134,7 +134,7 @@ async def log_tutorial_feedback(
         "confidence",
         "confidence_level",
         "tutorial_feedback",
-        "tutorial_option",
+        "selected_options",
         "route_name",
     ]:
         extras_logging["bg_" + key] = res[key]
@@ -158,7 +158,7 @@ async def log_identification_dummy(
         "label",
         "confidence",
         "confidence_level",
-        "tutorial_option",
+        "selected_options",
     ]:
         extras_logging["bg_" + key] = res[key]
 
