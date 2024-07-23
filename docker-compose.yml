@@ -17,6 +17,9 @@ services:
       - AWS_SECRET_ACCESS_KEY=minioadmin
       - EMAIL_HOST=mailpit
       - EMAIL_PORT=1025
+      - JWKS_URL=http://keycloak:8080/realms/master/protocol/openid-connect/certs
+      - OPENIDCONNECT_URL=http://localhost:8080/realms/master/.well-known/openid-configuration
+      - KID=aaqEthfKrBUsIizu2Lk7bweeqxyn6Wi2thBoaNS3MQM
       - http_proxy
       - https_proxy
       - no_proxy
@@ -54,25 +57,15 @@ services:
   
   # Mock Passage2 OIDC
   keycloak:
-    build:
-      context: .
-      dockerfile: keycloak/Dockerfile
+    image: quay.io/keycloak/keycloak:25.0.0
     command: start-dev --import-realm
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
     ports:
       - 8080:8080
-
-  # Mock Email server
-  mailpit:
-    image: axllent/mailpit
-    ports:
-      - 8025:8025
-      - 1025:1025
-    environment:
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
 
   # Mock Email server
   mailpit:

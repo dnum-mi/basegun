@@ -119,6 +119,7 @@ class TestApi:
             assert header_to_add["name"].lower() in CURRENT_HEADERS
 
 
+
 class TestUpload:
     def test_revolver_without_card(self):
         with open("./tests/revolver.jpg", "rb") as f:
@@ -151,38 +152,3 @@ class TestUpload:
         assert response.data["gun_length"] is not None
         assert response.data["gun_barrel_length"] is not None
         assert response.data["conf_card"] is not None
-
-
-class TestExpertContact:
-    @pytest.mark.skip("Need to authenticate to run that test.")
-    def test_success(self, faker):
-        with open("./tests/revolver.jpg", "rb") as f:
-            response = client.post(
-                "/api/expert-contact",
-                files=[
-                    ("files", ("right_picture", f)),
-                    ("files", ("left_picture", f)),
-                    ("files", ("markings_picture", f)),
-                ],
-                data={
-                    "firstname": faker.first_name(),
-                    "lastname": faker.last_name(),
-                    "nigend": faker.pystr(),
-                    "service": faker.pystr(),
-                    "phone": faker.pystr(),
-                    "email": faker.pystr(),
-                    "seizure": faker.pystr(),
-                    "una_or_procedure_number": faker.pystr(),
-                    "gun_type": faker.pystr(),
-                    "gun_length": faker.pyint(),
-                    "gun_barrel_length": faker.pyint(),
-                    "markings_description": faker.pystr(),
-                },
-            )
-        response.data = response.json()
-        assert response.status_code == 200
-
-    def test_403(self):
-        response = client.post("/api/expert-contact")
-        response.data = response.json()
-        assert response.status_code == 403

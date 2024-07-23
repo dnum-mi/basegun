@@ -6,6 +6,7 @@ from smtplib import SMTP
 import boto3
 from fastapi.security import OpenIdConnect
 from gelfformatter import GelfFormatter
+from jwt import PyJWKClient
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -126,3 +127,8 @@ TYPOLOGIES_MEASURED = [
 
 # Emails
 SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
+
+# Authentication
+JWKS_CLIENT = PyJWKClient(os.environ["JWKS_URL"])
+PUBLIC_KEY = JWKS_CLIENT.get_signing_key(os.environ["KID"]).key
+OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OPENIDCONNECT_URL"])
