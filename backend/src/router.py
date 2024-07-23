@@ -1,7 +1,7 @@
 import logging
 import os
 import time
-from typing import Union
+from typing import Annotated, Union
 from uuid import uuid4
 
 from basegun_ml.classification import get_typology
@@ -10,6 +10,7 @@ from fastapi import (
     APIRouter,
     BackgroundTasks,
     Cookie,
+    Depends,
     File,
     Form,
     HTTPException,
@@ -21,7 +22,8 @@ from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
 from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
-from .utils import upload_image
+from .models import EmailData
+from .utils import get_current_user, send_mail, upload_image
 
 router = APIRouter(prefix="/api")
 
@@ -163,3 +165,33 @@ async def log_identification_dummy(
         extras_logging["bg_" + key] = res[key]
 
     logging.info("Identification dummy", extra=extras_logging)
+
+
+# Currently missing because we don't know if we can send attachements or if target can use S3 link
+# Photo face droite : {request.right_picture}
+# Photo face gauche : {request.left_picture}
+# Photo des marquages : {request.markings_pictures}
+# Photo du chargeur : {request.magazine_picture}
+@router.post("/expert-contact")
+async def expert_contact(
+    request: EmailData,
+    current_user: Annotated[dict, Depends(get_current_user)],
+):
+    send_mail(
+        subject="[Basegun] Demande d'identification",
+        to="db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
+        message=f"""
+        Nom : {request.lastname}
+        Prénom : {request.firstname}
+        NIGEND / matricule : {request.nigend}
+        Service d'affectation : {request.service}
+        Téléphone : {request.phone}
+        Email : {request.email}
+        Saisie : {request.seizure}
+        N° de procédure : {request.una_or_procedure_number}
+        Typologie de l'arme (épaule ou poing) : {request.gun_type}
+        Longueur de l'arme : {request.gun_length}
+        Longueur du canon de l'arme : {request.gun_barrel_length}
+        Précision sur les marquages présents sur l'arme : {request.markings_description}
+        """,
+    )

@@ -2,10 +2,13 @@ import logging
 import time
 from datetime import datetime
 from email.message import EmailMessage
+from typing import Annotated
 
+import jwt
+from fastapi import Depends, HTTPException, status
 from src.config import SMTPClient
 
-from .config import S3, S3_BUCKET_NAME
+from .config import OAUTH2_SCHEME, PUBLIC_KEY, S3, S3_BUCKET_NAME
 
 
 def upload_image(content: bytes, image_key: str):
@@ -33,3 +36,20 @@ def send_mail(subject: str, to: str, message: str):
     msg["To"] = to
     msg.set_content(message)
     SMTPClient.send_message(msg)
+
+
+async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        return jwt.decode(
+            token.split()[1],
+            PUBLIC_KEY,
+            algorithms=["RS256"],
+            audience=["master-realm", "account"],
+        )
+    except jwt.InvalidTokenError:
+        raise credentials_exception
