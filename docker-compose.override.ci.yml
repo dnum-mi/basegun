@@ -1,0 +1,7 @@
+# Override environment variables in CI to use dummy OIDC
+services:
+  backend:
+    environment:
+      - JWKS_URL=https://token.actions.githubusercontent.com/.well-known/jwks
+      - OPENIDCONNECT_URL=https://token.actions.githubusercontent.com/.well-known/openid-configuration
+      - KID=cc413527-173f-5a05-976e-9c52b1d7b431
