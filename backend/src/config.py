@@ -5,6 +5,7 @@ from smtplib import SMTP
 import boto3
 from fastapi.security import OpenIdConnect
 from gelfformatter import GelfFormatter
+from jwt import PyJWKClient
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 

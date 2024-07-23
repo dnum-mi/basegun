@@ -65,6 +65,8 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=password
     ports:
       - 8080:8080
+    volumes:
+      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
 
   # Mock Email server
   mailpit:
