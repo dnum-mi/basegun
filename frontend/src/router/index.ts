@@ -208,7 +208,16 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: (to, from) => {
       mgr.getUser().then((user) => {
         console.log(user);
-        if (user === null) mgr.signinRedirect();
+        if (user === null)
+          mgr
+            .signinRedirect()
+            .then((data) => console.log(data))
+            .catch((err) => {
+              console.log(err);
+              return {
+                name: "PageNotFound",
+              };
+            });
       });
     },
   },

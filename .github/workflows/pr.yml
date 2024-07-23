@@ -70,6 +70,9 @@ jobs:
         S3_BUCKET_NAME: basegun-s3
         EMAIL_HOST: mailpit
         EMAIL_PORT: 1025
+        JWKS_URL: https://token.actions.githubusercontent.com/.well-known/jwks
+        OPENIDCONNECT_URL: https://token.actions.githubusercontent.com/.well-known/openid-configuration
+        KID: cc413527-173f-5a05-976e-9c52b1d7b431
     steps:
       - run: cd /app && pytest
     services:

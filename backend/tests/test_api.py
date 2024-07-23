@@ -1,7 +1,6 @@
 import json
 import os
 import time
-from io import BytesIO
 
 import boto3
 import pytest
@@ -118,6 +117,7 @@ class TestApi:
 
         for header_to_add in HEADERS_TO_ADD:
             assert header_to_add["name"].lower() in CURRENT_HEADERS
+
 
 class TestUpload:
     def test_revolver_without_card(self):
