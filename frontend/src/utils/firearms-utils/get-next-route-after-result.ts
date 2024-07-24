@@ -16,7 +16,11 @@ export const getNextRouteAfterResult = (
   const isAbleToWatchTutorial =
     securingTutorial === true && confidenceLevel !== "low";
   if (!isAbleToWatchTutorial) {
-    if (isCardDetected === false && isMeasuredGun === true) {
+    if (
+      isCardDetected === false &&
+      isMeasuredGun === true &&
+      confidenceLevel !== "low"
+    ) {
       return { name: "MissingCard" };
     } else {
       return { name: "IdentificationTypologyResult" };
