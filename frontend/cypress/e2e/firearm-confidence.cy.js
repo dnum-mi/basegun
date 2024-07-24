@@ -1,4 +1,4 @@
-describe("Firearm Fiability", () => {
+describe("Firearm Confidence", () => {
   it("should identificate firearm with high confidence", () => {
     cy.Identification();
 
@@ -16,7 +16,7 @@ describe("Firearm Fiability", () => {
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
   });
 
-  it("should identificate firearm with low confidence", () => {
+  it("should identificate firearm with medium confidence", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
@@ -27,13 +27,12 @@ describe("Firearm Fiability", () => {
     cy.wait("@upload").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
     });
-    cy.url().should("contain", "/carte-manquante");
-    cy.contains("Je souhaite tout de même poursuivre").click();
     cy.url().should("contain", "/guide-identification/resultat-typologie");
-    cy.contains("h2", "Typologie non déterminée");
+    cy.contains("h2", "Pistolet divers");
+    cy.contains("h3", "Catégorie A, B ou D");
   });
 
-  it("should identificate firearm with low fiability", () => {
+  it("should identificate firearm with low confidence", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
