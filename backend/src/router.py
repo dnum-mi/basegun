@@ -71,7 +71,7 @@ async def imageupload(
         label, confidence, confidence_level = get_typology(img_bytes)
 
         gun_length, gun_barrel_length, conf_card = None, None, None
-        if label in TYPOLOGIES_MEASURED:
+        if label in TYPOLOGIES_MEASURED and confidence_level != "low":
             gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
 
         # Temporary fix while ML package send 0 instead of None
