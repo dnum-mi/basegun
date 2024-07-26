@@ -17,9 +17,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=minioadmin
       - EMAIL_HOST=mailpit
       - EMAIL_PORT=1025
-      - JWKS_URL=http://keycloak:8080/realms/master/protocol/openid-connect/certs
-      - OPENIDCONNECT_URL=http://localhost:8080/realms/master/.well-known/openid-configuration
-      - KID=aaqEthfKrBUsIizu2Lk7bweeqxyn6Wi2thBoaNS3MQM
+      - OPENIDCONNECT_URL=http://localhost:8080/realms/basegun/.well-known/openid-configuration
+      - PUBLIC_KEY=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyn3q/tTOfj8uSdts94MVVrYrtAZLUO//sNNagO2H6gia8LkbYf3eByA6FippkptQsgb3JxP1zczORcQ48Vck13QrjKcXVY4+usAddke9aB8nui3vaEO13lcAZo81H2lQyrbgYEC66Mz0SNgpQk4H3mHtu4zmy4HXzmn8WDC2s3iQ71Ly7OWIBZCjHPCGhaqq6YyNtp/2MXFBj9e58ixC72cmrUis5/MSTgq857mFZ1AXOMuimk0Xt2cTqT0OM13SeJLF8P8iGL0FIC9mKtZVIAR6kDF3T2lbAf9Dta6YzUiPAsrYAY0nGkOkazyfBJxS1FplkCZAhRAryO6J6D5KowIDAQAB
       - http_proxy
       - https_proxy
       - no_proxy
@@ -57,15 +56,15 @@ services:
   
   # Mock Passage2 OIDC
   keycloak:
-    image: quay.io/keycloak/keycloak:25.0.0
+    build:
+      context: .
+      dockerfile: keycloak/Dockerfile
     command: start-dev --import-realm
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
     ports:
       - 8080:8080
-    volumes:
-      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json
 
   # Mock Email server
   mailpit:
