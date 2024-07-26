@@ -1,8 +1,8 @@
 {
   "id": "8dafce1d-e236-44b2-bbc9-1277f461a865",
-  "realm": "master",
-  "displayName": "Keycloak",
-  "displayNameHtml": "<div class=\"kc-logo-text\"><span>Keycloak</span></div>",
+  "realm": "basegun",
+  "displayName": "Basegun",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>Basegun</span></div>",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
