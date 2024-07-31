@@ -29,12 +29,19 @@ def upload_image(content: bytes, image_key: str):
     logging.info("Upload successful", extra=extras_logging)
 
 
-def send_mail(subject: str, to: str, message: str):
+async def send_mail(subject: str, to: str, message: str, attachements: list = []):
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = "noreply@interieur.gouv.fr"
     msg["To"] = to
     msg.set_content(message)
+    for attachement in attachements:
+        msg.add_attachment(
+            await attachement.read(),
+            maintype="image",
+            subtype=attachement.content_type,
+            filename=attachement.filename,
+        )
     SMTPClient.send_message(msg)
 
 
