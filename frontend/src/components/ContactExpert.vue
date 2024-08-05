@@ -7,7 +7,7 @@
       href="#"
       icon="ri-alert-line"
       label="Contacter un expert"
-      @click="$router.push({ name: 'ExpertSituationGN' })"
+      @click="$router.push({ name: 'ExpertSituation' })"
     />
   </div>
 </template>

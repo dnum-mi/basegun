@@ -29,7 +29,7 @@
                 <p>
                   Avant de procéder à cette demande de contact, veuillez noter
                   que vous êtes sur le point d'envoyer une demande d'avis à un
-                  expert auprès d'un laboratoire de PTS ou de l'IRCGN. <br />
+                  expert auprès de l'IRCGN. <br />
                   <br />
                   <span class="font-bold"
                     >Assurez-vous que cette demande est conforme aux règles en
@@ -60,7 +60,7 @@
 
         <div class="justify-center fr-pb-15w">
           <DsfrInput
-            v-model="last_name"
+            v-model="lastname"
             class="mb-5"
             label="Nom"
             label-visible
@@ -68,33 +68,21 @@
             disabled="true"
           />
           <DsfrInput
-            v-model="first_name"
+            v-model="firstname"
             class="mb-5"
             label="Prénom"
             label-visible
             required="true"
             disabled="true"
           />
-          <div v-if="police_matricule === undefined">
-            <DsfrInput
-              v-model="uid"
-              class="mb-5"
-              label="NIGEND"
-              label-visible
-              required="true"
-              :disabled="true"
-            />
-          </div>
-          <div v-else>
-            <DsfrInput
-              v-model="police_matricule"
-              class="mb-5"
-              label="RIO ou Matricule"
-              label-visible
-              required="true"
-              :disabled="false"
-            />
-          </div>
+          <DsfrInput
+            v-model="nigend"
+            class="mb-5"
+            label="NIGEND"
+            label-visible
+            required="true"
+            disabled="true"
+          />
           <DsfrInput
             v-model="service"
             class="mb-5"
@@ -102,13 +90,12 @@
             label-visible
           />
           <DsfrInput
-            v-model="phone_number"
+            v-model="phone"
             class="mb-5"
             label="Numéro de téléphone"
             hint="Format attendu : 06 12 34 56 78"
             label-visible
             required="true"
-            disabled="true"
           />
           <DsfrInput
             id="adresse"
@@ -126,7 +113,7 @@
       <div v-if="currentStep === 2">
         <div class="justify-center fr-pb-15w">
           <DsfrInput
-            v-model="date"
+            v-model="seizure"
             class="mb-5"
             label="Date de la saisie"
             type="date"
@@ -134,27 +121,27 @@
             required="true"
           />
           <DsfrInput
-            v-model="numeroProcedure"
+            v-model="una_or_procedure_number"
             class="mb-5"
             label="UNA / Numéro de procédure"
             label-visible
             required="true"
           />
           <DsfrSelect
-            v-model="weapon_type"
+            v-model="gun_type"
             class="mb-5"
             label="Type d'arme"
             :options="typeArmeOptions"
           />
           <DsfrInput
-            v-model="weapon_length"
+            v-model="gun_length"
             class="mb-5"
             label="Longueur de l'arme (en cm)"
             type="number"
             label-visible
           />
           <DsfrInput
-            v-model="weapon_barrel_length"
+            v-model="gun_barrel_length"
             class="mb-5"
             label="Longueur du canon (en cm)"
             type="number"
@@ -162,7 +149,7 @@
           />
           <DsfrInput
             v-if="showMarquage"
-            v-model="markings"
+            v-model="markings_description"
             class="mb-5"
             label="Description des marquages"
             label-visible
@@ -236,43 +223,42 @@
         <div class="justify-center fr-pb-15w">
           <div class="separatorUpload">
             <DsfrFileUpload
-              v-model="picture_left"
+              v-model="left_picture"
               label="Vue d'ensemble côté gauche *"
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
-              @change="(files) => handleFileUpload(files, 'picture_left')"
+              @change="handleFileChange"
             />
           </div>
 
           <div class="separatorUpload">
             <DsfrFileUpload
-              v-model="picture_right"
-              label="Vue d'ensemble côté droite *"
+              v-model="right_picture"
+              label="Vue d'ensemble côté droit *"
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
-              @change="(files) => handleFileUpload(files, 'picture_right')"
+              @change="handleFileChange"
             />
           </div>
 
           <div class="separatorUpload">
             <DsfrFileUpload
-              v-model="picture_markings"
-              label="Une ou plusieurs vue(s) rapprochée(s) des marquages et poinçons *"
+              v-model="markings_pictures"
+              label="Une vue rapprochée des marquages et poinçons *"
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
-              multiple
-              @change="(files) => handleFileUpload(files, 'picture_markings')"
+              @change="handleFileChange"
             />
           </div>
 
           <div class="separatorUpload fr-mb-4w">
             <DsfrFileUpload
               v-if="showChargeur"
-              v-model="picture_charger"
+              v-model="magazine_picture"
               label="Chargeur *"
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
-              @change="(files) => handleFileUpload(files, 'picture_charger')"
+              @change="handleFileChange"
             />
 
             <DsfrCheckbox
@@ -291,17 +277,7 @@
             >
               <template #default>
                 <div
-                  v-if="formSubmissionStatus === errorMessage"
-                  class="form-submission-status"
-                >
-                  <DsfrAlert
-                    title="Erreur"
-                    description="Le formulaire n'a pas pu être envoyé. Veuillez réessayer plus tard."
-                    type="error"
-                  />
-                </div>
-                <div
-                  v-else-if="formSubmissionStatus === successMessage"
+                  v-if="formSubmissionStatus === 'success'"
                   class="form-submission-status"
                 >
                   <DsfrAlert
@@ -309,9 +285,17 @@
                     description="Le formulaire a été envoyé avec succès."
                     type="success"
                   />
+                  <p>
+                    Vous recevrez prochainemenent une réponse sur votre adresse
+                    mail professionnel.
+                  </p>
                 </div>
-                <div>
-                  <SnackbarAlert class="text-center fr-pt-3w" />
+                <div v-else class="form-submission-status">
+                  <DsfrAlert
+                    title="Erreur"
+                    description="Le formulaire n'a pas pu être envoyé. Veuillez réessayer plus tard."
+                    type="error"
+                  />
                 </div>
                 <div class="small-blank" />
                 <div class="fr-col-12 fr-col-lg-6 footer-actions mx-auto">
@@ -352,9 +336,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed, onMounted, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { sendExpertiseForm } from "@/api/api-client";
+import { mgr } from "@/utils/authentication";
+import { DateTime } from "luxon";
 
 const formData = new FormData();
 const steps = [
@@ -364,6 +350,7 @@ const steps = [
 ];
 const router = useRouter();
 const currentStep = ref(1);
+const todayDate = DateTime.now().setZone("Europe/Paris").toISODate();
 
 const typeArmeOptions = ref([
   { text: "Je ne sais pas", value: "Je ne sais pas" },
@@ -431,42 +418,75 @@ const routerFooter = computed(() => {
 
 const goToPreviousStep = () => (currentStep.value = currentStep.value - 1);
 
-const goToNextStep = () => {
-  sendData();
-  currentStep.value = currentStep.value + 1;
+const goToNextStep = async () => {
+  if (areRequiredFieldsFilled()) {
+    await sendData();
+    currentStep.value = currentStep.value + 1;
+  }
 };
 
-const last_name: Ref<string> = ref("");
-const first_name: Ref<string> = ref("");
-const uid: Ref<string | undefined> = ref(undefined);
-const police_matricule: Ref<string | undefined> = ref(undefined);
-const numeroProcedure: Ref<number | null> = ref(null);
-const service: Ref<string> = ref("");
-const phone_number: Ref<string> = ref("");
-const email: Ref<string> = ref("");
-const date: Ref<string> = ref("");
-const weapon_type: Ref<string> = ref("");
-const weapon_length: Ref<number | null> = ref(null);
-const weapon_barrel_length: Ref<number | null> = ref(null);
-const markings: Ref<string> = ref("");
-const picture_left: Ref<File | null> = ref(null);
-const picture_right: Ref<File | null> = ref(null);
-const picture_markings: Ref<File[]> = ref([]);
-const picture_charger: Ref<File | null> = ref(null);
+// Récupération des données de l'utilisateur
+const getUserData = async () => {
+  try {
+    const user = await mgr.getUser();
+    email.value = user.profile.email;
+    service.value = user.profile.service;
+    nigend.value = user.profile.nigend;
+    firstname.value = user.profile.given_name;
+    lastname.value = user.profile.family_name;
+    phone.value = user.profile.phone_number;
+    seizure.value = todayDate;
+    getAccessToken.value = user?.access_token;
+    console.log(
+      "Données de l'utilisateur récupérées avec succès :",
+      user?.access_token,
+    );
+  } catch (error) {
+    console.error(
+      "Erreur pendant la récupération des données de l'utilisateur :",
+      error,
+    );
+  }
+};
 
+onMounted(async () => {
+  await getUserData();
+});
+
+const lastname: Ref<string> = ref("");
+const firstname: Ref<string> = ref("");
+const nigend: Ref<string> = ref("");
+const una_or_procedure_number: Ref<string> = ref("");
+const service: Ref<string> = ref("");
+const phone: Ref<string | undefined> = ref(undefined);
+const email: Ref<string> = ref("");
+const seizure: Ref<string> = ref("");
+const gun_type: Ref<string> = ref("");
+const gun_length: Ref<number | null> = ref(null);
+const gun_barrel_length: Ref<number | null> = ref(null);
+const markings_description: Ref<string> = ref("");
+const left_picture: Ref<File | null> = ref(null);
+const right_picture: Ref<File | null> = ref(null);
+const markings_pictures: Ref<File | null> = ref(null);
+const magazine_picture: Ref<File | null> = ref(null);
+const files: Ref<File[]> = ref([]);
+const getAccessToken: Ref<string> = ref("");
+
+// Validation des champs
 const stepValidations = {
   1: () =>
-    last_name.value.trim() !== "" &&
-    first_name.value.trim() !== "" &&
-    (police_matricule.value !== "" || uid.value !== "") &&
-    phone_number.value.trim() !== "" &&
+    lastname.value.trim() !== "" &&
+    firstname.value.trim() !== "" &&
+    nigend.value !== "" &&
+    phone.value !== "" &&
     email.value.trim() !== "",
-  2: () => date.value.trim() !== "" && numeroProcedure.value !== 0,
+  2: () =>
+    seizure.value.trim() !== "" && una_or_procedure_number.value.trim() !== "",
   3: () => {
     const baseValidation =
-      picture_left.value && picture_right.value && picture_markings.value;
+      left_picture.value && right_picture.value && markings_pictures.value;
     return showChargeur.value
-      ? baseValidation && picture_charger.value
+      ? baseValidation && magazine_picture.value
       : baseValidation;
   },
 };
@@ -476,108 +496,81 @@ const areRequiredFieldsFilled = () => {
   return validate ? validate() : false;
 };
 
+// Mapping des données du formulaire
 const stepFormMappings = {
   1: () => ({
-    last_name: last_name.value,
-    first_name: first_name.value,
-    police_matricule: police_matricule.value,
-    uid: uid.value,
-    numeroProcedure: numeroProcedure.value,
+    lastname: lastname.value,
+    firstname: firstname.value,
+    nigend: nigend.value,
     service: service.value,
-    phone_number: phone_number.value,
+    phone: phone.value,
     email: email.value,
   }),
   2: () => ({
-    date: date.value,
-    weapon_type: weapon_type.value,
-    weapon_length: weapon_length.value,
-    weapon_barrel_length: weapon_barrel_length.value,
-    markings: markings.value,
+    seizure: seizure.value,
+    una_or_procedure_number: una_or_procedure_number.value,
+    gun_type: gun_type.value,
+    gun_length: gun_length.value,
+    gun_barrel_length: gun_barrel_length.value,
+    markings_description: markings_description.value,
   }),
-  3: (fieldName: string, base64String: string) => ({
-    [fieldName]: base64String,
+  3: () => ({
+    files: files.value,
   }),
 };
 
-const getCurrentFormData = (
-  fieldName: string = "",
-  base64String: string = "",
-) => {
+const handleFileChange = (newFiles: FileList) => {
+  console.log(newFiles); // eslint-disable-line no-console
+  files.value = files.value.concat(Array.from(newFiles));
+  console.log(files);
+};
+
+const getCurrentFormData = () => {
   const formDataFunction = stepFormMappings[currentStep.value];
-  return formDataFunction ? formDataFunction(fieldName, base64String) : {};
+  return formDataFunction ? formDataFunction() : {};
 };
 
-const handleFileUpload = async (files, vModel) => {
-  if (files && files.length > 0) {
-    if (files.length === 1) {
-      const file = files[0];
-      const base64String = await readFileAsBase64(file);
-      const base64Data = base64String.split(",")[1];
-      const formDataToUpdate = getCurrentFormData(vModel, base64Data);
-      handleFormDataUpdate(formDataToUpdate);
-    } else {
-      const fileArray = Array.from(files);
-      const base64Strings = await Promise.all(
-        fileArray.map((file) => readFileAsBase64(file)),
-      );
-      const formDataArray = base64Strings.map((base64String, index) => {
-        const base64Data = base64String.split(",")[1];
-        return getCurrentFormData(`${vModel}[${index}]`, base64Data);
-      });
-      formDataArray.forEach((formData) => {
-        handleFormDataUpdate(formData);
-      });
-    }
-  }
-};
-
-const sendData = () => {
+const sendData = async () => {
   const formDataToUpdate = getCurrentFormData();
   handleFormDataUpdate(formDataToUpdate);
 };
 
+// Mise à jour des données du formulaire
 const handleFormDataUpdate = (form: Record<string, number | string | File>) => {
-  Object.entries(form).forEach(([key, value]) => {
-    if (formData.has(key)) {
-      formData.set(key, value);
+  console.log("Données mises à jour:", form);
+
+  for (const [key, value] of Object.entries(form)) {
+    if (key === "files" && Array.isArray(value)) {
+      value.forEach((file) => {
+        if (file instanceof File) {
+          formData.append("files", file);
+        }
+      });
     } else {
       formData.append(key, value);
     }
-  });
+  }
 };
 
-const readFileAsBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result as string;
-      resolve(base64String);
-    };
-    reader.onerror = (error) => {
-      reject(error);
-    };
-    reader.readAsDataURL(file);
-  });
+// Envoi du formulaire vers l'endpoint
+const sendFormData = async () => {
+  try {
+    const response = await sendExpertiseForm(formData, getAccessToken.value);
+    console.log("Formulaire soumis avec succès :", response);
+    formSubmissionStatus.value = "success";
+  } catch (error) {
+    console.error("Erreur lors de la soumission du formulaire :", error);
+    formSubmissionStatus.value = "error";
+  }
 };
+
+const formSubmissionStatus = ref("");
 
 const handleSubmit = async () => {
   await sendData();
   await sendFormData();
   showModalSubmit.value = true;
 };
-
-const sendFormData = () => {
-  sendExpertiseForm(formData)
-    .then(() => {
-      formSubmissionStatus.value = successMessage;
-    })
-    .catch(() => {
-      formSubmissionStatus.value = errorMessage;
-    });
-};
-
-const formSubmissionStatus = ref<boolean | null>(null);
-const [successMessage, errorMessage] = [ref(true), ref(false)];
 </script>
 
 <style scoped>

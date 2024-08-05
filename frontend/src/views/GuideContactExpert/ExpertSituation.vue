@@ -1,57 +1,27 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import { DsfrButton } from "@gouvminint/vue-dsfr";
 import { useRouter } from "vue-router";
 import { DateTime } from "luxon";
+import { mgr } from "@/utils/authentication";
 
-const router = useRouter();
+const user = ref(Object || null);
+mgr.getUser().then((data) => (user.value = data));
 
-let lawEnforcementType: String;
-if (router.currentRoute.value.name === "ExpertSituationPN") {
-  lawEnforcementType = "police";
-}
-if (router.currentRoute.value.name === "ExpertSituationGN") {
-  lawEnforcementType = "gendarmerie";
+// eslint-disable-next-line vue/no-ref-as-operand
+async function authIDP() {
+  const user = await mgr.getUser();
+  return user.profile.auth_idp;
 }
 
 const priority = ref("");
-
-const LPS = {
-  LILLE: {
-    email: "snps-lps59@interieur.gouv.fr",
-    phone: "03 20 12 89 89",
-  },
-  MARSEILLE: {
-    email: "snps-lps13@interieur.gouv.fr",
-    phone: "04 91 62 85 00",
-  },
-  TOULOUSE: {
-    email: "snps-lps31@interieur.gouv.fr",
-    phone: "05 61 12 79 00",
-  },
-  PARIS: {
-    email: "snps-lps75@interieur.gouv.fr",
-    phone: "01 71 92 65 02",
-  },
-  LYON: {
-    email: "snps-lps69@interieur.gouv.fr",
-    phone: "04 72 86 89 70",
-  },
-};
 
 const IRCGN = {
   email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
   fixe: "01 78 47 31 46",
   phone: "06 07 98 40 09",
 };
-const shownLPS = ref<null | string>(null);
 const showIRCGNModal = ref(false);
-
-function buildMailto(email: string) {
-  const subject = "[Basegun] Demande d'identification";
-  const body =
-    "NIGEND / matricule :%0D%0AN° de procédure :%0D%0ATéléphone :%0D%0AService d'affectation :%0D%0ATypologie de l'arme (épaule ou poing) :%0D%0APrécision sur les marquages présents sur l'arme :%0D%0A";
-  return `mailto:${email}?subject=${subject}&body=${body}`;
-}
 
 const currentPhone = computed(() => {
   const currentHour = parseInt(
@@ -70,52 +40,44 @@ const currentPhone = computed(() => {
   <div class="fr-container-fluid">
     <div class="fr-grid-row">
       <div class="fr-col">
-        <div class="text-center mt-5">
+        <div class="text-center mt-5 p-3">
           <h1>
-            <VIcon name="ri-arrow-right-line" scale="2" />
-            <span v-if="lawEnforcementType === 'gendarmerie'"
+            <VIcon name="ri-arrow-right-line" scale="1.7" />
+            <span v-if="user.profile.auth_idp === 'proxyma'"
               >Contacter un expert de l'IRCGN</span
             >
-            <span v-if="lawEnforcementType === 'police'"
-              >Contacter un expert en armes</span
+            <span v-if="user.profile.auth_idp === 'cheops'"
+              >Contacter un expert en arme</span
             >
           </h1>
-          <div v-if="lawEnforcementType === 'gendarmerie'">
+          <div v-if="user.profile.auth_idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-
-          <div
-            v-if="lawEnforcementType === 'police'"
-            class="fr-alert fr-alert--warning"
-          >
-            <h2>
-              <VIcon name="ri-error-warning-line" scale="1.5" />
-              Avertissement
-            </h2>
-            <div class="justify-content">
-              <p>
-                Cette fonctionnalité est
-                <span class="font-bold">en cours de développement</span>.<br />
-                <br />
-                Les contacts des laboratoires de police scientifique seront mis
-                à jour prochainement.
-              </p>
-            </div>
-
-            <div class="footer">
-              <DsfrButton
-                class="m-1 flex justify-center"
-                icon="ri-arrow-left-line"
-                :secondary="true"
-                label="Précédent"
-                @click="router.back()"
-              />
-            </div>
+          <div v-if="user.profile.auth_idp === 'cheops'">
+            <DsfrAlert type="error" title="Avertissement">
+              Basegun ne fournit pas de
+              <span class="font-bold"
+                >moyen pour contacter les experts relatifs à votre
+                service.</span
+              >
+              <br />
+              <br />
+              Nous vous recommandons de suivre votre procédure de contact
+              habituelle.
+            </DsfrAlert>
+          </div>
+          <div class="footer">
+            <DsfrButton
+              class="m-1 flex justify-center"
+              icon="ri-home-4-line"
+              label="Retour à l'accueil"
+              @click="$router.push({ name: 'StartPage' })"
+            />
           </div>
         </div>
       </div>
     </div>
-    <!-- <div v-if="lawEnforcementType === 'police'">
+    <div v-if="user.profile.auth_idp === 'proxyma'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -123,138 +85,21 @@ const currentPhone = computed(() => {
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation urgente"
-                :disabled="priority === 'high' ? true : false"
-                @click="priority = 'high'"
+                @click="showIRCGNModal = true"
               />
             </div>
             <div class="fr-col-12 fr-col-lg-6 fr-p-1v">
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation non urgente"
-                :disabled="priority === 'low' ? true : false"
-                @click="priority = 'low'"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="priority">
-        <div class="fr-grid-row">
-          <div class="fr-col-12 fr-col-lg-6 mx-auto">
-            <p
-              v-if="priority === 'high'"
-              class="fr-mt-5v"
-            >
-              Sélectionnez ci-dessous votre PTS afin d'avoir le numéro de téléphone de la permanence, ainsi que son adresse mail.
-            </p>
-            <p
-              v-if="priority === 'low'"
-              class="fr-mt-5v"
-            >
-              Sélectionnez ci-dessous votre PTS afin d'avoir l'adresse email de la permanence.
-            </p>
-          </div>
-        </div>
-        <div class="fr-grid-row">
-          <div class="fr-col-12 fr-col-lg-3 mx-auto">
-            <div class="fr-grid-row">
-              <div
-                v-for="lps, lps_key in LPS"
-                :key="lps_key"
-                class="fr-col-12 mx-auto"
-              >
-                <DsfrButton
-                  class="m-1 w-100"
-                  :label="'PTS ' + lps_key"
-                  @click="shownLPS = lps_key"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <Teleport to="body">
-          <DsfrModal
-            :opened="shownLPS"
-            @close="shownLPS = null"
-          >
-            <div class="modal">
-              <h2>
-                <VIcon
-                  name="ri-arrow-right-line"
-                  scale="1.5"
-                />
-                Laboratoire PTS {{ shownLPS }}
-              </h2>
-              <div>
-                <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                  <p
-                    v-if="priority == 'high'"
-                    class="fr-mt-5v"
-                  >
-                    Ci-dessous le numéro de téléphone de la permanence, ainsi que l'adresse mail de votre PTS.
-                  </p>
-                  <p
-                    v-if="priority === 'low'"
-                    class="fr-mt-5v"
-                  >
-                    Ci-dessous l'adresse email de la permanence de votre PTS.
-                  </p>
-                  <p>
-                    <span v-if="priority === 'high'">{{ LPS[shownLPS].phone }}</span><br>
-                    <a :href="buildMailto(LPS[shownLPS].email)">{{ LPS[shownLPS].email }}</a>
-                  </p>
-                </div>
-              </div>
-              <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-                <DsfrButton
-                  class="m-1 flex justify-center"
-                  icon="ri-arrow-left-line"
-                  label="Précédent"
-                  @click="shownLPS = null"
-                />
-              </div>
-            </div>
-          </DsfrModal>
-        </Teleport>
-      </div>
-    </div> -->
-    <div v-if="lawEnforcementType === 'gendarmerie'">
-      <div class="fr-grid-row">
-        <div class="fr-col-12 fr-col-lg-6 mx-auto">
-          <div class="fr-grid-row">
-            <div class="fr-col-12 fr-col-lg-6 fr-p-1v">
-              <DsfrButton
-                class="w-100 mx-auto"
-                label="Situation urgente"
-                :disabled="priority === 'high' ? true : false"
-                @click="
-                  priority = 'high';
-                  showIRCGNModal = true;
-                "
-              />
-            </div>
-            <div class="fr-col-12 fr-col-lg-6 fr-p-1v">
-              <DsfrButton
-                class="w-100 mx-auto"
-                label="Situation non urgente"
-                :disabled="priority === 'low' ? true : false"
-                @click="
-                  priority = 'low';
-                  showIRCGNModal = true;
-                "
+                @click="$router.push({ name: 'ExpertiseForm' })"
               />
             </div>
           </div>
         </div>
       </div>
       <Teleport to="body">
-        <DsfrModal
-          :opened="showIRCGNModal"
-          @close="
-            showIRCGNModal = false;
-            priority = '';
-          "
-        >
+        <DsfrModal :opened="showIRCGNModal" @close="showIRCGNModal = false">
           <div class="modal">
             <div class="fr-modal__title fr-mb-2w">
               <VIcon name="ri-arrow-right-line" scale="1.5" />
@@ -262,7 +107,7 @@ const currentPhone = computed(() => {
             </div>
             <div>
               <div class="fr-col-11 fr-col-lg-6 mx-auto">
-                <p v-if="priority === 'high'">
+                <p>
                   Vous trouverez ci-dessous le numéro de téléphone de la
                   permanence de l'IRCGN.<br /><br />
                   <span class="font-bold">{{ currentPhone }}</span>
@@ -293,9 +138,8 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div v-if="lawEnforcementType === 'gendarmerie'" class="fr-grid-row">
+    <div v-if="user.profile.auth_idp === 'proxyma'" class="fr-grid-row">
       <div class="fr-col text-center">
-        <PopupContact />
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
           <ul class="list-none text-sm text-center">
@@ -313,10 +157,9 @@ const currentPhone = computed(() => {
         <div class="footer">
           <DsfrButton
             class="m-1 flex justify-center"
-            icon="ri-arrow-left-line"
-            :secondary="true"
-            label="Précédent"
-            @click="router.back()"
+            icon="ri-home-4-line"
+            label="Retour à l'accueil"
+            @click="$router.push({ name: 'StartPage' })"
           />
         </div>
       </div>
