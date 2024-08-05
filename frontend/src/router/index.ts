@@ -9,6 +9,7 @@ import { clearLocalStorage } from "@/utils/storage-utils.js";
 import { mgr } from "@/utils/authentication";
 
 import MissingCardPage from "@/views/MissingCardPage.vue";
+import ExpertiseForm from "@/views/GuideAskingExpertise/ExpertiseForm.vue";
 
 const HomePage = () => import("@/views/HomePage.vue");
 const StartPage = () => import("@/views/StartPage.vue");
@@ -194,30 +195,33 @@ const routes: RouteRecordRaw[] = [
       wholeLogo: true,
     },
   },
-
-  // tutorial to contact expert
   {
-    path: "/guide-contact-pn",
-    name: "ExpertSituationPN",
+    path: "/guide-contact",
+    name: "ExpertSituation",
     component: ExpertSituation,
-  },
-  {
-    path: "/guide-contact-gn",
-    name: "ExpertSituationGN",
-    component: ExpertSituation,
-    beforeEnter: (to, from) => {
+    beforeEnter: (to, from, next) => {
       mgr.getUser().then((user) => {
         console.log(user);
-        if (user === null)
-          mgr
-            .signinRedirect()
-            .then((data) => console.log(data))
-            .catch((err) => {
-              console.log(err);
-              return {
-                name: "PageNotFound",
-              };
-            });
+        if (user === null) {
+          mgr.signinRedirect();
+        } else {
+          next();
+        }
+      });
+    },
+  },
+  {
+    path: "/guide-demande-expertise",
+    name: "ExpertiseForm",
+    component: ExpertiseForm,
+    beforeEnter: (to, from, next) => {
+      mgr.getUser().then((user) => {
+        console.log(user);
+        if (user === null) {
+          mgr.signinRedirect();
+        } else {
+          next();
+        }
       });
     },
   },
@@ -234,10 +238,19 @@ const routes: RouteRecordRaw[] = [
       {
         path: "callback",
         name: "AuthCallback",
-        beforeEnter: (to, from) => {
-          mgr.signinCallback();
-          mgr.getUser().then((user) => console.log(user));
-          return { name: "ExpertSituationGN" };
+        beforeEnter: async (to, from, next) => {
+          try {
+            await mgr.signinRedirectCallback();
+            const user = await mgr.getUser();
+            if (user !== null) {
+              next({ name: "ExpertSituation" });
+            } else {
+              next({ name: "AuthRedirect" });
+            }
+          } catch (error) {
+            console.error("Erreur signin callback:", error);
+            next({ name: "AuthRedirect" });
+          }
         },
       },
     ],

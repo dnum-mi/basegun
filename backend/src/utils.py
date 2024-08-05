@@ -56,7 +56,7 @@ async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
             token.split()[1],
             PUBLIC_KEY,
             algorithms=["RS256"],
-            audience=["master-realm", "account"],
+            # audience=["master-realm", "account"],
         )
     except jwt.InvalidTokenError:
         raise credentials_exception
