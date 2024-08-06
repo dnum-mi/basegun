@@ -11,13 +11,13 @@ const currentStep = ref(0);
 <template>
   <div class="fr-container mt-5">
     <div class="fr-col-12 fr-col-lg-6 fr-px-1w mx-auto">
+      <h1 class="fr-mt-2w">Mettre en sécurité mon arme</h1>
+
       <StepsGuide
         class="my-auto"
         :steps="steps"
         :current-step="currentStep + 1"
       />
-      <h1 class="fr-mt-2w">Mettre en sécurité mon arme</h1>
-
       <template v-if="currentStep === 0">
         <div v-if="isUserUsingCrosscall()">
           <p class="leading-7 mt-3">
@@ -32,8 +32,9 @@ const currentStep = ref(0);
           <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
             <img
               src="@/assets/guide-mise-en-securite/icones/preconisations.jpg"
-              alt="alt"
+              alt=""
               class="img-deco"
+              aria-hidden="true"
             />
           </div>
         </div>
@@ -54,8 +55,9 @@ const currentStep = ref(0);
           <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
             <img
               src="@/assets/guide-mise-en-securite/icones/take-care.jpg"
-              alt="alt"
+              alt=""
               class="w-60 w-fr-mt-n4w"
+              aria-hidden="true"
             />
           </div>
         </div>
@@ -73,8 +75,9 @@ const currentStep = ref(0);
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
             src="@/assets/guide-mise-en-securite/icones/consignes-securite.jpg"
-            alt="alt"
+            alt=""
             class="w-80 fr-mt-2w"
+            aria-hidden="true"
           />
         </div>
       </template>
@@ -88,8 +91,9 @@ const currentStep = ref(0);
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
             src="@/assets/guide-mise-en-securite/icones/instructions.jpg"
-            alt="alt"
+            alt=""
             class="w-100 fr-mt-5w"
+            aria-hidden="true"
           />
         </div>
       </template>

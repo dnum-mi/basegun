@@ -63,6 +63,7 @@ function sendFeedback(isCorrect: boolean) {
       setMessage({
         type: "success",
         message: "Votre vote a été pris en compte",
+        timeout: 60000,
       });
     })
     .catch((error) => {
@@ -70,6 +71,7 @@ function sendFeedback(isCorrect: boolean) {
       setMessage({
         type: "error",
         message: "Une erreur a eu lieu en enregistrant votre vote.",
+        timeout: 60000,
       });
     })
     .finally(() => {
@@ -88,7 +90,7 @@ function sendFeedback(isCorrect: boolean) {
         Typologie de l'arme
       </h1>
       <h1 v-else class="typology-title bg-white py-4">Résultat Final</h1>
-      <div class="result-image" :style="{ backgroundImage: `url(${img})` }" />
+      <img class="result-image" :src="img" />
       <div class="fr-tile fr-enlarge-link mb-3">
         <div v-if="confidenceLevel === 'low'">
           <div class="fr-tile__body">
@@ -246,10 +248,12 @@ function sendFeedback(isCorrect: boolean) {
 }
 
 .result-image {
-  height: 30vh;
-  background-position: center;
-  background-size: cover;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 350px;
   margin-top: -1.5rem;
+  margin-bottom: -0.5rem;
 }
 
 .success-tag {

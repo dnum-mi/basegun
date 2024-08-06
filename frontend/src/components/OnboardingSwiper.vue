@@ -3,7 +3,7 @@
     <swiper-slide>
       <img
         src="@/assets/basegun_green.png"
-        alt=""
+        alt="Logo Basegun"
         height="250"
         class="swiper-logo"
         data-testid="basegun-logo"
@@ -12,50 +12,81 @@
         <ul class="swiper-ul fr-text--md">
           <li class="swiper-li">
             Basegun est une application
-            <span class="swiper-green-highlight">prototype</span> en cours de
-            développement par le Ministère de l’Intérieur et des Outre-Mer.
+            <strong
+              ><span class="swiper-green-highlight">prototype</span></strong
+            >
+            en cours de développement par le Ministère de l’Intérieur.
           </li>
           <li class="swiper-li">
             A ce jour, Basegun
-            <span data-v-f74c6fe1="" class="swiper-green-highlight"
-              >prend en compte uniquement
-            </span>
-            l'identification d'<span
-              data-v-f74c6fe1=""
-              class="swiper-green-highlight"
-              >armes à feu létales</span
-            >, d'<span data-v-f74c6fe1="" class="swiper-green-highlight"
-              >armes d'alarme</span
+            <strong
+              ><span data-v-f74c6fe1="" class="swiper-green-highlight"
+                >prend en compte uniquement
+              </span></strong
             >
-            et d'<span data-v-f74c6fe1="" class="swiper-green-highlight"
-              >armes factices type airsoft</span
-            >.
+            l'identification d'<strong
+              ><span data-v-f74c6fe1="" class="swiper-green-highlight"
+                >armes à feu létales</span
+              ></strong
+            >, d'<strong
+              ><span data-v-f74c6fe1="" class="swiper-green-highlight"
+                >armes d'alarme</span
+              ></strong
+            >
+            et d'<strong
+              ><span data-v-f74c6fe1="" class="swiper-green-highlight"
+                >armes factices type airsoft</span
+              >.</strong
+            >
           </li>
           <li>
             Basegun propose également de les
-            <span class="swiper-green-highlight">mettre en sécurité</span> grâce
-            à des
-            <span class="swiper-green-highlight">tutoriels personnalisés</span>.
+            <strong
+              ><span class="swiper-green-highlight"
+                >mettre en sécurité</span
+              ></strong
+            >
+            grâce à des
+            <strong
+              ><span class="swiper-green-highlight"
+                >tutoriels personnalisés</span
+              >.</strong
+            >
           </li>
         </ul>
       </div>
     </swiper-slide>
     <swiper-slide>
-      <img src="@/assets/basegun.png" alt="" height="250" class="swiper-logo" />
+      <img
+        src="@/assets/basegun.png"
+        alt="Logo Basegun"
+        height="250"
+        class="swiper-logo"
+      />
       <div class="swiper-content">
         <ul class="swiper-ul fr-text--md">
           <li class="swiper-li">
             Basegun
-            <span class="swiper-red-highlight">n’a pas vocation à donner</span>
+            <strong
+              ><span class="swiper-red-highlight"
+                >n’a pas vocation à donner</span
+              ></strong
+            >
             des instructions sur la préservation des traces et indices.
           </li>
           <li class="swiper-li">
             Basegun est un
-            <span class="swiper-red-highlight">outil d'aide à la décision</span
-            >. Il
-            <span class="swiper-red-highlight"
-              >ne remplace en aucun cas l'avis d'un expert</span
-            >.
+            <strong
+              ><span class="swiper-red-highlight"
+                >outil d'aide à la décision</span
+              >.</strong
+            >
+            Il
+            <strong
+              ><span class="swiper-red-highlight"
+                >ne remplace en aucun cas l'avis d'un expert</span
+              >.</strong
+            >
           </li>
         </ul>
         <router-link v-slot="{ navigate }" :to="{ name: 'StartPage' }">

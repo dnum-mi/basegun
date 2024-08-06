@@ -22,7 +22,7 @@ const store = useStore();
     </div>
     <div class="fr-grid-row">
       <div class="fr-col-6 fr-col-lg-3 mx-auto">
-        <img src="@/assets/missing_card.png" alt="" />
+        <img src="@/assets/missing_card.png" alt="" aria-hidden="true" />
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ import { useRouter, useRoute } from "vue-router";
 
 import { useStore } from "@/stores/result";
 import { getNextRouteAfterResult } from "@/utils/firearms-utils/get-next-route-after-result";
+import { isUserUsingComputer } from "@/utils/isUserUsingComputer";
 
 const loading = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -50,6 +51,18 @@ async function uploadImage(base64: string, fileName: string) {
     router.push({ name: "ErrorPage" });
   }
 }
+
+onMounted(() => {
+  console.log(window.navigator.userAgent);
+});
+
+const labelButton = computed(() => {
+  if (isUserUsingComputer()) {
+    return "Télécharger la photo";
+  } else {
+    return "Prendre ou choisir une photo";
+  }
+});
 
 function resizeImage(uploadedFile: File) {
   const MAX_SIZE = 600;
@@ -130,7 +143,7 @@ function onFileSelected(
       <DsfrPicture
         title="title"
         :src="GoodExamplePhoto"
-        alt="photo d'une carte posée au sol et arme tournée vers la droite et centrée"
+        alt="Photo d'une carte posée au sol et d'une arme tournée vers la droite et centrée"
       />
     </div>
     <div class="footer">
@@ -147,7 +160,7 @@ function onFileSelected(
           <DsfrButton
             class="flex justify-center w-100"
             data-testid="take-a-picture"
-            label="Prendre la photo"
+            :label="labelButton"
             icon="ri-camera-fill"
             :icon-right="true"
             @click="

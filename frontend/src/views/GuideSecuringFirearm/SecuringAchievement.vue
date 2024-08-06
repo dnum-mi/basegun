@@ -49,8 +49,9 @@ function goToMissingCardPageIfMissing() {
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
             src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.jpg"
-            alt="alt"
+            alt=""
             class="img-deco"
+            aria-hidden="true"
           />
         </div>
       </div>
@@ -73,8 +74,9 @@ function goToMissingCardPageIfMissing() {
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
             src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-nok.jpg"
-            alt="alt"
+            alt=""
             class="img-deco"
+            aria-hidden="true"
           />
         </div>
         <ContactExpert v-if="isUserUsingCrosscall()" />

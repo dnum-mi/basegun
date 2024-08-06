@@ -10,8 +10,9 @@
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
         src="@/assets/guide-identification/icones/complements.jpg"
-        alt="alt"
+        alt=""
         class="img-deco"
+        aria-hidden="true"
       />
     </div>
   </div>

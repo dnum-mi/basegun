@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-import logoDnum from "@/assets/logo_dnum.jpg";
+import logoDTNUM from "@/assets/logo_dtnum.jpg";
 import logoSCAE from "@/assets/logo_scae.png";
-import logoPN from "@/assets/logo_police.png";
 import logoGendarmerie from "@/assets/logo_gendarmerie.png";
 
 const imgs = ref([
   {
-    alt: "Logo Ministère de l'interieur",
-    id: "logo_dnum",
-    src: logoDnum,
+    alt: "Logo Direction de la Transformation Numérique du Ministère de l'Intérieur",
+    id: "logo_dtnum",
+    src: logoDTNUM,
   },
   {
     alt: "Logo SCAE",
@@ -18,12 +17,7 @@ const imgs = ref([
     src: logoSCAE,
   },
   {
-    alt: "Logo Police Nationale",
-    id: "logo_pn",
-    src: logoPN,
-  },
-  {
-    alt: "Logo Gendarmerie",
+    alt: "Logo Gendarmerie Nationale",
     id: "logo_gendarmerie",
     src: logoGendarmerie,
   },
@@ -49,19 +43,15 @@ const imgs = ref([
         >la Fabrique Numérique de la Direction de la Transformation
         Numérique</span
       >
-      du Ministère de l'Intérieur et des Outre-Mer, en partenariat avec le
+      du Ministère de l'Intérieur, en partenariat avec le
       <span class="font-bold">Service Central des Armes et Explosifs</span> de
       la Direction des entreprises et partenariats de sécurité et des armes
     </p>
     <p>
       <span class="font-bold"
-        >La Direction Générale de la Police Nationale</span
+        >La Direction Générale de la Gendarmerie Nationale</span
       >
-      et
-      <span class="font-bold"
-        >la Direction Générale de la Gendarmerie Nationale</span
-      >
-      sont associées pour les tests et le suivi de l'application.
+      est associée pour les tests et le suivi de l'application.
     </p>
     <p>
       A ce jour, Basegun permet de prendre en photo une arme à feu et d'obtenir
