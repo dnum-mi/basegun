@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 import type { DsfrHeader } from "@gouvminint/vue-dsfr";
+import basegunLogo from "@/assets/basegun.png";
 
 const route = useRoute();
 
@@ -12,15 +13,11 @@ const isMobile = window.innerWidth <= 640;
 
 const logoText = computed<
   InstanceType<typeof DsfrHeader>["$props"]["logoText"]
->(() =>
-  !isMobile || wholeLogo.value
-    ? ["Ministère", "de l’intérieur", "et des Outre-Mer"]
-    : [],
-);
+>(() => (!isMobile || wholeLogo.value ? ["Ministère", "de l’intérieur"] : []));
 
 const quickLinks: InstanceType<typeof DsfrHeader>["$props"]["quickLinks"] = [
   {
-    label: "Important",
+    label: "Informations",
     to: "/",
   },
   {
@@ -40,12 +37,21 @@ const quickLinks: InstanceType<typeof DsfrHeader>["$props"]["quickLinks"] = [
     to: "/accessibilite",
   },
 ];
+
+const operatorImgStyle: InstanceType<
+  typeof DsfrHeader
+>["$props"]["operatorImgStyle"] = {
+  width: "30%",
+};
 </script>
 
 <template>
   <DsfrHeader
     :class="{ 'marianne-only': !wholeLogo }"
     :quick-links="quickLinks"
+    :operator-img-src="basegunLogo"
+    :operator-img-style="operatorImgStyle"
+    operator-img-alt="Logo basegun"
     :show-beta="false"
     service-title=" "
     :home-to="{ name: 'StartPage' }"

@@ -54,6 +54,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "Informations",
     },
   },
   {
@@ -68,6 +69,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: <RouteRecordRaw["beforeEnter"]>clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "Accueil",
     },
   },
   {
@@ -75,34 +77,40 @@ const routes: RouteRecordRaw[] = [
     name: "InstructionsPage",
     component: InstructionsPage,
     beforeEnter: clearLocalStorage,
+    meta: { title: "Instructions" },
   },
   // tutorial to secure a firearm
   {
     path: "/guide-mise-en-securite",
     name: "GuideSecuringFirearm",
     component: GuideSecuringFirearm,
+    meta: { title: "Mise en sécurité" },
   },
   {
     path: "/mise-en-securite-choix-option-etape/:step",
     name: "SecuringSelectOption",
     component: SecuringSelectOptionContent,
     props: (route: RouteLocation) => ({ step: +route.params.step }),
+    meta: { title: "Choix du type d'arme" },
   },
   {
     path: "/mise-en-securite-tutoriel",
     name: "SecuringTutorialContent",
     component: SecuringTutorialContent,
+    meta: { title: "Tutoriel" },
   },
   {
     path: "/fin-mise-en-securite",
     name: "SecuringAchievement",
     component: SecuringAchievement,
+    meta: { title: "Fin mise en sécurité" },
   },
   // Tutorial to identificate a firearm
   {
     path: "/guide-identification",
     name: "GuideIdenticationFirearm",
     component: GuideIdentificationFirearm,
+    meta: { title: "Identification" },
     children: [
       {
         path: "resultat-typologie",
@@ -132,12 +140,14 @@ const routes: RouteRecordRaw[] = [
         path: "armes-alarme",
         name: "IdentificationBlankGun",
         component: IdentificationBlankGun,
+        meta: { title: "Identification" },
       },
       {
         path: "resultat-final",
         name: "IdentificationFinalResult",
         meta: {
           reload: true,
+          title: "Résultat final",
         },
         component: IdentificationFinalResult,
       },
@@ -150,6 +160,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "A propos",
     },
   },
   {
@@ -159,6 +170,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "Mentions légales",
     },
   },
   {
@@ -168,6 +180,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "Contact",
     },
   },
   {
@@ -176,6 +189,7 @@ const routes: RouteRecordRaw[] = [
     component: ErrorPage,
     meta: {
       wholeLogo: true,
+      title: "Erreur",
     },
   },
   {
@@ -185,6 +199,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
+      title: "Accessibilité",
     },
   },
   {
@@ -193,6 +208,7 @@ const routes: RouteRecordRaw[] = [
     component: PageNotFound,
     meta: {
       wholeLogo: true,
+      title: "Page non trouvée",
     },
   },
   {
@@ -208,6 +224,7 @@ const routes: RouteRecordRaw[] = [
         }
       });
     },
+    meta: { title: "Contact expert" },
   },
   {
     path: "/guide-demande-expertise",
@@ -258,6 +275,12 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  document.title = "Basegun | " + to.meta.title;
+  next();
 });
 
 export default router;

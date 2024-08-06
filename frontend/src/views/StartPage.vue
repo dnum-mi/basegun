@@ -6,7 +6,14 @@ const store = useStore();
 
 <template>
   <div class="text-center relative top-1/8">
-    <img src="@/assets/basegun_long.png" class="mb-10" height="55" alt="" />
+    <h1>
+      <img
+        src="@/assets/basegun_long.png"
+        class="mb-10"
+        height="55"
+        alt="logo basegun"
+      />
+    </h1>
     <p class="accueil-subtitle">
       Outil d'identification rapide et <br />
       de mise en sécurité des armes à feu

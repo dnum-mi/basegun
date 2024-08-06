@@ -27,7 +27,7 @@ describe("HomePage", () => {
     cy.url().should("contain", "/contact");
     cy.contains("a", "support.basegun@interieur.gouv.fr");
     cy.getByRole("navigation")
-      .contains("a", "Important")
+      .contains("a", "Informations")
       .click({ force: true });
 
     cy.get("#button-menu").click();

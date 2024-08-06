@@ -26,11 +26,11 @@ const rows = ref([
   <div class="fr-container mt-4">
     <h1>Déclaration d’accessibilité</h1>
     <p>
-      <strong>Le Ministère de l'Intérieur et des Outre-Mer</strong> s'engage à
-      rendre ses sites internet, intranet, extranet, ses progiciels, ses
-      applications mobiles et son mobilier urbain numérique accessibles
-      conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005. À
-      cette fin, il met en œuvre la stratégie et les actions suivantes : <br />
+      <strong>Le Ministère de l'Intérieur</strong> s'engage à rendre ses sites
+      internet, intranet, extranet, ses progiciels, ses applications mobiles et
+      son mobilier urbain numérique accessibles conformément à l'article 47 de
+      la loi n° 2005-102 du 11 février 2005. À cette fin, il met en œuvre la
+      stratégie et les actions suivantes : <br />
       <strong
         >Schéma pluriannuel 2022-2024 de mise en accessibilité :
         <a
@@ -60,12 +60,12 @@ const rows = ref([
 
     <p>
       L’audit de conformité réalisé par <strong>Basegun</strong> révèle que
-      <strong>71%</strong> des critères du RGAA version 4 sont respectés.<br />
+      <strong>63%</strong> des critères du RGAA version 4 sont respectés.<br />
       <strong
         >Lien vers le rapport d'audit :
         <a
           target="_blank"
-          href="https://ara.numerique.gouv.fr/rapports/LiVL4Hwa_64Cgdaq6Fgpt"
+          href="https://ara.numerique.gouv.fr/rapport/e-uhDrQCFchYzD0bU3EQx/"
         />Lien</strong
       >
     </p>
@@ -167,7 +167,7 @@ const rows = ref([
     </ul>
 
     <h2>Établissement de cette déclaration d’accessibilité</h2>
-    <p>Établie le <span>16 avril 2024</span>.</p>
+    <p>Établie le <span>25 juillet 2024</span>.</p>
 
     <h3>
       Agents utilisateurs, technologies d'assistance et outils utilisés pour

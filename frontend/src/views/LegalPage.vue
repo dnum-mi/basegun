@@ -5,8 +5,7 @@
     <p>
       Le site Basegun est édité et géré par l’équipe de la Fabrique Numérique, à
       la Sous-Direction de l'Innovation et de la Donnée au sein de la Direction
-      de la Transformatique Numérique du Ministère de l’Intérieur et des
-      Outre-Mer.
+      de la Transformatique Numérique du Ministère de l’Intérieur.
     </p>
     <p>Adresse : 40 avenue des Terroirs de France, 75012 PARIS.</p>
 
@@ -76,8 +75,8 @@
 
     <h2>Hébergement</h2>
     <p>
-      Le site Basegun est hébergé en interne, au sein du Ministère de
-      l'Intérieur et des Outre-Mer via Cloud π.
+      Le site Basegun est hébergé en interne au sein du Ministère de l'Intérieur
+      via Cloud π.
     </p>
   </div>
 </template>

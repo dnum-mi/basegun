@@ -45,6 +45,7 @@ const alarmGunsOptions = alarmGuns.options.filter(
       src="@/assets/guide-identification/photos/arme_alarme/picto.png"
       alt=""
       class="swiper-logo"
+      aria-hidden="true"
     />
   </div>
   <div v-else class="mt-3 relative pb-20">
