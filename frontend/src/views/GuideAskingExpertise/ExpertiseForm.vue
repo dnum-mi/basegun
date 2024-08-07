@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="fr-container fr-col-12">
     <h1 class="fr-mt-3w flex justify-center titlePage">
       <div>Questionnaire demande</div>
       <div><span style="color: blue"> d'avis</span></div>
     </h1>
 
-    <div class="fr-col-11 fr-col-lg-6 mx-auto">
+    <div class="fr-col-12 fr-col-lg-6 mx-auto">
       <div class="fr-mb-5w">
         <StepsGuide
           class="!fr-container"
@@ -437,10 +437,6 @@ const getUserData = async () => {
     phone.value = user.profile.phone_number;
     seizure.value = todayDate;
     getAccessToken.value = user?.access_token;
-    console.log(
-      "Données de l'utilisateur récupérées avec succès :",
-      user?.access_token,
-    );
   } catch (error) {
     console.error(
       "Erreur pendant la récupération des données de l'utilisateur :",
@@ -520,9 +516,7 @@ const stepFormMappings = {
 };
 
 const handleFileChange = (newFiles: FileList) => {
-  console.log(newFiles); // eslint-disable-line no-console
   files.value = files.value.concat(Array.from(newFiles));
-  console.log(files);
 };
 
 const getCurrentFormData = () => {
