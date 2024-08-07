@@ -68,6 +68,13 @@ The variables `X_OVH_TOKEN` and `API_OVH_TOKEN` must en set in your env. See [In
 This will create a draft release in github (to validate) and some docker image packages with this tag.
 > If you made a tagging error, run `make untag`. This will delete the tag locally and in the remote.
 
+## Testing the expert contact path
+1. Set your User Agent with 'SAID'
+2. Click on the button 'Contacter un expert' on the result page or go to localhost:3000/expert-contact
+This will redirect you to a login page where you have two options :
+* If you want to test the police path, use `police` as username and `password` as password.
+* For the gendarmerie path, use `gendarmerie` as username and `password` as password.
+
 ## Inspirations
 - https://testdriven.io/blog/developing-a-single-page-app-with-fastapi-and-vuejs/
 - https://medium.com/bb-tutorials-and-thoughts/how-to-serve-vue-js-application-with-nginx-and-docker-d8a872a02ea8
