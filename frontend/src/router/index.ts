@@ -201,7 +201,6 @@ const routes: RouteRecordRaw[] = [
     component: ExpertSituation,
     beforeEnter: (to, from, next) => {
       mgr.getUser().then((user) => {
-        console.log(user);
         if (user === null) {
           mgr.signinRedirect();
         } else {
@@ -216,7 +215,6 @@ const routes: RouteRecordRaw[] = [
     component: ExpertiseForm,
     beforeEnter: (to, from, next) => {
       mgr.getUser().then((user) => {
-        console.log(user);
         if (user === null) {
           mgr.signinRedirect();
         } else {
@@ -240,7 +238,7 @@ const routes: RouteRecordRaw[] = [
         name: "AuthCallback",
         beforeEnter: async (to, from, next) => {
           try {
-            await mgr.signinRedirectCallback();
+            await mgr.signinCallback();
             const user = await mgr.getUser();
             if (user !== null) {
               next({ name: "ExpertSituation" });
