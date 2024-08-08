@@ -10,6 +10,7 @@ import { epaule_a_verrou } from "@/utils/firearms-utils/epaule-a-verrou"; // esl
 import type { pistolet_semi_auto_moderne } from "@/utils/firearms-utils/pistolet-semi-auto-moderne"; // eslint-disable-line camelcase
 import type { semi_auto_style_militaire_autre } from "@/utils/firearms-utils/semi-auto-style-militaire-autre"; // eslint-disable-line camelcase
 import type { revolver } from "@/utils/firearms-utils/revolver";
+import type { epaule_a_pompe } from "@/utils/firearms-utils/epaule-a-pompe";
 
 const store = useStore();
 
@@ -58,7 +59,8 @@ type HasDummyOptions =
   | typeof epaule_a_verrou
   | typeof pistolet_semi_auto_moderne
   | typeof semi_auto_style_militaire_autre
-  | typeof revolver;
+  | typeof revolver
+  | typeof epaule_a_pompe;
 </script>
 
 <template>
