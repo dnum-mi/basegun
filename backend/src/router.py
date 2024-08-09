@@ -21,7 +21,8 @@ from fastapi import (
 from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
-from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
+from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs, PHONE_NUMBER, CELLPHONE_NUMBER
+from .models import EmailData
 from .utils import get_current_user, send_mail, upload_image
 
 router = APIRouter(prefix="/api")
@@ -35,6 +36,12 @@ def home():
 @router.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
+
+@router.get("/contact-details")
+async def phone_number(
+    current_user: Annotated[dict, Depends(get_current_user)],
+):
+    return PHONE_NUMBER, CELLPHONE_NUMBER
 
 
 @router.post("/upload")
