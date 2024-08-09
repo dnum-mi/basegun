@@ -1,19 +1,54 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { DsfrButton } from "@gouvminint/vue-dsfr";
-import { useRouter } from "vue-router";
 import { DateTime } from "luxon";
 import { mgr } from "@/utils/authentication";
+import { getContactDetails } from "@/api/api-client";
 
-const user = ref(Object || null);
-mgr.getUser().then((data) => (user.value = data));
+const getAccessToken: Ref<string> = ref("");
+const authIDP: Ref<string> = ref("");
+
+// Récupération des données de l'utilisateur
+const getUserData = async () => {
+  try {
+    const user = await mgr.getUser();
+    getAccessToken.value = user?.access_token;
+    authIDP.value = user?.profile.auth_idp;
+  } catch (error) {
+    console.error(
+      "Erreur pendant la récupération des données de l'utilisateur :",
+      error,
+    );
+  }
+};
+
+const getIRCGNDetails = async () => {
+  try {
+    const response = await getContactDetails(getAccessToken.value);
+    IRCGN.fixe = response[0];
+    IRCGN.phone = response[1];
+    console.log("Détails de contact récupérés avec succès :", response);
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des détails de contact :",
+      error,
+    );
+  }
+};
+
+onMounted(async () => {
+  await getUserData();
+  if (authIDP.value === "proxyma") {
+    await getIRCGNDetails();
+  }
+});
 
 const priority = ref("");
 
 const IRCGN = {
   email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
-  fixe: "01 78 47 31 46",
-  phone: "06 07 98 40 09",
+  fixe: "",
+  phone: "",
 };
 const showIRCGNModal = ref(false);
 
@@ -37,15 +72,15 @@ const currentPhone = computed(() => {
         <div class="text-center mt-5 p-3">
           <h1>
             <VIcon name="ri-arrow-right-line" scale="1.7" />
-            <span v-if="user.profile.idp === 'proxyma'">
-              Contacter un expert de l'IRCGN
-            </span>
-            <span v-else>Contacter un expert en arme</span>
+            <span v-if="authIDP === 'proxyma'"
+              >Contacter un expert de l'IRCGN</span
+            >
+            <span v-if="authIDP === 'cheops'">Contacter un expert en arme</span>
           </h1>
-          <div v-if="user.profile.idp === 'proxyma'">
+          <div v-if="authIDP === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-else>
+          <div v-if="authIDP === 'cheops'">
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -69,7 +104,7 @@ const currentPhone = computed(() => {
         </div>
       </div>
     </div>
-    <div v-if="user.profile.idp === 'proxyma'">
+    <div v-if="authIDP === 'proxyma'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -130,7 +165,7 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div v-if="user.profile.idp === 'proxyma'" class="fr-grid-row">
+    <div v-if="authIDP === 'proxyma'" class="fr-grid-row">
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
