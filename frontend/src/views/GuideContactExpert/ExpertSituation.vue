@@ -5,29 +5,13 @@ import { DateTime } from "luxon";
 import { mgr } from "@/utils/authentication";
 import { getContactDetails } from "@/api/api-client";
 
-const getAccessToken: Ref<string> = ref("");
-const authIDP: Ref<string> = ref("");
-
-// Récupération des données de l'utilisateur
-const getUserData = async () => {
-  try {
-    const user = await mgr.getUser();
-    getAccessToken.value = user?.access_token;
-    authIDP.value = user?.profile.auth_idp;
-  } catch (error) {
-    console.error(
-      "Erreur pendant la récupération des données de l'utilisateur :",
-      error,
-    );
-  }
-};
+const user = ref<any>(null);
 
 const getIRCGNDetails = async () => {
   try {
-    const response = await getContactDetails(getAccessToken.value);
-    IRCGN.fixe = response[0];
-    IRCGN.phone = response[1];
-    console.log("Détails de contact récupérés avec succès :", response);
+    const response = await getContactDetails(user.value?.access_token);
+    IRCGN.fixe = response.cellphone;
+    IRCGN.phone = response.phone;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération des détails de contact :",
@@ -37,16 +21,12 @@ const getIRCGNDetails = async () => {
 };
 
 onMounted(async () => {
-  await getUserData();
-  if (authIDP.value === "proxyma") {
-    await getIRCGNDetails();
-  }
+  user.value = await mgr.getUser();
+
+  await getIRCGNDetails();
 });
 
-const priority = ref("");
-
 const IRCGN = {
-  email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
   fixe: "",
   phone: "",
 };
@@ -72,15 +52,15 @@ const currentPhone = computed(() => {
         <div class="text-center mt-5 p-3">
           <h1>
             <VIcon name="ri-arrow-right-line" scale="1.7" />
-            <span v-if="authIDP === 'proxyma'"
+            <span v-if="user?.profile?.idp === 'proxyma'"
               >Contacter un expert de l'IRCGN</span
             >
-            <span v-if="authIDP === 'cheops'">Contacter un expert en arme</span>
+            <span v-else>Contacter un expert en arme</span>
           </h1>
-          <div v-if="authIDP === 'proxyma'">
+          <div v-if="user?.profile?.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-if="authIDP === 'cheops'">
+          <div v-else>
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -104,7 +84,7 @@ const currentPhone = computed(() => {
         </div>
       </div>
     </div>
-    <div v-if="authIDP === 'proxyma'">
+    <div v-if="user?.profile?.idp === 'proxyma'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -139,25 +119,13 @@ const currentPhone = computed(() => {
                   permanence de l'IRCGN.<br /><br />
                   <span class="font-bold">{{ currentPhone }}</span>
                 </p>
-                <p v-if="priority === 'low'">
-                  Veuilez cliquer sur l'adresse mail ci-dessous pour envoyer un
-                  mail pré-rempli à l'IRCGN : <br /><br />
-                  <span class="font-bold"
-                    ><a :href="buildMailto(IRCGN.email)">{{
-                      IRCGN.email
-                    }}</a></span
-                  >
-                </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
                 <DsfrButton
                   class="m-1 flex justify-center"
                   icon="ri-arrow-left-line"
                   label="Précédent"
-                  @click="
-                    showIRCGNModal = false;
-                    priority = '';
-                  "
+                  @click="showIRCGNModal = false"
                 />
               </div>
             </div>
@@ -165,7 +133,7 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div v-if="authIDP === 'proxyma'" class="fr-grid-row">
+    <div v-if="user?.profile?.idp === 'proxyma'" class="fr-grid-row">
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
