@@ -198,3 +198,55 @@ Cypress.Commands.add("pasDeGuide", () => {
   cy.getByDataTestid("go-to-identification").click();
   cy.url().should("contain", "/guide-identification/resultat-typologie");
 });
+
+Cypress.Commands.add("IdentificationRealShotgun", () => {
+  cy.getByDataTestid("next-step").click();
+  cy.url().should(
+    "contain",
+    "guide-identification/informations-complementaires",
+  );
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/munition-type");
+  cy.getByDataTestid("next-step").should("have.attr", "disabled");
+  cy.contains("Cartouches").first().click();
+  cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
+  cy.getByDataTestid("next-step").click();
+});
+
+Cypress.Commands.add("IdentificationShotgun", (typeOfMunition) => {
+  cy.visit("/");
+  cy.getByDataTestid("basegun-logo").should("exist");
+  cy.contains("li", "Basegun est une application");
+  cy.get("swiper-container").shadow().find(".swiper-button-next").click();
+  cy.contains("li", "ne remplace en aucun cas l'avis d'un expert");
+  cy.get("#agree-button").contains("J'ai compris").click();
+  cy.url().should("contain", "/accueil");
+  cy.getByDataTestid("identification")
+    .contains("J’ai déjà mis mon arme en sécurité, je veux l’identifier")
+    .click();
+  cy.url().should("contain", "/instructions");
+  cy.contains("h1", "Pour un résultat optimal");
+  cy.contains("span", "canon vers la droite");
+  cy.getByDataTestid("select-file").as("fileInput");
+  cy.intercept("POST", "/api/upload").as("upload");
+  cy.get("@fileInput").selectFile("./cypress/images/fusil-a-pompe.jpg", {
+    force: true,
+  });
+  cy.wait("@upload").then(({ response }) => {
+    expect(response.statusCode).to.eq(200);
+  });
+  cy.url().should("contain", "/carte-manquante");
+  cy.getByDataTestid("button-next").click();
+
+  cy.getByDataTestid("next-step").click();
+  cy.url().should(
+    "contain",
+    "guide-identification/informations-complementaires",
+  );
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/munition-type");
+  cy.getByDataTestid("next-step").should("have.attr", "disabled");
+  cy.contains(`${typeOfMunition}`).first().click();
+  cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
+  cy.getByDataTestid("next-step").click();
+});
