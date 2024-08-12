@@ -1,6 +1,6 @@
 import epaulePompeSimpleVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_pompe/epaule_pompe_simple.mp4";
-import pistoletSemiAutoModerneCartridges from "@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_cartouche.jpg";
-import pistoletSemiAutoModerneBalls from "@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_bille.jpg";
+import epaulePompeCartridges from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_cartouche.jpeg";
+import epaulePompeModerneBalls from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_bille.jpg";
 
 export const epaule_a_pompe = {
   displayLabel: "Arme d'épaule à pompe",
@@ -34,12 +34,12 @@ export const epaule_a_pompe = {
     {
       label: "Cartouches",
       value: "cartouches",
-      img_ammo: pistoletSemiAutoModerneCartridges, // Mettre la bonne image
+      img_ammo: epaulePompeCartridges,
     },
     {
       label: "Billes",
       value: "billes",
-      img_ammo: pistoletSemiAutoModerneBalls, // Mettre la bonne image
+      img_ammo: epaulePompeModerneBalls,
     },
   ],
   getDisclaimer: (category: string) => {

@@ -47,6 +47,7 @@ const store = useStore();
           <button
             class="fr-btn w-100 text-center"
             @click="$router.push({ name: 'IdentificationTypologyResult' })"
+            data-testid="button-next"
           >
             Je souhaite tout de même poursuivre
           </button>

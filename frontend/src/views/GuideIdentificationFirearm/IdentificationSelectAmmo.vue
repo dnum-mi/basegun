@@ -6,11 +6,6 @@ import { useStore } from "@/stores/result";
 import TransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg";
 import FocusTransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg";
 import { TYPOLOGIES } from "@/utils/firearms-utils/index";
-import { epaule_a_verrou } from "@/utils/firearms-utils/epaule-a-verrou"; // eslint-disable-line camelcase
-import type { pistolet_semi_auto_moderne } from "@/utils/firearms-utils/pistolet-semi-auto-moderne"; // eslint-disable-line camelcase
-import type { semi_auto_style_militaire_autre } from "@/utils/firearms-utils/semi-auto-style-militaire-autre"; // eslint-disable-line camelcase
-import type { revolver } from "@/utils/firearms-utils/revolver";
-import type { epaule_a_pompe } from "@/utils/firearms-utils/epaule-a-pompe";
 
 const store = useStore();
 
@@ -53,14 +48,6 @@ onMounted(() => {
     showModal.value = false;
   }
 });
-
-// eslint-disable-next-line camelcase
-type HasDummyOptions =
-  | typeof epaule_a_verrou
-  | typeof pistolet_semi_auto_moderne
-  | typeof semi_auto_style_militaire_autre
-  | typeof revolver
-  | typeof epaule_a_pompe;
 </script>
 
 <template>
@@ -124,8 +111,7 @@ type HasDummyOptions =
     </div>
     <div>
       <template
-        v-for="option in (TYPOLOGIES[typology] as HasDummyOptions)
-          ?.dummyOptions"
+        v-for="option in TYPOLOGIES[typology]?.dummyOptions"
         :key="option.value"
       >
         <div class="item">

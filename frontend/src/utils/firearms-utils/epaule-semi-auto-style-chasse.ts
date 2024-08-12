@@ -1,4 +1,6 @@
 import { getCommonCategory } from "@/utils/firearms-utils/index";
+import epaulePompeCartridges from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_cartouche.jpeg";
+import epaulePompeModerneBalls from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_bille.jpg";
 
 const DISCLAIMERS = {
   short:
@@ -12,6 +14,18 @@ Armes d’épaule semi-automatiques ou automatiques type chasse
 export const epaule_semi_auto_style_chasse = {
   displayLabel: "Arme d’épaule semi-automatique",
   getCategory: getCommonCategory,
+  dummyOptions: [
+    {
+      label: "Cartouches",
+      value: "cartouches",
+      img_ammo: epaulePompeCartridges,
+    },
+    {
+      label: "Billes",
+      value: "billes",
+      img_ammo: epaulePompeModerneBalls,
+    },
+  ],
   getDisclaimer: (category: string, isCardDetected: boolean) => {
     if (["B ou C", "C"].includes(category)) {
       if (isCardDetected === false) {
