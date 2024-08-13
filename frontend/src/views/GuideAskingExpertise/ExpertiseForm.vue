@@ -167,6 +167,7 @@
           <DsfrModal
             title="Consignes pour les prises de photos"
             icon="ri-arrow-right-line"
+            size="lg"
             :opened="showModalPhotos"
             @close="onClose()"
           >
@@ -176,30 +177,57 @@
                   <p>
                     Pour faciliter l'analyse de votre demande, veuillez tenir
                     compte de la liste des photos à prendre en veillant à la
-                    qualité de celles-ci (<span class="font-bold"
-                      >netteté, exposition, orientation, sans perspective)
-                      :</span
+                    qualité de celles-ci
+                    <span class="font-bold"
+                      >(netteté, exposition, orientation, sans
+                      perspective).</span
                     >
-                    <br />
                   </p>
                 </div>
-                <br />
-                <li>
+              </div>
+              <div class="fr-col-12 container-img">
+                <div class="fr-col-6 fr-p-1w">
                   <span class="font-bold"
-                    >Vue d'ensemble de l'arme côté gauche</span
+                    ><li>Vue d'ensemble de l'arme côté gauche</li></span
                   >
-                </li>
-                <li>
+                  <img
+                    src="@/assets/arme_cote_gauche.png"
+                    width="90%"
+                    alt="Vue d'ensemble de l'arme côté gauche"
+                  />
+                </div>
+                <div class="fr-col-6 fr-p-1w">
                   <span class="font-bold"
-                    >Vue d'ensemble de l'arme côté droite</span
+                    ><li>Vue d'ensemble de l'arme côté droit</li></span
                   >
-                </li>
-                <li>
+                  <img
+                    src="@/assets/arme_cote_droit.png"
+                    width="90%"
+                    alt="Vue d'ensemble de l'arme côté droit"
+                  />
+                </div>
+              </div>
+              <div class="fr-col-12 container-img">
+                <div class="fr-col-6 fr-p-1w">
                   <span class="font-bold"
-                    >Vue(s) rapprochée(s) des marquages et poinçon(s)</span
+                    ><li>
+                      Vue(s) rapprochée(s) des marquages et poinçon(s)
+                    </li></span
                   >
-                </li>
-                <li><span class="font-bold">Une photo du chargeur</span></li>
+                  <img
+                    src="@/assets/arme_vue_rapprochee.png"
+                    width="90%"
+                    alt="Vue(s) rapprochée(s) des marquages et poinçon(s)"
+                  />
+                </div>
+                <div class="fr-col-6 fr-p-1w">
+                  <span class="font-bold"><li>Une photo du chargeur</li></span>
+                  <img
+                    src="@/assets/chargeur.jpeg"
+                    width="90%"
+                    alt="Une photo du chargeur"
+                  />
+                </div>
               </div>
               <div class="fr-mt-3w">
                 <DsfrButton
@@ -592,5 +620,14 @@ const handleSubmit = async () => {
   margin-top: 10px;
   padding: 10px;
   border-radius: 5px;
+}
+
+.container-img {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
 }
 </style>
