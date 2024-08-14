@@ -238,7 +238,7 @@ const routes: RouteRecordRaw[] = [
         name: "AuthCallback",
         beforeEnter: async (to, from, next) => {
           try {
-            await mgr.signinRedirectCallback();
+            await mgr.signinCallback();
             const user = await mgr.getUser();
             if (user !== null) {
               next({ name: "ExpertSituation" });
