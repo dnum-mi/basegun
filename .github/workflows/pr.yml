@@ -5,18 +5,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  tag-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Tag PR
-        uses: release-drafter/release-drafter@v5
-        with:
-          name: PR ${{ github.ref }}
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   build-backend:
     name: Build Backend
     runs-on: ubuntu-latest
@@ -35,6 +23,14 @@ jobs:
           context: ./backend
           push: true
           tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
+      - name: Delete untagged images
+        uses: vlaurin/action-ghcr-prune@main
+        with:
+          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+          organization: dnum-mi
+          container: basegun/basegun-backend
+          dry-run: false
+          prune-untagged: true
 
   build-frontend:
     name: Build Frontend
@@ -54,7 +50,16 @@ jobs:
           context: ./frontend
           push: true
           tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref }}
-  
+      - name: Delete untagged images
+        uses: vlaurin/action-ghcr-prune@main
+        with:
+          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+          organization: dnum-mi
+          container: basegun/basegun-frontend
+          dry-run: false
+          prune-untagged: true
+
+
   test-backend:
     name: Test Backend
     needs: build-backend
