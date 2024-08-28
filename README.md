@@ -63,3 +63,6 @@ This will redirect you to a login page where you have two options :
 2. `make tag`
 This will create a draft release in github (to validate) and some docker image packages with this tag.
 > If you made a tagging error, run `make untag`. This will delete the tag locally and in the remote.
+
+## Licence
+Due to its usage of python library [Ultralytics](https://github.com/ultralytics/ultralytics/blob/main/LICENSE), BaseGun uses copyleft [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.data.gouv.fr/fr/pages/legal/licences/).
