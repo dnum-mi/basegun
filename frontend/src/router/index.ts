@@ -9,6 +9,7 @@ import { clearLocalStorage } from "@/utils/storage-utils.js";
 import { mgr } from "@/utils/authentication";
 
 import MissingCardPage from "@/views/MissingCardPage.vue";
+import IdentificationQualityImage from "@/views/GuideIdentificationFirearm/IdentificationQualityImage.vue";
 import ExpertiseForm from "@/views/GuideAskingExpertise/ExpertiseForm.vue";
 
 const HomePage = () => import("@/views/HomePage.vue");
@@ -41,8 +42,6 @@ const IdentificationFurtherInformations = () =>
   );
 const IdentificationSelectAmmo = () =>
   import("@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue");
-const IdentificationBlankGun = () =>
-  import("@/views/GuideIdentificationFirearm/IdentificationBlankGun.vue");
 const ExpertSituation = () =>
   import("@/views/GuideContactExpert/ExpertSituation.vue");
 
@@ -129,9 +128,9 @@ const routes: RouteRecordRaw[] = [
         component: IdentificationSelectAmmo,
       },
       {
-        path: "armes-alarme",
-        name: "IdentificationBlankGun",
-        component: IdentificationBlankGun,
+        path: "qualite-image",
+        name: "IdentificationQualityImage",
+        component: IdentificationQualityImage,
       },
       {
         path: "resultat-final",
@@ -247,7 +246,7 @@ const routes: RouteRecordRaw[] = [
             }
           } catch (error) {
             console.error("Erreur signin callback:", error);
-            next({ name: "AuthRedirect" });
+            next({ name: "ErrorPage" });
           }
         },
       },

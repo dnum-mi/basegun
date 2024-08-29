@@ -7,6 +7,7 @@ RUN apt update && apt install -y \
     libglib2.0-0 \
     curl \
     gcc \
+    patch \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries
