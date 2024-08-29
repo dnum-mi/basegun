@@ -51,7 +51,6 @@ jobs:
     needs: [build-backend, build-frontend]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Delete from backend package
         uses: vlaurin/action-ghcr-prune@main
         with:
