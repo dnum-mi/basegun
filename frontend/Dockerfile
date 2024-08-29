@@ -2,10 +2,6 @@ FROM node:20-slim as base
 
 WORKDIR /app
 
-# certificates config
-ARG NODE_EXTRA_CA_CERTS
-COPY ./cert/. /etc/ssl/certs/
-
 COPY ./package.json ./package-lock.json ./
 RUN npm ci
 
