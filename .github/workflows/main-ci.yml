@@ -1,4 +1,4 @@
-name: CI for pr
+name: Main CI
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -25,7 +25,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
+          tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref || github.ref_name }}
 
   build-frontend:
     name: Build Frontend
@@ -44,7 +44,7 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref }}
+          tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref || github.ref_name }}
 
   clean-registry:
     name: Delete untagged images
@@ -67,13 +67,13 @@ jobs:
           container: basegun/basegun-frontend
           dry-run: false
           prune-untagged: true
-
+  
   test-backend:
     name: Test Backend
     needs: build-backend
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref }}
+      image: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref || github.ref_name }}
       env:
         AWS_REGION: gra
         AWS_DEFAULT_REGION: gra
