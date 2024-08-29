@@ -10,11 +10,15 @@ export const useStore = defineStore("result", {
     const gunBarrelLength = ref(null);
     const img = ref(null);
     const imgUrl = ref(null);
+    const unresizeImage = ref(null);
     const securingTutorial = ref(false);
 
     const selectedOptions = ref([]);
     const selectedAmmo = ref(undefined);
     const selectedAlarmGun = ref(undefined);
+    const alarmModel = ref(null);
+    const isAlarmGunMissingText = ref(null);
+    const isAlarmGunLowQuality = ref(null);
     const isDummy = computed(() => !!(selectedAmmo.value === "billes"));
     const isModalTransparentAmmoOpened = ref(null);
 
@@ -26,11 +30,15 @@ export const useStore = defineStore("result", {
       gunBarrelLength.value = null;
       img.value = null;
       imgUrl.value = null;
+      unresizeImage.value = null;
       securingTutorial.value = false;
 
       selectedOptions.value = [];
       selectedAmmo.value = undefined;
       selectedAlarmGun.value = undefined;
+      alarmModel.value = null;
+      isAlarmGunMissingText.value = null;
+      isAlarmGunLowQuality.value = null;
       isModalTransparentAmmoOpened.value = null;
     }
 
@@ -42,10 +50,14 @@ export const useStore = defineStore("result", {
       gunBarrelLength,
       img,
       imgUrl,
+      unresizeImage,
       securingTutorial,
       selectedOptions,
       selectedAmmo,
       selectedAlarmGun,
+      alarmModel,
+      isAlarmGunMissingText,
+      isAlarmGunLowQuality,
       isDummy,
       isModalTransparentAmmoOpened,
       $reset,

@@ -139,6 +139,34 @@ async def imageupload(
         logging.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.post("/identification-blank-gun")
+async def imageblankgun(
+    image: UploadFile = File(...),
+):
+    try:
+        img_bytes = image.file.read()
+        # Process image with ML models
+        alarm_model = is_alarm_weapon(img_bytes)
+        return {
+            "alarm_model": alarm_model,
+            "missing_text": False,
+            "low_quality": False,
+        }
+
+    except LowQuality:
+        return {
+            "alarm_model": None,
+            "low_quality": True,
+            "missing_text": False,
+        }
+    except MissingText:
+        return {
+            "alarm_model": None,
+            "low_quality": False,
+            "missing_text": True,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/identification-feedback")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
