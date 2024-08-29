@@ -1,0 +1,28 @@
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  clean-registry:
+    name: Delete untagged images
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete from backend package
+        uses: vlaurin/action-ghcr-prune@main
+        with:
+          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+          organization: dnum-mi
+          container: basegun/basegun-backend
+          dry-run: false
+          prune-untagged: true
+      - name: Delete from frontend package
+        uses: vlaurin/action-ghcr-prune@main
+        with:
+          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
+          organization: dnum-mi
+          container: basegun/basegun-frontend
+          dry-run: false
+          prune-untagged: true
+
