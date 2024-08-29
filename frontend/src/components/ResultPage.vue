@@ -5,6 +5,7 @@ import SnackbarAlert from "@/components/SnackbarAlert.vue";
 import {
   TYPOLOGIES,
   MEASURED_GUNS_TYPOLOGIES,
+  isAlarmGun,
 } from "@/utils/firearms-utils/index";
 import { isUserUsingCrosscall } from "@/utils/isUserUsingCrosscall";
 import { useSnackbarStore } from "@/stores/snackbar";
@@ -131,7 +132,7 @@ function sendFeedback(isCorrect: boolean) {
               <h2 v-if="isDummy" class="fr-alert__title">
                 Arme factice de type {{ label }}
               </h2>
-              <h2 v-else-if="store.selectedAlarmGun" class="fr-alert__title">
+              <h2 v-else-if="isAlarmGun()" class="fr-alert__title">
                 Arme d'alarme de type {{ label }}
               </h2>
               <h2 v-else class="fr-alert__title">
