@@ -105,11 +105,23 @@ async function srcToFile(src: string, fileName: string, mimeType: string) {
   return new File([buf], fileName, { type: mimeType });
 }
 
-function onFileSelected(
+function fileToBase64(file: File): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
+async function onFileSelected(
   event: InputEvent & { target: InputEvent["target"] & { files: File[] } },
 ) {
   loading.value = true;
   const uploadedFile = event.target?.files[0];
+
+  const unresizeImage = await fileToBase64(uploadedFile);
+  store.$patch({ unresizeImage: unresizeImage });
 
   resizeImage(uploadedFile).then((resizedBase64Image) =>
     uploadImage(resizedBase64Image, uploadedFile.name),

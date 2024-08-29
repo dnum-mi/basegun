@@ -9,6 +9,7 @@ import {
   isAlarmGun,
 } from "@/utils/firearms-utils/index";
 import { useStore } from "@/stores/result";
+import { uploadPhotoForBlankGunDetection } from "@/api/api-client";
 
 const store = useStore();
 const router = useRouter();
@@ -16,6 +17,9 @@ const route = useRoute();
 
 const confidenceLevel = computed(() => store.confidenceLevel);
 const typology = computed(() => store.typology);
+const alarmModel = computed(() => store.alarmModel);
+const isAlarmGunLowQuality = computed(() => store.isAlarmGunLowQuality);
+const isAlarmGunMissingText = computed(() => store.isAlarmGunMissingText);
 
 const currentStep = ref(1);
 const isLowConfidence = confidenceLevel.value === "low";
@@ -56,10 +60,6 @@ const goToNewRouteWithArmeAlarme = () =>
     name: identificationGuideStepsWithArmeAlarme[currentStep.value - 1],
   });
 
-const isArmeAlarme = computed(
-  () => route.path === "/guide-identification/armes-alarme",
-);
-
 const goOnAndFollow = computed(() =>
   currentStep.value === 1
     ? "Continuer"
@@ -74,26 +74,7 @@ const arrowOrCircleIcon = () =>
 const calculateRoute = (store) => {
   return store.selectedAmmo === "billes"
     ? { name: "IdentificationFinalResult" }
-    : { name: "IdentificationBlankGun" };
-};
-
-// showDiv is used to create a mini steper for alarm guns. Need to be reworked.
-const backStepButtonAction = () => {
-  if (showDiv.value === false) {
-    currentStep.value--;
-    goToNewRouteWithArmeAlarme();
-  } else {
-    showDiv.value = false;
-  }
-};
-
-const nextStepButtonAction = () => {
-  if (showDiv.value === false) {
-    showDiv.value = true;
-  } else {
-    currentStep.value++;
-    goToNewRouteWithArmeAlarme();
-  }
+    : { name: "IdentificationQualityImage" };
 };
 
 function handlePreviousButtonClick() {
@@ -105,7 +86,64 @@ function handlePreviousButtonClick() {
   }
 }
 
-const showDiv = ref(false);
+async function onFileSelected(event) {
+  const uploadedFile = event.target.files[0];
+
+  if (!uploadedFile) {
+    console.error("Aucun fichier sélectionné.");
+    return;
+  }
+
+  console.log("Fichier sélectionné :", uploadedFile);
+
+  try {
+    const result = await uploadPhotoForBlankGunDetection(uploadedFile);
+    console.log("Résultat de l'envoi :", result);
+
+    if (result) {
+      const { alarm_model, missing_text, low_quality } = result;
+      if (alarm_model === "Alarm_model") {
+        store.$patch({ alarmModel: alarm_model });
+        console.log("Modèle d'arme d'alarme détecté :", alarm_model);
+
+        currentStep.value++;
+        router.push({ name: "IdentificationFinalResult" });
+      } else if (low_quality === true) {
+        store.$patch({ isAlarmGunLowQuality: true });
+      } else if (missing_text === true) {
+        store.$patch({ isAlarmGunMissingText: true });
+      }
+    } else {
+      console.error("La réponse est indéfinie ou mal formée :", result);
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'image :", error);
+  }
+}
+
+const handledImageTypes = "image/jpeg, image/png, image/jpg";
+
+const footerValue = computed(() => {
+  if (isAlarmGunLowQuality) {
+    return {
+      next: "Pas de marquages, passer à l'étape suivante",
+      picture: "Reprendre la photo",
+    };
+  } else {
+    return {
+      next: "Non, passer à l'étape suivante",
+      picture: "Oui, en prendre une photo rapprochée",
+    };
+  }
+});
+
+watch(alarmModel, (newVal) => {
+  if (newVal === "Alarm_model" || newVal === "Not_alarm") {
+    setTimeout(() => {
+      currentStep.value++;
+    }, 5000);
+  }
+});
 </script>
 
 <template>
@@ -120,7 +158,7 @@ const showDiv = ref(false);
         :steps="steps"
         :current-step="currentStep"
       />
-      <RouterView :show-div="showDiv" />
+      <RouterView />
     </div>
   </div>
   <div
@@ -183,28 +221,6 @@ const showDiv = ref(false);
       />
     </div>
   </div>
-
-  <div v-else-if="isArmeAlarme" class="footer z-1">
-    <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-      <DsfrButton
-        v-if="currentStep > 0"
-        class="m-1 flex justify-center w-100"
-        icon="ri-arrow-left-line"
-        :secondary="true"
-        label="Précédent"
-        @click="backStepButtonAction"
-      />
-      <DsfrButton
-        class="m-1 flex justify-center w-100"
-        icon="ri-arrow-right-line"
-        :label="goOnAndFollow"
-        :icon-right="true"
-        data-testid="next-step"
-        @click="nextStepButtonAction"
-      />
-    </div>
-  </div>
-
   <div v-else class="footer z-1">
     <div v-if="confidenceLevel === 'low'" class="fr-col-11 fr-col-lg-6 mx-auto">
       <DsfrButton
@@ -248,6 +264,49 @@ const showDiv = ref(false);
           goToNewRoute();
         "
       />
+    </div>
+  </div>
+
+  <div
+    v-if="$route.path === '/guide-identification/qualite-image'"
+    class="footer z-1"
+  >
+    <div v-if="isAlarmGunLowQuality === true || isAlarmGunMissingText === true">
+      <div class="fr-col-12 fr-col-lg-6 mx-auto">
+        <input
+          ref="fileInput"
+          data-testid="select-file"
+          type="file"
+          style="width: 0; height: 1px"
+          :accept="handledImageTypes"
+          @change="onFileSelected($event)"
+        />
+        <DsfrButton
+          class="flex justify-center !w-full fr-mb-1w"
+          data-testid="take-a-picture"
+          :label="footerValue.picture"
+          icon="ri-camera-fill"
+          :icon-right="true"
+          @click="$refs.fileInput.click()"
+        />
+
+        <DsfrButton
+          class="flex justify-center !w-full"
+          :label="footerValue.next"
+          :icon-right="true"
+          icon="ri-checkbox-circle-line"
+          secondary
+          @click="
+            currentStep++;
+            goToNewRouteWithArmeAlarme();
+          "
+        />
+      </div>
+    </div>
+    <div v-else>
+      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+        <p>Redirection vers la page de résultat dans 5 secondes</p>
+      </div>
     </div>
   </div>
 </template>
