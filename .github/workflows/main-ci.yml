@@ -46,28 +46,6 @@ jobs:
           push: true
           tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref || github.ref_name }}
 
-  clean-registry:
-    name: Delete untagged images
-    needs: [build-backend, build-frontend]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete from backend package
-        uses: vlaurin/action-ghcr-prune@main
-        with:
-          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-          organization: dnum-mi
-          container: basegun/basegun-backend
-          dry-run: false
-          prune-untagged: true
-      - name: Delete from frontend package
-        uses: vlaurin/action-ghcr-prune@main
-        with:
-          token: ${{ secrets.PERSO_ACCESS_TOKEN }}
-          organization: dnum-mi
-          container: basegun/basegun-frontend
-          dry-run: false
-          prune-untagged: true
-  
   test-backend:
     name: Test Backend
     needs: build-backend
