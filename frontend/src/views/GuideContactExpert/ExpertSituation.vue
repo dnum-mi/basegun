@@ -11,7 +11,7 @@ mgr.getUser().then((data) => (user.value = data));
 // eslint-disable-next-line vue/no-ref-as-operand
 async function authIDP() {
   const user = await mgr.getUser();
-  return user.profile.auth_idp;
+  return user.auth_idp;
 }
 
 const priority = ref("");
@@ -43,17 +43,17 @@ const currentPhone = computed(() => {
         <div class="text-center mt-5 p-3">
           <h1>
             <VIcon name="ri-arrow-right-line" scale="1.7" />
-            <span v-if="user.profile.auth_idp === 'proxyma'"
+            <span v-if="user.auth_idp === 'proxyma'"
               >Contacter un expert de l'IRCGN</span
             >
-            <span v-if="user.profile.auth_idp === 'cheops'"
+            <span v-if="user.auth_idp === 'cheops'"
               >Contacter un expert en arme</span
             >
           </h1>
-          <div v-if="user.profile.auth_idp === 'proxyma'">
+          <div v-if="user.auth_idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-if="user.profile.auth_idp === 'cheops'">
+          <div v-if="user.auth_idp === 'cheops'">
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -77,7 +77,7 @@ const currentPhone = computed(() => {
         </div>
       </div>
     </div>
-    <div v-if="user.profile.auth_idp === 'proxyma'">
+    <div v-if="user.auth_idp === 'proxyma'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -138,7 +138,7 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div v-if="user.profile.auth_idp === 'proxyma'" class="fr-grid-row">
+    <div v-if="user.auth_idp === 'proxyma'" class="fr-grid-row">
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>

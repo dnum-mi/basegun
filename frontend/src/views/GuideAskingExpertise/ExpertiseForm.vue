@@ -429,12 +429,12 @@ const goToNextStep = async () => {
 const getUserData = async () => {
   try {
     const user = await mgr.getUser();
-    email.value = user.profile.email;
-    service.value = user.profile.service;
-    nigend.value = user.profile.nigend;
-    firstname.value = user.profile.given_name;
-    lastname.value = user.profile.family_name;
-    phone.value = user.profile.phone_number;
+    email.value = user.email;
+    service.value = user.service;
+    nigend.value = user.nigend;
+    firstname.value = user.given_name;
+    lastname.value = user.family_name;
+    phone.value = user.phone_number;
     seizure.value = todayDate;
     getAccessToken.value = user?.access_token;
   } catch (error) {
