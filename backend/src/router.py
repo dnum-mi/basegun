@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from basegun_ml.classification import get_typology
 from basegun_ml.measure import get_lengths
-from basegun_ml.ocr import is_alarm_weapon, LowQuality, MissingText
+from basegun_ml.ocr import LowQuality, MissingText, is_alarm_weapon
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -36,6 +36,7 @@ def home():
 @router.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
+
 
 @router.post("/upload")
 async def imageupload(
@@ -78,7 +79,7 @@ async def imageupload(
 
             except Exception as e:
                 extras_logging["bg_error_type"] = e.__class__.__name__
-                logging.exception(e, extra=extras_logging)       
+                logging.exception(e, extra=extras_logging)
         # Temporary fix while ML package send 0 instead of None
         # https://github.com/dnum-mi/basegun-ml/issues/14
         gun_length = None if gun_length == 0 else gun_length
@@ -109,6 +110,7 @@ async def imageupload(
         logging.exception(e, extra=extras_logging)
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.post("/identification-blank-gun")
 async def imageblankgun(
     image: UploadFile = File(...),
@@ -137,6 +139,7 @@ async def imageblankgun(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/identification-feedback")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):

@@ -187,3 +187,41 @@ class TestExpertContact:
         response = client.post("/api/expert-contact")
         response.data = response.json()
         assert response.status_code == 403
+
+
+class TestBlankGunUpload:
+    def test_blank_gun(self):
+        with open("./tests/blank_gun.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-blank-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        response.data["alarm_model"] == "Alarm_model"
+        not response.data["missing_text"]
+        not response.data["low_quality"]
+
+    def test_bad_quality(self):
+        with open("./tests/low_quality.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-blank-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        response.data["alarm_model"] is None
+        not response.data["missing_text"]
+        response.data["missing_text"]
+
+    def test_missing_text(self):
+        with open("./tests/no_text.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-blank-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        response.data["alarm_model"] is None
+        response.data["missing_text"]
+        not response.data["low_quality"]

@@ -292,6 +292,7 @@ watch(alarmModel, (newVal) => {
 
         <DsfrButton
           class="flex justify-center !w-full"
+          data-testid="next-step"
           :label="footerValue.next"
           :icon-right="true"
           icon="ri-checkbox-circle-line"
@@ -305,6 +306,7 @@ watch(alarmModel, (newVal) => {
     </div>
     <div v-else>
       <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
+        <VIcon name="ri:check-double-fill" animation="flash" />
         <p>Redirection vers la page de résultat dans 5 secondes</p>
       </div>
     </div>
