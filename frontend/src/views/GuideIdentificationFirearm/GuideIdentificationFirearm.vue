@@ -9,7 +9,7 @@ import {
   isAlarmGun,
 } from "@/utils/firearms-utils/index";
 import { useStore } from "@/stores/result";
-import { uploadPhotoForBlankGunDetection } from "@/api/api-client";
+import { uploadPhotoForAlarmGunDetection } from "@/api/api-client";
 
 const store = useStore();
 const router = useRouter();
@@ -17,16 +17,19 @@ const route = useRoute();
 
 const confidenceLevel = computed(() => store.confidenceLevel);
 const typology = computed(() => store.typology);
-const alarmModel = computed(() => store.alarmModel);
-const isAlarmGunLowQuality = computed(() => store.isAlarmGunLowQuality);
-const isAlarmGunMissingText = computed(() => store.isAlarmGunMissingText);
+const alarmGunException = computed(() => store.alarmGunException);
 
 const currentStep = ref(1);
 const isLowConfidence = confidenceLevel.value === "low";
 
 const steps = computed(() => {
   if (TYPOLOGIES[typology]?.dummyOptions || !isLowConfidence) {
-    if (isAlarmGun() !== false) {
+    if (
+      isAlarmGun() ||
+      (!isAlarmGun() &&
+        alarmGunException.value !== undefined &&
+        store.selectedAmmo !== "billes")
+    ) {
       return [
         "Typologie de l'arme",
         "Compléments",
@@ -74,48 +77,37 @@ const arrowOrCircleIcon = () =>
 const calculateRoute = (store) => {
   return store.selectedAmmo === "billes"
     ? { name: "IdentificationFinalResult" }
-    : { name: "IdentificationQualityImage" };
+    : { name: "IdentificationAlarmGun" };
 };
 
-function handlePreviousButtonClick() {
+const handlePreviousButtonClick = () => {
   currentStep.value--;
-  if (isAlarmGun() !== false) {
+  if (isAlarmGun() || (!isAlarmGun() && alarmGunException !== undefined)) {
     goToNewRouteWithArmeAlarme();
   } else {
     goToNewRoute();
   }
-}
+};
 
 async function onFileSelected(event) {
   const uploadedFile = event.target.files[0];
 
-  if (!uploadedFile) {
-    console.error("Aucun fichier sélectionné.");
-    return;
-  }
-
-  console.log("Fichier sélectionné :", uploadedFile);
-
   try {
-    const result = await uploadPhotoForBlankGunDetection(uploadedFile);
-    console.log("Résultat de l'envoi :", result);
+    const result = await uploadPhotoForAlarmGunDetection(uploadedFile);
 
     if (result) {
-      const { alarm_model, missing_text, low_quality } = result;
-      if (alarm_model === "Alarm_model") {
-        store.$patch({ alarmModel: alarm_model });
-        console.log("Modèle d'arme d'alarme détecté :", alarm_model);
-
-        currentStep.value++;
-        router.push({ name: "IdentificationFinalResult" });
-      } else if (low_quality === true) {
-        store.$patch({ isAlarmGunLowQuality: true });
-      } else if (missing_text === true) {
-        store.$patch({ isAlarmGunMissingText: true });
+      const { is_alarm_model, exception } = result;
+      if (is_alarm_model === true) {
+        store.$patch({ isAlarmGun: is_alarm_model });
+      } else if (exception !== undefined) {
+        store.$patch({
+          isAlarmGun: is_alarm_model,
+          alarmGunException: exception,
+        });
       }
-    } else {
-      console.error("La réponse est indéfinie ou mal formée :", result);
     }
+    currentStep.value++;
+    router.push({ name: "IdentificationFinalResult" });
   } catch (error) {
     console.error("Erreur lors de l'envoi de l'image :", error);
   }
@@ -123,25 +115,36 @@ async function onFileSelected(event) {
 
 const handledImageTypes = "image/jpeg, image/png, image/jpg";
 
-const footerValue = computed(() => {
-  if (isAlarmGunLowQuality) {
+const footerAlarmGun = computed(() => {
+  if (alarmGunException === "LowQuality") {
     return {
       next: "Pas de marquages, passer à l'étape suivante",
-      picture: "Reprendre la photo",
+      uploadPicture: "Reprendre la photo",
     };
   } else {
     return {
       next: "Non, passer à l'étape suivante",
-      picture: "Oui, en prendre une photo rapprochée",
+      uploadPicture: "Oui, en prendre une photo rapprochée",
     };
   }
 });
 
-watch(alarmModel, (newVal) => {
-  if (newVal === "Alarm_model" || newVal === "Not_alarm") {
-    setTimeout(() => {
+let alarmTimeout = ref<ReturnType<typeof setTimeout> | null>(null);
+const alarmGunMounted = () => {
+  if (
+    isAlarmGun() ||
+    (isAlarmGun() === false && alarmGunException === undefined)
+  ) {
+    alarmTimeout = setTimeout(() => {
+      router.push({ name: "IdentificationFinalResult" });
       currentStep.value++;
     }, 5000);
+  }
+};
+
+onBeforeUnmount(() => {
+  if (alarmTimeout) {
+    clearTimeout(alarmTimeout);
   }
 });
 </script>
@@ -190,7 +193,7 @@ watch(alarmModel, (newVal) => {
   </div>
   <div
     v-else-if="
-      isAlarmGun() !== false &&
+      (isAlarmGun() || (!isAlarmGun() && alarmGunException)) &&
       route.path === '/guide-identification/munition-type'
     "
     class="footer content z-1"
@@ -268,10 +271,10 @@ watch(alarmModel, (newVal) => {
   </div>
 
   <div
-    v-if="$route.path === '/guide-identification/qualite-image'"
+    v-if="$route.path === '/guide-identification/armes-alarme'"
     class="footer z-1"
   >
-    <div v-if="isAlarmGunLowQuality === true || isAlarmGunMissingText === true">
+    <div v-if="alarmGunException !== undefined">
       <div class="fr-col-12 fr-col-lg-6 mx-auto">
         <input
           ref="fileInput"
@@ -284,7 +287,7 @@ watch(alarmModel, (newVal) => {
         <DsfrButton
           class="flex justify-center !w-full fr-mb-1w"
           data-testid="take-a-picture"
-          :label="footerValue.picture"
+          :label="footerAlarmGun.uploadPicture"
           icon="ri-camera-fill"
           :icon-right="true"
           @click="$refs.fileInput.click()"
@@ -292,7 +295,8 @@ watch(alarmModel, (newVal) => {
 
         <DsfrButton
           class="flex justify-center !w-full"
-          :label="footerValue.next"
+          data-testid="next-step"
+          :label="footerAlarmGun.next"
           :icon-right="true"
           icon="ri-checkbox-circle-line"
           secondary
@@ -304,8 +308,12 @@ watch(alarmModel, (newVal) => {
       </div>
     </div>
     <div v-else>
-      <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
-        <p>Redirection vers la page de résultat dans 5 secondes</p>
+      <div class="flex justify-center fr-col-11 fr-col-lg-6 mx-auto">
+        <IdentificationAlarmGun @vue:mounted="alarmGunMounted()" />
+        <p>
+          <VIcon name="ri:loop-left-line" animation="spin" scale="1.2" />
+          Redirection vers la page <br />de résultat dans 5 secondes...
+        </p>
       </div>
     </div>
   </div>
@@ -318,6 +326,10 @@ watch(alarmModel, (newVal) => {
 }
 
 :deep(.fr-icon-home-3-line) {
+  color: var(--blue-france-sun-113-625);
+}
+
+p {
   color: var(--blue-france-sun-113-625);
 }
 </style>

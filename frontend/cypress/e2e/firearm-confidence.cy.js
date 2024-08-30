@@ -1,7 +1,6 @@
 describe("Firearm Confidence", () => {
-  it("should identificate firearm with high confidence", () => {
+  it.only("should identificate firearm with high confidence", () => {
     cy.Identification();
-
     cy.getByDataTestid("select-file").as("fileInput");
     cy.intercept("POST", "/api/upload").as("upload");
     cy.get("@fileInput").selectFile("./cypress/images/pistolet-semi-auto.jpg", {

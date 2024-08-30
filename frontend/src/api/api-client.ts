@@ -7,6 +7,7 @@ import {
   TUTORIAL_FEEDBACK_ROUTE,
   UPLOAD_PHOTO_FOR_DETECTION_ROUTE,
   GET_IRCGN_NUMBERS_ROUTE,
+  UPLOAD_PHOTO_FOR_ALARM_GUN_DETECTION,
 } from "./api-routes";
 
 export const uploadPhotoForDetection = async (file: File) => {
@@ -54,4 +55,12 @@ export const getContactDetails = async (accessToken: string) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+};
+
+export const uploadPhotoForAlarmGunDetection = async (file: File) => {
+  const fd = new FormData();
+  fd.append("image", file, file.name);
+
+  const { data } = await axios.post(UPLOAD_PHOTO_FOR_ALARM_GUN_DETECTION, fd);
+  return data;
 };

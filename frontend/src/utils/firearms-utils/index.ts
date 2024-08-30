@@ -34,7 +34,7 @@ export const TYPOLOGIES = {
 const IdentificationTypologyResult = "IdentificationTypologyResult";
 const IdentificationFurtherInformations = "IdentificationFurtherInformations";
 const IdentificationSelectAmmo = "IdentificationSelectAmmo";
-const IdentificationQualityImage = "IdentificationQualityImage";
+const IdentificationAlarmGun = "IdentificationAlarmGun";
 const IdentificationFinalResult = "IdentificationFinalResult";
 
 export const identificationGuideSteps = [
@@ -48,7 +48,7 @@ export const identificationGuideStepsWithArmeAlarme = [
   IdentificationTypologyResult,
   IdentificationFurtherInformations,
   IdentificationSelectAmmo,
-  IdentificationQualityImage,
+  IdentificationAlarmGun,
   IdentificationFinalResult,
 ] as const;
 
@@ -69,7 +69,7 @@ export const identificationRoutePathsWithArmeAlarme = [
   "resultat-typologie",
   "informations-complementaires",
   "munition-type",
-  "qualite-image",
+  "armes-alarme",
   "resultat-final",
 ] as const;
 
@@ -81,7 +81,7 @@ export function isAlarmGun() {
   ) {
     return false;
   }
-  return store.alarmModel === "Alarm_model" ? true : undefined;
+  return store.isAlarmGun;
 }
 
 export const MEASURED_GUNS_TYPOLOGIES = [

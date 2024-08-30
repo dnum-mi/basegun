@@ -9,6 +9,7 @@ describe("Typology Revolver Identification", () => {
     cy.wait("@upload").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
     });
+    cy.wait(1000);
     cy.IdentificationRevolver();
     cy.url().should("contain", "/guide-identification/resultat-final");
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B ou D");
