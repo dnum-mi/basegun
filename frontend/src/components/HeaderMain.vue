@@ -53,7 +53,6 @@ const operatorImgStyle: InstanceType<
     :operator-img-style="operatorImgStyle"
     operator-img-alt="Logo basegun"
     :show-beta="false"
-    service-title=" "
     :home-to="{ name: 'StartPage' }"
     :logo-text="logoText"
   />
@@ -85,13 +84,6 @@ const operatorImgStyle: InstanceType<
   height: 1.2rem;
   margin-bottom: 0.25rem;
   width: 3rem;
-}
-
-:deep(.fr-header__service) {
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
-  height: 0;
 }
 
 :deep(.fr-badge) {

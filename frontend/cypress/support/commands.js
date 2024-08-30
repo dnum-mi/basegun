@@ -109,11 +109,6 @@ Cypress.Commands.add("IdentificationPistoletSemiAuto", () => {
   cy.contains("Cartouches").first().click();
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
-  cy.url().should("contain", "/guide-identification/armes-alarme");
-  cy.getByDataTestid("instruction-armeAlarme").should("contain", "Votre arme");
-  cy.getByDataTestid("next-step").click();
-  cy.getByDataTestid("aucune-correspondance").click();
-  cy.getByDataTestid("next-step").click();
 });
 
 Cypress.Commands.add("IdentificationRevolver", () => {
@@ -133,11 +128,8 @@ Cypress.Commands.add("IdentificationRevolver", () => {
   cy.contains("Balles").first().click();
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
-  cy.url().should("contain", "/guide-identification/armes-alarme");
-  cy.getByDataTestid("instruction-armeAlarme").should("contain", "Votre arme");
-  cy.getByDataTestid("next-step").click();
-  cy.getByDataTestid("aucune-correspondance").click();
-  cy.getByDataTestid("next-step").click();
+  cy.getByDataTestid("title-page").should("contain", "Marquages non détectés");
+  cy.get('.fr-col-12 > [data-testid="next-step"]').click();
 });
 
 Cypress.Commands.add("arrierePlatRevolver", () => {
@@ -249,6 +241,21 @@ Cypress.Commands.add("IdentificationShotgun", (typeOfMunition) => {
   cy.contains(`${typeOfMunition}`).first().click();
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
+});
+
+Cypress.Commands.add("IdentificationPistoletOCR", (header) => {
+  cy.url().should(
+    "contain",
+    "guide-identification/informations-complementaires",
+  );
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/munition-type");
+  cy.getByDataTestid("next-step").should("have.attr", "disabled");
+  cy.contains("Cartouches").first().click();
+  cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/armes-alarme");
+  cy.getByDataTestid("title-page").should("contain", `${header}`);
 });
 
 Cypress.Commands.add("ExpertContactPath", () => {

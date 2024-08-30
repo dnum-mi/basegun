@@ -50,6 +50,22 @@ async function uploadImage(base64: string, fileName: string) {
     console.log(error);
     router.push({ name: "ErrorPage" });
   }
+
+  try {
+    if (
+      store.typology === "pistolet_semi_auto_moderne" ||
+      store.typology === "revolver"
+    ) {
+      const { data } = await axios.post("/identification-alarm-gun", fd);
+      store.$patch({
+        isAlarmGun: data.is_alarm_model,
+        alarmGunException: data.exception,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    router.push({ name: "ErrorPage" });
+  }
 }
 
 onMounted(() => {
@@ -105,23 +121,11 @@ async function srcToFile(src: string, fileName: string, mimeType: string) {
   return new File([buf], fileName, { type: mimeType });
 }
 
-function fileToBase64(file: File): Promise<string> {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
-}
-
 async function onFileSelected(
   event: InputEvent & { target: InputEvent["target"] & { files: File[] } },
 ) {
   loading.value = true;
   const uploadedFile = event.target?.files[0];
-
-  const unresizeImage = await fileToBase64(uploadedFile);
-  store.$patch({ unresizeImage: unresizeImage });
 
   resizeImage(uploadedFile).then((resizedBase64Image) =>
     uploadImage(resizedBase64Image, uploadedFile.name),

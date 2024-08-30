@@ -11,6 +11,7 @@ describe("Firearm Identification", () => {
     });
     cy.getByDataTestid("next-step").click();
     cy.IdentificationPistoletSemiAuto();
+    cy.wait(5000);
     cy.url().should("contain", "/guide-identification/resultat-final");
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
     cy.getByDataTestid("return-to-home-end").click();
