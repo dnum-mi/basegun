@@ -64,7 +64,6 @@ async function uploadImage(base64: string, fileName: string) {
 onMounted(async () => {
   const base64String = img.value;
   if (base64String) {
-    console.log("Chaîne Base64 récupérée pour l'envoi:", base64String);
     await uploadImage(base64String, "image.jpg");
   } else {
     console.error("La chaîne Base64 est vide ou non définie.");
@@ -111,7 +110,7 @@ const alert = computed(() => {
 </script>
 <template>
   <h2 class="fr-mt-3w flex justify-center titlePage">
-    <span> {{ title }}</span>
+    <span data-testid="title-page"> {{ title }}</span>
   </h2>
 
   <div class="fr-p-1w">
@@ -142,6 +141,6 @@ const alert = computed(() => {
 .img-deco {
   margin-top: auto;
   margin-bottom: 1em;
-  width: 75%;
+  width: 65%;
 }
 </style>
