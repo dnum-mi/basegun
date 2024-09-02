@@ -28,7 +28,7 @@ docker-build-frontend:
     IMAGE_NAMES: basegun-frontend:${CI_COMMIT_REF_SLUG} basegun-frontend:${CI_COMMIT_SHORT_SHA} basegun-frontend:${CI_COMMIT_TAG}
     DOCKERFILE: "frontend/Dockerfile"
     BUILD_ARGS: --build-arg=VERSION=1.1.1
-    EXTRA_BUILD_ARGS: --registry-mirror=nexus.forge-dc.cloudmi.minint.fr --registry-mirror=registry.dso.interieur.gouv.fr/dockerhub
+    EXTRA_BUILD_ARGS: --registry-mirror=registry.dso.interieur.rie.gouv.fr/dockerhub --registry-mirror=nexus.forge-dc.cloudmi.minint.fr
   stage: docker-build
   extends:
     - .kaniko:build-push
@@ -39,7 +39,7 @@ docker-build-backend:
     IMAGE_NAMES: basegun-backend:${CI_COMMIT_REF_SLUG} basegun-backend:${CI_COMMIT_SHORT_SHA} basegun-backend:${CI_COMMIT_TAG}
     DOCKERFILE: "backend/Dockerfile"
     BUILD_ARGS: --build-arg=VERSION=1.1.1
-    EXTRA_BUILD_ARGS: --registry-mirror=nexus.forge-dc.cloudmi.minint.fr --registry-mirror=registry.dso.interieur.gouv.fr/dockerhub
+    EXTRA_BUILD_ARGS: --registry-mirror=registry.dso.interieur.rie.gouv.fr/dockerhub --registry-mirror=nexus.forge-dc.cloudmi.minint.fr
   stage: docker-build
   extends:
     - .kaniko:build-push
