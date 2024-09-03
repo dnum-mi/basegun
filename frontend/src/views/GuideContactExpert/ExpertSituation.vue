@@ -37,17 +37,15 @@ const currentPhone = computed(() => {
         <div class="text-center mt-5 p-3">
           <h1>
             <VIcon name="ri-arrow-right-line" scale="1.7" />
-            <span v-if="user.profile.idp === 'proxyma'"
-              >Contacter un expert de l'IRCGN</span
-            >
-            <span v-if="user.profile.idp === 'Cheops'"
-              >Contacter un expert en arme</span
-            >
+            <span v-if="user.profile.idp === 'proxyma'">
+              Contacter un expert de l'IRCGN
+            </span>
+            <span v-else>Contacter un expert en arme</span>
           </h1>
           <div v-if="user.profile.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-if="user.profile.idp === 'Cheops'">
+          <div v-else>
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
