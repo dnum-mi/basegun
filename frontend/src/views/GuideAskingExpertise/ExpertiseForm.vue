@@ -5,7 +5,10 @@
       <div><span style="color: blue"> d'avis</span></div>
     </h1>
 
-    <div class="fr-col-12 fr-col-lg-6 mx-auto">
+    <div
+      v-if="formSubmissionStatus == ''"
+      class="fr-col-12 fr-col-lg-6 mx-auto"
+    >
       <div class="fr-mb-5w">
         <StepsGuide
           class="!fr-container"
@@ -22,7 +25,7 @@
             title="Avertissement"
             :opened="showWarning"
             icon="ri-error-warning-line"
-            @close="onClose()"
+            @close="showWarning = false"
           >
             <template #default>
               <div class="fr-alert fr-alert--warning">
@@ -134,21 +137,21 @@
             :options="typeArmeOptions"
           />
           <DsfrInput
-            v-model="gun_length"
+            v-model.number="gun_length"
             class="mb-5"
             label="Longueur de l'arme (en cm)"
             type="number"
             label-visible
           />
           <DsfrInput
-            v-model="gun_barrel_length"
+            v-model.number="gun_barrel_length"
             class="mb-5"
             label="Longueur du canon (en cm)"
             type="number"
             label-visible
           />
           <DsfrInput
-            v-if="showMarquage"
+            v-if="hasMarkings"
             v-model="markings_description"
             class="mb-5"
             label="Description des marquages"
@@ -156,8 +159,12 @@
           />
           <DsfrCheckbox
             class="fr-mt-2w fr-btn--sm"
-            :label="buttonLabelMarquage"
-            @click="toggleMarquage"
+            :label="
+              hasMarkings
+                ? 'Pas de marquages'
+                : 'Décocher s\'il y a des marquages'
+            "
+            @click="hasMarkings = !hasMarkings"
           />
         </div>
       </div>
@@ -169,7 +176,7 @@
             icon="ri-arrow-right-line"
             size="lg"
             :opened="showModalPhotos"
-            @close="onClose()"
+            @close="showModalPhotos = false"
           >
             <template #default>
               <div class="fr-alert fr-alert--warning">
@@ -281,7 +288,7 @@
 
           <div class="separatorUpload fr-mb-4w">
             <DsfrFileUpload
-              v-if="showChargeur"
+              v-if="hasMagazine"
               v-model="magazine_picture"
               label="Chargeur *"
               hint="Formats acceptés : .jpg, .png"
@@ -291,74 +298,61 @@
 
             <DsfrCheckbox
               class="fr-mt-2w fr-btn--sm"
-              :label="buttonLabelChargeur"
-              @click="toggleChargeur"
+              :label="
+                hasMagazine
+                  ? 'Pas de chargeur'
+                  : 'Décocher s\'il y a un chargeur'
+              "
+              @click="hasMagazine = !hasMagazine"
             />
           </div>
-
-          <Teleport to="body">
-            <DsfrModal
-              title="Envoi du formulaire"
-              icon="ri-arrow-right-line"
-              :opened="showModalSubmit"
-              @close="onClose()"
-            >
-              <template #default>
-                <div
-                  v-if="formSubmissionStatus === 'success'"
-                  class="form-submission-status"
-                >
-                  <DsfrAlert
-                    title="Succès"
-                    description="Le formulaire a été envoyé avec succès."
-                    type="success"
-                  />
-                  <p>
-                    Vous recevrez prochainemenent une réponse sur votre adresse
-                    mail professionnel.
-                  </p>
-                </div>
-                <div v-else class="form-submission-status">
-                  <DsfrAlert
-                    title="Erreur"
-                    description="Le formulaire n'a pas pu être envoyé. Veuillez réessayer plus tard."
-                    type="error"
-                  />
-                </div>
-                <div class="small-blank" />
-                <div class="fr-col-12 fr-col-lg-6 footer-actions mx-auto">
-                  <DsfrButton
-                    class="flex justify-center"
-                    icon="ri-home-4-line"
-                    label="Retour à l'accueil"
-                    @click="$router.push({ name: 'StartPage' })"
-                  />
-                </div>
-              </template>
-            </DsfrModal>
-          </Teleport>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <DsfrAlert
+        v-if="formSubmissionStatus === 'success'"
+        title="Le formulaire a été envoyé avec succès !"
+        description="Vous recevrez prochainemenent une réponse sur votre adresse mail
+          professionnel."
+        type="success"
+      />
+      <DsfrAlert
+        v-else
+        title="Une erreur est survenue."
+        description="Le formulaire n'a pas pu être envoyé. Veuillez réessayer plus tard."
+        type="error"
+      />
     </div>
   </div>
 
   <div class="footer">
     <div class="fr-col-12 fr-col-lg-6 footer-actions mx-auto">
-      <DsfrButton
-        class="flex justify-center !w-full"
-        icon="ri-arrow-left-line"
-        :secondary="true"
-        label="Précédent"
-        @click="routerFooter.back"
-      />
-      <DsfrButton
-        class="flex justify-center !w-full"
-        :icon="routerFooter.icon"
-        label="Suivant"
-        :disabled="!areRequiredFieldsFilled()"
-        :icon-right="true"
-        @click="routerFooter.next"
-      />
+      <template v-if="formSubmissionStatus == ''">
+        <DsfrButton
+          class="flex justify-center !w-full"
+          icon="ri-arrow-left-line"
+          :secondary="true"
+          label="Précédent"
+          @click="routerFooter.back"
+        />
+        <DsfrButton
+          class="flex justify-center !w-full"
+          :icon="routerFooter.icon"
+          label="Suivant"
+          :disabled="!areRequiredFieldsFilled() || loading"
+          :icon-right="true"
+          @click="routerFooter.next"
+        />
+      </template>
+      <template v-else>
+        <DsfrButton
+          class="flex justify-center w-100"
+          icon="ri-home-4-line"
+          label="Retour à l'accueil"
+          @click="$router.push({ name: 'StartPage' })"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -370,7 +364,7 @@ import { sendExpertiseForm } from "@/api/api-client";
 import { mgr } from "@/utils/authentication";
 import { DateTime } from "luxon";
 
-const formData = new FormData();
+const test = ref("");
 const steps = [
   "Identification du demandeur",
   "Informations sur l'arme",
@@ -379,47 +373,18 @@ const steps = [
 const router = useRouter();
 const currentStep = ref(1);
 const todayDate = DateTime.now().setZone("Europe/Paris").toISODate();
+const loading = ref(false);
 
-const typeArmeOptions = ref([
+const typeArmeOptions = [
   { text: "Je ne sais pas", value: "Je ne sais pas" },
   { text: "Arme de poing", value: "Arme de poing" },
   { text: "Arme d'épaule", value: "Arme d'épaule" },
-]);
-
-const [showWarning, showModalPhotos, showModalSubmit] = [
-  ref(true),
-  ref(true),
-  ref(false),
 ];
 
-function onClose() {
-  [showWarning.value, showModalPhotos.value, showModalSubmit.value] = [
-    false,
-    false,
-    false,
-  ];
-}
+const [showWarning, showModalPhotos] = [ref(true), ref(true)];
 
-const [showChargeur, showMarquage] = [ref(true), ref(true)];
-
-const [buttonLabelChargeur, buttonLabelMarquage] = [
-  ref("Pas de chargeur"),
-  ref("Pas de marquage"),
-];
-
-const toggleChargeur = () => {
-  showChargeur.value = !showChargeur.value;
-  buttonLabelChargeur.value = showChargeur.value
-    ? "Pas de chargeur"
-    : "Décocher s'il y a un chargeur";
-};
-
-const toggleMarquage = () => {
-  showMarquage.value = !showMarquage.value;
-  buttonLabelMarquage.value = showMarquage.value
-    ? "Pas de marquages"
-    : "Décocher s'il y a des marquages";
-};
+const hasMagazine = ref(true);
+const hasMarkings = ref(true);
 
 /* eslint-disable camelcase */
 const routerFooter = computed(() => {
@@ -438,7 +403,7 @@ const routerFooter = computed(() => {
   } else {
     return {
       back: () => goToPreviousStep(),
-      next: () => handleSubmit(),
+      next: () => sendFormData(),
       icon: "ri-checkbox-circle-line",
     };
   }
@@ -448,7 +413,6 @@ const goToPreviousStep = () => (currentStep.value = currentStep.value - 1);
 
 const goToNextStep = async () => {
   if (areRequiredFieldsFilled()) {
-    await sendData();
     currentStep.value = currentStep.value + 1;
   }
 };
@@ -464,7 +428,7 @@ const getUserData = async () => {
     lastname.value = user.profile.family_name;
     phone.value = user.profile.phone_number;
     seizure.value = todayDate;
-    getAccessToken.value = user?.access_token;
+    access_token = user?.access_token;
   } catch (error) {
     console.error(
       "Erreur pendant la récupération des données de l'utilisateur :",
@@ -477,24 +441,27 @@ onMounted(async () => {
   await getUserData();
 });
 
-const lastname: Ref<string> = ref("");
-const firstname: Ref<string> = ref("");
-const nigend: Ref<string> = ref("");
-const una_or_procedure_number: Ref<string> = ref("");
-const service: Ref<string> = ref("");
-const phone: Ref<string | undefined> = ref(undefined);
-const email: Ref<string> = ref("");
-const seizure: Ref<string> = ref("");
-const gun_type: Ref<string> = ref("");
-const gun_length: Ref<number | null> = ref(null);
-const gun_barrel_length: Ref<number | null> = ref(null);
-const markings_description: Ref<string> = ref("");
-const left_picture: Ref<File | null> = ref(null);
-const right_picture: Ref<File | null> = ref(null);
-const markings_pictures: Ref<File | null> = ref(null);
-const magazine_picture: Ref<File | null> = ref(null);
-const files: Ref<File[]> = ref([]);
-const getAccessToken: Ref<string> = ref("");
+const formSubmissionStatus = ref("");
+
+const lastname = ref<string>("");
+const firstname = ref<string>("");
+const nigend = ref<string>("");
+const una_or_procedure_number = ref<string>("");
+const service = ref<string>("");
+const phone = ref<string | undefined>(undefined);
+const email = ref<string>("");
+const seizure = ref<string>("");
+const gun_type = ref<string>("");
+const gun_length = ref<number | null>(null);
+const gun_barrel_length = ref<number | null>(null);
+const markings_description = ref<string>("");
+const left_picture = ref<File | null>(null);
+const right_picture = ref<File | null>(null);
+const markings_pictures = ref<File | null>(null);
+const magazine_picture = ref<File | null>(null);
+
+var files = [];
+var access_token = "";
 
 // Validation des champs
 const stepValidations = {
@@ -509,7 +476,7 @@ const stepValidations = {
   3: () => {
     const baseValidation =
       left_picture.value && right_picture.value && markings_pictures.value;
-    return showChargeur.value
+    return hasMagazine.value
       ? baseValidation && magazine_picture.value
       : baseValidation;
   },
@@ -520,78 +487,40 @@ const areRequiredFieldsFilled = () => {
   return validate ? validate() : false;
 };
 
-// Mapping des données du formulaire
-const stepFormMappings = {
-  1: () => ({
-    lastname: lastname.value,
-    firstname: firstname.value,
-    nigend: nigend.value,
-    service: service.value,
-    phone: phone.value,
-    email: email.value,
-  }),
-  2: () => ({
-    seizure: seizure.value,
-    una_or_procedure_number: una_or_procedure_number.value,
-    gun_type: gun_type.value,
-    gun_length: gun_length.value,
-    gun_barrel_length: gun_barrel_length.value,
-    markings_description: markings_description.value,
-  }),
-  3: () => ({
-    files: files.value,
-  }),
-};
-
 const handleFileChange = (newFiles: FileList) => {
-  files.value = files.value.concat(Array.from(newFiles));
-};
-
-const getCurrentFormData = () => {
-  const formDataFunction = stepFormMappings[currentStep.value];
-  return formDataFunction ? formDataFunction() : {};
-};
-
-const sendData = async () => {
-  const formDataToUpdate = getCurrentFormData();
-  handleFormDataUpdate(formDataToUpdate);
-};
-
-// Mise à jour des données du formulaire
-const handleFormDataUpdate = (form: Record<string, number | string | File>) => {
-  console.log("Données mises à jour:", form);
-
-  for (const [key, value] of Object.entries(form)) {
-    if (key === "files" && Array.isArray(value)) {
-      value.forEach((file) => {
-        if (file instanceof File) {
-          formData.append("files", file);
-        }
-      });
-    } else {
-      formData.append(key, value);
-    }
-  }
+  files = files.concat(Array.from(newFiles));
 };
 
 // Envoi du formulaire vers l'endpoint
 const sendFormData = async () => {
-  try {
-    const response = await sendExpertiseForm(formData, getAccessToken.value);
-    console.log("Formulaire soumis avec succès :", response);
-    formSubmissionStatus.value = "success";
-  } catch (error) {
-    console.error("Erreur lors de la soumission du formulaire :", error);
-    formSubmissionStatus.value = "error";
-  }
-};
-
-const formSubmissionStatus = ref("");
-
-const handleSubmit = async () => {
-  await sendData();
-  await sendFormData();
-  showModalSubmit.value = true;
+  loading.value = true;
+  sendExpertiseForm(
+    {
+      lastname: lastname.value,
+      firstname: firstname.value,
+      nigend: nigend.value,
+      service: service.value,
+      phone: phone.value,
+      email: email.value,
+      seizure: seizure.value,
+      una_or_procedure_number: una_or_procedure_number.value,
+      gun_type: gun_type.value,
+      gun_length: gun_length.value,
+      gun_barrel_length: gun_barrel_length.value,
+      markings_description: markings_description.value,
+      files: files,
+    },
+    access_token,
+  )
+    .then((response) => {
+      formSubmissionStatus.value = "success";
+    })
+    .catch((error) => {
+      formSubmissionStatus.value = "error";
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 </script>
 
@@ -614,12 +543,6 @@ const handleSubmit = async () => {
 
 :deep(.required) {
   color: red;
-}
-
-.form-submission-status {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
 }
 
 .container-img {

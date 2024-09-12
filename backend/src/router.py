@@ -177,14 +177,15 @@ async def expert_contact(
     email: Annotated[str, Form()],
     seizure: Annotated[str, Form()],
     una_or_procedure_number: Annotated[str, Form()],
-    gun_type: Annotated[str, Form()],
-    gun_length: Annotated[int | None, Form()],
-    gun_barrel_length: Annotated[int | None, Form()],
-    markings_description: Annotated[str | None, Form()],
     files: Annotated[
         list[UploadFile], File(description="Multiple files as UploadFile")
     ],
     current_user: Annotated[dict, Depends(get_current_user)],
+    # Optionnal fields
+    markings_description: Annotated[str, Form()] = None,
+    gun_type: Annotated[str, Form()] = None,
+    gun_barrel_length: Annotated[int, Form()] = None,
+    gun_length: Annotated[int, Form()] = None,
 ):
     await send_mail(
         subject="[Basegun] Demande d'identification",

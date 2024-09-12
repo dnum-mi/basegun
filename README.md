@@ -40,6 +40,14 @@ make up
 # stop
 make down
 ```
+
+### Authentication
+
+1. Login into keycloak
+2. Go to the Basegun realm
+3. Then in "Realm settings", go to "Keys"
+4. Copy the RS256 public key and paste it in the docker compose.
+
 ## Debugging
 
 * If the interface of the website does not appear on localhost:3000, there is an issue with frontend. In terminal, run `docker logs basegun-frontend`

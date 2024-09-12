@@ -35,18 +35,14 @@ export const sendIdentificationDummyFeedback = async (feedbackDummy: any) => {
   return data;
 };
 
-export const sendExpertiseForm = async (
-  feedbackExpert: any,
-  accessToken: string,
-) => {
-  try {
-    const { data } = await axios.post(ASK_FOR_OPINION_ROUTE, feedbackExpert, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    console.error("Erreur lors de l'envoi du formulaire :", error);
-  }
+export const sendExpertiseForm = async (data: any, accessToken: string) => {
+  return axios.post(ASK_FOR_OPINION_ROUTE, data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data",
+    },
+    formSerializer: {
+      indexes: null,
+    },
+  });
 };
