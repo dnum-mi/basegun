@@ -22,7 +22,6 @@ from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
 from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
-from .models import EmailData
 from .utils import get_current_user, send_mail, upload_image
 
 router = APIRouter(prefix="/api")

@@ -8,6 +8,20 @@ on:
       - develop
 
 jobs:
+  pre-commit-check:
+    name: Check pre-commit hooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pre-commit
+        run: pip install pre-commit
+      - name: Install Prettier
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run format-check
+      - run: pre-commit run --all-files
+
   build-backend:
     name: Build Backend
     runs-on: ubuntu-latest

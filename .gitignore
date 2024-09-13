@@ -15,3 +15,4 @@ temp/
 version.txt
 *.crt
 *.pem
+.ruff_cache

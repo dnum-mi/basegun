@@ -1,15 +1,15 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-    -   id: black
--   repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-    -   id: isort
-        args: ["--profile", "black"]
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.6.4
+  hooks:
+    # Run ruff with isort formatter
+    - id: ruff
+      args: [ "--select", "I", "--fix" ]
+    # Run ruff
+    - id: ruff
+      args: [ "--fix" ]
+    # Run the formatter.
+    - id: ruff-format
 -   repo: local
     hooks:
     -   id: prettier

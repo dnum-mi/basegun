@@ -6,6 +6,7 @@ from typing import Annotated
 
 import jwt
 from fastapi import Depends, HTTPException, status
+
 from src.config import SMTPClient
 
 from .config import OAUTH2_SCHEME, PUBLIC_KEY, S3, S3_BUCKET_NAME
