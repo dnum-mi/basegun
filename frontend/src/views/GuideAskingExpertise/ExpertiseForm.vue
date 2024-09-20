@@ -63,20 +63,18 @@
 
         <div class="justify-center fr-pb-15w">
           <DsfrInput
-            v-model="lastname"
+            v-model.trim="lastname"
             class="mb-5"
             label="Nom"
             label-visible
             required="true"
-            disabled="true"
           />
           <DsfrInput
-            v-model="firstname"
+            v-model.trim="firstname"
             class="mb-5"
             label="Prénom"
             label-visible
             required="true"
-            disabled="true"
           />
           <DsfrInput
             v-model="nigend"
@@ -84,7 +82,6 @@
             label="NIGEND"
             label-visible
             required="true"
-            disabled="true"
           />
           <DsfrInput
             v-model="service"
@@ -102,7 +99,7 @@
           />
           <DsfrInput
             id="adresse"
-            v-model="email"
+            v-model.trim="email"
             class="mb-5"
             label="Adresse électronique"
             type="email"
@@ -116,7 +113,7 @@
       <div v-if="currentStep === 2">
         <div class="justify-center fr-pb-15w">
           <DsfrInput
-            v-model="seizure"
+            v-model.trim="seizure"
             class="mb-5"
             label="Date de la saisie"
             type="date"
@@ -124,7 +121,7 @@
             required="true"
           />
           <DsfrInput
-            v-model="una_or_procedure_number"
+            v-model.trim="una_or_procedure_number"
             class="mb-5"
             label="UNA / Numéro de procédure"
             label-visible
@@ -422,10 +419,10 @@ const getUserData = async () => {
   try {
     const user = await mgr.getUser();
     email.value = user.profile.email;
-    service.value = user.profile.service;
-    nigend.value = user.profile.nigend;
-    firstname.value = user.profile.given_name;
-    lastname.value = user.profile.family_name;
+    service.value = user.profile?.service;
+    nigend.value = user.profile?.police_matricule;
+    firstname.value = user.profile?.first_name;
+    lastname.value = user.profile?.last_name;
     phone.value = user.profile.phone_number;
     seizure.value = todayDate;
     access_token = user?.access_token;
@@ -466,13 +463,12 @@ var access_token = "";
 // Validation des champs
 const stepValidations = {
   1: () =>
-    lastname.value.trim() !== "" &&
-    firstname.value.trim() !== "" &&
+    lastname.value !== "" &&
+    firstname.value !== "" &&
     nigend.value !== "" &&
     phone.value !== "" &&
-    email.value.trim() !== "",
-  2: () =>
-    seizure.value.trim() !== "" && una_or_procedure_number.value.trim() !== "",
+    email.value !== "",
+  2: () => seizure.value !== "" && una_or_procedure_number.value !== "",
   3: () => {
     const baseValidation =
       left_picture.value && right_picture.value && markings_pictures.value;
