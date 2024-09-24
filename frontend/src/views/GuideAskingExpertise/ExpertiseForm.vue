@@ -273,7 +273,7 @@
             />
           </div>
 
-          <div class="separatorUpload">
+          <div v-if="hasMarkings" class="separatorUpload">
             <DsfrFileUpload
               v-model="markings_pictures"
               label="Une vue rapprochée des marquages et poinçons *"
@@ -463,19 +463,17 @@ var access_token = "";
 // Validation des champs
 const stepValidations = {
   1: () =>
-    lastname.value !== "" &&
-    firstname.value !== "" &&
-    nigend.value !== "" &&
-    phone.value !== "" &&
-    email.value !== "",
-  2: () => seizure.value !== "" && una_or_procedure_number.value !== "",
-  3: () => {
-    const baseValidation =
-      left_picture.value && right_picture.value && markings_pictures.value;
-    return hasMagazine.value
-      ? baseValidation && magazine_picture.value
-      : baseValidation;
-  },
+    lastname.value &&
+    firstname.value &&
+    nigend.value &&
+    phone.value &&
+    email.value,
+  2: () => seizure.value && una_or_procedure_number.value,
+  3: () =>
+    left_picture.value &&
+    right_picture.value &&
+    (markings_pictures.value || hasMarkings.value === false) &&
+    (magazine_picture.value || hasMagazine.value === false),
 };
 
 const areRequiredFieldsFilled = () => {
