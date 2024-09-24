@@ -1,5 +1,7 @@
-# Override environment variables in CI to use dummy OIDC
+# Override environment variables in CI to use dummy / github OIDC
 services:
   backend:
     environment:
-      - OPENIDCONNECT_URL=https://token.actions.githubusercontent.com/.well-known/openid-configuration
+      - OIDC_CONFIG_URL=https://token.actions.githubusercontent.com/.well-known/openid-configuration
+      - OIDC_JWKS_URL=https://token.actions.githubusercontent.com/.well-known/jwks
+      - OIDC_JWKS_KID=cc413527-173f-5a05-976e-9c52b1d7b431
