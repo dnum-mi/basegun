@@ -1288,7 +1288,7 @@
             "user.attribute": "lastName",
             "id.token.claim": "true",
             "access.token.claim": "true",
-            "claim.name": "family_name",
+            "claim.name": "last_name",
             "jsonType.label": "String"
           }
         },
@@ -1609,7 +1609,8 @@
         "providerId": "rsa-generated",
         "subComponents": {},
         "config": {
-          "priority": ["100"]
+          "priority": ["100"],
+          "kid": ["basegun"]
         }
       }
     ]
