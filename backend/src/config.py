@@ -1,4 +1,5 @@
 import os
+import ssl
 from datetime import datetime
 from smtplib import SMTP
 
@@ -128,7 +129,13 @@ TYPOLOGIES_MEASURED = [
 SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
 
 # Authentication
-jwks_client = PyJWKClient(os.environ["OIDC_JWKS_URL"])
+
+# Avoid SSL to retrieve JWKs
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+jwks_client = PyJWKClient(os.environ["OIDC_JWKS_URL"], ssl_context=ctx)
 PUBLIC_KEY = jwks_client.get_signing_key(os.environ["OIDC_JWKS_KID"]).key
 
 OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OIDC_CONFIG_URL"])

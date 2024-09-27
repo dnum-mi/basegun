@@ -188,7 +188,7 @@ async def expert_contact(
 ):
     await send_mail(
         subject="[Basegun] Demande d'identification",
-        to="db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
+        to=os.environ["IRCGN_EMAIL"],
         message=f"""
         Nom : {lastname}
         Prénom : {firstname}
