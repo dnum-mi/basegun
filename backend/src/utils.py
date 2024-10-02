@@ -58,5 +58,6 @@ async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
             PUBLIC_KEY,
             algorithms=["RS256"],
         )
-    except jwt.InvalidTokenError:
+    except jwt.InvalidTokenError as exception:
+        logging.error(exception)
         raise credentials_exception

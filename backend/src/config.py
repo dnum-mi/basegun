@@ -1,9 +1,11 @@
+import logging
 import os
 import ssl
 from datetime import datetime
 from smtplib import SMTP
 
 import boto3
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from fastapi.security import OpenIdConnect
 from gelfformatter import GelfFormatter
 from jwt import PyJWKClient
@@ -35,6 +37,8 @@ LOGS_CONFIG = {
     },
     "loggers": {"": {"handlers": ["default", "file"], "level": "DEBUG"}},
 }
+
+logging.config.dictConfig(LOGS_CONFIG)
 
 HEADERS = [
     {"name": "Cache-Control", "value": "no-store, max-age=0"},
@@ -137,5 +141,8 @@ ctx.verify_mode = ssl.CERT_NONE
 
 jwks_client = PyJWKClient(os.environ["OIDC_JWKS_URL"], ssl_context=ctx)
 PUBLIC_KEY = jwks_client.get_signing_key(os.environ["OIDC_JWKS_KID"]).key
+logging.info(
+    f"Public key: {PUBLIC_KEY.public_bytes(encoding=Encoding.PEM, format=PublicFormat.SubjectPublicKeyInfo)}"
+)
 
 OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OIDC_CONFIG_URL"])

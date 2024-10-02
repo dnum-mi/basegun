@@ -1,10 +1,9 @@
-import logging
 import os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import HEADERS, LOGS_CONFIG, PATH_LOGS
+from .config import HEADERS, PATH_LOGS
 from .router import router
 
 app = FastAPI(docs_url="/api/docs")
@@ -28,6 +27,5 @@ async def add_owasp_middleware(request: Request, call_next):
 
 # Logs
 os.makedirs(PATH_LOGS, exist_ok=True)
-logging.config.dictConfig(LOGS_CONFIG)
 
 app.include_router(router)
