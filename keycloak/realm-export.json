@@ -634,6 +634,7 @@
       "defaultClientScopes": [
         "web-origins",
         "acr",
+        "audience",
         "roles",
         "profile",
         "basic",
@@ -950,6 +951,35 @@
             "access.token.claim": "true",
             "claim.name": "email",
             "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "id": "6960d0f3-b9fa-4112-a46a-76362d3d72df",
+      "name": "audience",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "51ee432e-3e4b-466a-ab68-153056829eea",
+          "name": "audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
+            "introspection.token.claim": "true",
+            "access.token.claim": "true",
+            "included.custom.audience": "basegun",
+            "userinfo.token.claim": "true"
           }
         }
       ]
@@ -1443,7 +1473,8 @@
     "offline_access",
     "address",
     "phone",
-    "microprofile-jwt"
+    "microprofile-jwt",
+    "audience"
   ],
   "browserSecurityHeaders": {
     "contentSecurityPolicyReportOnly": "",

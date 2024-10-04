@@ -1,9 +1,7 @@
-import os
-
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import HEADERS, PATH_LOGS
+from .config import HEADERS
 from .router import router
 
 app = FastAPI(docs_url="/api/docs")
@@ -24,8 +22,5 @@ async def add_owasp_middleware(request: Request, call_next):
         response.headers[header["name"]] = header["value"]
     return response
 
-
-# Logs
-os.makedirs(PATH_LOGS, exist_ok=True)
 
 app.include_router(router)

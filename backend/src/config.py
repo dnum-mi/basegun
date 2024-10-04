@@ -1,4 +1,4 @@
-import logging
+import logging.config
 import os
 import ssl
 from datetime import datetime
@@ -13,6 +13,7 @@ from jwt import PyJWKClient
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 PATH_LOGS = os.environ.get("PATH_LOGS", "/tmp/logs")
+os.makedirs(PATH_LOGS, exist_ok=True)
 
 LOGS_CONFIG = {
     "version": 1,
@@ -133,6 +134,7 @@ TYPOLOGIES_MEASURED = [
 SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
 
 # Authentication
+OIDC_CLIENT_ID = os.environ["OIDC_CLIENT_ID"]
 
 # Avoid SSL to retrieve JWKs
 ctx = ssl.create_default_context()

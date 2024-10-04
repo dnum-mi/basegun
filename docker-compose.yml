@@ -16,6 +16,7 @@ services:
       - OIDC_CONFIG_URL=http://localhost:8080/realms/basegun/.well-known/openid-configuration
       - OIDC_JWKS_URL=http://keycloak:8080/realms/basegun/protocol/openid-connect/certs
       - OIDC_JWKS_KID=basegun
+      - OIDC_CLIENT_ID=basegun
       - IRCGN_PHONE=00 00 00 00 00
       - IRCGN_CELLPHONE=00 00 00 00 00
       - IRCGN_EMAIL=test@test.fr
@@ -44,7 +45,7 @@ services:
     ports:
       - 9000:9000
       - 9001:9001
-  
+
   # Mock Passage2 OIDC
   keycloak:
     build:

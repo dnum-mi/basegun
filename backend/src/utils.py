@@ -7,7 +7,7 @@ from typing import Annotated
 import jwt
 from fastapi import Depends, HTTPException, status
 
-from src.config import SMTPClient
+from src.config import OIDC_CLIENT_ID, SMTPClient
 
 from .config import OAUTH2_SCHEME, PUBLIC_KEY, S3, S3_BUCKET_NAME
 
@@ -56,6 +56,7 @@ async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
         return jwt.decode(
             token.split()[1],
             PUBLIC_KEY,
+            audience=OIDC_CLIENT_ID,
             algorithms=["RS256"],
         )
     except jwt.InvalidTokenError as exception:
