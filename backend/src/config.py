@@ -2,7 +2,6 @@ import logging.config
 import os
 import ssl
 from datetime import datetime
-from smtplib import SMTP
 
 import boto3
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
@@ -131,7 +130,8 @@ TYPOLOGIES_MEASURED = [
 ]
 
 # Emails
-SMTPClient = SMTP(os.environ["EMAIL_HOST"], os.environ["EMAIL_PORT"])
+EMAIL_HOST = os.environ["EMAIL_HOST"]
+EMAIL_PORT = os.environ["EMAIL_PORT"]
 
 # Authentication
 OIDC_CLIENT_ID = os.environ["OIDC_CLIENT_ID"]

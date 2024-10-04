@@ -2,14 +2,22 @@ import logging
 import time
 from datetime import datetime
 from email.message import EmailMessage
+from smtplib import SMTP
 from typing import Annotated
 
 import jwt
 from fastapi import Depends, HTTPException, status
 
-from src.config import OIDC_CLIENT_ID, SMTPClient
+from src.config import OIDC_CLIENT_ID
 
-from .config import OAUTH2_SCHEME, PUBLIC_KEY, S3, S3_BUCKET_NAME
+from .config import (
+    EMAIL_HOST,
+    EMAIL_PORT,
+    OAUTH2_SCHEME,
+    PUBLIC_KEY,
+    S3,
+    S3_BUCKET_NAME,
+)
 
 
 def upload_image(content: bytes, image_key: str):
@@ -43,7 +51,8 @@ async def send_mail(subject: str, to: str, message: str, attachements: list = []
             subtype=attachement.content_type,
             filename=attachement.filename,
         )
-    SMTPClient.send_message(msg)
+    with SMTP(EMAIL_HOST, EMAIL_PORT) as smtp_client:
+        smtp_client.send_message(msg)
 
 
 async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
