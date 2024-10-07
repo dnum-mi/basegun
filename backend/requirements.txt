@@ -15,5 +15,5 @@ cryptography==43.0.1
 basegun-ml==1.0.1
 # Dev
 pytest==7.4.3
-coverage==7.3.2
+coverage==7.6.1
 Faker==26.0.0
