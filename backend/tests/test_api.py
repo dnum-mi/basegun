@@ -6,6 +6,7 @@ import boto3
 import pytest
 import requests
 from fastapi.testclient import TestClient
+
 from src.config import S3_BUCKET_NAME, S3_URL_ENDPOINT
 from src.main import app
 

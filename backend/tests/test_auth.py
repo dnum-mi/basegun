@@ -1,6 +1,7 @@
 import jwt
 import pytest
 from fastapi.testclient import TestClient
+
 from src.config import PUBLIC_KEY
 from src.main import app
 
