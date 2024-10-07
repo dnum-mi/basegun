@@ -25,6 +25,8 @@ jobs:
   build-backend:
     name: Build Backend
     runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -34,12 +36,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/dnum-mi/basegun/basegun-backend
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref || github.ref_name }}
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
 
   build-frontend:
     name: Build Frontend
@@ -53,19 +61,25 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/dnum-mi/basegun/basegun-frontend
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/dnum-mi/basegun/basegun-frontend:${{ github.head_ref || github.ref_name }}
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
 
   test-backend:
     name: Test Backend
     needs: build-backend
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/dnum-mi/basegun/basegun-backend:${{ github.head_ref || github.ref_name }}
+      image: ${{ needs.build-backend.outputs.image_tag }}
       env:
         AWS_REGION: gra
         AWS_DEFAULT_REGION: gra
