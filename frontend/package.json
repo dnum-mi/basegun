@@ -24,7 +24,7 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "swiper": "^11.0.6",
     "vite": "^5.4.7",
-    "vue": "^3.4.15",
+    "vue": "^3.5.11",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
