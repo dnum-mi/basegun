@@ -15,7 +15,7 @@
     "test:e2e-open": "FRONTEND_HOST=localhost FRONTEND_PORT=5173 cypress open --e2e --browser firefox"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "~1.11.0",
+    "@gouvfr/dsfr": "~1.12.1",
     "@gouvminint/vue-dsfr": "^5.8.0",
     "axios": "^1.6.7",
     "luxon": "^3.4.4",
