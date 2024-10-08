@@ -1,5 +1,7 @@
 import "@gouvfr/dsfr/dist/dsfr.min.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons.min.css"; // Facultatif : Si des icônes sont utilisées avec <span class="fr-icon-..." />
+import "@gouvfr/dsfr/dist/component/component.main.min.css";
+import "@gouvfr/dsfr/dist/utility/utility.main.min.css";
 import "@gouvminint/vue-dsfr/styles"; // Import des styles globaux
 import "uno.css";
 import "@/main.css";
@@ -9,7 +11,6 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-import * as icons from "./icons";
 import App from "./App.vue";
 import router from "@/router/index";
 // import function to register Swiper custom elements
@@ -22,9 +23,6 @@ pinia.use(piniaPluginPersistedstate);
 
 // the FastAPI backend
 axios.defaults.baseURL = "/api/";
-
-// Register all icons
-addIcons(...Object.values(icons));
 
 const app = createApp(App);
 
