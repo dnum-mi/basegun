@@ -10,8 +10,8 @@ on:
         required: true
         type: string
     outputs:
-      tags: 
-        type: string
+      image_tag: 
+        value: ${{ jobs.build.outputs.image_tag }}
 jobs:
   build:
     name: Build
