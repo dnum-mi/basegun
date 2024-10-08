@@ -7,7 +7,6 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import {
   vueDsfrAutoimportPreset,
-  ohVueIconAutoimportPreset,
   vueDsfrComponentResolver,
 } from "@gouvminint/vue-dsfr";
 
@@ -20,13 +19,7 @@ export default defineConfig({
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
-      imports: [
-        "vue",
-        "vue-router",
-        // 'vue-i18n',
-        vueDsfrAutoimportPreset,
-        ohVueIconAutoimportPreset,
-      ],
+      imports: ["vue", "vue-router", vueDsfrAutoimportPreset],
       dts: "src/auto-imports.d.ts",
       dirs: ["src/composables", "src/stores"],
       vueTemplate: true,

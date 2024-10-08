@@ -290,13 +290,18 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
-    "OhVueIcon": true,
-    "addIcons": true,
     "injectLocal": true,
     "provideLocal": true,
     "useClipboardItems": true,
     "useScheme": true,
     "useTabs": true,
-    "useStore": true
+    "useStore": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true,
+    "onWatcherCleanup": true,
+    "useId": true,
+    "useModel": true,
+    "useTemplateRef": true
   }
 }

@@ -21,6 +21,7 @@ declare module "vue" {
     DsfrModal: (typeof import("@gouvminint/vue-dsfr"))["DsfrModal"];
     DsfrPicture: (typeof import("@gouvminint/vue-dsfr"))["DsfrPicture"];
     DsfrRadioButton: (typeof import("@gouvminint/vue-dsfr"))["DsfrRadioButton"];
+    DsfrRadioButtonSet: (typeof import("@gouvminint/vue-dsfr"))["DsfrRadioButtonSet"];
     DsfrSelect: (typeof import("@gouvminint/vue-dsfr"))["DsfrSelect"];
     DsfrTag: (typeof import("@gouvminint/vue-dsfr"))["DsfrTag"];
     HeaderMain: (typeof import("./components/HeaderMain.vue"))["default"];
@@ -34,6 +35,6 @@ declare module "vue" {
     SnackbarAlert: (typeof import("./components/SnackbarAlert.vue"))["default"];
     StepsGuide: (typeof import("./components/StepsGuide.vue"))["default"];
     User: (typeof import("./components/authentication/User.vue"))["default"];
-    VIcon: (typeof import("oh-vue-icons"))["OhVueIcon"];
+    VIcon: (typeof import("@gouvminint/vue-dsfr"))["VIcon"];
   }
 }
