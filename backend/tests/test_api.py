@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from src.config import S3_BUCKET_NAME, S3_URL_ENDPOINT
 from src.main import app
+from src.utils import get_access_token
 
 client = TestClient(app)
 
@@ -155,8 +156,16 @@ class TestUpload:
 
 
 class TestExpertContact:
-    @pytest.mark.skip("Need to authenticate to run that test.")
     def test_success(self, faker):
+        username = "gendarmerie"
+        password = "password"
+        client_id = "basegun"
+
+        try:
+            token = get_access_token(username, password, client_id)
+        except Exception as e:
+            pytest.fail(f"Error in obtention of JWT : {e}")
+
         with open("./tests/revolver.jpg", "rb") as f:
             response = client.post(
                 "/api/expert-contact",
@@ -179,11 +188,37 @@ class TestExpertContact:
                     "gun_barrel_length": faker.pyint(),
                     "markings_description": faker.pystr(),
                 },
+                headers={"Authorization": f"Bearer {token}"},
             )
+
         response.data = response.json()
         assert response.status_code == 200
 
     def test_403(self):
         response = client.post("/api/expert-contact")
+        response.data = response.json()
+        assert response.status_code == 403
+
+
+class TestExpertDetails:
+    def test_success(self):
+        username = "gendarmerie"
+        password = "password"
+        client_id = "basegun"
+
+        try:
+            token = get_access_token(username, password, client_id)
+        except Exception as e:
+            pytest.fail(f"Error in obtention of JWT : {e}")
+
+        response = client.get(
+            "/api/contact-details",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        response.data = response.json()
+        assert response.status_code == 200
+
+    def test_403(self):
+        response = client.get("/api/contact-details")
         response.data = response.json()
         assert response.status_code == 403
