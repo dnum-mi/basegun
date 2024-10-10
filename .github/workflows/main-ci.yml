@@ -57,6 +57,9 @@ jobs:
         OIDC_JWKS_KID: cc413527-173f-5a05-976e-9c52b1d7b431
         OIDC_CLIENT_ID: basegun
     steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Keycloak to start
+        run: sleep 30
       - run: cd /app && pytest
     services:
       mailpit:
@@ -66,6 +69,13 @@ jobs:
         env:
           MP_SMTP_AUTH_ACCEPT_ANY: 1
           MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      keycloak:
+        image: quay.io/keycloak/keycloak:25.0.0
+        ports:
+          - 8080:8080
+        env:
+          KEYCLOAK_ADMIN: admin
+          KEYCLOAK_ADMIN_PASSWORD: password
 
   test-frontend-format:
     name: Test Frontend Formatting

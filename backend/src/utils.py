@@ -6,6 +6,7 @@ from smtplib import SMTP
 from typing import Annotated
 
 import jwt
+import requests
 from fastapi import Depends, HTTPException, status
 
 from src.config import OIDC_CLIENT_ID
@@ -71,3 +72,27 @@ async def get_current_user(token: Annotated[str, Depends(OAUTH2_SCHEME)]):
     except jwt.InvalidTokenError as exception:
         logging.error(exception)
         raise credentials_exception
+
+
+def get_access_token(username, password, client_id):
+    url = "http://keycloak:8080/realms/basegun/protocol/openid-connect/token"
+
+    response = requests.post(
+        url,
+        data={
+            "client_id": client_id,
+            "username": username,
+            "password": password,
+            "grant_type": "password",
+        },
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+
+    if response.status_code != 200:
+        raise Exception(f"Expected status 200, got {response.status_code}")
+
+    access_token = response.json().get("access_token")
+    if access_token is None:
+        raise Exception("Access token not found")
+
+    return access_token
