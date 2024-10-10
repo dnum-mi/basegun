@@ -26,6 +26,9 @@ services:
       - ./backend/src:/app/src
       - ./backend/tests:/app/tests
       - ./backend/logs:/tmp/logs
+    depends_on:
+      keycloak:
+        condition: service_healthy
 
   frontend:
     build:
@@ -51,12 +54,17 @@ services:
     build:
       context: .
       dockerfile: keycloak/Dockerfile
-    command: start-dev --import-realm
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
+      - KC_HEALTH_ENABLED=true
     ports:
       - 8080:8080
+    healthcheck:
+      test: "exec 3<>/dev/tcp/127.0.0.1/9000; echo -e 'GET /health/ready HTTP/1.1\r\nHost: localhost:9000\r\nConnection: close\r\n\r\n' >&3;cat <&3 | grep -q '\"status\": \"UP\"' && exit 0 || exit 1"
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   # Mock Email server
   mailpit:
