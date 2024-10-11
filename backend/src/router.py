@@ -17,19 +17,11 @@ from fastapi import (
     Request,
     Response,
     UploadFile,
-    status,
 )
 from fastapi.responses import PlainTextResponse
 from user_agents import parse
 
-from .config import (
-    APP_VERSION,
-    CELLPHONE_NUMBER,
-    PHONE_NUMBER,
-    S3_PREFIX,
-    TYPOLOGIES_MEASURED,
-    get_base_logs,
-)
+from .config import APP_VERSION, S3_PREFIX, TYPOLOGIES_MEASURED, get_base_logs
 from .utils import get_current_user, send_mail, upload_image
 
 router = APIRouter(prefix="/api")
@@ -43,21 +35,6 @@ def home():
 @router.get("/version", response_class=PlainTextResponse)
 def version():
     return APP_VERSION
-
-
-@router.get("/contact-details")
-async def phone_number(
-    current_user: Annotated[dict, Depends(get_current_user)],
-):
-    if current_user.get("idp") != "proxyma":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access forbidden: Invalid idp",
-        )
-    return {
-        "phone": PHONE_NUMBER,
-        "cellphone": CELLPHONE_NUMBER,
-    }
 
 
 @router.post("/upload")

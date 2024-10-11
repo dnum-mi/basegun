@@ -1,34 +1,17 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { DsfrButton } from "@gouvminint/vue-dsfr";
+import { useRouter } from "vue-router";
 import { DateTime } from "luxon";
 import { mgr } from "@/utils/authentication";
-import { getContactDetails } from "@/api/api-client";
 
-const user = ref<any>(null);
-
-const getIRCGNDetails = async () => {
-  try {
-    const response = await getContactDetails(user.value?.access_token);
-    IRCGN.fixe = response.cellphone;
-    IRCGN.phone = response.phone;
-  } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des détails de contact :",
-      error,
-    );
-  }
-};
-
-onMounted(async () => {
-  user.value = await mgr.getUser();
-
-  await getIRCGNDetails();
-});
+const user = ref(Object || null);
+mgr.getUser().then((data) => (user.value = data));
 
 const IRCGN = {
-  fixe: "",
-  phone: "",
+  email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
+  fixe: "01 78 47 31 46",
+  phone: "06 07 98 40 09",
 };
 const showIRCGNModal = ref(false);
 
@@ -52,12 +35,12 @@ const currentPhone = computed(() => {
         <div class="text-center mt-5 p-3">
           <h1>
             <VIcon name="ri-arrow-right-line" scale="1.7" />
-            <span v-if="user?.profile?.idp === 'proxyma'"
-              >Contacter un expert de l'IRCGN</span
-            >
+            <span v-if="user.profile.idp === 'proxyma'">
+              Contacter un expert de l'IRCGN
+            </span>
             <span v-else>Contacter un expert en arme</span>
           </h1>
-          <div v-if="user?.profile?.idp === 'proxyma'">
+          <div v-if="user.profile.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
           <div v-else>
@@ -84,7 +67,7 @@ const currentPhone = computed(() => {
         </div>
       </div>
     </div>
-    <div v-if="user?.profile?.idp === 'proxyma'">
+    <div v-if="user.profile.idp === 'proxyma'">
       <div class="fr-grid-row">
         <div class="fr-col-12 fr-col-lg-6 mx-auto">
           <div class="fr-grid-row">
@@ -133,7 +116,7 @@ const currentPhone = computed(() => {
         </DsfrModal>
       </Teleport>
     </div>
-    <div v-if="user?.profile?.idp === 'proxyma'" class="fr-grid-row">
+    <div v-if="user.profile.idp === 'proxyma'" class="fr-grid-row">
       <div class="fr-col text-center">
         <div class="bg-purple p-8 fr-my-8w">
           <p>Exemple de cas d'urgences :</p>
