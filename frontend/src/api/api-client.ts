@@ -6,7 +6,6 @@ import {
   IDENTIFICATION_FEEDBACK_ROUTE,
   TUTORIAL_FEEDBACK_ROUTE,
   UPLOAD_PHOTO_FOR_DETECTION_ROUTE,
-  GET_IRCGN_NUMBERS_ROUTE,
 } from "./api-routes";
 
 export const uploadPhotoForDetection = async (file: File) => {
@@ -46,13 +45,4 @@ export const sendExpertiseForm = async (data: any, accessToken: string) => {
       indexes: null,
     },
   });
-};
-
-export const getContactDetails = async (accessToken: string) => {
-  const { data } = await axios.get(GET_IRCGN_NUMBERS_ROUTE, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  return data;
 };

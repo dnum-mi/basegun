@@ -148,7 +148,3 @@ logging.info(
 )
 
 OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OIDC_CONFIG_URL"])
-
-# Phone numbers
-PHONE_NUMBER = os.environ.get("IRCGN_PHONE")
-CELLPHONE_NUMBER = os.environ.get("IRCGN_CELLPHONE")
