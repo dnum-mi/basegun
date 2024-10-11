@@ -8,6 +8,8 @@ import { mgr } from "@/utils/authentication";
 const user = ref(Object || null);
 mgr.getUser().then((data) => (user.value = data));
 
+const priority = ref("");
+
 const IRCGN = {
   email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
   fixe: "01 78 47 31 46",
@@ -43,7 +45,7 @@ const currentPhone = computed(() => {
           <div v-if="user.profile.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-else>
+          <div v-if="authIDP === 'cheops'">
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -102,13 +104,25 @@ const currentPhone = computed(() => {
                   permanence de l'IRCGN.<br /><br />
                   <span class="font-bold">{{ currentPhone }}</span>
                 </p>
+                <p v-if="priority === 'low'">
+                  Veuilez cliquer sur l'adresse mail ci-dessous pour envoyer un
+                  mail pré-rempli à l'IRCGN : <br /><br />
+                  <span class="font-bold"
+                    ><a :href="buildMailto(IRCGN.email)">{{
+                      IRCGN.email
+                    }}</a></span
+                  >
+                </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
                 <DsfrButton
                   class="m-1 flex justify-center"
                   icon="ri-arrow-left-line"
                   label="Précédent"
-                  @click="showIRCGNModal = false"
+                  @click="
+                    showIRCGNModal = false;
+                    priority = '';
+                  "
                 />
               </div>
             </div>

@@ -187,16 +187,3 @@ class TestExpertContact:
         response = client.post("/api/expert-contact")
         response.data = response.json()
         assert response.status_code == 403
-
-
-class TestExpertDetails:
-    @pytest.mark.skip("Need to authenticate to run that test.")
-    def test_success(self):
-        response = client.get("/api/contact-details")
-        response.data = response.json()
-        assert response.status_code == 200
-
-    def test_403(self):
-        response = client.get("/api/contact-details")
-        response.data = response.json()
-        assert response.status_code == 403
