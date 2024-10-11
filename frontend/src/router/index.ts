@@ -239,6 +239,7 @@ const routes: RouteRecordRaw[] = [
         }
       });
     },
+    meta: { title: "Formulaire contact" },
   },
   {
     path: "/auth",

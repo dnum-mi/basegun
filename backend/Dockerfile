@@ -8,6 +8,7 @@ RUN apt update && apt install -y \
     curl \
     gcc \
     patch \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries
