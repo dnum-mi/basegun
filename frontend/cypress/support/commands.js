@@ -250,3 +250,19 @@ Cypress.Commands.add("IdentificationShotgun", (typeOfMunition) => {
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
 });
+
+Cypress.Commands.add("ExpertContactPath", () => {
+  cy.visit("/accueil", {
+    onBeforeLoad: (win) => {
+      Object.defineProperty(win.navigator, "userAgent", {
+        value: "SAID",
+      });
+    },
+  });
+  cy.getByDataTestid("identification")
+    .contains("J’ai déjà mis mon arme en sécurité, je veux l’identifier")
+    .click();
+  cy.url().should("contain", "/instructions");
+  cy.contains("h1", "Pour un résultat optimal");
+  cy.contains("span", "canon vers la droite");
+});

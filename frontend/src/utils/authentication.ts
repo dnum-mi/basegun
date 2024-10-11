@@ -10,4 +10,5 @@ export const mgr = new UserManager({
   post_logout_redirect_uri: `${FRONTEND_URL}`,
   response_type: "code",
   scope: "openid profile email",
+  disablePKCE: true,
 });
