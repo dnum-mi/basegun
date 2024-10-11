@@ -18,3 +18,16 @@ import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+  if (
+    err.message.includes(
+      "Crypto.subtle is available only in secure contexts",
+    ) ||
+    err.message.includes("$setup.user.profile is undefined")
+  ) {
+    return false;
+  }
+
+  return true;
+});

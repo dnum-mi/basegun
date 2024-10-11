@@ -54,6 +54,7 @@
                   class="justify-center confirm-button flex !w-full"
                   icon="ri-checkbox-circle-line"
                   label="Je confirme avoir pris connaissance des consignes"
+                  data-testid="confirm-button"
                   @click="showWarning = false"
                 />
               </div>
@@ -82,6 +83,7 @@
             label="NIGEND"
             label-visible
             required="true"
+            data-testid="nigend"
           />
           <DsfrInput
             v-model="service"
@@ -126,6 +128,7 @@
             label="UNA / Numéro de procédure"
             label-visible
             required="true"
+            data-testid="una-procedure-number"
           />
           <DsfrSelect
             v-model="gun_type"
@@ -238,6 +241,7 @@
                   class="justify-center flex !w-full"
                   icon="ri-checkbox-circle-line"
                   label="Je confirme avoir pris connaissance des consignes"
+                  data-testid="confirm-button"
                   @click="showModalPhotos = false"
                 />
               </div>
@@ -260,6 +264,7 @@
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
               @change="handleFileChange"
+              data-testid="left-picture"
             />
           </div>
 
@@ -270,6 +275,7 @@
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
               @change="handleFileChange"
+              data-testid="right-picture"
             />
           </div>
 
@@ -280,6 +286,7 @@
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
               @change="handleFileChange"
+              data-testid="markings-pictures"
             />
           </div>
 
@@ -291,6 +298,7 @@
               hint="Formats acceptés : .jpg, .png"
               :accept="['.jpg', '.png']"
               @change="handleFileChange"
+              data-testid="magazine-picture"
             />
 
             <DsfrCheckbox
@@ -332,6 +340,7 @@
           :secondary="true"
           label="Précédent"
           @click="routerFooter.back"
+          data-testid="previous-button"
         />
         <DsfrButton
           class="flex justify-center !w-full"
@@ -340,6 +349,7 @@
           :disabled="!areRequiredFieldsFilled() || loading"
           :icon-right="true"
           @click="routerFooter.next"
+          data-testid="next-button"
         />
       </template>
       <template v-else>
@@ -347,6 +357,7 @@
           class="flex justify-center w-100"
           icon="ri-home-4-line"
           label="Retour à l'accueil"
+          data-testid="back-home"
           @click="$router.push({ name: 'StartPage' })"
         />
       </template>

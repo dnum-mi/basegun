@@ -78,6 +78,7 @@ const currentPhone = computed(() => {
               class="m-1 flex justify-center"
               icon="ri-home-4-line"
               label="Retour à l'accueil"
+              data-testid="back-home"
               @click="$router.push({ name: 'StartPage' })"
             />
           </div>
@@ -92,6 +93,7 @@ const currentPhone = computed(() => {
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation urgente"
+                data-testid="situation-urgente"
                 @click="showIRCGNModal = true"
               />
             </div>
@@ -99,6 +101,7 @@ const currentPhone = computed(() => {
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation non urgente"
+                data-testid="situation-non-urgente"
                 @click="$router.push({ name: 'ExpertiseForm' })"
               />
             </div>
@@ -126,6 +129,7 @@ const currentPhone = computed(() => {
                   icon="ri-arrow-left-line"
                   label="Précédent"
                   @click="showIRCGNModal = false"
+                  data-testid="previous"
                 />
               </div>
             </div>
@@ -154,6 +158,7 @@ const currentPhone = computed(() => {
             class="m-1 flex justify-center"
             icon="ri-home-4-line"
             label="Retour à l'accueil"
+            data-testid="back-home"
             @click="$router.push({ name: 'StartPage' })"
           />
         </div>
