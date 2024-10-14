@@ -4,15 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "preview": "vite preview",
     "build": "vite build",
-    "dev": "vite",
     "start": "API_HOST=http://localhost:5000 vite",
     "lint": "eslint . --fix --ignore-path ../.gitignore",
     "format": "prettier . --write",
     "format-check": "prettier . --check",
-    "test:e2e-ci": "FRONTEND_HOST=localhost FRONTEND_PORT=3000 cypress run --e2e --browser firefox",
-    "test:e2e-open": "FRONTEND_HOST=localhost FRONTEND_PORT=5173 cypress open --e2e --browser firefox"
+    "test:e2e-ci": "cypress run --browser firefox",
+    "test:e2e-open": "cypress open --browser firefox"
   },
   "dependencies": {
     "@gouvfr/dsfr": "~1.12.1",

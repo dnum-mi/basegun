@@ -23,23 +23,10 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/tests:/app/tests
-      - ./backend/logs:/tmp/logs
+      - ./backend/.:/app/.
     depends_on:
       keycloak:
         condition: service_healthy
-
-  frontend:
-    build:
-      context: ./frontend
-      target: ${BUILD_TARGET:-dev}
-    container_name: basegun-frontend
-    ports:
-      - 3000:5173
-    volumes:
-      - ./frontend/src:/app/src
-      - /app/node_modules
 
   # Mock Cloud Pi S3
   minio:
