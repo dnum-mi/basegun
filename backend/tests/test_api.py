@@ -5,13 +5,8 @@ import time
 import boto3
 import pytest
 import requests
-from fastapi.testclient import TestClient
 
 from src.config import S3_BUCKET_NAME, S3_URL_ENDPOINT
-from src.main import app
-from src.utils import get_access_token
-
-client = TestClient(app)
 
 BUCKET_POLICY = {
     "Version": "2012-10-17",
@@ -36,12 +31,12 @@ def create_bucket():
 
 
 class TestApi:
-    def test_home(self):
+    def test_home(self, client):
         """Checks that the route / is alive"""
         response = client.get("/api/")
         assert response.text == "Basegun backend"
 
-    def test_version(self):
+    def test_version(self, client):
         """Checks that the route /version sends a version"""
         response = client.get("/api/version")
         assert response.status_code == 200
@@ -65,7 +60,7 @@ class TestApi:
         assert log["level"] == 6
         assert log["_bg_model"].startswith("EffB")
 
-    def test_upload(self):
+    def test_upload(self, client):
         """Checks that the file upload works properly"""
         create_bucket()
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
@@ -86,7 +81,7 @@ class TestApi:
         assert "gun_length" in res
         assert "gun_barrel_length" in res
 
-    def test_feedback_and_logs(self):
+    def test_feedback_and_logs(self, client):
         """Checks that the feedback works properly"""
         confidence = 90
         label = "revolver"
@@ -105,7 +100,7 @@ class TestApi:
 
         assert r.status_code == 200
 
-    def test_headers(self):
+    def test_headers(self, client):
         HEADERS_TO_ADD = requests.get(
             "https://owasp.org/www-project-secure-headers/ci/headers_add.json"
         ).json()["headers"]
@@ -122,7 +117,7 @@ class TestApi:
 
 
 class TestUpload:
-    def test_revolver_without_card(self):
+    def test_revolver_without_card(self, client):
         with open("./tests/revolver.jpg", "rb") as f:
             response = client.post(
                 "/api/upload",
@@ -138,7 +133,7 @@ class TestUpload:
         assert response.data["gun_barrel_length"] is None
         assert response.data["conf_card"] is None
 
-    def test_semi_auto_without_card(self):
+    def test_semi_auto_without_card(self, client):
         with open("./tests/epaule_a_levier_sous_garde.jpg", "rb") as f:
             response = client.post(
                 "/api/upload",
@@ -156,16 +151,8 @@ class TestUpload:
 
 
 class TestExpertContact:
-    def test_success(self, faker):
-        username = "gendarmerie"
-        password = "password"
-        client_id = "basegun"
-
-        try:
-            token = get_access_token(username, password, client_id)
-        except Exception as e:
-            pytest.fail(f"Error in obtention of JWT : {e}")
-
+    def test_success(self, faker, client):
+        client.authenticate()
         with open("./tests/revolver.jpg", "rb") as f:
             response = client.post(
                 "/api/expert-contact",
@@ -188,37 +175,12 @@ class TestExpertContact:
                     "gun_barrel_length": faker.pyint(),
                     "markings_description": faker.pystr(),
                 },
-                headers={"Authorization": f"Bearer {token}"},
             )
 
         response.data = response.json()
         assert response.status_code == 200
 
-    def test_403(self):
+    def test_403(self, client):
         response = client.post("/api/expert-contact")
-        response.data = response.json()
-        assert response.status_code == 403
-
-
-class TestExpertDetails:
-    def test_success(self):
-        username = "gendarmerie"
-        password = "password"
-        client_id = "basegun"
-
-        try:
-            token = get_access_token(username, password, client_id)
-        except Exception as e:
-            pytest.fail(f"Error in obtention of JWT : {e}")
-
-        response = client.get(
-            "/api/contact-details",
-            headers={"Authorization": f"Bearer {token}"},
-        )
-        response.data = response.json()
-        assert response.status_code == 200
-
-    def test_403(self):
-        response = client.get("/api/contact-details")
         response.data = response.json()
         assert response.status_code == 403

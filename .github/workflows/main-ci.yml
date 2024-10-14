@@ -41,41 +41,17 @@ jobs:
     name: Test Backend
     needs: build-backend
     runs-on: ubuntu-latest
-    container:
-      image: ${{ needs.build-backend.outputs.image_tag }}
-      env:
-        AWS_REGION: gra
-        AWS_DEFAULT_REGION: gra
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        S3_URL_ENDPOINT: https://s3.gra.io.cloud.ovh.net/
-        S3_BUCKET_NAME: basegun-s3
-        EMAIL_HOST: mailpit
-        EMAIL_PORT: 1025
-        OIDC_CONFIG_URL: https://token.actions.githubusercontent.com/.well-known/openid-configuration
-        OIDC_JWKS_URL: https://token.actions.githubusercontent.com/.well-known/jwks
-        OIDC_JWKS_KID: cc413527-173f-5a05-976e-9c52b1d7b431
-        OIDC_CLIENT_ID: basegun
     steps:
       - uses: actions/checkout@v4
-      - name: Wait for Keycloak to start
-        run: sleep 30
-      - run: cd /app && pytest
-    services:
-      mailpit:
-        image: axllent/mailpit
-        ports:
-          - 1025:1025
-        env:
-          MP_SMTP_AUTH_ACCEPT_ANY: 1
-          MP_SMTP_AUTH_ALLOW_INSECURE: 1
-      keycloak:
-        image: quay.io/keycloak/keycloak:25.0.0
-        ports:
-          - 8080:8080
-        env:
-          KEYCLOAK_ADMIN: admin
-          KEYCLOAK_ADMIN_PASSWORD: password
+      - name: Start stack using docker compose
+        run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+      - run: docker compose exec backend coverage run -m pytest
+      - run: docker compose exec backend coverage xml
+      - name: Produce the coverage report
+        uses: insightsengineering/coverage-action@v2
+        with:
+          path: ./backend/coverage.xml
+          publish: true
 
   test-frontend-format:
     name: Test Frontend Formatting
@@ -95,11 +71,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Start stack using docker compose
-        run: docker compose -f docker-compose.yml -f docker-compose.override.ci.yml up -d
+        run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./frontend
+          build: npm run build
+          start: npm run start
           command: npm run test:e2e-ci
       - name: Send artifacts
         uses: actions/upload-artifact@v3

@@ -1,4 +1,4 @@
-FROM python:3.11-slim as base
+FROM python:3.11-slim AS base
 WORKDIR /app
 
 # librairies necessary for image processing

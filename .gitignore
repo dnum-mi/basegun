@@ -16,3 +16,5 @@ version.txt
 *.crt
 *.pem
 .ruff_cache
+.coverage
+coverage.xml

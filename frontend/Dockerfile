@@ -1,4 +1,4 @@
-FROM node:20-slim as base
+FROM node:20-slim AS base
 
 WORKDIR /app
 
@@ -7,15 +7,11 @@ RUN npm ci
 
 COPY . .
 
-FROM base as dev
-
-CMD ["npm", "run", "dev"]
-
-FROM base as build
+FROM base AS build
 
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:1.24-alpine as prod
+FROM nginxinc/nginx-unprivileged:1.24-alpine AS prod
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
