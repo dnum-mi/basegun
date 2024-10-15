@@ -45,7 +45,7 @@ const currentPhone = computed(() => {
           <div v-if="user.profile.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-if="authIDP === 'cheops'">
+          <div v-else>
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -63,6 +63,7 @@ const currentPhone = computed(() => {
               class="m-1 flex justify-center"
               icon="ri-home-4-line"
               label="Retour à l'accueil"
+              data-testid="back-home"
               @click="$router.push({ name: 'StartPage' })"
             />
           </div>
@@ -77,6 +78,7 @@ const currentPhone = computed(() => {
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation urgente"
+                data-testid="situation-urgente"
                 @click="showIRCGNModal = true"
               />
             </div>
@@ -84,6 +86,7 @@ const currentPhone = computed(() => {
               <DsfrButton
                 class="w-100 mx-auto"
                 label="Situation non urgente"
+                data-testid="situation-non-urgente"
                 @click="$router.push({ name: 'ExpertiseForm' })"
               />
             </div>
@@ -119,6 +122,7 @@ const currentPhone = computed(() => {
                   class="m-1 flex justify-center"
                   icon="ri-arrow-left-line"
                   label="Précédent"
+                  data-testid="previous"
                   @click="
                     showIRCGNModal = false;
                     priority = '';
@@ -151,6 +155,7 @@ const currentPhone = computed(() => {
             class="m-1 flex justify-center"
             icon="ri-home-4-line"
             label="Retour à l'accueil"
+            data-testid="back-home"
             @click="$router.push({ name: 'StartPage' })"
           />
         </div>
