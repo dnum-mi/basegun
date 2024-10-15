@@ -3,3 +3,5 @@ export const TUTORIAL_FEEDBACK_ROUTE = "/tutorial-feedback";
 export const IDENTIFICATION_FEEDBACK_ROUTE = "/identification-feedback";
 export const IDENTIFICATION_DUMMY_ROUTE = "/identification-dummy";
 export const ASK_FOR_OPINION_ROUTE = "/expert-contact";
+export const UPLOAD_PHOTO_FOR_BLANK_GUN_DETECTION_ROUTE =
+  "/identification-blank-gun";

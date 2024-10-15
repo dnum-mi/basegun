@@ -6,6 +6,7 @@ import {
   IDENTIFICATION_FEEDBACK_ROUTE,
   TUTORIAL_FEEDBACK_ROUTE,
   UPLOAD_PHOTO_FOR_DETECTION_ROUTE,
+  UPLOAD_PHOTO_FOR_BLANK_GUN_DETECTION_ROUTE,
 } from "./api-routes";
 
 export const uploadPhotoForDetection = async (file: File) => {
@@ -45,4 +46,14 @@ export const sendExpertiseForm = async (data: any, accessToken: string) => {
       indexes: null,
     },
   });
+};
+
+export const uploadPhotoForBlankGunDetection = async (file: File) => {
+  const fd = new FormData();
+  fd.append("image", file, file.name);
+  const { data } = await axios.post(
+    UPLOAD_PHOTO_FOR_BLANK_GUN_DETECTION_ROUTE,
+    fd,
+  );
+  return data;
 };

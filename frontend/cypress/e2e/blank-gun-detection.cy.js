@@ -1,10 +1,10 @@
-describe("Firearm Confidence", () => {
-  it("should identificate firearm with high confidence", () => {
+describe("Blank Gun Detection", () => {
+  it("should identificate real blank gun", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
     cy.intercept("POST", "/api/upload").as("upload");
-    cy.get("@fileInput").selectFile("./cypress/images/pistolet-semi-auto.jpg", {
+    cy.get("@fileInput").selectFile("./cypress/images/blank-gun.jpg", {
       force: true,
     });
     cy.wait("@upload").then(({ response }) => {
@@ -14,37 +14,40 @@ describe("Firearm Confidence", () => {
     cy.IdentificationPistoletSemiAuto();
     cy.wait(5000);
     cy.url().should("contain", "/guide-identification/resultat-final");
+    cy.getByDataTestid("arm-category").should("contain", "Catégorie C");
+  });
+
+  it("should identificate firearm with missing text", () => {
+    cy.Identification();
+
+    cy.getByDataTestid("select-file").as("fileInput");
+    cy.intercept("POST", "/api/upload").as("upload");
+    cy.get("@fileInput").selectFile("./cypress/images/no-text.jpg", {
+      force: true,
+    });
+    cy.wait("@upload").then(({ response }) => {
+      expect(response.statusCode).to.eq(200);
+    });
+    cy.getByDataTestid("next-step").click();
+    cy.IdentificationBlankGunMissingText();
+    cy.url().should("contain", "/guide-identification/resultat-final");
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
   });
 
-  it("should identificate firearm with medium confidence", () => {
+  it("should identificate firearm with low quality", () => {
     cy.Identification();
 
     cy.getByDataTestid("select-file").as("fileInput");
     cy.intercept("POST", "/api/upload").as("upload");
-    cy.get("@fileInput").selectFile("./cypress/images/arme-medium.png", {
+    cy.get("@fileInput").selectFile("./cypress/images/low-quality.jpg", {
       force: true,
     });
     cy.wait("@upload").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
     });
-    cy.url().should("contain", "/guide-identification/resultat-typologie");
-    cy.contains("h2", "Pistolet divers");
-    cy.contains("h3", "Catégorie A, B ou D");
-  });
-
-  it("should identificate firearm with low confidence", () => {
-    cy.Identification();
-
-    cy.getByDataTestid("select-file").as("fileInput");
-    cy.intercept("POST", "/api/upload").as("upload");
-    cy.get("@fileInput").selectFile("./cypress/images/arme-low.png", {
-      force: true,
-    });
-    cy.wait("@upload").then(({ response }) => {
-      expect(response.statusCode).to.eq(200);
-    });
-    cy.url().should("contain", "/guide-identification/resultat-typologie");
-    cy.contains("h2", "Typologie non déterminée");
+    cy.getByDataTestid("next-step").click();
+    cy.IdentificationBlankGunLowQuality();
+    cy.url().should("contain", "/guide-identification/resultat-final");
+    cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
   });
 });

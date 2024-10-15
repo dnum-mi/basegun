@@ -109,11 +109,11 @@ Cypress.Commands.add("IdentificationPistoletSemiAuto", () => {
   cy.contains("Cartouches").first().click();
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
-  cy.url().should("contain", "/guide-identification/armes-alarme");
-  cy.getByDataTestid("instruction-armeAlarme").should("contain", "Votre arme");
-  cy.getByDataTestid("next-step").click();
-  cy.getByDataTestid("aucune-correspondance").click();
-  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/qualite-image");
+  cy.getByDataTestid("title-page").should(
+    "contain",
+    "Identification d'une arme d'alarme",
+  );
 });
 
 Cypress.Commands.add("IdentificationRevolver", () => {
@@ -133,11 +133,9 @@ Cypress.Commands.add("IdentificationRevolver", () => {
   cy.contains("Balles").first().click();
   cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
   cy.getByDataTestid("next-step").click();
-  cy.url().should("contain", "/guide-identification/armes-alarme");
-  cy.getByDataTestid("instruction-armeAlarme").should("contain", "Votre arme");
-  cy.getByDataTestid("next-step").click();
-  cy.getByDataTestid("aucune-correspondance").click();
-  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/qualite-image");
+  cy.getByDataTestid("title-page").should("contain", "Marquages non détéctés");
+  cy.get('.fr-col-12 > [data-testid="next-step"]').click();
 });
 
 Cypress.Commands.add("arrierePlatRevolver", () => {
@@ -197,4 +195,39 @@ Cypress.Commands.add("pasDeGuide", () => {
   cy.url().should("contain", "/fin-mise-en-securite");
   cy.getByDataTestid("go-to-identification").click();
   cy.url().should("contain", "/guide-identification/resultat-typologie");
+});
+
+Cypress.Commands.add("IdentificationBlankGunMissingText", () => {
+  cy.url().should(
+    "contain",
+    "guide-identification/informations-complementaires",
+  );
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/munition-type");
+  cy.getByDataTestid("next-step").should("have.attr", "disabled");
+  cy.contains("Cartouches").first().click();
+  cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/qualite-image");
+  cy.getByDataTestid("title-page").should("contain", "Marquages non détéctés");
+  cy.get('.fr-col-12 > [data-testid="next-step"]').click();
+});
+
+Cypress.Commands.add("IdentificationBlankGunLowQuality", () => {
+  cy.url().should(
+    "contain",
+    "guide-identification/informations-complementaires",
+  );
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/munition-type");
+  cy.getByDataTestid("next-step").should("have.attr", "disabled");
+  cy.contains("Cartouches").first().click();
+  cy.getByDataTestid("next-step").should("not.have.attr", "disabled");
+  cy.getByDataTestid("next-step").click();
+  cy.url().should("contain", "/guide-identification/qualite-image");
+  cy.getByDataTestid("title-page").should(
+    "contain",
+    "Qualité d'image insuffisante",
+  );
+  cy.get('.fr-col-12 > [data-testid="next-step"]').click();
 });

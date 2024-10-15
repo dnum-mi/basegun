@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from basegun_ml.classification import get_typology
 from basegun_ml.measure import get_lengths
+from basegun_ml.ocr import LowQuality, MissingText, is_alarm_weapon
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -73,8 +74,12 @@ async def imageupload(
 
         gun_length, gun_barrel_length, conf_card = None, None, None
         if label in TYPOLOGIES_MEASURED and confidence_level != "low":
-            gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
+            try:
+                gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
 
+            except Exception as e:
+                extras_logging["bg_error_type"] = e.__class__.__name__
+                logging.exception(e, extra=extras_logging)
         # Temporary fix while ML package send 0 instead of None
         # https://github.com/dnum-mi/basegun-ml/issues/14
         gun_length = None if gun_length == 0 else gun_length
@@ -103,6 +108,36 @@ async def imageupload(
     except Exception as e:
         extras_logging["bg_error_type"] = e.__class__.__name__
         logging.exception(e, extra=extras_logging)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/identification-blank-gun")
+async def imageblankgun(
+    image: UploadFile = File(...),
+):
+    try:
+        img_bytes = image.file.read()
+        # Process image with ML models
+        alarm_model = is_alarm_weapon(img_bytes)
+        return {
+            "alarm_model": alarm_model,
+            "missing_text": False,
+            "low_quality": False,
+        }
+
+    except LowQuality:
+        return {
+            "alarm_model": None,
+            "low_quality": True,
+            "missing_text": False,
+        }
+    except MissingText:
+        return {
+            "alarm_model": None,
+            "low_quality": False,
+            "missing_text": True,
+        }
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
