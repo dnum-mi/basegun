@@ -45,6 +45,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Start stack using docker compose
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+      - run: sleep 10
+      - name: Show backend logs
+        run: docker compose logs backend
       - run: docker compose exec backend coverage run -m pytest
       - run: docker compose exec backend coverage xml --ignore-errors
       - name: Produce the coverage report
