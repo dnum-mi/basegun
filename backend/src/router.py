@@ -5,6 +5,7 @@ from typing import Annotated, Union
 from uuid import uuid4
 
 from basegun_ml.classification import get_typology
+from basegun_ml.exceptions import MissingCard, MissingGun
 from basegun_ml.measure import get_lengths
 from fastapi import (
     APIRouter,
@@ -96,7 +97,16 @@ async def imageupload(
 
         gun_length, gun_barrel_length, conf_card = None, None, None
         if label in TYPOLOGIES_MEASURED and confidence_level != "low":
-            gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
+            try:
+                gun_length, gun_barrel_length, conf_card = get_lengths(img_bytes)
+
+            except MissingGun as e:
+                extras_logging["bg_missing_gun"] = e.__class__.__name__
+                logging.exception(e, extra=extras_logging)
+
+            except MissingCard as e:
+                extras_logging["bg_missing_card"] = e.__class__.__name__
+                logging.exception(e, extra=extras_logging)
 
         # Temporary fix while ML package send 0 instead of None
         # https://github.com/dnum-mi/basegun-ml/issues/14
