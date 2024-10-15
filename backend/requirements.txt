@@ -12,7 +12,8 @@ autodynatrace==2.1.1
 PyJWT==2.9.0
 cryptography==43.0.3
 # ML
-basegun-ml==1.0.1
+basegun-ml==2.0.5
+numpy<2.0.0
 # Dev
 pytest==8.3.3
 coverage==7.6.4
