@@ -1,10 +1,10 @@
 name: Main CI
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-  workflow_dispatch:
   push:
+    branches:
+      - develop
+  pull_request:
     branches:
       - develop
 
@@ -52,6 +52,7 @@ jobs:
         with:
           path: ./backend/coverage.xml
           publish: true
+          threshold: 80
 
   test-frontend-format:
     name: Test Frontend Formatting
