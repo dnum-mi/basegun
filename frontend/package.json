@@ -34,7 +34,7 @@
     "@unocss/transformer-directives": "^0.63.4",
     "@unocss/transformer-variant-group": "^0.63.4",
     "@vitejs/plugin-vue": "^5.0.3",
-    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "cypress": "^13.13.2",
     "eslint": "^8.56.0",
