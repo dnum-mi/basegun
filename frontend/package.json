@@ -19,7 +19,7 @@
     "luxon": "^3.4.4",
     "oidc-client-ts": "^3.1.0",
     "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
+    "pinia-plugin-persistedstate": "^4.1.1",
     "swiper": "^11.0.6",
     "vite": "^5.4.7",
     "vue": "^3.5.11",
