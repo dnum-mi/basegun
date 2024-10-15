@@ -41,25 +41,6 @@ class TestApi:
         response = client.get("/api/version")
         assert response.status_code == 200
 
-    def check_log_base(self, log):
-        assert {
-            "timestamp",
-            "version",
-            "host",
-            "level",
-            "short_message",
-            "_bg_date",
-            "_bg_user_id",
-            "_bg_device",
-            "_bg_device_os",
-            "_bg_device_family",
-            "_bg_device_browser",
-            "_bg_version",
-            "_bg_model",
-        }.issubset(set(log.keys()))
-        assert log["level"] == 6
-        assert log["_bg_model"].startswith("EffB")
-
     def test_upload(self, client):
         """Checks that the file upload works properly"""
         create_bucket()
