@@ -18,3 +18,4 @@ version.txt
 .ruff_cache
 .coverage
 coverage.xml
+frontend/cypress/screenshots/*
