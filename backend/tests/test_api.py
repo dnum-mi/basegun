@@ -168,13 +168,13 @@ class TestExpertContact:
 
 
 class TestExpertDetails:
-    @pytest.mark.skip("Need to authenticate to run that test.")
-    def test_success(self):
+    def test_success(self, client):
+        client.authenticate()
         response = client.get("/api/contact-details")
         response.data = response.json()
         assert response.status_code == 200
 
-    def test_403(self):
+    def test_403(self, client):
         response = client.get("/api/contact-details")
         response.data = response.json()
         assert response.status_code == 403
