@@ -42,7 +42,7 @@ logging.config.dictConfig(LOGS_CONFIG)
 
 HEADERS = [
     {"name": "Cache-Control", "value": "no-store, max-age=0"},
-    {"name": "Clear-Site-Data", "value": '"cache","cookies","storage"'},
+    {"name": "Clear-Site-Data", "value": "cache"},
     {
         "name": "Content-Security-Policy",
         "value": "default-src 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content",
@@ -148,3 +148,7 @@ logging.info(
 )
 
 OAUTH2_SCHEME = OpenIdConnect(openIdConnectUrl=os.environ["OIDC_CONFIG_URL"])
+
+# Phone numbers
+PHONE_NUMBER = os.environ.get("IRCGN_PHONE")
+CELLPHONE_NUMBER = os.environ.get("IRCGN_CELLPHONE")
