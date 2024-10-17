@@ -1,8 +1,2 @@
 [tool.ruff]
 exclude = ["frontend"]
-
-[tool.coverage.report]
-omit = [
-    "/app/config-3.py",
-    "/app/config.py",
-]

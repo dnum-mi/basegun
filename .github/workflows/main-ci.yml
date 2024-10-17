@@ -46,7 +46,7 @@ jobs:
       - name: Start stack using docker compose
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
       - run: docker compose exec backend coverage run -m pytest
-      - run: docker compose exec backend coverage xml
+      - run: docker compose exec backend coverage xml --ignore-errors
       - name: Produce the coverage report
         uses: insightsengineering/coverage-action@v2
         with:
