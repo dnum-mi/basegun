@@ -165,3 +165,16 @@ class TestExpertContact:
         response = client.post("/api/expert-contact")
         response.data = response.json()
         assert response.status_code == 403
+
+
+class TestExpertDetails:
+    def test_success(self, client):
+        client.authenticate()
+        response = client.get("/api/contact-details")
+        response.data = response.json()
+        assert response.status_code == 200
+
+    def test_403(self, client):
+        response = client.get("/api/contact-details")
+        response.data = response.json()
+        assert response.status_code == 403

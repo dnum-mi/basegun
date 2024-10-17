@@ -1,19 +1,34 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { DsfrButton } from "@gouvminint/vue-dsfr";
-import { useRouter } from "vue-router";
 import { DateTime } from "luxon";
 import { mgr } from "@/utils/authentication";
+import { getContactDetails } from "@/api/api-client";
 
-const user = ref(Object || null);
-mgr.getUser().then((data) => (user.value = data));
+const user = ref<any>(null);
 
-const priority = ref("");
+onMounted(async () => {
+  await mgr.getUser().then((data) => {
+    user.value = data;
+    console.log(user.value);
+  });
+
+  await getContactDetails(user.value?.access_token)
+    .then((response) => {
+      IRCGN.fixe = response.data.cellphone;
+      IRCGN.phone = response.data.phone;
+    })
+    .catch((error) => {
+      console.error(
+        "Erreur lors de la récupération des détails de contact :",
+        error,
+      );
+    });
+});
 
 const IRCGN = {
-  email: "db.dcpc.ircgn@gendarmerie.interieur.gouv.fr",
-  fixe: "01 78 47 31 46",
-  phone: "06 07 98 40 09",
+  fixe: "",
+  phone: "",
 };
 const showIRCGNModal = ref(false);
 
@@ -31,7 +46,7 @@ const currentPhone = computed(() => {
 </script>
 
 <template>
-  <div class="fr-container-fluid">
+  <div class="fr-container-fluid" v-if="user?.profile">
     <div class="fr-grid-row">
       <div class="fr-col">
         <div class="text-center mt-5 p-3">
@@ -45,7 +60,7 @@ const currentPhone = computed(() => {
           <div v-if="user.profile.idp === 'proxyma'">
             <p>Sélectionnez votre situation actuelle :</p>
           </div>
-          <div v-if="authIDP === 'cheops'">
+          <div v-else>
             <DsfrAlert type="error" title="Avertissement">
               Basegun ne fournit pas de
               <span class="font-bold"
@@ -104,25 +119,13 @@ const currentPhone = computed(() => {
                   permanence de l'IRCGN.<br /><br />
                   <span class="font-bold">{{ currentPhone }}</span>
                 </p>
-                <p v-if="priority === 'low'">
-                  Veuilez cliquer sur l'adresse mail ci-dessous pour envoyer un
-                  mail pré-rempli à l'IRCGN : <br /><br />
-                  <span class="font-bold"
-                    ><a :href="buildMailto(IRCGN.email)">{{
-                      IRCGN.email
-                    }}</a></span
-                  >
-                </p>
               </div>
               <div class="fr-col-11 fr-col-lg-6 footer-actions mx-auto">
                 <DsfrButton
                   class="m-1 flex justify-center"
                   icon="ri-arrow-left-line"
                   label="Précédent"
-                  @click="
-                    showIRCGNModal = false;
-                    priority = '';
-                  "
+                  @click="showIRCGNModal = false"
                 />
               </div>
             </div>
