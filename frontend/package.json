@@ -51,7 +51,7 @@
     "unocss": "^0.58.5",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
-    "vite-plugin-pwa": "^0.17.5",
+    "vite-plugin-pwa": "^0.20.5",
     "vitest": "^1.2.2",
     "workbox-window": "^7.0.0"
   },
