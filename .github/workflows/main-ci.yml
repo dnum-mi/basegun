@@ -41,6 +41,9 @@ jobs:
     name: Test Backend
     needs: build-backend
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Start stack using docker compose
