@@ -44,7 +44,9 @@ class TestApi:
     def test_upload(self, client):
         """Checks that the file upload works properly"""
         create_bucket()
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "revolver.jpg")
+        path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "images/revolver.jpg"
+        )
 
         with open(path, "rb") as f:
             r = client.post(
@@ -99,7 +101,7 @@ class TestApi:
 
 class TestUpload:
     def test_revolver_without_card(self, client):
-        with open("./tests/revolver.jpg", "rb") as f:
+        with open("./tests/images/revolver.jpg", "rb") as f:
             response = client.post(
                 "/api/upload",
                 files={"image": f},
@@ -115,7 +117,7 @@ class TestUpload:
         assert response.data["conf_card"] is None
 
     def test_semi_auto_without_card(self, client):
-        with open("./tests/epaule_a_levier_sous_garde.jpg", "rb") as f:
+        with open("./tests/images/epaule_a_levier_sous_garde.jpg", "rb") as f:
             response = client.post(
                 "/api/upload",
                 files={"image": f},
@@ -134,7 +136,7 @@ class TestUpload:
 class TestExpertContact:
     def test_success(self, faker, client):
         client.authenticate()
-        with open("./tests/revolver.jpg", "rb") as f:
+        with open("./tests/images/revolver.jpg", "rb") as f:
             response = client.post(
                 "/api/expert-contact",
                 files=[
@@ -178,3 +180,37 @@ class TestExpertDetails:
         response = client.get("/api/contact-details")
         response.data = response.json()
         assert response.status_code == 403
+
+
+class TestAlarmGunUpload:
+    def test_alarm_gun(self, client):
+        with open("./tests/images/alarm_gun.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-alarm-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["is_alarm_model"] is True
+
+    def test_bad_quality(self, client):
+        with open("./tests/images/low_quality.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-alarm-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["is_alarm_model"] is False
+        assert response.data["exception"] == "LowQuality"
+
+    def test_missing_text(self, client):
+        with open("./tests/images/no_text.jpg", "rb") as f:
+            response = client.post(
+                "/api/identification-alarm-gun",
+                files={"image": f},
+            )
+        response.data = response.json()
+        assert response.status_code == 200
+        assert response.data["is_alarm_model"] is False
+        assert response.data["exception"] == "MissingText"

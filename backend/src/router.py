@@ -7,6 +7,7 @@ from uuid import uuid4
 from basegun_ml.classification import get_typology
 from basegun_ml.exceptions import MissingCard, MissingGun
 from basegun_ml.measure import get_lengths
+from basegun_ml.ocr import is_alarm_weapon
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -238,3 +239,16 @@ async def expert_contact(
         """,
         attachements=files,
     )
+
+
+@router.post("/identification-alarm-gun")
+async def image_alarm_gun(
+    image: UploadFile = File(...),
+):
+    try:
+        img_bytes = image.file.read()
+        # Process image with ML models
+        return {"is_alarm_model": is_alarm_weapon(img_bytes) == "Alarm_model"}
+
+    except Exception as e:
+        return {"is_alarm_model": False, "exception": e.__class__.__name__}
