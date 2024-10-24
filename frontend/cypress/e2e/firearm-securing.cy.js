@@ -26,6 +26,7 @@ describe("Securing Firearm and Identification", () => {
     cy.contains("p", "Basegun a identifié votre arme");
     cy.getByDataTestid("next-step").click();
     cy.IdentificationPistoletSemiAuto();
+    cy.wait(5000);
     cy.url().should("contain", "/guide-identification/resultat-final");
     cy.getByDataTestid("arm-category").should("contain", "Catégorie B");
     cy.getByDataTestid("return-to-home-end").click();
