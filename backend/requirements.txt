@@ -17,4 +17,4 @@ numpy<2.0.0
 # Dev
 pytest==8.3.3
 coverage==7.6.4
-Faker==30.6.0
+Faker==30.8.1
