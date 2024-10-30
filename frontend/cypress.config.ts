@@ -1,9 +1,10 @@
-const { defineConfig } = require("cypress");
+import { defineConfig } from "cypress";
+import coverageTask from "@cypress/code-coverage/task";
 
 const frontendHost = "localhost";
 const frontendPort = "5173";
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
     baseUrl: `http://${frontendHost}:${frontendPort}`,
@@ -12,5 +13,9 @@ module.exports = defineConfig({
     viewportWidth: 414,
     viewportHeight: 896,
     video: false,
+    setupNodeEvents(on, config) {
+      coverageTask(on, config);
+      return config;
+    },
   },
 });

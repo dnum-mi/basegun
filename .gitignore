@@ -18,4 +18,6 @@ version.txt
 .ruff_cache
 .coverage
 coverage.xml
+coverage
+.nyc_output
 frontend/cypress/screenshots/*
