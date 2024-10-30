@@ -72,8 +72,13 @@ jobs:
     name: Run E2E tests
     needs: [build-backend, build-frontend]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Start stack using docker compose
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
       - name: Cypress run
@@ -90,3 +95,7 @@ jobs:
           name: cypress-screenshots
           path: |
             ./frontend/cypress/screenshots/
+      - name: Report NYC coverage
+        uses: sidx1024/report-nyc-coverage-github-action@v1.2.7
+        with:
+          coverage_file: "./frontend/coverage/coverage-summary.json"

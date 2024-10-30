@@ -9,7 +9,7 @@
     "lint": "eslint . --fix --ignore-path ../.gitignore",
     "format": "prettier . --write",
     "format-check": "prettier . --check",
-    "test:e2e-ci": "cypress run --browser firefox",
+    "test:e2e-ci": "nyc cypress run --browser firefox",
     "test:e2e-open": "cypress open --browser firefox"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.13.5",
     "@rushstack/eslint-patch": "^1.7.2",
     "@testing-library/cypress": "^10.0.1",
     "@types/jsdom": "^21.1.6",
@@ -47,10 +48,12 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.29.1",
     "prettier": "3.3.3",
-    "typescript": "^5.6.3",
-    "unocss": "^0.64.1",
+    "nyc": "^17.1.0",
+    "typescript": "^5.3.3",
+    "unocss": "^0.58.5",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
+    "vite-plugin-istanbul": "^6.0.2",
     "vite-plugin-pwa": "^0.20.5",
     "vitest": "^2.1.8",
     "workbox-window": "^7.3.0"
@@ -62,5 +65,17 @@
   ],
   "volta": {
     "node": "20.8.1"
+  },
+  "nyc": {
+    "include": "src/*",
+    "exclude": [
+      "node_modules",
+      "tests"
+    ],
+    "extension": [
+      ".js",
+      ".ts",
+      ".vue"
+    ]
   }
 }

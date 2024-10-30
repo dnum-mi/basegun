@@ -9,6 +9,7 @@ import {
   vueDsfrAutoimportPreset,
   vueDsfrComponentResolver,
 } from "@gouvminint/vue-dsfr";
+import IstanbulPlugin from "vite-plugin-istanbul";
 
 const apiHost = process.env.API_HOST || "http://basegun-backend:5000";
 
@@ -84,6 +85,7 @@ export default defineConfig({
         enabled: true,
       },
     }),
+    IstanbulPlugin(),
   ],
   resolve: {
     alias: {
