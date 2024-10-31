@@ -115,25 +115,16 @@ const routes: RouteRecordRaw[] = [
       {
         path: "resultat-typologie",
         name: "IdentificationTypologyResult",
-        meta: {
-          reload: true,
-        },
         component: IdentificationTypologyResult,
       },
       {
         path: "informations-complementaires",
         name: "IdentificationFurtherInformations",
-        meta: {
-          reload: true,
-        },
         component: IdentificationFurtherInformations,
       },
       {
         path: "munition-type",
         name: "IdentificationSelectAmmo",
-        meta: {
-          reload: true,
-        },
         component: IdentificationSelectAmmo,
       },
       {
@@ -146,7 +137,6 @@ const routes: RouteRecordRaw[] = [
         path: "resultat-final",
         name: "IdentificationFinalResult",
         meta: {
-          reload: true,
           title: "Résultat final",
         },
         component: IdentificationFinalResult,
