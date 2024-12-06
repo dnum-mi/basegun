@@ -15,6 +15,6 @@ cryptography==43.0.3
 basegun-ml==2.0.5
 numpy<3.0.0
 # Dev
-pytest==8.3.3
+pytest==8.3.4
 coverage==7.6.4
 Faker==33.0.0
