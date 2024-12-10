@@ -53,6 +53,7 @@ jobs:
       - name: Produce the coverage report
         uses: insightsengineering/coverage-action@v2
         with:
+          coverage-summary-title: Backend Coverage Summary
           path: ./backend/coverage.xml
           publish: true
           threshold: 80
@@ -77,8 +78,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Start stack using docker compose
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
       - name: Cypress run
@@ -88,14 +87,21 @@ jobs:
           build: npm run build
           start: npm run start
           command: npm run test:e2e-ci
+      - name: Install pycobertura
+        run: pip install pycobertura
+      - name: Generate cobertura report
+        working-directory: ./frontend
+        run: npx nyc report --reporter=cobertura
+      - name: Produce coverage report
+        uses: insightsengineering/coverage-action@v2
+        with:
+          coverage-summary-title: Frontend Coverage Summary
+          path: ./frontend/coverage/cobertura-coverage.xml
+          publish: true
+          threshold: 75
       - name: Send artifacts
         uses: actions/upload-artifact@v3
         if: ${{ failure() }}
         with:
           name: cypress-screenshots
-          path: |
-            ./frontend/cypress/screenshots/
-      - name: Report NYC coverage
-        uses: sidx1024/report-nyc-coverage-github-action@v1.2.7
-        with:
-          coverage_file: "./frontend/coverage/coverage-summary.json"
+          path: ./frontend/cypress/screenshots/
