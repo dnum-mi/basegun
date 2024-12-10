@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import coverageTask from "@cypress/code-coverage/task";
+import codeCoverageTask from "@cypress/code-coverage/task.js";
 
 const frontendHost = "localhost";
 const frontendPort = "5173";
@@ -8,13 +8,12 @@ export default defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
     baseUrl: `http://${frontendHost}:${frontendPort}`,
-    // NEO - Crosscall X4 - Résolution : 18:9
-    // Iphone XR
     viewportWidth: 414,
     viewportHeight: 896,
     video: false,
+    supportFile: "cypress/support/e2e.js",
     setupNodeEvents(on, config) {
-      coverageTask(on, config);
+      codeCoverageTask(on, config);
       return config;
     },
   },
