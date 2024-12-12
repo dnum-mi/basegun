@@ -3,18 +3,18 @@
 ## How to run ?
 
 ```bash
-npm install
-npm run start
+pnpm install
+pnpm run start
 ```
 
 ## How to run automated tests ?
 
 1. Make sure the bakend stack is running by running `docker compose up -d` in the backend folder.
-2. Make sure all the dependencies are installed by running `npm install` in the frontend folder.
-3. Make sure the frontend is running : `npm run start`
+2. Make sure all the dependencies are installed by running `pnpm install` in the frontend folder.
+3. Make sure the frontend is running : `pnpm run start`
 
 ```bash
-npm run test:e2e-ci
+pnpm run test:e2e-ci
 ```
 
 ## How to check code coverage ?

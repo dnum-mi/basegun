@@ -14,6 +14,6 @@ repos:
     hooks:
     -   id: prettier
         name: prettier
-        entry: bash -c 'cd ./frontend && npm run format'
+        entry: bash -c 'cd ./frontend && pnpm run format'
         language: system
         files: ^frontend/
