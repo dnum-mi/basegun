@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
-import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useStore } from "@/stores/result";
 import SnackbarAlert from "@/components/SnackbarAlert.vue";
+
+import { sendTutorialFeedbackIssue } from "@/api/api-client";
 
 const { setMessage } = useSnackbarStore();
 const store = useStore();
@@ -36,8 +37,7 @@ async function sendTutorialFeedback() {
     confidence: confidence.value,
     confidence_level: confidenceLevel.value,
   };
-  await axios
-    .post("/tutorial-feedback", feedback)
+  await sendTutorialFeedbackIssue(feedback)
     .then(() => {
       setMessage({
         type: "success",
@@ -48,12 +48,12 @@ async function sendTutorialFeedback() {
       console.log(error);
       setMessage({
         type: "error",
-        message: "Une erreur a eu lieu en enregistrant de votre message.",
+        message: "Une erreur a eu lieu en enregistrant votre message.",
       });
     })
     .finally(() =>
       setTimeout(() => {
-        router.push({ name: "ResultPage" });
+        router.push({ name: "IdentificationTypologyResult" });
       }, 3000),
     );
 }

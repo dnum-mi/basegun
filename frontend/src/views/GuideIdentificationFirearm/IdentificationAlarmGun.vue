@@ -2,7 +2,6 @@
 import { computed } from "vue";
 
 import { useStore } from "@/stores/result";
-
 const store = useStore();
 
 const alarmGunException = computed(() => store.alarmGunException);

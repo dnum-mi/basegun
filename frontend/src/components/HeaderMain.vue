@@ -2,7 +2,6 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-import type { DsfrHeader } from "@gouvminint/vue-dsfr";
 import basegunLogo from "@/assets/basegun.png";
 
 const route = useRoute();
@@ -21,7 +20,7 @@ const quickLinks: InstanceType<typeof DsfrHeader>["$props"]["quickLinks"] = [
     to: "/",
   },
   {
-    label: "A propos",
+    label: "À propos",
     to: "/a-propos",
   },
   {

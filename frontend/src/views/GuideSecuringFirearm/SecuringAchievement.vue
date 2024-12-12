@@ -7,7 +7,6 @@ import {
   TYPOLOGIES,
 } from "@/utils/firearms-utils/index";
 import { isUserUsingCrosscall } from "@/utils/isUserUsingCrosscall";
-import { DsfrButton } from "@gouvminint/vue-dsfr";
 
 const store = useStore();
 

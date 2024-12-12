@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useStore } from "@/stores/result";
+
 const store = useStore();
 </script>
 

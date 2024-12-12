@@ -8,10 +8,7 @@ export {};
 declare module 'vue' {
   export interface GlobalComponents {
     AskingExpert: typeof import('./components/AskingExpert.vue')['default']
-    AuthCallback: (typeof import("./components/authentication/AuthCallback.vue"))["default"]
-    AuthRedirect: (typeof import("./components/authentication/AuthRedirect.vue"))["default"]
     ContactExpert: typeof import('./components/ContactExpert.vue')['default']
-    copy: (typeof import("./components/authentification/AuthRedirect copy.vue"))["default"]
     DsfrAlert: typeof import('@gouvminint/vue-dsfr')['DsfrAlert']
     DsfrButton: typeof import('@gouvminint/vue-dsfr')['DsfrButton']
     DsfrCheckbox: typeof import('@gouvminint/vue-dsfr')['DsfrCheckbox']
@@ -21,20 +18,19 @@ declare module 'vue' {
     DsfrModal: typeof import('@gouvminint/vue-dsfr')['DsfrModal']
     DsfrPicture: typeof import('@gouvminint/vue-dsfr')['DsfrPicture']
     DsfrRadioButton: typeof import('@gouvminint/vue-dsfr')['DsfrRadioButton']
-    DsfrRadioButtonSet: typeof import('@gouvminint/vue-dsfr')['DsfrRadioButtonSet']
     DsfrSelect: typeof import('@gouvminint/vue-dsfr')['DsfrSelect']
+    DsfrStepper: typeof import('@gouvminint/vue-dsfr')['DsfrStepper']
+    DsfrTable: typeof import('@gouvminint/vue-dsfr')['DsfrTable']
     DsfrTag: typeof import('@gouvminint/vue-dsfr')['DsfrTag']
     HeaderMain: typeof import('./components/HeaderMain.vue')['default']
     MissingCardAlert: typeof import('./components/MissingCardAlert.vue')['default']
     OnboardingSwiper: typeof import('./components/OnboardingSwiper.vue')['default']
-    PopupContact: typeof import('./components/PopupContact.vue')['default']
     PopupVideo: typeof import('./components/PopupVideo.vue')['default']
     ResultPage: typeof import('./components/ResultPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SnackbarAlert: typeof import('./components/SnackbarAlert.vue')['default']
     StepsGuide: typeof import('./components/StepsGuide.vue')['default']
-    User: (typeof import("./components/authentication/User.vue"))["default"]
     VIcon: typeof import('@gouvminint/vue-dsfr')['VIcon']
   }
 }

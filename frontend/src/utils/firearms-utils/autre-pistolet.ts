@@ -2,6 +2,7 @@ import autrePistoletFusilScieImg from "@/assets/guide-mise-en-securite/photos/au
 import autrePistoletDrulovImg from "@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_drulov.jpg";
 import autrePistoletDerringerImg from "@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_derringer.jpg";
 import autrePistoletThompsonImg from "@/assets/guide-mise-en-securite/photos/autre_pistolet/autre_pistolet_thompson.jpg";
+
 import autrePistoletFusilScieVideo from "@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_fusil_scie.mp4";
 import autrePistoletDrulovVideo from "@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_drulov.mp4";
 import autrePistoletDerringerVideo from "@/assets/guide-mise-en-securite/videos/autre_pistolet/autre_pistolet_derringer.mp4";

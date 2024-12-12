@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { DsfrButton } from "@gouvminint/vue-dsfr";
 import { DateTime } from "luxon";
 import { mgr } from "@/utils/authentication";
 import { getContactDetails } from "@/api/api-client";
