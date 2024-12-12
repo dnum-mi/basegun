@@ -1,11 +1,13 @@
 import levierSousGardeMagasinAvantImg from "@/assets/guide-mise-en-securite/photos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_avant.jpg";
 import levierSousGardePasMagasinImg from "@/assets/guide-mise-en-securite/photos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.jpg";
-import levierSousGardeMagasinAvantVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_avant.mp4";
-import levierSousGardePasMagasinVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.mp4";
 import levierSousGardeCartridges from "@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_cartouche.jpg";
 import levierSousGardeBalls from "@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_bille.jpg";
+
+import levierSousGardeMagasinAvantVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_avant.mp4";
+import levierSousGardePasMagasinVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_levier_sous_garde/epaule_levier_ss_garde_magasin_fixe.mp4";
+
 import {
-  getEpaulLevierVerrouDisclaimer,
+  getEpauleLevierVerrouDisclaimer,
   getCommonCategory,
 } from "@/utils/firearms-utils/index";
 /*
@@ -65,5 +67,5 @@ export const epaule_a_levier_sous_garde = {
       img_ammo: levierSousGardeBalls,
     },
   ],
-  getDisclaimer: getEpaulLevierVerrouDisclaimer,
+  getDisclaimer: getEpauleLevierVerrouDisclaimer,
 } as const;

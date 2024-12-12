@@ -42,8 +42,8 @@ const IdentificationFurtherInformations = () =>
   );
 const IdentificationSelectAmmo = () =>
   import("@/views/GuideIdentificationFirearm/IdentificationSelectAmmo.vue");
-const ExpertSituation = () =>
-  import("@/views/GuideContactExpert/ExpertSituation.vue");
+const ExpertContact = () =>
+  import("@/views/GuideAskingExpertise/ExpertContact.vue");
 
 const routes: RouteRecordRaw[] = [
   {
@@ -148,7 +148,7 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: clearLocalStorage,
     meta: {
       wholeLogo: true,
-      title: "A propos",
+      title: "À propos",
     },
   },
   {
@@ -201,8 +201,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/guide-contact",
-    name: "ExpertSituation",
-    component: ExpertSituation,
+    name: "ExpertContact",
+    component: ExpertContact,
     beforeEnter: (to, from, next) => {
       mgr.getUser().then((user) => {
         if (user === null) {
@@ -247,7 +247,7 @@ const routes: RouteRecordRaw[] = [
             await mgr.signinCallback();
             const user = await mgr.getUser();
             if (user !== null) {
-              next({ name: "ExpertSituation" });
+              next({ name: "ExpertContact" });
             } else {
               next({ name: "AuthRedirect" });
             }

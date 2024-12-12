@@ -177,29 +177,6 @@ async def log_tutorial_feedback(
     logging.info("Tutorial feedback", extra=extras_logging)
 
 
-@router.post("/identification-dummy")
-async def log_identification_dummy(
-    request: Request, user_id: Union[str, None] = Cookie(None)
-):
-    res = await request.json()
-
-    user_agent = parse(request.headers.get("user-agent"))
-    extras_logging = get_base_logs(user_agent, user_id)
-
-    # to know if the firearm is dummy or real
-    extras_logging["bg_dummy_bool"] = res["is_dummy"]
-    for key in [
-        "image_url",
-        "label",
-        "confidence",
-        "confidence_level",
-        "selected_options",
-    ]:
-        extras_logging["bg_" + key] = res[key]
-
-    logging.info("Identification dummy", extra=extras_logging)
-
-
 @router.post("/expert-contact")
 async def expert_contact(
     firstname: Annotated[str, Form()],

@@ -1,6 +1,7 @@
 import epauleAUnCoupParCanonCleDarneImg from "@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_darne.jpg";
 import epauleAUnCoupParCanonClePouceImg from "@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_pouce.jpg";
 import epauleAUnCoupParCanonCleLechaufeuxImg from "@/assets/guide-mise-en-securite/photos/epaule_a_un_coup_par_canon/epaule_un_coup_cle_lefaucheux.jpg";
+
 import epauleAUnCoupParCanonCleDarneVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-darne.mp4";
 import epauleAUnCoupParCanonClePouceVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-pouce.mp4";
 import epauleAUnCoupParCanonCleLefaucheuxVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_un_coup_par_canon/cle-lefaucheux.mp4";

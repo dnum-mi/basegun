@@ -2,7 +2,6 @@
 import axios from "axios";
 import {
   ASK_FOR_OPINION_ROUTE,
-  IDENTIFICATION_DUMMY_ROUTE,
   IDENTIFICATION_FEEDBACK_ROUTE,
   TUTORIAL_FEEDBACK_ROUTE,
   UPLOAD_PHOTO_FOR_DETECTION_ROUTE,
@@ -19,7 +18,7 @@ export const uploadPhotoForDetection = async (file: File) => {
   return data;
 };
 
-export const sendTutorialFeedback = async (feedback: any) => {
+export const sendTutorialFeedbackIssue = async (feedback: any) => {
   const { data } = await axios.post(TUTORIAL_FEEDBACK_ROUTE, feedback);
   return data;
 };
@@ -29,11 +28,6 @@ export const sendIdentificationFeedback = async (feedbackData: any) => {
     IDENTIFICATION_FEEDBACK_ROUTE,
     feedbackData,
   );
-  return data;
-};
-
-export const sendIdentificationDummyFeedback = async (feedbackDummy: any) => {
-  const { data } = await axios.post(IDENTIFICATION_DUMMY_ROUTE, feedbackDummy);
   return data;
 };
 

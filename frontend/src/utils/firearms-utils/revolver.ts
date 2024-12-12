@@ -1,23 +1,24 @@
 import revolver1ChemineesImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_1_cheminees.jpg";
 import revolver2CartouchesImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_cartouches.jpg";
 import revolver21873USImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_1873_US.jpg";
-import revolver21873USVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_US.mp4";
 import revolver2AxeBarilletImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_axe_barillet.jpg";
-import revolver2AxeBarilletVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_axe_barillet.mp4";
 import revolver2BoutoneBarilletImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_bouton_barillet.jpg";
-import revolver2BoutoneBarilletVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_bouton_barillet.mp4";
 import revolver2EwBrisureImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_ew_brisure.jpg";
-import revolver2EwBrisureVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4";
 import revolver2PortiereImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_portiere.jpg";
 import revolver3PortiereImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1873_FR.jpg";
-import revolver2PortiereVideoDebut from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_debut.mp4";
-import revolver2PortiereVideoFin from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_fin.mp4";
 import revolver2SwBrisureImg from "@/assets/guide-mise-en-securite/photos/revolver/revolver_2_sw_brisure.jpg";
-import revolver2SwBrisureVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4";
 import revolver31892Img from "@/assets/guide-mise-en-securite/photos/revolver/revolver_3_1892.jpg";
-import revolver31892Video from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4";
 import revolverCartridges from "@/assets/guide-identification/photos/revolver/revolver_cartouche_pleine.jpg";
 import revolverBalls from "@/assets/guide-identification/photos/revolver/revolver_cartouche_bille.jpg";
+
+import revolver21873USVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_US.mp4";
+import revolver2AxeBarilletVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_axe_barillet.mp4";
+import revolver2BoutoneBarilletVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_bouton_barillet.mp4";
+import revolver2EwBrisureVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_ew_brisure.mp4";
+import revolver2PortiereVideoDebut from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_debut.mp4";
+import revolver2PortiereVideoFin from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1873_portiere_FR_fin.mp4";
+import revolver2SwBrisureVideo from "@/assets/guide-mise-en-securite/videos/revolver/revolver_sw_brisure.mp4";
+import revolver31892Video from "@/assets/guide-mise-en-securite/videos/revolver/revolver_1892.mp4";
 
 import { isAlarmGun } from "@/utils/firearms-utils/index";
 import { useStore } from "@/stores/result";

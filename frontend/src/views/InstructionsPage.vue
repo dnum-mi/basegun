@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import GoodExamplePhoto from "@/assets/instruction-screen-gun.webp";
-
 import { ref } from "vue";
-import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
+
+import { uploadPhotoForDetection } from "@/api/api-client";
+import { uploadPhotoForAlarmGunDetection } from "@/api/api-client";
 
 import { useStore } from "@/stores/result";
 import { getNextRouteAfterResult } from "@/utils/firearms-utils/get-next-route-after-result";
 import { isUserUsingComputer } from "@/utils/isUserUsingComputer";
+
+import GoodExamplePhoto from "@/assets/instruction-screen-gun.webp";
 
 const loading = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -22,12 +24,8 @@ const handledImageTypes =
 async function uploadImage(base64: string, fileName: string) {
   const file = await srcToFile(base64, fileName, "image/jpeg");
 
-  const fd = new FormData();
-  fd.append("image", file, file.name);
-  fd.append("date", "" + Date.now() / 1000); // date.now gives in milliseconds, convert to seconds
-
   try {
-    const { data } = await axios.post("/upload", fd);
+    const data = await uploadPhotoForDetection(file);
     store.$patch({
       typology: data.label,
       confidence: data.confidence,
@@ -52,11 +50,8 @@ async function uploadImage(base64: string, fileName: string) {
   }
 
   try {
-    if (
-      store.typology === "pistolet_semi_auto_moderne" ||
-      store.typology === "revolver"
-    ) {
-      const { data } = await axios.post("/identification-alarm-gun", fd);
+    if (["pistolet_semi_auto_moderne", "revolver"].includes(store.typology)) {
+      const data = await uploadPhotoForAlarmGunDetection(file);
       store.$patch({
         isAlarmGun: data.is_alarm_model,
         alarmGunException: data.exception,
@@ -67,10 +62,6 @@ async function uploadImage(base64: string, fileName: string) {
     router.push({ name: "ErrorPage" });
   }
 }
-
-onMounted(() => {
-  console.log(window.navigator.userAgent);
-});
 
 const labelButton = computed(() => {
   if (isUserUsingComputer()) {

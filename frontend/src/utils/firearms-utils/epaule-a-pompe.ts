@@ -1,6 +1,7 @@
-import epaulePompeSimpleVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_pompe/epaule_pompe_simple.mp4";
 import epaulePompeCartridges from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_cartouche.jpeg";
 import epaulePompeModerneBalls from "@/assets/guide-identification/photos/epaule_a_pompe/epaule_a_pompe_chargeur_bille.jpg";
+
+import epaulePompeSimpleVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_pompe/epaule_pompe_simple.mp4";
 
 export const epaule_a_pompe = {
   displayLabel: "Arme d'épaule à pompe",

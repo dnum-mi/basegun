@@ -1,9 +1,10 @@
 import pistoletSemiAutoPontetImg from "@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_semi_auto_pontet.jpg";
-import pistoletSemiAutoPontetVideo from "@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_pontet.mp4";
 import pistoletSemiAutoTalonImg from "@/assets/guide-mise-en-securite/photos/pistolet_semi_auto_moderne/pistolet_semi_auto_talon.jpg";
-import pistoletSemiAutoTalonVideo from "@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4";
 import pistoletSemiAutoModerneCartridges from "@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_cartouche.jpg";
 import pistoletSemiAutoModerneBalls from "@/assets/guide-identification/photos/pistolet_semi_auto_moderne/pistolet_sa_moderne_chargeur_bille.jpg";
+
+import pistoletSemiAutoPontetVideo from "@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_pontet.mp4";
+import pistoletSemiAutoTalonVideo from "@/assets/guide-mise-en-securite/videos/pistolet_semi_auto_moderne/pistolet_talon.mp4";
 
 import { isAlarmGun } from "@/utils/firearms-utils/index";
 /*

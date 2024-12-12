@@ -2,15 +2,13 @@
 import { ref, computed, onMounted } from "vue";
 
 import { useStore } from "@/stores/result";
+import { TYPOLOGIES } from "@/utils/firearms-utils/index";
 
 import TransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine.jpg";
 import FocusTransparentMagazine from "@/assets/guide-identification/photos/semi_auto_militaire_autre/autre-epaule-transparent-magazine-focus.jpg";
-import { TYPOLOGIES } from "@/utils/firearms-utils/index";
 
 const store = useStore();
-
 const typology = computed(() => store.typology);
-
 const selectedAmmo = computed({
   get() {
     return store.selectedAmmo;
@@ -21,7 +19,6 @@ const selectedAmmo = computed({
 });
 
 const zoom = ref("");
-
 const zoomOn = (imgValue: string) => {
   zoom.value = imgValue;
 };
@@ -158,9 +155,6 @@ onMounted(() => {
   padding-bottom: 1em;
 }
 
-.ov-icon {
-  vertical-align: -0.39rem;
-}
 .zoom {
   background-color: #eee9;
   cursor: zoom-in;
@@ -200,10 +194,6 @@ onMounted(() => {
 :deep(.fr-radio-rich__pictogram img, .fr-radio-rich__pictogram svg) {
   max-height: 95%;
   max-width: 95%;
-}
-
-.warning {
-  cursor: pointer;
 }
 
 .modal {

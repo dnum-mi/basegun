@@ -11,6 +11,7 @@ import { epaule_mecanisme_ancien } from "./epaule_mecanisme_ancien";
 import { pistolet_mecanisme_ancien } from "./pistolet-mecanisme-ancien";
 import { autre_pistolet } from "./autre-pistolet";
 import { arme_alarme } from "./arme-alarme";
+
 import { useStore } from "@/stores/result";
 const store = useStore();
 
@@ -92,7 +93,7 @@ export const MEASURED_GUNS_TYPOLOGIES = [
   "epaule_semi_auto_style_chasse",
 ];
 
-export function getEpaulLevierVerrouDisclaimer(
+export function getEpauleLevierVerrouDisclaimer(
   category: string,
   isCardDetected: boolean,
 ) {

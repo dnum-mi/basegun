@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { DsfrTable } from "@gouvminint/vue-dsfr";
-
 const headers = ref(["Date", "Action"]);
 
 const rows = ref([

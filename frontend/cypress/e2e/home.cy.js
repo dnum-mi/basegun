@@ -13,7 +13,7 @@ describe("HomePage", () => {
     cy.visit("/");
     cy.getByDataTestid("header-logo").contains("Ministère");
     cy.get("#button-menu").should("exist").click();
-    cy.getByRole("navigation").contains("a", "A propos").click();
+    cy.getByRole("navigation").contains("a", "À propos").click();
     cy.url().should("contain", "/a-propos");
     cy.contains("p", "Basegun est un projet");
 

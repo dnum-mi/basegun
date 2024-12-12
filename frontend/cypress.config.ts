@@ -1,13 +1,10 @@
 import { defineConfig } from "cypress";
 import codeCoverageTask from "@cypress/code-coverage/task.js";
 
-const frontendHost = "localhost";
-const frontendPort = "5173";
-
 export default defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
-    baseUrl: `http://${frontendHost}:${frontendPort}`,
+    baseUrl: `http://localhost:5173`,
     viewportWidth: 414,
     viewportHeight: 896,
     video: false,

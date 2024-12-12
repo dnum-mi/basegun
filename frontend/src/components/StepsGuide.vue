@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { DsfrStepper } from "@gouvminint/vue-dsfr";
-
 withDefaults(
   defineProps<{
     currentStep: number;

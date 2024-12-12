@@ -366,13 +366,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, Ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { sendExpertiseForm } from "@/api/api-client";
 import { mgr } from "@/utils/authentication";
 import { DateTime } from "luxon";
 
-const test = ref("");
 const steps = [
   "Identification du demandeur",
   "Informations sur l'arme",

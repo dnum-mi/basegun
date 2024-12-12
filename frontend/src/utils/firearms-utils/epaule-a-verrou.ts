@@ -1,8 +1,9 @@
 import epauleAVerrouCartridges from "@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_cartouche.jpg";
 import epauleAVerrouBalls from "@/assets/guide-identification/photos/epaule_a_verrou/epaule_a_verrou_chargeur_bille.jpg";
+
 import epauleAVerrouVideo from "@/assets/guide-mise-en-securite/videos/epaule_a_verrou/epaule_verrou_chargeur-video.mp4";
 import {
-  getEpaulLevierVerrouDisclaimer,
+  getEpauleLevierVerrouDisclaimer,
   getCommonCategory,
 } from "@/utils/firearms-utils/index";
 import PopupVideo from "@/components/PopupVideo.vue";
@@ -43,5 +44,5 @@ export const epaule_a_verrou = {
       img_ammo: epauleAVerrouBalls,
     },
   ],
-  getDisclaimer: getEpaulLevierVerrouDisclaimer,
+  getDisclaimer: getEpauleLevierVerrouDisclaimer,
 } as const;

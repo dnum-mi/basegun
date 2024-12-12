@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
-import axios from "axios";
 import SnackbarAlert from "@/components/SnackbarAlert.vue";
 import {
   TYPOLOGIES,
@@ -11,6 +10,8 @@ import { isUserUsingCrosscall } from "@/utils/isUserUsingCrosscall";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useStore } from "@/stores/result";
 import { getMentionsFromCategories } from "@/utils/mentions";
+
+import { sendIdentificationFeedback } from "@/api/api-client";
 
 const { setMessage } = useSnackbarStore();
 const store = useStore();
@@ -45,20 +46,21 @@ const disclaimer = computed(() =>
     : null,
 );
 
-function sendFeedback(isCorrect: boolean) {
+async function sendFeedback(isCorrect: boolean) {
   if (isCorrect) {
     isUp.value = true;
   } else {
     isDown.value = true;
   }
-  axios
-    .post("/identification-feedback", {
-      image_url: store.imgUrl,
-      feedback: isCorrect,
-      confidence: confidence.value,
-      label: label.value,
-      confidence_level: confidenceLevel.value,
-    })
+  const feedback = {
+    image_url: store.imgUrl,
+    feedback: isCorrect,
+    confidence: confidence.value,
+    label: label.value,
+    confidence_level: confidenceLevel.value,
+  };
+
+  await sendIdentificationFeedback(feedback)
     .then((data) => {
       console.log(data);
       setMessage({
