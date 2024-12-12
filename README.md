@@ -23,6 +23,7 @@ Dependancies:
 * make
 * docker
 * docker-compose
+* pnpm
 
 See also [Debugging](https://github.com/dnum-mi/Basegun/blob/develop/backend/README.md#debugging) section for all the env variables needed for the website to work fully operationally.
 ### Install
@@ -60,7 +61,7 @@ make down
 
 ## Testing the website like you were a police or gendarme user with Keycloak
 1. Set your User Agent to 'SAID'
-2. Click on the button 'Contacter un expert' on the result page or go to localhost:3000/expert-contact
+2. Click on the button 'Contacter un expert' on the result page or go to localhost:5173/expert-contact
 This will redirect you to a login page where you have two options :
 * If you want to test the police path, use `police` as username and `password` as password.
 * For the gendarmerie path, use `gendarmerie` as username and `password` as password.

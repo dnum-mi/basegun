@@ -16,11 +16,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Pre-commit
         run: pip install pre-commit
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Install Prettier
-        working-directory: frontend
+        working-directory: ./frontend
         run: |
-          npm ci
-          npm run format-check
+          pnpm install --frozen-lockfile
+          pnpm run format-check
       - run: pre-commit run --all-files
 
   build-backend:
@@ -57,17 +61,22 @@ jobs:
           path: ./backend/coverage.xml
           publish: true
           threshold: 80
+          diff-storage: _xml_coverage_reports_backend
 
   test-frontend-format:
     name: Test Frontend Formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Run Prettier check
-        working-directory: frontend
+        working-directory: ./frontend
         run: |
-          npm ci
-          npm run format-check
+          pnpm install --frozen-lockfile
+          pnpm run format-check
 
   test-e2e:
     name: Run E2E tests
@@ -80,13 +89,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Start stack using docker compose
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./frontend
-          build: npm run build
-          start: npm run start
-          command: npm run test:e2e-ci
+          build: pnpm run build
+          start: pnpm run start
+          command: pnpm run test:e2e-ci
       - name: Install pycobertura
         run: pip install pycobertura
       - name: Generate cobertura report
@@ -99,6 +112,7 @@ jobs:
           path: ./frontend/coverage/cobertura-coverage.xml
           publish: true
           threshold: 75
+          diff-storage: _xml_coverage_reports_frontend
       - name: Send artifacts
         uses: actions/upload-artifact@v3
         if: ${{ failure() }}

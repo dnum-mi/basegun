@@ -2,14 +2,16 @@ FROM node:20-slim AS base
 
 WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
-RUN npm ci
+RUN npm install -g pnpm
+
+COPY ./package.json ./ ./pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
 FROM base AS build
 
-RUN npm run build
+RUN pnpm run build
 
 FROM nginxinc/nginx-unprivileged:1.24-alpine AS prod
 
