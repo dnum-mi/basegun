@@ -54,7 +54,7 @@
     "unplugin-auto-import": "^0.18.3",
     "unplugin-vue-components": "^0.27.4",
     "vite-plugin-istanbul": "^6.0.2",
-    "vite-plugin-pwa": "^0.20.5",
+    "vite-plugin-pwa": "^0.21.1",
     "vitest": "^2.1.8",
     "workbox-window": "^7.3.0"
   },
