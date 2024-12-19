@@ -6,6 +6,10 @@
   h2 {
     font-size: 1.3rem;
   }
+
+  .error-img {
+    width: 120%;
+  }
 }
 .text-blue {
   color: var(--blue-france-sun-113-625);

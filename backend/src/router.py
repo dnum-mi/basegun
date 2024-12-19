@@ -22,6 +22,8 @@ from fastapi import (
     status,
 )
 from fastapi.responses import PlainTextResponse
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from user_agents import parse
 
 from .config import (
@@ -34,22 +36,31 @@ from .config import (
 )
 from .utils import get_current_user, send_mail, upload_image
 
+DISABLE_RATE_LIMITS = os.environ.get("DISABLE_RATE_LIMITS", "false").lower() == "true"
+
 router = APIRouter(prefix="/api")
+limiter = Limiter(
+    key_func=get_remote_address if not DISABLE_RATE_LIMITS else lambda: None
+)
 
 
 @router.get("/", response_class=PlainTextResponse)
-def home():
+@limiter.limit("60/minute")
+def home(request: Request):
     return "Basegun backend"
 
 
 @router.get("/version", response_class=PlainTextResponse)
-def version():
+@limiter.limit("60/minute")
+def version(request: Request):
     return APP_VERSION
 
 
 @router.get("/contact-details")
+@limiter.limit("60/minute")
 async def phone_number(
     current_user: Annotated[dict, Depends(get_current_user)],
+    request: Request,
 ):
     if current_user.get("idp") != "proxyma":
         raise HTTPException(
@@ -63,6 +74,7 @@ async def phone_number(
 
 
 @router.post("/upload")
+@limiter.limit("60/minute")
 async def imageupload(
     request: Request,
     response: Response,
@@ -141,6 +153,7 @@ async def imageupload(
 
 
 @router.post("/identification-feedback")
+@limiter.limit("60/minute")
 async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None)):
     res = await request.json()
 
@@ -155,6 +168,7 @@ async def log_feedback(request: Request, user_id: Union[str, None] = Cookie(None
 
 
 @router.post("/tutorial-feedback")
+@limiter.limit("60/minute")
 async def log_tutorial_feedback(
     request: Request, user_id: Union[str, None] = Cookie(None)
 ):
@@ -178,7 +192,9 @@ async def log_tutorial_feedback(
 
 
 @router.post("/expert-contact")
+@limiter.limit("60/minute")
 async def expert_contact(
+    request: Request,
     firstname: Annotated[str, Form()],
     lastname: Annotated[str, Form()],
     nigend: Annotated[str, Form()],
@@ -219,7 +235,9 @@ async def expert_contact(
 
 
 @router.post("/identification-alarm-gun")
+@limiter.limit("60/minute")
 async def image_alarm_gun(
+    request: Request,
     image: UploadFile = File(...),
 ):
     try:

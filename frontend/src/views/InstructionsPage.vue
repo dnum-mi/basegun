@@ -46,7 +46,8 @@ async function uploadImage(base64: string, fileName: string) {
     router.push(nextRoute);
   } catch (error) {
     console.log(error);
-    router.push({ name: "ErrorPage" });
+    const status = error.status;
+    router.push({ name: "ErrorPage", query: { status } });
   }
 
   try {

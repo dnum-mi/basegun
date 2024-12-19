@@ -12,6 +12,7 @@ declare module 'vue' {
     DsfrAlert: typeof import('@gouvminint/vue-dsfr')['DsfrAlert']
     DsfrButton: typeof import('@gouvminint/vue-dsfr')['DsfrButton']
     DsfrCheckbox: typeof import('@gouvminint/vue-dsfr')['DsfrCheckbox']
+    DsfrErrorPage: typeof import('@gouvminint/vue-dsfr')['DsfrErrorPage']
     DsfrFileUpload: typeof import('@gouvminint/vue-dsfr')['DsfrFileUpload']
     DsfrHeader: typeof import('@gouvminint/vue-dsfr')['DsfrHeader']
     DsfrInput: typeof import('@gouvminint/vue-dsfr')['DsfrInput']
