@@ -16,7 +16,6 @@ const HomePage = () => import("@/views/HomePage.vue");
 const StartPage = () => import("@/views/StartPage.vue");
 const InstructionsPage = () => import("@/views/InstructionsPage.vue");
 const ErrorPage = () => import("@/views/ErrorPage.vue");
-const PageNotFound = () => import("@/views/PageNotFound.vue");
 const AboutPage = () => import("@/views/AboutPage.vue");
 const LegalPage = () => import("@/views/LegalPage.vue");
 const ContactPage = () => import("@/views/ContactPage.vue");
@@ -173,6 +172,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/erreur",
+    alias: "/:pathMach(.*)*",
     name: "ErrorPage",
     component: ErrorPage,
     meta: {
@@ -188,15 +188,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       wholeLogo: true,
       title: "Accessibilité",
-    },
-  },
-  {
-    path: "/:pathMach(.*)*",
-    name: "PageNotFound",
-    component: PageNotFound,
-    meta: {
-      wholeLogo: true,
-      title: "Page non trouvée",
     },
   },
   {
@@ -269,7 +260,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   console.log(to);
   document.title = "Basegun | " + to.meta.title;
-  next();
+  if (to.name === "ErrorPage" && !to.query.status) {
+    next({ ...to, query: { ...to.query, status: 404 } });
+  } else {
+    next();
+  }
 });
 
 export default router;
