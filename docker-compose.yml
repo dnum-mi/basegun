@@ -45,6 +45,8 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=password
       - KC_HEALTH_ENABLED=true
+      - DSFR_THEME_SERVICE_TITLE=Basegun
+      - DSFR_THEME_BRAND_TOP=Ministère<br/>de l'Intérieur
     ports:
       - 8080:8080
     healthcheck:

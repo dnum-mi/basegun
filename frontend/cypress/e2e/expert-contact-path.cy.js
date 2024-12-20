@@ -6,7 +6,7 @@ describe("Expert contact path", () => {
         cy.visit(
           "/realms/basegun/protocol/openid-connect/auth?client_id=basegun&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fauth%2Fcallback",
         );
-        cy.get("#username").type("police");
+        cy.get("#input-\\:r2\\:").type("police");
         cy.get("#password").type("password");
         cy.get("#kc-login").click();
       });
@@ -36,7 +36,7 @@ describe("Expert contact path", () => {
         cy.visit(
           "/realms/basegun/protocol/openid-connect/auth?client_id=basegun&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fauth%2Fcallback",
         );
-        cy.get("#username").type("gendarmerie");
+        cy.get("#input-\\:r2\\:").type("gendarmerie");
         cy.get("#password").type("password");
         cy.get("#kc-login").click();
       });
