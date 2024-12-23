@@ -51,7 +51,7 @@
     "prettier": "3.3.3",
     "typescript": "^5.3.3",
     "unocss": "^0.65.1",
-    "unplugin-auto-import": "^0.18.3",
+    "unplugin-auto-import": "^0.19.0",
     "unplugin-vue-components": "^0.27.4",
     "vite-plugin-istanbul": "^6.0.2",
     "vite-plugin-pwa": "^0.21.1",
