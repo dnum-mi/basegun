@@ -60,8 +60,8 @@ importers:
         specifier: ^6.21.0
         version: 6.21.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       "@unocss/transformer-directives":
-        specifier: ^0.65.2
-        version: 0.65.2
+        specifier: ^0.65.3
+        version: 0.65.3
       "@unocss/transformer-variant-group":
         specifier: ^0.65.1
         version: 0.65.1
@@ -2382,6 +2382,12 @@ packages:
         integrity: sha512-37zj1w/6TENsUMzRRmlH5LqUcLGTTjGHrUeZ5KZyeDk+osB/rHSCw0VqqqvL6a7cOHgaW88JgfgKDt5ijRZyFA==,
       }
 
+  "@unocss/core@0.65.3":
+    resolution:
+      {
+        integrity: sha512-xYkJ63lIadL6KqvGcaE2fFeLvo6rC1F+e+R9EFn0Aj0ArMRhiltZk8vvLFHP7iYjjdTdqDkAr/7IdrTosTo8Pg==,
+      }
+
   "@unocss/extractor-arbitrary-variants@0.65.1":
     resolution:
       {
@@ -2464,10 +2470,10 @@ packages:
       }
     engines: { node: ">=14" }
 
-  "@unocss/rule-utils@0.65.2":
+  "@unocss/rule-utils@0.65.3":
     resolution:
       {
-        integrity: sha512-Rw+B52F53gli5wHRR4dXjFrliH6Q8XaNeg55L2uVmg81lEeQCdxPOe0/KjPIEPQPJHOhCpFS3dCHwNROc+UggQ==,
+        integrity: sha512-jndyth0X11FbvIDForYq90b+N5xsR31FRsmvp7AC7dcW71clemUEDHCwqzSJn8cVFwahgvlwWbEoYHPEgQrtIQ==,
       }
     engines: { node: ">=14" }
 
@@ -2489,10 +2495,10 @@ packages:
         integrity: sha512-6D3QSeSWXCA+Jc+BQGwat0RfcNtYZdyFFpP+zr1cFpK7nwNZqwqZU+mcY8nywu/u+hYuEQMWPMzEYDAssMfUQQ==,
       }
 
-  "@unocss/transformer-directives@0.65.2":
+  "@unocss/transformer-directives@0.65.3":
     resolution:
       {
-        integrity: sha512-CwdjBoqWbX5FkJrt6Mpy6nBjppuQV2zvIma5W2rdd5XLsYeR0mhdbbQfgvRF94pFIR86ExfOKu/EI6bGuTcaHA==,
+        integrity: sha512-Jn2b9NSzbp+X5YLY1MWJzXY6dMUYhAuE+xjdiwFNACdbSvnjV+WLX1rOFeeNZx0rP2e5sPeDsv7MTF71uZeohg==,
       }
 
   "@unocss/transformer-variant-group@0.65.1":
@@ -9444,7 +9450,7 @@ snapshots:
 
   "@rollup/plugin-node-resolve@15.3.0(rollup@2.79.2)":
     dependencies:
-      "@rollup/pluginutils": 5.1.3(rollup@2.79.2)
+      "@rollup/pluginutils": 5.1.4(rollup@2.79.2)
       "@types/resolve": 1.20.2
       deepmerge: 4.3.1
       is-module: 1.0.0
@@ -9842,6 +9848,8 @@ snapshots:
 
   "@unocss/core@0.65.2": {}
 
+  "@unocss/core@0.65.3": {}
+
   "@unocss/extractor-arbitrary-variants@0.65.1":
     dependencies:
       "@unocss/core": 0.65.1
@@ -9916,12 +9924,12 @@ snapshots:
 
   "@unocss/rule-utils@0.65.1":
     dependencies:
-      "@unocss/core": 0.65.1
+      "@unocss/core": 0.65.2
       magic-string: 0.30.17
 
-  "@unocss/rule-utils@0.65.2":
+  "@unocss/rule-utils@0.65.3":
     dependencies:
-      "@unocss/core": 0.65.2
+      "@unocss/core": 0.65.3
       magic-string: 0.30.17
 
   "@unocss/transformer-attributify-jsx@0.65.1":
@@ -9938,10 +9946,10 @@ snapshots:
       "@unocss/rule-utils": 0.65.1
       css-tree: 3.1.0
 
-  "@unocss/transformer-directives@0.65.2":
+  "@unocss/transformer-directives@0.65.3":
     dependencies:
-      "@unocss/core": 0.65.2
-      "@unocss/rule-utils": 0.65.2
+      "@unocss/core": 0.65.3
+      "@unocss/rule-utils": 0.65.3
       css-tree: 3.1.0
 
   "@unocss/transformer-variant-group@0.65.1":
