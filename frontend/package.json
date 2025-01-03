@@ -13,7 +13,7 @@
     "test:e2e-open": "cypress open --browser firefox"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "~1.12.1",
+    "@gouvfr/dsfr": "~1.13.0",
     "@gouvminint/vue-dsfr": "^7.1.0",
     "axios": "^1.7.8",
     "luxon": "^3.4.4",
