@@ -11,8 +11,8 @@ importers:
         specifier: ~1.13.0
         version: 1.13.0
       "@gouvminint/vue-dsfr":
-        specifier: ^7.1.0
-        version: 7.1.1(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.2)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
+        specifier: ^7.2.0
+        version: 7.2.0(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.2)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
       axios:
         specifier: ^1.7.8
         version: 1.7.9
@@ -1648,16 +1648,16 @@ packages:
       }
     engines: { node: ">=18.16.1" }
 
-  "@gouvminint/vue-dsfr@7.1.1":
+  "@gouvminint/vue-dsfr@7.2.0":
     resolution:
       {
-        integrity: sha512-c9/7WXRfAk4mcpO8bgyIKJR0zy9UlELGAtISjEuX9yVnjaPD8v7aKaZenJC2JgNfPR/IxwhCjRCEHvDav0vlRQ==,
+        integrity: sha512-RFuUGY/gzld9ZVz1sugvOt9FCWBG7F3ASN5fbESywCI2W9Rhl9aHAKo+o49BeiDUigFApO0Vhs44ZZlGHbd5DA==,
       }
     engines: { node: ">=20.x.x", npm: ">=10.x.x" }
     peerDependencies:
-      "@iconify/vue": ^4.1.2
-      vue: ^3.4.38
-      vue-router: ^4.4.3
+      "@iconify/vue": ^4.2.0
+      vue: ^3.5.13
+      vue-router: ^4.5.0
 
   "@humanwhocodes/config-array@0.13.0":
     resolution:
@@ -9312,7 +9312,7 @@ snapshots:
 
   "@gouvfr/dsfr@1.13.0": {}
 
-  "@gouvminint/vue-dsfr@7.1.1(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.2)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))":
+  "@gouvminint/vue-dsfr@7.2.0(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.2)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))":
     dependencies:
       "@gouvfr/dsfr": 1.12.1(browser-sync@2.29.3)
       "@iconify/vue": 4.2.0(vue@3.5.13(typescript@5.7.2))
