@@ -29,8 +29,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(pinia@2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(rollup@2.79.2)
       swiper:
-        specifier: ^11.0.6
-        version: 11.1.15
+        specifier: ^11.2.0
+        version: 11.2.0
       vite:
         specifier: ^6.0.3
         version: 6.0.3(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2)
@@ -7246,10 +7246,10 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
-  swiper@11.1.15:
+  swiper@11.2.0:
     resolution:
       {
-        integrity: sha512-IzWeU34WwC7gbhjKsjkImTuCRf+lRbO6cnxMGs88iVNKDwV+xQpBCJxZ4bNH6gSrIbbyVJ1kuGzo3JTtz//CBw==,
+        integrity: sha512-rjjAKgDEs+grR2eQshVDCcE4KNPC7CI294nfcbV9gE8WCsLdvOYXDeZKUYevqAZZp8j5hE7kpT3dAGVKFBWlxQ==,
       }
     engines: { node: ">= 4.7.0" }
 
@@ -13047,7 +13047,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  swiper@11.1.15: {}
+  swiper@11.2.0: {}
 
   tabbable@6.2.0: {}
 
