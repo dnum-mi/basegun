@@ -63,8 +63,8 @@ importers:
         specifier: ^0.65.3
         version: 0.65.3
       "@unocss/transformer-variant-group":
-        specifier: ^0.65.1
-        version: 0.65.1
+        specifier: ^0.65.3
+        version: 0.65.3
       "@vitejs/plugin-vue":
         specifier: ^5.0.3
         version: 5.2.1(vite@6.0.3(@types/node@22.10.1)(jiti@2.4.1)(terser@5.37.0)(tsx@4.19.2))(vue@3.5.13(typescript@5.7.2))
@@ -2396,12 +2396,6 @@ packages:
       }
     engines: { node: ">=14" }
 
-  "@unocss/core@0.65.1":
-    resolution:
-      {
-        integrity: sha512-Ke0WNZjfSCE6pniJb8PjiwhO6/McxVb1EQYrkkz8aJuR83xu+AEcTog9D4N9EUkRfHS5tZYXQtTj4Uh90T6CEg==,
-      }
-
   "@unocss/core@0.65.3":
     resolution:
       {
@@ -2506,12 +2500,6 @@ packages:
     resolution:
       {
         integrity: sha512-Jn2b9NSzbp+X5YLY1MWJzXY6dMUYhAuE+xjdiwFNACdbSvnjV+WLX1rOFeeNZx0rP2e5sPeDsv7MTF71uZeohg==,
-      }
-
-  "@unocss/transformer-variant-group@0.65.1":
-    resolution:
-      {
-        integrity: sha512-LdSPDVpVCrMfgTKtGyWz0KkBXiJqFO8FRhiL4/9Hyaf+ECoWQ7RODgO6dKWyFIZEBjkLFK2toeZZvM+KYQlBlw==,
       }
 
   "@unocss/transformer-variant-group@0.65.3":
@@ -9869,8 +9857,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  "@unocss/core@0.65.1": {}
-
   "@unocss/core@0.65.3": {}
 
   "@unocss/extractor-arbitrary-variants@0.65.3":
@@ -9963,10 +9949,6 @@ snapshots:
       "@unocss/core": 0.65.3
       "@unocss/rule-utils": 0.65.3
       css-tree: 3.1.0
-
-  "@unocss/transformer-variant-group@0.65.1":
-    dependencies:
-      "@unocss/core": 0.65.1
 
   "@unocss/transformer-variant-group@0.65.3":
     dependencies:
