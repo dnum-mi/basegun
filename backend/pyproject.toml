@@ -1,2 +1,10 @@
 [tool.ruff]
 exclude = ["frontend"]
+
+[tool.locust]
+locustfile = "/tests/locustfile.py"
+headless = true
+host = "http://localhost:5000/api"
+run-time = "5s"
+spawn-rate = 25
+users = 2

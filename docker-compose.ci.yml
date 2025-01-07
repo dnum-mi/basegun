@@ -1,5 +1,3 @@
 services:
   backend:
     image: ${IMAGE_TAG}
-    environment:
-      - DISABLE_RATE_LIMITS=true

@@ -19,3 +19,4 @@ numpy<3.0.0
 pytest==8.3.4
 coverage==7.6.10
 Faker==33.3.0
+locust==2.32.5
