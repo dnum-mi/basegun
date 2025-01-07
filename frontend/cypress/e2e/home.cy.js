@@ -37,4 +37,25 @@ describe("HomePage", () => {
     cy.url().should("contain", "/accessibilite");
     cy.contains("h1", "Déclaration d’accessibilité");
   });
+
+  it.only("shoud change website theme", () => {
+    cy.visit("/");
+    cy.getByDataTestid("basegun-logo").should("exist");
+    cy.contains("li", "Basegun est une application");
+    cy.get("swiper-container").shadow().find(".swiper-button-next").click();
+    cy.contains("li", "ne remplace en aucun cas l'avis d'un expert");
+    cy.get("#agree-button").contains("J'ai compris").click();
+    cy.url().should("contain", "/accueil");
+    cy.get("#button-menu").click();
+    cy.contains("button", "Paramètres d'affichage").click({ force: true });
+    cy.contains("h1", "Changer le thème");
+    cy.get(":nth-child(2) > .fr-radio-group > .fr-label").click();
+    cy.wait(2000);
+    cy.get(":nth-child(3) > .fr-radio-group > .fr-label").click();
+    cy.wait(2000);
+    cy.get(":nth-child(4) > .fr-radio-group > .fr-label").click();
+    cy.wait(2000);
+    cy.get(".fr-modal__header > .fr-btn").click();
+    cy.get('[data-testid="close-modal-btn"]').click();
+  });
 });
