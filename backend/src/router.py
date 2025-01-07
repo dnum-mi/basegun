@@ -36,12 +36,8 @@ from .config import (
 )
 from .utils import get_current_user, send_mail, upload_image
 
-DISABLE_RATE_LIMITS = os.environ.get("DISABLE_RATE_LIMITS", "false").lower() == "true"
-
 router = APIRouter(prefix="/api")
-limiter = Limiter(
-    key_func=get_remote_address if not DISABLE_RATE_LIMITS else lambda: None
-)
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.get("/", response_class=PlainTextResponse)

@@ -54,6 +54,9 @@ jobs:
         run: IMAGE_TAG=${{ needs.build-backend.outputs.image_tag }} docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
       - run: docker compose exec backend coverage run -m pytest
       - run: docker compose exec backend coverage xml --ignore-errors
+      - name: Rate limit test
+        run: docker compose exec backend locust -f tests/locustfile.py -t 5s --headless -H http://localhost:5000/api
+        continue-on-error: true
       - name: Produce the coverage report
         uses: insightsengineering/coverage-action@v2
         with:
