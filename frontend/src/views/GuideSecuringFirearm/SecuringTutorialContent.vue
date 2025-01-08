@@ -76,6 +76,6 @@ video {
 }
 
 .manipulations {
-  background-color: #e3e3fd;
+  background-color: var(--blue-france-925-125);
 }
 </style>

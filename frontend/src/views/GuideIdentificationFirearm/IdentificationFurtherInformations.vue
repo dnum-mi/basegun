@@ -9,7 +9,7 @@
     </p>
     <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
       <img
-        src="@/assets/guide-identification/icones/complements.jpg"
+        src="@/assets/guide-identification/icones/complements.png"
         alt=""
         class="img-deco"
         aria-hidden="true"

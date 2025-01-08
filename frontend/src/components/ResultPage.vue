@@ -237,7 +237,7 @@ async function sendFeedback(isCorrect: boolean) {
         </label>
       </div>
     </div>
-    <div class="big-blank" />
+    <div class="small-blank" />
   </div>
 </template>
 
@@ -247,7 +247,7 @@ async function sendFeedback(isCorrect: boolean) {
   color: var(--blue-france-sun-113-625);
 }
 .result-frame {
-  background-color: #e3e3fd;
+  background-color: var(--blue-france-925-125);
 }
 
 .result-image {

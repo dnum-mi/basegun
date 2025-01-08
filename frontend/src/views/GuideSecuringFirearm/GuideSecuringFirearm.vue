@@ -31,7 +31,7 @@ const currentStep = ref(0);
           </p>
           <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
             <img
-              src="@/assets/guide-mise-en-securite/icones/preconisations.jpg"
+              src="@/assets/guide-mise-en-securite/icones/preconisations.png"
               alt=""
               class="img-deco"
               aria-hidden="true"
@@ -54,7 +54,7 @@ const currentStep = ref(0);
           </p>
           <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
             <img
-              src="@/assets/guide-mise-en-securite/icones/take-care.jpg"
+              src="@/assets/guide-mise-en-securite/icones/take-care.png"
               alt=""
               class="w-60 w-fr-mt-n4w"
               aria-hidden="true"
@@ -74,7 +74,7 @@ const currentStep = ref(0);
         </p>
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
-            src="@/assets/guide-mise-en-securite/icones/consignes-securite.jpg"
+            src="@/assets/guide-mise-en-securite/icones/consignes-securite.png"
             alt=""
             class="w-80 fr-mt-2w"
             aria-hidden="true"
@@ -90,7 +90,7 @@ const currentStep = ref(0);
         </p>
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
-            src="@/assets/guide-mise-en-securite/icones/instructions.jpg"
+            src="@/assets/guide-mise-en-securite/icones/instructions.png"
             alt=""
             class="w-100 fr-mt-5w"
             aria-hidden="true"

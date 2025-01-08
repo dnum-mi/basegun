@@ -47,7 +47,7 @@ function goToMissingCardPageIfMissing() {
         </p>
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
-            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.jpg"
+            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-ok.png"
             alt=""
             class="img-deco"
             aria-hidden="true"
@@ -72,7 +72,7 @@ function goToMissingCardPageIfMissing() {
         </div>
         <div class="fr-col-sm-6 fr-col-lg-8 mx-auto text-center">
           <img
-            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-nok.jpg"
+            src="@/assets/guide-mise-en-securite/icones/fin-mise-en-securite-nok.png"
             alt=""
             class="img-deco"
             aria-hidden="true"
