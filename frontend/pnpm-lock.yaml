@@ -60,8 +60,8 @@ importers:
         specifier: ^8.19.1
         version: 8.19.1(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       "@unocss/transformer-directives":
-        specifier: ^0.65.3
-        version: 0.65.3
+        specifier: ^65.4.0
+        version: 65.4.0
       "@unocss/transformer-variant-group":
         specifier: ^0.65.3
         version: 0.65.3
@@ -2627,6 +2627,12 @@ packages:
         integrity: sha512-xYkJ63lIadL6KqvGcaE2fFeLvo6rC1F+e+R9EFn0Aj0ArMRhiltZk8vvLFHP7iYjjdTdqDkAr/7IdrTosTo8Pg==,
       }
 
+  "@unocss/core@65.4.0":
+    resolution:
+      {
+        integrity: sha512-UZPvyqS7jj5gRzFeozXG9gOEsGwdbOrQnWjeKLFbfE1upZlG3cwrwIuEl9bqTWNVAtqbpQLyaRiC09YBre52oA==,
+      }
+
   "@unocss/extractor-arbitrary-variants@0.65.3":
     resolution:
       {
@@ -2709,6 +2715,13 @@ packages:
       }
     engines: { node: ">=14" }
 
+  "@unocss/rule-utils@65.4.0":
+    resolution:
+      {
+        integrity: sha512-Fb2IKg/wQlIBDY3rzVpDxwZ3Ho1ihcbFGEzr17ZM/N5MTrdzAA3GiXA3yzOjOboc/UnqRr2Q5JG8aACLn0lAAw==,
+      }
+    engines: { node: ">=14" }
+
   "@unocss/transformer-attributify-jsx@0.65.3":
     resolution:
       {
@@ -2725,6 +2738,12 @@ packages:
     resolution:
       {
         integrity: sha512-Jn2b9NSzbp+X5YLY1MWJzXY6dMUYhAuE+xjdiwFNACdbSvnjV+WLX1rOFeeNZx0rP2e5sPeDsv7MTF71uZeohg==,
+      }
+
+  "@unocss/transformer-directives@65.4.0":
+    resolution:
+      {
+        integrity: sha512-vRhuGVCsByWSp6ok7a8dPGFwsFn+gyXKSVmLGWyMY4p+rKaRdYiDHOnWWXbHFEKwHuhTv+mxq7q1wZB3OUkR1A==,
       }
 
   "@unocss/transformer-variant-group@0.65.3":
@@ -10183,6 +10202,8 @@ snapshots:
 
   "@unocss/core@0.65.3": {}
 
+  "@unocss/core@65.4.0": {}
+
   "@unocss/extractor-arbitrary-variants@0.65.3":
     dependencies:
       "@unocss/core": 0.65.3
@@ -10260,6 +10281,11 @@ snapshots:
       "@unocss/core": 0.65.3
       magic-string: 0.30.17
 
+  "@unocss/rule-utils@65.4.0":
+    dependencies:
+      "@unocss/core": 65.4.0
+      magic-string: 0.30.17
+
   "@unocss/transformer-attributify-jsx@0.65.3":
     dependencies:
       "@unocss/core": 0.65.3
@@ -10272,6 +10298,12 @@ snapshots:
     dependencies:
       "@unocss/core": 0.65.3
       "@unocss/rule-utils": 0.65.3
+      css-tree: 3.1.0
+
+  "@unocss/transformer-directives@65.4.0":
+    dependencies:
+      "@unocss/core": 65.4.0
+      "@unocss/rule-utils": 65.4.0
       css-tree: 3.1.0
 
   "@unocss/transformer-variant-group@0.65.3":
