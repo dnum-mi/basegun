@@ -8,7 +8,7 @@ import Components from "unplugin-vue-components/vite";
 import {
   vueDsfrAutoimportPreset,
   vueDsfrComponentResolver,
-} from "@gouvminint/vue-dsfr";
+} from "@gouvminint/vue-dsfr/meta";
 import IstanbulPlugin from "vite-plugin-istanbul";
 
 const apiHost = process.env.API_HOST || "http://basegun-backend:5000";
