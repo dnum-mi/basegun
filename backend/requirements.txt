@@ -1,7 +1,7 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
 fastapi==0.115.7
 httpx>=0.25.0
-uvicorn==0.29.0
+uvicorn==0.34.0
 gunicorn==23.0.0
 python-multipart>=0.0.6
 gelf-formatter==0.2.1
