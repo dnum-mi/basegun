@@ -11,8 +11,8 @@ importers:
         specifier: ~1.13.0
         version: 1.13.0
       "@gouvminint/vue-dsfr":
-        specifier: ^7.2.0
-        version: 7.2.0(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.3)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
+        specifier: ^8.1.1
+        version: 8.1.1(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.3)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
       axios:
         specifier: ^1.7.8
         version: 1.7.9
@@ -1713,12 +1713,13 @@ packages:
       }
     engines: { node: ">=18.16.1" }
 
-  "@gouvminint/vue-dsfr@7.2.0":
+  "@gouvminint/vue-dsfr@8.1.1":
     resolution:
       {
-        integrity: sha512-RFuUGY/gzld9ZVz1sugvOt9FCWBG7F3ASN5fbESywCI2W9Rhl9aHAKo+o49BeiDUigFApO0Vhs44ZZlGHbd5DA==,
+        integrity: sha512-L4FRp4mex7DGKRIn+ljsHynW/kvj2/dbOPkRWnxTGFrppBj3otn5jh55tRL4hK3Kn3LjEs62/6ldOcWb5Zn1kQ==,
       }
     engines: { node: ">=20.x.x", npm: ">=10.x.x" }
+    hasBin: true
     peerDependencies:
       "@iconify/vue": ^4.2.0
       vue: ^3.5.13
@@ -4735,10 +4736,10 @@ packages:
       focus-trap: ^7.0.0
       vue: ^3.0.0
 
-  focus-trap@7.6.2:
+  focus-trap@7.6.4:
     resolution:
       {
-        integrity: sha512-9FhUxK1hVju2+AiQIDJ5Dd//9R2n2RAfJ0qfhF4IHGHgcoEUTMpbTeG/zbEuwaiYXfuAH6XE0/aCyxDdRM+W5w==,
+        integrity: sha512-xx560wGBk7seZ6y933idtjJQc1l+ck+pI3sKvhKozdBV1dRZoKhkW5xoCaFv9tQiX5RH1xfSxjuNu6g+lmN/gw==,
       }
 
   follow-redirects@1.15.9:
@@ -9908,12 +9909,12 @@ snapshots:
 
   "@gouvfr/dsfr@1.13.0": {}
 
-  "@gouvminint/vue-dsfr@7.2.0(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.3)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))":
+  "@gouvminint/vue-dsfr@8.1.1(@iconify/vue@4.2.0(vue@3.5.13(typescript@5.7.3)))(browser-sync@2.29.3)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))":
     dependencies:
       "@gouvfr/dsfr": 1.12.1(browser-sync@2.29.3)
       "@iconify/vue": 4.2.0(vue@3.5.13(typescript@5.7.3))
-      focus-trap: 7.6.2
-      focus-trap-vue: 4.0.3(focus-trap@7.6.2)(vue@3.5.13(typescript@5.7.3))
+      focus-trap: 7.6.4
+      focus-trap-vue: 4.0.3(focus-trap@7.6.4)(vue@3.5.13(typescript@5.7.3))
       vue: 3.5.13(typescript@5.7.3)
       vue-router: 4.5.0(vue@3.5.13(typescript@5.7.3))
     transitivePeerDependencies:
@@ -12201,12 +12202,12 @@ snapshots:
 
   flatted@3.3.2: {}
 
-  focus-trap-vue@4.0.3(focus-trap@7.6.2)(vue@3.5.13(typescript@5.7.3)):
+  focus-trap-vue@4.0.3(focus-trap@7.6.4)(vue@3.5.13(typescript@5.7.3)):
     dependencies:
-      focus-trap: 7.6.2
+      focus-trap: 7.6.4
       vue: 3.5.13(typescript@5.7.3)
 
-  focus-trap@7.6.2:
+  focus-trap@7.6.4:
     dependencies:
       tabbable: 6.2.0
 
