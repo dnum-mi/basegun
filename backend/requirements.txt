@@ -1,5 +1,5 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-fastapi==0.115.6
+fastapi==0.115.7
 httpx>=0.25.0
 uvicorn==0.29.0
 gunicorn==23.0.0
