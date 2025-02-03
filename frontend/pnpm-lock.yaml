@@ -60,8 +60,8 @@ importers:
         specifier: ^8.22.0
         version: 8.22.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
       "@unocss/transformer-directives":
-        specifier: ^65.4.0
-        version: 65.4.2
+        specifier: ^65.4.3
+        version: 65.4.3
       "@unocss/transformer-variant-group":
         specifier: ^65.4.2
         version: 65.4.2
@@ -2537,13 +2537,6 @@ packages:
         integrity: sha512-f9QnMtY1yPS1HEIkeKmSwUYcp4QS6zdo9ZcIFE9PDSLOcns3v+M1lTQg8mLChxJHVl73Cf6PofWVh5tmnxV53Q==,
       }
 
-  "@unocss/rule-utils@65.4.2":
-    resolution:
-      {
-        integrity: sha512-OdMSJZiZUr8XmLo3Bz3Wrw1nZLT1nTPnPOV8gdi4vZ+2RgCChua9o8Dz4IyeQ7mMhLXoqHIUpJ7jE5Nv+Uz1Fw==,
-      }
-    engines: { node: ">=14" }
-
   "@unocss/rule-utils@65.4.3":
     resolution:
       {
@@ -2561,12 +2554,6 @@ packages:
     resolution:
       {
         integrity: sha512-AzLeic0ESQ/yhLKfkSsQ72wQLkKEPsmX578+ZKcPSRh/HM5tfNz8RqffOHr6YOEKKTaZHN23OqbA511amRKC1w==,
-      }
-
-  "@unocss/transformer-directives@65.4.2":
-    resolution:
-      {
-        integrity: sha512-u/hbpRe/mEasRdzznGQnKmJqDHcoJ2MJJBLpDc2RisiAEokz73dno3JtT70HZVA+DN7Y9ddAKioxlvSU+iJxFA==,
       }
 
   "@unocss/transformer-directives@65.4.3":
@@ -10552,11 +10539,6 @@ snapshots:
 
   "@unocss/reset@65.4.3": {}
 
-  "@unocss/rule-utils@65.4.2":
-    dependencies:
-      "@unocss/core": 65.4.2
-      magic-string: 0.30.17
-
   "@unocss/rule-utils@65.4.3":
     dependencies:
       "@unocss/core": 65.4.3
@@ -10569,12 +10551,6 @@ snapshots:
   "@unocss/transformer-compile-class@65.4.3":
     dependencies:
       "@unocss/core": 65.4.3
-
-  "@unocss/transformer-directives@65.4.2":
-    dependencies:
-      "@unocss/core": 65.4.2
-      "@unocss/rule-utils": 65.4.2
-      css-tree: 3.1.0
 
   "@unocss/transformer-directives@65.4.3":
     dependencies:
