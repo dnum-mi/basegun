@@ -63,8 +63,8 @@ importers:
         specifier: ^65.4.3
         version: 65.4.3
       "@unocss/transformer-variant-group":
-        specifier: ^65.4.3
-        version: 65.4.3
+        specifier: ^65.5.0
+        version: 65.5.0
       "@vitejs/plugin-vue":
         specifier: ^5.0.3
         version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(terser@5.39.0)(tsx@4.19.2))(vue@3.5.13(typescript@5.7.3))
@@ -2346,12 +2346,6 @@ packages:
     resolution:
       {
         integrity: sha512-IsUd7L28bRAoN5fyWyNzHu7HOa1yjPqTU/QZfUEViJXApOEKUZ4anBSyU0lPU+59kMneg40xOvCBR70qNMCw4w==,
-      }
-
-  "@unocss/transformer-variant-group@65.4.3":
-    resolution:
-      {
-        integrity: sha512-nZNgKLclhIjfuqCaZTmJwhWSByL7vnhb3l/ChRX4qtWOweRLro79r6MvfcqQNrweK5nCw4yibsXCrFUWq7Jj5w==,
       }
 
   "@unocss/transformer-variant-group@65.5.0":
@@ -9541,10 +9535,6 @@ snapshots:
       "@unocss/core": 65.5.0
       "@unocss/rule-utils": 65.5.0
       css-tree: 3.1.0
-
-  "@unocss/transformer-variant-group@65.4.3":
-    dependencies:
-      "@unocss/core": 65.4.3
 
   "@unocss/transformer-variant-group@65.5.0":
     dependencies:
