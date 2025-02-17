@@ -18,5 +18,5 @@ numpy<3.0.0
 # Dev
 pytest==8.3.4
 coverage==7.6.12
-Faker==35.2.0
+Faker==36.1.1
 locust==2.32.9
