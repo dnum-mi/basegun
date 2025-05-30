@@ -1,0 +1,21 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create new release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre release new version
+        uses: googleapis/release-please-action@v4
+        with:
+          target-branch: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
