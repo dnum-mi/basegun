@@ -1,5 +1,93 @@
 # Changelog
 
+## [5.1.0](https://github.com/dnum-mi/basegun/compare/basegun-v5.0.0...basegun-v5.1.0) (2025-05-30)
+
+
+### Features
+
+* :lock: add contact details endpoint and api call ([b809a2d](https://github.com/dnum-mi/basegun/commit/b809a2d4a61f78a8761dedcf3dbd3c7bae26cb97))
+* :lock: hide ircgn email ([6493b80](https://github.com/dnum-mi/basegun/commit/6493b80f3a966d749af95b658fab8d2f30e37c2d))
+* :loud_sound: add logs related to authentication ([6594eb4](https://github.com/dnum-mi/basegun/commit/6594eb40beb8ad0324fd1ead58ab3e5dc6cb6a43))
+* :memo: update accessibility and contact pages ([511a7b4](https://github.com/dnum-mi/basegun/commit/511a7b41da0fa877cd015784aca9b87348bcd841))
+* :passport_control: implement rate limit on api requests ([56439f2](https://github.com/dnum-mi/basegun/commit/56439f2613ff4f87cef85ae8ef3cefe0871ad554))
+* :sparkles: add alarm gun detection api and tests ([2e981cd](https://github.com/dnum-mi/basegun/commit/2e981cdcbb4168f21e819489e80a3b3185f81aad))
+* :sparkles: add api route and tests for alarm gun detection ([04c7fcc](https://github.com/dnum-mi/basegun/commit/04c7fcc840c93afe0445299ef3ae4b38f5bf1557))
+* :sparkles: add contact path for weapon expert ([82263b5](https://github.com/dnum-mi/basegun/commit/82263b5ce4f0aa5b297111a9bc59f350351b7cd4))
+* :sparkles: add dummy identification for lever rifle and semi-automatic or automatic long gun ([4c58fa7](https://github.com/dnum-mi/basegun/commit/4c58fa723d16081c5db4afa54fe1723e0b88781c))
+* :sparkles: add dummy shotgun identification ([14cce76](https://github.com/dnum-mi/basegun/commit/14cce766c58f4012004daf47e2ed29f3113cac77))
+* :sparkles: add email client with local email server ([6955bad](https://github.com/dnum-mi/basegun/commit/6955bad8b7fbe3f57a8b0396218723d9bfe453aa))
+* :sparkles: add endpoint to contact experts via email ([b3c9576](https://github.com/dnum-mi/basegun/commit/b3c9576ffe419875aa5d96d560238897345c03f4))
+* :sparkles: add endpoint to contact experts via email ([de89ff2](https://github.com/dnum-mi/basegun/commit/de89ff24098359e11e2e2e52280ebc8d26923d9e))
+* :sparkles: add expert contact path for police and gendarmerie ([518ae81](https://github.com/dnum-mi/basegun/commit/518ae8141ae0ce5a5ddc47600df571ac3b815a4c))
+* :sparkles: add expert contact path for police and gendarmerie ([a8e5a9c](https://github.com/dnum-mi/basegun/commit/a8e5a9c7c85caff65ff83249557ccd0bb5358876))
+* :sparkles: add expert contact path for police and gendarmerie ([0714d3f](https://github.com/dnum-mi/basegun/commit/0714d3f868226b740d7d5b90093329003d3d2957))
+* :sparkles: add expert form path ([4ce1b67](https://github.com/dnum-mi/basegun/commit/4ce1b6715a83ebf905f6b7ff18a5f124a69557eb))
+* :sparkles: add gun length and gun barrel length to resultstore ([64b291c](https://github.com/dnum-mi/basegun/commit/64b291cc042e64206881688dcd5c55d968eacfa2))
+* :sparkles: add identification blank gun path ([8b28cfe](https://github.com/dnum-mi/basegun/commit/8b28cfe70e596c08e705e7f19ec9c57231500247))
+* :sparkles: add luxon for fix utc issues ([32e1272](https://github.com/dnum-mi/basegun/commit/32e1272e4196e7f2d4b217664fdbad47e59c7883))
+* :sparkles: add pictures as email attachements ([3210393](https://github.com/dnum-mi/basegun/commit/321039395f118846cd01f2b783d193f38f5a554e))
+* :sparkles: Add pop-up mail informations and update situations for contacting expert ([9b451dc](https://github.com/dnum-mi/basegun/commit/9b451dc6b1c009133a91dbbca35325c52ed2d09f))
+* :sparkles: Add pop-up mail informations and update situations for contacting expert ([66e3025](https://github.com/dnum-mi/basegun/commit/66e3025d6f03de51a6aca0e352f736d3da6f0d8e))
+* :sparkles: add popup video component ([#252](https://github.com/dnum-mi/basegun/issues/252)) ([5c6e84d](https://github.com/dnum-mi/basegun/commit/5c6e84d49009adb3694617013fa6b70f1d28dc7b))
+* :sparkles: add return previous step button for blank gun identification ([1f59c2e](https://github.com/dnum-mi/basegun/commit/1f59c2ee1a311519cda85b88fd3b5b7621e18753))
+* :sparkles: add swiper for identificationblankgun and fix images names ([134de0f](https://github.com/dnum-mi/basegun/commit/134de0f04a19106f247a9005a034966094c4dd85))
+* :sparkles: display phone number depending on the time ([5765d6b](https://github.com/dnum-mi/basegun/commit/5765d6b6c2f8e620a8dc3363a4247a66aa8bdee3))
+* :sparkles: display phone number depending on the time ([5765d6b](https://github.com/dnum-mi/basegun/commit/5765d6b6c2f8e620a8dc3363a4247a66aa8bdee3))
+* :sparkles: display phone number depending on the time ([b026d67](https://github.com/dnum-mi/basegun/commit/b026d67bf567d0b91a1cd5bb4bd66349300b4554))
+* :sparkles: finalize expert form contact with email attachment ([0277854](https://github.com/dnum-mi/basegun/commit/0277854a5bc027d69cf2b0217d80865511f31e14))
+* :sparkles: fix duration securing videos ([bcc6b9f](https://github.com/dnum-mi/basegun/commit/bcc6b9ff8bf8100e247cfd57d0f6e008871f0716))
+* :sparkles: fix revolver with hidden door display ([5765d6b](https://github.com/dnum-mi/basegun/commit/5765d6b6c2f8e620a8dc3363a4247a66aa8bdee3))
+* :sparkles: fix revolver with hidden door display ([70af91c](https://github.com/dnum-mi/basegun/commit/70af91c4bd42d8053478ea21b256bfe16e815f97))
+* :sparkles: hide PN button for expert contact path ([400ac4f](https://github.com/dnum-mi/basegun/commit/400ac4f17c543984f19aeb3fd8c17cfc68b0ea51))
+* :sparkles: implementation ocr module for blank guns ([900aa3c](https://github.com/dnum-mi/basegun/commit/900aa3c108cbfadcd9138b395dcfc447f95c0f1b))
+* :sparkles: redirect to right page if no card detected ([4707406](https://github.com/dnum-mi/basegun/commit/470740622526752eb15162a58d09ab239df68ddd))
+* :sparkles: update hidden door revolver videos ([730ac87](https://github.com/dnum-mi/basegun/commit/730ac8702c3d39622ee5a894703d5eaa37c4b89a))
+* :sparkles: update hidden door revolver videos ([730ac87](https://github.com/dnum-mi/basegun/commit/730ac8702c3d39622ee5a894703d5eaa37c4b89a))
+* :sparkles: update hidden door revolver videos ([730ac87](https://github.com/dnum-mi/basegun/commit/730ac8702c3d39622ee5a894703d5eaa37c4b89a))
+* :sparkles: update hidden door revolver videos ([730ac87](https://github.com/dnum-mi/basegun/commit/730ac8702c3d39622ee5a894703d5eaa37c4b89a))
+* :sparkles: update instructions and example photo for upload ([#394](https://github.com/dnum-mi/basegun/issues/394)) ([5d18814](https://github.com/dnum-mi/basegun/commit/5d188140963846511f6dcc66fa080eb9514964aa))
+* :technologist: add healthcheck for Keycloak service in docker-compose.yml ([4a92bd3](https://github.com/dnum-mi/basegun/commit/4a92bd39b5b3f838b04405d2fc7ec187b23a4fff))
+* :zap: automatically retrieve jwks ([cb16ce3](https://github.com/dnum-mi/basegun/commit/cb16ce30f0c5a876f282fbab2c4033a05388b030))
+* ❇️ add tutorial to secure a firearm ([#159](https://github.com/dnum-mi/basegun/issues/159)) ([e1edd0a](https://github.com/dnum-mi/basegun/commit/e1edd0a49a666beb8fe1cf085e9533ac210603f5))
+
+
+### Bug Fixes
+
+* :bug: add text to typologies files ([7776725](https://github.com/dnum-mi/basegun/commit/7776725d1913865f2d52493649440110188a608f))
+* :bug: change auth_idp and cheops to idp and Cheops ([9ca0aae](https://github.com/dnum-mi/basegun/commit/9ca0aaeb7825e404f60b8603ba80aeda3d020c23))
+* :bug: feedback not working on resultpage ([ceaaa46](https://github.com/dnum-mi/basegun/commit/ceaaa46be6da067c2bfbdfbbca82c50ebbb17183))
+* :bug: fix authentication by adding audience in jwt decode ([661fc98](https://github.com/dnum-mi/basegun/commit/661fc98a86433298b1ee9a416b4f63efe938f8ab))
+* :bug: fix disclaimer display on dummy weapons ([d6b58ae](https://github.com/dnum-mi/basegun/commit/d6b58aeb41ca7c2f27f90e199319fa580cb16d30))
+* :bug: fix epaule_a_pompe securing steps ([9552595](https://github.com/dnum-mi/basegun/commit/95525957b6d956a3caa21633401f3792cc6cbd15))
+* :bug: fix popup uzi video ([19ebc03](https://github.com/dnum-mi/basegun/commit/19ebc03e5b92eb7c02533ad6de0ebb6fc5ddbdc7))
+* :bug: fix redirection after login with Passage 2 ([b5cde1e](https://github.com/dnum-mi/basegun/commit/b5cde1ee3cb358c255a994f3e5a418e6283052bd))
+* :bug: fix refresh accesstoken every seconds ([e2e7232](https://github.com/dnum-mi/basegun/commit/e2e723240bafbae667571a8e98fbc7f62c566c0a))
+* :bug: fix timout while sending emails ([9471ae1](https://github.com/dnum-mi/basegun/commit/9471ae1481f1395a015e756bfceac36534bb3fca))
+* :bug: fix tutorial log when user is not able to perform a step ([36e0c8f](https://github.com/dnum-mi/basegun/commit/36e0c8fba688560cb571493ae7623b43a1a29002))
+* :bug: make markings_pictures optional ([cc6bbdc](https://github.com/dnum-mi/basegun/commit/cc6bbdc47c9ba82fa5880c136a822c16b1ad81af))
+* :bug: Put clean registy on separate job in ci ([c872646](https://github.com/dnum-mi/basegun/commit/c8726468fd0f948f9dc56eaa2a808337db89d072))
+* :bug: remove measure model call when confidence level is low ([f6ea811](https://github.com/dnum-mi/basegun/commit/f6ea81108d4839591b39dbb7c6dd9fa2ccacf143))
+* :bug: show message for all user other than proxyma in expert contact ([00a3d09](https://github.com/dnum-mi/basegun/commit/00a3d09ee97c658386f8bc1a4839a403447ac4c0))
+* :construction_worker: fix ci build reusable workflow ([db4a4f9](https://github.com/dnum-mi/basegun/commit/db4a4f9c354d4cc1fc3480d682e02192c0a792f2))
+* :green_heart: fix release please config ([3b16040](https://github.com/dnum-mi/basegun/commit/3b160402ee236e8acc7743e4498031251441ebb0))
+* :lipstick: use alerts instead of modal for expert form submission ([714487f](https://github.com/dnum-mi/basegun/commit/714487f44d6c06d77cdaa5cda08b9fca8eb86457))
+* :lock: set server_tokens to off in nginx conf ([2bcd626](https://github.com/dnum-mi/basegun/commit/2bcd6268394a2d7a1698a7b57288aea7296ee1ce))
+* :pencil2: fix non-display securing weapons ([5765d6b](https://github.com/dnum-mi/basegun/commit/5765d6b6c2f8e620a8dc3363a4247a66aa8bdee3))
+* :wheelchair: fix accessibilities issues ([fcc3de5](https://github.com/dnum-mi/basegun/commit/fcc3de5cd10084c00b3c7dc94b4ec524a8e6c7b0))
+* :white_check_mark: Fix e2e tests - add new image to disable dummy button ([6bc40cc](https://github.com/dnum-mi/basegun/commit/6bc40cc9c80180af886136e7cfc049d005806f04))
+* :white_check_mark: ignore errors in coverage xml generation ([371c3c1](https://github.com/dnum-mi/basegun/commit/371c3c1247840cdf51576667dce6010620c9e182))
+* :white_check_mark: Updating API tests that uses authentification ([0d8d6a2](https://github.com/dnum-mi/basegun/commit/0d8d6a234efb166895e2a629a0a625004cb34764))
+* 🐛 fix value not found on contact expert form ([66627f9](https://github.com/dnum-mi/basegun/commit/66627f9e0c53aeb35362cc43c3eec46b109b99ca))
+* 🚑 display modal if transparent magazine ([1f75896](https://github.com/dnum-mi/basegun/commit/1f75896929777cb01c1b1f3166a04446882b990c))
+* Invert quote and base64 to avoid quotes added in secrets ([8d17cb4](https://github.com/dnum-mi/basegun/commit/8d17cb4d9bcca2f1dafb839ed66a553b37a69583))
+* **upload:** error page not always showing ([26de473](https://github.com/dnum-mi/basegun/commit/26de4739312fa0d798e5823a30e305455ef1ef00))
+
+
+### Performance Improvements
+
+* :zap: use auto-import instead of vueDsfr plugin ([f07997b](https://github.com/dnum-mi/basegun/commit/f07997ba28381d01a7c8d66c3b97f1214ff6d6f4))
+* :zap: use auto-import instead of vueDsfr plugin ([ac8770a](https://github.com/dnum-mi/basegun/commit/ac8770acf6488677843f7fea08213bc125e8105a))
+
 ## [4.1.0](https://github.com/dnum-mi/basegun/compare/v4.0.0...v4.1.0) (2025-01-20)
 
 
