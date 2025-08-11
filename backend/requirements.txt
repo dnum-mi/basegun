@@ -10,7 +10,7 @@ user-agents==2.2.0
 boto3==1.37.3
 autodynatrace==2.1.1
 PyJWT==2.10.1
-cryptography==44.0.1
+cryptography==45.0.6
 slowapi===0.1.9
 # ML
 basegun-ml==2.0.5
