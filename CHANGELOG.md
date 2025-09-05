@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.2](https://github.com/dnum-mi/basegun/compare/v5.1.1...v5.1.2) (2025-09-05)
+
+
+### Bug Fixes
+
+* :sparkles: update release-please config to include component in tag ([fcafa66](https://github.com/dnum-mi/basegun/commit/fcafa66413e66a608dbc30ee25a2f91af0810075))
+
 ## [5.1.1](https://github.com/dnum-mi/basegun/compare/basegun-v5.1.0...basegun-v5.1.1) (2025-09-05)
 
 
