@@ -9,7 +9,7 @@
     "lint": "eslint . --fix --ignore-path ../.gitignore",
     "format": "prettier . --write",
     "format-check": "prettier . --check",
-    "test:e2e-ci": "nyc cypress run --browser firefox",
+    "test:e2e-ci": "nyc cypress run",
     "test:e2e-open": "cypress open --browser firefox"
   },
   "dependencies": {
