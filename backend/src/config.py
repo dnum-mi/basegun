@@ -61,6 +61,7 @@ HEADERS = [
         "value": "max-age=31536000 ; includeSubDomains",
     },
     {"name": "X-Content-Type-Options", "value": "nosniff"},
+    {"name": "X-DNS-Prefetch-Control", "value": "off"},
     {"name": "X-Frame-Options", "value": "deny"},
     {"name": "X-Permitted-Cross-Domain-Policies", "value": "none"},
 ]

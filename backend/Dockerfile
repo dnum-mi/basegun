@@ -3,13 +3,11 @@ WORKDIR /app
 
 # librairies necessary for image processing
 RUN apt update && apt install -y \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     curl \
     gcc \
-    patch \
     build-essential \
-    file \
     && rm -rf /var/lib/apt/lists/*
 
 # install python libraries
