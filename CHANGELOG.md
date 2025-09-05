@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1](https://github.com/dnum-mi/basegun/compare/basegun-v5.1.0...basegun-v5.1.1) (2025-09-05)
+
+
+### Bug Fixes
+
+* :construction_worker: fix image build ([#862](https://github.com/dnum-mi/basegun/issues/862)) ([bf3636d](https://github.com/dnum-mi/basegun/commit/bf3636de1c6dfef937205539a3956196e28b864e))
+
 ## [5.1.0](https://github.com/dnum-mi/basegun/compare/basegun-v5.0.0...basegun-v5.1.0) (2025-05-30)
 
 
