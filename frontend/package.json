@@ -20,7 +20,7 @@
     "oidc-client-ts": "^3.5.0",
     "pinia": "^2.3.1",
     "pinia-plugin-persistedstate": "^4.7.1",
-    "swiper": "^11.2.10",
+    "swiper": "^12.1.2",
     "vite": "^6.4.2",
     "vue": "^3.5.33",
     "vue-router": "^4.6.4"
