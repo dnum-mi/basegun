@@ -33,7 +33,7 @@ Cypress.Commands.add("getByDataTestid", (selector, options) => {
 });
 
 Cypress.Commands.add("getByRole", (selector, options) => {
-  return cy.get(`[role=${selector}]`, options);
+  return cy.findByRole(selector, options);
 });
 
 Cypress.Commands.add("getVideo", () => {

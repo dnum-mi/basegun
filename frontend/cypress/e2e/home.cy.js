@@ -13,25 +13,23 @@ describe("HomePage", () => {
     cy.visit("/");
     cy.getByDataTestid("header-logo").contains("Ministère");
     cy.get("#button-menu").should("exist").click();
-    cy.getByRole("navigation").contains("a", "À propos").click();
+    cy.get("header").contains("a", "À propos").click();
     cy.url().should("contain", "/a-propos");
     cy.contains("p", "Basegun est un projet");
 
     cy.get("#button-menu").click();
-    cy.getByRole("navigation").contains("a", "Mentions légales").click();
+    cy.get("header").contains("a", "Mentions légales").click();
     cy.url().should("contain", "/mentions-legales");
     cy.contains("p", "Basegun");
 
     cy.get("#button-menu").click();
-    cy.getByRole("navigation").contains("a", "Contact").click();
+    cy.get("header").contains("a", "Contact").click();
     cy.url().should("contain", "/contact");
     cy.contains("a", "support.basegun@interieur.gouv.fr");
-    cy.getByRole("navigation")
-      .contains("a", "Informations")
-      .click({ force: true });
+    cy.get("header").contains("a", "Informations").click({ force: true });
 
     cy.get("#button-menu").click();
-    cy.getByRole("navigation")
+    cy.get("header")
       .contains("a", "Accessibilité : partiellement conforme")
       .click();
     cy.url().should("contain", "/accessibilite");

@@ -1,5 +1,6 @@
 services:
   backend:
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
     build:
       args:
         - VERSION=${TAG:-latest}
