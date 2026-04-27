@@ -32,7 +32,7 @@
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.19.17",
     "@typescript-eslint/eslint-plugin": "^8.59.0",
-    "@unocss/transformer-directives": "^65.5.0",
+    "@unocss/transformer-directives": "^66.6.8",
     "@unocss/transformer-variant-group": "^66.6.8",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/eslint-config-typescript": "^13.0.0",
