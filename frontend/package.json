@@ -55,7 +55,7 @@
     "unplugin-vue-components": "^28.8.0",
     "vite-plugin-istanbul": "^6.0.2",
     "vite-plugin-pwa": "^0.21.2",
-    "vitest": "^3.2.4",
+    "vitest": "^4.1.5",
     "workbox-window": "^7.4.0"
   },
   "browserslist": [
