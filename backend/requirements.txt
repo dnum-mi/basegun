@@ -16,7 +16,7 @@ slowapi===0.1.9
 basegun-ml==2.0.7
 numpy>=1.24.0,<2.0.0
 # Dev
-pytest==8.4.2
+pytest==9.0.3
 coverage==7.6.12
 Faker==36.1.1
 locust==2.42.0
