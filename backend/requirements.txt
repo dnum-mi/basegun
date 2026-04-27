@@ -17,6 +17,6 @@ basegun-ml==2.0.7
 numpy>=1.24.0,<2.0.0
 # Dev
 pytest==8.4.2
-coverage==7.6.12
+coverage==7.13.5
 Faker==36.1.1
 locust==2.42.0
